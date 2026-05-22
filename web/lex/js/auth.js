@@ -4,6 +4,25 @@
   let client = null;
   const listeners = new Set();
 
+  const STORAGE_OAUTH_RETURN = "lex_oauth_return_path";
+  const OAUTH_CALLBACK_FILE = "auth-callback.html";
+
+  function lexBasePath() {
+    const path = window.location.pathname || "/";
+    const idx = path.indexOf("/lex");
+    if (idx >= 0) {
+      const rest = path.slice(idx, path.lastIndexOf("/") + 1);
+      return rest.endsWith("/") ? rest : `${rest}/`;
+    }
+    return path.endsWith("/") ? path : `${path.replace(/\/[^/]*$/, "/")}`;
+  }
+
+  /** URL estável para PKCE — deve constar em Supabase → Authentication → Redirect URLs. */
+  function oauthRedirectUrl() {
+    const base = lexBasePath();
+    return `${window.location.origin}${base}${OAUTH_CALLBACK_FILE}`;
+  }
+
   function redirectUrl() {
     return `${window.location.origin}${window.location.pathname}`;
   }
@@ -60,7 +79,7 @@
     const { data, error } = await getClient().auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: redirectUrl() },
+      options: { emailRedirectTo: oauthRedirectUrl() },
     });
     if (error) throw error;
     return data;
@@ -86,9 +105,23 @@
   }
 
   async function signInWithOAuth(provider) {
+    const returnPath = `${window.location.pathname}${window.location.search}${window.location.hash || "#/"}`;
+    sessionStorage.setItem(STORAGE_OAUTH_RETURN, returnPath);
+
+    const options = {
+      redirectTo: oauthRedirectUrl(),
+    };
+
+    if (provider === "google") {
+      options.queryParams = { prompt: "select_account" };
+    }
+    if (provider === "apple") {
+      options.scopes = "name email";
+    }
+
     const { data, error } = await getClient().auth.signInWithOAuth({
       provider,
-      options: { redirectTo: redirectUrl() },
+      options,
     });
     if (error) throw error;
     return data;
@@ -112,5 +145,6 @@
     signInWithOAuth,
     userLabel,
     redirectUrl,
+    oauthRedirectUrl,
   };
 })();
