@@ -1,0 +1,43 @@
+name: Update Hostinger branch
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/lex/**"
+      - "scripts/publish_lex_static.sh"
+      - ".github/workflows/deploy-hostinger-branch.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  hostinger-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build static bundle
+        run: bash scripts/publish_lex_static.sh
+
+      - name: Push lex/ → branch hostinger
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: hostinger
+          FOLDER: lex
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          MESSAGE: "Deploy Lex ({sha}) {msg}"
+
+      - name: Trigger Hostinger webhook
+        env:
+          HOSTINGER_WEBHOOK_URL: ${{ secrets.HOSTINGER_WEBHOOK_URL }}
+        run: |
+          if [ -z "$HOSTINGER_WEBHOOK_URL" ]; then
+            echo "HOSTINGER_WEBHOOK_URL não configurado — faça Deploy manual no hPanel ou configure o secret."
+            exit 0
+          fi
+          code=$(curl -s -o /dev/null -w "%{http_code}" "$HOSTINGER_WEBHOOK_URL")
+          echo "Webhook HTTP $code"
+          test "$code" = "200" || exit 1
