@@ -23,47 +23,59 @@ jobs:
       - name: Build static bundle
         run: bash scripts/publish_lex_static.sh
 
+      - name: Detect deploy method
+        id: mode
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -n "$FTP_SERVER" ] && [ -n "$FTP_USERNAME" ] && [ -n "$FTP_PASSWORD" ]; then
+            echo "method=ftp" >> "$GITHUB_OUTPUT"
+          elif [ -n "$SSH_HOST" ] && [ -n "$SSH_USERNAME" ] && [ -n "$SSH_PRIVATE_KEY" ]; then
+            echo "method=ssh" >> "$GITHUB_OUTPUT"
+          else
+            echo "method=none" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Deploy via FTPS (Hostinger)
-        id: ftp
-        if: ${{ secrets.FTP_SERVER != '' && secrets.FTP_USERNAME != '' && secrets.FTP_PASSWORD != '' }}
+        if: steps.mode.outputs.method == 'ftp'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          port: ${{ secrets.FTP_PORT != '' && secrets.FTP_PORT || '21' }}
+          port: 21
           protocol: ftps
           local-dir: ./lex/
-          server-dir: ${{ secrets.FTP_REMOTE_DIR != '' && secrets.FTP_REMOTE_DIR || './public_html/lex/' }}
+          server-dir: ./public_html/lex/
           dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.DS_Store
 
       - name: Deploy via SSH/rsync
-        id: ssh
-        if: ${{ secrets.SSH_HOST != '' && secrets.SSH_USERNAME != '' && secrets.SSH_PRIVATE_KEY != '' && (secrets.FTP_SERVER == '' || secrets.FTP_PASSWORD == '') }}
+        if: steps.mode.outputs.method == 'ssh'
         uses: burnett01/rsync-deployments@7.0.1
         with:
           switches: -avzr --delete
           path: lex/
-          remote_path: ${{ secrets.SSH_REMOTE_DIR != '' && secrets.SSH_REMOTE_DIR || 'public_html/lex/' }}
+          remote_path: public_html/lex/
           remote_host: ${{ secrets.SSH_HOST }}
           remote_user: ${{ secrets.SSH_USERNAME }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
-          remote_port: ${{ secrets.SSH_PORT != '' && secrets.SSH_PORT || '65002' }}
+          remote_port: 65002
 
-      - name: Verificar credenciais de deploy
-        if: ${{ always() && steps.ftp.outcome == 'skipped' && steps.ssh.outcome == 'skipped' }}
+      - name: Credenciais ausentes
+        if: steps.mode.outputs.method == 'none'
         run: |
-          echo "::error::Nenhum secret FTP/SSH configurado."
-          echo "1. cp .env.deploy.example .env.deploy"
-          echo "2. python3 scripts/setup_github_deploy_secrets.py --from-env .env.deploy"
-          echo "3. Reexecute este workflow"
+          echo "::error::Configure FTP ou SSH em GitHub → Settings → Secrets → Actions"
+          echo "Rode: python3 scripts/setup_github_deploy_secrets.py --from-env .env.deploy"
           exit 1
 
       - name: Smoke test
-        if: ${{ success() }}
+        if: steps.mode.outputs.method != 'none'
         run: |
           code=$(curl -s -o /dev/null -w "%{http_code}" "https://www.naintegracursos.com.br/lex/index.html" || true)
           echo "HTTP $code for /lex/index.html"
