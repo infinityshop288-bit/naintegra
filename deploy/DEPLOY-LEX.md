@@ -29,7 +29,22 @@ python3 scripts/setup_github_deploy_secrets.py --from-env .env.deploy
 
 Alternativa **SSH** (planos com SSH): `SSH_HOST`, `SSH_USERNAME`, `SSH_PRIVATE_KEY`, `SSH_REMOTE_DIR`.
 
-## Opção B — hPanel Git (sem Actions)
+## Opção B — hPanel Git (recomendado se você já está logado)
+
+A branch **`hostinger`** contém só os arquivos estáticos do Lex (gerada automaticamente pelo workflow).
+
+1. hPanel → **Websites** → **naintegracursos.com.br** → **Git**
+2. **Create a New Repository** (ou edite o existente)
+3. Repositório: `infinityshop288-bit/naintegra`
+4. Branch: **`hostinger`** (não use `main`)
+5. Diretório de deploy: **`public_html/lex`**
+6. Ative **Auto Deployment** e copie a **Webhook URL**
+7. Clique **Deploy**
+8. (Opcional) No GitHub → Settings → Secrets → `HOSTINGER_WEBHOOK_URL` = URL copiada
+
+Após isso, cada push em `main` atualiza a branch `hostinger` e o webhook publica no site.
+
+## Opção C — Deploy manual (uma vez)
 
 1. hPanel → **Websites** → **Git** → conectar `infinityshop288-bit/naintegra`.
 2. Branch: `main`.
