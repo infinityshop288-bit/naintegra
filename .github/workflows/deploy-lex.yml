@@ -14,10 +14,9 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy-ftp:
-    name: FTP → naintegracursos.com.br/lex
+  deploy:
+    name: Publicar em naintegracursos.com.br/lex
     runs-on: ubuntu-latest
-    if: ${{ secrets.FTP_SERVER != '' && secrets.FTP_USERNAME != '' && secrets.FTP_PASSWORD != '' }}
     steps:
       - uses: actions/checkout@v4
 
@@ -25,6 +24,8 @@ jobs:
         run: bash scripts/publish_lex_static.sh
 
       - name: Deploy via FTPS (Hostinger)
+        id: ftp
+        if: ${{ secrets.FTP_SERVER != '' && secrets.FTP_USERNAME != '' && secrets.FTP_PASSWORD != '' }}
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -39,44 +40,33 @@ jobs:
             **/.git*
             **/.DS_Store
 
-      - name: Smoke test
-        run: |
-          code=$(curl -s -o /dev/null -w "%{http_code}" "https://www.naintegracursos.com.br/lex/index.html" || true)
-          echo "HTTP $code for /lex/index.html"
-          if [ "$code" != "200" ]; then
-            echo "::warning::Site ainda não retornou 200 — DNS/CDN pode levar alguns minutos."
-          fi
-
-  deploy-ssh:
-    name: SSH/rsync → naintegracursos.com.br/lex
-    runs-on: ubuntu-latest
-    if: ${{ secrets.SSH_HOST != '' && secrets.SSH_USERNAME != '' && secrets.SSH_PRIVATE_KEY != '' && (secrets.FTP_SERVER == '' || secrets.FTP_USERNAME == '' || secrets.FTP_PASSWORD == '') }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Build static bundle
-        run: bash scripts/publish_lex_static.sh
-
-      - name: Rsync over SSH
+      - name: Deploy via SSH/rsync
+        id: ssh
+        if: ${{ secrets.SSH_HOST != '' && secrets.SSH_USERNAME != '' && secrets.SSH_PRIVATE_KEY != '' && (secrets.FTP_SERVER == '' || secrets.FTP_PASSWORD == '') }}
         uses: burnett01/rsync-deployments@7.0.1
         with:
           switches: -avzr --delete
           path: lex/
-          remote_path: ${{ secrets.SSH_REMOTE_DIR || 'public_html/lex/' }}
+          remote_path: ${{ secrets.SSH_REMOTE_DIR != '' && secrets.SSH_REMOTE_DIR || 'public_html/lex/' }}
           remote_host: ${{ secrets.SSH_HOST }}
           remote_user: ${{ secrets.SSH_USERNAME }}
           remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
           remote_port: ${{ secrets.SSH_PORT != '' && secrets.SSH_PORT || '65002' }}
 
-  secrets-missing:
-    name: Aviso — secrets de deploy ausentes
-    runs-on: ubuntu-latest
-    if: ${{ (secrets.FTP_SERVER == '' || secrets.FTP_USERNAME == '' || secrets.FTP_PASSWORD == '') && (secrets.SSH_HOST == '' || secrets.SSH_USERNAME == '' || secrets.SSH_PRIVATE_KEY == '') }}
-    steps:
-      - name: Instruções
+      - name: Verificar credenciais de deploy
+        if: ${{ always() && steps.ftp.outcome == 'skipped' && steps.ssh.outcome == 'skipped' }}
         run: |
-          echo "::error::Configure FTP ou SSH em GitHub → Settings → Secrets → Actions"
-          echo "FTP: FTP_SERVER, FTP_USERNAME, FTP_PASSWORD, FTP_REMOTE_DIR (opcional)"
-          echo "SSH: SSH_HOST, SSH_USERNAME, SSH_PRIVATE_KEY, SSH_REMOTE_DIR (opcional)"
-          echo "Ou rode: python3 scripts/setup_github_deploy_secrets.py --from-env .env.deploy"
+          echo "::error::Nenhum secret FTP/SSH configurado."
+          echo "1. cp .env.deploy.example .env.deploy"
+          echo "2. python3 scripts/setup_github_deploy_secrets.py --from-env .env.deploy"
+          echo "3. Reexecute este workflow"
           exit 1
+
+      - name: Smoke test
+        if: ${{ success() }}
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" "https://www.naintegracursos.com.br/lex/index.html" || true)
+          echo "HTTP $code for /lex/index.html"
+          if [ "$code" != "200" ]; then
+            echo "::warning::CDN pode levar alguns minutos para refletir o deploy."
+          fi
