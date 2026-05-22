@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Lex na Íntegra — Entrando…</title>
+  <link rel="stylesheet" href="./css/styles.css?v=39" />
+  <style>
+    .oauth-callback-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+    .oauth-callback-page p { color: var(--muted); max-width: 28rem; }
+  </style>
+</head>
+<body>
+  <div class="oauth-callback-page">
+    <div>
+      <div class="loading">Concluindo login…</div>
+      <p id="oauth-hint">Aguarde enquanto validamos sua conta.</p>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/config.js?v=38"></script>
+  <script src="./js/auth.js?v=33"></script>
+  <script>
+    (async function () {
+      const hint = document.getElementById("oauth-hint");
+      const url = new URL(window.location.href);
+      const oauthErr = url.searchParams.get("error_description") || url.searchParams.get("error");
+      if (oauthErr) {
+        hint.textContent = decodeURIComponent(oauthErr.replace(/\+/g, " "));
+        setTimeout(() => {
+          window.location.replace("./index.html#/auth/login");
+        }, 2500);
+        return;
+      }
+
+      const hadPkceCode = url.searchParams.has("code");
+      let session = null;
+
+      try {
+        session = await window.LexAuth.getSession();
+      } catch (_) {}
+
+      if (!session?.user && hadPkceCode) {
+        session = await new Promise((resolve) => {
+          let settled = false;
+          let unsubscribe = () => {};
+          const done = (s) => {
+            if (settled) return;
+            settled = true;
+            clearTimeout(timer);
+            unsubscribe();
+            resolve(s);
+          };
+          const sub = window.LexAuth.getClient().auth.onAuthStateChange((event, next) => {
+            if (next?.user && (event === "SIGNED_IN" || event === "INITIAL_SESSION" || event === "TOKEN_REFRESHED")) {
+              done(next);
+            }
+          });
+          unsubscribe = () => sub.data.subscription.unsubscribe();
+          void window.LexAuth.getSession().then((s) => {
+            if (s?.user) done(s);
+          });
+          const timer = setTimeout(() => done(null), 8000);
+        });
+      }
+
+      if (!session?.user && hadPkceCode) {
+        for (let i = 0; i < 15; i++) {
+          await new Promise((r) => setTimeout(r, 80));
+          const next = await window.LexAuth.getSession();
+          if (next?.user) {
+            session = next;
+            break;
+          }
+        }
+      }
+
+      if (!session?.user) {
+        hint.textContent = "Não foi possível concluir o login. Tente novamente.";
+        setTimeout(() => {
+          window.location.replace("./index.html#/auth/login");
+        }, 2500);
+        return;
+      }
+
+      const returnPath = sessionStorage.getItem("lex_oauth_return_path") || "./index.html#/";
+      sessionStorage.removeItem("lex_oauth_return_path");
+      const target = returnPath.startsWith("http")
+        ? returnPath
+        : `${window.location.origin}${returnPath.startsWith("/") ? returnPath : `/${returnPath}`}`;
+      window.location.replace(target);
+    })();
+  </script>
+</body>
+</html>

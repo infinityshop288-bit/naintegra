@@ -53,14 +53,20 @@ a:hover { text-decoration: underline; }
 }
 
 .logo {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
-  margin: 0 0 0.15rem;
+  display: block;
+  margin: 0 0 0.35rem;
+  text-decoration: none;
+  line-height: 0;
 }
 
-.logo span { color: var(--gold); }
+.logo:hover { text-decoration: none; }
+
+.logo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 228px;
+}
 
 .logo-sub {
   font-family: var(--font-mono);
@@ -139,15 +145,20 @@ a:hover { text-decoration: underline; }
 }
 
 .topbar-logo {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  font-size: 1rem;
-  color: var(--ink);
+  flex-shrink: 0;
+  line-height: 0;
   text-decoration: none;
   display: none;
 }
 
-.topbar-logo span { color: var(--gold); }
+.topbar-logo:hover { text-decoration: none; }
+
+.topbar-logo img {
+  display: block;
+  height: 34px;
+  width: auto;
+  max-width: min(220px, 44vw);
+}
 
 .global-search {
   position: relative;

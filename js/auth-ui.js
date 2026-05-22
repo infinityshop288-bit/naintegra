@@ -169,6 +169,8 @@
 
     if (location.hash.includes("auth/reset-password")) {
       open("reset-password");
+    } else if (location.hash.includes("auth/login")) {
+      open("login");
     }
   }
 

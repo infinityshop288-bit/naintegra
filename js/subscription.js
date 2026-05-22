@@ -13,6 +13,8 @@
     "mercadopago.com",
   ];
 
+  const PENDING_KEY = "lex_pending_checkout";
+
   let cachedSub = null;
   let pollTimer = null;
 
@@ -20,14 +22,29 @@
     return `${cfg.supabaseUrl}/functions/v1/${name}`;
   }
 
-  async function authHeaders() {
-    const session = await window.LexAuth.getSession();
-    if (!session?.access_token) throw new Error("Faça login para continuar");
-    return {
-      Authorization: `Bearer ${session.access_token}`,
+  async function edgeHeaders(requireUser) {
+    const headers = {
       apikey: cfg.supabaseAnonKey,
       "Content-Type": "application/json",
+      Authorization: `Bearer ${cfg.supabaseAnonKey}`,
     };
+    if (requireUser) {
+      const session = await window.LexAuth.getSession();
+      if (!session?.access_token) throw new Error("Faça login para continuar");
+      headers.Authorization = `Bearer ${session.access_token}`;
+    }
+    return headers;
+  }
+
+  async function invokeEdge(name, body, requireUser) {
+    const res = await fetch(fnUrl(name), {
+      method: "POST",
+      headers: await edgeHeaders(requireUser),
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || "Erro ao processar pagamento");
+    return data;
   }
 
   function isTrustedMercadoPagoCheckoutUrl(href) {
@@ -122,23 +139,21 @@
     el.textContent = d ? `Acervo atualizado em ${formatDatePt(d)}` : "";
   }
 
-  async function invokeCheckout(planId, provider, payerCpf) {
-    const headers = await authHeaders();
+  async function initCheckout(planId) {
     const res = await fetch(fnUrl("lex-subscription-checkout"), {
       method: "POST",
-      headers,
-      body: JSON.stringify({ planId, provider, payerCpf }),
+      headers: await edgeHeaders(true),
+      body: JSON.stringify({ planId, provider: "init" }),
     });
     const data = await res.json();
-    if (!res.ok || !data.ok) throw new Error(data.error || "Erro ao iniciar pagamento");
+    if (!res.ok || !data.ok) throw new Error(data.error || "Erro ao iniciar assinatura");
     return data;
   }
 
   async function invokeConfirm(subscriptionId, paymentId, provider) {
-    const headers = await authHeaders();
     const res = await fetch(fnUrl("lex-subscription-confirm"), {
       method: "POST",
-      headers,
+      headers: await edgeHeaders(true),
       body: JSON.stringify({ subscriptionId, paymentId, provider: provider || "mercadopago" }),
     });
     const data = await res.json();
@@ -147,17 +162,38 @@
   }
 
   async function checkPaymentStatus(paymentId) {
-    const res = await fetch(fnUrl("check-payment-status"), {
-      method: "POST",
-      headers: {
-        apikey: cfg.supabaseAnonKey,
-        "Content-Type": "application/json",
+    return invokeEdge("check-payment-status", { paymentId }, false);
+  }
+
+  async function createPixPayment(init, user, cpf) {
+    return invokeEdge(
+      "create-pix-payment",
+      {
+        amount: init.amount,
+        description: `NaIntegra Lex — ${init.planName}`,
+        payerEmail: user.email,
+        payerName: window.LexAuth.userLabel(user),
+        payerCpf: cpf.replace(/\D/g, ""),
+        externalReference: init.externalReferencePix,
       },
-      body: JSON.stringify({ paymentId }),
-    });
-    const data = await res.json();
-    if (!res.ok || data.error) throw new Error(data.error || "Erro ao verificar pagamento");
-    return data;
+      false
+    );
+  }
+
+  async function createCardPayment(init, user) {
+    return invokeEdge(
+      "create-payment",
+      {
+        productName: `NaIntegra Lex — ${init.planName}`,
+        productPrice: init.amount,
+        payerEmail: user.email,
+        payerName: window.LexAuth.userLabel(user),
+        externalReference: init.externalReferenceCard,
+        backUrlPath: "/lex/",
+        statementDescriptor: "NAINTEGRA LEX",
+      },
+      false
+    );
   }
 
   async function pollUntilApproved(subscriptionId, paymentId, onTick) {
@@ -186,14 +222,14 @@
     });
   }
 
-  function renderPixPanel(data) {
+  function renderPixPanel(data, amount) {
     const qr = data.qrCodeBase64
       ? `<img class="pix-qr" src="data:image/png;base64,${esc(data.qrCodeBase64)}" alt="QR Code PIX" />`
       : "";
     return `
       <div class="pay-pix-panel">
         ${qr}
-        <p class="pay-amount">${formatBrl(data.amount)}</p>
+        <p class="pay-amount">${formatBrl(amount)}</p>
         <p class="pay-hint">Escaneie o QR Code ou copie o código PIX</p>
         <div class="pix-copy-row">
           <input type="text" readonly class="pix-code" id="pix-copy-code" value="${esc(data.qrCode || "")}" />
@@ -218,10 +254,14 @@
   }
 
   async function startPixCheckout(planId, container, cpf) {
-    const data = await invokeCheckout(planId, "pix", cpf);
-    container.innerHTML = renderPixPanel(data);
+    const user = await window.LexAuth.getUser();
+    if (!user) throw new Error("Faça login para continuar");
+
+    const init = await initCheckout(planId);
+    const pix = await createPixPayment(init, user, cpf);
+    container.innerHTML = renderPixPanel(pix, init.amount);
     bindPixCopy();
-    await pollUntilApproved(data.subscriptionId, data.paymentId, (r) => {
+    await pollUntilApproved(init.subscriptionId, pix.paymentId, (r) => {
       const st = document.getElementById("pix-status");
       if (st && r.status === "approved") st.textContent = "Pagamento confirmado! Redirecionando…";
     });
@@ -230,35 +270,52 @@
   }
 
   async function startCardCheckout(planId, container) {
-    const data = await invokeCheckout(planId, "card");
-    const initPoint = data.initPoint || data.sandboxInitPoint;
+    const user = await window.LexAuth.getUser();
+    if (!user) throw new Error("Faça login para continuar");
+
+    const init = await initCheckout(planId);
+    const card = await createCardPayment(init, user);
+    const initPoint = card.initPoint || card.sandboxInitPoint;
     if (!initPoint || !isTrustedMercadoPagoCheckoutUrl(initPoint)) {
       throw new Error("URL de checkout inválida");
     }
     sessionStorage.setItem(
-      "lex_pending_checkout",
-      JSON.stringify({ subscriptionId: data.subscriptionId, planId })
+      PENDING_KEY,
+      JSON.stringify({ subscriptionId: init.subscriptionId, planId })
     );
     container.innerHTML = `<p class="pay-hint">Redirecionando para o Mercado Pago…</p>`;
     window.location.assign(initPoint);
+  }
+
+  function cleanPaymentQuery() {
+    const url = new URL(window.location.href);
+    ["payment", "status", "collection_status", "payment_id", "collection_id", "preference_id", "external_reference"].forEach(
+      (k) => url.searchParams.delete(k)
+    );
+    const clean = url.pathname + (url.search ? url.search : "") + (window.location.hash || "");
+    window.history.replaceState({}, "", clean);
   }
 
   async function handlePaymentReturn() {
     const params = new URLSearchParams(window.location.search);
     const paymentStatus = params.get("payment") || params.get("status") || params.get("collection_status");
     const paymentId = params.get("payment_id") || params.get("collection_id");
-    if (!paymentId || (paymentStatus !== "success" && paymentStatus !== "approved")) return;
+    if (!paymentId) return;
+    if (paymentStatus !== "success" && paymentStatus !== "approved" && paymentStatus !== "pending") return;
 
-    const raw = sessionStorage.getItem("lex_pending_checkout");
+    const raw = sessionStorage.getItem(PENDING_KEY);
     if (!raw) return;
 
     try {
       const pending = JSON.parse(raw);
+      if (paymentStatus === "pending") {
+        window.location.hash = "#/assinatura";
+        return;
+      }
       await invokeConfirm(pending.subscriptionId, paymentId, "mercadopago");
-      sessionStorage.removeItem("lex_pending_checkout");
+      sessionStorage.removeItem(PENDING_KEY);
       invalidateCache();
-      const clean = window.location.pathname + window.location.hash;
-      window.history.replaceState({}, "", clean);
+      cleanPaymentQuery();
       window.location.hash = "#/";
       window.location.reload();
     } catch (e) {
@@ -340,7 +397,7 @@
 
   function bindAssinaturaPage(planId) {
     document.getElementById("checkout-auth-open")?.addEventListener("click", () => {
-      window.LexAuthUI?.open("signup");
+      window.LexAuthUI?.open("login");
     });
     if (document.getElementById("pay-panel")) bindCheckout(planId || "lex-mensal");
   }
