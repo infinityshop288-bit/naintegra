@@ -47,29 +47,18 @@ python3 scripts/setup_github_deploy_secrets.py --from-env .env.deploy
 
 Alternativa **SSH** (planos com SSH): `SSH_HOST`, `SSH_USERNAME`, `SSH_PRIVATE_KEY`, `SSH_REMOTE_DIR`.
 
-## Opção B — hPanel Git (recomendado se você já está logado)
-
-A branch **`hostinger`** contém só os arquivos estáticos do Lex (gerada automaticamente pelo workflow).
+## Opção B — hPanel Git (recomendado)
 
 1. hPanel → **Websites** → **naintegracursos.com.br** → **Git**
-2. **Create a New Repository** (ou edite o existente)
-3. Repositório: `infinityshop288-bit/naintegra`
-4. Branch: **`hostinger`** (não use `main`)
-5. Diretório de deploy: **`public_html/lex`**
-6. Ative **Auto Deployment** e copie a **Webhook URL**
-7. Clique **Deploy**
-8. (Opcional) No GitHub → Settings → Secrets → `HOSTINGER_WEBHOOK_URL` = URL copiada
+2. Repositório: **`infinityshop288-bit/naintegracursos`**
+3. Branch: **`main`**
+4. Build (se disponível): `npm ci && npm run build`
+5. Diretório de deploy: **`public_html`** (saída `dist/` do Vite inclui `lex/`)
+6. Clique **Deploy** e ative **Auto Deployment**
 
-Após isso, cada push em `main` atualiza a branch `hostinger` e o webhook publica no site.
+O Lex já está em `public/lex/` no repositório — após o build, fica em `/lex` no site.
 
-## Opção C — Deploy manual (uma vez)
-
-1. hPanel → **Websites** → **Git** → conectar `infinityshop288-bit/naintegra`.
-2. Branch: `main`.
-3. Comando de build: `bash scripts/publish_lex_static.sh`
-4. Diretório de saída / deploy: conteúdo de `lex/` → `public_html/lex/`
-
-## Deploy manual (uma vez)
+## Opção C — FTP direto (só o Lex)
 
 ```bash
 bash scripts/publish_lex_static.sh
