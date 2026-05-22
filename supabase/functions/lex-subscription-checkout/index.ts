@@ -21,6 +21,22 @@ function serviceClient() {
   return createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false } });
 }
 
+function getMercadoPagoToken(): string | null {
+  return (
+    Deno.env.get("MERCADOPAGO_ACCESS_TOKEN")?.trim() ||
+    Deno.env.get("MP_ACCESS_TOKEN")?.trim() ||
+    null
+  );
+}
+
+function resolvePublicBase(req: Request): string {
+  const fromEnv = Deno.env.get("APP_PUBLIC_URL")?.trim().replace(/\/$/, "");
+  if (fromEnv && /^https:\/\//i.test(fromEnv)) return fromEnv;
+  const origin = req.headers.get("origin")?.trim() || "";
+  if (/^https:\/\//i.test(origin)) return origin.replace(/\/$/, "");
+  return "https://www.naintegracursos.com.br";
+}
+
 const PLAN_IDS = new Set(["lex-mensal", "lex-anual"]);
 
 Deno.serve(async (req) => {
@@ -35,6 +51,7 @@ Deno.serve(async (req) => {
     const body = await req.json();
     const planId = String(body.planId || "").trim();
     const provider = String(body.provider || "").trim();
+    const payerCpfRaw = typeof body.payerCpf === "string" ? body.payerCpf : "";
 
     if (!PLAN_IDS.has(planId)) {
       return respond(false, { error: "Plano inválido" }, 400);
@@ -42,6 +59,9 @@ Deno.serve(async (req) => {
     if (provider !== "pix" && provider !== "card") {
       return respond(false, { error: "Forma de pagamento inválida" }, 400);
     }
+
+    const mpToken = getMercadoPagoToken();
+    if (!mpToken) return respond(false, { error: "Mercado Pago não configurado" }, 500);
 
     const supabase = serviceClient();
     const { data: plan, error: planErr } = await supabase
@@ -66,7 +86,7 @@ Deno.serve(async (req) => {
         user_id: authUser.id,
         plan_id: planId,
         status: "pending",
-        provider: provider === "pix" ? "mercadopago" : "stripe",
+        provider: "mercadopago",
         amount_cents: plan.price_cents,
       })
       .select("id")
@@ -78,22 +98,26 @@ Deno.serve(async (req) => {
     }
 
     const subscriptionId = subRow.id as string;
-    const stripePk = Deno.env.get("STRIPE_PUBLISHABLE_KEY") || "";
+    const extRef = `lex-${provider}-${authUser.id}-${planId}-${subscriptionId.slice(0, 8)}-${shortId}`;
+    const supabaseUrl = (Deno.env.get("SUPABASE_URL") || "").trim().replace(/\/+$/, "");
+    const notificationUrl = supabaseUrl ? `${supabaseUrl}/functions/v1/mercadopago-webhook` : "";
 
     if (provider === "pix") {
-      const mpToken = Deno.env.get("MP_ACCESS_TOKEN");
-      if (!mpToken) return respond(false, { error: "Mercado Pago não configurado" }, 500);
-
-      const extRef = `lex-pix-${authUser.id}-${planId}-${subscriptionId.slice(0, 8)}-${shortId}`;
+      const cpfClean = payerCpfRaw.replace(/\D/g, "");
       const expirationDate = new Date(Date.now() + 30 * 60 * 1000).toISOString();
-      const supabaseUrl = (Deno.env.get("SUPABASE_URL") || "").trim().replace(/\/+$/, "");
-      const notificationUrl = supabaseUrl ? `${supabaseUrl}/functions/v1/mp-webhook` : "";
+
+      const payer: Record<string, unknown> = {
+        email: authUser.email || `${authUser.id}@naintegra.app`,
+      };
+      if (cpfClean.length === 11) {
+        payer.identification = { type: "CPF", number: cpfClean };
+      }
 
       const paymentBody = {
         transaction_amount: amountBrl,
         description: `NaIntegra Lex — ${plan.name}`.slice(0, 200),
         payment_method_id: "pix",
-        payer: { email: authUser.email || `${authUser.id}@naintegra.app` },
+        payer,
         external_reference: extRef,
         date_of_expiration: expirationDate,
         ...(notificationUrl ? { notification_url: notificationUrl } : {}),
@@ -131,53 +155,66 @@ Deno.serve(async (req) => {
         qrCodeBase64: data.point_of_interaction?.transaction_data?.qr_code_base64 || "",
         ticketUrl: data.point_of_interaction?.transaction_data?.ticket_url || "",
         expiresAt: expirationDate,
-        stripePublishableKey: stripePk,
       });
     }
 
-    const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
-    if (!stripeKey) return respond(false, { error: "Stripe não configurado" }, 500);
+    // Cartão — Checkout Pro (Mercado Pago), mesmo padrão VoltGo
+    const base = resolvePublicBase(req);
+    const preferenceData = {
+      items: [
+        {
+          title: `NaIntegra Lex — ${plan.name}`,
+          quantity: 1,
+          currency_id: "BRL",
+          unit_price: amountBrl,
+        },
+      ],
+      payer: {
+        email: authUser.email || `${authUser.id}@naintegra.app`,
+      },
+      payment_methods: {
+        excluded_payment_types: [],
+        installments: 12,
+      },
+      back_urls: {
+        success: `${base}/lex/?payment=success#/assinatura`,
+        failure: `${base}/lex/?payment=failure#/assinatura`,
+        pending: `${base}/lex/?payment=pending#/assinatura`,
+      },
+      auto_return: "approved",
+      statement_descriptor: "NAINTEGRA LEX",
+      external_reference: extRef,
+    };
 
-    const amountCents = plan.price_cents;
-    const params = new URLSearchParams({
-      amount: String(amountCents),
-      currency: "brl",
-      description: `NaIntegra Lex — ${plan.name}`.slice(0, 200),
-      "automatic_payment_methods[enabled]": "true",
-      "metadata[user_id]": authUser.id,
-      "metadata[source]": "lex_subscription",
-      "metadata[plan_id]": planId,
-      "metadata[subscription_id]": subscriptionId,
-    });
-
-    const piRes = await fetch("https://api.stripe.com/v1/payment_intents", {
+    const prefRes = await fetch("https://api.mercadopago.com/checkout/preferences", {
       method: "POST",
       headers: {
-        Authorization: `Basic ${btoa(stripeKey + ":")}`,
-        "Content-Type": "application/x-www-form-urlencoded",
+        Authorization: `Bearer ${mpToken}`,
+        "Content-Type": "application/json",
       },
-      body: params,
+      body: JSON.stringify(preferenceData),
     });
-    const piData = await piRes.json();
-    if (!piRes.ok) {
-      console.error("Stripe PI:", JSON.stringify(piData));
-      return respond(false, { error: piData?.error?.message || "Erro Stripe" }, 400);
+    const prefData = await prefRes.json();
+    if (!prefRes.ok) {
+      console.error("MP Checkout Pro:", JSON.stringify(prefData));
+      return respond(false, { error: prefData?.message || "Erro ao criar checkout" }, 400);
     }
 
     await supabase.schema("lex").from("user_subscriptions").update({
-      payment_id: piData.id,
+      payment_id: String(prefData.id),
       updated_at: new Date().toISOString(),
     }).eq("id", subscriptionId);
 
     return respond(true, {
       subscriptionId,
-      paymentId: piData.id,
-      clientSecret: piData.client_secret,
-      provider: "stripe",
+      paymentId: prefData.id,
+      preferenceId: prefData.id,
+      initPoint: prefData.init_point,
+      sandboxInitPoint: prefData.sandbox_init_point,
+      provider: "mercadopago",
       amount: amountBrl,
       planId,
       planName: plan.name,
-      stripePublishableKey: stripePk,
     });
   } catch (error) {
     const msg = error instanceof Error ? error.message : String(error);

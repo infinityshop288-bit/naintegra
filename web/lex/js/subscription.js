@@ -1,4 +1,4 @@
-/** Assinaturas NaIntegra Lex — checkout Pix e cartão (Stripe + wallets). */
+/** Assinaturas NaIntegra Lex — checkout PIX e cartão via Mercado Pago (padrão VoltGo). */
 (function () {
   const cfg = window.LEX_CONFIG;
   const PLANS = {
@@ -6,9 +6,14 @@
     "lex-anual": { label: "Anual", price: 199.9, cents: 19990, period: "ano", badge: "Economize 16%" },
   };
 
+  const MP_CHECKOUT_HOSTS = [
+    "www.mercadopago.com.br",
+    "mercadopago.com.br",
+    "www.mercadopago.com",
+    "mercadopago.com",
+  ];
+
   let cachedSub = null;
-  let stripe = null;
-  let elements = null;
   let pollTimer = null;
 
   function fnUrl(name) {
@@ -23,6 +28,22 @@
       apikey: cfg.supabaseAnonKey,
       "Content-Type": "application/json",
     };
+  }
+
+  function isTrustedMercadoPagoCheckoutUrl(href) {
+    try {
+      const u = new URL(href);
+      if (u.protocol !== "https:") return false;
+      const h = u.hostname.toLowerCase();
+      if (MP_CHECKOUT_HOSTS.includes(h)) return true;
+      return (
+        h.endsWith(".mercadopago.com.br") ||
+        h.endsWith(".mercadopago.com") ||
+        h.endsWith(".mercadolibre.com")
+      );
+    } catch {
+      return false;
+    }
   }
 
   function formatBrl(n) {
@@ -101,12 +122,12 @@
     el.textContent = d ? `Acervo atualizado em ${formatDatePt(d)}` : "";
   }
 
-  async function invokeCheckout(planId, provider) {
+  async function invokeCheckout(planId, provider, payerCpf) {
     const headers = await authHeaders();
     const res = await fetch(fnUrl("lex-subscription-checkout"), {
       method: "POST",
       headers,
-      body: JSON.stringify({ planId, provider }),
+      body: JSON.stringify({ planId, provider, payerCpf }),
     });
     const data = await res.json();
     if (!res.ok || !data.ok) throw new Error(data.error || "Erro ao iniciar pagamento");
@@ -118,24 +139,39 @@
     const res = await fetch(fnUrl("lex-subscription-confirm"), {
       method: "POST",
       headers,
-      body: JSON.stringify({ subscriptionId, paymentId, provider }),
+      body: JSON.stringify({ subscriptionId, paymentId, provider: provider || "mercadopago" }),
     });
     const data = await res.json();
     if (!res.ok || !data.ok) throw new Error(data.error || "Erro ao confirmar pagamento");
     return data;
   }
 
-  async function pollUntilApproved(subscriptionId, paymentId, provider, onTick) {
+  async function checkPaymentStatus(paymentId) {
+    const res = await fetch(fnUrl("check-payment-status"), {
+      method: "POST",
+      headers: {
+        apikey: cfg.supabaseAnonKey,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ paymentId }),
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || "Erro ao verificar pagamento");
+    return data;
+  }
+
+  async function pollUntilApproved(subscriptionId, paymentId, onTick) {
     clearInterval(pollTimer);
     return new Promise((resolve, reject) => {
       let tries = 0;
       pollTimer = setInterval(async () => {
         tries += 1;
         try {
-          const r = await invokeConfirm(subscriptionId, paymentId, provider);
-          if (onTick) onTick(r);
-          if (r.approved || r.status === "active") {
+          const status = await checkPaymentStatus(paymentId);
+          if (onTick) onTick(status);
+          if (status.status === "approved") {
             clearInterval(pollTimer);
+            const r = await invokeConfirm(subscriptionId, paymentId, "mercadopago");
             invalidateCache();
             resolve(r);
           } else if (tries > 120) {
@@ -146,56 +182,7 @@
           clearInterval(pollTimer);
           reject(e);
         }
-      }, 3000);
-    });
-  }
-
-  async function ensureStripe(pk) {
-    if (!pk) throw new Error("Stripe não configurado");
-    if (!window.Stripe) {
-      await new Promise((resolve, reject) => {
-        const s = document.createElement("script");
-        s.src = "https://js.stripe.com/v3/";
-        s.onload = resolve;
-        s.onerror = () => reject(new Error("Falha ao carregar Stripe"));
-        document.head.appendChild(s);
-      });
-    }
-    if (!stripe || stripe._pk !== pk) {
-      stripe = window.Stripe(pk);
-      stripe._pk = pk;
-    }
-    return stripe;
-  }
-
-  async function mountCardCheckout(container, checkoutData) {
-    const st = await ensureStripe(checkoutData.stripePublishableKey);
-    elements = st.elements({ clientSecret: checkoutData.clientSecret, locale: "pt-BR" });
-    container.innerHTML = `<div id="stripe-payment-element"></div><button type="button" class="btn primary pay-submit" id="stripe-pay-btn">Pagar ${formatBrl(checkoutData.amount)}</button><p class="pay-hint">Google Pay, Apple Pay e cartão aceitos</p>`;
-    const paymentElement = elements.create("payment", {
-      wallets: { applePay: "auto", googlePay: "auto" },
-    });
-    paymentElement.mount("#stripe-payment-element");
-    const btn = document.getElementById("stripe-pay-btn");
-    btn?.addEventListener("click", async () => {
-      btn.disabled = true;
-      btn.textContent = "Processando…";
-      try {
-        const { error, paymentIntent } = await st.confirmPayment({
-          elements,
-          redirect: "if_required",
-        });
-        if (error) throw error;
-        const pid = paymentIntent?.id || checkoutData.paymentId;
-        await invokeConfirm(checkoutData.subscriptionId, pid, "stripe");
-        invalidateCache();
-        window.location.hash = "#/";
-        window.location.reload();
-      } catch (e) {
-        alert(e.message || "Pagamento não concluído");
-        btn.disabled = false;
-        btn.textContent = `Pagar ${formatBrl(checkoutData.amount)}`;
-      }
+      }, 5000);
     });
   }
 
@@ -230,14 +217,13 @@
     });
   }
 
-  async function startPixCheckout(planId, container, statusEl) {
-    const data = await invokeCheckout(planId, "pix");
+  async function startPixCheckout(planId, container, cpf) {
+    const data = await invokeCheckout(planId, "pix", cpf);
     container.innerHTML = renderPixPanel(data);
     bindPixCopy();
-    if (statusEl) statusEl.textContent = "Aguardando confirmação do PIX…";
-    await pollUntilApproved(data.subscriptionId, data.paymentId, "mercadopago", (r) => {
+    await pollUntilApproved(data.subscriptionId, data.paymentId, (r) => {
       const st = document.getElementById("pix-status");
-      if (st && r.approved) st.textContent = "Pagamento confirmado! Redirecionando…";
+      if (st && r.status === "approved") st.textContent = "Pagamento confirmado! Redirecionando…";
     });
     window.location.hash = "#/";
     window.location.reload();
@@ -245,7 +231,39 @@
 
   async function startCardCheckout(planId, container) {
     const data = await invokeCheckout(planId, "card");
-    await mountCardCheckout(container, data);
+    const initPoint = data.initPoint || data.sandboxInitPoint;
+    if (!initPoint || !isTrustedMercadoPagoCheckoutUrl(initPoint)) {
+      throw new Error("URL de checkout inválida");
+    }
+    sessionStorage.setItem(
+      "lex_pending_checkout",
+      JSON.stringify({ subscriptionId: data.subscriptionId, planId })
+    );
+    container.innerHTML = `<p class="pay-hint">Redirecionando para o Mercado Pago…</p>`;
+    window.location.assign(initPoint);
+  }
+
+  async function handlePaymentReturn() {
+    const params = new URLSearchParams(window.location.search);
+    const paymentStatus = params.get("payment") || params.get("status") || params.get("collection_status");
+    const paymentId = params.get("payment_id") || params.get("collection_id");
+    if (!paymentId || (paymentStatus !== "success" && paymentStatus !== "approved")) return;
+
+    const raw = sessionStorage.getItem("lex_pending_checkout");
+    if (!raw) return;
+
+    try {
+      const pending = JSON.parse(raw);
+      await invokeConfirm(pending.subscriptionId, paymentId, "mercadopago");
+      sessionStorage.removeItem("lex_pending_checkout");
+      invalidateCache();
+      const clean = window.location.pathname + window.location.hash;
+      window.history.replaceState({}, "", clean);
+      window.location.hash = "#/";
+      window.location.reload();
+    } catch (e) {
+      console.warn("payment return:", e);
+    }
   }
 
   function checkoutHtml(planId) {
@@ -254,9 +272,13 @@
       <section class="page checkout-page">
         <h1>Finalizar assinatura</h1>
         <p class="lead">Plano <strong>${esc(plan.label)}</strong> — ${formatBrl(plan.price)}/${esc(plan.period)}</p>
+        <div class="pay-cpf-row">
+          <label for="pay-cpf">CPF (obrigatório para PIX)</label>
+          <input type="text" id="pay-cpf" class="pix-code" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" />
+        </div>
         <div class="pay-tabs" role="tablist">
           <button type="button" class="pay-tab active" data-pay-tab="pix">PIX</button>
-          <button type="button" class="pay-tab" data-pay-tab="card">Cartão · Google Pay · Apple Pay</button>
+          <button type="button" class="pay-tab" data-pay-tab="card">Cartão</button>
         </div>
         <div id="pay-panel" class="pay-panel"></div>
         <p class="pay-legal">Ao pagar, você concorda com os termos de uso e política de privacidade do NaIntegra Cursos. O conteúdo é licenciado para uso pessoal — cópia e redistribuição são proibidas.</p>
@@ -273,8 +295,17 @@
         b.classList.toggle("active", b.dataset.payTab === tab);
       });
       try {
-        if (tab === "pix") await startPixCheckout(planId, panel);
-        else await startCardCheckout(planId, panel);
+        if (tab === "pix") {
+          const cpf = document.getElementById("pay-cpf")?.value || "";
+          const cpfClean = cpf.replace(/\D/g, "");
+          if (cpfClean.length !== 11) {
+            panel.innerHTML = `<p class="auth-msg">Informe um CPF válido (11 dígitos) para gerar o PIX.</p>`;
+            return;
+          }
+          await startPixCheckout(planId, panel, cpf);
+        } else {
+          await startCardCheckout(planId, panel);
+        }
       } catch (e) {
         panel.innerHTML = `<p class="auth-msg">${esc(e.message)}</p>`;
       }
@@ -313,6 +344,8 @@
     });
     if (document.getElementById("pay-panel")) bindCheckout(planId || "lex-mensal");
   }
+
+  handlePaymentReturn();
 
   window.LexSubscription = {
     PLANS,

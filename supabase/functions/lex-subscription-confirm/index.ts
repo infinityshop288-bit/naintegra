@@ -54,29 +54,23 @@ Deno.serve(async (req) => {
     if (sub.status === "active") {
       return respond(true, { status: "active", alreadyActive: true });
     }
-    if (sub.payment_id && sub.payment_id !== String(paymentId)) {
+    const storedPid = sub.payment_id ? String(sub.payment_id) : "";
+    const incomingPid = String(paymentId);
+    const storedIsPreference = storedPid && !/^\d+$/.test(storedPid);
+    if (storedPid && storedPid !== incomingPid && !storedIsPreference) {
       return respond(false, { error: "Pagamento não corresponde à assinatura" }, 400);
     }
 
-    let approved = false;
+    const mpToken =
+      Deno.env.get("MERCADOPAGO_ACCESS_TOKEN")?.trim() ||
+      Deno.env.get("MP_ACCESS_TOKEN")?.trim();
+    if (!mpToken) return respond(false, { error: "Mercado Pago não configurado" }, 500);
 
-    if (provider === "stripe" || sub.payment_id?.startsWith("pi_")) {
-      const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
-      if (!stripeKey) return respond(false, { error: "Stripe não configurado" }, 500);
-      const res = await fetch(`https://api.stripe.com/v1/payment_intents/${paymentId}`, {
-        headers: { Authorization: `Basic ${btoa(stripeKey + ":")}` },
-      });
-      const data = await res.json();
-      approved = data.status === "succeeded";
-    } else {
-      const mpToken = Deno.env.get("MP_ACCESS_TOKEN");
-      if (!mpToken) return respond(false, { error: "Mercado Pago não configurado" }, 500);
-      const res = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
-        headers: { Authorization: `Bearer ${mpToken}` },
-      });
-      const data = await res.json();
-      approved = (data.status || "").toLowerCase() === "approved";
-    }
+    const res = await fetch(`https://api.mercadopago.com/v1/payments/${paymentId}`, {
+      headers: { Authorization: `Bearer ${mpToken}` },
+    });
+    const data = await res.json();
+    const approved = (data.status || "").toLowerCase() === "approved";
 
     if (!approved) {
       return respond(true, { status: "pending", approved: false });
