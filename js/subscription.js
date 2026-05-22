@@ -339,10 +339,9 @@
           <span class="pay-plan-note">Cancele quando quiser</span>
         </button>
         <button type="button" class="pay-plan-option ${sel === "lex-anual" ? "active" : ""}" data-plan-pick="lex-anual">
-          <span class="pay-plan-badge">Melhor custo</span>
           <span class="pay-plan-name">Anual</span>
           <span class="pay-plan-price">${formatBrl(anual.price)}<small>/ano</small></span>
-          <span class="pay-plan-note">≈ ${formatBrl(anual.price / 12)}/mês · economize 2 meses</span>
+          <span class="pay-plan-note">≈ ${formatBrl(anual.price / 12)}/mês</span>
         </button>
       </div>`;
   }

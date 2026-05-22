@@ -59,7 +59,7 @@
           <button type="button" class="landing-auth-tab ${view === "login" ? "active" : ""}" data-landing-auth-view="login">Entrar</button>
           <button type="button" class="landing-auth-tab ${view === "signup" ? "active" : ""}" data-landing-auth-view="signup">Criar conta</button>
         </div>
-        <h2 class="landing-auth-title">${view === "signup" ? "Crie sua conta" : "Entre na plataforma"}</h2>
+        <h2 class="landing-auth-title">${view === "signup" ? "Criar conta" : "Entrar"}</h2>
         ${msg ? `<p class="auth-msg">${esc(msg)}</p>` : ""}
         ${authFormFieldsHtml(view)}
       </div>`;
@@ -183,12 +183,6 @@
       });
     } else {
       slot.innerHTML = `
-        <nav class="topbar-public-nav" aria-label="Navegação">
-          <a href="#entrar" data-scroll-to="entrar">Entrar</a>
-          <a href="#" data-scroll-to="beneficios">Benefícios</a>
-          <a href="#" data-scroll-to="precos">Preços</a>
-          <a href="#/contato">Contato</a>
-        </nav>
         <button type="button" class="btn sm" id="auth-signup-open">Criar conta</button>
         <button type="button" class="btn sm primary" id="auth-open">Entrar</button>`;
       document.getElementById("auth-open")?.addEventListener("click", () => {
