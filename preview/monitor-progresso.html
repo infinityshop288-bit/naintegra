@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Monitor · Scraping & organização · NaIntegra Lex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf8f4;
+      --surface: #ffffff;
+      --ink: #111008;
+      --muted: #5c574f;
+      --border: #e8e4dc;
+      --gold: #9a6e00;
+      --gold-soft: rgba(154, 110, 0, 0.12);
+      --accent-leg: #bfdbfe;
+      --accent-jur: #bbf7d0;
+      --accent-sum: #fbcfe8;
+      --accent-qobj: #e9d5ff;
+      --accent-qsub: #fde68a;
+      --danger: #b91c1c;
+      --ok: #15803d;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(17, 16, 8, 0.06);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--ink);
+      background: var(--bg);
+      min-height: 100vh;
+    }
+    .shell { max-width: 960px; margin: 0 auto; padding: 1.75rem 1.25rem 3rem; }
+    header {
+      margin-bottom: 1.75rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border);
+    }
+    header h1 {
+      font-family: Lora, Georgia, serif;
+      font-weight: 600;
+      font-size: 1.55rem;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.35rem;
+    }
+    header .subtitle { color: var(--muted); font-size: 0.94rem; margin: 0; max-width: 72ch; }
+    .hint {
+      margin-top: 1rem;
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      background: var(--surface);
+      font-size: 0.82rem;
+      color: var(--muted);
+      box-shadow: var(--shadow);
+    }
+    .hint code { font-family: "DM Mono", monospace; font-size: 0.78rem; background: var(--bg); padding: 0.12rem 0.35rem; border-radius: 4px; }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin: 1.25rem 0;
+    }
+    .toolbar label { font-size: 0.82rem; color: var(--muted); display: flex; align-items: center; gap: 0.35rem; }
+    select, button {
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.9rem;
+      padding: 0.45rem 0.65rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+    }
+    button.primary {
+      background: var(--gold);
+      border-color: rgba(154, 110, 0, 0.45);
+      color: #fff;
+      font-weight: 600;
+    }
+    button.primary:hover { filter: brightness(1.05); }
+    .meta-bar {
+      font-family: "DM Mono", monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+    .meta-bar .dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 0.35rem; vertical-align: middle; }
+    .dot.ok { background: var(--ok); }
+    .dot.err { background: var(--danger); }
+    .dot.na { background: #cbd5e1; }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1.5rem;
+    }
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1rem 1.05rem;
+      box-shadow: var(--shadow);
+    }
+    .panel h2 {
+      font-family: Lora, serif;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0 0 0.65rem;
+      color: var(--ink);
+    }
+    .panel .n {
+      font-family: Lora, serif;
+      font-size: 2rem;
+      font-weight: 600;
+      color: var(--gold);
+      line-height: 1.15;
+    }
+    .panel .sub { font-size: 0.78rem; color: var(--muted); margin-top: 0.35rem; }
+    .panel.leg { border-left: 4px solid var(--accent-leg); }
+    .panel.jur { border-left: 4px solid var(--accent-jur); }
+    .panel.sum { border-left: 4px solid var(--accent-sum); }
+    .panel.qobj { border-left: 4px solid var(--accent-qobj); }
+    .panel.qsub { border-left: 4px solid var(--accent-qsub); }
+    .progress-wrap {
+      margin-top: 0.65rem;
+      height: 8px;
+      background: var(--bg);
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold-soft), var(--gold));
+      border-radius: 6px;
+      transition: width 0.35s ease;
+      max-width: 100%;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.82rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    th, td { padding: 0.5rem 0.65rem; text-align: left; border-bottom: 1px solid var(--border); }
+    th {
+      font-family: "DM Mono", monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      background: rgba(250, 248, 244, 0.9);
+    }
+    tr:last-child td { border-bottom: none; }
+    td.mono { font-family: "DM Mono", monospace; font-size: 0.72rem; }
+    .badge {
+      display: inline-block;
+      font-family: "DM Mono", monospace;
+      font-size: 0.65rem;
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+    }
+    .badge.legislacao { background: var(--accent-leg); border-color: #93c5fd; color: #1e3a5f; }
+    .badge.jurisprudencia { background: var(--accent-jur); border-color: #86efac; color: #14532d; }
+    .badge.sumula { background: var(--accent-sum); border-color: #f9a8d4; color: #831843; }
+    .badge.questoes_objetivas { background: var(--accent-qobj); border-color: #c084fc; color: #581c87; }
+    .badge.questoes_subjetivas { background: var(--accent-qsub); border-color: #fbbf24; color: #78350f; }
+    footer.note {
+      margin-top: 2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px dashed var(--border);
+      padding-top: 1rem;
+    }
+    footer.note a { color: var(--gold); }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <h1>Monitor de progresso</h1>
+      <p class="subtitle">
+        Acompanhe registros na entrada do crawl (<code>corpus.jsonl</code>), o manifesto de organização
+        (<code>data/organized/latest/</code>) e o espelho do preview — atualização automática opcional.
+      </p>
+      <div class="hint">
+        A página <a href="./analise-organizacao.html"><strong>Análise &amp; organização</strong></a> funciona até em
+        <code>file://</code> (cópia embutida do demo). Este monitor precisa de HTTP para ler <code>data/</code>.<br /><br />
+        <strong>Não use só duplo clique neste monitor.</strong> Em <code>file://</code> o navegador bloqueia <code>fetch()</code>.
+        Na raiz do repositório rode <code>python3 preview/serve_preview.py</code> e abra
+        <code>http://127.0.0.1:8765/preview/monitor-progresso.html</code> (hub: <code>/preview/index.html</code>);
+        se a porta 8765 estiver ocupada, o script tenta a seguinte automaticamente.
+        Alternativa: <code>python3 -m http.server 8765</code> na raiz. Parâmetro opcional:
+        <code>?origin=http://127.0.0.1:8765/</code>.
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <label>
+        Atualizar a cada
+        <select id="pollInterval">
+          <option value="0">Manual</option>
+          <option value="5">5 s</option>
+          <option value="15" selected>15 s</option>
+          <option value="60">60 s</option>
+        </select>
+      </label>
+      <button type="button" class="primary" id="refreshBtn">Atualizar agora</button>
+    </div>
+
+    <div class="meta-bar" id="metaBar"></div>
+
+    <section class="grid" aria-label="Resumo">
+      <div class="panel">
+        <h2>Entrada (corpus)</h2>
+        <div class="n" id="nCorpus">—</div>
+        <div class="sub">Linhas JSON em <code>data/crawl_inbox/corpus.jsonl</code></div>
+      </div>
+      <div class="panel">
+        <h2>Organizado (manifest)</h2>
+        <div class="n" id="nManifest">—</div>
+        <div class="sub">Linhas em <code>data/organized/latest/manifest.jsonl</code></div>
+      </div>
+      <div class="panel">
+        <h2>Cobertura</h2>
+        <div class="n" id="nCoverage">—</div>
+        <div class="sub">Manifest ÷ corpus (100% = tudo normalizado)</div>
+        <div class="progress-wrap" aria-hidden="true"><div class="progress-bar" id="coverageBar" style="width: 0%"></div></div>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Por tipo">
+      <div class="panel leg">
+        <h2>Legislação</h2>
+        <div class="n" id="nLeg">—</div>
+      </div>
+      <div class="panel jur">
+        <h2>Jurisprudência</h2>
+        <div class="n" id="nJur">—</div>
+      </div>
+      <div class="panel sum">
+        <h2>Súmulas</h2>
+        <div class="n" id="nSum">—</div>
+      </div>
+      <div class="panel qobj">
+        <h2>Questões objetivas</h2>
+        <div class="n" id="nQObj">—</div>
+      </div>
+      <div class="panel qsub">
+        <h2>Questões discursivas</h2>
+        <div class="n" id="nQSub">—</div>
+      </div>
+    </section>
+
+    <h2 style="font-family: Lora, serif; font-size: 1.05rem; margin: 1.5rem 0 0.65rem;">Últimos documentos (manifest)</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>external_id</th>
+          <th>Tipo</th>
+          <th>Título</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+
+    <section style="margin-top: 1.75rem;">
+      <h2 style="font-family: Lora, serif; font-size: 1.05rem; margin-bottom: 0.65rem;">Scraping (opcional)</h2>
+      <div class="panel">
+        <div class="sub" style="margin: 0;">
+          Se o crawler gravar <code>data/scrape_status.json</code>, o status aparece abaixo. Formato sugerido:
+          <code>{ "job": "planalto-leis", "done": 120, "total": 400, "message": "...", "updated_at": "ISO" }</code>
+        </div>
+        <pre id="scrapeJson" style="margin: 0.75rem 0 0; font-family: 'DM Mono', ui-monospace, monospace; font-size: 0.72rem; white-space: pre-wrap; color: var(--muted);">—</pre>
+      </div>
+    </section>
+
+    <footer class="note">
+      Ver também <a href="./analise-organizacao.html">Análise &amp; organização</a> · manifesto demo
+      <a href="./demo-manifest.jsonl"><code>demo-manifest.jsonl</code></a>
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var params = new URLSearchParams(location.search);
+      /** Base URL do repositório (pasta que contém data/ e preview/). */
+      function repoRoot() {
+        var o = params.get("origin");
+        if (o) {
+          var u = new URL(o, location.href);
+          return u.href.endsWith("/") ? u.href : u.href + "/";
+        }
+        return new URL("../", location.href).href;
+      }
+
+      function esc(s) {
+        var d = document.createElement("div");
+        d.textContent = s == null ? "" : String(s);
+        return d.innerHTML;
+      }
+
+      function parseJsonl(text) {
+        var rows = [];
+        text.split("\n").forEach(function (line) {
+          line = line.trim();
+          if (!line || line.indexOf("#") === 0) return;
+          try {
+            rows.push(JSON.parse(line));
+          } catch (e) {}
+        });
+        return rows;
+      }
+
+      function countCorpusRecords(text) {
+        return parseJsonl(text).length;
+      }
+
+      function summarizeManifest(rows) {
+        var c = {
+          legislacao: 0,
+          jurisprudencia: 0,
+          sumula: 0,
+          questoes_objetivas: 0,
+          questoes_subjetivas: 0,
+        };
+        rows.forEach(function (r) {
+          var t = r.organization && r.organization.doc_type;
+          if (t === "legislacao") c.legislacao++;
+          else if (t === "jurisprudencia") c.jurisprudencia++;
+          else if (t === "sumula") c.sumula++;
+          else if (t === "questoes_objetivas") c.questoes_objetivas++;
+          else if (t === "questoes_subjetivas") c.questoes_subjetivas++;
+        });
+        return c;
+      }
+
+      var ROOT = repoRoot();
+      var urls = {
+        corpus: new URL("data/crawl_inbox/corpus.jsonl", ROOT).href,
+        manifest: new URL("data/organized/latest/manifest.jsonl", ROOT).href,
+        scrape: new URL("data/scrape_status.json", ROOT).href,
+      };
+
+      var pollTimer = null;
+
+      async function fetchText(url) {
+        var res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) throw new Error(res.status + " " + url);
+        return res.text();
+      }
+
+      async function fetchJson(url) {
+        var res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) throw new Error(res.status + " " + url);
+        return res.json();
+      }
+
+      function setDot(ok) {
+        return '<span class="dot ' + (ok === true ? "ok" : ok === false ? "err" : "na") + '"></span>';
+      }
+
+      async function refresh() {
+        var corpusN = null;
+        var manRows = [];
+        var corpusErr = false;
+        var manErr = false;
+        var corpusTs = "";
+
+        try {
+          var ct = await fetchText(urls.corpus);
+          corpusN = countCorpusRecords(ct);
+          corpusTs = new Date().toLocaleTimeString("pt-BR");
+        } catch (e) {
+          corpusErr = true;
+        }
+
+        try {
+          var mt = await fetchText(urls.manifest);
+          manRows = parseJsonl(mt);
+        } catch (e) {
+          manErr = true;
+        }
+
+        document.getElementById("nCorpus").textContent = corpusErr ? "!" : corpusN;
+        document.getElementById("nManifest").textContent = manErr ? "!" : manRows.length;
+
+        var covPct = 0;
+        if (!corpusErr && !manErr && corpusN > 0) {
+          covPct = Math.min(100, Math.round((manRows.length / corpusN) * 1000) / 10);
+        } else if (!corpusErr && !manErr && corpusN === 0 && manRows.length === 0) {
+          covPct = 100;
+        }
+        document.getElementById("nCoverage").textContent =
+          corpusErr || manErr ? "—" : corpusN === 0 ? "—" : covPct + "%";
+        document.getElementById("coverageBar").style.width = corpusErr || manErr ? "0%" : covPct + "%";
+
+        var types = summarizeManifest(manRows);
+        document.getElementById("nLeg").textContent = manErr ? "—" : types.legislacao;
+        document.getElementById("nJur").textContent = manErr ? "—" : types.jurisprudencia;
+        document.getElementById("nSum").textContent = manErr ? "—" : types.sumula;
+        document.getElementById("nQObj").textContent = manErr ? "—" : types.questoes_objetivas;
+        document.getElementById("nQSub").textContent = manErr ? "—" : types.questoes_subjetivas;
+
+        var tbody = document.getElementById("tbody");
+        tbody.innerHTML = "";
+        var tail = manRows.slice(-12).reverse();
+        tail.forEach(function (r) {
+          var org = r.organization || {};
+          var dt = org.doc_type || "—";
+          var verb = r.verbatim || {};
+          var title = verb.titulo || verb.title || "—";
+          var tr = document.createElement("tr");
+          tr.innerHTML =
+            '<td class="mono">' +
+            esc(r.external_id) +
+            '</td><td><span class="badge ' +
+            esc(dt) +
+            '">' +
+            esc(dt) +
+            "</span></td><td>" +
+            esc(title.length > 80 ? title.slice(0, 77) + "…" : title) +
+            "</td>";
+          tbody.appendChild(tr);
+        });
+        if (!tail.length && !manErr) {
+          var tr0 = document.createElement("tr");
+          tr0.innerHTML = '<td colspan="3" style="color:var(--muted)">Manifest vazio ou não encontrado.</td>';
+          tbody.appendChild(tr0);
+        }
+
+        document.getElementById("metaBar").innerHTML =
+          setDot(!corpusErr) +
+          "corpus.jsonl " +
+          (corpusErr ? "<span style=color:var(--danger)>erro ao ler</span>" : corpusN + " regs") +
+          " · " +
+          setDot(!manErr) +
+          "manifest " +
+          (manErr ? "<span style=color:var(--danger)>erro ao ler</span>" : manRows.length + " linhas") +
+          " · atualizado " +
+          esc(corpusTs);
+
+        try {
+          var sj = await fetchJson(urls.scrape);
+          document.getElementById("scrapeJson").textContent = JSON.stringify(sj, null, 2);
+        } catch (e) {
+          document.getElementById("scrapeJson").textContent =
+            "(arquivo não encontrado ou ilegível — opcional)";
+        }
+      }
+
+      function schedulePoll() {
+        var sel = document.getElementById("pollInterval");
+        var sec = parseInt(sel.value, 10);
+        if (pollTimer) clearInterval(pollTimer);
+        pollTimer = null;
+        if (sec > 0) pollTimer = setInterval(refresh, sec * 1000);
+      }
+
+      document.getElementById("refreshBtn").addEventListener("click", refresh);
+      document.getElementById("pollInterval").addEventListener("change", schedulePoll);
+
+      refresh();
+      schedulePoll();
+    })();
+  </script>
+</body>
+</html>

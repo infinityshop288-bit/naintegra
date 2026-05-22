@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#faf8f4" />
+  <meta name="description" content="NaIntegra Lex — legislação, jurisprudência e flashcards para concurseiros de segurança pública." />
+  <title>NaIntegra Lex — Legislação &amp; Jurisprudência</title>
+  <link rel="manifest" href="./manifest.json" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css?v=38" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <p class="logo">NaIntegra <span>LEX</span></p>
+      <p class="logo-sub">naintegracursos.com.br/lex</p>
+      <p class="sidebar-last-update" id="sidebar-last-update" title="Data da última atualização do acervo"></p>
+      <ul class="nav" id="sidebar-nav">
+        <li><a href="#/" data-route="/">🏠 Início</a></li>
+        <li><a href="#/flashcards" data-route="/flashcards">🃏 Flashcards</a></li>
+        <li><a href="#/lei-seca" data-route="/lei-seca">📜 Lei Seca</a></li>
+        <li><a href="#/jurisprudencia" data-route="/jurisprudencia">⚖️ Jurisprudência</a></li>
+        <li><a href="#/questoes" data-route="/questoes">📝 Questões</a></li>
+        <li><a href="#/contato" data-route="/contato">✉️ Fale Conosco</a></li>
+      </ul>
+      <div class="sidebar-section">
+        <h3>Leis e Juris lidas recentemente</h3>
+        <div id="recent-reads"></div>
+      </div>
+    </aside>
+
+    <div class="main" id="main">
+      <header class="app-topbar" id="app-topbar">
+        <a class="topbar-logo" href="#/">NaIntegra <span>LEX</span></a>
+        <div class="global-search" id="global-search"></div>
+        <div class="auth-slot" id="auth-slot"></div>
+      </header>
+      <div class="content" id="app">
+        <div class="loading">Carregando NaIntegra Lex…</div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="mobile-nav" id="mobile-nav">
+    <a href="#/" data-route="/"><span class="icon">🏠</span>Início</a>
+    <a href="#/flashcards" data-route="/flashcards"><span class="icon">🃏</span>Cards</a>
+    <a href="#/lei-seca" data-route="/lei-seca"><span class="icon">📜</span>Lei Seca</a>
+    <a href="#/jurisprudencia" data-route="/jurisprudencia"><span class="icon">⚖️</span>Juris.</a>
+    <a href="#/questoes" data-route="/questoes"><span class="icon">📝</span>Questões</a>
+    <a href="#/contato" data-route="/contato"><span class="icon">✉️</span>Contato</a>
+  </nav>
+
+  <div class="highlight-toolbar" id="highlight-toolbar">
+    <button class="hl-btn" data-color="yellow" style="background:#fde68a" title="Amarelo"></button>
+    <button class="hl-btn" data-color="green" style="background:#bbf7d0" title="Verde"></button>
+    <button class="hl-btn" data-color="blue" style="background:#bfdbfe" title="Azul"></button>
+    <button class="hl-btn" data-color="pink" style="background:#fbcfe8" title="Rosa"></button>
+    <button type="button" class="hl-note-btn" id="hl-note-btn" title="Anotar">📝</button>
+  </div>
+
+  <div id="auth-modal-root"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./js/config.js?v=38"></script>
+  <script src="./js/auth.js?v=31"></script>
+  <script src="./js/user-sync.js?v=35"></script>
+  <script src="./js/auth-ui.js?v=32"></script>
+  <script src="./js/subscription.js?v=1"></script>
+  <script src="./js/content-protection.js?v=1"></script>
+  <script src="./js/legis-meta.js?v=31"></script>
+  <script src="./js/lex-format.js?v=31"></script>
+  <script src="./js/data.js?v=34"></script>
+  <script src="./js/search.js?v=31"></script>
+  <script src="./js/section-search.js?v=31"></script>
+  <script src="./js/app.js?v=38"></script>
+  <script>
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.getRegistrations().then((regs) => {
+        for (const reg of regs) reg.unregister();
+      });
+    }
+  </script>
+</body>
+</html>

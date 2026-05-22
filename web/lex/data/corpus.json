@@ -1,0 +1,81 @@
+{
+  "generated_at": "2026-05-20T00:56:53.079558+00:00",
+  "count": 4,
+  "documents": [
+    {
+      "external_id": "lex-demo-12830",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "title": "Lei 12.830/2013 — Investigação criminal conduzida pelo delegado de polícia",
+      "body": "Art. 1º Esta Lei dispõe sobre a investigação criminal conduzida pelo delegado de polícia.\n\nArt. 2º As funções de polícia judiciária e a apuração de infrações penais exercidas pelo delegado de polícia são de natureza jurídica, essenciais e exclusivas de Estado.\n\n§ 1º Ao delegado de polícia, na qualidade de autoridade policial, cabe a condução da investigação criminal por meio de inquérito policial ou outro procedimento previsto em lei, que tem como objetivo a apuração das circunstâncias, da materialidade e da autoria das infrações penais.\n\n§ 2º Durante a investigação criminal, cabe ao delegado de polícia a requisição de perícia, informações, documentos e dados que interessem à apuração dos fatos.\n\n§ 3º (VETADO).\n\n§ 4º O inquérito policial ou outro procedimento previsto em lei em curso somente poderá ser avocado ou redistribuído por superior hierárquico, mediante despacho fundamentado, por motivo de interesse público ou nas hipóteses de inobservância dos procedimentos previstos em regulamento da corporação que prejudique a eficácia da investigação.\n\n§ 5º A remoção do delegado de polícia dar-se-á somente por ato fundamentado.\n\n§ 6º O indiciamento, privativo do delegado de polícia, dar-se-á por ato fundamentado, mediante análise técnico-jurídica do fato, que deverá indicar a autoria, materialidade e suas circunstâncias.\n\nArt. 3º O cargo de delegado de polícia é privativo de bacharel em Direito, devendo-lhe ser dispensado o mesmo tratamento protocolar que recebem os magistrados, os membros da Defensoria Pública e do Ministério Público e os advogados.\n\nArt. 4º Esta Lei entra em vigor na data de sua publicação.",
+      "meta": {
+        "secao_lei_seca": "Penal e Processual",
+        "tags_incidencia": [
+          "PF",
+          "CESPE"
+        ]
+      },
+      "organized": {
+        "secao_lei_seca": "Penal e Processual",
+        "tags_incidencia": [
+          "PF",
+          "CESPE"
+        ]
+      }
+    },
+    {
+      "external_id": "lex-exemplo-11290",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "title": "Lei 12.830/2013 — Investigação criminal pela autoridade policial",
+      "body": "Art. 1º ...",
+      "meta": {
+        "secao_lei_seca": "Penal e Processual",
+        "tags_incidencia": [
+          "PF",
+          "CESPE"
+        ]
+      },
+      "organized": {
+        "secao_lei_seca": "Penal e Processual",
+        "tags_incidencia": [
+          "PF",
+          "CESPE"
+        ]
+      }
+    },
+    {
+      "external_id": "stj-tema-demo",
+      "doc_type": "jurisprudencia",
+      "source_system": null,
+      "title": "REsp 1.234.567 — ICMS — tema repetitivo (demo)",
+      "body": "DIREITO TRIBUTÁRIO. ICMS. BASE DE CÁLCULO. Recurso especial improvido.\n\nI — A jurisprudência do Superior Tribunal de Justiça é firme no sentido de que não incide o ICMS sobre operações não onerosas, desde que presentes os requisitos legais.\n\nII — O acórdão recorrido está em consonância com o entendimento pacífico da Terceira Turma.\n\nIII — Agravo interno improvido.",
+      "meta": {
+        "ementa": "DIREITO TRIBUTÁRIO. ICMS. BASE DE CÁLCULO. Recurso especial improvido.\n\nI — A jurisprudência do Superior Tribunal de Justiça é firme no sentido de que não incide o ICMS sobre operações não onerosas, desde que presentes os requisitos legais.\n\nII — O acórdão recorrido está em consonância com o entendimento pacífico da Terceira Turma.\n\nIII — Agravo interno improvido.",
+        "tribunal": "STJ",
+        "materia": "tributario"
+      },
+      "organized": {
+        "tribunal": "STJ",
+        "materia": "Tributário"
+      }
+    },
+    {
+      "external_id": "sv-10-demo",
+      "doc_type": "sumula",
+      "source_system": null,
+      "title": "Súmula Vinculante 10 — Reserva de plenário (CF, art. 97)",
+      "body": "Viola a cláusula de reserva de plenário (CF, art. 97) a decisão de órgão fracionário de tribunal que, embora não declare expressamente a inconstitucionalidade de lei ou ato normativo do poder público, afasta sua incidência, no todo ou em parte.",
+      "meta": {
+        "tribunal": "STF",
+        "materia": "constitucional",
+        "vinculante": true
+      },
+      "organized": {
+        "tribunal": "STF",
+        "materia": "Constitucional",
+        "vinculante": true
+      }
+    }
+  ]
+}

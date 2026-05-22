@@ -1,0 +1,25 @@
+.env
+.lex_agent/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+dist/
+*.egg-info/
+data/raw_preserved/*
+!data/raw_preserved/.gitkeep
+data/organized/*
+!data/organized/.gitkeep
+data/analyzed/*
+!data/analyzed/.gitkeep
+.qc_study/
+preview/.server-url
+.tmp_norma_ingest/
+.tmp_smoke_lex_inbox/
+data/flashcards_verbetes/
+data/flashcards_provas/
+data/flashcards_provas_smoke/
+
+# Artefato publicado em naintegracursos.com.br/lex (gerado por scripts/publish_lex_static.sh)
+/lex/

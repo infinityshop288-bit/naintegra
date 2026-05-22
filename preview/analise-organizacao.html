@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preview · Análise & organização · NaIntegra Lex</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #faf8f4;
+      --surface: #ffffff;
+      --ink: #111008;
+      --muted: #5c574f;
+      --border: #e8e4dc;
+      --gold: #9a6e00;
+      --gold-soft: rgba(154, 110, 0, 0.12);
+      --highlight: #ffd600;
+      --accent-leg: #bfdbfe;
+      --accent-jur: #bbf7d0;
+      --accent-sum: #fbcfe8;
+      --accent-qobj: #e9d5ff;
+      --accent-qsub: #fde68a;
+      --radius: 12px;
+      --shadow: 0 1px 3px rgba(17, 16, 8, 0.06);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "DM Sans", system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      color: var(--ink);
+      background: var(--bg);
+      min-height: 100vh;
+    }
+
+    .shell {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 3rem;
+    }
+
+    header {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    header h1 {
+      font-family: Lora, Georgia, serif;
+      font-weight: 600;
+      font-size: 1.65rem;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.35rem;
+      color: var(--ink);
+    }
+
+    header .subtitle {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0;
+      max-width: 62ch;
+    }
+
+    header .brands {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .chip {
+      font-family: "DM Mono", ui-monospace, monospace;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.35rem 0.55rem;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+    }
+
+    .chip.lex { border-color: rgba(154, 110, 0, 0.35); color: var(--gold); background: var(--gold-soft); }
+
+    .drop {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 1.25rem;
+      text-align: center;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .drop:hover, .drop.dragover {
+      border-color: var(--gold);
+      background: var(--gold-soft);
+    }
+
+    .drop strong { display: block; font-family: Lora, serif; font-size: 1.05rem; margin-bottom: 0.35rem; }
+    .drop span { color: var(--muted); font-size: 0.88rem; }
+    .drop input[type="file"] { display: none; }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      align-items: center;
+      margin: 1.5rem 0 1rem;
+    }
+
+    .toolbar label {
+      font-size: 0.82rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    select, input[type="search"] {
+      font-family: "DM Sans", sans-serif;
+      font-size: 0.9rem;
+      padding: 0.45rem 0.65rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--ink);
+    }
+
+    input[type="search"] { min-width: 220px; flex: 1; max-width: 320px; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .stat {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.85rem 1rem;
+      box-shadow: var(--shadow);
+    }
+
+    .stat .n {
+      font-family: Lora, serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--gold);
+    }
+
+    .stat .l { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+
+    .list { display: flex; flex-direction: column; gap: 0.65rem; }
+
+    article.card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    article.card[data-type="legislacao"] { border-left: 3px solid var(--accent-leg); }
+    article.card[data-type="jurisprudencia"] { border-left: 3px solid var(--accent-jur); }
+    article.card[data-type="sumula"] { border-left: 3px solid var(--accent-sum); }
+    article.card[data-type="questoes_objetivas"] { border-left: 3px solid var(--accent-qobj); }
+    article.card[data-type="questoes_subjetivas"] { border-left: 3px solid var(--accent-qsub); }
+
+    .card-head {
+      padding: 0.9rem 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 1rem;
+      align-items: flex-start;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .card-head:hover { background: rgba(250, 248, 244, 0.8); }
+
+    .card-title {
+      font-family: Lora, serif;
+      font-weight: 500;
+      font-size: 1.05rem;
+      margin: 0;
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .badges { display: flex; flex-wrap: wrap; gap: 0.35rem; align-items: center; }
+
+    .badge {
+      font-family: "DM Mono", monospace;
+      font-size: 0.68rem;
+      padding: 0.2rem 0.45rem;
+      border-radius: 5px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--muted);
+    }
+
+    .badge.type-legislacao { background: var(--accent-leg); border-color: #93c5fd; color: #1e3a5f; }
+    .badge.type-jurisprudencia { background: var(--accent-jur); border-color: #86efac; color: #14532d; }
+    .badge.type-sumula { background: var(--accent-sum); border-color: #f9a8d4; color: #831843; }
+    .badge.type-questoes_objetivas { background: var(--accent-qobj); border-color: #c084fc; color: #581c87; }
+    .badge.type-questoes_subjetivas { background: var(--accent-qsub); border-color: #fbbf24; color: #78350f; }
+
+    .card-body {
+      display: none;
+      padding: 0 1rem 1rem;
+      border-top: 1px dashed var(--border);
+      font-size: 0.88rem;
+      background: var(--surface);
+    }
+
+    article.card.open .card-body { display: block; }
+
+    .section-label {
+      font-family: "DM Mono", monospace;
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--gold);
+      margin: 1rem 0 0.4rem;
+    }
+
+    .section-label:first-child { margin-top: 0.5rem; }
+
+    pre.json {
+      margin: 0;
+      padding: 0.75rem;
+      background: #f4f2ec;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow-x: auto;
+      font-family: "DM Mono", ui-monospace, monospace;
+      font-size: 0.72rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 2.5rem 1rem;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    footer {
+      margin-top: 2.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .toggle-hint { font-size: 0.75rem; color: var(--muted); margin-left: auto; }
+
+    /* Conteúdo legível (Lei Seca / enunciado) — sempre visível */
+    .card-prose {
+      padding: 0 1rem 1rem;
+      border-top: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255,255,255,0.65) 0%, var(--surface) 100%);
+    }
+
+    .org-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+      margin: 0.85rem 0 0.65rem;
+    }
+
+    .org-strip .lbl {
+      font-family: "DM Mono", monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      width: 100%;
+      margin-bottom: 0.15rem;
+    }
+
+    .org-chip {
+      font-size: 0.8rem;
+      padding: 0.35rem 0.55rem;
+      border-radius: 8px;
+      background: var(--gold-soft);
+      border: 1px solid rgba(154, 110, 0, 0.22);
+      color: var(--ink);
+    }
+
+    .org-chip k {
+      font-family: "DM Mono", monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-right: 0.35rem;
+    }
+
+    .content-block-label {
+      font-family: Lora, serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin: 0.85rem 0 0.35rem;
+    }
+
+    .content-text {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.65;
+      padding: 1rem 1.05rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      border-left: 3px solid var(--highlight);
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--ink);
+    }
+
+    .content-dispositivo {
+      border-left-color: var(--gold);
+      border-left-width: 4px;
+      font-family: Lora, Georgia, serif;
+      font-size: 1rem;
+    }
+
+    .content-aux {
+      border-left-color: #cbd5e1;
+      font-size: 0.88rem;
+    }
+
+    .content-explicacao {
+      border-left-color: #22c55e;
+      border-left-width: 4px;
+      font-size: 0.88rem;
+      background: rgba(187, 247, 208, 0.35);
+    }
+
+    .content-empty {
+      margin: 0;
+      padding: 1rem;
+      background: #fff9e6;
+      border: 1px solid #fde047;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    details.tech-json {
+      margin-top: 0.25rem;
+      border-top: 1px dashed var(--border);
+      padding-top: 0.5rem;
+    }
+
+    details.tech-json > summary {
+      cursor: pointer;
+      font-family: "DM Mono", monospace;
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding: 0.35rem 0;
+      user-select: none;
+    }
+
+    details.tech-json[open] > summary { color: var(--gold); }
+
+    details.tech-json .section-label { margin-top: 0.65rem; }
+    details.tech-json .section-label:first-child { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <h1>Análise & organização — preview</h1>
+      <p class="subtitle">
+        O painel destaca o <strong>dispositivo legal</strong> (<code>dispositivo</code>, <code>dispositivo_legal</code>,
+        <code>metadata.dispositivo</code>, lista <code>artigos</code>, etc.). Campo <code>texto</code> aparece à parte quando for só ementa/resumo.
+        JSON técnico no cabeçalho do card. O texto principal é exibido na íntegra (sem caixa com altura máxima).
+      </p>
+      <div class="brands">
+        <span class="chip">naintegracursos.com.br</span>
+        <span class="chip lex">NaIntegra Lex · /lex</span>
+      </div>
+    </header>
+
+    <textarea id="lex-embedded-manifest-jsonl" hidden aria-hidden="true" readonly>{"external_id": "lex-demo-12830", "preservation": {"ingestion_batch_id": "20260512T125138Z", "preserved_file_relpath": "20260512T125138Z/corpus.jsonl", "inbox_file_relpath": "corpus.jsonl", "source_line": 2, "preserved_line_byte_offset": 71, "verbatim_payload_sha256": "15612e7d5fcb9ca20bf9dd8043d1df0730fc73e0bea0d6ef2b23d4695024e20a"}, "verbatim": {"titulo": "Lei 12.830/2013 — Investigação criminal conduzida pelo delegado de polícia", "dispositivo_legal": "Art. 1º Esta Lei dispõe sobre a investigação criminal conduzida pelo delegado de polícia.\n\nArt. 2º As funções de polícia judiciária e a apuração de infrações penais exercidas pelo delegado de polícia são de natureza jurídica, essenciais e exclusivas de Estado.\n\n§ 1º Ao delegado de polícia, na qualidade de autoridade policial, cabe a condução da investigação criminal por meio de inquérito policial ou outro procedimento previsto em lei, que tem como objetivo a apuração das circunstâncias, da materialidade e da autoria das infrações penais.\n\n§ 2º Durante a investigação criminal, cabe ao delegado de polícia a requisição de perícia, informações, documentos e dados que interessem à apuração dos fatos.\n\n§ 3º (VETADO).\n\n§ 4º O inquérito policial ou outro procedimento previsto em lei em curso somente poderá ser avocado ou redistribuído por superior hierárquico, mediante despacho fundamentado, por motivo de interesse público ou nas hipóteses de inobservância dos procedimentos previstos em regulamento da corporação que prejudique a eficácia da investigação.\n\n§ 5º A remoção do delegado de polícia dar-se-á somente por ato fundamentado.\n\n§ 6º O indiciamento, privativo do delegado de polícia, dar-se-á por ato fundamentado, mediante análise técnico-jurídica do fato, que deverá indicar a autoria, materialidade e suas circunstâncias.\n\nArt. 3º O cargo de delegado de polícia é privativo de bacharel em Direito, devendo-lhe ser dispensado o mesmo tratamento protocolar que recebem os magistrados, os membros da Defensoria Pública e do Ministério Público e os advogados.\n\nArt. 4º Esta Lei entra em vigor na data de sua publicação.", "texto": "Art. 1º Esta Lei dispõe sobre a investigação criminal conduzida pelo delegado de polícia.\n\nArt. 2º As funções de polícia judiciária e a apuração de infrações penais exercidas pelo delegado de polícia são de natureza jurídica, essenciais e exclusivas de Estado.\n\n§ 1º Ao delegado de polícia, na qualidade de autoridade policial, cabe a condução da investigação criminal por meio de inquérito policial ou outro procedimento previsto em lei, que tem como objetivo a apuração das circunstâncias, da materialidade e da autoria das infrações penais.\n\n§ 2º Durante a investigação criminal, cabe ao delegado de polícia a requisição de perícia, informações, documentos e dados que interessem à apuração dos fatos.\n\n§ 3º (VETADO).\n\n§ 4º O inquérito policial ou outro procedimento previsto em lei em curso somente poderá ser avocado ou redistribuído por superior hierárquico, mediante despacho fundamentado, por motivo de interesse público ou nas hipóteses de inobservância dos procedimentos previstos em regulamento da corporação que prejudique a eficácia da investigação.\n\n§ 5º A remoção do delegado de polícia dar-se-á somente por ato fundamentado.\n\n§ 6º O indiciamento, privativo do delegado de polícia, dar-se-á por ato fundamentado, mediante análise técnico-jurídica do fato, que deverá indicar a autoria, materialidade e suas circunstâncias.\n\nArt. 3º O cargo de delegado de polícia é privativo de bacharel em Direito, devendo-lhe ser dispensado o mesmo tratamento protocolar que recebem os magistrados, os membros da Defensoria Pública e do Ministério Público e os advogados.\n\nArt. 4º Esta Lei entra em vigor na data de sua publicação.", "source_system": "planalto", "crawl_batch_id": null, "meta": {"secao_lei_seca": "Penal e Processual", "tags_incidencia": ["PF", "CESPE"]}}, "organization": {"doc_type": "legislacao", "organized": {"secao_lei_seca": "Penal e Processual", "tags_incidencia": ["PF", "CESPE"]}}, "derivative": {}}
+{"external_id": "lex-exemplo-11290", "preservation": {"ingestion_batch_id": "20260512T125138Z", "preserved_file_relpath": "20260512T125138Z/corpus.jsonl", "inbox_file_relpath": "corpus.jsonl", "source_line": 3, "preserved_line_byte_offset": 2163, "verbatim_payload_sha256": "bdf44772e58ca9578e7a1f204339a571630f5a1622483e596782e80a6851a499"}, "verbatim": {"titulo": "Lei 12.830/2013 — Investigação criminal pela autoridade policial", "dispositivo_legal": "Art. 1º ...", "texto": "Art. 1º ...", "source_system": "planalto", "crawl_batch_id": null, "meta": {"secao_lei_seca": "Penal e Processual", "tags_incidencia": ["PF", "CESPE"]}}, "organization": {"doc_type": "legislacao", "organized": {"secao_lei_seca": "Penal e Processual", "tags_incidencia": ["PF", "CESPE"]}}, "derivative": {}}
+{"external_id": "stj-tema-demo", "preservation": {"ingestion_batch_id": "20260512T125138Z", "preserved_file_relpath": "20260512T125138Z/corpus.jsonl", "inbox_file_relpath": "corpus.jsonl", "source_line": 4, "preserved_line_byte_offset": 2432, "verbatim_payload_sha256": "ac298181ad1d210894fc25d2413c6a31dab1ee56a33790cc2055d70ea616dde9"}, "verbatim": {"titulo": "REsp 1.234.567 — ICMS — tema repetitivo (demo)", "dispositivo_legal": "DIREITO TRIBUTÁRIO. ICMS. BASE DE CÁLCULO. Recurso especial improvido.\n\nI — A jurisprudência do Superior Tribunal de Justiça é firme no sentido de que não incide o ICMS sobre operações não onerosas, desde que presentes os requisitos legais.\n\nII — O acórdão recorrido está em consonância com o entendimento pacífico da Terceira Turma.\n\nIII — Agravo interno improvido.", "texto": "DIREITO TRIBUTÁRIO. ICMS. BASE DE CÁLCULO. Recurso especial improvido.\n\nI — A jurisprudência do Superior Tribunal de Justiça é firme no sentido de que não incide o ICMS sobre operações não onerosas, desde que presentes os requisitos legais.\n\nII — O acórdão recorrido está em consonância com o entendimento pacífico da Terceira Turma.\n\nIII — Agravo interno improvido.", "source_system": null, "crawl_batch_id": null, "meta": {"ementa": "DIREITO TRIBUTÁRIO. ICMS. BASE DE CÁLCULO. Recurso especial improvido.\n\nI — A jurisprudência do Superior Tribunal de Justiça é firme no sentido de que não incide o ICMS sobre operações não onerosas, desde que presentes os requisitos legais.\n\nII — O acórdão recorrido está em consonância com o entendimento pacífico da Terceira Turma.\n\nIII — Agravo interno improvido.", "tribunal": "STJ", "materia": "tributario"}, "explicacao": "Estudo: o STJ costuma afastar ICMS quando a operação não tem natureza onerosa e os pressupostos legais estão demonstrados; aqui o colegiado apenas confirma que o acórdão regional está alinhado ao precedente da Terceira Turma."}, "organization": {"doc_type": "jurisprudencia", "organized": {"tribunal": "STJ", "materia": "Tributário"}}, "derivative": {}}
+{"external_id": "sv-10-demo", "preservation": {"ingestion_batch_id": "20260512T125138Z", "preserved_file_relpath": "20260512T125138Z/corpus.jsonl", "inbox_file_relpath": "corpus.jsonl", "source_line": 5, "preserved_line_byte_offset": 3260, "verbatim_payload_sha256": "ee2d935981ec32233bc122963726d95a29e7c8b2a7bfa213c2af52701cbe3406"}, "verbatim": {"titulo": "Súmula Vinculante 10 — Reserva de plenário (CF, art. 97)", "dispositivo_legal": "Viola a cláusula de reserva de plenário (CF, art. 97) a decisão de órgão fracionário de tribunal que, embora não declare expressamente a inconstitucionalidade de lei ou ato normativo do poder público, afasta sua incidência, no todo ou em parte.", "texto": "Viola a cláusula de reserva de plenário (CF, art. 97) a decisão de órgão fracionário de tribunal que, embora não declare expressamente a inconstitucionalidade de lei ou ato normativo do poder público, afasta sua incidência, no todo ou em parte.", "source_system": null, "crawl_batch_id": null, "meta": {"tribunal": "STF", "materia": "constitucional", "vinculante": true}}, "organization": {"doc_type": "sumula", "organized": {"tribunal": "STF", "materia": "Constitucional", "vinculante": true}}, "derivative": {}}
+</textarea>
+
+    <div id="lex-load-banner" class="hint" style="margin-top: 0.75rem; display: none"></div>
+
+    <div class="drop" id="drop" tabindex="0" role="button" aria-label="Carregar manifest.jsonl">
+      <strong>Carregar <code>manifest.jsonl</code></strong>
+      <span>Arraste o arquivo aqui ou clique para escolher · gerado em <code>data/organized/&lt;batch&gt;/manifest.jsonl</code></span>
+      <input type="file" id="file" accept=".jsonl,.json,text/plain" />
+    </div>
+
+    <div class="toolbar" id="toolbar" hidden>
+      <label>
+        Tipo
+        <select id="filterType">
+          <option value="">Todos</option>
+          <option value="legislacao">Legislação</option>
+          <option value="jurisprudencia">Jurisprudência</option>
+          <option value="sumula">Súmula</option>
+          <option value="questoes_objetivas">Questões objetivas</option>
+          <option value="questoes_subjetivas">Questões discursivas</option>
+        </select>
+      </label>
+      <label>
+        Buscar
+        <input type="search" id="search" placeholder="external_id, título ou texto…" autocomplete="off" />
+      </label>
+      <span class="toggle-hint">JSON técnico · clique no cabeçalho</span>
+    </div>
+
+    <div class="stats" id="stats" hidden></div>
+    <div class="list" id="list"></div>
+
+    <footer>
+      Visual editorial alinhado ao NaIntegra Lex (fundo creme, Lora + DM Sans).
+      O preview não altera arquivos; use apenas para revisão antes do envio ao Supabase.
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      const drop = document.getElementById("drop");
+      const fileInput = document.getElementById("file");
+      const listEl = document.getElementById("list");
+      const statsEl = document.getElementById("stats");
+      const toolbar = document.getElementById("toolbar");
+      const filterType = document.getElementById("filterType");
+      const searchEl = document.getElementById("search");
+
+      /** @type {object[]} */
+      let rows = [];
+
+      function esc(s) {
+        if (s == null) return "";
+        return String(s)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;");
+      }
+
+      function parseJsonl(text) {
+        const out = [];
+        const lines = text.split(/\r?\n/);
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i].trim();
+          if (!line || line.startsWith("#")) continue;
+          try {
+            out.push(JSON.parse(line));
+          } catch (e) {
+            console.warn("Linha " + (i + 1) + ": JSON inválido", e);
+          }
+        }
+        return out;
+      }
+
+      function renderStats(data) {
+        const c = {
+          legislacao: 0,
+          jurisprudencia: 0,
+          sumula: 0,
+          questoes_objetivas: 0,
+          questoes_subjetivas: 0,
+          other: 0,
+        };
+        for (const r of data) {
+          const t = r.organization && r.organization.doc_type;
+          if (t in c) c[t]++;
+          else c.other++;
+        }
+        statsEl.innerHTML =
+          '<div class="stat"><div class="n">' +
+          data.length +
+          '</div><div class="l">Total no manifesto</div></div>' +
+          '<div class="stat"><div class="n">' +
+          c.legislacao +
+          '</div><div class="l">Legislação</div></div>' +
+          '<div class="stat"><div class="n">' +
+          c.jurisprudencia +
+          '</div><div class="l">Jurisprudência</div></div>' +
+          '<div class="stat"><div class="n">' +
+          c.sumula +
+          '</div><div class="l">Súmula</div></div>' +
+          '<div class="stat"><div class="n">' +
+          c.questoes_objetivas +
+          '</div><div class="l">Questões objetivas</div></div>' +
+          '<div class="stat"><div class="n">' +
+          c.questoes_subjetivas +
+          '</div><div class="l">Questões discursivas</div></div>';
+        statsEl.hidden = false;
+      }
+
+      function filterData() {
+        const t = filterType.value;
+        const q = (searchEl.value || "").trim().toLowerCase();
+        return rows.filter(function (r) {
+          const org = r.organization || {};
+          if (t && org.doc_type !== t) return false;
+          if (!q) return true;
+          const id = (r.external_id || "").toLowerCase();
+          const verb = r.verbatim || {};
+          const tit = (verb.titulo || "").toLowerCase();
+          const disp = dispositivoLegal(verb).toLowerCase();
+          const txt = (verb.texto || "").toLowerCase();
+          const expl = (verb.explicacao || "").toLowerCase();
+          const gab = (verb.gabarito || "").toLowerCase();
+          const gdisc = (verb.gabarito_discursivo || "").toLowerCase();
+          return (
+            id.includes(q) ||
+            tit.includes(q) ||
+            txt.includes(q) ||
+            disp.includes(q) ||
+            expl.includes(q) ||
+            gab.includes(q) ||
+            gdisc.includes(q)
+          );
+        });
+      }
+
+      function verbatimText(v) {
+        if (!v) return "";
+        if (v.texto != null && String(v.texto).trim()) return String(v.texto);
+        if (v.body != null && String(v.body).trim()) return String(v.body);
+        if (v.content != null && String(v.content).trim()) return String(v.content);
+        return "";
+      }
+
+      function verbatimTitle(v) {
+        if (!v) return "";
+        return v.titulo || v.title || "";
+      }
+
+      var DISPOSITIVO_KEYS = [
+        "dispositivo_legal",
+        "dispositivo",
+        "texto_dispositivo",
+        "integra_dispositivo",
+        "texto_normativo",
+        "norma_juridica",
+        "norma",
+        "conteudo_normativo",
+        "conteudo_artigo",
+        "texto_artigo",
+        "texto_do_artigo",
+        "corpo_artigo",
+        "artigo_texto",
+        "texto_integral_dispositivo",
+        "enunciado",
+        "texto_enunciado",
+        "texto_sumula",
+        "sumula_texto",
+        "enunciado_sumula",
+        "ementa",
+        "texto_ementa",
+        "texto_acordao",
+        "acordao_texto",
+        "inteiro_teor",
+        "texto_decisao",
+        "decisao_texto",
+        "fundamentacao",
+        "texto_questao",
+        "enunciado_questao",
+        "questao_texto",
+      ];
+
+      function dispositivoLegal(v) {
+        if (!v) return "";
+        if (v.dispositivo_legal != null && String(v.dispositivo_legal).trim()) {
+          return String(v.dispositivo_legal);
+        }
+        var i;
+        for (i = 0; i < DISPOSITIVO_KEYS.length; i++) {
+          var k = DISPOSITIVO_KEYS[i];
+          if (v[k] != null && String(v[k]).trim()) return String(v[k]);
+        }
+        var m = v.meta || {};
+        for (i = 0; i < DISPOSITIVO_KEYS.length; i++) {
+          k = DISPOSITIVO_KEYS[i];
+          if (m[k] != null && String(m[k]).trim()) return String(m[k]);
+        }
+        return verbatimText(v);
+      }
+
+      function textoAuxiliar(v, principal) {
+        var t = verbatimText(v);
+        if (!t.trim()) return "";
+        if (principal && t.trim() === principal.trim()) return "";
+        return t;
+      }
+
+      var ORG_LABELS = {
+        tribunal: "Tribunal",
+        materia: "Matéria",
+        secao_lei_seca: "Seção (Lei Seca)",
+        tags_incidencia: "Tags / bancas",
+        banca: "Banca examinadora",
+        ano: "Ano da prova",
+        cargo: "Cargo",
+        numero_questao: "Nº da questão",
+        formato_questao: "Formato da questão",
+        lex_ml_urn: "URN LexML",
+        numeracao: "Numeração",
+        rotulo_sugerido_ia: "Rótulo sugerido (IA)",
+        vinculante: "Vinculante",
+      };
+
+      function orgChipsHtml(dtype, organizedPart) {
+        var parts = [];
+        if (dtype && dtype !== "—") {
+          parts.push(
+            '<span class="org-chip"><k>Tipo na plataforma</k>' + esc(dtype) + "</span>"
+          );
+        }
+        if (!organizedPart || typeof organizedPart !== "object") {
+          return parts.join("");
+        }
+        var keys = Object.keys(organizedPart).sort();
+        for (var i = 0; i < keys.length; i++) {
+          var key = keys[i];
+          var val = organizedPart[key];
+          if (val == null || val === "") continue;
+          var label = ORG_LABELS[key] || key;
+          var display =
+            Array.isArray(val) ? val.join(", ") : typeof val === "object" ? JSON.stringify(val) : String(val);
+          parts.push('<span class="org-chip"><k>' + esc(label) + "</k>" + esc(display) + "</span>");
+        }
+        return parts.join("");
+      }
+
+      function metaExtrasHtml(verb) {
+        var m = verb.meta;
+        if (!m || typeof m !== "object" || Object.keys(m).length === 0) return "";
+        return (
+          '<p class="content-block-label">Metadados do crawl (verbatim)</p>' +
+          '<pre class="json" style="margin-top:0.35rem">' +
+          esc(JSON.stringify(m, null, 2)) +
+          "</pre>"
+        );
+      }
+
+      function renderList() {
+        const data = filterData();
+        if (!data.length) {
+          listEl.innerHTML =
+            '<div class="empty">Nenhum registro com os filtros atuais. Carregue um manifest ou ajuste a busca.</div>';
+          return;
+        }
+
+        const frag = document.createDocumentFragment();
+        for (const r of data) {
+          const org = r.organization || {};
+          const verb = r.verbatim || {};
+          const organizedPart = org.organized || {};
+          const pres = r.preservation || {};
+          const deriv = r.derivative || {};
+          const dtype = org.doc_type || "—";
+          const title =
+            verbatimTitle(verb) ||
+            organizedPart.rotulo_sugerido_ia ||
+            r.external_id ||
+            "(sem título)";
+          const tituloVerb = verbatimTitle(verb);
+          const disp = dispositivoLegal(verb);
+          const aux = textoAuxiliar(verb, disp);
+          const explRaw = verb.explicacao != null ? String(verb.explicacao).trim() : "";
+
+          var bodySection = "";
+          if (disp.trim()) {
+            bodySection =
+              '<p class="content-block-label">Conteúdo principal (dispositivo · enunciado · ementa)</p>' +
+              '<div class="content-text content-dispositivo">' +
+              esc(disp) +
+              "</div>";
+            if (aux.trim()) {
+              bodySection +=
+                '<p class="content-block-label">Texto auxiliar (<code>texto</code> / ementa — quando diferente do dispositivo)</p>' +
+                '<div class="content-text content-aux">' +
+                esc(aux) +
+                "</div>";
+            }
+            if (explRaw) {
+              bodySection +=
+                '<p class="content-block-label">Explicação (estudo)</p>' +
+                '<div class="content-text content-explicacao">' +
+                esc(explRaw) +
+                "</div>";
+            }
+            var gabRaw = verb.gabarito != null ? String(verb.gabarito).trim() : "";
+            var gabDiscRaw =
+              verb.gabarito_discursivo != null ? String(verb.gabarito_discursivo).trim() : "";
+            if (gabRaw) {
+              bodySection +=
+                '<p class="content-block-label">Gabarito (objetiva)</p>' +
+                '<div class="content-text content-aux">' +
+                esc(gabRaw) +
+                "</div>";
+            }
+            if (gabDiscRaw) {
+              bodySection +=
+                '<p class="content-block-label">Gabarito discursivo</p>' +
+                '<div class="content-text content-explicacao">' +
+                esc(gabDiscRaw) +
+                "</div>";
+            }
+          } else {
+            bodySection =
+              '<div class="content-empty">' +
+              "<strong>Não há dispositivo normativo neste manifesto.</strong> O crawl deve enviar um dos campos: <code>dispositivo</code>, <code>dispositivo_legal</code>, <code>texto_dispositivo</code>, <code>artigos[]</code>, ou <code>metadata.dispositivo</code>. " +
+              "Como último recurso usa-se <code>texto</code>/<code>body</code>. Regenerando com o agente atualizado, <code>verbatim.dispositivo_legal</code> replica o texto que vai ao Lex / Supabase. " +
+              "O arquivo bruto segue em <code>preservation.preserved_file_relpath</code> + offset.</div>";
+          }
+
+          var tituloBloco = "";
+          if (tituloVerb && tituloVerb !== title) {
+            tituloBloco =
+              '<p class="content-block-label">Título (verbatim)</p>' +
+              '<div class="content-text" style="max-height:none;border-left-color:#bfdbfe;font-family:Lora,serif;font-size:1rem">' +
+              esc(tituloVerb) +
+              "</div>";
+          }
+
+          const art = document.createElement("article");
+          art.className = "card";
+          art.dataset.type = dtype;
+          art.innerHTML =
+            '<div class="card-head">' +
+            '<p class="card-title">' +
+            esc(title) +
+            "</p>" +
+            '<div class="badges">' +
+            '<span class="badge type-' +
+            esc(dtype) +
+            '">' +
+            esc(dtype) +
+            "</span>" +
+            '<span class="badge">' +
+            esc(r.external_id || "") +
+            "</span>" +
+            "</div>" +
+            '<span class="toggle-hint">▼ JSON</span>' +
+            "</div>" +
+            '<div class="card-prose">' +
+            '<div class="org-strip">' +
+            '<span class="lbl">Organização para NaIntegra Lex / cursinho</span>' +
+            orgChipsHtml(dtype, organizedPart) +
+            "</div>" +
+            tituloBloco +
+            bodySection +
+            (verb.source_system
+              ? '<p style="margin:0.75rem 0 0;font-size:0.78rem;color:var(--muted)">Fonte crawl: <code>' +
+                esc(String(verb.source_system)) +
+                "</code></p>"
+              : "") +
+            metaExtrasHtml(verb) +
+            "</div>" +
+            '<div class="card-body">' +
+            '<div class="section-label">Preservação (auditoria · offset bytes no arquivo preservado)</div>' +
+            "<pre class=\"json\">" +
+            esc(JSON.stringify(pres, null, 2)) +
+            "</pre>" +
+            '<div class="section-label">Verbatim JSON (integração)</div>' +
+            "<pre class=\"json\">" +
+            esc(JSON.stringify(verb, null, 2)) +
+            "</pre>" +
+            '<div class="section-label">Organization JSON</div>' +
+            "<pre class=\"json\">" +
+            esc(JSON.stringify(org, null, 2)) +
+            "</pre>" +
+            '<div class="section-label">Derivative JSON</div>' +
+            "<pre class=\"json\">" +
+            esc(JSON.stringify(deriv, null, 2)) +
+            "</pre>" +
+            "</div>";
+
+          art.querySelector(".card-head").addEventListener("click", function () {
+            art.classList.toggle("open");
+            const hint = art.querySelector(".toggle-hint");
+            hint.textContent = art.classList.contains("open") ? "▲ JSON" : "▼ JSON";
+          });
+
+          frag.appendChild(art);
+        }
+        listEl.innerHTML = "";
+        listEl.appendChild(frag);
+      }
+
+      function loadText(text) {
+        rows = parseJsonl(text);
+        toolbar.hidden = false;
+        renderStats(rows);
+        renderList();
+      }
+
+      drop.addEventListener("click", function () {
+        fileInput.click();
+      });
+
+      drop.addEventListener("keydown", function (e) {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          fileInput.click();
+        }
+      });
+
+      ["dragenter", "dragover"].forEach(function (ev) {
+        drop.addEventListener(ev, function (e) {
+          e.preventDefault();
+          drop.classList.add("dragover");
+        });
+      });
+
+      drop.addEventListener("dragleave", function () {
+        drop.classList.remove("dragover");
+      });
+
+      drop.addEventListener("drop", function (e) {
+        e.preventDefault();
+        drop.classList.remove("dragover");
+        const f = e.dataTransfer.files[0];
+        if (f) readFile(f);
+      });
+
+      fileInput.addEventListener("change", function () {
+        const f = fileInput.files && fileInput.files[0];
+        if (f) readFile(f);
+      });
+
+      function readFile(file) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          loadText(String(reader.result || ""));
+        };
+        reader.readAsText(file, "UTF-8");
+      }
+
+      filterType.addEventListener("change", renderList);
+      searchEl.addEventListener("input", function () {
+        window.clearTimeout(searchEl._t);
+        searchEl._t = window.setTimeout(renderList, 120);
+      });
+
+      const params = new URLSearchParams(window.location.search);
+      const manifestUrl = params.get("manifest");
+      const demoFile = params.get("demo");
+
+      function showBanner(msg) {
+        var b = document.getElementById("lex-load-banner");
+        if (!b) return;
+        b.style.display = "block";
+        b.textContent = msg;
+      }
+
+      function loadEmbeddedFallback(note) {
+        var ta = document.getElementById("lex-embedded-manifest-jsonl");
+        if (!ta || !ta.value.trim()) {
+          listEl.innerHTML =
+            '<div class="empty">Não há cópia embutida neste HTML. Use arrastar um manifest ou sirva pelo <code>preview/serve_preview.py</code>.</div>';
+          return;
+        }
+        loadText(ta.value);
+        if (note) showBanner(note);
+      }
+
+      function demoUrlsToTry() {
+        var out = [];
+        out.push(new URL("demo-manifest.jsonl", window.location.href).href);
+        out.push(new URL("preview/demo-manifest.jsonl", window.location.origin + "/").href);
+        var seen = {};
+        return out.filter(function (u) {
+          if (seen[u]) return false;
+          seen[u] = true;
+          return true;
+        });
+      }
+
+      function tryFetchDemoSequential(urls, idx, onDone) {
+        if (idx >= urls.length) return onDone(null);
+        fetch(urls[idx], { cache: "no-store" })
+          .then(function (r) {
+            if (!r.ok) throw new Error();
+            return r.text();
+          })
+          .then(function (t) {
+            onDone(t);
+          })
+          .catch(function () {
+            tryFetchDemoSequential(urls, idx + 1, onDone);
+          });
+      }
+
+      function tryAutoDemo() {
+        if (window.location.protocol === "file:") {
+          loadEmbeddedFallback(
+            "Modo arquivo (file://): exibindo cópia embutida do demo-manifest. Para dados ao vivo em data/, rode python3 preview/serve_preview.py e abra pelo http://.",
+          );
+          return;
+        }
+        tryFetchDemoSequential(demoUrlsToTry(), 0, function (text) {
+          if (text) {
+            loadText(text);
+            return;
+          }
+          loadEmbeddedFallback(
+            "Não foi possível baixar demo-manifest.jsonl por HTTP — usando cópia embutida (equivalente ao arquivo em preview/).",
+          );
+        });
+      }
+
+      if (manifestUrl) {
+        fetch(manifestUrl)
+          .then(function (r) {
+            return r.text();
+          })
+          .then(loadText)
+          .catch(function () {
+            loadEmbeddedFallback(
+              "URL do manifest falhou — tentativa com cópia embutida. Arraste um arquivo ou sirva pela raiz do repo.",
+            );
+          });
+      } else if (demoFile) {
+        fetch(demoFile)
+          .then(function (r) {
+            return r.text();
+          })
+          .then(loadText)
+          .catch(function () {
+            loadEmbeddedFallback(
+              'Não carregou "' +
+                demoFile +
+                "\" — usando cópia embutida. Confira o caminho ou arraste o manifest.",
+            );
+          });
+      } else {
+        tryAutoDemo();
+      }
+    })();
+  </script>
+</body>
+</html>

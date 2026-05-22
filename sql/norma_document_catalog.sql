@@ -1,0 +1,9 @@
+-- Catálogo leve sobre public.norma_chunks (conteúdo unificado de normas.py).
+-- Legislação (source planalto, rideel_vademecum) e juris/informativos (trilhante_informativo, etc.)
+-- distinguem-se pelo campo source e por metadata/url.
+--
+-- Definição completa (doc_key normalizado, upsert, refresh da MV):
+--   sql/norma_chunks_standard.sql
+--
+-- Após ingestão:
+--   select public.refresh_norma_document_catalog_mv();

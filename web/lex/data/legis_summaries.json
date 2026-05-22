@@ -1,0 +1,2360 @@
+{
+  "generated_at": "2026-05-22T01:49:57.981602+00:00",
+  "count": 196,
+  "summaries": {
+    "/ccivil_03/decreto-lei/del2848.htm": {
+      "titulo": "Decreto-Lei 2.848/1940 — Código Penal",
+      "resumo": "Define crimes e penas do Direito Penal brasileiro (Código Penal).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848.htm"
+    },
+    "/ccivil_03/decreto-lei/del3689.htm": {
+      "titulo": "Decreto-Lei 3.689/1941 — Código de Processo Penal",
+      "resumo": "Estabelece normas de processo penal (CPP).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689.htm"
+    },
+    "/ccivil_03/leis/l6858.htm": {
+      "titulo": "Lei 6.858/1980 — Benefícios previdenciários",
+      "resumo": "Dispõe sobre pagamento de benefícios previdenciários a terceiros.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6858.htm"
+    },
+    "/ccivil_03/leis/l8078.htm": {
+      "titulo": "Lei 8.078/1990 — CDC",
+      "resumo": "Estabelece normas de proteção ao consumidor (CDC).",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078.htm"
+    },
+    "/ccivil_03/leis/l8429.htm": {
+      "titulo": "Lei 8.429/1992 — Improbidade administrativa",
+      "resumo": "Previne e reprime atos de improbidade administrativa.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8429.htm"
+    },
+    "/ccivil_03/leis/l8666cons.htm": {
+      "titulo": "Lei 8.666/1993 — Licitações",
+      "resumo": "Regula licitações e contratos administrativos.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8666cons.htm"
+    },
+    "/ccivil_03/leis/l9307.htm": {
+      "titulo": "Lei 9.307/1996 — Arbitragem",
+      "resumo": "Dispõe sobre arbitragem e câmara arbitral.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9307.htm"
+    },
+    "/ccivil_03/leis/l9514.htm": {
+      "titulo": "Lei 9.514/1997 — Alienação fiduciária",
+      "resumo": "Regula alienação fiduciária de bens imóveis.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9514.htm"
+    },
+    "/ccivil_03/leis/l9784.htm": {
+      "titulo": "Lei 9.784/1999 — Processo administrativo",
+      "resumo": "Regula processo administrativo federal.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9784.htm"
+    },
+    "/ccivil_03/leis/l9882.htm": {
+      "titulo": "Lei 9.882/1999 — Ações constitucionais",
+      "resumo": "Regula ADI, ADC, ADPF e mandado de injunção.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9882.htm"
+    },
+    "/norma": {
+      "titulo": "Lei 556/1948 — Crimes contra a economia",
+      "resumo": "Define crimes contra a economia popular e ordem econômica.",
+      "secao": "Penal e Processual",
+      "url": "https://legis.senado.leg.br/norma/?numero=556&tipo_norma=lei&data=19481218&link=s"
+    },
+    "/ccivil_03/_ato2004-2006/2004/lei/l11079.htm": {
+      "titulo": "Lei 11.079/2004 — PPP",
+      "resumo": "Regula parcerias público-privadas (PPP).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/lei/l11079.htm"
+    },
+    "/ccivil_03/_ato2004-2006/2005/lei/l11101.htm": {
+      "titulo": "Lei 11.101/2005 — Recuperação judicial",
+      "resumo": "Regula recuperação judicial, extrajudicial e falência.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11101.htm"
+    },
+    "/ccivil_03/_ato2004-2006/2005/lei/l11107.htm": {
+      "titulo": "Lei 11.107/2005 — Consórcios públicos",
+      "resumo": "Regula consórcios públicos e convênios de cooperação.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11107.htm"
+    },
+    "/ccivil_03/_ato2004-2006/2006/lei/l11340.htm": {
+      "titulo": "Lei 11.340/2006 — Lei Maria da Penha",
+      "resumo": "Cria mecanismos para coibir violência doméstica e familiar contra a mulher.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm"
+    },
+    "/ccivil_03/_ato2004-2006/2006/lei/l11343.htm": {
+      "titulo": "Lei 11.343/2006 — Lei de Drogas",
+      "resumo": "Institui Sistema Nacional de Políticas Públicas sobre Drogas.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11343.htm"
+    },
+    "/ccivil_03/_ato2004-2006/2006/lei/l11417.htm": {
+      "titulo": "Lei 11.417/2006 — Diário Oficial eletrônico",
+      "resumo": "Disciplina publicação oficial eletrônica de atos normativos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11417.htm"
+    },
+    "/ccivil_03/_ato2004-2006/2006/lei/l11419.htm": {
+      "titulo": "Lei 11.419/2006 — Processo digital",
+      "resumo": "Dispõe sobre informatização do processo judicial.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11419.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2008/lei/l11671.htm": {
+      "titulo": "Lei 11.671/2008 — Desjudicialização",
+      "resumo": "Altera normas sobre desjudicialização da execução de títulos.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11671.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2008/lei/l11705.htm": {
+      "titulo": "Lei 11.705/2008 — Lei seca",
+      "resumo": "Estabelece normas sobre consumo de álcool na condução de veículos.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11705.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2008/lei/l11788.htm": {
+      "titulo": "Lei 11.788/2008 — Estágio",
+      "resumo": "Regula estágio de estudantes e relação de aprendizado.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11788.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2008/lei/l11795.htm": {
+      "titulo": "Lei 11.795/2008 — Consórcios",
+      "resumo": "Dispõe sobre sistemas de consórcio.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11795.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2008/lei/l11804.htm": {
+      "titulo": "Lei 11.804/2008 — Militares e estágio",
+      "resumo": "Altera normas sobre estágio e serviço militar.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11804.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2009/lei/l12016.htm": {
+      "titulo": "Lei 12.016/2009 — Mandado de segurança",
+      "resumo": "Regula mandado de segurança individual e coletivo.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12016.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2009/lei/l12037.htm": {
+      "titulo": "Lei 12.037/2009 — Identificação criminal",
+      "resumo": "Regula identificação criminal e cadastro de condenados.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12037.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2009/lei/l12153.htm": {
+      "titulo": "Lei 12.153/2009 — Juizados da Fazenda",
+      "resumo": "Cria Juizados Especiais da Fazenda Pública.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12153.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2010/lei/l12288.htm": {
+      "titulo": "Lei 12.288/2010 — Fundo da Cultura",
+      "resumo": "Institui Fundo Nacional de Cultura e incentivo à cultura.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12288.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2010/lei/l12291.htm": {
+      "titulo": "Lei 12.291/2010 — Biocombustíveis",
+      "resumo": "Regula produção e comercialização de biocombustíveis.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12291.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2010/lei/l12318.htm": {
+      "titulo": "Lei 12.318/2010 — Alienação parental",
+      "resumo": "Regula guarda compartilhada e combate à alienação parental.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12318.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2011/lei/l12414.htm": {
+      "titulo": "Lei 12.414/2011 — Cadastro de bons antecedentes",
+      "resumo": "Institui cadastro nacional de bons antecedentes.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12414.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2011/lei/l12506.htm": {
+      "titulo": "Lei 12.506/2011 — Terceirização",
+      "resumo": "Altera normas trabalhistas sobre terceirização e aviso prévio.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12506.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2011/lei/l12527.htm": {
+      "titulo": "Lei 12.527/2011 — LAI",
+      "resumo": "Regula acesso a informações públicas (Lei de Acesso à Informação).",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2011/lei/l12529.htm": {
+      "titulo": "Lei 12.529/2011 — CADE",
+      "resumo": "Estrutura defesa da concorrência e regulação do CADE.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12529.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2011/lei/l12562.htm": {
+      "titulo": "Lei 12.562/2011 — Crimes de trânsito",
+      "resumo": "Altera normas penais sobre crimes de trânsito.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12562.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2012/lei/l12594.htm": {
+      "titulo": "Lei 12.594/2012 — Sinase",
+      "resumo": "Institui Sistema Nacional de Atendimento Socioeducativo.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12594.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2012/lei/l12651.htm": {
+      "titulo": "Lei 12.651/2012 — Código Florestal",
+      "resumo": "Institui Código Florestal e normas de proteção à vegetação.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2012/lei/l12690.htm": {
+      "titulo": "Lei 12.690/2012 — Sociedades cooperativas",
+      "resumo": "Altera normas sobre sociedades cooperativas de trabalho.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12690.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2012/lei/l12694.htm": {
+      "titulo": "Lei 12.694/2012 — Simplificação tributária",
+      "resumo": "Altera normas tributárias e simplifica obrigações acessórias.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12694.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2012/lei/l12714.htm": {
+      "titulo": "Lei 12.714/2012 — Interoperabilidade",
+      "resumo": "Institui sistema nacional de interoperabilidade de bases de dados.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12714.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2012/lei/l12737.htm": {
+      "titulo": "Lei 12.737/2012 — Crimes informáticos",
+      "resumo": "Tipifica crimes informáticos (Lei Azeredo).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12737.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2013/lei/l12830.htm": {
+      "titulo": "Lei 12.830/2013 — Investigação criminal",
+      "resumo": "Dispõe sobre investigação criminal conduzida pelo delegado.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12830.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2013/lei/l12846.htm": {
+      "titulo": "Lei 12.846/2013 — Anticorrupção empresarial",
+      "resumo": "Regula responsabilização de empresas por atos contra a administração.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12846.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2013/lei/l12850.htm": {
+      "titulo": "Lei 12.850/2013 — Organização criminosa",
+      "resumo": "Define organização criminosa e instrumentos de investigação.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12850.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2013/lei/l12852.htm": {
+      "titulo": "Lei 12.852/2013 — Estatuto da Juventude",
+      "resumo": "Institui Estatuto da Juventude e direitos de jovens.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12852.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2014/lei/l12965.htm": {
+      "titulo": "Lei 12.965/2014 — Marco Civil da Internet",
+      "resumo": "Estabelece princípios e garantias do uso da internet.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2014/lei/l12984.htm": {
+      "titulo": "Lei 12.984/2014 — HIV/AIDS",
+      "resumo": "Criminaliza discriminação de portadores de HIV/AIDS.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12984.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2014/lei/l13060.htm": {
+      "titulo": "Lei 13.060/2014 — Uso da força",
+      "resumo": "Disciplina uso de instrumentos de menor potencial ofensivo por agentes.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13060.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2015/lei/l13105.htm": {
+      "titulo": "Lei 13.105/2015 — CPC",
+      "resumo": "Estabelece normas do Código de Processo Civil.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2015/lei/l13140.htm": {
+      "titulo": "Lei 13.140/2015 — Mediação",
+      "resumo": "Dispõe sobre mediação entre particulares como meio de solução de conflitos.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13140.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2015/lei/l13146.htm": {
+      "titulo": "Lei 13.146/2015 — Estatuto da Pessoa com Deficiência",
+      "resumo": "Institui Lei Brasileira de Inclusão da Pessoa com Deficiência.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2015/lei/l13188.htm": {
+      "titulo": "Lei 13.188/2015 — Reintegração de posse",
+      "resumo": "Altera normas sobre reintegração de posse e usucapião especial.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13188.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2016/lei/l13260.htm": {
+      "titulo": "Lei 13.260/2016 — Terrorismo",
+      "resumo": "Regula terrorismo e organizações terroristas.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13260.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2016/lei/l13271.htm": {
+      "titulo": "Lei 13.271/2016 — Improbidade",
+      "resumo": "Altera dispositivos da Lei de Improbidade Administrativa.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13271.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2016/lei/l13294.htm": {
+      "titulo": "Lei 13.294/2016 — Sistema Financeiro",
+      "resumo": "Altera normas sobre instituições do Sistema Financeiro Nacional.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13294.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2016/lei/l13300.htm": {
+      "titulo": "Lei 13.300/2016 — Lobby",
+      "resumo": "Regula registro de representantes de interesse perante o poder público.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13300.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2016/lei/l13303.htm": {
+      "titulo": "Lei 13.303/2016 — Estatuto jurídico de estatais",
+      "resumo": "Regime jurídico de empresas estatais e sociedades de economia mista.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13303.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2016/lei/l13344.htm": {
+      "titulo": "Lei 13.344/2016 — Tráfico de pessoas",
+      "resumo": "Tipifica tráfico de pessoas e medidas de prevenção.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13344.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2017/lei/l13445.htm": {
+      "titulo": "Lei 13.445/2017 — Migração",
+      "resumo": "Regula direitos e deveres de migrantes e refugiados.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13445.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2017/lei/l13455.htm": {
+      "titulo": "Lei 13.455/2017 — Regularização fundiária",
+      "resumo": "Altera normas de regularização fundiária urbana e rural.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13455.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2017/lei/l13460.htm": {
+      "titulo": "Lei 13.460/2017 — Defesa do usuário de serviço público",
+      "resumo": "Estabelece normas de participação e defesa de usuários de serviços públicos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2018/lei/l13709.htm": {
+      "titulo": "Lei 13.709/2018 — LGPD",
+      "resumo": "Regula tratamento de dados pessoais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2018/lei/l13775.htm": {
+      "titulo": "Lei 13.775/2018 — Duplicata eletrônica",
+      "resumo": "Dispõe sobre emissão de duplicata em formato eletrônico.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13775.htm"
+    },
+    "/ccivil_03/_ato2019-2022/2019/lei/l13869.htm": {
+      "titulo": "Lei 13.869/2019 — Abuso de autoridade",
+      "resumo": "Altera normas sobre abuso de autoridade e responsabilização.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13869.htm"
+    },
+    "/ccivil_03/_ato2019-2022/2019/lei/l13874.htm": {
+      "titulo": "Lei 13.874/2019 — Liberdade econômica",
+      "resumo": "Estabelece Declaração de Direitos de Liberdade Econômica.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13874.htm"
+    },
+    "/ccivil_03/_ato2019-2022/2019/lei/l13966.htm": {
+      "titulo": "Lei 13.966/2019 — Agências reguladoras",
+      "resumo": "Altera normas sobre agências reguladoras e servidores.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13966.htm"
+    },
+    "/ccivil_03/_ato2019-2022/2020/lei/l14010.htm": {
+      "titulo": "Lei 14.010/2020 — Pandemia",
+      "resumo": "Altera normas sobre prazos processuais e medidas emergenciais.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/lei/l14010.htm"
+    },
+    "/ccivil_03/_ato2019-2022/2021/lei/l14133.htm": {
+      "titulo": "Lei 14.133/2021 — Nova Lei de Licitações",
+      "resumo": "Regula licitações e contratos administrativos.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+    },
+    "/ccivil_03/_ato2019-2022/2022/lei/l14344.htm": {
+      "titulo": "Lei 14.344/2022 — Violência doméstica ampliada",
+      "resumo": "Altera Lei Maria da Penha e tipifica violência doméstica ampliada.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14344.htm"
+    },
+    "/ccivil_03/_ato2019-2022/2022/lei/l14457.htm": {
+      "titulo": "Lei 14.457/2022 — Assédio no trabalho",
+      "resumo": "Altera CLT sobre assédio sexual e programas de prevenção.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14457.htm"
+    },
+    "/ccivil_03/_ato2023-2026/2023/lei/l14597.htm": {
+      "titulo": "Lei 14.597/2023 — Acordo de leniência",
+      "resumo": "Altera normas sobre acordo de leniência e compliance.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14597.htm"
+    },
+    "/ccivil_03/_ato2023-2026/2023/lei/l14717.htm": {
+      "titulo": "Lei 14.717/2023 — Crimes financeiros",
+      "resumo": "Altera normas penais sobre crimes financeiros e criptoativos.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14717.htm"
+    },
+    "/ccivil_03/_ato2023-2026/2024/lei/l14852.htm": {
+      "titulo": "Lei 14.852/2024 — Programa de integridade",
+      "resumo": "Altera normas sobre programas de integridade e anticorrupção.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14852.htm"
+    },
+    "/ccivil_03/_ato2023-2026/2024/lei/l14965.htm": {
+      "titulo": "Lei 14.965/2024 — Educação financeira",
+      "resumo": "Institui Política Nacional de Educação Financeira.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14965.htm"
+    },
+    "/ccivil_03/_ato2023-2026/2024/lei/l15040.htm": {
+      "titulo": "Lei 15.040/2024",
+      "resumo": "Altera normas sobre procedimentos administrativos e licitações.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15040.htm"
+    },
+    "/ccivil_03/constituicao/constituicao.htm": {
+      "titulo": "Constituição Federal de 1988",
+      "resumo": "Estabelece a organização do Estado, direitos fundamentais e a estrutura da República.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc02.htm": {
+      "titulo": "EC 2/1965",
+      "resumo": "Institui o Parlamento e altera dispositivos constitucionais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc02.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc03.htm": {
+      "titulo": "EC 3/1993",
+      "resumo": "Altera prazo de mandato de presidentes de tribunais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc03.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc08.htm": {
+      "titulo": "EC 8/1995",
+      "resumo": "Altera normas sobre aposentadoria de servidores públicos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc08.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc103.htm": {
+      "titulo": "EC 103/2019 — Reforma da Previdência",
+      "resumo": "Reforma previdenciária e regras de transição.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc103.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc106.htm": {
+      "titulo": "EC 106/2020",
+      "resumo": "Institui regime extraordinário fiscal e financeiro (pandemia).",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc106.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc111.htm": {
+      "titulo": "EC 111/2021",
+      "resumo": "Altera normas sobre precatórios e pagamentos judiciais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc113.htm": {
+      "titulo": "EC 113/2021",
+      "resumo": "Altera normas sobre precatórios e emendas constitucionais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc113.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc114.htm": {
+      "titulo": "EC 114/2021",
+      "resumo": "Altera normas sobre precatórios e pagamentos de sentenças.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc114.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc117.htm": {
+      "titulo": "EC 117/2022",
+      "resumo": "Altera normas sobre precatórios e emendas parlamentares.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc117.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc123.htm": {
+      "titulo": "EC 123/2022",
+      "resumo": "Altera normas sobre precatórios e pagamentos judiciais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc123.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc125.htm": {
+      "titulo": "EC 125/2022",
+      "resumo": "Altera normas sobre precatórios e emendas de relator.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc125.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc127.htm": {
+      "titulo": "EC 127/2022",
+      "resumo": "Altera normas sobre precatórios e pagamentos de débitos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc127.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc132.htm": {
+      "titulo": "EC 132/2023 — Reforma Tributária",
+      "resumo": "Altera o Sistema Tributário Nacional e institui IBS/CBS.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc133.htm": {
+      "titulo": "EC 133/2024",
+      "resumo": "Altera normas sobre mandato e aposentadoria de ministros.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc133.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc17.htm": {
+      "titulo": "EC 17/1965",
+      "resumo": "Altera dispositivos sobre organização do Poder Judiciário.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc17.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc45.htm": {
+      "titulo": "EC 45/2004",
+      "resumo": "Reforma do Judiciário: súmula vinculante, competências e quarentena.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc45.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc54.htm": {
+      "titulo": "EC 54/2007",
+      "resumo": "Institui o Regime de Recuperação Fiscal.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc54.htm"
+    },
+    "/ccivil_03/constituicao/emendas/emc/emc91.htm": {
+      "titulo": "EC 91/2016",
+      "resumo": "Altera normas sobre aposentadoria e regime previdenciário.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc91.htm"
+    },
+    "/ccivil_03/decreto-lei//1965-1988/del0911.htm": {
+      "titulo": "Decreto-Lei 911/1969 — Locação predial urbana",
+      "resumo": "Dispõe sobre locação de imóveis urbanos e procedimentos correlatos.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del0911.htm"
+    },
+    "/ccivil_03/decreto-lei//1965-1988/del1075.htm": {
+      "titulo": "Decreto-Lei 1.075/1970",
+      "resumo": "Altera dispositivos sobre valor provisório de créditos tributários.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del1075.htm"
+    },
+    "/ccivil_03/decreto-lei/1937-1946/del3931.htm": {
+      "titulo": "Decreto-Lei 3.931/1941",
+      "resumo": "Regula a extradição de estrangeiros e brasileiros.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/1937-1946/del3931.htm"
+    },
+    "/ccivil_03/decreto-lei/del3365.htm": {
+      "titulo": "Decreto-Lei 3.365/1941 — Desapropriação por utilidade pública",
+      "resumo": "Regula desapropriação por utilidade pública e dispõe sobre indenização.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3365.htm"
+    },
+    "/ccivil_03/decreto-lei/del3688.htm": {
+      "titulo": "Decreto-Lei 3.688/1941 — Procedimento penal militar",
+      "resumo": "Estabelece normas de processo penal militar.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3688.htm"
+    },
+    "/ccivil_03/decreto-lei/del3914.htm": {
+      "titulo": "Decreto-Lei 3.914/1941",
+      "resumo": "Dispõe sobre revogação de medida de segurança e regime de internação.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3914.htm"
+    },
+    "/ccivil_03/decreto-lei/del4657.htm": {
+      "titulo": "Decreto-Lei 4.657/1942 — LINDB",
+      "resumo": "Introdu a Lei de Introdução às Normas do Direito Brasileiro (LINDB).",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del4657.htm"
+    },
+    "/ccivil_03/decreto-lei/del5452.htm": {
+      "titulo": "Decreto-Lei 5.452/1943 — CLT",
+      "resumo": "Consolida as leis do trabalho (CLT).",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+    },
+    "/ccivil_03/decreto-lei/del9760.htm": {
+      "titulo": "Decreto-Lei 9.760/1946",
+      "resumo": "Dispõe sobre crimes contra a economia popular e ordem econômica.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del9760.htm"
+    },
+    "/ccivil_03/decreto/antigos/d57663.htm": {
+      "titulo": "Decreto 57.663/1966",
+      "resumo": "Regulamenta a organização e o funcionamento do Conselho Monetário Nacional e do Banco Central.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/antigos/d57663.htm"
+    },
+    "/ccivil_03/decreto/d22626.htm": {
+      "titulo": "Decreto 22.626/1933 — Lei da Usura",
+      "resumo": "Limita juros em contratos e operações de crédito (Lei da Usura).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/d22626.htm"
+    },
+    "/ccivil_03/decreto/d70235cons.htm": {
+      "titulo": "Decreto 70.235/1972 — Regimento Interno do STF",
+      "resumo": "Aprova o Regimento Interno do Supremo Tribunal Federal.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/d70235cons.htm"
+    },
+    "/ccivil_03/leis/1950-1969/l4729.htm": {
+      "titulo": "Lei 4.729/1965 — Mercado de capitais",
+      "resumo": "Altera normas sobre valores mobiliários e sociedades anônimas.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/1950-1969/l4729.htm"
+    },
+    "/ccivil_03/leis/1950-1969/l5256.htm": {
+      "titulo": "Lei 5.256/1967 — Prisão especial",
+      "resumo": "Regula prisão especial de autoridades e agentes públicos.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/1950-1969/l5256.htm"
+    },
+    "/ccivil_03/leis/1970-1979/l5941.htm": {
+      "titulo": "Lei 5.941/1973",
+      "resumo": "Dispõe sobre suspensão de medida de segurança e internação.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/1970-1979/l5941.htm"
+    },
+    "/ccivil_03/leis/2002/l10406.htm": {
+      "titulo": "Lei 10.406/2002 — Código Civil",
+      "resumo": "Introduz o Código Civil brasileiro.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406.htm"
+    },
+    "/ccivil_03/leis/l0605.htm": {
+      "titulo": "Lei 605/1949 — Imprensa",
+      "resumo": "Regula direito de resposta e responsabilidade na imprensa.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l0605.htm"
+    },
+    "/ccivil_03/leis/l10101.htm": {
+      "titulo": "Lei 10.101/2000 — Célula de emprego",
+      "resumo": "Regula contrato de trabalho em regime de tempo parcial.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l10101.htm"
+    },
+    "/ccivil_03/leis/l1060.htm": {
+      "titulo": "Lei 1.060/1950 — Assistência judiciária",
+      "resumo": "Estabelece normas para assistência judiciária gratuita aos necessitados.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l1060.htm"
+    },
+    "/ccivil_03/leis/l1079.htm": {
+      "titulo": "Lei 1.079/1950 — Impeachment",
+      "resumo": "Regula processo de julgamento dos crimes de responsabilidade do Presidente.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l1079.htm"
+    },
+    "/ccivil_03/leis/l1521.htm": {
+      "titulo": "Lei 1.521/1951 — Imprensa",
+      "resumo": "Altera dispositivos sobre liberdade de informação jornalística.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l1521.htm"
+    },
+    "/ccivil_03/leis/l1579.htm": {
+      "titulo": "Lei 1.579/1952",
+      "resumo": "Prorroga sessões legislativas e dispõe sobre prazos parlamentares.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l1579.htm"
+    },
+    "/ccivil_03/leis/l2889.htm": {
+      "titulo": "Lei 2.889/1956 — IPVA",
+      "resumo": "Institui imposto sobre veículos automotores (IPVA).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l2889.htm"
+    },
+    "/ccivil_03/leis/l4090.htm": {
+      "titulo": "Lei 4.090/1962 — Ações comerciais",
+      "resumo": "Regula emissão e negociação de ações e valores mobiliários.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4090.htm"
+    },
+    "/ccivil_03/leis/l4132.htm": {
+      "titulo": "Lei 4.132/1962 — Mercado de capitais",
+      "resumo": "Dispõe sobre mercado de valores mobiliários e proteção ao investidor.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4132.htm"
+    },
+    "/ccivil_03/leis/l4591.htm": {
+      "titulo": "Lei 4.591/1964 — Mercado de capitais",
+      "resumo": "Regula condomínios em incorporações e distribuição de valores mobiliários.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4591.htm"
+    },
+    "/ccivil_03/leis/l4717.htm": {
+      "titulo": "Lei 4.717/1965 — Ação popular",
+      "resumo": "Regula a ação popular e dispõe sobre mandado de segurança coletivo.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4717.htm"
+    },
+    "/ccivil_03/leis/l4737.htm": {
+      "titulo": "Lei 4.737/1965 — Código Eleitoral",
+      "resumo": "Institui o Código Eleitoral e normas eleitorais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4737.htm"
+    },
+    "/ccivil_03/leis/l4749.htm": {
+      "titulo": "Lei 4.749/1965",
+      "resumo": "Dispõe sobre nacionalidade e naturalização de estrangeiros.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4749.htm"
+    },
+    "/ccivil_03/leis/l4886.htm": {
+      "titulo": "Lei 4.886/1965 — Anistia",
+      "resumo": "Concede anistia e regula efeitos políticos correlatos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4886.htm"
+    },
+    "/ccivil_03/leis/l5172.htm": {
+      "titulo": "Lei 5.172/1966 — CTN",
+      "resumo": "Dispõe sobre o Sistema Tributário Nacional (CTN).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5172.htm"
+    },
+    "/ccivil_03/leis/l5474.htm": {
+      "titulo": "Lei 5.474/1968 — Imprensa",
+      "resumo": "Altera normas sobre direito de resposta e liberdade de imprensa.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5474.htm"
+    },
+    "/ccivil_03/leis/l5478.htm": {
+      "titulo": "Lei 5.478/1968 — Imprensa",
+      "resumo": "Complementa normas sobre responsabilidade civil da imprensa.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5478.htm"
+    },
+    "/ccivil_03/leis/l5584.htm": {
+      "titulo": "Lei 5.584/1970",
+      "resumo": "Fixa prazos para entrega de laudos periciais em processos judiciais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5584.htm"
+    },
+    "/ccivil_03/leis/l5764.htm": {
+      "titulo": "Lei 5.764/1971 — Cooperativas",
+      "resumo": "Regula organização e funcionamento das sociedades cooperativas.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm"
+    },
+    "/ccivil_03/leis/l5889.htm": {
+      "titulo": "Lei 5.889/1973",
+      "resumo": "Altera dispositivos da Consolidação das Leis do Trabalho.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5889.htm"
+    },
+    "/ccivil_03/leis/l6019.htm": {
+      "titulo": "Lei 6.019/1974",
+      "resumo": "Altera normas trabalhistas sobre contratos e verbas rescisórias.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6019.htm"
+    },
+    "/ccivil_03/leis/l6385.htm": {
+      "titulo": "Lei 6.385/1976 — CVM",
+      "resumo": "Institui a Comissão de Valores Mobiliários e regula o mercado de capitais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6385.htm"
+    },
+    "/ccivil_03/leis/l6515.htm": {
+      "titulo": "Lei 6.515/1977 — Divórcio",
+      "resumo": "Altera normas de direito de família e introduz o divórcio.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6515.htm"
+    },
+    "/ccivil_03/leis/l6766.htm": {
+      "titulo": "Lei 6.766/1979 — Parcelamento do solo",
+      "resumo": "Regula parcelamento do solo urbano e direito urbanístico.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6766.htm"
+    },
+    "/ccivil_03/leis/l6830.htm": {
+      "titulo": "Lei 6.830/1980 — Execução fiscal",
+      "resumo": "Regula execução fiscal de créditos tributários da Fazenda Pública.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6830.htm"
+    },
+    "/ccivil_03/leis/l6938.htm": {
+      "titulo": "Lei 6.938/1981 — Política Nacional do Meio Ambiente",
+      "resumo": "Institui a Política Nacional do Meio Ambiente (PNMA).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6938.htm"
+    },
+    "/ccivil_03/leis/l7210.htm": {
+      "titulo": "Lei 7.210/1984 — Lei de Execução Penal",
+      "resumo": "Define normas para execução de penas e medidas alternativas (LEP).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7210.htm"
+    },
+    "/ccivil_03/leis/l7347orig.htm": {
+      "titulo": "Lei 7.347/1985 — Ação civil pública",
+      "resumo": "Regula ação civil pública e tutela de interesses difusos e coletivos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7347orig.htm"
+    },
+    "/ccivil_03/leis/l7357.htm": {
+      "titulo": "Lei 7.357/1985 — Cheque",
+      "resumo": "Dispõe sobre o cheque e dá outras providências.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7357.htm"
+    },
+    "/ccivil_03/leis/l7418.htm": {
+      "titulo": "Lei 7.418/1985 — Empréstimo consignado",
+      "resumo": "Regula empréstimos consignados em folha de pagamento.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7418.htm"
+    },
+    "/ccivil_03/leis/l7492.htm": {
+      "titulo": "Lei 7.492/1986 — Lei cambial",
+      "resumo": "Regula duplicata, nota promissória e títulos de crédito (Lei Cambial).",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7492.htm"
+    },
+    "/ccivil_03/leis/l7716.htm": {
+      "titulo": "Lei 7.716/1989 — Crimes de preconceito",
+      "resumo": "Define crimes resultantes de preconceito de raça ou cor.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7716.htm"
+    },
+    "/ccivil_03/leis/l7783.htm": {
+      "titulo": "Lei 7.783/1989 — Greve",
+      "resumo": "Regula direito de greve e procedimentos correlatos.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7783.htm"
+    },
+    "/ccivil_03/leis/l7960.htm": {
+      "titulo": "Lei 7.960/1989 — Prisão temporária",
+      "resumo": "Regula prisão temporária e prazos de custódia.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7960.htm"
+    },
+    "/ccivil_03/leis/l8009.htm": {
+      "titulo": "Lei 8.009/1990 — Reparação ao consumidor",
+      "resumo": "Dispõe sobre reparação de danos ao consumidor por produtos e serviços.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8009.htm"
+    },
+    "/ccivil_03/leis/l8038.htm": {
+      "titulo": "Lei 8.038/1990 — Júri",
+      "resumo": "Altera normas de competência e procedimento do Tribunal do Júri.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8038.htm"
+    },
+    "/ccivil_03/leis/l8069.htm": {
+      "titulo": "Lei 8.069/1990 — ECA",
+      "resumo": "Dispõe sobre o Estatuto da Criança e do Adolescente (ECA).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm"
+    },
+    "/ccivil_03/leis/l8072.htm": {
+      "titulo": "Lei 8.072/1990 — Crimes hediondos",
+      "resumo": "Define crimes hediondos e restringe benefícios penais.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8072.htm"
+    },
+    "/ccivil_03/leis/l8112cons.htm": {
+      "titulo": "Lei 8.112/1990 — Servidores públicos",
+      "resumo": "Regula regime jurídico dos servidores públicos civis da União.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8112cons.htm"
+    },
+    "/ccivil_03/leis/l8137.htm": {
+      "titulo": "Lei 8.137/1990 — Crimes tributários",
+      "resumo": "Define crimes contra a ordem tributária e economia popular.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8137.htm"
+    },
+    "/ccivil_03/leis/l8176.htm": {
+      "titulo": "Lei 8.176/1991 — Estoques de combustíveis",
+      "resumo": "Cria o Sistema de Estoques de Combustíveis.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8176.htm"
+    },
+    "/ccivil_03/leis/l8212cons.htm": {
+      "titulo": "Lei 8.212/1991 — Previdência Social",
+      "resumo": "Dispõe sobre custeio e arrecadação da Previdência Social.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8212cons.htm"
+    },
+    "/ccivil_03/leis/l8213cons.htm": {
+      "titulo": "Lei 8.213/1991 — Benefícios da Previdência",
+      "resumo": "Dispõe sobre Planos de Benefícios da Previdência Social.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm"
+    },
+    "/ccivil_03/leis/l8245.htm": {
+      "titulo": "Lei 8.245/1991 — Locações",
+      "resumo": "Regula locações de imóveis urbanos e despejo.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm"
+    },
+    "/ccivil_03/leis/l8629.htm": {
+      "titulo": "Lei 8.629/1993 — Reforma agrária",
+      "resumo": "Regula desapropriação de imóvel rural para reforma agrária.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8629.htm"
+    },
+    "/ccivil_03/leis/l8906.htm": {
+      "titulo": "Lei 8.906/1994 — OAB",
+      "resumo": "Regula exercício da advocacia e organização da OAB.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8906.htm"
+    },
+    "/ccivil_03/leis/l8934.htm": {
+      "titulo": "Lei 8.934/1994 — Notários e registradores",
+      "resumo": "Regula serviços notariais e de registro público.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8934.htm"
+    },
+    "/ccivil_03/leis/l8971.htm": {
+      "titulo": "Lei 8.971/1995 — Informática",
+      "resumo": "Regula mercado de informática e propriedade de programas.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8971.htm"
+    },
+    "/ccivil_03/leis/l8987cons.htm": {
+      "titulo": "Lei 8.987/1995 — Concessões",
+      "resumo": "Regula regime de concessão e permissão de serviços públicos.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8987cons.htm"
+    },
+    "/ccivil_03/leis/l9051.htm": {
+      "titulo": "Lei 9.051/1995 — Eleições",
+      "resumo": "Altera normas eleitorais sobre propaganda e financiamento.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9051.htm"
+    },
+    "/ccivil_03/leis/l9096.htm": {
+      "titulo": "Lei 9.096/1995 — Partidos políticos",
+      "resumo": "Regula criação, fusão e funcionamento de partidos políticos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9096.htm"
+    },
+    "/ccivil_03/leis/l9099.htm": {
+      "titulo": "Lei 9.099/1995 — Juizados Especiais",
+      "resumo": "Institui Juizados Especiais Cíveis e Criminais.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm"
+    },
+    "/ccivil_03/leis/l9278.htm": {
+      "titulo": "Lei 9.278/1996 — Privatizações",
+      "resumo": "Dispõe sobre privatização de empresas públicas e ativos estatais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9278.htm"
+    },
+    "/ccivil_03/leis/l9279.htm": {
+      "titulo": "Lei 9.279/1996 — Propriedade industrial",
+      "resumo": "Regula direitos e obrigações de propriedade industrial.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9279.htm"
+    },
+    "/ccivil_03/leis/l9296.htm": {
+      "titulo": "Lei 9.296/1996 — Interceptação telefônica",
+      "resumo": "Regula interceptação telefônica e quebra de sigilo.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9296.htm"
+    },
+    "/ccivil_03/leis/l9434.htm": {
+      "titulo": "Lei 9.434/1997 — DNA e identificação",
+      "resumo": "Regula cadastro de condenados e identificação genética.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9434.htm"
+    },
+    "/ccivil_03/leis/l9455.htm": {
+      "titulo": "Lei 9.455/1997 — Tortura",
+      "resumo": "Define crimes de tortura e mecanismos de prevenção.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9455.htm"
+    },
+    "/ccivil_03/leis/l9469.htm": {
+      "titulo": "Lei 9.469/1997 — ANEEL",
+      "resumo": "Autoriza criação da ANEEL e regula setor elétrico.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9469.htm"
+    },
+    "/ccivil_03/leis/l9494.htm": {
+      "titulo": "Lei 9.494/1997 — Processo administrativo e judicial",
+      "resumo": "Altera normas de processo administrativo e execução contra a Fazenda.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9494.htm"
+    },
+    "/ccivil_03/leis/l9503.htm": {
+      "titulo": "Lei 9.503/1997 — CTB",
+      "resumo": "Institui o Código de Trânsito Brasileiro.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9503.htm"
+    },
+    "/ccivil_03/leis/l9504.htm": {
+      "titulo": "Lei 9.504/1997 — Eleições",
+      "resumo": "Regula eleições, propaganda eleitoral e financiamento de campanhas.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9504.htm"
+    },
+    "/ccivil_03/leis/l9507.htm": {
+      "titulo": "Lei 9.507/1997 — Habeas data",
+      "resumo": "Regula habeas data e acesso a informações pessoais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9507.htm"
+    },
+    "/ccivil_03/leis/l9601.htm": {
+      "titulo": "Lei 9.601/1998 — Software",
+      "resumo": "Altera normas sobre propriedade intelectual de software.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9601.htm"
+    },
+    "/ccivil_03/leis/l9605.htm": {
+      "titulo": "Lei 9.605/1998 — Crimes ambientais",
+      "resumo": "Dispõe sobre crimes ambientais e sanções penais.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9605.htm"
+    },
+    "/ccivil_03/leis/l9608.htm": {
+      "titulo": "Lei 9.608/1998 — Serviços notariais",
+      "resumo": "Altera normas sobre serviços notariais e registrais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9608.htm"
+    },
+    "/ccivil_03/leis/l9609.htm": {
+      "titulo": "Lei 9.609/1998 — Software",
+      "resumo": "Regula licenciamento e proteção de programas de computador.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9609.htm"
+    },
+    "/ccivil_03/leis/l9610.htm": {
+      "titulo": "Lei 9.610/1998 — Direitos autorais",
+      "resumo": "Consolida legislação sobre direitos autorais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    },
+    "/ccivil_03/leis/l9613.htm": {
+      "titulo": "Lei 9.613/1998 — Lavagem de dinheiro",
+      "resumo": "Dispõe sobre crimes de lavagem de dinheiro e ocultação de bens.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9613.htm"
+    },
+    "/ccivil_03/leis/l9709.htm": {
+      "titulo": "Lei 9.709/1998 — ANATEL",
+      "resumo": "Autoriza criação da ANATEL e regula telecomunicações.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9709.htm"
+    },
+    "/ccivil_03/leis/l9800.htm": {
+      "titulo": "Lei 9.800/1999 — Conciliação",
+      "resumo": "Institui audiências de conciliação e mediação em processos judiciais.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9800.htm"
+    },
+    "/ccivil_03/leis/l9807.htm": {
+      "titulo": "Lei 9.807/1999 — Proteção a vítimas e testemunhas",
+      "resumo": "Dispõe sobre proteção a vítimas e testemunhas ameaçadas.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9807.htm"
+    },
+    "/ccivil_03/leis/l9868.htm": {
+      "titulo": "Lei 9.868/1999 — ADI e ADC",
+      "resumo": "Regula ação declaratória de constitucionalidade e de inconstitucionalidade.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9868.htm"
+    },
+    "/ccivil_03/leis/l9873.htm": {
+      "titulo": "Lei 9.873/1999 — Prescrição administrativa",
+      "resumo": "Estabelece prazo de prescrição para infrações administrativas.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9873.htm"
+    },
+    "/ccivil_03/leis/l9962.htm": {
+      "titulo": "Lei 9.962/2000 — ANVISA",
+      "resumo": "Autoriza criação da ANVISA e regula vigilância sanitária.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9962.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp101.htm": {
+      "titulo": "Lei Complementar 101/2000 — LRF",
+      "resumo": "Estabelece responsabilidade fiscal e limites de gastos públicos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp101.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp105.htm": {
+      "titulo": "Lei Complementar 105/2001 — Sigilo bancário",
+      "resumo": "Regula sigilo de operações de instituições financeiras.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp105.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp123.htm": {
+      "titulo": "Lei Complementar 123/2006 — Simples Nacional",
+      "resumo": "Institui Estatuto Nacional da Microempresa e EPP.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp142.htm": {
+      "titulo": "Lei Complementar 142/2013 — Previdência complementar",
+      "resumo": "Regula previdência complementar fechada e aberta.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp142.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp146.htm": {
+      "titulo": "Lei Complementar 146/2013 — PIS/COFINS monofásico",
+      "resumo": "Altera normas tributárias sobre PIS/COFINS.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp146.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp150.htm": {
+      "titulo": "Lei Complementar 150/2015 — ISS",
+      "resumo": "Regula ISS sobre serviços de qualquer natureza.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp150.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp152.htm": {
+      "titulo": "Lei Complementar 152/2015 — Orçamento público",
+      "resumo": "Altera normas sobre orçamento e finanças públicas.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp152.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp182.htm": {
+      "titulo": "Lei Complementar 182/2021 — Recuperação fiscal",
+      "resumo": "Institui regime de recuperação fiscal de estados e municípios.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp182.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp199.htm": {
+      "titulo": "Lei Complementar 199/2023 — RCU",
+      "resumo": "Institui Registro Cadastral Unificado de contribuintes.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp199.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp64.htm": {
+      "titulo": "Lei Complementar 64/1990 — Inelegibilidades",
+      "resumo": "Estabelece casos de inelegibilidade para cargos eletivos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp64.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp76.htm": {
+      "titulo": "Lei Complementar 76/1993 — Fundeb",
+      "resumo": "Institui Fundo de Manutenção e Desenvolvimento da Educação Básica.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp76.htm"
+    },
+    "/ccivil_03/leis/leis_2001/l10257.htm": {
+      "titulo": "Lei 10.257/2001 — Estatuto da Cidade",
+      "resumo": "Regula política urbana e direito à cidade.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10257.htm"
+    },
+    "/ccivil_03/leis/leis_2001/l10259.htm": {
+      "titulo": "Lei 10.259/2001 — Juizados Federais",
+      "resumo": "Institui Juizados Especiais Cíveis e Criminais no âmbito da Justiça Federal.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm"
+    }
+  },
+  "list": [
+    {
+      "titulo": "Constituição Federal de 1988",
+      "resumo": "Estabelece a organização do Estado, direitos fundamentais e a estrutura da República.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm"
+    },
+    {
+      "titulo": "Decreto 22.626/1933 — Lei da Usura",
+      "resumo": "Limita juros em contratos e operações de crédito (Lei da Usura).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/d22626.htm"
+    },
+    {
+      "titulo": "Decreto 57.663/1966",
+      "resumo": "Regulamenta a organização e o funcionamento do Conselho Monetário Nacional e do Banco Central.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/antigos/d57663.htm"
+    },
+    {
+      "titulo": "Decreto 70.235/1972 — Regimento Interno do STF",
+      "resumo": "Aprova o Regimento Interno do Supremo Tribunal Federal.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/d70235cons.htm"
+    },
+    {
+      "titulo": "Decreto-Lei 911/1969 — Locação predial urbana",
+      "resumo": "Dispõe sobre locação de imóveis urbanos e procedimentos correlatos.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del0911.htm"
+    },
+    {
+      "titulo": "Decreto-Lei 1.075/1970",
+      "resumo": "Altera dispositivos sobre valor provisório de créditos tributários.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del1075.htm"
+    },
+    {
+      "titulo": "Decreto-Lei 2.848/1940 — Código Penal",
+      "resumo": "Define crimes e penas do Direito Penal brasileiro (Código Penal).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848.htm"
+    },
+    {
+      "titulo": "Decreto-Lei 3.365/1941 — Desapropriação por utilidade pública",
+      "resumo": "Regula desapropriação por utilidade pública e dispõe sobre indenização.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3365.htm"
+    },
+    {
+      "titulo": "Decreto-Lei 3.688/1941 — Procedimento penal militar",
+      "resumo": "Estabelece normas de processo penal militar.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3688.htm"
+    },
+    {
+      "titulo": "Decreto-Lei 3.689/1941 — Código de Processo Penal",
+      "resumo": "Estabelece normas de processo penal (CPP).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689.htm"
+    },
+    {
+      "titulo": "Decreto-Lei 3.914/1941",
+      "resumo": "Dispõe sobre revogação de medida de segurança e regime de internação.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3914.htm"
+    },
+    {
+      "titulo": "Decreto-Lei 3.931/1941",
+      "resumo": "Regula a extradição de estrangeiros e brasileiros.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/1937-1946/del3931.htm"
+    },
+    {
+      "titulo": "Decreto-Lei 4.657/1942 — LINDB",
+      "resumo": "Introdu a Lei de Introdução às Normas do Direito Brasileiro (LINDB).",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del4657.htm"
+    },
+    {
+      "titulo": "Decreto-Lei 5.452/1943 — CLT",
+      "resumo": "Consolida as leis do trabalho (CLT).",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm"
+    },
+    {
+      "titulo": "Decreto-Lei 9.760/1946",
+      "resumo": "Dispõe sobre crimes contra a economia popular e ordem econômica.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del9760.htm"
+    },
+    {
+      "titulo": "EC 2/1965",
+      "resumo": "Institui o Parlamento e altera dispositivos constitucionais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc02.htm"
+    },
+    {
+      "titulo": "EC 3/1993",
+      "resumo": "Altera prazo de mandato de presidentes de tribunais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc03.htm"
+    },
+    {
+      "titulo": "EC 8/1995",
+      "resumo": "Altera normas sobre aposentadoria de servidores públicos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc08.htm"
+    },
+    {
+      "titulo": "EC 103/2019 — Reforma da Previdência",
+      "resumo": "Reforma previdenciária e regras de transição.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc103.htm"
+    },
+    {
+      "titulo": "EC 106/2020",
+      "resumo": "Institui regime extraordinário fiscal e financeiro (pandemia).",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc106.htm"
+    },
+    {
+      "titulo": "EC 111/2021",
+      "resumo": "Altera normas sobre precatórios e pagamentos judiciais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm"
+    },
+    {
+      "titulo": "EC 113/2021",
+      "resumo": "Altera normas sobre precatórios e emendas constitucionais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc113.htm"
+    },
+    {
+      "titulo": "EC 114/2021",
+      "resumo": "Altera normas sobre precatórios e pagamentos de sentenças.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc114.htm"
+    },
+    {
+      "titulo": "EC 117/2022",
+      "resumo": "Altera normas sobre precatórios e emendas parlamentares.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc117.htm"
+    },
+    {
+      "titulo": "EC 123/2022",
+      "resumo": "Altera normas sobre precatórios e pagamentos judiciais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc123.htm"
+    },
+    {
+      "titulo": "EC 125/2022",
+      "resumo": "Altera normas sobre precatórios e emendas de relator.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc125.htm"
+    },
+    {
+      "titulo": "EC 127/2022",
+      "resumo": "Altera normas sobre precatórios e pagamentos de débitos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc127.htm"
+    },
+    {
+      "titulo": "EC 132/2023 — Reforma Tributária",
+      "resumo": "Altera o Sistema Tributário Nacional e institui IBS/CBS.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm"
+    },
+    {
+      "titulo": "EC 133/2024",
+      "resumo": "Altera normas sobre mandato e aposentadoria de ministros.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc133.htm"
+    },
+    {
+      "titulo": "EC 17/1965",
+      "resumo": "Altera dispositivos sobre organização do Poder Judiciário.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc17.htm"
+    },
+    {
+      "titulo": "EC 45/2004",
+      "resumo": "Reforma do Judiciário: súmula vinculante, competências e quarentena.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc45.htm"
+    },
+    {
+      "titulo": "EC 54/2007",
+      "resumo": "Institui o Regime de Recuperação Fiscal.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc54.htm"
+    },
+    {
+      "titulo": "EC 91/2016",
+      "resumo": "Altera normas sobre aposentadoria e regime previdenciário.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc91.htm"
+    },
+    {
+      "titulo": "Lei 605/1949 — Imprensa",
+      "resumo": "Regula direito de resposta e responsabilidade na imprensa.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l0605.htm"
+    },
+    {
+      "titulo": "Lei 1.060/1950 — Assistência judiciária",
+      "resumo": "Estabelece normas para assistência judiciária gratuita aos necessitados.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l1060.htm"
+    },
+    {
+      "titulo": "Lei 1.079/1950 — Impeachment",
+      "resumo": "Regula processo de julgamento dos crimes de responsabilidade do Presidente.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l1079.htm"
+    },
+    {
+      "titulo": "Lei 1.521/1951 — Imprensa",
+      "resumo": "Altera dispositivos sobre liberdade de informação jornalística.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l1521.htm"
+    },
+    {
+      "titulo": "Lei 1.579/1952",
+      "resumo": "Prorroga sessões legislativas e dispõe sobre prazos parlamentares.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l1579.htm"
+    },
+    {
+      "titulo": "Lei 10.101/2000 — Célula de emprego",
+      "resumo": "Regula contrato de trabalho em regime de tempo parcial.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l10101.htm"
+    },
+    {
+      "titulo": "Lei 10.257/2001 — Estatuto da Cidade",
+      "resumo": "Regula política urbana e direito à cidade.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10257.htm"
+    },
+    {
+      "titulo": "Lei 10.259/2001 — Juizados Federais",
+      "resumo": "Institui Juizados Especiais Cíveis e Criminais no âmbito da Justiça Federal.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm"
+    },
+    {
+      "titulo": "Lei 10.406/2002 — Código Civil",
+      "resumo": "Introduz o Código Civil brasileiro.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406.htm"
+    },
+    {
+      "titulo": "Lei 11.079/2004 — PPP",
+      "resumo": "Regula parcerias público-privadas (PPP).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/lei/l11079.htm"
+    },
+    {
+      "titulo": "Lei 11.101/2005 — Recuperação judicial",
+      "resumo": "Regula recuperação judicial, extrajudicial e falência.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11101.htm"
+    },
+    {
+      "titulo": "Lei 11.107/2005 — Consórcios públicos",
+      "resumo": "Regula consórcios públicos e convênios de cooperação.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11107.htm"
+    },
+    {
+      "titulo": "Lei 11.340/2006 — Lei Maria da Penha",
+      "resumo": "Cria mecanismos para coibir violência doméstica e familiar contra a mulher.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm"
+    },
+    {
+      "titulo": "Lei 11.343/2006 — Lei de Drogas",
+      "resumo": "Institui Sistema Nacional de Políticas Públicas sobre Drogas.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11343.htm"
+    },
+    {
+      "titulo": "Lei 11.417/2006 — Diário Oficial eletrônico",
+      "resumo": "Disciplina publicação oficial eletrônica de atos normativos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11417.htm"
+    },
+    {
+      "titulo": "Lei 11.419/2006 — Processo digital",
+      "resumo": "Dispõe sobre informatização do processo judicial.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11419.htm"
+    },
+    {
+      "titulo": "Lei 11.671/2008 — Desjudicialização",
+      "resumo": "Altera normas sobre desjudicialização da execução de títulos.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11671.htm"
+    },
+    {
+      "titulo": "Lei 11.705/2008 — Lei seca",
+      "resumo": "Estabelece normas sobre consumo de álcool na condução de veículos.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11705.htm"
+    },
+    {
+      "titulo": "Lei 11.788/2008 — Estágio",
+      "resumo": "Regula estágio de estudantes e relação de aprendizado.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11788.htm"
+    },
+    {
+      "titulo": "Lei 11.795/2008 — Consórcios",
+      "resumo": "Dispõe sobre sistemas de consórcio.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11795.htm"
+    },
+    {
+      "titulo": "Lei 11.804/2008 — Militares e estágio",
+      "resumo": "Altera normas sobre estágio e serviço militar.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11804.htm"
+    },
+    {
+      "titulo": "Lei 12.016/2009 — Mandado de segurança",
+      "resumo": "Regula mandado de segurança individual e coletivo.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12016.htm"
+    },
+    {
+      "titulo": "Lei 12.037/2009 — Identificação criminal",
+      "resumo": "Regula identificação criminal e cadastro de condenados.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12037.htm"
+    },
+    {
+      "titulo": "Lei 12.153/2009 — Juizados da Fazenda",
+      "resumo": "Cria Juizados Especiais da Fazenda Pública.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12153.htm"
+    },
+    {
+      "titulo": "Lei 12.288/2010 — Fundo da Cultura",
+      "resumo": "Institui Fundo Nacional de Cultura e incentivo à cultura.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12288.htm"
+    },
+    {
+      "titulo": "Lei 12.291/2010 — Biocombustíveis",
+      "resumo": "Regula produção e comercialização de biocombustíveis.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12291.htm"
+    },
+    {
+      "titulo": "Lei 12.318/2010 — Alienação parental",
+      "resumo": "Regula guarda compartilhada e combate à alienação parental.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12318.htm"
+    },
+    {
+      "titulo": "Lei 12.414/2011 — Cadastro de bons antecedentes",
+      "resumo": "Institui cadastro nacional de bons antecedentes.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12414.htm"
+    },
+    {
+      "titulo": "Lei 12.506/2011 — Terceirização",
+      "resumo": "Altera normas trabalhistas sobre terceirização e aviso prévio.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12506.htm"
+    },
+    {
+      "titulo": "Lei 12.527/2011 — LAI",
+      "resumo": "Regula acesso a informações públicas (Lei de Acesso à Informação).",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm"
+    },
+    {
+      "titulo": "Lei 12.529/2011 — CADE",
+      "resumo": "Estrutura defesa da concorrência e regulação do CADE.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12529.htm"
+    },
+    {
+      "titulo": "Lei 12.562/2011 — Crimes de trânsito",
+      "resumo": "Altera normas penais sobre crimes de trânsito.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12562.htm"
+    },
+    {
+      "titulo": "Lei 12.594/2012 — Sinase",
+      "resumo": "Institui Sistema Nacional de Atendimento Socioeducativo.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12594.htm"
+    },
+    {
+      "titulo": "Lei 12.651/2012 — Código Florestal",
+      "resumo": "Institui Código Florestal e normas de proteção à vegetação.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651.htm"
+    },
+    {
+      "titulo": "Lei 12.690/2012 — Sociedades cooperativas",
+      "resumo": "Altera normas sobre sociedades cooperativas de trabalho.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12690.htm"
+    },
+    {
+      "titulo": "Lei 12.694/2012 — Simplificação tributária",
+      "resumo": "Altera normas tributárias e simplifica obrigações acessórias.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12694.htm"
+    },
+    {
+      "titulo": "Lei 12.714/2012 — Interoperabilidade",
+      "resumo": "Institui sistema nacional de interoperabilidade de bases de dados.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12714.htm"
+    },
+    {
+      "titulo": "Lei 12.737/2012 — Crimes informáticos",
+      "resumo": "Tipifica crimes informáticos (Lei Azeredo).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12737.htm"
+    },
+    {
+      "titulo": "Lei 12.830/2013 — Investigação criminal",
+      "resumo": "Dispõe sobre investigação criminal conduzida pelo delegado.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12830.htm"
+    },
+    {
+      "titulo": "Lei 12.846/2013 — Anticorrupção empresarial",
+      "resumo": "Regula responsabilização de empresas por atos contra a administração.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12846.htm"
+    },
+    {
+      "titulo": "Lei 12.850/2013 — Organização criminosa",
+      "resumo": "Define organização criminosa e instrumentos de investigação.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12850.htm"
+    },
+    {
+      "titulo": "Lei 12.852/2013 — Estatuto da Juventude",
+      "resumo": "Institui Estatuto da Juventude e direitos de jovens.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12852.htm"
+    },
+    {
+      "titulo": "Lei 12.965/2014 — Marco Civil da Internet",
+      "resumo": "Estabelece princípios e garantias do uso da internet.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm"
+    },
+    {
+      "titulo": "Lei 12.984/2014 — HIV/AIDS",
+      "resumo": "Criminaliza discriminação de portadores de HIV/AIDS.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12984.htm"
+    },
+    {
+      "titulo": "Lei 13.060/2014 — Uso da força",
+      "resumo": "Disciplina uso de instrumentos de menor potencial ofensivo por agentes.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13060.htm"
+    },
+    {
+      "titulo": "Lei 13.105/2015 — CPC",
+      "resumo": "Estabelece normas do Código de Processo Civil.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm"
+    },
+    {
+      "titulo": "Lei 13.140/2015 — Mediação",
+      "resumo": "Dispõe sobre mediação entre particulares como meio de solução de conflitos.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13140.htm"
+    },
+    {
+      "titulo": "Lei 13.146/2015 — Estatuto da Pessoa com Deficiência",
+      "resumo": "Institui Lei Brasileira de Inclusão da Pessoa com Deficiência.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm"
+    },
+    {
+      "titulo": "Lei 13.188/2015 — Reintegração de posse",
+      "resumo": "Altera normas sobre reintegração de posse e usucapião especial.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13188.htm"
+    },
+    {
+      "titulo": "Lei 13.260/2016 — Terrorismo",
+      "resumo": "Regula terrorismo e organizações terroristas.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13260.htm"
+    },
+    {
+      "titulo": "Lei 13.271/2016 — Improbidade",
+      "resumo": "Altera dispositivos da Lei de Improbidade Administrativa.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13271.htm"
+    },
+    {
+      "titulo": "Lei 13.294/2016 — Sistema Financeiro",
+      "resumo": "Altera normas sobre instituições do Sistema Financeiro Nacional.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13294.htm"
+    },
+    {
+      "titulo": "Lei 13.300/2016 — Lobby",
+      "resumo": "Regula registro de representantes de interesse perante o poder público.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13300.htm"
+    },
+    {
+      "titulo": "Lei 13.303/2016 — Estatuto jurídico de estatais",
+      "resumo": "Regime jurídico de empresas estatais e sociedades de economia mista.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13303.htm"
+    },
+    {
+      "titulo": "Lei 13.344/2016 — Tráfico de pessoas",
+      "resumo": "Tipifica tráfico de pessoas e medidas de prevenção.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13344.htm"
+    },
+    {
+      "titulo": "Lei 13.445/2017 — Migração",
+      "resumo": "Regula direitos e deveres de migrantes e refugiados.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13445.htm"
+    },
+    {
+      "titulo": "Lei 13.455/2017 — Regularização fundiária",
+      "resumo": "Altera normas de regularização fundiária urbana e rural.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13455.htm"
+    },
+    {
+      "titulo": "Lei 13.460/2017 — Defesa do usuário de serviço público",
+      "resumo": "Estabelece normas de participação e defesa de usuários de serviços públicos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm"
+    },
+    {
+      "titulo": "Lei 13.709/2018 — LGPD",
+      "resumo": "Regula tratamento de dados pessoais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm"
+    },
+    {
+      "titulo": "Lei 13.775/2018 — Duplicata eletrônica",
+      "resumo": "Dispõe sobre emissão de duplicata em formato eletrônico.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13775.htm"
+    },
+    {
+      "titulo": "Lei 13.869/2019 — Abuso de autoridade",
+      "resumo": "Altera normas sobre abuso de autoridade e responsabilização.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13869.htm"
+    },
+    {
+      "titulo": "Lei 13.874/2019 — Liberdade econômica",
+      "resumo": "Estabelece Declaração de Direitos de Liberdade Econômica.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13874.htm"
+    },
+    {
+      "titulo": "Lei 13.966/2019 — Agências reguladoras",
+      "resumo": "Altera normas sobre agências reguladoras e servidores.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13966.htm"
+    },
+    {
+      "titulo": "Lei 14.010/2020 — Pandemia",
+      "resumo": "Altera normas sobre prazos processuais e medidas emergenciais.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/lei/l14010.htm"
+    },
+    {
+      "titulo": "Lei 14.133/2021 — Nova Lei de Licitações",
+      "resumo": "Regula licitações e contratos administrativos.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm"
+    },
+    {
+      "titulo": "Lei 14.344/2022 — Violência doméstica ampliada",
+      "resumo": "Altera Lei Maria da Penha e tipifica violência doméstica ampliada.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14344.htm"
+    },
+    {
+      "titulo": "Lei 14.457/2022 — Assédio no trabalho",
+      "resumo": "Altera CLT sobre assédio sexual e programas de prevenção.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14457.htm"
+    },
+    {
+      "titulo": "Lei 14.597/2023 — Acordo de leniência",
+      "resumo": "Altera normas sobre acordo de leniência e compliance.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14597.htm"
+    },
+    {
+      "titulo": "Lei 14.717/2023 — Crimes financeiros",
+      "resumo": "Altera normas penais sobre crimes financeiros e criptoativos.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14717.htm"
+    },
+    {
+      "titulo": "Lei 14.852/2024 — Programa de integridade",
+      "resumo": "Altera normas sobre programas de integridade e anticorrupção.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14852.htm"
+    },
+    {
+      "titulo": "Lei 14.965/2024 — Educação financeira",
+      "resumo": "Institui Política Nacional de Educação Financeira.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14965.htm"
+    },
+    {
+      "titulo": "Lei 15.040/2024",
+      "resumo": "Altera normas sobre procedimentos administrativos e licitações.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15040.htm"
+    },
+    {
+      "titulo": "Lei 2.889/1956 — IPVA",
+      "resumo": "Institui imposto sobre veículos automotores (IPVA).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l2889.htm"
+    },
+    {
+      "titulo": "Lei 4.090/1962 — Ações comerciais",
+      "resumo": "Regula emissão e negociação de ações e valores mobiliários.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4090.htm"
+    },
+    {
+      "titulo": "Lei 4.132/1962 — Mercado de capitais",
+      "resumo": "Dispõe sobre mercado de valores mobiliários e proteção ao investidor.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4132.htm"
+    },
+    {
+      "titulo": "Lei 4.591/1964 — Mercado de capitais",
+      "resumo": "Regula condomínios em incorporações e distribuição de valores mobiliários.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4591.htm"
+    },
+    {
+      "titulo": "Lei 4.717/1965 — Ação popular",
+      "resumo": "Regula a ação popular e dispõe sobre mandado de segurança coletivo.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4717.htm"
+    },
+    {
+      "titulo": "Lei 4.729/1965 — Mercado de capitais",
+      "resumo": "Altera normas sobre valores mobiliários e sociedades anônimas.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/1950-1969/l4729.htm"
+    },
+    {
+      "titulo": "Lei 4.737/1965 — Código Eleitoral",
+      "resumo": "Institui o Código Eleitoral e normas eleitorais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4737.htm"
+    },
+    {
+      "titulo": "Lei 4.749/1965",
+      "resumo": "Dispõe sobre nacionalidade e naturalização de estrangeiros.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4749.htm"
+    },
+    {
+      "titulo": "Lei 4.886/1965 — Anistia",
+      "resumo": "Concede anistia e regula efeitos políticos correlatos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4886.htm"
+    },
+    {
+      "titulo": "Lei 5.172/1966 — CTN",
+      "resumo": "Dispõe sobre o Sistema Tributário Nacional (CTN).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5172.htm"
+    },
+    {
+      "titulo": "Lei 5.256/1967 — Prisão especial",
+      "resumo": "Regula prisão especial de autoridades e agentes públicos.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/1950-1969/l5256.htm"
+    },
+    {
+      "titulo": "Lei 5.474/1968 — Imprensa",
+      "resumo": "Altera normas sobre direito de resposta e liberdade de imprensa.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5474.htm"
+    },
+    {
+      "titulo": "Lei 5.478/1968 — Imprensa",
+      "resumo": "Complementa normas sobre responsabilidade civil da imprensa.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5478.htm"
+    },
+    {
+      "titulo": "Lei 5.584/1970",
+      "resumo": "Fixa prazos para entrega de laudos periciais em processos judiciais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5584.htm"
+    },
+    {
+      "titulo": "Lei 5.764/1971 — Cooperativas",
+      "resumo": "Regula organização e funcionamento das sociedades cooperativas.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm"
+    },
+    {
+      "titulo": "Lei 5.889/1973",
+      "resumo": "Altera dispositivos da Consolidação das Leis do Trabalho.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l5889.htm"
+    },
+    {
+      "titulo": "Lei 5.941/1973",
+      "resumo": "Dispõe sobre suspensão de medida de segurança e internação.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/1970-1979/l5941.htm"
+    },
+    {
+      "titulo": "Lei 556/1948 — Crimes contra a economia",
+      "resumo": "Define crimes contra a economia popular e ordem econômica.",
+      "secao": "Penal e Processual",
+      "url": "https://legis.senado.leg.br/norma/?numero=556&tipo_norma=lei&data=19481218&link=s"
+    },
+    {
+      "titulo": "Lei 6.019/1974",
+      "resumo": "Altera normas trabalhistas sobre contratos e verbas rescisórias.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6019.htm"
+    },
+    {
+      "titulo": "Lei 6.385/1976 — CVM",
+      "resumo": "Institui a Comissão de Valores Mobiliários e regula o mercado de capitais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6385.htm"
+    },
+    {
+      "titulo": "Lei 6.515/1977 — Divórcio",
+      "resumo": "Altera normas de direito de família e introduz o divórcio.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6515.htm"
+    },
+    {
+      "titulo": "Lei 6.766/1979 — Parcelamento do solo",
+      "resumo": "Regula parcelamento do solo urbano e direito urbanístico.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6766.htm"
+    },
+    {
+      "titulo": "Lei 6.830/1980 — Execução fiscal",
+      "resumo": "Regula execução fiscal de créditos tributários da Fazenda Pública.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6830.htm"
+    },
+    {
+      "titulo": "Lei 6.858/1980 — Benefícios previdenciários",
+      "resumo": "Dispõe sobre pagamento de benefícios previdenciários a terceiros.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6858.htm"
+    },
+    {
+      "titulo": "Lei 6.938/1981 — Política Nacional do Meio Ambiente",
+      "resumo": "Institui a Política Nacional do Meio Ambiente (PNMA).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6938.htm"
+    },
+    {
+      "titulo": "Lei 7.210/1984 — Lei de Execução Penal",
+      "resumo": "Define normas para execução de penas e medidas alternativas (LEP).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7210.htm"
+    },
+    {
+      "titulo": "Lei 7.347/1985 — Ação civil pública",
+      "resumo": "Regula ação civil pública e tutela de interesses difusos e coletivos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7347orig.htm"
+    },
+    {
+      "titulo": "Lei 7.357/1985 — Cheque",
+      "resumo": "Dispõe sobre o cheque e dá outras providências.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7357.htm"
+    },
+    {
+      "titulo": "Lei 7.418/1985 — Empréstimo consignado",
+      "resumo": "Regula empréstimos consignados em folha de pagamento.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7418.htm"
+    },
+    {
+      "titulo": "Lei 7.492/1986 — Lei cambial",
+      "resumo": "Regula duplicata, nota promissória e títulos de crédito (Lei Cambial).",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7492.htm"
+    },
+    {
+      "titulo": "Lei 7.716/1989 — Crimes de preconceito",
+      "resumo": "Define crimes resultantes de preconceito de raça ou cor.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7716.htm"
+    },
+    {
+      "titulo": "Lei 7.783/1989 — Greve",
+      "resumo": "Regula direito de greve e procedimentos correlatos.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7783.htm"
+    },
+    {
+      "titulo": "Lei 7.960/1989 — Prisão temporária",
+      "resumo": "Regula prisão temporária e prazos de custódia.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7960.htm"
+    },
+    {
+      "titulo": "Lei 8.009/1990 — Reparação ao consumidor",
+      "resumo": "Dispõe sobre reparação de danos ao consumidor por produtos e serviços.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8009.htm"
+    },
+    {
+      "titulo": "Lei 8.038/1990 — Júri",
+      "resumo": "Altera normas de competência e procedimento do Tribunal do Júri.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8038.htm"
+    },
+    {
+      "titulo": "Lei 8.069/1990 — ECA",
+      "resumo": "Dispõe sobre o Estatuto da Criança e do Adolescente (ECA).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm"
+    },
+    {
+      "titulo": "Lei 8.072/1990 — Crimes hediondos",
+      "resumo": "Define crimes hediondos e restringe benefícios penais.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8072.htm"
+    },
+    {
+      "titulo": "Lei 8.078/1990 — CDC",
+      "resumo": "Estabelece normas de proteção ao consumidor (CDC).",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078.htm"
+    },
+    {
+      "titulo": "Lei 8.112/1990 — Servidores públicos",
+      "resumo": "Regula regime jurídico dos servidores públicos civis da União.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8112cons.htm"
+    },
+    {
+      "titulo": "Lei 8.137/1990 — Crimes tributários",
+      "resumo": "Define crimes contra a ordem tributária e economia popular.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8137.htm"
+    },
+    {
+      "titulo": "Lei 8.176/1991 — Estoques de combustíveis",
+      "resumo": "Cria o Sistema de Estoques de Combustíveis.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8176.htm"
+    },
+    {
+      "titulo": "Lei 8.212/1991 — Previdência Social",
+      "resumo": "Dispõe sobre custeio e arrecadação da Previdência Social.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8212cons.htm"
+    },
+    {
+      "titulo": "Lei 8.213/1991 — Benefícios da Previdência",
+      "resumo": "Dispõe sobre Planos de Benefícios da Previdência Social.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm"
+    },
+    {
+      "titulo": "Lei 8.245/1991 — Locações",
+      "resumo": "Regula locações de imóveis urbanos e despejo.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm"
+    },
+    {
+      "titulo": "Lei 8.429/1992 — Improbidade administrativa",
+      "resumo": "Previne e reprime atos de improbidade administrativa.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8429.htm"
+    },
+    {
+      "titulo": "Lei 8.629/1993 — Reforma agrária",
+      "resumo": "Regula desapropriação de imóvel rural para reforma agrária.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8629.htm"
+    },
+    {
+      "titulo": "Lei 8.666/1993 — Licitações",
+      "resumo": "Regula licitações e contratos administrativos.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8666cons.htm"
+    },
+    {
+      "titulo": "Lei 8.906/1994 — OAB",
+      "resumo": "Regula exercício da advocacia e organização da OAB.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8906.htm"
+    },
+    {
+      "titulo": "Lei 8.934/1994 — Notários e registradores",
+      "resumo": "Regula serviços notariais e de registro público.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8934.htm"
+    },
+    {
+      "titulo": "Lei 8.971/1995 — Informática",
+      "resumo": "Regula mercado de informática e propriedade de programas.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8971.htm"
+    },
+    {
+      "titulo": "Lei 8.987/1995 — Concessões",
+      "resumo": "Regula regime de concessão e permissão de serviços públicos.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8987cons.htm"
+    },
+    {
+      "titulo": "Lei 9.051/1995 — Eleições",
+      "resumo": "Altera normas eleitorais sobre propaganda e financiamento.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9051.htm"
+    },
+    {
+      "titulo": "Lei 9.096/1995 — Partidos políticos",
+      "resumo": "Regula criação, fusão e funcionamento de partidos políticos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9096.htm"
+    },
+    {
+      "titulo": "Lei 9.099/1995 — Juizados Especiais",
+      "resumo": "Institui Juizados Especiais Cíveis e Criminais.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm"
+    },
+    {
+      "titulo": "Lei 9.278/1996 — Privatizações",
+      "resumo": "Dispõe sobre privatização de empresas públicas e ativos estatais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9278.htm"
+    },
+    {
+      "titulo": "Lei 9.279/1996 — Propriedade industrial",
+      "resumo": "Regula direitos e obrigações de propriedade industrial.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9279.htm"
+    },
+    {
+      "titulo": "Lei 9.296/1996 — Interceptação telefônica",
+      "resumo": "Regula interceptação telefônica e quebra de sigilo.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9296.htm"
+    },
+    {
+      "titulo": "Lei 9.307/1996 — Arbitragem",
+      "resumo": "Dispõe sobre arbitragem e câmara arbitral.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9307.htm"
+    },
+    {
+      "titulo": "Lei 9.434/1997 — DNA e identificação",
+      "resumo": "Regula cadastro de condenados e identificação genética.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9434.htm"
+    },
+    {
+      "titulo": "Lei 9.455/1997 — Tortura",
+      "resumo": "Define crimes de tortura e mecanismos de prevenção.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9455.htm"
+    },
+    {
+      "titulo": "Lei 9.469/1997 — ANEEL",
+      "resumo": "Autoriza criação da ANEEL e regula setor elétrico.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9469.htm"
+    },
+    {
+      "titulo": "Lei 9.494/1997 — Processo administrativo e judicial",
+      "resumo": "Altera normas de processo administrativo e execução contra a Fazenda.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9494.htm"
+    },
+    {
+      "titulo": "Lei 9.503/1997 — CTB",
+      "resumo": "Institui o Código de Trânsito Brasileiro.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9503.htm"
+    },
+    {
+      "titulo": "Lei 9.504/1997 — Eleições",
+      "resumo": "Regula eleições, propaganda eleitoral e financiamento de campanhas.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9504.htm"
+    },
+    {
+      "titulo": "Lei 9.507/1997 — Habeas data",
+      "resumo": "Regula habeas data e acesso a informações pessoais.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9507.htm"
+    },
+    {
+      "titulo": "Lei 9.514/1997 — Alienação fiduciária",
+      "resumo": "Regula alienação fiduciária de bens imóveis.",
+      "secao": "Civil e Trabalho",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9514.htm"
+    },
+    {
+      "titulo": "Lei 9.601/1998 — Software",
+      "resumo": "Altera normas sobre propriedade intelectual de software.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9601.htm"
+    },
+    {
+      "titulo": "Lei 9.605/1998 — Crimes ambientais",
+      "resumo": "Dispõe sobre crimes ambientais e sanções penais.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9605.htm"
+    },
+    {
+      "titulo": "Lei 9.608/1998 — Serviços notariais",
+      "resumo": "Altera normas sobre serviços notariais e registrais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9608.htm"
+    },
+    {
+      "titulo": "Lei 9.609/1998 — Software",
+      "resumo": "Regula licenciamento e proteção de programas de computador.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9609.htm"
+    },
+    {
+      "titulo": "Lei 9.610/1998 — Direitos autorais",
+      "resumo": "Consolida legislação sobre direitos autorais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm"
+    },
+    {
+      "titulo": "Lei 9.613/1998 — Lavagem de dinheiro",
+      "resumo": "Dispõe sobre crimes de lavagem de dinheiro e ocultação de bens.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9613.htm"
+    },
+    {
+      "titulo": "Lei 9.709/1998 — ANATEL",
+      "resumo": "Autoriza criação da ANATEL e regula telecomunicações.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9709.htm"
+    },
+    {
+      "titulo": "Lei 9.784/1999 — Processo administrativo",
+      "resumo": "Regula processo administrativo federal.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9784.htm"
+    },
+    {
+      "titulo": "Lei 9.800/1999 — Conciliação",
+      "resumo": "Institui audiências de conciliação e mediação em processos judiciais.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9800.htm"
+    },
+    {
+      "titulo": "Lei 9.807/1999 — Proteção a vítimas e testemunhas",
+      "resumo": "Dispõe sobre proteção a vítimas e testemunhas ameaçadas.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9807.htm"
+    },
+    {
+      "titulo": "Lei 9.868/1999 — ADI e ADC",
+      "resumo": "Regula ação declaratória de constitucionalidade e de inconstitucionalidade.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9868.htm"
+    },
+    {
+      "titulo": "Lei 9.873/1999 — Prescrição administrativa",
+      "resumo": "Estabelece prazo de prescrição para infrações administrativas.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9873.htm"
+    },
+    {
+      "titulo": "Lei 9.882/1999 — Ações constitucionais",
+      "resumo": "Regula ADI, ADC, ADPF e mandado de injunção.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9882.htm"
+    },
+    {
+      "titulo": "Lei 9.962/2000 — ANVISA",
+      "resumo": "Autoriza criação da ANVISA e regula vigilância sanitária.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9962.htm"
+    },
+    {
+      "titulo": "Lei Complementar 101/2000 — LRF",
+      "resumo": "Estabelece responsabilidade fiscal e limites de gastos públicos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp101.htm"
+    },
+    {
+      "titulo": "Lei Complementar 105/2001 — Sigilo bancário",
+      "resumo": "Regula sigilo de operações de instituições financeiras.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp105.htm"
+    },
+    {
+      "titulo": "Lei Complementar 123/2006 — Simples Nacional",
+      "resumo": "Institui Estatuto Nacional da Microempresa e EPP.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm"
+    },
+    {
+      "titulo": "Lei Complementar 142/2013 — Previdência complementar",
+      "resumo": "Regula previdência complementar fechada e aberta.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp142.htm"
+    },
+    {
+      "titulo": "Lei Complementar 146/2013 — PIS/COFINS monofásico",
+      "resumo": "Altera normas tributárias sobre PIS/COFINS.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp146.htm"
+    },
+    {
+      "titulo": "Lei Complementar 150/2015 — ISS",
+      "resumo": "Regula ISS sobre serviços de qualquer natureza.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp150.htm"
+    },
+    {
+      "titulo": "Lei Complementar 152/2015 — Orçamento público",
+      "resumo": "Altera normas sobre orçamento e finanças públicas.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp152.htm"
+    },
+    {
+      "titulo": "Lei Complementar 182/2021 — Recuperação fiscal",
+      "resumo": "Institui regime de recuperação fiscal de estados e municípios.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp182.htm"
+    },
+    {
+      "titulo": "Lei Complementar 199/2023 — RCU",
+      "resumo": "Institui Registro Cadastral Unificado de contribuintes.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp199.htm"
+    },
+    {
+      "titulo": "Lei Complementar 64/1990 — Inelegibilidades",
+      "resumo": "Estabelece casos de inelegibilidade para cargos eletivos.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp64.htm"
+    },
+    {
+      "titulo": "Lei Complementar 76/1993 — Fundeb",
+      "resumo": "Institui Fundo de Manutenção e Desenvolvimento da Educação Básica.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp76.htm"
+    }
+  ]
+}

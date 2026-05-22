@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preview NaIntegra Lex</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 42rem; margin: 2rem auto; padding: 0 1rem; line-height: 1.5; color: #111; }
+    code { background: #f4f1ea; padding: 0.1rem 0.35rem; border-radius: 4px; font-size: 0.88em; }
+    ul { padding-left: 1.2rem; }
+    a { color: #9a6e00; font-weight: 600; }
+  </style>
+</head>
+<body>
+  <h1>Preview NaIntegra Lex</h1>
+  <p>Servindo pela <strong>raiz do repositório</strong> (para <code>fetch()</code> funcionar).</p>
+  <ul>
+    <li>
+      <a href="./analise-organizacao.html">Análise &amp; organização</a> — tenta HTTP e, se falhar ou estiver em
+      <code>file://</code>, usa <strong>cópia embutida</strong> do demo no próprio HTML.
+    </li>
+    <li><a href="./monitor-progresso.html">Monitor de progresso</a> — corpus + manifest <code>latest</code> (precisa HTTP na raiz).</li>
+    <li><a href="./evolucao-organizacao.html"><strong>Evolução</strong></a> — histórico por ciclo do organize/questions-loop (HTML regenerado a cada ciclo; também funciona em <code>file://</code>).</li>
+    <li><a href="./demo-manifest.jsonl"><code>demo-manifest.jsonl</code></a> (fonte bruta).</li>
+    <li><a href="../web/lex/index.html"><strong>NaIntegra Lex (app)</strong></a> — produto em <code>naintegracursos.com.br/lex</code>.</li>
+  </ul>
+  <p>Terminal na pasta do projeto:</p>
+  <pre style="background:#f4f1ea;padding:1rem;border-radius:8px;overflow:auto">python3 preview/serve_preview.py</pre>
+  <p>O script abre o Lex no navegador e grava a URL em <code>preview/.server-url</code>.
+    Se a porta 8765 estiver ocupada, tenta a seguinte — confira a porta no terminal.</p>
+</body>
+</html>

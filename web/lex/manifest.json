@@ -1,0 +1,11 @@
+{
+  "name": "NaIntegra Lex",
+  "short_name": "NaIntegra Lex",
+  "description": "Legislação, jurisprudência e flashcards para concurseiros",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#faf8f4",
+  "theme_color": "#9a6e00",
+  "lang": "pt-BR",
+  "icons": []
+}

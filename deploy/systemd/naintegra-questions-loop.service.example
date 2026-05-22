@@ -1,0 +1,16 @@
+[Unit]
+Description=NaIntegra questions loop (Playwright harvest + organize)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Ajuste os caminhos absolutos:
+WorkingDirectory=/REPLACE_ME/naintegra
+EnvironmentFile=-/REPLACE_ME/naintegra/.env
+ExecStart=/REPLACE_ME/naintegra/.venv/bin/naintegra-questions-loop
+Restart=on-failure
+RestartSec=45
+
+[Install]
+WantedBy=multi-user.target
