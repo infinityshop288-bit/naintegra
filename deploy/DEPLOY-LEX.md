@@ -1,6 +1,24 @@
 # Deploy NaIntegra Lex → naintegracursos.com.br/lex
 
-Hospedagem: **Hostinger** (`platform: hostinger`).
+Repositório de **produção** (site + Hostinger):  
+**https://github.com/infinityshop288-bit/naintegracursos**
+
+O app Lex fica em **`public/lex/`** — o Vite copia para `dist/lex/` no build.
+
+Repositório de **desenvolvimento** (agente + pipeline):  
+**https://github.com/infinityshop288-bit/naintegra** (`web/lex/`)
+
+## Fluxo recomendado
+
+1. Desenvolva em `naintegra/web/lex/`
+2. Push em `naintegra` → workflow **Sync Lex → naintegracursos** atualiza `public/lex/`
+3. Push em `naintegracursos` → Hostinger/Lovable publica o site (inclui `/lex`)
+
+Sync manual local:
+
+```bash
+python3 scripts/sync_lex_to_cursos.py --push
+```
 
 ## Opção A — GitHub Actions (automático a cada push)
 

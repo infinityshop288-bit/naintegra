@@ -1,0 +1,45 @@
+name: Sync Lex → naintegracursos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/lex/**"
+      - "scripts/sync_lex_to_cursos.py"
+      - "scripts/publish_lex_static.sh"
+      - ".github/workflows/sync-lex-to-cursos.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checkout naintegracursos
+        uses: actions/checkout@v4
+        with:
+          repository: infinityshop288-bit/naintegracursos
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: naintegracursos
+
+      - name: Sync public/lex
+        run: |
+          rm -rf naintegracursos/public/lex
+          rsync -a --delete --exclude '.DS_Store' web/lex/ naintegracursos/public/lex/
+
+      - name: Commit and push
+        working-directory: naintegracursos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/lex
+          if git diff --staged --quiet; then
+            echo "Sem alterações em public/lex"
+            exit 0
+          fi
+          git commit -m "Atualiza NaIntegra Lex em public/lex (${GITHUB_SHA:0:7})"
+          git push origin HEAD:main
