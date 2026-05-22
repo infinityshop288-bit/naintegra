@@ -323,12 +323,49 @@
     }
   }
 
+  function normalizePlanId(planId) {
+    return PLANS[planId] ? planId : "lex-mensal";
+  }
+
+  function planPickerHtml(selectedId) {
+    const sel = normalizePlanId(selectedId);
+    const mensal = PLANS["lex-mensal"];
+    const anual = PLANS["lex-anual"];
+    return `
+      <div class="pay-plan-pick" role="group" aria-label="Escolha o plano">
+        <button type="button" class="pay-plan-option ${sel === "lex-mensal" ? "active" : ""}" data-plan-pick="lex-mensal">
+          <span class="pay-plan-name">Mensal</span>
+          <span class="pay-plan-price">${formatBrl(mensal.price)}<small>/mês</small></span>
+          <span class="pay-plan-note">Cancele quando quiser</span>
+        </button>
+        <button type="button" class="pay-plan-option ${sel === "lex-anual" ? "active" : ""}" data-plan-pick="lex-anual">
+          <span class="pay-plan-badge">Melhor custo</span>
+          <span class="pay-plan-name">Anual</span>
+          <span class="pay-plan-price">${formatBrl(anual.price)}<small>/ano</small></span>
+          <span class="pay-plan-note">≈ ${formatBrl(anual.price / 12)}/mês · economize 2 meses</span>
+        </button>
+      </div>`;
+  }
+
+  function bindPlanPicker(selectedId) {
+    document.querySelectorAll("[data-plan-pick]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-plan-pick");
+        if (!id || id === normalizePlanId(selectedId)) return;
+        location.hash = `#/assinatura?plan=${encodeURIComponent(id)}`;
+      });
+    });
+  }
+
   function checkoutHtml(planId) {
-    const plan = PLANS[planId] || PLANS["lex-mensal"];
+    const sel = normalizePlanId(planId);
+    const plan = PLANS[sel];
     return `
       <section class="page checkout-page">
         <h1>Finalizar assinatura</h1>
-        <p class="lead">Plano <strong>${esc(plan.label)}</strong> — ${formatBrl(plan.price)}/${esc(plan.period)}</p>
+        <p class="lead">Escolha o plano e a forma de pagamento.</p>
+        ${planPickerHtml(sel)}
+        <p class="pay-plan-summary">Plano <strong>${esc(plan.label)}</strong> — ${formatBrl(plan.price)}/${esc(plan.period)}</p>
         <div class="pay-cpf-row">
           <label for="pay-cpf">CPF (obrigatório para PIX)</label>
           <input type="text" id="pay-cpf" class="pix-code" inputmode="numeric" placeholder="000.000.000-00" maxlength="14" />
@@ -342,7 +379,21 @@
       </section>`;
   }
 
+  function checkoutLoginHtml(planId) {
+    const sel = normalizePlanId(planId);
+    const plan = PLANS[sel];
+    return `
+      <section class="page checkout-page">
+        <h1>Assine o NaIntegra Lex</h1>
+        <p class="lead">Escolha seu plano e entre na conta para continuar.</p>
+        ${planPickerHtml(sel)}
+        <p class="pay-plan-summary">Plano selecionado: <strong>${esc(plan.label)}</strong> — ${formatBrl(plan.price)}/${esc(plan.period)}</p>
+        <button type="button" class="btn primary" id="checkout-auth-open">Entrar / Criar conta</button>
+      </section>`;
+  }
+
   function bindCheckout(planId) {
+    const sel = normalizePlanId(planId);
     const panel = document.getElementById("pay-panel");
     if (!panel) return;
 
@@ -359,9 +410,9 @@
             panel.innerHTML = `<p class="auth-msg">Informe um CPF válido (11 dígitos) para gerar o PIX.</p>`;
             return;
           }
-          await startPixCheckout(planId, panel, cpf);
+          await startPixCheckout(sel, panel, cpf);
         } else {
-          await startCardCheckout(planId, panel);
+          await startCardCheckout(sel, panel);
         }
       } catch (e) {
         panel.innerHTML = `<p class="auth-msg">${esc(e.message)}</p>`;
@@ -375,15 +426,9 @@
   }
 
   async function renderAssinaturaPage(planId) {
+    const sel = normalizePlanId(planId);
     const user = await window.LexAuth.getUser();
-    if (!user) {
-      return `
-        <section class="page checkout-page">
-          <h1>Assine o NaIntegra Lex</h1>
-          <p class="lead">Entre ou crie sua conta para continuar com o pagamento.</p>
-          <button type="button" class="btn primary" id="checkout-auth-open">Entrar / Criar conta</button>
-        </section>`;
-    }
+    if (!user) return checkoutLoginHtml(sel);
     if (await isSubscribed(true)) {
       return `
         <section class="page checkout-page">
@@ -392,14 +437,16 @@
           <a class="btn primary" href="#/">Ir para a plataforma</a>
         </section>`;
     }
-    return checkoutHtml(planId || "lex-mensal");
+    return checkoutHtml(sel);
   }
 
   function bindAssinaturaPage(planId) {
+    const sel = normalizePlanId(planId);
+    bindPlanPicker(sel);
     document.getElementById("checkout-auth-open")?.addEventListener("click", () => {
       window.LexAuthUI?.open("login");
     });
-    if (document.getElementById("pay-panel")) bindCheckout(planId || "lex-mensal");
+    if (document.getElementById("pay-panel")) bindCheckout(sel);
   }
 
   handlePaymentReturn();

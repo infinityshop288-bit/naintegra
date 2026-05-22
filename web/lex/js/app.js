@@ -35,7 +35,12 @@
     qAnswers: {},
     subscriptionActive: false,
     subscriptionChecked: false,
+    currentUser: null,
   };
+
+  function isLoggedIn() {
+    return Boolean(state.currentUser);
+  }
 
   function loadJson(key, fallback) {
     if (store()?.loadJson) return store().loadJson(key, fallback);
@@ -89,8 +94,18 @@
   }
 
   function isPublicRoute(path) {
+    if (!path || path === "home") return true;
     const pub = window.LEX_CONFIG?.publicRoutes || ["assinatura", "contato", "auth"];
     return pub.includes(path) || path.startsWith("auth");
+  }
+
+  function isLandingRoute(path) {
+    return !path || path === "home" || path === "beneficios" || path === "precos";
+  }
+
+  function updatePublicLayout(path) {
+    const publicLanding = !isLoggedIn() && isLandingRoute(path);
+    document.body.classList.toggle("lex-public-mode", publicLanding);
   }
 
   async function ensureSubscriptionGate() {
@@ -368,7 +383,7 @@
     });
   }
 
-  function renderHome() {
+  function renderDashboardHome() {
     const nLeg = byType("legislacao").length;
     const nJur = byType("jurisprudencia").length;
     const nDeck = state.decks.length;
@@ -402,6 +417,138 @@
           <p>${nQ} questões · filtros por banca</p>
         </button>
       </div>`;
+  }
+
+  function renderLandingPage(showAuthPanel) {
+    const authAside = showAuthPanel
+      ? `<aside class="landing-auth-aside"><div id="landing-auth-root"></div></aside>`
+      : `<aside class="landing-auth-aside">
+          <div class="landing-auth-panel landing-auth-panel--cta">
+            <h2 class="landing-auth-title">Quase lá!</h2>
+            <p class="landing-auth-lead">Sua conta está ativa. Escolha um plano para liberar o acervo completo.</p>
+            <a class="btn primary block" href="#/assinatura?plan=lex-anual">Assinar e começar</a>
+            <a class="btn block" href="#/assinatura?plan=lex-mensal">Plano mensal</a>
+          </div>
+        </aside>`;
+
+    return `
+      <div class="lex-landing">
+        <section class="landing-hero">
+          <div class="landing-hero-grid">
+            <div class="landing-hero-copy">
+              <div class="landing-hero-brand">
+                <a class="lex-brand lex-brand--hero" href="#/" aria-label="Lex NaIntegra">
+                  <img class="lex-brand-mark" src="./images/lex-mark.png" alt="" width="165" height="165" decoding="async" aria-hidden="true" />
+                  <span class="lex-brand-copy">
+                    <span class="lex-brand-lex">LEX</span>
+                    <span class="lex-brand-name">NaIntegra</span>
+                  </span>
+                </a>
+              </div>
+              <p class="landing-hero-tag">Plataforma para concurseiros de segurança pública</p>
+              <h1>Legislação, jurisprudência e questões — tudo integrado para você passar.</h1>
+              <p class="landing-hero-lead">Lei seca com grifos e anotações, súmulas e informativos, flashcards com repetição espaçada e banco de questões comentadas. Sincronizado na nuvem.</p>
+              <ul class="landing-hero-stats">
+                <li><strong>9.900+</strong> questões</li>
+                <li><strong>7.000+</strong> flashcards</li>
+                <li><strong>100%</strong> foco em concursos</li>
+              </ul>
+            </div>
+            ${authAside}
+          </div>
+        </section>
+
+        <section class="landing-features" id="beneficios">
+          <h2>Tudo que você precisa em um só lugar</h2>
+          <div class="landing-feature-grid">
+            <article>
+              <span class="landing-feat-icon">📜</span>
+              <h3>Lei Seca</h3>
+              <p>Constituição, penal, administrativo e legislação especial — com busca, progresso de leitura e destaques coloridos.</p>
+            </article>
+            <article>
+              <span class="landing-feat-icon">⚖️</span>
+              <h3>Jurisprudência</h3>
+              <p>Súmulas e informativos organizados por tema e banca, prontos para revisão rápida antes da prova.</p>
+            </article>
+            <article>
+              <span class="landing-feat-icon">🃏</span>
+              <h3>Flashcards</h3>
+              <p>Decks por matéria com algoritmo de repetição. Licitações, penal, constitucional e muito mais.</p>
+            </article>
+            <article>
+              <span class="landing-feat-icon">📝</span>
+              <h3>Questões</h3>
+              <p>Modo resolução com feedback imediato, comentários e filtros por banca e assunto.</p>
+            </article>
+            <article>
+              <span class="landing-feat-icon">☁️</span>
+              <h3>Sync na nuvem</h3>
+              <p>Grifos, anotações e progresso salvos na sua conta — continue de onde parou em qualquer dispositivo.</p>
+            </article>
+            <article>
+              <span class="landing-feat-icon">🔒</span>
+              <h3>Conteúdo protegido</h3>
+              <p>Material licenciado para uso pessoal, com proteções contra cópia e redistribuição não autorizada.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="landing-pricing" id="precos">
+          <h2>Planos simples, sem surpresas</h2>
+          <p class="landing-pricing-sub">Pagamento via PIX ou cartão pelo Mercado Pago.</p>
+          <div class="landing-price-cards">
+            <article class="landing-price-card">
+              <h3>Mensal</h3>
+              <p class="landing-price-value"><span>R$</span>19<span>,90</span></p>
+              <p class="landing-price-period">por mês</p>
+              <ul>
+                <li>Acesso completo ao acervo</li>
+                <li>Grifos e anotações</li>
+                <li>Questões e flashcards</li>
+                <li>Cancele quando quiser</li>
+              </ul>
+              <a class="btn primary block" href="#/assinatura?plan=lex-mensal">Assinar mensal</a>
+            </article>
+            <article class="landing-price-card featured">
+              <span class="landing-price-badge">Melhor custo</span>
+              <h3>Anual</h3>
+              <p class="landing-price-value"><span>R$</span>199<span>,90</span></p>
+              <p class="landing-price-period">por ano · equivale a R$ 16,66/mês</p>
+              <ul>
+                <li>Tudo do plano mensal</li>
+                <li>Economia de 2 meses</li>
+                <li>Suporte prioritário</li>
+                <li>Renovação automática opcional</li>
+              </ul>
+              <a class="btn primary block" href="#/assinatura?plan=lex-anual">Assinar anual</a>
+            </article>
+          </div>
+        </section>
+
+        <section class="landing-cta-band">
+          <h2>Pronto para estudar com método?</h2>
+          <p>${showAuthPanel ? "Entre ou crie sua conta ao lado e comece hoje mesmo." : "Escolha um plano e tenha acesso completo ao acervo."}</p>
+          <div class="landing-hero-cta landing-cta-actions">
+            ${
+              showAuthPanel
+                ? `<button type="button" class="btn primary lg" data-scroll-to="entrar">Entrar / Criar conta</button>`
+                : `<a class="btn primary lg" href="#/assinatura?plan=lex-anual">Ver planos</a>`
+            }
+            <a class="btn lg" href="#/contato">Fale conosco</a>
+          </div>
+        </section>
+
+        <footer class="landing-footer">
+          <p>NaIntegra Cursos · <a href="mailto:contato@naintegracursos.com.br">contato@naintegracursos.com.br</a></p>
+          <p><a href="#/contato">Fale conosco</a> · Conteúdo protegido por direitos autorais</p>
+        </footer>
+      </div>`;
+  }
+
+  function renderHome() {
+    if (isLoggedIn() && state.subscriptionActive) return renderDashboardHome();
+    return renderLandingPage(!isLoggedIn());
   }
 
   function renderFlashcardsList() {
@@ -1081,6 +1228,25 @@
     });
   }
 
+  function bindLanding() {
+    document.querySelectorAll("[data-auth-open]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const view = btn.getAttribute("data-auth-open") || "login";
+        if (window.LexAuthUI?.scrollToLandingAuth) window.LexAuthUI.scrollToLandingAuth(view);
+        else window.LexAuthUI?.open(view);
+      });
+    });
+    document.querySelectorAll("[data-scroll-to]").forEach((el) => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = el.getAttribute("data-scroll-to");
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    });
+    const authRoot = document.getElementById("landing-auth-root");
+    if (authRoot) window.LexAuthUI?.mountLandingAuth(authRoot, "login");
+  }
+
   function bindFlashcardsList() {
     document.querySelectorAll("[data-deck]").forEach((el) => {
       el.addEventListener("click", () => {
@@ -1427,6 +1593,7 @@
     renderRecentReads();
 
     const r = state.route;
+    updatePublicLayout(r.path);
 
     if (r.path === "assinatura") {
       const planId = r.plan || "lex-mensal";
@@ -1439,13 +1606,13 @@
     }
 
     if (!state.subscriptionActive && state.subscriptionChecked && !isPublicRoute(r.path)) {
-      location.hash = "#/assinatura";
+      location.hash = "#/";
       return;
     }
 
     let html = "";
 
-    if (r.path === "home" || !r.path) html = renderHome();
+    if (isLandingRoute(r.path)) html = renderHome();
     else if (r.path === "flashcards") {
       if (r.id) html = renderFlashSession(r.id);
       else html = renderFlashcardsList();
@@ -1470,7 +1637,13 @@
     setAppHtml(html);
 
     bindHome();
-    if (r.path === "home" || !r.path) {
+    bindLanding();
+    if (isLandingRoute(r.path) && (r.path === "beneficios" || r.path === "precos")) {
+      requestAnimationFrame(() => {
+        document.getElementById(r.path)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+    if (state.subscriptionActive && isLandingRoute(r.path)) {
       const hint = document.getElementById("sync-hint");
       if (hint) hint.hidden = Boolean(window.LexStore?.isLoggedIn?.());
     }
@@ -1501,6 +1674,7 @@
 
     if (window.LexAuthUI) {
       await window.LexAuthUI.init(async (session) => {
+        state.currentUser = session?.user ?? null;
         if (window.LexStore) await window.LexStore.setSession(session);
         if (window.LexSubscription) window.LexSubscription.invalidateCache();
         const hint = document.getElementById("sync-hint");
@@ -1522,7 +1696,7 @@
 
     const r0 = state.route;
     if (!state.subscriptionActive && !isPublicRoute(r0.path)) {
-      location.hash = "#/assinatura";
+      location.hash = "#/";
     }
 
     try {

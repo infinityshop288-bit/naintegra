@@ -1,4 +1,4 @@
-DirectoryIndex index.html landing.html
+DirectoryIndex index.html
 Options -Indexes
 
 <IfModule mod_headers.c>
