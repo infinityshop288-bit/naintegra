@@ -1,4 +1,4 @@
-const CACHE = "naintegra-lex-v15";
+const CACHE = "naintegra-lex-v16";
 const ASSETS = [
   "./",
   "./index.html",
