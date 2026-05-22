@@ -1,4 +1,5 @@
 .env
+.env.deploy
 .lex_agent/
 __pycache__/
 *.py[cod]
