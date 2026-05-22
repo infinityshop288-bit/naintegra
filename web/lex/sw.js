@@ -1,10 +1,15 @@
-const CACHE = "naintegra-lex-v14";
+const CACHE = "naintegra-lex-v15";
 const ASSETS = [
   "./",
   "./index.html",
   "./css/styles.css",
   "./data/flashcards.json",
   "./manifest.json",
+  "./favicon-32.png",
+  "./favicon-16.png",
+  "./icons/icon-192.png",
+  "./icons/icon-512.png",
+  "./icons/apple-touch-icon.png",
 ];
 
 self.addEventListener("install", (e) => {
