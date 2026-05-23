@@ -81,3 +81,6 @@ CREATE POLICY lex_content_metadata_anon_read
 
 GRANT SELECT ON lex.content_metadata TO anon, authenticated;
 GRANT SELECT ON lex.subscription_plans TO anon, authenticated;
+GRANT SELECT, INSERT, UPDATE, DELETE ON lex.user_subscriptions TO service_role;
+GRANT SELECT ON lex.subscription_plans TO service_role;
+GRANT SELECT, INSERT, UPDATE ON lex.content_metadata TO service_role;

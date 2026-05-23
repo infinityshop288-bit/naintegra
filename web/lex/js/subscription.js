@@ -29,7 +29,15 @@
       Authorization: `Bearer ${cfg.supabaseAnonKey}`,
     };
     if (requireUser) {
-      const session = await window.LexAuth.getSession();
+      const client = window.LexAuth.getClient();
+      let session = await window.LexAuth.getSession();
+      if (!session?.access_token) throw new Error("Faça login para continuar");
+      const expiresAtMs = (session.expires_at || 0) * 1000;
+      if (expiresAtMs - Date.now() < 120000) {
+        const { data, error } = await client.auth.refreshSession();
+        if (error) throw new Error("Sessão expirada. Entre novamente.");
+        session = data.session;
+      }
       if (!session?.access_token) throw new Error("Faça login para continuar");
       headers.Authorization = `Bearer ${session.access_token}`;
     }
@@ -42,7 +50,12 @@
       headers: await edgeHeaders(requireUser),
       body: JSON.stringify(body),
     });
-    const data = await res.json();
+    let data;
+    try {
+      data = await res.json();
+    } catch {
+      throw new Error("Resposta inválida do servidor de pagamento");
+    }
     if (!res.ok || data.error) throw new Error(data.error || "Erro ao processar pagamento");
     return data;
   }
@@ -145,7 +158,12 @@
       headers: await edgeHeaders(true),
       body: JSON.stringify({ planId, provider: "init" }),
     });
-    const data = await res.json();
+    let data;
+    try {
+      data = await res.json();
+    } catch {
+      throw new Error("Erro ao iniciar assinatura");
+    }
     if (!res.ok || !data.ok) throw new Error(data.error || "Erro ao iniciar assinatura");
     return data;
   }
@@ -299,28 +317,62 @@
   async function handlePaymentReturn() {
     const params = new URLSearchParams(window.location.search);
     const paymentStatus = params.get("payment") || params.get("status") || params.get("collection_status");
-    const paymentId = params.get("payment_id") || params.get("collection_id");
-    if (!paymentId) return;
-    if (paymentStatus !== "success" && paymentStatus !== "approved" && paymentStatus !== "pending") return;
+    if (!paymentStatus) return;
 
     const raw = sessionStorage.getItem(PENDING_KEY);
-    if (!raw) return;
+    const paymentId = params.get("payment_id") || params.get("collection_id");
 
-    try {
-      const pending = JSON.parse(raw);
-      if (paymentStatus === "pending") {
-        window.location.hash = "#/assinatura";
-        return;
-      }
-      await invokeConfirm(pending.subscriptionId, paymentId, "mercadopago");
+    if (paymentStatus === "failure") {
       sessionStorage.removeItem(PENDING_KEY);
-      invalidateCache();
       cleanPaymentQuery();
-      window.location.hash = "#/";
-      window.location.reload();
-    } catch (e) {
-      console.warn("payment return:", e);
+      window.location.hash = "#/assinatura";
+      return;
     }
+
+    if (paymentStatus === "pending") {
+      cleanPaymentQuery();
+      window.location.hash = "#/assinatura";
+      return;
+    }
+
+    if (paymentStatus !== "success" && paymentStatus !== "approved") return;
+
+    cleanPaymentQuery();
+
+    if (paymentId && raw) {
+      try {
+        const pending = JSON.parse(raw);
+        await invokeConfirm(pending.subscriptionId, paymentId, "mercadopago");
+        sessionStorage.removeItem(PENDING_KEY);
+        invalidateCache();
+        window.location.hash = "#/";
+        window.location.reload();
+        return;
+      } catch (e) {
+        console.warn("payment return confirm:", e);
+      }
+    }
+
+    sessionStorage.removeItem(PENDING_KEY);
+    window.location.hash = "#/assinatura";
+
+    let tries = 0;
+    const poll = setInterval(async () => {
+      tries += 1;
+      try {
+        if (await isSubscribed(true)) {
+          clearInterval(poll);
+          invalidateCache();
+          window.location.hash = "#/";
+          window.location.reload();
+        } else if (tries >= 24) {
+          clearInterval(poll);
+        }
+      } catch (e) {
+        console.warn("subscription poll:", e);
+        if (tries >= 24) clearInterval(poll);
+      }
+    }, 5000);
   }
 
   function normalizePlanId(planId) {
@@ -396,17 +448,36 @@
     const panel = document.getElementById("pay-panel");
     if (!panel) return;
 
-    async function loadTab(tab) {
+    let activeTab = "pix";
+
+    function renderPanelIdle() {
+      if (activeTab === "pix") {
+        panel.innerHTML = `
+          <p class="pay-hint">Informe o CPF acima e clique para gerar o QR Code.</p>
+          <button type="button" class="btn primary block" id="pay-action-btn">Gerar QR Code PIX</button>`;
+      } else {
+        panel.innerHTML = `
+          <p class="pay-hint">Você será redirecionado ao Mercado Pago para pagar com cartão (até 12x).</p>
+          <button type="button" class="btn primary block" id="pay-action-btn">Pagar com cartão</button>`;
+      }
+      document.getElementById("pay-action-btn")?.addEventListener("click", runPayment);
+    }
+
+    function showPayError(message) {
+      panel.innerHTML = `
+        <p class="auth-msg">${esc(message)}</p>
+        <button type="button" class="btn block" id="pay-retry">Tentar novamente</button>`;
+      document.getElementById("pay-retry")?.addEventListener("click", renderPanelIdle);
+    }
+
+    async function runPayment() {
       panel.innerHTML = `<div class="loading-inline">Preparando pagamento…</div>`;
-      document.querySelectorAll(".pay-tab").forEach((b) => {
-        b.classList.toggle("active", b.dataset.payTab === tab);
-      });
       try {
-        if (tab === "pix") {
+        if (activeTab === "pix") {
           const cpf = document.getElementById("pay-cpf")?.value || "";
           const cpfClean = cpf.replace(/\D/g, "");
           if (cpfClean.length !== 11) {
-            panel.innerHTML = `<p class="auth-msg">Informe um CPF válido (11 dígitos) para gerar o PIX.</p>`;
+            showPayError("Informe um CPF válido (11 dígitos) para gerar o PIX.");
             return;
           }
           await startPixCheckout(sel, panel, cpf);
@@ -414,14 +485,21 @@
           await startCardCheckout(sel, panel);
         }
       } catch (e) {
-        panel.innerHTML = `<p class="auth-msg">${esc(e.message)}</p>`;
+        showPayError(e.message || "Erro ao processar pagamento");
       }
     }
 
     document.querySelectorAll(".pay-tab").forEach((btn) => {
-      btn.addEventListener("click", () => loadTab(btn.dataset.payTab));
+      btn.addEventListener("click", () => {
+        activeTab = btn.dataset.payTab || "pix";
+        document.querySelectorAll(".pay-tab").forEach((b) => {
+          b.classList.toggle("active", b.dataset.payTab === activeTab);
+        });
+        renderPanelIdle();
+      });
     });
-    loadTab("pix");
+
+    renderPanelIdle();
   }
 
   async function renderAssinaturaPage(planId) {
