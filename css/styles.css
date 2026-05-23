@@ -122,6 +122,28 @@ a:hover { text-decoration: underline; }
 }
 .nav a:hover { background: var(--gold-soft); border-left-color: rgba(154, 110, 0, 0.35); }
 .nav a.active { background: var(--gold-soft); border-left-color: var(--gold); color: var(--ink); }
+.nav a.nav-external { color: var(--gold); font-weight: 600; }
+
+.platform-crosslink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--gold);
+  text-decoration: none;
+  white-space: nowrap;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg);
+}
+
+.platform-crosslink:hover {
+  background: var(--gold-soft);
+  text-decoration: none;
+}
 
 .sidebar-section {
   margin-top: 1.25rem;
