@@ -1,0 +1,2 @@
+-- Revertido: comentários de questão são públicos em lex.questao_comentarios (ver lex_questao_comentarios.sql).
+-- Mantido apenas para histórico de migrations anteriores que incluíam 'questoes' aqui.
