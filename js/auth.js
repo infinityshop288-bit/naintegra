@@ -6,8 +6,51 @@
 
   const STORAGE_OAUTH_RETURN = "lex_oauth_return_path";
   const OAUTH_CALLBACK_FILE = "auth-callback.html";
+  const NAINTEGRA_HOSTS = new Set(["naintegracursos.com.br", "www.naintegracursos.com.br"]);
 
-  function lexBasePath() {
+  function isNaIntegraHost(hostname) {
+    return NAINTEGRA_HOSTS.has(String(hostname || window.location.hostname).toLowerCase());
+  }
+
+  function normalizeOrigin(origin) {
+    return String(origin || "").replace(/\/$/, "").toLowerCase();
+  }
+
+  function isAllowedNaIntegraOrigin(origin) {
+    const normalized = normalizeOrigin(origin);
+    return (
+      normalized === normalizeOrigin(siteOrigin()) ||
+      normalized === normalizeOrigin(window.location.origin) ||
+      normalized === "https://naintegracursos.com.br" ||
+      normalized === "https://www.naintegracursos.com.br"
+    );
+  }
+
+  /** PKCE exige mesma origem no início do OAuth e no callback. */
+  function ensureCanonicalOrigin() {
+    const canonical = siteOrigin();
+    if (!canonical || window.location.protocol === "file:" || !isNaIntegraHost()) return false;
+    if (window.location.pathname.includes(OAUTH_CALLBACK_FILE)) return false;
+    if (new URL(window.location.href).searchParams.has("code")) return false;
+    if (normalizeOrigin(window.location.origin) === normalizeOrigin(canonical)) return false;
+    window.location.replace(
+      `${canonical}${window.location.pathname}${window.location.search}${window.location.hash}`,
+    );
+    return true;
+  }
+
+  function siteOrigin() {
+    const fromCfg = cfg.siteOrigin?.trim().replace(/\/$/, "");
+    if (fromCfg) return fromCfg;
+    return window.location.origin;
+  }
+
+  function lexPublicBase() {
+    const fromCfg = cfg.lexPublicPath?.trim();
+    if (fromCfg) {
+      const path = fromCfg.startsWith("/") ? fromCfg : `/${fromCfg}`;
+      return path.endsWith("/") ? path : `${path}/`;
+    }
     const path = window.location.pathname || "/";
     const idx = path.indexOf("/lex");
     if (idx >= 0) {
@@ -17,23 +60,71 @@
     return path.endsWith("/") ? path : `${path.replace(/\/[^/]*$/, "/")}`;
   }
 
-  /** URL estável para PKCE — deve constar em Supabase → Authentication → Redirect URLs. */
+  /** Callback na mesma origem da aba (PKCE). Fallback: config canônica. */
   function oauthRedirectUrl() {
-    const base = lexBasePath();
-    return `${window.location.origin}${base}${OAUTH_CALLBACK_FILE}`;
+    if (isNaIntegraHost()) {
+      return `${window.location.origin}${lexPublicBase()}${OAUTH_CALLBACK_FILE}`;
+    }
+    const explicit = cfg.oauthCallbackUrl?.trim();
+    if (explicit) return explicit;
+    return `${siteOrigin()}${lexPublicBase()}${OAUTH_CALLBACK_FILE}`;
   }
 
   function redirectUrl() {
-    return `${window.location.origin}${window.location.pathname}`;
+    return `${siteOrigin()}${lexPublicBase()}index.html`;
+  }
+
+  function lexHomeUrl() {
+    return `${siteOrigin()}${lexPublicBase()}index.html#/`;
+  }
+
+  const BLOCKED_OAUTH_ORIGINS = ["https://voltgo.com.br", "https://www.voltgo.com.br"];
+
+  function isBlockedOAuthOrigin(origin) {
+    if (!origin) return false;
+    const normalized = origin.replace(/\/$/, "").toLowerCase();
+    return BLOCKED_OAUTH_ORIGINS.some((blocked) => normalized === blocked.replace(/\/$/, "").toLowerCase());
+  }
+
+  function resolveOAuthReturnTarget(returnPath) {
+    const home = lexHomeUrl();
+    const allowedOrigin = siteOrigin();
+    if (!returnPath) return home;
+
+    if (returnPath.includes("/auth/")) {
+      return home;
+    }
+
+    if (returnPath.startsWith("http")) {
+      try {
+        const parsed = new URL(returnPath);
+        if (isBlockedOAuthOrigin(parsed.origin)) return home;
+        if (!isAllowedNaIntegraOrigin(parsed.origin)) return home;
+        return returnPath;
+      } catch {
+        return home;
+      }
+    }
+
+    if (returnPath.startsWith("/")) {
+      return `${allowedOrigin}${returnPath}`;
+    }
+
+    if (returnPath.startsWith("./")) {
+      return `${allowedOrigin}${lexPublicBase()}${returnPath.slice(2)}`;
+    }
+
+    return `${allowedOrigin}${lexPublicBase()}${returnPath.replace(/^\//, "")}`;
   }
 
   function getClient() {
     if (!client && window.supabase?.createClient) {
+      const onOAuthCallback = window.location.pathname.includes(OAUTH_CALLBACK_FILE);
       client = window.supabase.createClient(cfg.supabaseUrl, cfg.supabaseAnonKey, {
         auth: {
           persistSession: true,
           autoRefreshToken: true,
-          detectSessionInUrl: true,
+          detectSessionInUrl: !onOAuthCallback,
           flowType: "pkce",
           storage: window.localStorage,
         },
@@ -91,10 +182,26 @@
   }
 
   async function resetPassword(email) {
-    const { data, error } = await getClient().auth.resetPasswordForEmail(email, {
-      redirectTo: `${redirectUrl()}#/auth/reset-password`,
+    const res = await fetch(`${cfg.supabaseUrl}/functions/v1/auth-password-recovery`, {
+      method: "POST",
+      headers: {
+        apikey: cfg.supabaseAnonKey,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${cfg.supabaseAnonKey}`,
+      },
+      body: JSON.stringify({
+        email,
+        redirectTo: `${redirectUrl()}#/auth/reset-password`,
+        product: "lex",
+      }),
     });
-    if (error) throw error;
+    let data;
+    try {
+      data = await res.json();
+    } catch {
+      throw new Error("Resposta inválida do servidor de e-mail");
+    }
+    if (!res.ok || data.error) throw new Error(data.error || "Erro ao enviar e-mail de recuperação");
     return data;
   }
 
@@ -104,12 +211,35 @@
     return data;
   }
 
-  async function signInWithOAuth(provider) {
-    const returnPath = `${window.location.pathname}${window.location.search}${window.location.hash || "#/"}`;
+  function storeOAuthReturnPath(returnPath) {
     sessionStorage.setItem(STORAGE_OAUTH_RETURN, returnPath);
+    try {
+      localStorage.setItem(STORAGE_OAUTH_RETURN, returnPath);
+    } catch (_) {}
+  }
+
+  function readOAuthReturnPath() {
+    return sessionStorage.getItem(STORAGE_OAUTH_RETURN) || localStorage.getItem(STORAGE_OAUTH_RETURN) || "";
+  }
+
+  function clearOAuthReturnPath() {
+    sessionStorage.removeItem(STORAGE_OAUTH_RETURN);
+    try {
+      localStorage.removeItem(STORAGE_OAUTH_RETURN);
+    } catch (_) {}
+  }
+
+  async function signInWithOAuth(provider) {
+    if (ensureCanonicalOrigin()) return;
+
+    const hash = window.location.hash || "#/";
+    const safeHash = hash.includes("/auth/") ? "#/" : hash;
+    const returnPath = `${lexPublicBase()}index.html${safeHash}`;
+    storeOAuthReturnPath(returnPath);
 
     const options = {
       redirectTo: oauthRedirectUrl(),
+      skipBrowserRedirect: false,
     };
 
     if (provider === "google") {
@@ -146,5 +276,12 @@
     userLabel,
     redirectUrl,
     oauthRedirectUrl,
+    lexHomeUrl,
+    resolveOAuthReturnTarget,
+    readOAuthReturnPath,
+    clearOAuthReturnPath,
+    ensureCanonicalOrigin,
   };
+
+  ensureCanonicalOrigin();
 })();

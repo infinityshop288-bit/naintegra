@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-22T01:49:57.981602+00:00",
+  "generated_at": "2026-05-24T02:29:41.083173+00:00",
   "count": 196,
   "summaries": {
     "/ccivil_03/decreto-lei/del2848.htm": {
@@ -285,9 +285,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13060.htm"
     },
     "/ccivil_03/_ato2015-2018/2015/lei/l13105.htm": {
-      "titulo": "Lei 13.105/2015 — CPC",
+      "titulo": "Lei 13.105/2015 — Código de Processo Civil",
       "resumo": "Estabelece normas do Código de Processo Civil.",
-      "secao": "Penal e Processual",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm"
     },
     "/ccivil_03/_ato2015-2018/2015/lei/l13140.htm": {
@@ -327,8 +327,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13294.htm"
     },
     "/ccivil_03/_ato2015-2018/2016/lei/l13300.htm": {
-      "titulo": "Lei 13.300/2016 — Lobby",
-      "resumo": "Regula registro de representantes de interesse perante o poder público.",
+      "titulo": "Lei 13.300/2016 — Lei do Mandado de Injunção",
+      "resumo": "Regula o mandado de injunção e o mandado de segurança coletivo.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13300.htm"
     },
@@ -681,9 +681,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l1079.htm"
     },
     "/ccivil_03/leis/l1521.htm": {
-      "titulo": "Lei 1.521/1951 — Imprensa",
-      "resumo": "Altera dispositivos sobre liberdade de informação jornalística.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 1.521/1951 — Crimes contra a economia popular",
+      "resumo": "Altera dispositivos da legislação vigente sobre crimes contra a economia popular.",
+      "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l1521.htm"
     },
     "/ccivil_03/leis/l1579.htm": {
@@ -1397,9 +1397,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l1079.htm"
     },
     {
-      "titulo": "Lei 1.521/1951 — Imprensa",
-      "resumo": "Altera dispositivos sobre liberdade de informação jornalística.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 1.521/1951 — Crimes contra a economia popular",
+      "resumo": "Altera dispositivos da legislação vigente sobre crimes contra a economia popular.",
+      "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l1521.htm"
     },
     {
@@ -1649,9 +1649,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13060.htm"
     },
     {
-      "titulo": "Lei 13.105/2015 — CPC",
+      "titulo": "Lei 13.105/2015 — Código de Processo Civil",
       "resumo": "Estabelece normas do Código de Processo Civil.",
-      "secao": "Penal e Processual",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm"
     },
     {
@@ -1691,8 +1691,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13294.htm"
     },
     {
-      "titulo": "Lei 13.300/2016 — Lobby",
-      "resumo": "Regula registro de representantes de interesse perante o poder público.",
+      "titulo": "Lei 13.300/2016 — Lei do Mandado de Injunção",
+      "resumo": "Regula o mandado de injunção e o mandado de segurança coletivo.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13300.htm"
     },

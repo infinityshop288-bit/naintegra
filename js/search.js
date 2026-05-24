@@ -23,7 +23,7 @@
     return String(text || "")
       .toLowerCase()
       .normalize("NFD")
-      .replace(/\p{M}/gu, "");
+      .replace(/[\u0300-\u036f]/g, "");
   }
 
   function escHtml(s) {
@@ -230,7 +230,13 @@
   }
 
   function refresh(documents, decks) {
-    return buildIndex(documents, decks);
+    const count = buildIndex(documents, decks);
+    const root = document.getElementById("global-search");
+    const input = root?.querySelector(".global-search-input");
+    if (root && input && input.value.trim().length >= 2) {
+      renderResults(search(input.value), root);
+    }
+    return count;
   }
 
   window.LexSearch = { init, refresh, search, buildIndex };

@@ -18,7 +18,7 @@
   }
 
   function isProtectedTarget(node) {
-    return node?.closest?.(".lex-protected, .reader-body, .flash-card-face, .q-card");
+    return node?.closest?.(".lex-protected, .reader-body, .flash-face, .flash-face-body, .q-card");
   }
 
   function onContextMenu(e) {
@@ -59,7 +59,7 @@
   }
 
   function markProtected(root) {
-    (root || document).querySelectorAll(".reader-body, .flash-card-face, .q-card, .q-alt-list").forEach((el) => {
+    (root || document).querySelectorAll(".reader-body, .flash-face, .flash-face-body, .q-card, .q-alt-list").forEach((el) => {
       el.classList.add("lex-protected");
     });
   }
