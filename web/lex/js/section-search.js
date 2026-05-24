@@ -4,7 +4,11 @@
     return String(text || "")
       .toLowerCase()
       .normalize("NFD")
-      .replace(/\p{M}/gu, "");
+      .replace(/[\u0300-\u036f]/g, "");
+  }
+
+  function sectionInput(section) {
+    return document.querySelector(`.section-search-input[data-section="${section}"]`);
   }
 
   function tokens(query) {
@@ -83,7 +87,7 @@
 
   function bind(scopeEl, section, onQueryChange) {
     if (!scopeEl) return;
-    const input = scopeEl.querySelector(`.section-search-input[data-section="${section}"]`);
+    const input = sectionInput(section);
     if (!input || input.dataset.bound) return;
     input.dataset.bound = "1";
 
@@ -141,6 +145,7 @@
     bar,
     bind,
     applyFilter,
+    sectionInput,
     deckText,
     lawText,
     jurisText,

@@ -3,23 +3,46 @@
  * Remove artefatos de navegação e estrutura ementa · tese · julgado.
  */
 (function () {
-  const FORMAT_VERSION = 22;
+  const FORMAT_VERSION = 36;
   const NOISE_PATTERNS = [
     /<!--[\s\S]*?-->/g,
     /!\[[^\]]*\]\([^)]+\)/g,
     /\[[^\]]+\]\([^)]+\)/g,
     /https?:\/\/[^\s)]+/g,
     /©[^\n]+/gi,
+  ];
+
+  /** Rodapé/UI do crawl Trilhante — não aplicar em texto Planalto (ex.: CP art. 152, “conversação”). */
+  const TRILHANTE_FOOTER_PATTERNS = [
     /Encontrou um erro\?[^\n]*/gi,
     /Não Estudado|Não Favoritado|Imprimir em PDF/gi,
     /bat\.bing\.com[^\n]*/gi,
     /#{1,6}\s*Reporte um Erro[\s\S]*$/gi,
     /Reporte um Erro[\s\S]*?(?=Conversação|$)/gi,
-    /Conversação\d*[\s\S]*$/gi,
+    /(?:^|\n)Conversação\d*[\s\S]*$/gi,
     /Alguma pergunta sobre Trilhante\?[\s\S]*$/gi,
     /Enviar Mensagem![\s\S]*$/gi,
     /Seu Nome|Seu Email|Sua Mensagem/gi,
   ];
+
+  const LEGIS_BODY_START_RE =
+    /(?:^|\n)\s*(?:TÍTULO\s+I\b|Art\.?\s*1(?!\d|\.)(?:[º°o]?(?:\s*[-–]|\.\s|\s+(?=[A-Za-zÁÉÍÓÚáéíóú]))))/m;
+
+  const ADCT_SPLIT_RE =
+    /\n(?=(?:Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias|DISPOSI[CÇ][ÕO]ES CONSTITUCIONAIS TRANSIT[OÓ]RIAS)\b)/i;
+
+  /** Cabeçalho autônomo da seção ADCT (não referência dentro de artigo). */
+  const CF_ADCT_SECTION_LINE_RE =
+    /(?:^|\n)\s*(?:Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias|DISPOSI[CÇ][ÕO]ES CONSTITUCIONAIS TRANSIT[OÓ]RIAS)\s*(?=\n|$)/gi;
+
+  const CF_ADCT_GLUE_HEAD_RE =
+    /(?:^|[.\n])\s*((?:ATO DAS DISPOSIÇÕES CONSTITUCIONAIS TRANSITÓRIAS|Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias))\s*(?=\s*\(Vide|\n+\s*Art\.\s*1(?:[º°o]|\b)|Art\.\s*1(?:[º°o]|\b)\.)/gi;
+
+  function isTrilhanteCrawl(text) {
+    return /Trilhante|Reporte um Erro|Encontrou um erro\?|Alguma pergunta sobre Trilhante/i.test(
+      text || ""
+    );
+  }
 
   const SKIP_PATH_RE =
     /\/(buscador|login|register|assine|newsletter|home|aprenda|leis)(\?|$|\/)/i;
@@ -34,8 +57,11 @@
 
   function cleanRaw(text) {
     if (!text) return "";
-    let t = normalizePlanaltoEncoding(text);
+    let t = normalizePlanaltoEncoding(text).replace(/\r/g, "").replace(/\t/g, " ");
     for (const re of NOISE_PATTERNS) t = t.replace(re, " ");
+    if (isTrilhanteCrawl(t)) {
+      for (const re of TRILHANTE_FOOTER_PATTERNS) t = t.replace(re, " ");
+    }
     t = t.replace(/^#+\s*Norma\s*$/gim, "");
     t = t.replace(/^Fonte:\s*`[^`]+`\s*$/gim, "");
     t = t.replace(/^---+$/gm, "");
@@ -49,7 +75,6 @@
       return inner ? ` ~~${inner}~~ ` : " ";
     });
     t = t.replace(/<[^>]+>/g, " ");
-    t = t.replace(/~~([^~]+)~~/g, " ");
     t = t.replace(/\(Vide(?!\s+(?:ADI|ADPF|ADC|ADIO)\b)[^\n]+\)\n/gi, "");
     t = t.replace(/\(Vigência\)\n/gi, "");
     t = t.replace(/#{1,6}\s*/g, "");
@@ -77,7 +102,9 @@
   }
 
   function classifyDoc(doc) {
-    const p = pathOnly(doc.url || doc.doc_key || "").toLowerCase();
+    const rawUrl = doc.url || doc.doc_key || "";
+    if (/urn:lex:/i.test(rawUrl)) return "skip";
+    const p = pathOnly(rawUrl).toLowerCase();
     const isLegis =
       doc.doc_type === "legislacao" ||
       doc.source_system === "planalto" ||
@@ -139,6 +166,12 @@
 
     const law = p.match(/\/l(\d+)(?:cons|comp|orig|_)?\.htm/i);
     if (window.LexLegisMeta) {
+      const resolved = window.LexLegisMeta.resolveLegisTitle?.(
+        doc.url || doc.doc_key || p,
+        doc.body,
+        doc.title
+      );
+      if (resolved) return resolved;
       const meta = window.LexLegisMeta.metaFromUrl(doc.url || doc.doc_key || p, doc.body);
       if (meta?.titulo) return meta.titulo;
       const norma = window.LexLegisMeta.parseNormaFromUrl(doc.url || doc.doc_key || p, doc.body);
@@ -153,7 +186,14 @@
       }
     }
     if (doc.source_system === "planalto" || doc.doc_type === "legislacao") {
-      return doc.title?.replace(/^Lei n[º°.]?\s*/, "Lei ") || "Legislação federal";
+      if (doc.title && !/\.htm$/i.test(doc.title) && doc.title.length > 8 && !/^Legisla/i.test(doc.title)) {
+        return doc.title.replace(/^Lei n[º°.]?\s*/, "Lei ");
+      }
+      if (window.LexLegisMeta) {
+        const built = window.LexLegisMeta.buildLawTitle(doc.url || doc.doc_key || p, doc.body || "", doc.meta);
+        if (built && !/^Legisla/i.test(built)) return built;
+      }
+      return doc.title?.replace(/^Lei n[º°.]?\s*/, "Lei ") || "Legislação";
     }
     return doc.title || "Documento";
   }
@@ -355,15 +395,111 @@
     return items;
   }
 
-  const ARTICLE_HEAD_LINE =
-    /^Art\.\s*(\d+)(?!\d)[º°o]?(?:\s*[-–]\s*[A-Z](?:\.|\s|$))?/;
+  /** Número de artigo Planalto: 42, 999 ou 1.026 (milhar com ponto). */
+  const ARTICLE_NUM = String.raw`\d{1,3}(?:\.\d{3})+|\d+`;
+  const ARTICLE_HEAD_PREFIX = String.raw`Art\.?\s*`;
+  /** Evita tratar referências internas ("art. 1º desta Lei") como cabeçalho de artigo. */
+  const ARTICLE_HEAD_TAIL = String.raw`(?:\s*[-–]\s*[A-Z](?:\.|\s|$)|\.\s|\s+(?=[A-ZÁÉÍÓÚÂÊÔÇ])|$)`;
+
+  function normalizePlanaltoArticleRefs(text) {
+    return String(text || "").replace(
+      new RegExp(`${ARTICLE_HEAD_PREFIX}(\\d{1,3}(?:\\.\\d{3})+)(?!\\d)`, "gi"),
+      (_, num) => `Art. ${num.replace(/\./g, "")}`
+    );
+  }
+
+  function parseArticleNumberFromHead(labelOrHead) {
+    const m = String(labelOrHead || "").match(
+      new RegExp(`^${ARTICLE_HEAD_PREFIX}(${ARTICLE_NUM})(?!\\d)`, "i")
+    );
+    return m ? m[1].replace(/\./g, "") : null;
+  }
+
+  const ARTICLE_HEAD_LINE = new RegExp(
+    `^${ARTICLE_HEAD_PREFIX}(${ARTICLE_NUM})(?!\\d)[º°o]?${ARTICLE_HEAD_TAIL}`
+  );
+
+  const ARTICLE_EPIGRAPH_LINE = /^[-–]\s*(.+?)\s*[-–]$/;
+
+  function isArticleEpigraphLine(line) {
+    const t = String(line || "").trim();
+    const m = t.match(ARTICLE_EPIGRAPH_LINE);
+    if (!m) return false;
+    const inner = m[1].replace(/\s+/g, " ").trim();
+    if (inner.length < 3 || inner.length > 120) return false;
+    if (/^[IVXLC]{1,7}$/.test(inner)) return false;
+    if (/^[a-z]\)/.test(inner)) return false;
+    return true;
+  }
+
+  function parseArticleEpigraph(line) {
+    const t = String(line || "").trim();
+    if (!isArticleEpigraphLine(t)) return null;
+    return t.replace(/^[-–]\s*/, "").replace(/\s*[-–]$/, "").replace(/\s+/g, " ").trim();
+  }
+
+  function appendEpigraphToLabel(label, epigraph) {
+    if (!epigraph) return label;
+    const base = String(label || "").trim();
+    if (base.toLowerCase().includes(epigraph.toLowerCase())) return base;
+    return `${base} — ${epigraph}`;
+  }
+
+  function extractLeadingEpigraph(text) {
+    let rest = String(text || "").trim();
+    let epigraph = null;
+    const lines = rest.split(/\n+/);
+    while (lines.length && isArticleEpigraphLine(lines[0])) {
+      epigraph = parseArticleEpigraph(lines.shift());
+      rest = lines.join("\n").trim();
+    }
+    return { text: rest, epigraph };
+  }
+
+  function extractTrailingEpigraph(text) {
+    const t = String(text || "").trim();
+    const m = t.match(/\n\s*([-–][^\n]+[-–])\s*$/);
+    if (!m || !isArticleEpigraphLine(m[1])) return { text: t, epigraph: null };
+    return {
+      text: t.slice(0, m.index).trim(),
+      epigraph: parseArticleEpigraph(m[1]),
+    };
+  }
+
+  function ensureArticleEpigraphBreaks(text) {
+    return String(text || "").replace(
+      /(\S)\s+([-–]\s+[A-ZÁÉÍÓÚÀ-Ü][^.\n]{2,100}?\s*[-–])\s+(?=Art\.?\s*(?:\d{1,3}(?:\.\d{3})+|\d+)(?!\d))/gi,
+      "$1\n\n$2\n\n"
+    );
+  }
+
+  function relocateArticleEpigraphs(blocks) {
+    let pending = null;
+    const out = [];
+    for (const block of blocks) {
+      const b = { ...block };
+      if (pending && (b.type === "artigo" || b.type === "capitulo" || b.type === "titulo")) {
+        const head = b.type === "artigo" ? b.label : String(b.label || b.text || "").split("\n")[0].trim();
+        const merged = appendEpigraphToLabel(head, pending);
+        if (b.type === "artigo") b.label = merged;
+        else if (b.label) b.label = merged;
+        pending = null;
+      }
+      if (b.text) {
+        const trailing = extractTrailingEpigraph(b.text);
+        b.text = trailing.text;
+        if (trailing.epigraph) pending = trailing.epigraph;
+      }
+      out.push(b);
+    }
+    return out;
+  }
 
   function normalizeArticleKey(labelOrHead) {
-    const s = String(labelOrHead || "");
-    const num = s.match(/^Art\.\s*(\d+)(?!\d)[º°o]?/);
+    const num = parseArticleNumberFromHead(labelOrHead);
     if (!num) return null;
-    const al = s.match(/^Art\.\s*\d+(?!\d)[º°o]?\s*[-–]\s*([A-Z])(?:\.|\s|$)/);
-    return num[1] + (al ? `-${al[1].toUpperCase()}` : "");
+    const al = String(labelOrHead || "").match(/^Art\.\s*[\d.]+(?:[º°o])?\s*[-–]\s*([A-Z])(?:\.|\s|$)/i);
+    return num + (al ? `-${al[1].toUpperCase()}` : "");
   }
 
   function articleRevisionScore(segment, order) {
@@ -390,15 +526,18 @@
 
   function findArticleHeads(text) {
     const heads = [];
-    const re =
-      /^Art\.\s*(\d+)(?!\d)[º°o]?(?:\s*[-–]\s*[A-Z](?:\.|\s|$))?(?:[.\s]|$)/gm;
+    const re = new RegExp(
+      `^${ARTICLE_HEAD_PREFIX}(${ARTICLE_NUM})(?!\\d)[º°o]?${ARTICLE_HEAD_TAIL}`,
+      "gm"
+    );
     let m;
     while ((m = re.exec(text)) !== null) {
       const head = m[0];
+      const num = m[1].replace(/\./g, "");
       const al = head.match(/[-–]\s*([A-Z])(?:\.|\s|$)/);
       heads.push({
         index: m.index,
-        key: m[1] + (al ? `-${al[1].toUpperCase()}` : ""),
+        key: num + (al ? `-${al[1].toUpperCase()}` : ""),
       });
     }
     return heads;
@@ -589,9 +728,115 @@
     return html;
   }
 
+  /** Planalto HTML: ordinal (º) ou número do artigo quebrados em linhas (Art. 1\\no, Art.\\n20). */
+  function normalizePlanaltoDegrees(text) {
+    return String(text || "")
+      .replace(/Art\.?\s*(\d{1,3}(?:\.\d{3})+|\d+)\s*°/gi, (_, n) => `Art. ${n.replace(/\./g, "")}º`)
+      .replace(/§\s*(\d+)\s*°/gi, (_, n) => `§ ${n}º`);
+  }
+
+  function classifyPlanaltoBlock(oneLine, rawBlock) {
+    const b = oneLine.trim();
+    if (!b) return "empty";
+    if (/^CÓDIGO PENAL$/i.test(b)) return "skip";
+    if (/^Parte\s+(Geral|Especial)/i.test(b)) return "parte";
+    if (/^TÍTULO\s+[IVXLC\d]+/i.test(b)) return "titulo";
+    if (/^CAPÍTULO\s+[IVXLC\d]+/i.test(b)) return "capitulo";
+    if (/^SEÇÃO\s+[IVXLC\d]+/i.test(b)) return "secao";
+    if (/^Art\.?\s*\d/i.test(b)) return "artigo";
+    if (/^(§\s*\d|Par[aá]grafo\s+[uú]nico)/i.test(b)) return "paragrafo";
+    if (/^[IVXLC]{1,7}\s*[-–]/.test(b)) return "inciso";
+    if (/^[a-z]\)/.test(b)) return "alinea";
+    if (/^(Da|Do|Dos|Das|De)\s+/i.test(b) && b.length <= 90) return "capitulo_label";
+    if (b.length <= 90 && /^[A-ZÁÉÍÓÚÀ-Ü]/.test(b) && !/^(Art\.|§|Par[aá]grafo)/i.test(b)) {
+      const words = b.split(/\s+/).length;
+      if (words <= 12 && !/\.\s+[A-ZÁÉÍÓÚ]/.test(b)) return "epigraph";
+    }
+    if (rawBlock && /^(§\s*\d|Par[aá]grafo)/im.test(rawBlock.trim())) return "paragrafo";
+    return "text";
+  }
+
+  function emitPlanaltoBlock(raw) {
+    let block = String(raw || "").replace(/\r/g, "").trim();
+    if (!block) return "";
+    block = normalizePlanaltoDegrees(block);
+    const oneLine = block.replace(/\s+/g, " ").trim();
+    const kind = classifyPlanaltoBlock(oneLine, block);
+    switch (kind) {
+      case "skip":
+      case "empty":
+        return "";
+      case "parte":
+        return `\n\n${oneLine.toUpperCase()}\n\n`;
+      case "titulo":
+      case "capitulo":
+      case "secao":
+        return `\n\n${oneLine}\n\n`;
+      case "capitulo_label":
+        return `\n\nCAPÍTULO — ${oneLine}\n\n`;
+      case "epigraph":
+        return `\n\n- ${oneLine} -\n\n`;
+      case "artigo":
+        return `\n\n${block.trim()}\n\n`;
+      case "paragrafo":
+      case "inciso":
+      case "alinea":
+      case "text":
+      default:
+        return `${block.trim()}\n\n`;
+    }
+  }
+
+  /** Converte blocos ~~…~~ do crawl Planalto em texto legislativo estruturado. */
+  function normalizePlanaltoBlockMarkers(text) {
+    const t = String(text || "");
+    if (!/~~/.test(t)) return t;
+    const matches = [...t.matchAll(/~~\s*([\s\S]*?)\s*~~/g)];
+    if (matches.length < 8) return t;
+    let outside = t;
+    for (const m of matches) outside = outside.replace(m[0], "\n");
+    const artOutside = (outside.match(/Art\.?\s*\d/gi) || []).length;
+    if (artOutside >= 10) {
+      return t
+        .replace(/~~\s*([\s\S]*?)\s*~~/g, (_, inner) => {
+          const s = String(inner || "").replace(/\s+/g, " ").trim();
+          return s ? ` ~~${s}~~ ` : " ";
+        })
+        .replace(/\s{2,}/g, " ")
+        .replace(/ \n/g, "\n");
+    }
+    return matches
+      .map((m) => emitPlanaltoBlock(m[1]))
+      .join("")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim();
+  }
+
+  function normalizePlanaltoOrdinals(text) {
+    let t = String(text || "");
+    t = t.replace(
+      /(^|[\n\r]|[^\S\n\r])(Art\.?\s*(\d{1,3}(?:\.\d{3})+|\d+)(?!\d))\s*[\n\r]+\s*o\b/gim,
+      (_, bol, _full, num) => `${bol}Art. ${num.replace(/\./g, "")}º`
+    );
+    t = t.replace(
+      /(^|[\n\r]|[^\S\n\r])(§\s*(\d+)(?!\d))\s*[\n\r]+\s*o\b/gim,
+      (_, bol, _full, num) => `${bol}§ ${num}º`
+    );
+    t = t.replace(
+      /(^|[\n\r])Art\.?\s*[\n\r]+\s*(\d{1,3}(?:\.\d{3})+|\d+)(?!\d)\b/gim,
+      (_, bol, num) => `${bol}Art. ${num.replace(/\./g, "")}`
+    );
+    t = t.replace(
+      /Art\.?\s*(\d{1,3}(?:\.\d{3})+|\d+)(?!\d)\s+o\b/gi,
+      (_, num) => `Art. ${num.replace(/\./g, "")}º`
+    );
+    return t;
+  }
+
   /** Normaliza quebras do crawl: linha curta = sílaba; demais = espaço. */
   function repairLegisText(text) {
     let t = normalizePlanaltoEncoding(text).replace(/\r/g, "").replace(/Consti\s*\n+\s*tui/gi, "Constitui");
+    t = normalizePlanaltoOrdinals(t);
 
     t = t.replace(/(^|\n)([A-Za-zÁÉÍÓÚáéíóúÃÕÇãõç]{1,4})\s*\n+\s*([a-záéíóúãõç])/gm, (full, bol, head, tail) => {
       if (SYLLABLE_NO_MERGE.has(head.toLowerCase())) return `${bol}${head} ${tail}`;
@@ -603,10 +848,113 @@
 
     return t
       .replace(
-        /\n+(?!§\s*\d|Art\.\s*\d+(?!\d)|Par[aá]grafo\s+[uú]nico|TÍTULO|CAPÍTULO|SEÇÃO|Subseção|[IVXLC]{1,7}\s*[-–(])/gi,
+        /\n+(?!\s*(?:§\s*\d|Art\.?\s*(?:\d{1,3}(?:\.\d{3})+|\d+)(?!\d)|Par[aá]grafo\s+[uú]nico|TÍTULO|CAPÍTULO|SEÇÃO|Subseção|[IVXLC]{1,7}\s*[-–(]))/gi,
         " "
       )
       .replace(/[ \t]{2,}/g, " ");
+  }
+
+  function ensureLegisStructureBreaks(text) {
+    const artHead = new RegExp(
+      `${ARTICLE_HEAD_PREFIX}(?:${ARTICLE_NUM})(?!\\d)[º°o]?(?:\\s*[-–]\\s*[A-Z])?[.\\s-]`
+    );
+    return ensureArticleEpigraphBreaks(String(text || ""))
+      .replace(
+        new RegExp(
+          `([^\\n])\\s+(?=(?:${ARTICLE_HEAD_PREFIX}(?:${ARTICLE_NUM})(?!\\d)[º°o]?${ARTICLE_HEAD_TAIL}|TÍTULO\\s|CAPÍTULO\\s|SEÇÃO\\s|Subseção\\s|Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias|DISPOSI[CÇ][ÕO]ES CONSTITUCIONAIS TRANSIT[OÓ]RIAS))`,
+          "g"
+        ),
+        "$1\n\n"
+      )
+      .replace(/\n{3,}/g, "\n\n");
+  }
+
+  function isConstituicaoUrl(doc) {
+    return /constituicao\/constituicao/i.test(doc?.url || doc?.doc_key || "");
+  }
+
+  function findLegisBodyStart(clean, doc) {
+    if (isConstituicaoUrl(doc)) {
+      const textoCompilado = clean.search(/(?:^|\n)\s*Texto compilado\b/mi);
+      if (textoCompilado >= 0) return textoCompilado;
+    }
+    const tituloI = clean.search(/(?:^|\n)\s*TÍTULO\s+I\b/mi);
+    if (tituloI >= 0) return tituloI;
+    const m = clean.match(LEGIS_BODY_START_RE);
+    return m ? m.index : -1;
+  }
+
+  function normalizeCfAdctSectionHeader(body) {
+    return String(body || "").replace(
+      new RegExp(CF_ADCT_SECTION_LINE_RE.source, CF_ADCT_SECTION_LINE_RE.flags),
+      (match) => {
+        const line = match.replace(/^\n+/, "").trim();
+        if (!line || /^Art\./i.test(line)) return match;
+        return `\n\n${line}\n\n`;
+      }
+    );
+  }
+
+  /** Separa cabeçalho ADCT colado ao fim do último artigo da CF (crawl Planalto). */
+  function isolateCfAdctSectionHeader(body) {
+    return String(body || "")
+      .replace(
+        /([.;])\s*(Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias|DISPOSI[CÇ][ÕO]ES CONSTITUCIONAIS TRANSIT[OÓ]RIAS)\s*(?=\s*\(Vide|\n+\s*Art\.\s*1(?:[º°o]|\b)|Art\.\s*1(?:[º°o]|\b)\.|\n|Art\.|$)/gi,
+        "$1\n\n$2\n\n"
+      )
+      .replace(
+        /\s+(Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias|DISPOSI[CÇ][ÕO]ES CONSTITUCIONAIS TRANSIT[OÓ]RIAS)\s+(?=Art\.)/gi,
+        "\n\n$1\n\n"
+      );
+  }
+
+  function isInlineCfAdctReference(text, index) {
+    const before = String(text || "").slice(Math.max(0, index - 24), index);
+    return /(?:\bdo|\bde|\bno|\bna|\bpelo|\bpela|\bdeste|\bdessa|\bdessas|\bdesta)\s*$/i.test(before);
+  }
+
+  function findCfAdctSplitIndex(body) {
+    const text = String(body || "");
+    const candidates = [];
+
+    const lineRe = new RegExp(CF_ADCT_SECTION_LINE_RE.source, CF_ADCT_SECTION_LINE_RE.flags);
+    let m;
+    while ((m = lineRe.exec(text)) !== null) {
+      const start = m.index + (m[0].startsWith("\n") ? 1 : 0);
+      candidates.push(start);
+    }
+
+    const gluedRe = new RegExp(CF_ADCT_GLUE_HEAD_RE.source, CF_ADCT_GLUE_HEAD_RE.flags);
+    while ((m = gluedRe.exec(text)) !== null) {
+      const start = m.index + m[0].indexOf(m[1]);
+      candidates.push(start);
+    }
+
+    const filtered = [...new Set(candidates)].filter((index) => !isInlineCfAdctReference(text, index));
+    if (!filtered.length) return -1;
+
+    const after200 = text.search(/\nArt\.\s*200(?:[º°o]|\b)/i);
+    const minPos = after200 >= 0 ? after200 : Math.floor(text.length * 0.55);
+    const late = filtered.filter((index) => index >= minPos);
+    if (late.length) return late[late.length - 1];
+    return filtered[filtered.length - 1];
+  }
+
+  function splitLegisAdct(body, doc) {
+    if (!isConstituicaoUrl(doc)) return { main: body, adct: "" };
+    let idx = findCfAdctSplitIndex(body);
+    if (idx < 0) return { main: body, adct: "" };
+
+    // Evita cortar cedo demais quando há citação ao ADCT no meio da CF.
+    if (body.length > 8000 && idx < body.length * 0.45) {
+      const after200 = body.search(/\nArt\.\s*200(?:[º°o]|\b)/i);
+      if (after200 >= 0) {
+        const late = findCfAdctSplitIndex(body.slice(after200));
+        if (late >= 0) idx = after200 + late;
+      }
+    }
+
+    return { main: body.slice(0, idx).trim(), adct: body.slice(idx).trim() };
   }
 
   /** Separa palavras coladas por chunks ou artefatos do crawl. */
@@ -702,6 +1050,17 @@
     t = t.replace(/[ \t]{2,}/g, " ");
     if (window.LexLegisMeta) t = window.LexLegisMeta.normalizeLeiReferences(t);
     t = pruneRevokedProvisions(t);
+    if (!t.trim()) {
+      let raw = repairLegisText(text);
+      if (label) {
+        const escLabel = label.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        raw = raw.replace(new RegExp(`^${escLabel}\\.?\\s*`), "");
+      }
+      raw = raw.replace(/^[-–]\s*/, "");
+      raw = splitStuckWords(fixCrawlPunctuation(markArticleParagraphs(raw)));
+      if (window.LexLegisMeta) raw = window.LexLegisMeta.normalizeLeiReferences(raw);
+      t = raw.trim();
+    }
     return t.trim();
   }
 
@@ -768,7 +1127,7 @@
       .join("");
   }
 
-  function dedupeArticleBlocks(blocks) {
+  function dedupeArticleBlocks(blocks, { adctSection = false } = {}) {
     const out = [];
     const indexByKey = new Map();
 
@@ -777,7 +1136,8 @@
         out.push(block);
         return;
       }
-      const key = normalizeArticleKey(block.label);
+      const base = normalizeArticleKey(block.label);
+      const key = base ? (adctSection ? `adct:${base}` : base) : null;
       if (!key) {
         out.push(block);
         return;
@@ -797,8 +1157,12 @@
     return out;
   }
 
+  const ADCT_HEAD_RE =
+    /^(?:Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias|ADCT|DISPOSI[CÇ][ÕO]ES CONSTITUCIONAIS TRANSIT[OÓ]RIAS)/i;
+
   function parseLegislacao(text, doc) {
-    let clean = repairLegisText(cleanRaw(text));
+    const cleanMeta = normalizePlanaltoBlockMarkers(cleanRaw(text));
+    const clean = normalizePlanaltoArticleRefs(repairLegisText(cleanMeta));
     const blocks = [];
     let epigrafe = "";
     let ementa = "";
@@ -814,41 +1178,96 @@
       }
     }
 
-    const ementaMatch = clean.match(
-      /(?:Dispõe|Institui|Altera|Regula|Define)[^\n]{10,200}\./i
+    if (window.LexLegisMeta && doc) {
+      const extracted = window.LexLegisMeta.extractEmenta(clean, doc.url || doc.doc_key || "");
+      if (extracted) ementa = extracted;
+    }
+    if (!ementa) {
+      const ementaMatch = clean.match(
+        /(?:Dispõe|Institui|Altera|Regula|Define)[^\n]{10,200}\./i
+      );
+      if (ementaMatch) ementa = ementaMatch[0].trim();
+    }
+
+    // CF/ADCT: separar antes de repairLegisText, que colapsa quebras de linha e
+    // impede localizar o cabeçalho autônomo do ADCT no fim da Constituição.
+    const skipUntil = findLegisBodyStart(cleanMeta, doc);
+    let body = skipUntil >= 0 ? cleanMeta.slice(skipUntil) : cleanMeta;
+
+    const splitRe = new RegExp(
+      `\\n(?=(?:Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias|DISPOSI[CÇ][ÕO]ES CONSTITUCIONAIS TRANSIT[OÓ]RIAS|Parte\\s+(?:Geral|Especial)|TÍTULO|CAPÍTULO|SEÇÃO|Seção|Subseção)\\s|${ARTICLE_HEAD_PREFIX}(?:${ARTICLE_NUM})(?!\\d)[º°o]?${ARTICLE_HEAD_TAIL})`
     );
-    if (ementaMatch) ementa = ementaMatch[0].trim();
 
-    const skipUntil = clean.search(/(?:^|\n)(?:TÍTULO\s+[IVXLC]+|Art\.\s*1(?!\d)[º°o]?[.\s])/m);
-    let body = skipUntil >= 0 ? clean.slice(skipUntil) : clean;
-    body = stripSupersededArticleSections(body);
-    body = repairLegisText(body);
+    function buildBlocksFromSection(sectionBody, { adctSection = false } = {}) {
+      if (!sectionBody) return [];
+      const local = [];
+      let work = stripSupersededArticleSections(sectionBody);
+      work = ensureLegisStructureBreaks(repairLegisText(work));
+      const parts = work.split(splitRe);
 
-    const splitRe =
-      /\n(?=(?:TÍTULO|CAPÍTULO|SEÇÃO|Seção|Subseção)\s|Art\.\s*\d+(?!\d)[º°o]?(?:\s*[-–]\s*[A-Z](?:\.|\s|$))?[.\s])/i;
-    const parts = body.split(splitRe);
+      if (adctSection) {
+        local.push({
+          type: "titulo",
+          label: "Disposições Constitucionais Transitórias (ADCT)",
+          text: "",
+        });
+      }
 
-    for (const part of parts) {
-      const p = part.trim();
-      if (!p || p.length < 4) continue;
-      if (/^TÍTULO\s+[IVXLC\d]+/i.test(p)) {
-        blocks.push({ type: "titulo", label: p.split("\n")[0].trim(), text: p });
-      } else if (/^CAPÍTULO\s+[IVXLC\d]+/i.test(p)) {
-        blocks.push({ type: "capitulo", label: p.split("\n")[0].trim(), text: p });
-      } else if (ARTICLE_HEAD_LINE.test(p)) {
-        const label =
-          p.match(/^(Art\.\s*\d+(?!\d)[º°o]?(?:\s*[-–]\s*[A-Z](?:\.|\s|$))?)/)?.[1] ||
-          "Artigo";
-        const artText = formatArtigoBody(p, label);
-        if (artText) {
-          blocks.push({
-            type: "artigo",
-            label,
-            text: artText,
-          });
+      let pendingEpigraph = null;
+
+      for (const part of parts) {
+        let p = part.trim();
+        if (!p || p.length < 4) continue;
+        if (!adctSection && ADCT_HEAD_RE.test(p)) continue;
+        if (adctSection && ADCT_HEAD_RE.test(p)) continue;
+        if (isArticleEpigraphLine(p) && !ARTICLE_HEAD_LINE.test(p) && !/^TÍTULO|^CAPÍTULO|^SEÇÃO/i.test(p)) {
+          pendingEpigraph = parseArticleEpigraph(p);
+          continue;
+        }
+        if (/^TÍTULO\s+[IVXLC\d]+/i.test(p)) {
+          local.push({ type: "titulo", label: p.split("\n")[0].trim(), text: p });
+        } else if (/^Parte\s+(Geral|Especial)/i.test(p)) {
+          local.push({ type: "titulo", label: p.split("\n")[0].trim(), text: p });
+        } else if (/^CAPÍTULO\s+[IVXLC\d]+/i.test(p) || /^CAPÍTULO\s*[—–-]/i.test(p.split("\n")[0])) {
+          local.push({ type: "capitulo", label: p.split("\n")[0].trim(), text: p });
+        } else if (/^SEÇÃO\s+[IVXLC\d]+/i.test(p)) {
+          local.push({ type: "capitulo", label: p.split("\n")[0].trim(), text: p });
+        } else if (ARTICLE_HEAD_LINE.test(p)) {
+          let raw = p;
+          const trailing = extractTrailingEpigraph(raw);
+          raw = trailing.text;
+          const leading = extractLeadingEpigraph(raw);
+          raw = leading.text;
+          let label =
+            raw.match(
+              new RegExp(`^(${ARTICLE_HEAD_PREFIX}(?:${ARTICLE_NUM})(?!\\d)[º°o]?(?:\\s*[-–]\\s*[A-Z](?:\\.|\\s|$))?)`)
+            )?.[1] || "Artigo";
+          const epigraph = pendingEpigraph || leading.epigraph;
+          pendingEpigraph = trailing.epigraph || null;
+          if (epigraph) label = appendEpigraphToLabel(label, epigraph);
+          const artText = formatArtigoBody(raw, label);
+          if (artText) {
+            local.push({
+              type: "artigo",
+              label: adctSection ? `${label} (ADCT)` : label,
+              text: artText,
+            });
+          }
         }
       }
+      return relocateArticleEpigraphs(
+        dedupeArticleBlocks(mergeParagraphsIntoArticles(local), { adctSection })
+      );
     }
+
+    if (isConstituicaoUrl(doc)) {
+      body = isolateCfAdctSectionHeader(body);
+      body = normalizeCfAdctSectionHeader(body);
+    }
+
+    const { main, adct } = splitLegisAdct(body, doc);
+    blocks.push(...buildBlocksFromSection(main));
+    blocks.push(...buildBlocksFromSection(adct, { adctSection: true }));
 
     if (!blocks.length) {
       body.split(/\n\n+/).forEach((chunk, i) => {
@@ -858,7 +1277,7 @@
       });
     }
 
-    return { epigrafe, ementa, blocks: dedupeArticleBlocks(mergeParagraphsIntoArticles(blocks)) };
+    return { epigrafe, ementa, blocks };
   }
 
   function renderJurisItem(item, idx) {
@@ -867,9 +1286,9 @@
       .filter(Boolean)
       .join(" · ");
 
-    const section = (title, content) =>
+    const section = (title, content, part) =>
       content
-        ? `<section class="juris-section"><h4 class="juris-section-title">${title}</h4><p class="juris-section-text">${escHtml(content)}</p></section>`
+        ? `<section class="juris-section"><h4 class="juris-section-title">${title}</h4><p class="juris-section-text article-text" data-hl-part="${part}">${escHtml(content)}</p></section>`
         : "";
 
     const ementa =
@@ -887,10 +1306,10 @@
           <h3 class="juris-item-title">${escHtml(item.numero || item.tipo || "Precedente")}</h3>
           ${meta ? `<p class="juris-item-meta">${escHtml(meta)}</p>` : ""}
         </header>
-        ${section("Ementa", ementa)}
-        ${section("Tese", tese)}
-        ${section("Julgado", julgado)}
-        ${!ementa && !tese && !julgado ? `<p class="juris-section-text empty-inline">Conteúdo indisponível para este precedente.</p>` : ""}
+        ${section("Ementa", ementa, "ementa")}
+        ${section("Tese", tese, "tese")}
+        ${section("Julgado", julgado, "julgado")}
+        ${!ementa && !tese && !julgado ? `<p class="juris-section-text article-text empty-inline" data-hl-part="texto">Conteúdo indisponível para este precedente.</p>` : ""}
       </article>`;
   }
 
@@ -932,7 +1351,9 @@
         epigrafe: parsed.epigrafe,
         ementa: parsed.ementa,
         blocks: parsed.blocks,
-        articles: parsed.blocks.map((b, i) => ({ id: i, label: b.label, text: b.text })),
+        articles: parsed.blocks
+          .filter((b) => b.type === "artigo")
+          .map((b, i) => ({ id: i, label: b.label, text: b.text })),
       };
     }
 
@@ -1018,9 +1439,29 @@
     return `doc-${(hash >>> 0).toString(36)}`;
   }
 
+  function legisSourceRank(doc) {
+    if (doc.source_system === "planalto") return 0;
+    if (doc.source_system === "rideel_vademecum") return 1;
+    return 2;
+  }
+
+  function legisSortRank(doc) {
+    const u = pathOnly(doc.url || doc.doc_key || "").toLowerCase();
+    if (/constituicao\.htm|constituicao\/constituicao/.test(u)) return 0;
+    if (/l10406|2002\/l10406/.test(u)) return 1;
+    if (/del2848|cod_pen/.test(u)) return 2;
+    if (/l13105/.test(u)) return 3;
+    return 100;
+  }
+
+  function legisListTitle(doc) {
+    return doc.title || friendlyTitle(doc);
+  }
+
   function prepareCatalog(docs) {
     const seen = new Set();
     const routeIds = new Set();
+    const byUrl = new Map();
     const out = [];
     const keepKinds = new Set([
       "tema",
@@ -1059,6 +1500,26 @@
       }
       routeIds.add(routeId);
       doc.lex_route_id = routeId;
+
+      const urlKey = (() => {
+        if (doc.doc_type === "legislacao") {
+          const canon = window.LexLegisMeta?.legisCanonicalKey?.(doc.url || doc.doc_key || "");
+          if (canon) return canon;
+        }
+        return pathOnly(doc.url || doc.doc_key || "").toLowerCase();
+      })();
+      if (doc.doc_type === "legislacao" && urlKey) {
+        const prev = byUrl.get(urlKey);
+        if (prev) {
+          const prevScore = legisSourceRank(prev) * 100000 - (prev.chunk_count || 0);
+          const nextScore = legisSourceRank(doc) * 100000 - (doc.chunk_count || 0);
+          if (nextScore >= prevScore) continue;
+          const idx = out.indexOf(prev);
+          if (idx >= 0) out.splice(idx, 1);
+        }
+        byUrl.set(urlKey, doc);
+      }
+
       out.push(doc);
     }
     const order = {
@@ -1071,7 +1532,19 @@
       temas_colecao: 6,
       teses_colecao: 7,
     };
-    out.sort((a, b) => (order[a.catalog_kind] ?? 9) - (order[b.catalog_kind] ?? 9));
+    out.sort((a, b) => {
+      const ka = a.catalog_kind ?? "outro";
+      const kb = b.catalog_kind ?? "outro";
+      const ca = order[ka] ?? 9;
+      const cb = order[kb] ?? 9;
+      if (ca !== cb) return ca - cb;
+      if (a.doc_type === "legislacao" && b.doc_type === "legislacao") {
+        const lr = legisSortRank(a) - legisSortRank(b);
+        if (lr) return lr;
+        return String(a.title || "").localeCompare(String(b.title || ""), "pt");
+      }
+      return 0;
+    });
     return out;
   }
 
@@ -1164,6 +1637,8 @@
     formatLeiHtml,
     normalizePlanaltoEncoding,
     prepareCatalog,
+    legisSortRank,
+    legisListTitle,
     renderJurisItem,
     renderLegisBlock,
     jurisPreview,

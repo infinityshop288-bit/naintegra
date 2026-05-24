@@ -1,0 +1,17 @@
+=== Se login Google/Apple não voltar ao app ===
+Fix OAuth redirect handling in WebView. Allow navigation to auth-callback.html on www.naintegracursos.com.br and preserve session cookies after Google sign-in.
+
+=== Se links abrirem no Chrome em vez do app ===
+Ensure intent-filter android:autoVerify="true" for https://www.naintegracursos.com.br/lex with pathPrefix /lex. MainActivity launchMode singleTask.
+
+=== Se TTS / Ouvir não funcionar ===
+Ensure WebView JavaScript enabled and no media playback restriction. Do not block speechSynthesis API.
+
+=== Se quiser pull-to-refresh ===
+Add SwipeRefreshLayout wrapping WebView (or Compose equivalent). Only enable when WebView scrollY == 0.
+
+=== Se tela branca ===
+Load https://www.naintegracursos.com.br/lex/ on startup. Enable JavaScript. Log WebView errors to Logcat. Show offline screen only when network is truly unavailable.
+
+=== Após gerar — pedir AAB ===
+Generate a signed Android App Bundle (.aab) ready for Google Play Internal Test Track upload. applicationId must be br.com.naintegracursos.lex.

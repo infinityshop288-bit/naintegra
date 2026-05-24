@@ -29,6 +29,7 @@ _LEGIS_URL_RULES: list[tuple[re.Pattern[str], str, str]] = [
     (re.compile(r"l9784", re.I), "Constituição e Adm.", "Lei nº 9.784/1999 — Processo Administrativo Federal"),
     (re.compile(r"l8429", re.I), "Constituição e Adm.", "Lei nº 8.429/1992 — Improbidade Administrativa"),
     (re.compile(r"l9882", re.I), "Constituição e Adm.", "Lei nº 9.882/1999 — Ações constitucionais e MP"),
+    (re.compile(r"l13300", re.I), "Constituição e Adm.", "Lei nº 13.300/2016 — Lei do Mandado de Injunção"),
     (re.compile(r"del2848|decreto-lei/del2848|cod_pen", re.I), "Penal e Processual", "Decreto-Lei nº 2.848/1940 — Código Penal"),
     (re.compile(r"del3689|decreto-lei/del3689", re.I), "Penal e Processual", "Decreto-Lei nº 3.689/1941 — Código de Processo Penal"),
     (re.compile(r"l11340", re.I), "Penal e Processual", "Lei nº 11.340/2006 — Lei Maria da Penha"),
@@ -41,11 +42,12 @@ _LEGIS_URL_RULES: list[tuple[re.Pattern[str], str, str]] = [
     (re.compile(r"l8212|8212cons", re.I), "Civil e Trabalho", "Lei nº 8.212/1991 — Custeio da Previdência Social"),
     (re.compile(r"l8078", re.I), "Civil e Trabalho", "Lei nº 8.078/1990 — Código de Defesa do Consumidor"),
     (re.compile(r"l9514", re.I), "Civil e Trabalho", "Lei nº 9.514/1997 — Alienação fiduciária"),
+    (re.compile(r"l8249", re.I), "Legislação Especial", "Lei nº 8.249/1991 — Nota do Tesouro Nacional (NTN)"),
     (re.compile(r"l8666", re.I), "Legislação Especial", "Lei nº 8.666/1993 — Licitações e Contratos"),
     (re.compile(r"l9307", re.I), "Legislação Especial", "Lei nº 9.307/1996 — Lei de Arbitragem"),
     (re.compile(r"l6858", re.I), "Legislação Especial", "Lei nº 6.858/1980 — Benefícios previdenciários"),
     (re.compile(r"l9503", re.I), "Legislação Especial", "Lei nº 9.503/1997 — Código de Trânsito Brasileiro"),
-    (re.compile(r"l13105", re.I), "Penal e Processual", "Lei nº 13.105/2015 — Código de Processo Civil"),
+    (re.compile(r"l13105", re.I), "Civil e Trabalho", "Lei nº 13.105/2015 — Código de Processo Civil"),
 ]
 
 

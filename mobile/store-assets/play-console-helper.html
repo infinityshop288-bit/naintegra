@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>NaIntegra Lex — Play Console</title>
+  <style>
+    :root { --bg: #faf8f4; --gold: #9a6e00; --text: #1a1a1a; --muted: #5a5348; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); max-width: 720px; margin: 0 auto; padding: 24px; line-height: 1.5; }
+    h1 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+    .sub { color: var(--muted); margin-bottom: 24px; }
+    .card { background: #fff; border: 1px solid #e8e0d4; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+    label { font-size: 0.75rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); display: block; margin-bottom: 6px; }
+    .value { font-size: 0.95rem; white-space: pre-wrap; word-break: break-word; margin-bottom: 10px; }
+    button { background: var(--gold); color: #fff; border: none; border-radius: 8px; padding: 8px 14px; cursor: pointer; font-weight: 600; }
+    button:hover { filter: brightness(1.05); }
+    button.ok { background: #2d6a4f; }
+    a.btn { display: inline-block; background: #333; color: #fff; text-decoration: none; border-radius: 8px; padding: 10px 16px; font-weight: 600; margin: 4px 4px 4px 0; }
+    a.btn.gold { background: var(--gold); }
+    ul { padding-left: 1.2rem; }
+    .status { padding: 12px; border-radius: 8px; background: #e8f5e9; border: 1px solid #a5d6a7; margin-bottom: 20px; font-size: 0.9rem; }
+    img.thumb { max-width: 120px; border-radius: 8px; border: 1px solid #ddd; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>NaIntegra Lex → Google Play</h1>
+  <p class="sub">Clique <strong>Copiar</strong> em cada campo e cole no Play Console.</p>
+
+  <div class="status">
+    Asset links: validado pelo Google para <code>br.com.naintegracursos.lex</code><br>
+    App ainda nao publicado na Play Store — faca upload via AI Studio ou Play Console.
+  </div>
+
+  <p>
+    <a class="btn gold" href="https://aistudio.google.com/apps?source=start" target="_blank">AI Studio</a>
+    <a class="btn" href="https://play.google.com/console" target="_blank">Play Console</a>
+    <a class="btn" href="https://play.google.com/console/u/0/developers/-/app/create" target="_blank">Criar app</a>
+  </p>
+
+  <div class="card" data-copy="NaIntegra Lex">
+    <label>Titulo do app</label>
+    <div class="value">NaIntegra Lex</div>
+    <button type="button">Copiar</button>
+  </div>
+
+  <div class="card" data-copy="br.com.naintegracursos.lex">
+    <label>Package name (applicationId)</label>
+    <div class="value">br.com.naintegracursos.lex</div>
+    <button type="button">Copiar</button>
+  </div>
+
+  <div class="card" data-copy="Lei seca, jurisprudência e flashcards para concursos de segurança pública.">
+    <label>Descricao curta (80 chars)</label>
+    <div class="value">Lei seca, jurisprudência e flashcards para concursos de segurança pública.</div>
+    <button type="button">Copiar</button>
+  </div>
+
+  <div class="card" data-copy="NaIntegra Lex é o companion oficial para estudo de legislação e jurisprudência focado em concursos de segurança pública.
+
+• Lei seca — leitura artigo por artigo, com progresso e busca por tema
+• Jurisprudência — súmulas, temas e julgados dos principais tribunais
+• Flashcards — revisão espaçada
+• Questões — banco integrado ao NaIntegra Cursos
+• Ouvir — narração por voz dos dispositivos legais
+• Anotações e grifos — salvas no dispositivo
+
+Requer assinatura NaIntegra Lex para acesso ao acervo completo.
+
+Desenvolvido por NaIntegra Cursos.">
+    <label>Descricao completa</label>
+    <div class="value">NaIntegra Lex é o companion oficial...</div>
+    <button type="button">Copiar</button>
+  </div>
+
+  <div class="card" data-copy="contato@naintegracursos.com.br">
+    <label>E-mail</label>
+    <div class="value">contato@naintegracursos.com.br</div>
+    <button type="button">Copiar</button>
+  </div>
+
+  <div class="card" data-copy="https://www.naintegracursos.com.br/lex/#/contato">
+    <label>Politica de privacidade</label>
+    <div class="value">https://www.naintegracursos.com.br/lex/#/contato</div>
+    <button type="button">Copiar</button>
+  </div>
+
+  <div class="card" data-copy="Versão 1.0.0 — lançamento inicial
+
+• Lei seca com leitura artigo por artigo e busca por tema
+• Jurisprudência — súmulas, temas e julgados
+• Flashcards para revisão espaçada
+• Banco de questões integrado
+• Narração por voz (TTS) dos dispositivos legais
+• Login com Google e Apple
+• Anotações e grifos no dispositivo
+
+Desenvolvido por NaIntegra Cursos.">
+    <label>Notas da versao</label>
+    <div class="value">Versão 1.0.0 — lançamento inicial...</div>
+    <button type="button">Copiar</button>
+  </div>
+
+  <div class="card">
+    <label>Arquivos para upload (pasta generated/)</label>
+    <ul>
+      <li>icon-512-play-store.png</li>
+      <li>feature-graphic-1024x500.png</li>
+      <li>screenshot-01-inicio-1080x1920.png</li>
+      <li>screenshot-02-lei-seca-1080x1920.png</li>
+      <li>screenshot-03-flashcards-1080x1920.png</li>
+      <li>screenshot-04-jurisprudencia-1080x1920.png</li>
+    </ul>
+    <p><code>mobile/store-assets/generated/</code></p>
+  </div>
+
+  <div class="card">
+    <label>Apos 1o upload — SHA-256 Play App Signing</label>
+    <p>Play Console → Configuracao → Integridade do app → copie SHA-256 e rode no terminal:</p>
+    <div class="value" id="sha-cmd">bash mobile/scripts/add-play-sha256.sh "COLE_SHA256_AQUI"</div>
+    <button type="button" data-copy-target="sha-cmd">Copiar comando</button>
+  </div>
+
+  <script>
+    document.querySelectorAll('.card[data-copy]').forEach(card => {
+      const btn = card.querySelector('button');
+      const text = card.getAttribute('data-copy');
+      btn.addEventListener('click', async () => {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = 'Copiado!';
+        btn.classList.add('ok');
+        setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('ok'); }, 1500);
+      });
+    });
+    document.querySelector('[data-copy-target]').addEventListener('click', async function() {
+      const id = this.getAttribute('data-copy-target');
+      await navigator.clipboard.writeText(document.getElementById(id).textContent);
+      this.textContent = 'Copiado!';
+      this.classList.add('ok');
+      setTimeout(() => { this.textContent = 'Copiar comando'; this.classList.remove('ok'); }, 1500);
+    });
+  </script>
+</body>
+</html>

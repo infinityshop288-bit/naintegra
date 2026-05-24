@@ -1,5 +1,9 @@
 /** Configuração pública do NaIntegra Lex (anon key — segura no browser). */
 window.LEX_CONFIG = {
+  /** Origem canônica do Lex (OAuth PKCE — deve estar em Supabase → Redirect URLs). */
+  siteOrigin: "https://www.naintegracursos.com.br",
+  lexPublicPath: "/lex/",
+  oauthCallbackUrl: "https://www.naintegracursos.com.br/lex/auth-callback.html",
   supabaseUrl: "https://voybsggeedpwcfdadnzt.supabase.co",
   supabaseAnonKey:
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZveWJzZ2dlZWRwd2NmZGFkbnp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNzU2MTQsImV4cCI6MjA4ODc1MTYxNH0.dy5AgSd1VWdP4WLGXy5V89pA4jgHijngHJjScApOo70",

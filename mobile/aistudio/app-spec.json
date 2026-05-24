@@ -1,0 +1,36 @@
+{
+  "appName": "NaIntegra Lex",
+  "packageName": "br.com.naintegracursos.lex",
+  "versionName": "1.0.0",
+  "versionCode": 1,
+  "minSdk": 24,
+  "targetSdk": 34,
+  "compileSdk": 34,
+  "startUrl": "https://www.naintegracursos.com.br/lex/",
+  "oauthCallbackUrl": "https://www.naintegracursos.com.br/lex/auth-callback.html",
+  "customUrlScheme": "br.com.naintegracursos.lex",
+  "deepLinkHost": "www.naintegracursos.com.br",
+  "deepLinkPathPrefix": "/lex",
+  "themeColor": "#faf8f4",
+  "primaryColor": "#9a6e00",
+  "contactEmail": "contato@naintegracursos.com.br",
+  "privacyPolicyUrl": "https://www.naintegracursos.com.br/lex/#/contato",
+  "playStore": {
+    "title": "NaIntegra Lex",
+    "shortDescription": "Lei seca, jurisprudência e flashcards para concursos de segurança pública.",
+    "fullDescription": "NaIntegra Lex é o companion oficial para estudo de legislação e jurisprudência focado em concursos de segurança pública.\n\n• Lei seca — leitura artigo por artigo, com progresso e busca por tema\n• Jurisprudência — súmulas, temas e julgados dos principais tribunais\n• Flashcards — revisão espaçada\n• Questões — banco integrado ao NaIntegra Cursos\n• Ouvir — narração por voz dos dispositivos legais\n• Anotações e grifos — salvas no seu dispositivo\n\nRequer assinatura NaIntegra Lex para acesso ao acervo completo.\n\nDesenvolvido por NaIntegra Cursos.",
+    "category": "EDUCATION",
+    "contentRating": "Everyone"
+  },
+  "permissions": [
+    "android.permission.INTERNET",
+    "android.permission.ACCESS_NETWORK_STATE"
+  ],
+  "features": [
+    "Full-screen WebView loading production Lex URL",
+    "Splash screen with brand colors",
+    "Deep links HTTPS /lex and custom scheme",
+    "OAuth via production site (Google/Apple login)",
+    "Offline message when no network"
+  ]
+}

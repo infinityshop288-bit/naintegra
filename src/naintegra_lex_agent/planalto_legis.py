@@ -17,6 +17,11 @@ PLANALTO_LEGIS_CATALOG: list[dict[str, str]] = [
         "secao": "Constituição e Adm.",
     },
     {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm",
+        "titulo": "Lei nº 10.406/2002 — Código Civil",
+        "secao": "Civil e Trabalho",
+    },
+    {
         "url": "http://www.planalto.gov.br/ccivil_03/decreto-lei/del2848.htm",
         "titulo": "Decreto-Lei nº 2.848/1940 — Código Penal",
         "secao": "Penal e Processual",
@@ -49,7 +54,7 @@ PLANALTO_LEGIS_CATALOG: list[dict[str, str]] = [
     {
         "url": "http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm",
         "titulo": "Lei nº 13.105/2015 — Código de Processo Civil",
-        "secao": "Penal e Processual",
+        "secao": "Civil e Trabalho",
     },
     {
         "url": "http://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11343.htm",
@@ -70,6 +75,16 @@ PLANALTO_LEGIS_CATALOG: list[dict[str, str]] = [
         "url": "http://www.planalto.gov.br/ccivil_03/leis/l9882.htm",
         "titulo": "Lei nº 9.882/1999 — ADI, ADC, ADPF e MP",
         "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13300.htm",
+        "titulo": "Lei nº 13.300/2016 — Lei do Mandado de Injunção",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l8249.htm",
+        "titulo": "Lei nº 8.249/1991 — Nota do Tesouro Nacional (NTN)",
+        "secao": "Legislação Especial",
     },
     {
         "url": "http://www.planalto.gov.br/ccivil_03/leis/l8666cons.htm",
@@ -94,6 +109,31 @@ PLANALTO_LEGIS_CATALOG: list[dict[str, str]] = [
     {
         "url": "http://www.planalto.gov.br/ccivil_03/leis/l9307.htm",
         "titulo": "Lei nº 9.307/1996 — Lei de Arbitragem",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/2003/l10.741.htm",
+        "titulo": "Lei 10.741/2003 — Estatuto do Idoso",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/2003/l10.826.htm",
+        "titulo": "Lei 10.826/2003 — Estatuto do Desarmamento",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l6015consolidado.htm",
+        "titulo": "Lei 6.015/1973 — Debêntures",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l6404consol.htm",
+        "titulo": "Lei 6.404/1976 — Lei das S.A.",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm",
+        "titulo": "Lei 8.036/1990 — Sistema Financeiro Nacional",
         "secao": "Legislação Especial",
     },
 ]
@@ -139,8 +179,16 @@ class _PlanaltoHtmlToLex(HTMLParser):
             self._parts.append("~~")
 
     def _close_revoke(self, marker: str) -> None:
-        if not self._revoke_stack or self._revoke_stack[-1] != marker:
+        if not self._revoke_stack:
             return
+        if self._revoke_stack[-1] != marker:
+            # HTML Planalto costuma aninhar <strike> dentro de <span style="line-through"> mal fechados.
+            while self._revoke_stack and self._revoke_stack[-1] != marker:
+                self._revoke_stack.pop()
+                if not self._revoke_stack:
+                    self._parts.append("~~")
+            if not self._revoke_stack:
+                return
         self._revoke_stack.pop()
         if not self._revoke_stack:
             self._parts.append("~~")
@@ -171,6 +219,11 @@ class _PlanaltoHtmlToLex(HTMLParser):
             return
         if t == "span":
             self._close_revoke("span-strike")
+            return
+        if t in BLOCK_BREAK_TAGS:
+            while self._revoke_stack:
+                self._revoke_stack.pop()
+                self._parts.append("~~")
 
     def handle_data(self, data: str) -> None:
         if self._skip_depth or not data:
@@ -189,10 +242,19 @@ class _PlanaltoHtmlToLex(HTMLParser):
         return raw.strip()
 
 
+def normalize_planalto_article_refs(text: str) -> str:
+    """Converte numeração Planalto com milhar (Art. 1.026) para Art. 1026."""
+
+    def _repl(match: re.Match[str]) -> str:
+        return f"Art. {match.group(1).replace('.', '')}"
+
+    return re.sub(r"Art\.\s*(\d{1,3}(?:\.\d{3})+)(?!\d)", _repl, text or "", flags=re.I)
+
+
 def html_to_lex_text(html: str) -> str:
     parser = _PlanaltoHtmlToLex()
     parser.feed(html)
-    return parser.text()
+    return normalize_planalto_article_refs(parser.text())
 
 
 def normalize_for_hash(text: str) -> str:

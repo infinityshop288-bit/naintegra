@@ -9,6 +9,13 @@
 (function () {
   const cfg = window.LEX_CONFIG;
 
+  /** JSON estático versionado em index.html (?v=) — permite cache do navegador. */
+  async function fetchStaticJson(url) {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(String(res.status));
+    return res.json();
+  }
+
   function headers(schema) {
     const h = {
       apikey: cfg.supabaseAnonKey,
@@ -58,8 +65,11 @@
 
   function catalogTitle(row, legisMeta, docType) {
     const meta = row.metadata || {};
-    if (meta.titulo) return meta.titulo;
+    const url = row.url || row.doc_key || "";
+    const known = window.LexLegisMeta?.lookupKnownMeta?.(url);
+    if (known?.titulo) return known.titulo;
     if (legisMeta?.titulo) return legisMeta.titulo;
+    if (meta.titulo) return meta.titulo;
     const stub = {
       url: row.url || row.doc_key || "",
       doc_key: row.doc_key,
@@ -185,33 +195,35 @@
     };
   }
 
-  async function mergeSumulasCatalog(docs) {
-    try {
-      const res = await fetch(cfg.sumulasCatalogFallback, { cache: "no-store" });
-      if (!res.ok) return docs;
-      const data = await res.json();
-      const entries = data.sumulas || [];
-      if (!entries.length) return docs;
+  function applySumulasCatalog(docs, data) {
+    const entries = data?.sumulas || [];
+    if (!entries.length) return docs;
 
-      const seen = new Set(docs.map((d) => docRouteId(d)));
-      const added = [];
-      let enriched = 0;
-      for (const entry of entries) {
-        const rid = entry.lex_route_id;
-        if (!rid) continue;
-        const mapped = mapSumulaCatalogEntry(entry);
-        if (seen.has(rid)) {
-          if (enrichFromCatalogEntry(findDocByRouteId(docs, rid), mapped)) enriched += 1;
-          continue;
-        }
-        seen.add(rid);
-        added.push(mapped);
+    const seen = new Set(docs.map((d) => docRouteId(d)));
+    const added = [];
+    let enriched = 0;
+    for (const entry of entries) {
+      const rid = entry.lex_route_id;
+      if (!rid) continue;
+      const mapped = mapSumulaCatalogEntry(entry);
+      if (seen.has(rid)) {
+        if (enrichFromCatalogEntry(findDocByRouteId(docs, rid), mapped)) enriched += 1;
+        continue;
       }
-      if (added.length) {
-        console.info(`Lex: +${added.length} súmulas (catálogo Trilhante)`);
-      }
-      if (enriched) console.info(`Lex: ${enriched} súmulas enriquecidas com preview`);
-      return [...docs, ...added];
+      seen.add(rid);
+      added.push(mapped);
+    }
+    if (added.length) {
+      console.info(`Lex: +${added.length} súmulas (catálogo Trilhante)`);
+    }
+    if (enriched) console.info(`Lex: ${enriched} súmulas enriquecidas com preview`);
+    return [...docs, ...added];
+  }
+
+  async function mergeSumulasCatalog(docs, preloaded) {
+    try {
+      const data = preloaded ?? (await fetchStaticJson(cfg.sumulasCatalogFallback));
+      return applySumulasCatalog(docs, data);
     } catch (err) {
       console.warn("Lex: catálogo de súmulas", err);
       return docs;
@@ -245,33 +257,35 @@
     };
   }
 
-  async function mergeTemasCatalog(docs) {
-    try {
-      const res = await fetch(cfg.temasCatalogFallback, { cache: "no-store" });
-      if (!res.ok) return docs;
-      const data = await res.json();
-      const entries = data.temas || [];
-      if (!entries.length) return docs;
+  function applyTemasCatalog(docs, data) {
+    const entries = data?.temas || [];
+    if (!entries.length) return docs;
 
-      const seen = new Set(docs.map((d) => docRouteId(d)));
-      const added = [];
-      let enriched = 0;
-      for (const entry of entries) {
-        const rid = entry.lex_route_id;
-        if (!rid) continue;
-        const mapped = mapTemaCatalogEntry(entry);
-        if (seen.has(rid)) {
-          if (enrichFromCatalogEntry(findDocByRouteId(docs, rid), mapped)) enriched += 1;
-          continue;
-        }
-        seen.add(rid);
-        added.push(mapped);
+    const seen = new Set(docs.map((d) => docRouteId(d)));
+    const added = [];
+    let enriched = 0;
+    for (const entry of entries) {
+      const rid = entry.lex_route_id;
+      if (!rid) continue;
+      const mapped = mapTemaCatalogEntry(entry);
+      if (seen.has(rid)) {
+        if (enrichFromCatalogEntry(findDocByRouteId(docs, rid), mapped)) enriched += 1;
+        continue;
       }
-      if (added.length) {
-        console.info(`Lex: +${added.length} temas (catálogo Trilhante)`);
-      }
-      if (enriched) console.info(`Lex: ${enriched} temas enriquecidos com tese`);
-      return [...docs, ...added];
+      seen.add(rid);
+      added.push(mapped);
+    }
+    if (added.length) {
+      console.info(`Lex: +${added.length} temas (catálogo Trilhante)`);
+    }
+    if (enriched) console.info(`Lex: ${enriched} temas enriquecidos com tese`);
+    return [...docs, ...added];
+  }
+
+  async function mergeTemasCatalog(docs, preloaded) {
+    try {
+      const data = preloaded ?? (await fetchStaticJson(cfg.temasCatalogFallback));
+      return applyTemasCatalog(docs, data);
     } catch (err) {
       console.warn("Lex: catálogo de temas", err);
       return docs;
@@ -279,12 +293,24 @@
   }
 
   async function mergeJurisCatalogs(docs) {
-    let out = await mergeSumulasCatalog(docs);
-    out = await mergeTemasCatalog(out);
+    const [sumRes, temaRes] = await Promise.allSettled([
+      fetchStaticJson(cfg.sumulasCatalogFallback),
+      fetchStaticJson(cfg.temasCatalogFallback),
+    ]);
+    let out = docs;
+    if (sumRes.status === "fulfilled") out = applySumulasCatalog(out, sumRes.value);
+    if (temaRes.status === "fulfilled") out = applyTemasCatalog(out, temaRes.value);
+    if (sumRes.status === "rejected") console.warn("Lex: catálogo de súmulas", sumRes.reason);
+    if (temaRes.status === "rejected") console.warn("Lex: catálogo de temas", temaRes.reason);
     return out;
   }
 
-  async function loadDocuments() {
+  async function loadDocumentsCatalog() {
+    if (window.LexLegisMeta?.loadKnownMeta) {
+      await window.LexLegisMeta.loadKnownMeta();
+    }
+    await loadLegisSummariesCache().catch(() => ({}));
+
     const sources = [
       ...(cfg.normaSources.legislacao || []),
       ...(cfg.normaSources.jurisprudencia || []),
@@ -306,10 +332,8 @@
     if (merged.length) {
       window.__LEX_DATA_SOURCE = "supabase";
       let prepared = window.LexFormat ? window.LexFormat.prepareCatalog(merged) : merged;
-      prepared = await mergeJurisCatalogs(prepared);
-      await applyLegisSummaries(prepared);
-      await attachJurisPreviews(prepared);
-      console.info(`Lex: ${prepared.length} documentos (Supabase, ${merged.length} brutos)`);
+      await enrichLegisCatalog(prepared);
+      console.info(`Lex: ${prepared.length} documentos (catálogo Supabase, ${merged.length} brutos)`);
       return prepared;
     }
 
@@ -329,10 +353,8 @@
       if (viewRows.length) {
         window.__LEX_DATA_SOURCE = "supabase_view";
         let prepared = window.LexFormat ? window.LexFormat.prepareCatalog(viewRows) : viewRows;
-        prepared = await mergeJurisCatalogs(prepared);
-        await applyLegisSummaries(prepared);
-        await attachJurisPreviews(prepared);
-        console.info(`Lex: ${prepared.length} documentos (view)`);
+        await enrichLegisCatalog(prepared);
+        console.info(`Lex: ${prepared.length} documentos (catálogo view)`);
         return prepared;
       }
     } catch (err) {
@@ -342,13 +364,25 @@
 
     window.__LEX_DATA_SOURCE = "fallback";
     console.warn("Lex: usando fallback local —", errors.join("; ") || "catálogo vazio");
-    const res = await fetch(cfg.corpusFallback, { cache: "no-store" });
-    const data = await res.json();
+    const data = await fetchStaticJson(cfg.corpusFallback);
     let docs = data.documents || [];
     docs = window.LexFormat ? window.LexFormat.prepareCatalog(docs) : docs;
-    docs = await mergeJurisCatalogs(docs);
-    await applyLegisSummaries(docs);
-    return attachJurisPreviews(docs);
+    await enrichLegisCatalog(docs);
+    return docs;
+  }
+
+  async function enrichDocuments(docs) {
+    if (!Array.isArray(docs) || !docs.length) return docs || [];
+    let prepared = docs;
+    prepared = await mergeJurisCatalogs(prepared);
+    await Promise.all([applyLegisSummaries(prepared), attachJurisPreviews(prepared)]);
+    console.info(`Lex: ${prepared.length} documentos enriquecidos`);
+    return prepared;
+  }
+
+  async function loadDocuments() {
+    const catalog = await loadDocumentsCatalog();
+    return enrichDocuments(catalog);
   }
 
   function enrichLegisDoc(doc) {
@@ -356,13 +390,16 @@
     const url = doc.url || doc.doc_key || "";
     const known = window.LexLegisMeta?.lookupKnownMeta?.(url);
     const meta = window.LexLegisMeta?.metaFromUrl?.(url, doc.body || "") || known;
-    if (!meta && !known) return doc;
+    if (!meta && !known && !window.LexLegisMeta?.resolveLegisTitle) return doc;
+    const resolved = window.LexLegisMeta?.resolveLegisTitle?.(url, doc.body || "", doc.title);
+    if (resolved) doc.title = resolved;
     const src = meta || known;
-    if (src.titulo && (!doc.title || /\.htm$/i.test(doc.title) || doc.title.length < 8)) {
-      doc.title = src.titulo;
-    }
-    if (src.resumo && !doc.resumo) doc.resumo = src.resumo;
-    if (src.secao || src.secao_lei_seca) {
+    if (known?.resumo) doc.resumo = known.resumo;
+    else if (src?.resumo && !doc.resumo) doc.resumo = src.resumo;
+    if (known?.secao) {
+      if (!doc.organized) doc.organized = {};
+      doc.organized.secao_lei_seca = known.secao;
+    } else if (src && (src.secao || src.secao_lei_seca)) {
       if (!doc.organized) doc.organized = {};
       doc.organized.secao_lei_seca =
         doc.organized.secao_lei_seca || src.secao_lei_seca || src.secao;
@@ -371,13 +408,7 @@
   }
 
   async function enrichLegisCatalog(docs) {
-    if (window.LexLegisMeta?.loadKnownMeta) {
-      await window.LexLegisMeta.loadKnownMeta();
-    }
-    for (const doc of docs) {
-      if (doc.doc_type === "legislacao") enrichLegisDoc(doc);
-    }
-    return docs;
+    return applyLegisSummaries(docs);
   }
 
   async function attachJurisPreviews(docs) {
@@ -403,8 +434,9 @@
     for (const doc of docs) {
       if (doc.doc_type !== "legislacao") continue;
       const cached = lookupLegisSummary(cache, doc.url, doc.doc_key);
-      if (cached?.titulo) doc.title = cached.titulo;
-      if (cached?.resumo) doc.resumo = cached.resumo;
+      const known = window.LexLegisMeta?.lookupKnownMeta?.(doc.url || doc.doc_key || "");
+      if (cached?.titulo && !known?.titulo) doc.title = cached.titulo;
+      if (cached?.resumo && !known?.resumo) doc.resumo = cached.resumo;
       if (cached?.secao) {
         if (!doc.organized) doc.organized = {};
         doc.organized.secao_lei_seca = doc.organized.secao_lei_seca || cached.secao;
@@ -444,9 +476,7 @@
   async function loadLegisSummariesCache() {
     if (legisSummariesCache) return legisSummariesCache;
     try {
-      const res = await fetch(cfg.legisSummariesFallback, { cache: "no-store" });
-      if (!res.ok) return {};
-      const data = await res.json();
+      const data = await fetchStaticJson(cfg.legisSummariesFallback);
       legisSummariesCache = data.summaries || {};
       return legisSummariesCache;
     } catch (err) {
@@ -466,9 +496,7 @@
   async function loadJurisBodiesCache() {
     if (jurisBodiesCache) return jurisBodiesCache;
     try {
-      const res = await fetch(cfg.jurisBodiesFallback, { cache: "no-store" });
-      if (!res.ok) return {};
-      const data = await res.json();
+      const data = await fetchStaticJson(cfg.jurisBodiesFallback);
       jurisBodiesCache = data.bodies || {};
       return jurisBodiesCache;
     } catch (err) {
@@ -521,6 +549,36 @@
     return "";
   }
 
+  async function loadLegisDocumentText(doc) {
+    const docKey = doc.doc_key || doc.url || "";
+    const primary = doc.source_system || "rideel_vademecum";
+    const sources =
+      primary === "planalto"
+        ? ["planalto", "rideel_vademecum"]
+        : ["planalto", primary, "rideel_vademecum"];
+    const tried = new Set();
+    let best = "";
+    for (const src of sources) {
+      if (!src || tried.has(src)) continue;
+      tried.add(src);
+      let text = "";
+      try {
+        text = await loadDocumentChunks(src, { ...doc, source_system: src });
+      } catch (_) {}
+      if (!text) {
+        try {
+          const rpcText = await rpc("get_norma_document_text", {
+            p_source: src,
+            p_doc_key: docKey,
+          });
+          if (typeof rpcText === "string" && rpcText.trim()) text = rpcText;
+        } catch (_) {}
+      }
+      if (text.length > best.length) best = text;
+    }
+    return best;
+  }
+
   async function loadDocumentBody(doc) {
     if (doc.body && typeof doc.body === "string" && doc.body.trim()) {
       if (window.LexFormat) window.LexFormat.ensureFormatted(doc);
@@ -541,10 +599,19 @@
     }
 
     let text = "";
-    try {
-      text = await loadDocumentChunks(source, doc);
-    } catch (err) {
-      console.warn("Lex: chunks por URL", docKey, err);
+    if (doc.doc_type === "legislacao" || source === "planalto" || source === "rideel_vademecum") {
+      try {
+        text = await loadLegisDocumentText(doc);
+      } catch (err) {
+        console.warn("Lex: texto legislação", docKey, err);
+      }
+    }
+    if (!text) {
+      try {
+        text = await loadDocumentChunks(source, doc);
+      } catch (err) {
+        console.warn("Lex: chunks por URL", docKey, err);
+      }
     }
 
     if (!text && source === "trilhante_informativo") {
@@ -578,9 +645,14 @@
 
     doc.body = text;
     if (window.LexLegisMeta) {
-      const meta = window.LexLegisMeta.metaFromUrl(doc.url || doc.doc_key || "", doc.body);
-      if (meta?.titulo) doc.title = meta.titulo;
-      if (meta?.resumo) doc.resumo = meta.resumo;
+      if (window.LexLegisMeta.loadKnownMeta) await window.LexLegisMeta.loadKnownMeta();
+      const url = doc.url || doc.doc_key || "";
+      const resolved = window.LexLegisMeta.resolveLegisTitle?.(url, doc.body, doc.title);
+      if (resolved) doc.title = resolved;
+      const meta = window.LexLegisMeta.metaFromUrl(url, doc.body);
+      const known = window.LexLegisMeta.lookupKnownMeta?.(url);
+      if (known?.resumo) doc.resumo = known.resumo;
+      else if (meta?.resumo) doc.resumo = meta.resumo;
       if (meta?.secao_lei_seca) {
         if (!doc.organized) doc.organized = {};
         doc.organized.secao_lei_seca = doc.organized.secao_lei_seca || meta.secao_lei_seca;
@@ -590,44 +662,90 @@
     return doc.body;
   }
 
-  async function loadFlashcardDecks() {
-    try {
-      const decks = await lexFetch("flashcard_decks", "select=*&order=sort_order.asc");
-      if (!Array.isArray(decks) || !decks.length) throw new Error("empty");
-      const cards = [];
-      const limit = cfg.flashcardsPageSize || 1000;
-      for (let offset = 0, page = 0; page < 20; page++) {
-        const batch = await lexFetch(
+  let flashcardsCache = null;
+  let flashcardsLoadPromise = null;
+
+  function mapFlashcardDecks(decks, cards) {
+    const byDeck = {};
+    for (const c of cards) {
+      if (!byDeck[c.deck_id]) byDeck[c.deck_id] = [];
+      byDeck[c.deck_id].push(c);
+    }
+    return decks.map((d) => ({
+      slug: d.slug,
+      name: d.name,
+      category: d.category,
+      cards: (byDeck[d.id] || [])
+        .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0))
+        .map((c) => ({
+          front: c.front,
+          back: c.back,
+          highlight: c.highlight,
+        })),
+    }));
+  }
+
+  async function lexFlashcardsTotal() {
+    const res = await fetch(`${cfg.supabaseUrl}/rest/v1/flashcards?select=id&limit=1`, {
+      headers: { ...headers(cfg.lexSchema), Prefer: "count=exact" },
+    });
+    if (!res.ok) throw new Error(String(res.status));
+    const range = res.headers.get("content-range") || "";
+    const m = range.match(/\/(\d+)$/);
+    return m ? parseInt(m[1], 10) : 0;
+  }
+
+  async function loadFlashcardsFromSupabase() {
+    const decks = await lexFetch("flashcard_decks", "select=id,slug,name,category,sort_order&order=sort_order.asc");
+    if (!Array.isArray(decks) || !decks.length) throw new Error("empty");
+    const limit = cfg.flashcardsPageSize || 1000;
+    const total = await lexFlashcardsTotal();
+    const pages = Math.max(1, Math.ceil(total / limit));
+    const cardCols = "deck_id,front,back,highlight,sort_order";
+    const batches = await Promise.all(
+      Array.from({ length: pages }, (_, i) =>
+        lexFetch(
           "flashcards",
-          `select=*&order=deck_id.asc,sort_order.asc&limit=${limit}&offset=${offset}`
-        );
-        if (!Array.isArray(batch) || !batch.length) break;
-        cards.push(...batch);
-        if (batch.length < limit) break;
-        offset += limit;
+          `select=${cardCols}&order=deck_id.asc,sort_order.asc&limit=${limit}&offset=${i * limit}`
+        )
+      )
+    );
+    const cards = batches.flat();
+    console.info(`Lex: ${decks.length} decks · ${cards.length} flashcards (Supabase)`);
+    return mapFlashcardDecks(decks, cards);
+  }
+
+  async function loadFlashcardsFromFallback() {
+    const data = await fetchStaticJson(cfg.flashcardsFallback);
+    const decks = data.decks || [];
+    if (!decks.length) throw new Error("empty");
+    console.info(
+      `Lex: ${decks.length} decks · ${decks.reduce((n, d) => n + (d.cards?.length || 0), 0)} flashcards (cache local)`
+    );
+    return decks;
+  }
+
+  async function loadFlashcardDecks(force = false) {
+    if (!force && flashcardsCache) return flashcardsCache;
+    if (!force && flashcardsLoadPromise) return flashcardsLoadPromise;
+
+    flashcardsLoadPromise = (async () => {
+      try {
+        flashcardsCache = await Promise.any([
+          loadFlashcardsFromSupabase(),
+          loadFlashcardsFromFallback(),
+        ]);
+        return flashcardsCache;
+      } catch (err) {
+        const errors = err instanceof AggregateError ? err.errors : [err];
+        throw errors[errors.length - 1] || err;
       }
-      const byDeck = {};
-      for (const c of cards) {
-        if (!byDeck[c.deck_id]) byDeck[c.deck_id] = [];
-        byDeck[c.deck_id].push(c);
-      }
-      console.info(`Lex: ${decks.length} decks · ${cards.length} flashcards`);
-      return decks.map((d) => ({
-        slug: d.slug,
-        name: d.name,
-        category: d.category,
-        cards: (byDeck[d.id] || [])
-          .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0))
-          .map((c) => ({
-            front: c.front,
-            back: c.back,
-            highlight: c.highlight,
-          })),
-      }));
-    } catch (_) {
-      const res = await fetch(cfg.flashcardsFallback);
-      const data = await res.json();
-      return data.decks || [];
+    })();
+
+    try {
+      return await flashcardsLoadPromise;
+    } finally {
+      flashcardsLoadPromise = null;
     }
   }
 
@@ -706,9 +824,7 @@
 
   async function loadQuestionsFromFallback() {
     try {
-      const res = await fetch(cfg.questoesCatalogFallback, { cache: "no-store" });
-      if (!res.ok) throw new Error(String(res.status));
-      const data = await res.json();
+      const data = await fetchStaticJson(cfg.questoesCatalogFallback);
       const rows = data.documents || data.questions || [];
       return rows.map((row) =>
         row.external_id && row.doc_type ? row : mapQuestaoRow(row)
@@ -752,6 +868,8 @@
 
   window.LexData = {
     loadDocuments,
+    loadDocumentsCatalog,
+    enrichDocuments,
     loadDocumentBody,
     loadFlashcardDecks,
     loadQuestions,

@@ -1,0 +1,11 @@
+Versão 1.0.0 — lançamento inicial
+
+• Lei seca com leitura artigo por artigo e busca por tema
+• Jurisprudência — súmulas, temas e julgados
+• Flashcards para revisão espaçada
+• Banco de questões integrado
+• Narração por voz (TTS) dos dispositivos legais
+• Login com Google e Apple
+• Anotações e grifos no dispositivo
+
+Desenvolvido por NaIntegra Cursos.

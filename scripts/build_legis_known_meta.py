@@ -32,7 +32,7 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l0605": ("Lei 605/1949 — Imprensa", "Regula direito de resposta e responsabilidade na imprensa.", "Constituição e Adm."),
     "l1060": ("Lei 1.060/1950 — Assistência judiciária", "Estabelece normas para assistência judiciária gratuita aos necessitados.", "Constituição e Adm."),
     "l1079": ("Lei 1.079/1950 — Impeachment", "Regula processo de julgamento dos crimes de responsabilidade do Presidente.", "Constituição e Adm."),
-    "l1521": ("Lei 1.521/1951 — Imprensa", "Altera dispositivos sobre liberdade de informação jornalística.", "Constituição e Adm."),
+    "l1521": ("Lei 1.521/1951 — Crimes contra a economia popular", "Altera dispositivos da legislação vigente sobre crimes contra a economia popular.", "Penal e Processual"),
     "l1579": ("Lei 1.579/1952", "Prorroga sessões legislativas e dispõe sobre prazos parlamentares.", "Constituição e Adm."),
     "l2889": ("Lei 2.889/1956 — IPVA", "Institui imposto sobre veículos automotores (IPVA).", "Legislação Especial"),
     "l4090": ("Lei 4.090/1962 — Ações comerciais", "Regula emissão e negociação de ações e valores mobiliários.", "Legislação Especial"),
@@ -52,11 +52,13 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l5889": ("Lei 5.889/1973", "Altera dispositivos da Consolidação das Leis do Trabalho.", "Civil e Trabalho"),
     "l5941": ("Lei 5.941/1973", "Dispõe sobre suspensão de medida de segurança e internação.", "Penal e Processual"),
     "l6019": ("Lei 6.019/1974", "Altera normas trabalhistas sobre contratos e verbas rescisórias.", "Civil e Trabalho"),
+    "l6015": ("Lei 6.015/1973 — Debêntures", "Institui normas sobre emissão e registro de debêntures.", "Legislação Especial"),
     "l6385": ("Lei 6.385/1976 — CVM", "Institui a Comissão de Valores Mobiliários e regula o mercado de capitais.", "Legislação Especial"),
     "l6515": ("Lei 6.515/1977 — Divórcio", "Altera normas de direito de família e introduz o divórcio.", "Civil e Trabalho"),
     "l6766": ("Lei 6.766/1979 — Parcelamento do solo", "Regula parcelamento do solo urbano e direito urbanístico.", "Legislação Especial"),
     "l6830": ("Lei 6.830/1980 — Execução fiscal", "Regula execução fiscal de créditos tributários da Fazenda Pública.", "Legislação Especial"),
     "l6858": ("Lei 6.858/1980 — Benefícios previdenciários", "Dispõe sobre pagamento de benefícios previdenciários a terceiros.", "Legislação Especial"),
+    "l6404": ("Lei 6.404/1976 — Lei das S.A.", "Dispõe sobre as sociedades anônimas (Lei das S.A.).", "Legislação Especial"),
     "l6938": ("Lei 6.938/1981 — Política Nacional do Meio Ambiente", "Institui a Política Nacional do Meio Ambiente (PNMA).", "Legislação Especial"),
     "l7210": ("Lei 7.210/1984 — Lei de Execução Penal", "Define normas para execução de penas e medidas alternativas (LEP).", "Penal e Processual"),
     "l7347": ("Lei 7.347/1985 — Ação civil pública", "Regula ação civil pública e tutela de interesses difusos e coletivos.", "Constituição e Adm."),
@@ -68,6 +70,7 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l7960": ("Lei 7.960/1989 — Prisão temporária", "Regula prisão temporária e prazos de custódia.", "Penal e Processual"),
     "l8009": ("Lei 8.009/1990 — Reparação ao consumidor", "Dispõe sobre reparação de danos ao consumidor por produtos e serviços.", "Civil e Trabalho"),
     "l8038": ("Lei 8.038/1990 — Júri", "Altera normas de competência e procedimento do Tribunal do Júri.", "Penal e Processual"),
+    "l8036": ("Lei 8.036/1990 — Sistema Financeiro Nacional", "Dispõe sobre o Sistema Financeiro Nacional e instituições financeiras.", "Legislação Especial"),
     "l8069": ("Lei 8.069/1990 — ECA", "Dispõe sobre o Estatuto da Criança e do Adolescente (ECA).", "Legislação Especial"),
     "l8072": ("Lei 8.072/1990 — Crimes hediondos", "Define crimes hediondos e restringe benefícios penais.", "Penal e Processual"),
     "l8078": ("Lei 8.078/1990 — CDC", "Estabelece normas de proteção ao consumidor (CDC).", "Civil e Trabalho"),
@@ -114,6 +117,8 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l9882": ("Lei 9.882/1999 — Ações constitucionais", "Regula ADI, ADC, ADPF e mandado de injunção.", "Constituição e Adm."),
     "l9962": ("Lei 9.962/2000 — ANVISA", "Autoriza criação da ANVISA e regula vigilância sanitária.", "Legislação Especial"),
     "l10101": ("Lei 10.101/2000 — Célula de emprego", "Regula contrato de trabalho em regime de tempo parcial.", "Civil e Trabalho"),
+    "l10741": ("Lei 10.741/2003 — Estatuto do Idoso", "Institui o Estatuto do Idoso e normas de proteção à pessoa idosa.", "Legislação Especial"),
+    "l10826": ("Lei 10.826/2003 — Estatuto do Desarmamento", "Regula registro, posse e comercialização de armas de fogo e munição (Estatuto do Desarmamento).", "Penal e Processual"),
     "l10257": ("Lei 10.257/2001 — Estatuto da Cidade", "Regula política urbana e direito à cidade.", "Legislação Especial"),
     "l10259": ("Lei 10.259/2001 — Juizados Federais", "Institui Juizados Especiais Cíveis e Criminais no âmbito da Justiça Federal.", "Penal e Processual"),
     "l10406": ("Lei 10.406/2002 — Código Civil", "Introduz o Código Civil brasileiro.", "Civil e Trabalho"),
@@ -153,14 +158,14 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l12965": ("Lei 12.965/2014 — Marco Civil da Internet", "Estabelece princípios e garantias do uso da internet.", "Legislação Especial"),
     "l12984": ("Lei 12.984/2014 — HIV/AIDS", "Criminaliza discriminação de portadores de HIV/AIDS.", "Penal e Processual"),
     "l13060": ("Lei 13.060/2014 — Uso da força", "Disciplina uso de instrumentos de menor potencial ofensivo por agentes.", "Penal e Processual"),
-    "l13105": ("Lei 13.105/2015 — CPC", "Estabelece normas do Código de Processo Civil.", "Penal e Processual"),
+    "l13105": ("Lei 13.105/2015 — Código de Processo Civil", "Estabelece normas do Código de Processo Civil.", "Civil e Trabalho"),
     "l13140": ("Lei 13.140/2015 — Mediação", "Dispõe sobre mediação entre particulares como meio de solução de conflitos.", "Civil e Trabalho"),
     "l13146": ("Lei 13.146/2015 — Estatuto da Pessoa com Deficiência", "Institui Lei Brasileira de Inclusão da Pessoa com Deficiência.", "Legislação Especial"),
     "l13188": ("Lei 13.188/2015 — Reintegração de posse", "Altera normas sobre reintegração de posse e usucapião especial.", "Civil e Trabalho"),
     "l13260": ("Lei 13.260/2016 — Terrorismo", "Regula terrorismo e organizações terroristas.", "Penal e Processual"),
     "l13271": ("Lei 13.271/2016 — Improbidade", "Altera dispositivos da Lei de Improbidade Administrativa.", "Constituição e Adm."),
     "l13294": ("Lei 13.294/2016 — Sistema Financeiro", "Altera normas sobre instituições do Sistema Financeiro Nacional.", "Legislação Especial"),
-    "l13300": ("Lei 13.300/2016 — Lobby", "Regula registro de representantes de interesse perante o poder público.", "Constituição e Adm."),
+    "l13300": ("Lei 13.300/2016 — Lei do Mandado de Injunção", "Regula o mandado de injunção e o mandado de segurança coletivo.", "Constituição e Adm."),
     "l13303": ("Lei 13.303/2016 — Estatuto jurídico de estatais", "Regime jurídico de empresas estatais e sociedades de economia mista.", "Legislação Especial"),
     "l13344": ("Lei 13.344/2016 — Tráfico de pessoas", "Tipifica tráfico de pessoas e medidas de prevenção.", "Penal e Processual"),
     "l13445": ("Lei 13.445/2017 — Migração", "Regula direitos e deveres de migrantes e refugiados.", "Constituição e Adm."),
@@ -216,7 +221,23 @@ EMC_KNOWN: dict[str, tuple[str, str]] = {
 }
 
 
+def legis_slug_from_url(url: str) -> str | None:
+    m = re.search(
+        r"/(lcp|del|emc|d|l)(\d[\d.]*?)(?:consolidado|consol|compilada|comp|cons|orig|_)?\.htm",
+        url.lower(),
+    )
+    if not m:
+        return None
+    prefix, digits = m.group(1), m.group(2).replace(".", "")
+    return f"{prefix}{digits}"
+
+
 def match_key(url: str) -> str | None:
+    slug = legis_slug_from_url(url)
+    if slug and slug in KNOWN:
+        return slug
+    if slug and slug.replace("l0", "l", 1) in KNOWN:
+        return slug.replace("l0", "l", 1)
     u = url.lower()
     for key in sorted(KNOWN.keys(), key=len, reverse=True):
         if key.lower() in u:

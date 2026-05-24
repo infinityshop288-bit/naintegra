@@ -1,0 +1,40 @@
+PODS:
+  - Capacitor (7.6.5):
+    - CapacitorCordova
+  - CapacitorApp (7.1.2):
+    - Capacitor
+  - CapacitorCordova (7.6.5)
+  - CapacitorSplashScreen (7.0.5):
+    - Capacitor
+  - CapacitorStatusBar (7.0.6):
+    - Capacitor
+
+DEPENDENCIES:
+  - "Capacitor (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorApp (from `../../node_modules/@capacitor/app`)"
+  - "CapacitorCordova (from `../../node_modules/@capacitor/ios`)"
+  - "CapacitorSplashScreen (from `../../node_modules/@capacitor/splash-screen`)"
+  - "CapacitorStatusBar (from `../../node_modules/@capacitor/status-bar`)"
+
+EXTERNAL SOURCES:
+  Capacitor:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorApp:
+    :path: "../../node_modules/@capacitor/app"
+  CapacitorCordova:
+    :path: "../../node_modules/@capacitor/ios"
+  CapacitorSplashScreen:
+    :path: "../../node_modules/@capacitor/splash-screen"
+  CapacitorStatusBar:
+    :path: "../../node_modules/@capacitor/status-bar"
+
+SPEC CHECKSUMS:
+  Capacitor: fa6393e8023cd0f4740c9a22bc73720c049fffa2
+  CapacitorApp: 6b89831465d6bc99bc89779b1b7f5327e33011ce
+  CapacitorCordova: 2b36392a7292c3c451dcae154185ee8804d7b6b3
+  CapacitorSplashScreen: b3d12b4324d93ce605fe57f05a199ade7f26189e
+  CapacitorStatusBar: a3acb591ff56301e28aa1a01791ba74a8e1faabb
+
+PODFILE CHECKSUM: 4021bb844f4ff58f5c7f8076ca63cec2d85c10be
+
+COCOAPODS: 1.15.2

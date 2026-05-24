@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-22T01:49:57.968827+00:00",
-  "count": 196,
+  "generated_at": "2026-05-24T02:29:41.079858+00:00",
+  "count": 201,
   "entries": {
     "constituicao.htm": {
       "titulo": "Constituição Federal de 1988",
@@ -93,9 +93,9 @@
       "secao": "Constituição e Adm."
     },
     "l1521": {
-      "titulo": "Lei 1.521/1951 — Imprensa",
-      "resumo": "Altera dispositivos sobre liberdade de informação jornalística.",
-      "secao": "Constituição e Adm."
+      "titulo": "Lei 1.521/1951 — Crimes contra a economia popular",
+      "resumo": "Altera dispositivos da legislação vigente sobre crimes contra a economia popular.",
+      "secao": "Penal e Processual"
     },
     "l1579": {
       "titulo": "Lei 1.579/1952",
@@ -192,6 +192,11 @@
       "resumo": "Altera normas trabalhistas sobre contratos e verbas rescisórias.",
       "secao": "Civil e Trabalho"
     },
+    "l6015": {
+      "titulo": "Lei 6.015/1973 — Debêntures",
+      "resumo": "Institui normas sobre emissão e registro de debêntures.",
+      "secao": "Legislação Especial"
+    },
     "l6385": {
       "titulo": "Lei 6.385/1976 — CVM",
       "resumo": "Institui a Comissão de Valores Mobiliários e regula o mercado de capitais.",
@@ -215,6 +220,11 @@
     "l6858": {
       "titulo": "Lei 6.858/1980 — Benefícios previdenciários",
       "resumo": "Dispõe sobre pagamento de benefícios previdenciários a terceiros.",
+      "secao": "Legislação Especial"
+    },
+    "l6404": {
+      "titulo": "Lei 6.404/1976 — Lei das S.A.",
+      "resumo": "Dispõe sobre as sociedades anônimas (Lei das S.A.).",
       "secao": "Legislação Especial"
     },
     "l6938": {
@@ -271,6 +281,11 @@
       "titulo": "Lei 8.038/1990 — Júri",
       "resumo": "Altera normas de competência e procedimento do Tribunal do Júri.",
       "secao": "Penal e Processual"
+    },
+    "l8036": {
+      "titulo": "Lei 8.036/1990 — Sistema Financeiro Nacional",
+      "resumo": "Dispõe sobre o Sistema Financeiro Nacional e instituições financeiras.",
+      "secao": "Legislação Especial"
     },
     "l8069": {
       "titulo": "Lei 8.069/1990 — ECA",
@@ -502,6 +517,16 @@
       "resumo": "Regula contrato de trabalho em regime de tempo parcial.",
       "secao": "Civil e Trabalho"
     },
+    "l10741": {
+      "titulo": "Lei 10.741/2003 — Estatuto do Idoso",
+      "resumo": "Institui o Estatuto do Idoso e normas de proteção à pessoa idosa.",
+      "secao": "Legislação Especial"
+    },
+    "l10826": {
+      "titulo": "Lei 10.826/2003 — Estatuto do Desarmamento",
+      "resumo": "Regula registro, posse e comercialização de armas de fogo e munição (Estatuto do Desarmamento).",
+      "secao": "Penal e Processual"
+    },
     "l10257": {
       "titulo": "Lei 10.257/2001 — Estatuto da Cidade",
       "resumo": "Regula política urbana e direito à cidade.",
@@ -698,9 +723,9 @@
       "secao": "Penal e Processual"
     },
     "l13105": {
-      "titulo": "Lei 13.105/2015 — CPC",
+      "titulo": "Lei 13.105/2015 — Código de Processo Civil",
       "resumo": "Estabelece normas do Código de Processo Civil.",
-      "secao": "Penal e Processual"
+      "secao": "Civil e Trabalho"
     },
     "l13140": {
       "titulo": "Lei 13.140/2015 — Mediação",
@@ -733,8 +758,8 @@
       "secao": "Legislação Especial"
     },
     "l13300": {
-      "titulo": "Lei 13.300/2016 — Lobby",
-      "resumo": "Regula registro de representantes de interesse perante o poder público.",
+      "titulo": "Lei 13.300/2016 — Lei do Mandado de Injunção",
+      "resumo": "Regula o mandado de injunção e o mandado de segurança coletivo.",
       "secao": "Constituição e Adm."
     },
     "l13303": {

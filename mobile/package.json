@@ -1,0 +1,41 @@
+{
+  "name": "naintegra-lex-mobile",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Shell nativo (Capacitor) do NaIntegra Lex para Google Play e App Store",
+  "scripts": {
+    "sync": "bash scripts/sync-lex-www.sh",
+    "build": "npm run sync && RUBYOPT=-rlogger npx cap sync",
+    "prepare:native": "bash scripts/prepare-native-projects.sh",
+    "export:aistudio": "bash scripts/export-for-aistudio.sh",
+    "assetlinks": "python3 scripts/update-assetlinks.py",
+    "signing:setup": "bash scripts/setup-android-signing.sh",
+    "publish:play": "bash scripts/continue-play-publish.sh",
+    "aistudio:open": "open https://aistudio.google.com/apps?source=start && open aistudio/PROMPT-COPIAR.txt && open aistudio/GUIA-TELA-A-TELA.md && open ../web/lex/icons/icon-512.png",
+    "aistudio:go": "bash scripts/aistudio-go.sh",
+    "aistudio:wizard": "bash scripts/aistudio-wizard.sh",
+    "store:assets": "python3 scripts/generate-store-assets.py",
+    "play:sha256": "bash scripts/add-play-sha256.sh",
+    "play:finish": "bash scripts/finish-play-publish.sh",
+    "smoke": "python3 scripts/smoke-mobile-apps.py",
+    "android": "npx cap open android",
+    "ios": "npx cap open ios",
+    "export:android": "npm run build && npx cap open android",
+    "export:ios": "npm run build && npx cap open ios"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.2.0",
+    "@capacitor/app": "^7.0.1",
+    "@capacitor/core": "^7.2.0",
+    "@capacitor/ios": "^7.2.0",
+    "@capacitor/splash-screen": "^7.0.1",
+    "@capacitor/status-bar": "^7.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.2.0",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

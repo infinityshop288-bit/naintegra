@@ -327,11 +327,19 @@
 
   async function setSession(sess) {
     session = sess;
-    if (!sess?.user) return;
+    if (!sess?.user) {
+      if (window.LexFlashcardsUser?.setCloudSession) {
+        await window.LexFlashcardsUser.setCloudSession(null);
+      }
+      return;
+    }
     migrateLegacyStorage();
     try {
       await pullRemote(sess);
       await pushLocalMarks(sess);
+      if (window.LexFlashcardsUser?.setCloudSession) {
+        await window.LexFlashcardsUser.setCloudSession(sess);
+      }
     } catch (err) {
       console.warn("LexStore sync:", err);
     }

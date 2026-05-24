@@ -18,6 +18,19 @@
   let cachedSub = null;
   let pollTimer = null;
 
+  function lexCanonicalBaseUrl() {
+    const origin = (cfg.siteOrigin || window.location.origin).replace(/\/$/, "");
+    const path = cfg.lexPublicPath || "/lex/";
+    const normalized = path.startsWith("/") ? path : `/${path}`;
+    return `${origin}${normalized.replace(/\/$/, "")}`;
+  }
+
+  function lexCheckoutReturnPath() {
+    const path = cfg.lexPublicPath || "/lex/";
+    const base = path.startsWith("/") ? path : `/${path}`;
+    return `${base.endsWith("/") ? base : `${base}/`}index.html`;
+  }
+
   function fnUrl(name) {
     return `${cfg.supabaseUrl}/functions/v1/${name}`;
   }
@@ -179,6 +192,48 @@
     return data;
   }
 
+  async function reconcilePendingSubscription() {
+    const res = await fetch(fnUrl("lex-subscription-confirm"), {
+      method: "POST",
+      headers: await edgeHeaders(true),
+      body: JSON.stringify({ reconcile: true }),
+    });
+    const data = await res.json();
+    if (!res.ok || !data.ok) return null;
+    if (data.status === "active" && data.approved) {
+      invalidateCache();
+      return data;
+    }
+    return null;
+  }
+
+  function savePendingPixCheckout(subscriptionId, paymentId, amount) {
+    sessionStorage.setItem(
+      PENDING_KEY,
+      JSON.stringify({ subscriptionId, paymentId, amount, provider: "pix", savedAt: Date.now() })
+    );
+  }
+
+  function loadPendingPixCheckout() {
+    try {
+      const raw = sessionStorage.getItem(PENDING_KEY);
+      if (!raw) return null;
+      const data = JSON.parse(raw);
+      if (data.provider !== "pix" || !data.subscriptionId || !data.paymentId) return null;
+      if (Date.now() - (data.savedAt || 0) > 86400000) {
+        sessionStorage.removeItem(PENDING_KEY);
+        return null;
+      }
+      return data;
+    } catch {
+      return null;
+    }
+  }
+
+  function clearPendingCheckout() {
+    sessionStorage.removeItem(PENDING_KEY);
+  }
+
   async function checkPaymentStatus(paymentId) {
     return invokeEdge("check-payment-status", { paymentId }, false);
   }
@@ -207,7 +262,8 @@
         payerEmail: user.email,
         payerName: window.LexAuth.userLabel(user),
         externalReference: init.externalReferenceCard,
-        backUrlPath: "/lex/",
+        publicBaseUrl: lexCanonicalBaseUrl(),
+        backUrlPath: lexCheckoutReturnPath(),
         statementDescriptor: "NAINTEGRA LEX",
       },
       false
@@ -218,14 +274,17 @@
     clearInterval(pollTimer);
     return new Promise((resolve, reject) => {
       let tries = 0;
+      let transientErrors = 0;
       pollTimer = setInterval(async () => {
         tries += 1;
         try {
           const status = await checkPaymentStatus(paymentId);
+          transientErrors = 0;
           if (onTick) onTick(status);
           if (status.status === "approved") {
             clearInterval(pollTimer);
             const r = await invokeConfirm(subscriptionId, paymentId, "mercadopago");
+            clearPendingCheckout();
             invalidateCache();
             resolve(r);
           } else if (tries > 120) {
@@ -233,8 +292,12 @@
             reject(new Error("Tempo esgotado aguardando pagamento PIX"));
           }
         } catch (e) {
-          clearInterval(pollTimer);
-          reject(e);
+          transientErrors += 1;
+          console.warn("pix poll:", e);
+          if (transientErrors >= 6 || tries > 120) {
+            clearInterval(pollTimer);
+            reject(e);
+          }
         }
       }, 5000);
     });
@@ -277,12 +340,14 @@
 
     const init = await initCheckout(planId);
     const pix = await createPixPayment(init, user, cpf);
+    savePendingPixCheckout(init.subscriptionId, pix.paymentId, init.amount);
     container.innerHTML = renderPixPanel(pix, init.amount);
     bindPixCopy();
     await pollUntilApproved(init.subscriptionId, pix.paymentId, (r) => {
       const st = document.getElementById("pix-status");
       if (st && r.status === "approved") st.textContent = "Pagamento confirmado! Redirecionando…";
     });
+    clearPendingCheckout();
     window.location.hash = "#/";
     window.location.reload();
   }
@@ -299,7 +364,13 @@
     }
     sessionStorage.setItem(
       PENDING_KEY,
-      JSON.stringify({ subscriptionId: init.subscriptionId, planId })
+      JSON.stringify({
+        subscriptionId: init.subscriptionId,
+        planId,
+        preferenceId: card.preferenceId || null,
+        provider: "card",
+        savedAt: Date.now(),
+      })
     );
     container.innerHTML = `<p class="pay-hint">Redirecionando para o Mercado Pago…</p>`;
     window.location.assign(initPoint);
@@ -350,6 +421,33 @@
         return;
       } catch (e) {
         console.warn("payment return confirm:", e);
+        try {
+          const reconciled = await reconcilePendingSubscription();
+          if (reconciled?.status === "active") {
+            sessionStorage.removeItem(PENDING_KEY);
+            invalidateCache();
+            window.location.hash = "#/";
+            window.location.reload();
+            return;
+          }
+        } catch (reconcileErr) {
+          console.warn("payment return reconcile:", reconcileErr);
+        }
+      }
+    }
+
+    if (paymentStatus === "success" || paymentStatus === "approved") {
+      try {
+        const reconciled = await reconcilePendingSubscription();
+        if (reconciled?.status === "active") {
+          sessionStorage.removeItem(PENDING_KEY);
+          invalidateCache();
+          window.location.hash = "#/";
+          window.location.reload();
+          return;
+        }
+      } catch (e) {
+        console.warn("payment return reconcile:", e);
       }
     }
 
@@ -373,6 +471,43 @@
         if (tries >= 24) clearInterval(poll);
       }
     }, 5000);
+  }
+
+  async function tryResumePendingPixCheckout(container) {
+    const pending = loadPendingPixCheckout();
+    if (!pending || !container) return false;
+    container.innerHTML = renderPixPanel(
+      { qrCode: "", qrCodeBase64: "", amount: pending.amount },
+      pending.amount
+    );
+    const st = document.getElementById("pix-status");
+    if (st) st.textContent = "Retomando verificação do pagamento PIX…";
+    try {
+      await pollUntilApproved(pending.subscriptionId, pending.paymentId, (r) => {
+        if (st && r.status === "approved") st.textContent = "Pagamento confirmado! Redirecionando…";
+      });
+      window.location.hash = "#/";
+      window.location.reload();
+      return true;
+    } catch (e) {
+      console.warn("resume pix checkout:", e);
+      return false;
+    }
+  }
+
+  async function tryReconcileOnLoad() {
+    const user = await window.LexAuth.getUser();
+    if (!user) return;
+    if (await isSubscribed(false)) return;
+    try {
+      const r = await reconcilePendingSubscription();
+      if (r?.status === "active") {
+        window.location.hash = "#/";
+        window.location.reload();
+      }
+    } catch (e) {
+      console.warn("reconcile:", e);
+    }
   }
 
   function normalizePlanId(planId) {
@@ -450,15 +585,15 @@
 
     let activeTab = "pix";
 
-    function renderPanelIdle() {
+    function renderCheckoutUi() {
       if (activeTab === "pix") {
         panel.innerHTML = `
           <p class="pay-hint">Informe o CPF acima e clique para gerar o QR Code.</p>
           <button type="button" class="btn primary block" id="pay-action-btn">Gerar QR Code PIX</button>`;
       } else {
         panel.innerHTML = `
-          <p class="pay-hint">Você será redirecionado ao Mercado Pago para pagar com cartão (até 12x).</p>
-          <button type="button" class="btn primary block" id="pay-action-btn">Pagar com cartão</button>`;
+          <p class="pay-hint">Você será redirecionado ao Mercado Pago para pagar com cartão, Google Pay ou Apple Pay (até 12x).</p>
+          <button type="button" class="btn primary block" id="pay-action-btn">Continuar para pagamento</button>`;
       }
       document.getElementById("pay-action-btn")?.addEventListener("click", runPayment);
     }
@@ -467,7 +602,7 @@
       panel.innerHTML = `
         <p class="auth-msg">${esc(message)}</p>
         <button type="button" class="btn block" id="pay-retry">Tentar novamente</button>`;
-      document.getElementById("pay-retry")?.addEventListener("click", renderPanelIdle);
+      document.getElementById("pay-retry")?.addEventListener("click", renderCheckoutUi);
     }
 
     async function runPayment() {
@@ -495,11 +630,13 @@
         document.querySelectorAll(".pay-tab").forEach((b) => {
           b.classList.toggle("active", b.dataset.payTab === activeTab);
         });
-        renderPanelIdle();
+        renderCheckoutUi();
       });
     });
 
-    renderPanelIdle();
+    tryResumePendingPixCheckout(panel).then((resumed) => {
+      if (!resumed) renderCheckoutUi();
+    });
   }
 
   async function renderAssinaturaPage(planId) {
@@ -527,6 +664,7 @@
   }
 
   handlePaymentReturn();
+  tryReconcileOnLoad();
 
   window.LexSubscription = {
     PLANS,

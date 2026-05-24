@@ -242,6 +242,10 @@
     await renderTopbarUser(session?.user ?? null);
     if (onSession) await onSession(session);
 
+    if (session?.user && location.hash.includes("/auth/")) {
+      history.replaceState(null, "", `${location.pathname}${location.search}#/`);
+    }
+
     window.LexAuth.onAuthStateChange(async (sess) => {
       await renderTopbarUser(sess?.user ?? null);
       if (onSession) await onSession(sess);
@@ -259,7 +263,7 @@
 
     if (location.hash.includes("auth/reset-password")) {
       open("reset-password");
-    } else if (location.hash.includes("auth/login")) {
+    } else if (location.hash.includes("auth/login") && !session?.user) {
       if (document.body.classList.contains("lex-public-mode")) {
         scrollToLandingAuth("login");
       } else {

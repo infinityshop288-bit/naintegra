@@ -1,0 +1,43 @@
+=== GOOGLE PLAY CONSOLE — copiar e colar ===
+
+Nome do app:
+NaIntegra Lex
+
+Package name (applicationId):
+br.com.naintegracursos.lex
+
+Categoria:
+Educação
+
+E-mail:
+contato@naintegracursos.com.br
+
+Política de privacidade:
+https://www.naintegracursos.com.br/lex/#/contato
+
+--- Descrição curta (máx. 80 caracteres) ---
+Lei seca, jurisprudência e flashcards para concursos de segurança pública.
+
+--- Descrição completa ---
+NaIntegra Lex é o companion oficial para estudo de legislação e jurisprudência focado em concursos de segurança pública.
+
+• Lei seca — leitura artigo por artigo, com progresso e busca por tema
+• Jurisprudência — súmulas, temas e julgados dos principais tribunais
+• Flashcards — revisão espaçada
+• Questões — banco integrado ao NaIntegra Cursos
+• Ouvir — narração por voz dos dispositivos legais
+• Anotações e grifos — salvas no dispositivo
+
+Requer assinatura NaIntegra Lex para acesso ao acervo completo.
+
+Desenvolvido por NaIntegra Cursos.
+
+--- Versão ---
+versionName: 1.0.0
+versionCode: 1
+
+--- Ícone ---
+Anexar: assets/icon-512.png (512×512 PNG)
+
+--- Asset links (já publicado) ---
+https://www.naintegracursos.com.br/.well-known/assetlinks.json

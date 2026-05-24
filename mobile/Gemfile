@@ -1,0 +1,6 @@
+source "https://rubygems.org"
+
+# Ruby 2.6 (macOS system) — versões fixas compatíveis
+gem "logger", "1.7.0"
+gem "ffi", "1.15.5"
+gem "cocoapods", "1.15.2"

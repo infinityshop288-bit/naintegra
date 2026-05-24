@@ -1,0 +1,7 @@
+{
+  "packageName": "br.com.naintegracursos.lex",
+  "notes": "Local release keystore (setup-android-signing.sh). Após Play App Signing, adicione também SHA-256 do Play Console: python3 mobile/scripts/update-assetlinks.py --add SHA256",
+  "fingerprints": [
+    "97:71:D7:15:A0:5B:D4:A0:1C:33:43:53:D3:A2:9D:1E:43:D8:0F:91:76:0A:6D:F9:38:60:07:AF:0E:09:BC:F7"
+  ]
+}
