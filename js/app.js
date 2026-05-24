@@ -6,6 +6,7 @@
     progress: "lex_reading_progress",
     studied: "lex_studied_items",
     flashReviews: "lex_flashcard_reviews",
+    questionAnswers: "lex_question_answers",
     fontSize: "lex_font_size",
     ttsVoice: "lex_tts_voice",
     recentReads: "lex_recent_reads",
@@ -73,6 +74,10 @@
     flashManageEdit: null,
     documentsEnriching: false,
     qAnswers: {},
+    qStatsPeriod: "7d",
+    questaoPageIds: [],
+    questaoCommentsLoading: false,
+    questaoCommentEdit: null,
     subscriptionActive: false,
     subscriptionChecked: false,
     currentUser: null,
@@ -595,14 +600,18 @@
     }
   }
 
-  function renderBlockNote(docId, blockKey, note, docType) {
+  function renderBlockNote(docId, blockKey, note, docType, labels = {}) {
+    const addLabel = labels.add || "＋ Anotar";
+    const hasLabel = labels.has || "📝 Anotação";
+    const placeholder = labels.placeholder || "Sua anotação…";
+    const open = labels.open ?? Boolean(note);
     return `
       <div class="block-note" data-note-wrap="${esc(blockKey)}">
-        <button type="button" class="block-note-toggle ${note ? "has-note" : ""}" data-note-toggle="${esc(blockKey)}" title="Anotação">
-          ${note ? "📝 Anotação" : "＋ Anotar"}
+        <button type="button" class="block-note-toggle ${note ? "has-note" : ""}" data-note-toggle="${esc(blockKey)}" title="${esc(labels.title || "Anotação")}">
+          ${note ? hasLabel : addLabel}
         </button>
-        <div class="block-note-panel" ${note ? "" : "hidden"}>
-          <textarea class="block-note-input" data-note-input="${esc(blockKey)}" data-note-doc="${esc(docId)}" data-note-type="${esc(docType)}" placeholder="Sua anotação…">${esc(note || "")}</textarea>
+        <div class="block-note-panel" ${open ? "" : "hidden"}>
+          <textarea class="block-note-input" data-note-input="${esc(blockKey)}" data-note-doc="${esc(docId)}" data-note-type="${esc(docType)}" placeholder="${esc(placeholder)}">${esc(note || "")}</textarea>
         </div>
       </div>`;
   }
@@ -704,6 +713,7 @@
         state.questionsCount = qs.length;
       }
       state.questionsLoaded = true;
+      rehydrateQAnswers();
       if (window.LexSearch) window.LexSearch.refresh(state.documents, state.decks);
     } catch (err) {
       console.error(err);
@@ -1520,6 +1530,99 @@
     return upper.charAt(0);
   }
 
+  const Q_RESULT_FILTERS = [
+    { id: "all", label: "Todas" },
+    { id: "acertou", label: "Acertei" },
+    { id: "errou", label: "Errei" },
+    { id: "pendente", label: "Não respondidas" },
+  ];
+
+  const Q_STATS_PERIODS = [
+    { id: "24h", label: "24h", ms: 86400000 },
+    { id: "7d", label: "7 dias", ms: 7 * 86400000 },
+    { id: "30d", label: "Mês", ms: 30 * 86400000 },
+    { id: "365d", label: "Ano", ms: 365 * 86400000 },
+    { id: "all", label: "Todo período", ms: null },
+  ];
+
+  function initQAnswers() {
+    const saved = loadJson(LS.questionAnswers, {});
+    if (saved && typeof saved === "object" && !Array.isArray(saved)) {
+      state.qAnswers = saved;
+    }
+  }
+
+  function rehydrateQAnswers() {
+    let changed = false;
+    for (const [qid, qa] of Object.entries(state.qAnswers)) {
+      if (!qa?.revealed || qa.correct != null) continue;
+      const d = findQuestion(qid);
+      if (!d || !isQuestaoObjetiva(d) || !qa.pick) continue;
+      const meta = d.meta || {};
+      const correctKey = gabaritoKey(meta.gabarito || meta.resposta_correta, parseAlternativas(meta));
+      qa.correct = qa.pick === correctKey;
+      if (!qa.revealedAt) qa.revealedAt = Date.now();
+      changed = true;
+    }
+    if (changed) persistQAnswers();
+  }
+
+  function persistQAnswers() {
+    saveJson(LS.questionAnswers, state.qAnswers);
+  }
+
+  function findQuestion(qid) {
+    return state.documents.find((d) => d.external_id === qid);
+  }
+
+  function isQuestaoObjetiva(d) {
+    return d.doc_type === "questoes_objetivas" && parseAlternativas(d.meta || {}).length > 0;
+  }
+
+  function finalizeQAnswer(qid, d) {
+    const qa = qAnswerState(qid);
+    if (!qa.revealed) return;
+    qa.revealedAt = qa.revealedAt || Date.now();
+    if (d && isQuestaoObjetiva(d) && qa.pick) {
+      const meta = d.meta || {};
+      const correctKey = gabaritoKey(meta.gabarito || meta.resposta_correta, parseAlternativas(meta));
+      qa.correct = qa.pick === correctKey;
+    } else {
+      qa.correct = null;
+    }
+    persistQAnswers();
+  }
+
+  function questaoMatchesResultFilter(d, resultFilter) {
+    const filter = resultFilter || "all";
+    if (filter === "all") return true;
+    const qa = state.qAnswers[d.external_id];
+    const isObj = isQuestaoObjetiva(d);
+    if (filter === "pendente") {
+      if (!qa?.revealed) return true;
+      return isObj && !qa.pick;
+    }
+    if (!isObj || !qa?.revealed || qa.correct == null) return false;
+    if (filter === "acertou") return qa.correct === true;
+    if (filter === "errou") return qa.correct === false;
+    return true;
+  }
+
+  function qStatsForPeriod(periodId) {
+    const period = Q_STATS_PERIODS.find((p) => p.id === periodId) || Q_STATS_PERIODS[1];
+    const now = Date.now();
+    let total = 0;
+    let ok = 0;
+    for (const qa of Object.values(state.qAnswers)) {
+      if (qa?.correct == null || !qa.revealedAt) continue;
+      if (period.ms != null && now - qa.revealedAt > period.ms) continue;
+      total++;
+      if (qa.correct) ok++;
+    }
+    const pct = total ? Math.round((ok / total) * 100) : null;
+    return { ...period, total, ok, err: total - ok, pct };
+  }
+
   function qAnswerState(qid) {
     if (!state.qAnswers[qid]) state.qAnswers[qid] = { pick: null, revealed: false };
     return state.qAnswers[qid];
@@ -1533,7 +1636,8 @@
     const qid = d.external_id;
     const qa = qAnswerState(qid);
     const correctKey = isObj ? gabaritoKey(meta.gabarito || meta.resposta_correta, alts) : "";
-    const acertou = isObj && qa.revealed && qa.pick === correctKey;
+    const acertou = isObj && qa.revealed && qa.correct === true;
+    const errou = isObj && qa.revealed && qa.correct === false;
     const searchText = SS() ? SS().questaoText(d, org) : d.body || d.title;
 
     let altsHtml = "";
@@ -1577,13 +1681,21 @@
     const gabaritoBody = isObj
       ? meta.comentario || meta.explicacao || ""
       : meta.gabarito || meta.resposta_correta || meta.comentario || meta.explicacao || "";
+    const commentsHtml = window.LexQuestaoComentarios
+      ? window.LexQuestaoComentarios.renderSection(qid, {
+          user: state.currentUser,
+          editingId:
+            state.questaoCommentEdit?.qid === qid ? state.questaoCommentEdit.commentId : null,
+        })
+      : "";
 
     return `
-      <article class="question-card" data-q="${esc(qid)}" data-search-text="${esc(searchText)}">
+      <article class="question-card ${acertou ? "question-card-ok" : errou ? "question-card-err" : ""}" data-q="${esc(qid)}" data-search-text="${esc(searchText)}">
         <div class="meta-row">
           ${o.banca ? `<span class="tag">${esc(o.banca)} ${o.ano || ""}</span>` : ""}
           ${o.cargo ? `<span class="tag">${esc(o.cargo)}</span>` : ""}
           ${o.materia ? `<span class="tag">${esc(o.materia)}</span>` : ""}
+          ${acertou ? `<span class="tag q-tag-ok">Acertou</span>` : errou ? `<span class="tag q-tag-err">Errou</span>` : ""}
         </div>
         <p class="q-enunciado">${esc(d.body || d.title)}</p>
         ${altsHtml}
@@ -1601,6 +1713,7 @@
             ? `<br><em>${esc(meta.comentario || meta.explicacao)}</em>`
             : ""}
         </div>
+        ${commentsHtml}
         ${renderReportError({
           area: "questoes",
           id: qid,
@@ -1620,12 +1733,15 @@
     const objs = byType("questoes_objetivas");
     const subs = byType("questoes_subjetivas");
     const all = [...objs, ...subs];
-    const filter = state.qFilter || { banca: "all", disciplina: "all" };
+    const filter = state.qFilter || { banca: "all", disciplina: "all", result: "all" };
+    const statsPeriod = state.qStatsPeriod || "7d";
+    const stats = qStatsForPeriod(statsPeriod);
 
     const filtered = all.filter((d) => {
       const o = org(d);
       if (filter.banca !== "all" && o.banca !== filter.banca) return false;
       if (filter.disciplina !== "all" && (o.materia || "").toLowerCase() !== filter.disciplina) return false;
+      if (!questaoMatchesResultFilter(d, filter.result)) return false;
       return true;
     });
 
@@ -1635,6 +1751,7 @@
     const page = Math.min(Math.max(1, state.questionsPage || 1), totalPages);
     state.questionsPage = page;
     const pageItems = filtered.slice((page - 1) * pageSize, page * pageSize);
+    state.questaoPageIds = pageItems.map((d) => d.external_id);
 
     if (!all.length) {
       return `
@@ -1644,7 +1761,30 @@
 
     return `
       <div class="page-head"><h1>Questões</h1><p>${objs.length} objetivas · ${subs.length} subjetivas</p></div>
+      <section class="q-stats-panel" aria-label="Desempenho em questões objetivas">
+        <h2 class="q-stats-title">Taxa de acerto</h2>
+        <div class="toolbar q-stats-periods">
+          ${Q_STATS_PERIODS.map(
+            (p) =>
+              `<button type="button" class="chip ${statsPeriod === p.id ? "active" : ""}" data-q-stats-period="${esc(p.id)}">${esc(p.label)}</button>`
+          ).join("")}
+        </div>
+        <p class="q-stats-summary">
+          ${
+            stats.total
+              ? `<strong>${stats.pct}%</strong> de acertos (${stats.ok} certas · ${stats.err} erradas · ${stats.total} respondidas)`
+              : `Nenhuma questão objetiva respondida${statsPeriod === "all" ? "" : " neste período"}.`
+          }
+        </p>
+        <p class="q-stats-note">Estatísticas consideram apenas questões objetivas conferidas.</p>
+      </section>
       ${sectionSearchBar("questoes", "Buscar por tema (ex.: penal, constitucional, CESPE)…")}
+      <div class="toolbar q-result-filters">
+        ${Q_RESULT_FILTERS.map(
+          (f) =>
+            `<button type="button" class="chip ${(filter.result || "all") === f.id ? "active" : ""}" data-q-result="${esc(f.id)}">${esc(f.label)}</button>`
+        ).join("")}
+      </div>
       <div class="toolbar">
         ${bancas.map((b) => `<button class="chip ${filter.banca === b ? "active" : ""}" data-banca="${esc(b)}">${b === "all" ? "Todas bancas" : esc(b)}</button>`).join("")}
       </div>
@@ -2492,7 +2632,38 @@
     });
   }
 
+  let questaoCommentsFetchToken = 0;
+
+  async function refreshQuestaoComments(qids) {
+    if (!window.LexQuestaoComentarios || !qids?.length) return;
+    const token = ++questaoCommentsFetchToken;
+    state.questaoCommentsLoading = true;
+    try {
+      await window.LexQuestaoComentarios.fetchForQuestions(qids);
+    } catch (err) {
+      console.warn("Lex: comentários questões", err);
+    } finally {
+      if (token === questaoCommentsFetchToken) {
+        state.questaoCommentsLoading = false;
+        if (state.route.path === "questoes") render();
+      }
+    }
+  }
+
   function bindQuestoes() {
+    document.querySelectorAll("[data-q-result]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.qFilter = { ...(state.qFilter || {}), result: btn.getAttribute("data-q-result") };
+        state.questionsPage = 1;
+        render();
+      });
+    });
+    document.querySelectorAll("[data-q-stats-period]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.qStatsPeriod = btn.getAttribute("data-q-stats-period") || "7d";
+        render();
+      });
+    });
     document.querySelectorAll("[data-banca]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.qFilter = { ...(state.qFilter || {}), banca: btn.getAttribute("data-banca") };
@@ -2525,6 +2696,7 @@
         const qa = qAnswerState(qid);
         if (!qa.pick || qa.revealed) return;
         qa.revealed = true;
+        finalizeQAnswer(qid, findQuestion(qid));
         render();
         document.querySelector(`[id="gab-${CSS.escape(qid)}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
       });
@@ -2532,10 +2704,72 @@
     document.querySelectorAll("[data-q-reveal]").forEach((btn) => {
       btn.addEventListener("click", () => {
         const qid = btn.getAttribute("data-q-reveal");
-        qAnswerState(qid).revealed = true;
+        const qa = qAnswerState(qid);
+        qa.revealed = true;
+        finalizeQAnswer(qid, findQuestion(qid));
         render();
       });
     });
+
+    document.querySelectorAll(".q-comment-form, .q-comment-edit-form").forEach((form) => {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const qid = form.getAttribute("data-qid");
+        const body = new FormData(form).get("body");
+        if (!window.LexAuth?.getSession) return;
+        try {
+          const session = await window.LexAuth.getSession();
+          if (!session?.user) {
+            window.LexAuthUI?.open("login");
+            return;
+          }
+          await window.LexQuestaoComentarios.publishComment(qid, body, session);
+          state.questaoCommentEdit = null;
+          render();
+        } catch (err) {
+          console.warn("Lex: publicar comentário", err);
+          alert("Não foi possível publicar o comentário. Tente novamente.");
+        }
+      });
+    });
+
+    document.querySelectorAll(".q-comment-edit").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.questaoCommentEdit = {
+          qid: btn.getAttribute("data-qid"),
+          commentId: btn.getAttribute("data-comment-id"),
+        };
+        render();
+      });
+    });
+
+    document.querySelectorAll(".q-comment-cancel").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.questaoCommentEdit = null;
+        render();
+      });
+    });
+
+    document.querySelectorAll(".q-comment-delete").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!window.confirm("Excluir seu comentário público?")) return;
+        const qid = btn.getAttribute("data-qid");
+        const commentId = btn.getAttribute("data-comment-id");
+        try {
+          const session = await window.LexAuth.getSession();
+          if (!session?.access_token) return;
+          await window.LexQuestaoComentarios.deleteComment(commentId, qid, session);
+          state.questaoCommentEdit = null;
+          render();
+        } catch (err) {
+          console.warn("Lex: excluir comentário", err);
+          alert("Não foi possível excluir o comentário.");
+        }
+      });
+    });
+
+    refreshQuestaoComments(state.questaoPageIds);
+
     const qId = state.route.sub;
     if (qId) {
       const card =
@@ -2747,6 +2981,7 @@
     try {
       const documents = await window.LexData.loadDocumentsCatalog();
       state.documents = documents;
+      rehydrateQAnswers();
       if (window.LexSearch) {
         window.LexSearch.init();
         window.LexSearch.refresh(documents, []);
@@ -2771,6 +3006,7 @@
     bindInteractionDelegation();
     bindHighlightToolbar();
     initTtsVoices();
+    initQAnswers();
     window.LexFlashcardsUser?.setOnDecksChange?.(() => {
       reloadDecksFromStorage();
       render();

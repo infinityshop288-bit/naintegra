@@ -7,6 +7,7 @@
     progress: "lex_reading_progress",
     studied: "lex_studied_items",
     flashReviews: "lex_flashcard_reviews",
+    questionAnswers: "lex_question_answers",
     fontSize: "lex_font_size",
     recentReads: "lex_recent_reads",
   };
