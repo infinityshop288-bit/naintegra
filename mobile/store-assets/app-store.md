@@ -44,6 +44,19 @@ Reference
 ## Classificação etária
 4+
 
+## Informações para revisão (App Review Information)
+
+Use no App Store Connect → App → Informações do app → Informações para revisão:
+
+| Campo | Valor |
+|-------|--------|
+| **Nome de usuário** | `teste.naintegra.lex@gmail.com` |
+| **Senha** | `NaIntegraLex2026!` |
+
+**Notas para o revisor:**
+
+O app exige login para acessar o acervo completo (leis, jurisprudência, flashcards e questões). Use o e-mail e a senha acima — conta de teste com assinatura ativa. Sem login, apenas telas públicas (preços e contato).
+
 ## Capturas de tela (obrigatório)
 - iPhone 6,7" (1290×2796) — mínimo 3
 - iPhone 6,5" (1284×2778) — se disponível

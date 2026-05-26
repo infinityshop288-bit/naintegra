@@ -33,8 +33,14 @@
   </div>
 
   <p>
+    <a class="btn gold" href="https://play.google.com/console/u/0/developers/-/app/br.com.naintegracursos.lex/store-presence/main-store-listing" target="_blank">Passo 2 — Ficha da loja</a>
+    <a class="btn gold" href="https://play.google.com/console/u/0/developers/-/app/br.com.naintegracursos.lex/tracks/internal-testing" target="_blank">Passo 3 — Teste interno</a>
+    <a class="btn gold" href="https://play.google.com/console/u/0/developers/-/app/br.com.naintegracursos.lex/tracks/closed-testing" target="_blank">Teste fechado — países e testadores</a>
+    <a class="btn gold" href="https://play.google.com/console/u/0/developers/-/app/br.com.naintegracursos.lex/app-signing/key-management" target="_blank">Passo 4 — SHA App Signing</a>
+  </p>
+  <p>
     <a class="btn gold" href="https://aistudio.google.com/apps?source=start" target="_blank">AI Studio</a>
-    <a class="btn" href="https://play.google.com/console" target="_blank">Play Console</a>
+    <a class="btn" href="https://play.google.com/console/u/0/developers" target="_blank">Play Console</a>
     <a class="btn" href="https://play.google.com/console/u/0/developers/-/app/create" target="_blank">Criar app</a>
   </p>
 
@@ -50,22 +56,25 @@
     <button type="button">Copiar</button>
   </div>
 
-  <div class="card" data-copy="Lei seca, jurisprudência e flashcards para concursos de segurança pública.">
+  <div class="card" data-copy="Lei seca, súmulas, flashcards e questões para concursos públicos.">
     <label>Descricao curta (80 chars)</label>
-    <div class="value">Lei seca, jurisprudência e flashcards para concursos de segurança pública.</div>
+    <div class="value">Lei seca, súmulas, flashcards e questões para concursos públicos.</div>
     <button type="button">Copiar</button>
   </div>
 
-  <div class="card" data-copy="NaIntegra Lex é o companion oficial para estudo de legislação e jurisprudência focado em concursos de segurança pública.
+  <div class="card" data-copy="Você se prepara para concurso público — fiscal, tribunais, jurídico, administrativo, MP, Defensoria ou carreiras policiais? O NaIntegra Lex reúne legislação, jurisprudência, flashcards e questões em um só lugar, com material atualizado semanalmente.
 
-• Lei seca — leitura artigo por artigo, com progresso e busca por tema
-• Jurisprudência — súmulas, temas e julgados dos principais tribunais
+Ideal para estudar durante o deslocamento no transporte público — ônibus, metrô, trem ou van.
+
+• Lei seca — artigo por artigo, com progresso e busca
+• Jurisprudência — súmulas, temas e julgados
 • Flashcards — revisão espaçada
 • Questões — banco integrado ao NaIntegra Cursos
-• Ouvir — narração por voz dos dispositivos legais
-• Anotações e grifos — salvas no dispositivo
+• Ouvir — narração dos dispositivos legais
+• Anotações e grifos — sincronizados na sua conta
+• Conteúdo atualizado toda semana
 
-Requer assinatura NaIntegra Lex para acesso ao acervo completo.
+Requer assinatura NaIntegra Lex para o acervo completo.
 
 Desenvolvido por NaIntegra Cursos.">
     <label>Descricao completa</label>
@@ -82,6 +91,12 @@ Desenvolvido por NaIntegra Cursos.">
   <div class="card" data-copy="https://www.naintegracursos.com.br/lex/#/contato">
     <label>Politica de privacidade</label>
     <div class="value">https://www.naintegracursos.com.br/lex/#/contato</div>
+    <button type="button">Copiar</button>
+  </div>
+
+  <div class="card" data-copy="https://www.naintegracursos.com.br/lex/#/excluir-conta">
+    <label>Exclusao de conta (Play Store)</label>
+    <div class="value">https://www.naintegracursos.com.br/lex/#/excluir-conta</div>
     <button type="button">Copiar</button>
   </div>
 
@@ -115,7 +130,17 @@ Desenvolvido por NaIntegra Cursos.">
   </div>
 
   <div class="card">
-    <label>Apos 1o upload — SHA-256 Play App Signing</label>
+    <label>Teste fechado — corrigir erro de países e testadores</label>
+    <ol>
+      <li>Abra <strong>Teste fechado</strong> → aba <strong>Países e regiões</strong> → marque <strong>Brasil</strong> → Salvar.</li>
+      <li>Aba <strong>Testadores</strong> → <strong>Criar lista de e-mails</strong> → nome <em>NaIntegra Lex testers</em>.</li>
+      <li>Adicione os e-mails Google dos testadores (um por linha), ex.: <code>teste.naintegra.lex@gmail.com</code>.</li>
+      <li>Salve a lista e volte à versão 2 → <strong>Revisar versão</strong> → <strong>Iniciar implantação</strong>.</li>
+    </ol>
+    <p><small>O aviso de desofuscação (ProGuard/R8) pode ser ignorado — o app não usa ofuscação.</small></p>
+  </div>
+
+  <div class="card">
     <p>Play Console → Configuracao → Integridade do app → copie SHA-256 e rode no terminal:</p>
     <div class="value" id="sha-cmd">bash mobile/scripts/add-play-sha256.sh "COLE_SHA256_AQUI"</div>
     <button type="button" data-copy-target="sha-cmd">Copiar comando</button>
