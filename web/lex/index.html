@@ -94,16 +94,26 @@
   <script src="./js/lex-format.js?v=50"></script>
   <script src="./js/flashcards-user.js?v=3"></script>
   <script src="./js/questao-comentarios.js?v=1"></script>
-  <script src="./js/data.js?v=41"></script>
+  <script src="./js/offline-store.js?v=1"></script>
+  <script src="./js/data.js?v=42"></script>
   <script src="./js/search.js?v=32"></script>
   <script src="./js/section-search.js?v=32"></script>
-  <script src="./js/app.js?v=65"></script>
+  <script src="./js/app.js?v=66"></script>
   <script>
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.getRegistrations().then((regs) => {
-        for (const reg of regs) reg.unregister();
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js").catch((err) => {
+          console.warn("Lex: service worker", err);
+        });
       });
     }
+    window.addEventListener("online", () => {
+      document.body.classList.remove("lex-offline-mode");
+    });
+    window.addEventListener("offline", () => {
+      document.body.classList.add("lex-offline-mode");
+    });
+    if (!navigator.onLine) document.body.classList.add("lex-offline-mode");
   </script>
 </body>
 </html>

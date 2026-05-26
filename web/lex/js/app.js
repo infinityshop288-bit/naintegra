@@ -1886,6 +1886,7 @@
 
   function renderContato() {
     const email = contactEmail();
+    const deleteUrl = window.LEX_CONFIG?.accountDeletionUrl || `${location.origin}${location.pathname}#/excluir-conta`;
     return `
       <div class="page-head">
         <h1>Fale Conosco</h1>
@@ -1919,6 +1920,42 @@
           Também pode escrever diretamente para
           <a href="mailto:${esc(email)}">${esc(email)}</a>
         </p>
+        <p class="contact-alt">
+          Para solicitar exclusão da sua conta e dados, acesse
+          <a href="${esc(deleteUrl)}">Exclusão de conta</a>.
+        </p>
+      </div>`;
+  }
+
+  function renderExcluirConta() {
+    const email = contactEmail();
+    const deleteUrl = window.LEX_CONFIG?.accountDeletionUrl || `${location.origin}${location.pathname}#/excluir-conta`;
+    return `
+      <div class="page-head">
+        <h1>Exclusão de conta</h1>
+        <p>Solicite a remoção da sua conta NaIntegra Lex e dos dados associados.</p>
+      </div>
+      <div class="contact-card">
+        <h2>Como solicitar</h2>
+        <p>Envie um e-mail para <a href="mailto:${esc(email)}?subject=${encodeURIComponent("Exclusão de conta NaIntegra Lex")}">${esc(email)}</a> com o assunto <strong>Exclusão de conta NaIntegra Lex</strong>, informando o e-mail usado no cadastro (Google ou Apple).</p>
+        <p>Responderemos em até 7 dias úteis confirmando a exclusão.</p>
+        <h2>O que é excluído</h2>
+        <ul>
+          <li>Cadastro e login (Google/Apple vinculados ao Lex)</li>
+          <li>Progresso de leitura, anotações e grifos sincronizados</li>
+          <li>Flashcards personalizados e decks criados por você</li>
+          <li>Comentários públicos em questões</li>
+          <li>Preferências e histórico de uso no app</li>
+        </ul>
+        <h2>O que pode ser mantido</h2>
+        <ul>
+          <li>Registros de pagamento e notas fiscais, pelo prazo legal exigido</li>
+          <li>Backups de segurança por até 30 dias, apenas para recuperação de incidentes</li>
+        </ul>
+        <p class="contact-alt">
+          Link desta página (para a Play Store): <a href="${esc(deleteUrl)}">${esc(deleteUrl)}</a>
+        </p>
+        <p><a href="#/contato" class="btn">← Voltar ao contato</a></p>
       </div>`;
   }
 
@@ -2865,6 +2902,7 @@
       if (!state.questionsLoaded && !state.questionsLoading) ensureQuestionsLoaded();
       html = renderQuestoes();
     } else if (r.path === "contato") html = renderContato();
+    else if (r.path === "excluir-conta") html = renderExcluirConta();
     else html = renderHome();
 
     setAppHtml(html);
@@ -2944,6 +2982,27 @@
       .catch(() => {});
   }
 
+  function showOfflineBanner() {
+    const src = window.__LEX_DATA_SOURCE || "";
+    const offlineSources = new Set([
+      "fallback",
+      "offline_cache",
+      "offline_bundle",
+      "offline_summaries",
+    ]);
+    if (!offlineSources.has(src) && navigator.onLine) return;
+    const app = document.getElementById("app");
+    if (!app || document.getElementById("lex-offline-banner")) return;
+    const offline = !navigator.onLine || offlineSources.has(src);
+    const msg = offline
+      ? "Modo offline — acervo baixado no aparelho. Login, assinatura e comentários precisam de internet."
+      : "Conteúdo em cache local — sincronize online para atualizar o acervo.";
+    app.insertAdjacentHTML(
+      "afterbegin",
+      `<div class="banner-warn lex-offline-banner" id="lex-offline-banner" style="background:#dbeafe;border:1px solid #3b82f6;padding:0.75rem 1rem;margin-bottom:1rem;border-radius:8px;font-size:0.9rem">${msg}</div>`
+    );
+  }
+
   async function init() {
     if (location.protocol === "file:") {
       document.getElementById("app").innerHTML =
@@ -2951,15 +3010,30 @@
       return;
     }
 
+    const promo = new URLSearchParams(location.search).get("promo") === "1";
+    if (promo) {
+      state.currentUser = {
+        id: "promo-demo",
+        email: "estudante@demo.com",
+        user_metadata: { full_name: "Maria" },
+      };
+      state.subscriptionActive = true;
+      state.subscriptionChecked = true;
+    }
+
     if (window.LexAuthUI) {
       await window.LexAuthUI.init(async (session) => {
-        state.currentUser = session?.user ?? null;
-        if (window.LexStore) await window.LexStore.setSession(session);
+        state.currentUser = promo ? state.currentUser : (session?.user ?? null);
+        if (window.LexStore) await window.LexStore.setSession(promo ? { user: state.currentUser, access_token: "promo" } : session);
         if (window.LexSubscription) window.LexSubscription.invalidateCache();
         const hint = document.getElementById("sync-hint");
-        if (hint) hint.hidden = Boolean(session?.user);
-        await ensureSubscriptionGate();
-        if (session?.user && state.subscriptionActive && window.LexProtect) {
+        if (hint) hint.hidden = Boolean(state.currentUser);
+        if (!promo) await ensureSubscriptionGate();
+        else {
+          state.subscriptionActive = true;
+          state.subscriptionChecked = true;
+        }
+        if (state.currentUser && state.subscriptionActive && window.LexProtect && !promo) {
           window.LexProtect.init();
         }
         render();
@@ -2968,8 +3042,13 @@
 
     window.LexSubscription?.renderSidebarUpdate?.();
 
-    await ensureSubscriptionGate();
-    if (state.subscriptionActive && window.LexProtect) {
+    if (!promo) {
+      await ensureSubscriptionGate();
+    } else {
+      state.subscriptionActive = true;
+      state.subscriptionChecked = true;
+    }
+    if (state.subscriptionActive && window.LexProtect && !promo) {
       window.LexProtect.init();
     }
 
@@ -2992,16 +3071,12 @@
         `<div class="empty">Não foi possível carregar o conteúdo. Verifique sua conexão e tente novamente.</div>`;
       return;
     }
-    if (window.__LEX_DATA_SOURCE === "fallback") {
-      const app = document.getElementById("app");
-      if (app) {
-        app.insertAdjacentHTML(
-          "afterbegin",
-          `<div class="banner-warn" style="background:#fef3c7;border:1px solid #f59e0b;padding:0.75rem 1rem;margin-bottom:1rem;border-radius:8px;font-size:0.9rem">
-            Modo demonstração (offline). Abra via <code>python3 preview/serve_preview.py</code> e acesse <code>/web/lex/index.html</code> para ver todo o acervo do Supabase.
-          </div>`
-        );
-      }
+    if (window.__LEX_DATA_SOURCE === "fallback" || !navigator.onLine) {
+      showOfflineBanner();
+    } else if (
+      ["offline_cache", "offline_bundle", "offline_summaries"].includes(window.__LEX_DATA_SOURCE)
+    ) {
+      showOfflineBanner();
     }
     bindInteractionDelegation();
     bindHighlightToolbar();

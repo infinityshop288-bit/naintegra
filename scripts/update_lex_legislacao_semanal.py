@@ -120,6 +120,16 @@ def export_legis_summaries() -> None:
         print(f"[WARN] export_lex_legis_summaries.js: {exc}", file=sys.stderr)
 
 
+def export_legis_offline_bundle() -> None:
+    script = ROOT / "scripts" / "export_lex_legis_offline.py"
+    if not script.exists():
+        return
+    try:
+        subprocess.run([sys.executable, str(script)], cwd=ROOT, check=True, timeout=3600)
+    except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as exc:
+        print(f"[WARN] export_lex_legis_offline.py: {exc}", file=sys.stderr)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Atualização semanal da legislação Planalto")
     parser.add_argument("--force", action="store_true", help="Re-ingere todas as leis do catálogo")
@@ -230,6 +240,7 @@ def main() -> int:
         refresh_catalog_mv(supabase_url=sb_url, supabase_key=key)
         if not args.no_export:
             export_legis_summaries()
+            export_legis_offline_bundle()
 
     state["last_run"] = utc_now()
     state["documents"] = docs_state

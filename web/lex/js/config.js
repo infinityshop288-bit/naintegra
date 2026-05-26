@@ -14,6 +14,8 @@ window.LEX_CONFIG = {
     jurisprudencia: ["trilhante_informativo"],
   },
   corpusFallback: "./data/corpus.json",
+  legisCatalogFallback: "./data/legis_catalog.json",
+  legisBodiesFallback: "./data/legis_bodies.json",
   legisSummariesFallback: "./data/legis_summaries.json",
   legisKnownMetaFallback: "./data/legis_known_meta.json",
   flashcardsFallback: "./data/flashcards.json",
@@ -26,10 +28,11 @@ window.LEX_CONFIG = {
   questionsPageSize: 1000,
   questoesCatalogFallback: "./data/questoes_catalog.json",
   contactEmail: "contato@naintegracursos.com.br",
+  accountDeletionUrl: "https://www.naintegracursos.com.br/lex/#/excluir-conta",
   /** Fallback se content_metadata não estiver disponível. */
   lastContentUpdate: "2026-05-19T00:00:00Z",
   /** Rotas acessíveis sem assinatura ativa. */
-  publicRoutes: ["assinatura", "contato", "auth"],
+  publicRoutes: ["assinatura", "contato", "excluir-conta", "auth"],
   subscriptionPlans: {
     "lex-mensal": { label: "Mensal", price: 19.9 },
     "lex-anual": { label: "Anual", price: 199.9 },

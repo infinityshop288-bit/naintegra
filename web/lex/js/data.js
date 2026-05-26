@@ -292,6 +292,65 @@
     }
   }
 
+
+  async function loadCatalogFromLegisSummaries() {
+    const cache = await loadLegisSummariesCache();
+    const docs = [];
+    for (const [path, entry] of Object.entries(cache)) {
+      const url =
+        entry.url ||
+        (path.startsWith("http")
+          ? path
+          : `https://www.planalto.gov.br${path.startsWith("/") ? path : `/${path}`}`);
+      docs.push({
+        external_id: `planalto::${url}`,
+        doc_type: "legislacao",
+        source_system: "planalto",
+        doc_key: url,
+        title: entry.titulo || url,
+        resumo: entry.resumo || null,
+        body: null,
+        url,
+        organized: { secao_lei_seca: entry.secao || null },
+      });
+    }
+    return docs;
+  }
+
+  async function loadCatalogFromStaticFallback() {
+    const cached = await window.LexOffline?.loadCatalog?.();
+    if (cached?.length) {
+      window.__LEX_DATA_SOURCE = "offline_cache";
+      console.info(`Lex: ${cached.length} documentos (cache IndexedDB)`);
+      return cached;
+    }
+
+    try {
+      const data = await fetchStaticJson(cfg.legisCatalogFallback);
+      const docs = data.documents || [];
+      if (docs.length) {
+        window.__LEX_DATA_SOURCE = "offline_bundle";
+        console.info(`Lex: ${docs.length} documentos (legis_catalog.json)`);
+        return docs;
+      }
+    } catch (err) {
+      console.warn("Lex: legis_catalog.json", err);
+    }
+
+    const summaryDocs = await loadCatalogFromLegisSummaries();
+    if (summaryDocs.length) {
+      window.__LEX_DATA_SOURCE = "offline_summaries";
+      console.info(`Lex: ${summaryDocs.length} documentos (legis_summaries.json)`);
+      return summaryDocs;
+    }
+
+    window.__LEX_DATA_SOURCE = "fallback";
+    const data = await fetchStaticJson(cfg.corpusFallback);
+    const docs = data.documents || [];
+    console.warn(`Lex: corpus demo (${docs.length} docs)`);
+    return docs;
+  }
+
   async function mergeJurisCatalogs(docs) {
     const [sumRes, temaRes] = await Promise.allSettled([
       fetchStaticJson(cfg.sumulasCatalogFallback),
@@ -334,6 +393,7 @@
       let prepared = window.LexFormat ? window.LexFormat.prepareCatalog(merged) : merged;
       await enrichLegisCatalog(prepared);
       console.info(`Lex: ${prepared.length} documentos (catálogo Supabase, ${merged.length} brutos)`);
+      window.LexOffline?.saveCatalog?.(prepared, "supabase");
       return prepared;
     }
 
@@ -355,6 +415,7 @@
         let prepared = window.LexFormat ? window.LexFormat.prepareCatalog(viewRows) : viewRows;
         await enrichLegisCatalog(prepared);
         console.info(`Lex: ${prepared.length} documentos (catálogo view)`);
+        window.LexOffline?.saveCatalog?.(prepared, "supabase_view");
         return prepared;
       }
     } catch (err) {
@@ -362,10 +423,8 @@
       console.warn("norma_document_catalog view:", err);
     }
 
-    window.__LEX_DATA_SOURCE = "fallback";
-    console.warn("Lex: usando fallback local —", errors.join("; ") || "catálogo vazio");
-    const data = await fetchStaticJson(cfg.corpusFallback);
-    let docs = data.documents || [];
+    console.warn("Lex: offline/fallback —", errors.join("; ") || "catálogo remoto indisponível");
+    let docs = await loadCatalogFromStaticFallback();
     docs = window.LexFormat ? window.LexFormat.prepareCatalog(docs) : docs;
     await enrichLegisCatalog(docs);
     return docs;
@@ -461,6 +520,7 @@
   }
 
   let jurisBodiesCache = null;
+  let legisBodiesCache = null;
   let legisSummariesCache = null;
 
   function normalizeSummaryKey(url) {
@@ -501,6 +561,18 @@
       return jurisBodiesCache;
     } catch (err) {
       console.warn("Lex: cache juris local", err);
+      return {};
+    }
+  }
+
+  async function loadLegisBodiesCache() {
+    if (legisBodiesCache) return legisBodiesCache;
+    try {
+      const data = await fetchStaticJson(cfg.legisBodiesFallback);
+      legisBodiesCache = data.bodies || {};
+      return legisBodiesCache;
+    } catch (err) {
+      console.warn("Lex: cache legis local", err);
       return {};
     }
   }
@@ -585,8 +657,26 @@
       return doc.body;
     }
 
+    const cachedBody = await window.LexOffline?.loadDocumentBody?.(doc);
+    if (cachedBody) {
+      doc.body = cachedBody;
+      if (window.LexFormat) window.LexFormat.ensureFormatted(doc);
+      return doc.body;
+    }
+
     const source = doc.source_system || (doc.external_id || "").split("::")[0];
     const docKey = doc.doc_key || (doc.external_id || "").split("::").slice(1).join("::");
+
+    if (doc.doc_type === "legislacao" || source === "planalto" || source === "rideel_vademecum") {
+      const legisCache = await loadLegisBodiesCache();
+      const legisText = lookupCachedBody(legisCache, doc);
+      if (legisText) {
+        doc.body = legisText;
+        if (window.LexFormat) window.LexFormat.ensureFormatted(doc);
+        window.LexOffline?.saveDocumentBody?.(doc, doc.body);
+        return doc.body;
+      }
+    }
 
     if (source === "trilhante_informativo") {
       const cache = await loadJurisBodiesCache();
@@ -644,6 +734,7 @@
     }
 
     doc.body = text;
+    window.LexOffline?.saveDocumentBody?.(doc, doc.body);
     if (window.LexLegisMeta) {
       if (window.LexLegisMeta.loadKnownMeta) await window.LexLegisMeta.loadKnownMeta();
       const url = doc.url || doc.doc_key || "";
@@ -855,10 +946,17 @@
       }
       if (out.length) {
         console.info(`Lex: ${out.length} questões (Supabase ${table})`);
+        window.LexOffline?.saveQuestions?.(out);
         return out;
       }
     } catch (err) {
       console.warn("Lex: questoes_banco", err);
+    }
+
+    const cached = await window.LexOffline?.loadQuestions?.();
+    if (cached?.length) {
+      console.info(`Lex: ${cached.length} questões (cache IndexedDB)`);
+      return cached;
     }
 
     const fallback = await loadQuestionsFromFallback();
