@@ -793,15 +793,15 @@
     const total = await lexFlashcardsTotal();
     const pages = Math.max(1, Math.ceil(total / limit));
     const cardCols = "deck_id,front,back,highlight,sort_order";
-    const batches = await Promise.all(
-      Array.from({ length: pages }, (_, i) =>
-        lexFetch(
-          "flashcards",
-          `select=${cardCols}&order=deck_id.asc,sort_order.asc&limit=${limit}&offset=${i * limit}`
-        )
-      )
-    );
-    const cards = batches.flat();
+    const cards = [];
+    for (let i = 0; i < pages; i += 1) {
+      const batch = await lexFetch(
+        "flashcards",
+        `select=${cardCols}&order=deck_id.asc,sort_order.asc&limit=${limit}&offset=${i * limit}`
+      );
+      if (Array.isArray(batch)) cards.push(...batch);
+    }
+    if (!cards.length) throw new Error("empty cards");
     console.info(`Lex: ${decks.length} decks · ${cards.length} flashcards (Supabase)`);
     return mapFlashcardDecks(decks, cards);
   }
@@ -810,9 +810,9 @@
     const data = await fetchStaticJson(cfg.flashcardsFallback);
     const decks = data.decks || [];
     if (!decks.length) throw new Error("empty");
-    console.info(
-      `Lex: ${decks.length} decks · ${decks.reduce((n, d) => n + (d.cards?.length || 0), 0)} flashcards (cache local)`
-    );
+    const cardCount = decks.reduce((n, d) => n + (d.cards?.length || 0), 0);
+    if (!cardCount) throw new Error("empty cards");
+    console.info(`Lex: ${decks.length} decks · ${cardCount} flashcards (cache local)`);
     return decks;
   }
 
@@ -822,14 +822,17 @@
 
     flashcardsLoadPromise = (async () => {
       try {
-        flashcardsCache = await Promise.any([
-          loadFlashcardsFromSupabase(),
-          loadFlashcardsFromFallback(),
-        ]);
+        flashcardsCache = await loadFlashcardsFromSupabase();
         return flashcardsCache;
-      } catch (err) {
-        const errors = err instanceof AggregateError ? err.errors : [err];
-        throw errors[errors.length - 1] || err;
+      } catch (supabaseErr) {
+        console.warn("Lex: flashcards Supabase indisponível, tentando cache local", supabaseErr);
+        try {
+          flashcardsCache = await loadFlashcardsFromFallback();
+          return flashcardsCache;
+        } catch (fallbackErr) {
+          console.error("Lex: flashcards fallback falhou", fallbackErr);
+          throw fallbackErr;
+        }
       }
     })();
 

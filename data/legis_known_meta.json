@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-24T02:29:41.079858+00:00",
-  "count": 201,
+  "generated_at": "2026-05-26T14:33:17.603342+00:00",
+  "count": 202,
   "entries": {
     "constituicao.htm": {
       "titulo": "Constituição Federal de 1988",
@@ -78,8 +78,8 @@
       "secao": "Penal e Processual"
     },
     "l0605": {
-      "titulo": "Lei 605/1949 — Imprensa",
-      "resumo": "Regula direito de resposta e responsabilidade na imprensa.",
+      "titulo": "Lei 605/1949 — Radiodifusão",
+      "resumo": "Dispõe sobre radiodifusão sonora e imagens.",
       "secao": "Constituição e Adm."
     },
     "l1060": {
@@ -108,27 +108,27 @@
       "secao": "Legislação Especial"
     },
     "l4090": {
-      "titulo": "Lei 4.090/1962 — Ações comerciais",
-      "resumo": "Regula emissão e negociação de ações e valores mobiliários.",
+      "titulo": "Lei 4.090/1962 — Ações nominativas",
+      "resumo": "Regula emissão de ações nominativas e negociação de valores mobiliários.",
       "secao": "Legislação Especial"
     },
     "l4132": {
-      "titulo": "Lei 4.132/1962 — Mercado de capitais",
-      "resumo": "Dispõe sobre mercado de valores mobiliários e proteção ao investidor.",
+      "titulo": "Lei 4.132/1962 — Sociedades por ações",
+      "resumo": "Dispõe sobre sociedades por ações e valores mobiliários.",
       "secao": "Legislação Especial"
     },
     "l4591": {
-      "titulo": "Lei 4.591/1964 — Mercado de capitais",
-      "resumo": "Regula condomínios em incorporações e distribuição de valores mobiliários.",
+      "titulo": "Lei 4.591/1964 — Condomínios em incorporações",
+      "resumo": "Regula condomínios em incorporações imobiliárias e propriedade por unidades autônomas.",
       "secao": "Legislação Especial"
     },
     "l4717": {
       "titulo": "Lei 4.717/1965 — Ação popular",
-      "resumo": "Regula a ação popular e dispõe sobre mandado de segurança coletivo.",
+      "resumo": "Regula a ação popular e dá outras providências.",
       "secao": "Constituição e Adm."
     },
     "l4729": {
-      "titulo": "Lei 4.729/1965 — Mercado de capitais",
+      "titulo": "Lei 4.729/1965 — Valores mobiliários",
       "resumo": "Altera normas sobre valores mobiliários e sociedades anônimas.",
       "secao": "Legislação Especial"
     },
@@ -143,8 +143,8 @@
       "secao": "Constituição e Adm."
     },
     "l4886": {
-      "titulo": "Lei 4.886/1965 — Anistia",
-      "resumo": "Concede anistia e regula efeitos políticos correlatos.",
+      "titulo": "Lei 4.886/1965 — Lei Sindical",
+      "resumo": "Regula o direito de organização sindical dos trabalhadores e das empresas.",
       "secao": "Constituição e Adm."
     },
     "l5172": {
@@ -193,8 +193,8 @@
       "secao": "Civil e Trabalho"
     },
     "l6015": {
-      "titulo": "Lei 6.015/1973 — Debêntures",
-      "resumo": "Institui normas sobre emissão e registro de debêntures.",
+      "titulo": "Lei 6.015/1973 — Lei de Registros Públicos",
+      "resumo": "Dispõe sobre os registros públicos e normas a eles relativas.",
       "secao": "Legislação Especial"
     },
     "l6385": {
@@ -218,8 +218,8 @@
       "secao": "Legislação Especial"
     },
     "l6858": {
-      "titulo": "Lei 6.858/1980 — Benefícios previdenciários",
-      "resumo": "Dispõe sobre pagamento de benefícios previdenciários a terceiros.",
+      "titulo": "Lei 6.858/1980 — Pagamento a terceiros",
+      "resumo": "Dispõe sobre pagamento, a terceiros, de valores devidos por instituições financeiras a falecidos.",
       "secao": "Legislação Especial"
     },
     "l6404": {
@@ -283,8 +283,8 @@
       "secao": "Penal e Processual"
     },
     "l8036": {
-      "titulo": "Lei 8.036/1990 — Sistema Financeiro Nacional",
-      "resumo": "Dispõe sobre o Sistema Financeiro Nacional e instituições financeiras.",
+      "titulo": "Lei 8.036/1990 — FGTS",
+      "resumo": "Dispõe sobre o Fundo de Garantia do Tempo de Serviço (FGTS).",
       "secao": "Legislação Especial"
     },
     "l8069": {
@@ -313,8 +313,8 @@
       "secao": "Penal e Processual"
     },
     "l8176": {
-      "titulo": "Lei 8.176/1991 — Estoques de combustíveis",
-      "resumo": "Cria o Sistema de Estoques de Combustíveis.",
+      "titulo": "Lei 8.176/1991 — Política energética",
+      "resumo": "Dispõe sobre a política energética nacional e o monopólio do petróleo.",
       "secao": "Legislação Especial"
     },
     "l8212": {
@@ -418,8 +418,8 @@
       "secao": "Legislação Especial"
     },
     "l9494": {
-      "titulo": "Lei 9.494/1997 — Processo administrativo e judicial",
-      "resumo": "Altera normas de processo administrativo e execução contra a Fazenda.",
+      "titulo": "Lei 9.494/1997 — Execução contra a Fazenda",
+      "resumo": "Altera normas de execução contra a Fazenda Pública e processo administrativo fiscal.",
       "secao": "Constituição e Adm."
     },
     "l9503": {
@@ -503,7 +503,7 @@
       "secao": "Constituição e Adm."
     },
     "l9882": {
-      "titulo": "Lei 9.882/1999 — Ações constitucionais",
+      "titulo": "Lei 9.882/1999 — ADI, ADC, ADPF e Mandado de Injunção",
       "resumo": "Regula ADI, ADC, ADPF e mandado de injunção.",
       "secao": "Constituição e Adm."
     },
@@ -513,7 +513,7 @@
       "secao": "Legislação Especial"
     },
     "l10101": {
-      "titulo": "Lei 10.101/2000 — Célula de emprego",
+      "titulo": "Lei 10.101/2000 — Tempo parcial",
       "resumo": "Regula contrato de trabalho em regime de tempo parcial.",
       "secao": "Civil e Trabalho"
     },
@@ -557,6 +557,11 @@
       "resumo": "Regula consórcios públicos e convênios de cooperação.",
       "secao": "Legislação Especial"
     },
+    "l11221": {
+      "titulo": "Lei 11.221/2006 — CTB (alterações)",
+      "resumo": "Altera dispositivos do Código de Trânsito Brasileiro.",
+      "secao": "Legislação Especial"
+    },
     "l11340": {
       "titulo": "Lei 11.340/2006 — Lei Maria da Penha",
       "resumo": "Cria mecanismos para coibir violência doméstica e familiar contra a mulher.",
@@ -578,9 +583,9 @@
       "secao": "Penal e Processual"
     },
     "l11671": {
-      "titulo": "Lei 11.671/2008 — Desjudicialização",
-      "resumo": "Altera normas sobre desjudicialização da execução de títulos.",
-      "secao": "Civil e Trabalho"
+      "titulo": "Lei 11.671/2008 — Presídios federais",
+      "resumo": "Dispõe sobre transferência e inclusão de presos em estabelecimentos penais federais de segurança máxima.",
+      "secao": "Penal e Processual"
     },
     "l11705": {
       "titulo": "Lei 11.705/2008 — Lei seca",
@@ -758,7 +763,7 @@
       "secao": "Legislação Especial"
     },
     "l13300": {
-      "titulo": "Lei 13.300/2016 — Lei do Mandado de Injunção",
+      "titulo": "Lei 13.300/2016 — Mandado de Injunção",
       "resumo": "Regula o mandado de injunção e o mandado de segurança coletivo.",
       "secao": "Constituição e Adm."
     },
@@ -848,13 +853,13 @@
       "secao": "Constituição e Adm."
     },
     "l14965": {
-      "titulo": "Lei 14.965/2024 — Educação financeira",
-      "resumo": "Institui Política Nacional de Educação Financeira.",
-      "secao": "Legislação Especial"
+      "titulo": "Lei 14.965/2024 — Concursos públicos",
+      "resumo": "Dispõe sobre normas gerais relativas a concursos públicos.",
+      "secao": "Constituição e Adm."
     },
     "l15040": {
-      "titulo": "Lei 15.040/2024",
-      "resumo": "Altera normas sobre procedimentos administrativos e licitações.",
+      "titulo": "Lei 15.040/2024 — Lei do Contrato de Seguro",
+      "resumo": "Dispõe sobre normas de seguro privado e revoga dispositivos do Código Civil e do DL 73/1966.",
       "secao": "Legislação Especial"
     },
     "lcp64": {
