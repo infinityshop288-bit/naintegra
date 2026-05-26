@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-24T02:29:41.083173+00:00",
+  "generated_at": "2026-05-26T14:33:53.885052+00:00",
   "count": 196,
   "summaries": {
     "/ccivil_03/decreto-lei/del2848.htm": {
@@ -15,8 +15,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689.htm"
     },
     "/ccivil_03/leis/l6858.htm": {
-      "titulo": "Lei 6.858/1980 — Benefícios previdenciários",
-      "resumo": "Dispõe sobre pagamento de benefícios previdenciários a terceiros.",
+      "titulo": "Lei 6.858/1980 — Pagamento a terceiros",
+      "resumo": "Dispõe sobre pagamento, a terceiros, de valores devidos por instituições financeiras a falecidos.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l6858.htm"
     },
@@ -57,7 +57,7 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l9784.htm"
     },
     "/ccivil_03/leis/l9882.htm": {
-      "titulo": "Lei 9.882/1999 — Ações constitucionais",
+      "titulo": "Lei 9.882/1999 — ADI, ADC, ADPF e Mandado de Injunção",
       "resumo": "Regula ADI, ADC, ADPF e mandado de injunção.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l9882.htm"
@@ -111,9 +111,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11419.htm"
     },
     "/ccivil_03/_ato2007-2010/2008/lei/l11671.htm": {
-      "titulo": "Lei 11.671/2008 — Desjudicialização",
-      "resumo": "Altera normas sobre desjudicialização da execução de títulos.",
-      "secao": "Civil e Trabalho",
+      "titulo": "Lei 11.671/2008 — Presídios federais",
+      "resumo": "Dispõe sobre transferência e inclusão de presos em estabelecimentos penais federais de segurança máxima.",
+      "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11671.htm"
     },
     "/ccivil_03/_ato2007-2010/2008/lei/l11705.htm": {
@@ -327,7 +327,7 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13294.htm"
     },
     "/ccivil_03/_ato2015-2018/2016/lei/l13300.htm": {
-      "titulo": "Lei 13.300/2016 — Lei do Mandado de Injunção",
+      "titulo": "Lei 13.300/2016 — Mandado de Injunção",
       "resumo": "Regula o mandado de injunção e o mandado de segurança coletivo.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13300.htm"
@@ -435,14 +435,14 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14852.htm"
     },
     "/ccivil_03/_ato2023-2026/2024/lei/l14965.htm": {
-      "titulo": "Lei 14.965/2024 — Educação financeira",
-      "resumo": "Institui Política Nacional de Educação Financeira.",
-      "secao": "Legislação Especial",
+      "titulo": "Lei 14.965/2024 — Concursos públicos",
+      "resumo": "Dispõe sobre normas gerais relativas a concursos públicos.",
+      "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14965.htm"
     },
     "/ccivil_03/_ato2023-2026/2024/lei/l15040.htm": {
-      "titulo": "Lei 15.040/2024",
-      "resumo": "Altera normas sobre procedimentos administrativos e licitações.",
+      "titulo": "Lei 15.040/2024 — Lei do Contrato de Seguro",
+      "resumo": "Dispõe sobre normas de seguro privado e revoga dispositivos do Código Civil e do DL 73/1966.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15040.htm"
     },
@@ -633,7 +633,7 @@
       "url": "https://www.planalto.gov.br/ccivil_03/decreto/d70235cons.htm"
     },
     "/ccivil_03/leis/1950-1969/l4729.htm": {
-      "titulo": "Lei 4.729/1965 — Mercado de capitais",
+      "titulo": "Lei 4.729/1965 — Valores mobiliários",
       "resumo": "Altera normas sobre valores mobiliários e sociedades anônimas.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/1950-1969/l4729.htm"
@@ -657,13 +657,13 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406.htm"
     },
     "/ccivil_03/leis/l0605.htm": {
-      "titulo": "Lei 605/1949 — Imprensa",
-      "resumo": "Regula direito de resposta e responsabilidade na imprensa.",
+      "titulo": "Lei 605/1949 — Radiodifusão",
+      "resumo": "Dispõe sobre radiodifusão sonora e imagens.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l0605.htm"
     },
     "/ccivil_03/leis/l10101.htm": {
-      "titulo": "Lei 10.101/2000 — Célula de emprego",
+      "titulo": "Lei 10.101/2000 — Tempo parcial",
       "resumo": "Regula contrato de trabalho em regime de tempo parcial.",
       "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l10101.htm"
@@ -699,26 +699,26 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l2889.htm"
     },
     "/ccivil_03/leis/l4090.htm": {
-      "titulo": "Lei 4.090/1962 — Ações comerciais",
-      "resumo": "Regula emissão e negociação de ações e valores mobiliários.",
+      "titulo": "Lei 4.090/1962 — Ações nominativas",
+      "resumo": "Regula emissão de ações nominativas e negociação de valores mobiliários.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4090.htm"
     },
     "/ccivil_03/leis/l4132.htm": {
-      "titulo": "Lei 4.132/1962 — Mercado de capitais",
-      "resumo": "Dispõe sobre mercado de valores mobiliários e proteção ao investidor.",
+      "titulo": "Lei 4.132/1962 — Sociedades por ações",
+      "resumo": "Dispõe sobre sociedades por ações e valores mobiliários.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4132.htm"
     },
     "/ccivil_03/leis/l4591.htm": {
-      "titulo": "Lei 4.591/1964 — Mercado de capitais",
-      "resumo": "Regula condomínios em incorporações e distribuição de valores mobiliários.",
+      "titulo": "Lei 4.591/1964 — Condomínios em incorporações",
+      "resumo": "Regula condomínios em incorporações imobiliárias e propriedade por unidades autônomas.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4591.htm"
     },
     "/ccivil_03/leis/l4717.htm": {
       "titulo": "Lei 4.717/1965 — Ação popular",
-      "resumo": "Regula a ação popular e dispõe sobre mandado de segurança coletivo.",
+      "resumo": "Regula a ação popular e dá outras providências.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4717.htm"
     },
@@ -735,8 +735,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4749.htm"
     },
     "/ccivil_03/leis/l4886.htm": {
-      "titulo": "Lei 4.886/1965 — Anistia",
-      "resumo": "Concede anistia e regula efeitos políticos correlatos.",
+      "titulo": "Lei 4.886/1965 — Lei Sindical",
+      "resumo": "Regula o direito de organização sindical dos trabalhadores e das empresas.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4886.htm"
     },
@@ -897,8 +897,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l8137.htm"
     },
     "/ccivil_03/leis/l8176.htm": {
-      "titulo": "Lei 8.176/1991 — Estoques de combustíveis",
-      "resumo": "Cria o Sistema de Estoques de Combustíveis.",
+      "titulo": "Lei 8.176/1991 — Política energética",
+      "resumo": "Dispõe sobre a política energética nacional e o monopólio do petróleo.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l8176.htm"
     },
@@ -1005,8 +1005,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l9469.htm"
     },
     "/ccivil_03/leis/l9494.htm": {
-      "titulo": "Lei 9.494/1997 — Processo administrativo e judicial",
-      "resumo": "Altera normas de processo administrativo e execução contra a Fazenda.",
+      "titulo": "Lei 9.494/1997 — Execução contra a Fazenda",
+      "resumo": "Altera normas de execução contra a Fazenda Pública e processo administrativo fiscal.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l9494.htm"
     },
@@ -1379,8 +1379,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc91.htm"
     },
     {
-      "titulo": "Lei 605/1949 — Imprensa",
-      "resumo": "Regula direito de resposta e responsabilidade na imprensa.",
+      "titulo": "Lei 605/1949 — Radiodifusão",
+      "resumo": "Dispõe sobre radiodifusão sonora e imagens.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l0605.htm"
     },
@@ -1409,7 +1409,7 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l1579.htm"
     },
     {
-      "titulo": "Lei 10.101/2000 — Célula de emprego",
+      "titulo": "Lei 10.101/2000 — Tempo parcial",
       "resumo": "Regula contrato de trabalho em regime de tempo parcial.",
       "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l10101.htm"
@@ -1475,9 +1475,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11419.htm"
     },
     {
-      "titulo": "Lei 11.671/2008 — Desjudicialização",
-      "resumo": "Altera normas sobre desjudicialização da execução de títulos.",
-      "secao": "Civil e Trabalho",
+      "titulo": "Lei 11.671/2008 — Presídios federais",
+      "resumo": "Dispõe sobre transferência e inclusão de presos em estabelecimentos penais federais de segurança máxima.",
+      "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11671.htm"
     },
     {
@@ -1691,7 +1691,7 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13294.htm"
     },
     {
-      "titulo": "Lei 13.300/2016 — Lei do Mandado de Injunção",
+      "titulo": "Lei 13.300/2016 — Mandado de Injunção",
       "resumo": "Regula o mandado de injunção e o mandado de segurança coletivo.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13300.htm"
@@ -1799,14 +1799,14 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14852.htm"
     },
     {
-      "titulo": "Lei 14.965/2024 — Educação financeira",
-      "resumo": "Institui Política Nacional de Educação Financeira.",
-      "secao": "Legislação Especial",
+      "titulo": "Lei 14.965/2024 — Concursos públicos",
+      "resumo": "Dispõe sobre normas gerais relativas a concursos públicos.",
+      "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14965.htm"
     },
     {
-      "titulo": "Lei 15.040/2024",
-      "resumo": "Altera normas sobre procedimentos administrativos e licitações.",
+      "titulo": "Lei 15.040/2024 — Lei do Contrato de Seguro",
+      "resumo": "Dispõe sobre normas de seguro privado e revoga dispositivos do Código Civil e do DL 73/1966.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15040.htm"
     },
@@ -1817,31 +1817,31 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l2889.htm"
     },
     {
-      "titulo": "Lei 4.090/1962 — Ações comerciais",
-      "resumo": "Regula emissão e negociação de ações e valores mobiliários.",
+      "titulo": "Lei 4.090/1962 — Ações nominativas",
+      "resumo": "Regula emissão de ações nominativas e negociação de valores mobiliários.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4090.htm"
     },
     {
-      "titulo": "Lei 4.132/1962 — Mercado de capitais",
-      "resumo": "Dispõe sobre mercado de valores mobiliários e proteção ao investidor.",
+      "titulo": "Lei 4.132/1962 — Sociedades por ações",
+      "resumo": "Dispõe sobre sociedades por ações e valores mobiliários.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4132.htm"
     },
     {
-      "titulo": "Lei 4.591/1964 — Mercado de capitais",
-      "resumo": "Regula condomínios em incorporações e distribuição de valores mobiliários.",
+      "titulo": "Lei 4.591/1964 — Condomínios em incorporações",
+      "resumo": "Regula condomínios em incorporações imobiliárias e propriedade por unidades autônomas.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4591.htm"
     },
     {
       "titulo": "Lei 4.717/1965 — Ação popular",
-      "resumo": "Regula a ação popular e dispõe sobre mandado de segurança coletivo.",
+      "resumo": "Regula a ação popular e dá outras providências.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4717.htm"
     },
     {
-      "titulo": "Lei 4.729/1965 — Mercado de capitais",
+      "titulo": "Lei 4.729/1965 — Valores mobiliários",
       "resumo": "Altera normas sobre valores mobiliários e sociedades anônimas.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/1950-1969/l4729.htm"
@@ -1859,8 +1859,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4749.htm"
     },
     {
-      "titulo": "Lei 4.886/1965 — Anistia",
-      "resumo": "Concede anistia e regula efeitos políticos correlatos.",
+      "titulo": "Lei 4.886/1965 — Lei Sindical",
+      "resumo": "Regula o direito de organização sindical dos trabalhadores e das empresas.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4886.htm"
     },
@@ -1949,8 +1949,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l6830.htm"
     },
     {
-      "titulo": "Lei 6.858/1980 — Benefícios previdenciários",
-      "resumo": "Dispõe sobre pagamento de benefícios previdenciários a terceiros.",
+      "titulo": "Lei 6.858/1980 — Pagamento a terceiros",
+      "resumo": "Dispõe sobre pagamento, a terceiros, de valores devidos por instituições financeiras a falecidos.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l6858.htm"
     },
@@ -2051,8 +2051,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l8137.htm"
     },
     {
-      "titulo": "Lei 8.176/1991 — Estoques de combustíveis",
-      "resumo": "Cria o Sistema de Estoques de Combustíveis.",
+      "titulo": "Lei 8.176/1991 — Política energética",
+      "resumo": "Dispõe sobre a política energética nacional e o monopólio do petróleo.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l8176.htm"
     },
@@ -2177,8 +2177,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l9469.htm"
     },
     {
-      "titulo": "Lei 9.494/1997 — Processo administrativo e judicial",
-      "resumo": "Altera normas de processo administrativo e execução contra a Fazenda.",
+      "titulo": "Lei 9.494/1997 — Execução contra a Fazenda",
+      "resumo": "Altera normas de execução contra a Fazenda Pública e processo administrativo fiscal.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l9494.htm"
     },
@@ -2279,7 +2279,7 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l9873.htm"
     },
     {
-      "titulo": "Lei 9.882/1999 — Ações constitucionais",
+      "titulo": "Lei 9.882/1999 — ADI, ADC, ADPF e Mandado de Injunção",
       "resumo": "Regula ADI, ADC, ADPF e mandado de injunção.",
       "secao": "Constituição e Adm.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l9882.htm"

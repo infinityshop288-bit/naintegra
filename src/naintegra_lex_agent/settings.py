@@ -193,6 +193,20 @@ class Settings(BaseSettings):
     norma_consolidate_state_db_path: Path = Field(default=Path(".lex_agent/norma_consolidate.sqlite"))
     norma_consolidate_enrich_catalog: bool = Field(default=True)
 
+    #: --- Pipeline semanal LEXML → crawl_inbox → promoção Planalto (Lex web/apps)
+    lexml_crawl_command: str = Field(
+        default="",
+        description="Comando shell opcional (naintegra-crawl externo) antes da busca LEXML.",
+    )
+    lexml_crawl_timeout_seconds: int = Field(default=3600, ge=60)
+    lexml_lookback_days: int = Field(
+        default=8,
+        ge=1,
+        le=90,
+        description="Janela de datas na 1ª execução ou sem last_run em data/lexml_weekly_state.json.",
+    )
+    lexml_search_sleep_seconds: float = Field(default=0.25, ge=0.0, le=5.0)
+
     def resolved_openai_compatible_base_url(self) -> str | None:
         """API estilo OpenAI (``…/v1``): Ollama local usa default se a URL estiver vazia."""
 

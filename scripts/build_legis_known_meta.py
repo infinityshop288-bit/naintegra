@@ -10,6 +10,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "web" / "lex" / "data" / "legis_known_meta.json"
+CATALOG = ROOT / "web" / "lex" / "data" / "legis_catalog.json"
+BODIES = ROOT / "web" / "lex" / "data" / "legis_bodies.json"
 SUMMARIES = ROOT / "web" / "lex" / "data" / "legis_summaries.json"
 
 # Chave = fragmento da URL (ex.: l7210, del2848, emc103, lcp101)
@@ -29,20 +31,20 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "del4657": ("Decreto-Lei 4.657/1942 — LINDB", "Introdu a Lei de Introdução às Normas do Direito Brasileiro (LINDB).", "Constituição e Adm."),
     "del5452": ("Decreto-Lei 5.452/1943 — CLT", "Consolida as leis do trabalho (CLT).", "Civil e Trabalho"),
     "del9760": ("Decreto-Lei 9.760/1946", "Dispõe sobre crimes contra a economia popular e ordem econômica.", "Penal e Processual"),
-    "l0605": ("Lei 605/1949 — Imprensa", "Regula direito de resposta e responsabilidade na imprensa.", "Constituição e Adm."),
+    "l0605": ("Lei 605/1949 — Radiodifusão", "Dispõe sobre radiodifusão sonora e imagens.", "Constituição e Adm."),
     "l1060": ("Lei 1.060/1950 — Assistência judiciária", "Estabelece normas para assistência judiciária gratuita aos necessitados.", "Constituição e Adm."),
     "l1079": ("Lei 1.079/1950 — Impeachment", "Regula processo de julgamento dos crimes de responsabilidade do Presidente.", "Constituição e Adm."),
     "l1521": ("Lei 1.521/1951 — Crimes contra a economia popular", "Altera dispositivos da legislação vigente sobre crimes contra a economia popular.", "Penal e Processual"),
     "l1579": ("Lei 1.579/1952", "Prorroga sessões legislativas e dispõe sobre prazos parlamentares.", "Constituição e Adm."),
     "l2889": ("Lei 2.889/1956 — IPVA", "Institui imposto sobre veículos automotores (IPVA).", "Legislação Especial"),
-    "l4090": ("Lei 4.090/1962 — Ações comerciais", "Regula emissão e negociação de ações e valores mobiliários.", "Legislação Especial"),
-    "l4132": ("Lei 4.132/1962 — Mercado de capitais", "Dispõe sobre mercado de valores mobiliários e proteção ao investidor.", "Legislação Especial"),
-    "l4591": ("Lei 4.591/1964 — Mercado de capitais", "Regula condomínios em incorporações e distribuição de valores mobiliários.", "Legislação Especial"),
-    "l4717": ("Lei 4.717/1965 — Ação popular", "Regula a ação popular e dispõe sobre mandado de segurança coletivo.", "Constituição e Adm."),
-    "l4729": ("Lei 4.729/1965 — Mercado de capitais", "Altera normas sobre valores mobiliários e sociedades anônimas.", "Legislação Especial"),
+    "l4090": ("Lei 4.090/1962 — Ações nominativas", "Regula emissão de ações nominativas e negociação de valores mobiliários.", "Legislação Especial"),
+    "l4132": ("Lei 4.132/1962 — Sociedades por ações", "Dispõe sobre sociedades por ações e valores mobiliários.", "Legislação Especial"),
+    "l4591": ("Lei 4.591/1964 — Condomínios em incorporações", "Regula condomínios em incorporações imobiliárias e propriedade por unidades autônomas.", "Legislação Especial"),
+    "l4717": ("Lei 4.717/1965 — Ação popular", "Regula a ação popular e dá outras providências.", "Constituição e Adm."),
+    "l4729": ("Lei 4.729/1965 — Valores mobiliários", "Altera normas sobre valores mobiliários e sociedades anônimas.", "Legislação Especial"),
     "l4737": ("Lei 4.737/1965 — Código Eleitoral", "Institui o Código Eleitoral e normas eleitorais.", "Constituição e Adm."),
     "l4749": ("Lei 4.749/1965", "Dispõe sobre nacionalidade e naturalização de estrangeiros.", "Constituição e Adm."),
-    "l4886": ("Lei 4.886/1965 — Anistia", "Concede anistia e regula efeitos políticos correlatos.", "Constituição e Adm."),
+    "l4886": ("Lei 4.886/1965 — Lei Sindical", "Regula o direito de organização sindical dos trabalhadores e das empresas.", "Constituição e Adm."),
     "l5172": ("Lei 5.172/1966 — CTN", "Dispõe sobre o Sistema Tributário Nacional (CTN).", "Legislação Especial"),
     "l5256": ("Lei 5.256/1967 — Prisão especial", "Regula prisão especial de autoridades e agentes públicos.", "Penal e Processual"),
     "l5474": ("Lei 5.474/1968 — Imprensa", "Altera normas sobre direito de resposta e liberdade de imprensa.", "Constituição e Adm."),
@@ -52,12 +54,12 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l5889": ("Lei 5.889/1973", "Altera dispositivos da Consolidação das Leis do Trabalho.", "Civil e Trabalho"),
     "l5941": ("Lei 5.941/1973", "Dispõe sobre suspensão de medida de segurança e internação.", "Penal e Processual"),
     "l6019": ("Lei 6.019/1974", "Altera normas trabalhistas sobre contratos e verbas rescisórias.", "Civil e Trabalho"),
-    "l6015": ("Lei 6.015/1973 — Debêntures", "Institui normas sobre emissão e registro de debêntures.", "Legislação Especial"),
+    "l6015": ("Lei 6.015/1973 — Lei de Registros Públicos", "Dispõe sobre os registros públicos e normas a eles relativas.", "Legislação Especial"),
     "l6385": ("Lei 6.385/1976 — CVM", "Institui a Comissão de Valores Mobiliários e regula o mercado de capitais.", "Legislação Especial"),
     "l6515": ("Lei 6.515/1977 — Divórcio", "Altera normas de direito de família e introduz o divórcio.", "Civil e Trabalho"),
     "l6766": ("Lei 6.766/1979 — Parcelamento do solo", "Regula parcelamento do solo urbano e direito urbanístico.", "Legislação Especial"),
     "l6830": ("Lei 6.830/1980 — Execução fiscal", "Regula execução fiscal de créditos tributários da Fazenda Pública.", "Legislação Especial"),
-    "l6858": ("Lei 6.858/1980 — Benefícios previdenciários", "Dispõe sobre pagamento de benefícios previdenciários a terceiros.", "Legislação Especial"),
+    "l6858": ("Lei 6.858/1980 — Pagamento a terceiros", "Dispõe sobre pagamento, a terceiros, de valores devidos por instituições financeiras a falecidos.", "Legislação Especial"),
     "l6404": ("Lei 6.404/1976 — Lei das S.A.", "Dispõe sobre as sociedades anônimas (Lei das S.A.).", "Legislação Especial"),
     "l6938": ("Lei 6.938/1981 — Política Nacional do Meio Ambiente", "Institui a Política Nacional do Meio Ambiente (PNMA).", "Legislação Especial"),
     "l7210": ("Lei 7.210/1984 — Lei de Execução Penal", "Define normas para execução de penas e medidas alternativas (LEP).", "Penal e Processual"),
@@ -70,13 +72,13 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l7960": ("Lei 7.960/1989 — Prisão temporária", "Regula prisão temporária e prazos de custódia.", "Penal e Processual"),
     "l8009": ("Lei 8.009/1990 — Reparação ao consumidor", "Dispõe sobre reparação de danos ao consumidor por produtos e serviços.", "Civil e Trabalho"),
     "l8038": ("Lei 8.038/1990 — Júri", "Altera normas de competência e procedimento do Tribunal do Júri.", "Penal e Processual"),
-    "l8036": ("Lei 8.036/1990 — Sistema Financeiro Nacional", "Dispõe sobre o Sistema Financeiro Nacional e instituições financeiras.", "Legislação Especial"),
+    "l8036": ("Lei 8.036/1990 — FGTS", "Dispõe sobre o Fundo de Garantia do Tempo de Serviço (FGTS).", "Legislação Especial"),
     "l8069": ("Lei 8.069/1990 — ECA", "Dispõe sobre o Estatuto da Criança e do Adolescente (ECA).", "Legislação Especial"),
     "l8072": ("Lei 8.072/1990 — Crimes hediondos", "Define crimes hediondos e restringe benefícios penais.", "Penal e Processual"),
     "l8078": ("Lei 8.078/1990 — CDC", "Estabelece normas de proteção ao consumidor (CDC).", "Civil e Trabalho"),
     "l8112": ("Lei 8.112/1990 — Servidores públicos", "Regula regime jurídico dos servidores públicos civis da União.", "Constituição e Adm."),
     "l8137": ("Lei 8.137/1990 — Crimes tributários", "Define crimes contra a ordem tributária e economia popular.", "Penal e Processual"),
-    "l8176": ("Lei 8.176/1991 — Estoques de combustíveis", "Cria o Sistema de Estoques de Combustíveis.", "Legislação Especial"),
+    "l8176": ("Lei 8.176/1991 — Política energética", "Dispõe sobre a política energética nacional e o monopólio do petróleo.", "Legislação Especial"),
     "l8212": ("Lei 8.212/1991 — Previdência Social", "Dispõe sobre custeio e arrecadação da Previdência Social.", "Civil e Trabalho"),
     "l8213": ("Lei 8.213/1991 — Benefícios da Previdência", "Dispõe sobre Planos de Benefícios da Previdência Social.", "Civil e Trabalho"),
     "l8245": ("Lei 8.245/1991 — Locações", "Regula locações de imóveis urbanos e despejo.", "Civil e Trabalho"),
@@ -97,7 +99,7 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l9434": ("Lei 9.434/1997 — DNA e identificação", "Regula cadastro de condenados e identificação genética.", "Penal e Processual"),
     "l9455": ("Lei 9.455/1997 — Tortura", "Define crimes de tortura e mecanismos de prevenção.", "Penal e Processual"),
     "l9469": ("Lei 9.469/1997 — ANEEL", "Autoriza criação da ANEEL e regula setor elétrico.", "Legislação Especial"),
-    "l9494": ("Lei 9.494/1997 — Processo administrativo e judicial", "Altera normas de processo administrativo e execução contra a Fazenda.", "Constituição e Adm."),
+    "l9494": ("Lei 9.494/1997 — Execução contra a Fazenda", "Altera normas de execução contra a Fazenda Pública e processo administrativo fiscal.", "Constituição e Adm."),
     "l9503": ("Lei 9.503/1997 — CTB", "Institui o Código de Trânsito Brasileiro.", "Legislação Especial"),
     "l9504": ("Lei 9.504/1997 — Eleições", "Regula eleições, propaganda eleitoral e financiamento de campanhas.", "Constituição e Adm."),
     "l9507": ("Lei 9.507/1997 — Habeas data", "Regula habeas data e acesso a informações pessoais.", "Constituição e Adm."),
@@ -114,9 +116,9 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l9807": ("Lei 9.807/1999 — Proteção a vítimas e testemunhas", "Dispõe sobre proteção a vítimas e testemunhas ameaçadas.", "Penal e Processual"),
     "l9868": ("Lei 9.868/1999 — ADI e ADC", "Regula ação declaratória de constitucionalidade e de inconstitucionalidade.", "Constituição e Adm."),
     "l9873": ("Lei 9.873/1999 — Prescrição administrativa", "Estabelece prazo de prescrição para infrações administrativas.", "Constituição e Adm."),
-    "l9882": ("Lei 9.882/1999 — Ações constitucionais", "Regula ADI, ADC, ADPF e mandado de injunção.", "Constituição e Adm."),
+    "l9882": ("Lei 9.882/1999 — ADI, ADC, ADPF e Mandado de Injunção", "Regula ADI, ADC, ADPF e mandado de injunção.", "Constituição e Adm."),
     "l9962": ("Lei 9.962/2000 — ANVISA", "Autoriza criação da ANVISA e regula vigilância sanitária.", "Legislação Especial"),
-    "l10101": ("Lei 10.101/2000 — Célula de emprego", "Regula contrato de trabalho em regime de tempo parcial.", "Civil e Trabalho"),
+    "l10101": ("Lei 10.101/2000 — Tempo parcial", "Regula contrato de trabalho em regime de tempo parcial.", "Civil e Trabalho"),
     "l10741": ("Lei 10.741/2003 — Estatuto do Idoso", "Institui o Estatuto do Idoso e normas de proteção à pessoa idosa.", "Legislação Especial"),
     "l10826": ("Lei 10.826/2003 — Estatuto do Desarmamento", "Regula registro, posse e comercialização de armas de fogo e munição (Estatuto do Desarmamento).", "Penal e Processual"),
     "l10257": ("Lei 10.257/2001 — Estatuto da Cidade", "Regula política urbana e direito à cidade.", "Legislação Especial"),
@@ -125,11 +127,12 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l11079": ("Lei 11.079/2004 — PPP", "Regula parcerias público-privadas (PPP).", "Legislação Especial"),
     "l11101": ("Lei 11.101/2005 — Recuperação judicial", "Regula recuperação judicial, extrajudicial e falência.", "Legislação Especial"),
     "l11107": ("Lei 11.107/2005 — Consórcios públicos", "Regula consórcios públicos e convênios de cooperação.", "Legislação Especial"),
+    "l11221": ("Lei 11.221/2006 — CTB (alterações)", "Altera dispositivos do Código de Trânsito Brasileiro.", "Legislação Especial"),
     "l11340": ("Lei 11.340/2006 — Lei Maria da Penha", "Cria mecanismos para coibir violência doméstica e familiar contra a mulher.", "Penal e Processual"),
     "l11343": ("Lei 11.343/2006 — Lei de Drogas", "Institui Sistema Nacional de Políticas Públicas sobre Drogas.", "Penal e Processual"),
     "l11417": ("Lei 11.417/2006 — Diário Oficial eletrônico", "Disciplina publicação oficial eletrônica de atos normativos.", "Constituição e Adm."),
     "l11419": ("Lei 11.419/2006 — Processo digital", "Dispõe sobre informatização do processo judicial.", "Penal e Processual"),
-    "l11671": ("Lei 11.671/2008 — Desjudicialização", "Altera normas sobre desjudicialização da execução de títulos.", "Civil e Trabalho"),
+    "l11671": ("Lei 11.671/2008 — Presídios federais", "Dispõe sobre transferência e inclusão de presos em estabelecimentos penais federais de segurança máxima.", "Penal e Processual"),
     "l11705": ("Lei 11.705/2008 — Lei seca", "Estabelece normas sobre consumo de álcool na condução de veículos.", "Legislação Especial"),
     "l11788": ("Lei 11.788/2008 — Estágio", "Regula estágio de estudantes e relação de aprendizado.", "Civil e Trabalho"),
     "l11795": ("Lei 11.795/2008 — Consórcios", "Dispõe sobre sistemas de consórcio.", "Legislação Especial"),
@@ -165,7 +168,7 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l13260": ("Lei 13.260/2016 — Terrorismo", "Regula terrorismo e organizações terroristas.", "Penal e Processual"),
     "l13271": ("Lei 13.271/2016 — Improbidade", "Altera dispositivos da Lei de Improbidade Administrativa.", "Constituição e Adm."),
     "l13294": ("Lei 13.294/2016 — Sistema Financeiro", "Altera normas sobre instituições do Sistema Financeiro Nacional.", "Legislação Especial"),
-    "l13300": ("Lei 13.300/2016 — Lei do Mandado de Injunção", "Regula o mandado de injunção e o mandado de segurança coletivo.", "Constituição e Adm."),
+    "l13300": ("Lei 13.300/2016 — Mandado de Injunção", "Regula o mandado de injunção e o mandado de segurança coletivo.", "Constituição e Adm."),
     "l13303": ("Lei 13.303/2016 — Estatuto jurídico de estatais", "Regime jurídico de empresas estatais e sociedades de economia mista.", "Legislação Especial"),
     "l13344": ("Lei 13.344/2016 — Tráfico de pessoas", "Tipifica tráfico de pessoas e medidas de prevenção.", "Penal e Processual"),
     "l13445": ("Lei 13.445/2017 — Migração", "Regula direitos e deveres de migrantes e refugiados.", "Constituição e Adm."),
@@ -183,8 +186,8 @@ KNOWN: dict[str, tuple[str, str, str]] = {
     "l14597": ("Lei 14.597/2023 — Acordo de leniência", "Altera normas sobre acordo de leniência e compliance.", "Constituição e Adm."),
     "l14717": ("Lei 14.717/2023 — Crimes financeiros", "Altera normas penais sobre crimes financeiros e criptoativos.", "Penal e Processual"),
     "l14852": ("Lei 14.852/2024 — Programa de integridade", "Altera normas sobre programas de integridade e anticorrupção.", "Constituição e Adm."),
-    "l14965": ("Lei 14.965/2024 — Educação financeira", "Institui Política Nacional de Educação Financeira.", "Legislação Especial"),
-    "l15040": ("Lei 15.040/2024", "Altera normas sobre procedimentos administrativos e licitações.", "Legislação Especial"),
+    "l14965": ("Lei 14.965/2024 — Concursos públicos", "Dispõe sobre normas gerais relativas a concursos públicos.", "Constituição e Adm."),
+    "l15040": ("Lei 15.040/2024 — Lei do Contrato de Seguro", "Dispõe sobre normas de seguro privado e revoga dispositivos do Código Civil e do DL 73/1966.", "Legislação Especial"),
     "lcp64": ("Lei Complementar 64/1990 — Inelegibilidades", "Estabelece casos de inelegibilidade para cargos eletivos.", "Constituição e Adm."),
     "lcp76": ("Lei Complementar 76/1993 — Fundeb", "Institui Fundo de Manutenção e Desenvolvimento da Educação Básica.", "Legislação Especial"),
     "lcp101": ("Lei Complementar 101/2000 — LRF", "Estabelece responsabilidade fiscal e limites de gastos públicos.", "Constituição e Adm."),
@@ -257,6 +260,59 @@ def build_entries() -> dict[str, dict[str, str]]:
     return entries
 
 
+def patch_catalog(entries: dict[str, dict[str, str]]) -> None:
+    if not CATALOG.exists():
+        return
+    data = json.loads(CATALOG.read_text(encoding="utf-8"))
+    changed = 0
+    for doc in data.get("documents", []):
+        url = doc.get("url") or ""
+        key = match_key(url)
+        if not key or key not in entries:
+            continue
+        meta = entries[key]
+        titulo = meta.get("titulo")
+        if titulo:
+            doc["title"] = titulo
+            doc.setdefault("meta", {})["titulo"] = titulo
+            changed += 1
+        if meta.get("secao"):
+            doc.setdefault("meta", {})["secao_lei_seca"] = meta["secao"]
+            doc.setdefault("organized", {})["secao_lei_seca"] = meta["secao"]
+        if meta.get("resumo"):
+            doc["resumo"] = meta["resumo"]
+    if changed:
+        data["generated_at"] = datetime.now(timezone.utc).isoformat()
+        CATALOG.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+        print(f"Patched {changed} titles in {CATALOG}")
+
+
+def patch_bodies(entries: dict[str, dict[str, str]]) -> None:
+    if not BODIES.exists():
+        return
+    data = json.loads(BODIES.read_text(encoding="utf-8"))
+    bodies = data.get("bodies") or {}
+    changed = 0
+    for url, body in list(bodies.items()):
+        key = match_key(url)
+        if not key or key not in entries:
+            continue
+        titulo = entries[key].get("titulo")
+        if not titulo or not isinstance(body, str):
+            continue
+        lines = body.split("\n", 2)
+        if lines and lines[0].startswith("# "):
+            new_first = f"# {titulo}"
+            if lines[0] != new_first:
+                lines[0] = new_first
+                bodies[url] = "\n".join(lines)
+                changed += 1
+    if changed:
+        data["generated_at"] = datetime.now(timezone.utc).isoformat()
+        BODIES.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
+        print(f"Patched {changed} headers in {BODIES}")
+
+
 def patch_summaries(entries: dict[str, dict[str, str]]) -> None:
     data = json.loads(SUMMARIES.read_text(encoding="utf-8"))
     for item in data.get("list", []):
@@ -298,6 +354,8 @@ def main() -> int:
         encoding="utf-8",
     )
     patch_summaries(entries)
+    patch_catalog(entries)
+    patch_bodies(entries)
     print(f"Wrote {len(entries)} known entries -> {OUT}")
     print(f"Patched {SUMMARIES}")
     return 0

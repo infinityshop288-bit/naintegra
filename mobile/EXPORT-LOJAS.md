@@ -207,6 +207,6 @@ mobile/
 | `cap add ios` falha fora do Mac | Gere iOS em macOS ou CI macOS |
 | Tela branca no app | Rode `npm run sync && npx cap sync`; confira `www/index.html` |
 | CORS / API | Supabase anon key já está em `config.js`; app precisa de internet |
-| Play rejeita WebView puro | Descreva funcionalidades (leitura offline parcial via cache, TTS, flashcards) |
+| Play rejeita WebView puro | Descreva funcionalidades (leitura offline com acervo baixado, TTS, flashcards) |
 
 Suporte: `contato@naintegracursos.com.br`

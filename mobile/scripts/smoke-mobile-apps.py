@@ -237,7 +237,13 @@ def test_bundled_www(shared: Suite) -> None:
         "js/config.js",
         "js/auth.js",
         "data/corpus.json",
+        "data/legis_catalog.json",
+        "data/legis_bodies.json",
+        "data/flashcards.json",
+        "data/questoes_catalog.json",
+        "data/juris_bodies.json",
         "data/legis_known_meta.json",
+        "js/offline-store.js",
     ]
     for rel in required:
         p = www / rel

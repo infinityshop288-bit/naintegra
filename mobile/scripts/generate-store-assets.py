@@ -31,22 +31,39 @@ def make_feature_graphic() -> Path:
     draw = ImageDraw.Draw(img)
     draw.rectangle([0, 0, w, 8], fill="#9a6e00")
     draw.rectangle([0, h - 8, w, h], fill="#9a6e00")
+    draw.rectangle([72, 96, 76, h - 96], fill="#e8dcc4")
 
     if ICON.exists():
         logo = Image.open(ICON).convert("RGBA")
-        logo = logo.resize((200, 200), Image.Resampling.LANCZOS)
-        img.paste(logo, (80, (h - 200) // 2), logo)
+        logo = logo.resize((188, 188), Image.Resampling.LANCZOS)
+        img.paste(logo, (84, (h - 188) // 2), logo)
 
     try:
-        font_l = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 56)
-        font_s = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 28)
+        font_title = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 54)
+        font_features = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 26)
+        font_tag = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", 30)
+        font_note = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial.ttf", 22)
     except OSError:
-        font_l = ImageFont.load_default()
-        font_s = font_l
+        font_title = ImageFont.load_default()
+        font_features = font_title
+        font_tag = font_title
+        font_note = font_title
 
-    draw.text((320, 170), "NaIntegra Lex", fill="#1a1a1a", font=font_l)
-    draw.text((320, 250), "Lei seca · Jurisprudência · Flashcards", fill="#5a5348", font=font_s)
-    draw.text((320, 300), "Concursos de segurança pública", fill="#9a6e00", font=font_s)
+    text_x = 300
+    draw.text((text_x, 148), "NaIntegra Lex", fill="#1a1a1a", font=font_title)
+    draw.text(
+        (text_x, 228),
+        "Lei seca · Jurisprudência · Flashcards · Questões",
+        fill="#5a5348",
+        font=font_features,
+    )
+    draw.text((text_x, 282), "Concursos públicos", fill="#9a6e00", font=font_tag)
+    draw.text(
+        (text_x, 330),
+        "Material atualizado semanalmente · ideal no transporte",
+        fill="#5a5348",
+        font=font_note,
+    )
 
     out = OUT / "feature-graphic-1024x500.png"
     img.save(out, "PNG", optimize=True)

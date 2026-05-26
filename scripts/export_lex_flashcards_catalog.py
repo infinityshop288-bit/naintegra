@@ -95,6 +95,8 @@ def main() -> int:
         "decks": payload_decks,
     }
     OUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
+    # Valida escrita (evita deploy de JSON truncado).
+    json.loads(OUT.read_text(encoding="utf-8"))
     print(f"Exportados {total_cards} cards em {len(payload_decks)} decks → {OUT}")
     return 0
 

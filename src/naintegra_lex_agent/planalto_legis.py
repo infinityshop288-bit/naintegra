@@ -73,12 +73,12 @@ PLANALTO_LEGIS_CATALOG: list[dict[str, str]] = [
     },
     {
         "url": "http://www.planalto.gov.br/ccivil_03/leis/l9882.htm",
-        "titulo": "Lei nº 9.882/1999 — ADI, ADC, ADPF e MP",
+        "titulo": "Lei nº 9.882/1999 — ADI, ADC, ADPF e Mandado de Injunção",
         "secao": "Constituição e Adm.",
     },
     {
         "url": "http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13300.htm",
-        "titulo": "Lei nº 13.300/2016 — Lei do Mandado de Injunção",
+        "titulo": "Lei nº 13.300/2016 — Mandado de Injunção",
         "secao": "Constituição e Adm.",
     },
     {
@@ -103,7 +103,7 @@ PLANALTO_LEGIS_CATALOG: list[dict[str, str]] = [
     },
     {
         "url": "http://www.planalto.gov.br/ccivil_03/leis/l6858.htm",
-        "titulo": "Lei nº 6.858/1980 — Benefícios previdenciários",
+        "titulo": "Lei nº 6.858/1980 — Pagamento a terceiros",
         "secao": "Legislação Especial",
     },
     {
@@ -123,7 +123,7 @@ PLANALTO_LEGIS_CATALOG: list[dict[str, str]] = [
     },
     {
         "url": "http://www.planalto.gov.br/ccivil_03/leis/l6015consolidado.htm",
-        "titulo": "Lei 6.015/1973 — Debêntures",
+        "titulo": "Lei 6.015/1973 — Lei de Registros Públicos",
         "secao": "Legislação Especial",
     },
     {
@@ -133,7 +133,27 @@ PLANALTO_LEGIS_CATALOG: list[dict[str, str]] = [
     },
     {
         "url": "http://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm",
-        "titulo": "Lei 8.036/1990 — Sistema Financeiro Nacional",
+        "titulo": "Lei 8.036/1990 — FGTS",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l8069.htm",
+        "titulo": "Lei 8.069/1990 — ECA",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11671.htm",
+        "titulo": "Lei 11.671/2008 — Presídios federais",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14965.htm",
+        "titulo": "Lei 14.965/2024 — Concursos públicos",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15040.htm",
+        "titulo": "Lei 15.040/2024 — Lei do Contrato de Seguro",
         "secao": "Legislação Especial",
     },
 ]

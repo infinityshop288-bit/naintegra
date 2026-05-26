@@ -1,0 +1,10 @@
+[Unit]
+Description=Agenda pipeline LEXML semanal Lex (domingo 03:30, antes do refresh Planalto)
+
+[Timer]
+OnCalendar=Sun *-*-* 03:30:00
+Persistent=true
+RandomizedDelaySec=900
+
+[Install]
+WantedBy=timers.target

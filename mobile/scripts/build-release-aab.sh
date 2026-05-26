@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Gera Android App Bundle (.aab) release assinado (requer JDK 17+).
+# Gera Android App Bundle (.aab) release assinado (requer JDK 21+).
 set -euo pipefail
 MOBILE="$(cd "$(dirname "$0")/.." && pwd)"
 ANDROID="$MOBILE/android"
@@ -10,8 +10,9 @@ find_java() {
     return 0
   fi
   local candidates=(
+    "$MOBILE/.tools/jdk-home"
     "/Applications/Android Studio.app/Contents/jbr/Contents/Home"
-    "/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
+    "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home"
     "/usr/local/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home"
   )
   for c in "${candidates[@]}"; do
@@ -28,7 +29,7 @@ find_java() {
 }
 
 if ! find_java; then
-  echo "JDK 17+ não encontrado. Instale Android Studio ou OpenJDK 17." >&2
+  echo "JDK 21+ não encontrado. Rode: bash mobile/scripts/bootstrap-android-build.sh" >&2
   exit 1
 fi
 

@@ -29,6 +29,8 @@ naintegra-qconcursos-studies = "naintegra_lex_agent.concurso_study.cli:main"
 naintegra-trilhante-publish = "naintegra_lex_agent.lex_publish:main"
 naintegra-norma-normalize = "naintegra_lex_agent.norma_chunks_cli:main"
 naintegra-norma-consolidate-loop = "naintegra_lex_agent.norma_consolidate_loop:main"
+naintegra-cp-iuris-loop = "naintegra_lex_agent.cp_iuris_loop:main_sync"
+naintegra-lexml-legis-weekly = "naintegra_lex_agent.lexml_legis_weekly:main_sync"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/naintegra_lex_agent"]

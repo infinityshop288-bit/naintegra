@@ -1,0 +1,14 @@
+[Unit]
+Description=NaIntegra Lex — descoberta LEXML e promoção semanal da legislação
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/naintegra
+EnvironmentFile=-/opt/naintegra/.env
+ExecStart=/opt/naintegra/scripts/run_lexml_legis_weekly.sh
+Nice=10
+
+[Install]
+WantedBy=multi-user.target
