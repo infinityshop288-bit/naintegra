@@ -14,9 +14,34 @@
   ];
 
   const PENDING_KEY = "lex_pending_checkout";
+  const SUB_CACHE_KEY = "lex_subscription_offline";
 
   let cachedSub = null;
   let pollTimer = null;
+
+  function readSubCache(userId) {
+    try {
+      const raw = localStorage.getItem(SUB_CACHE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw);
+      if (parsed?.userId !== userId) return null;
+      return parsed.sub || null;
+    } catch {
+      return null;
+    }
+  }
+
+  function writeSubCache(userId, sub) {
+    if (!userId || !sub) return;
+    localStorage.setItem(
+      SUB_CACHE_KEY,
+      JSON.stringify({ userId, sub, savedAt: new Date().toISOString() })
+    );
+  }
+
+  function clearSubCache() {
+    localStorage.removeItem(SUB_CACHE_KEY);
+  }
 
   function lexCanonicalBaseUrl() {
     const origin = (cfg.siteOrigin || window.location.origin).replace(/\/$/, "");
@@ -108,23 +133,32 @@
     }
     const client = window.LexAuth.getClient();
     const now = new Date().toISOString();
-    const { data, error } = await client
-      .schema(cfg.lexSchema)
-      .from("user_subscriptions")
-      .select("id, plan_id, status, expires_at, starts_at")
-      .eq("user_id", user.id)
-      .eq("status", "active")
-      .gt("expires_at", now)
-      .order("expires_at", { ascending: false })
-      .limit(1)
-      .maybeSingle();
-    if (error) {
+    try {
+      const { data, error } = await client
+        .schema(cfg.lexSchema)
+        .from("user_subscriptions")
+        .select("id, plan_id, status, expires_at, starts_at")
+        .eq("user_id", user.id)
+        .eq("status", "active")
+        .gt("expires_at", now)
+        .order("expires_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (error) throw error;
+      if (data) writeSubCache(user.id, data);
+      else clearSubCache();
+      cachedSub = data;
+      return data;
+    } catch (error) {
       console.warn("subscription check:", error);
+      const offlineSub = readSubCache(user.id);
+      if (offlineSub && new Date(offlineSub.expires_at) > new Date()) {
+        cachedSub = offlineSub;
+        return offlineSub;
+      }
       cachedSub = null;
       return null;
     }
-    cachedSub = data;
-    return data;
   }
 
   async function isSubscribed(force) {
@@ -134,6 +168,7 @@
 
   function invalidateCache() {
     cachedSub = null;
+    clearSubCache();
   }
 
   async function fetchLastContentUpdate() {
