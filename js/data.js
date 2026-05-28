@@ -317,6 +317,30 @@
     return docs;
   }
 
+  function catalogDocKey(doc) {
+    const raw = doc.doc_key || doc.url || doc.external_id || "";
+    return String(raw).trim().toLowerCase().replace(/\/+$/, "");
+  }
+
+  async function mergeAguFromOfflineBundle(catalog) {
+    try {
+      const data = await fetchStaticJson(cfg.legisCatalogFallback);
+      const aguDocs = (data.documents || []).filter((d) => {
+        const corpus = d.meta?.corpus || d.organized?.corpus || "";
+        return corpus === "legislacao_agu";
+      });
+      if (!aguDocs.length) return catalog;
+      const have = new Set((catalog || []).map(catalogDocKey));
+      const extra = aguDocs.filter((d) => !have.has(catalogDocKey(d)));
+      if (!extra.length) return catalog;
+      console.info(`Lex: +${extra.length} legislação AGU (bundle offline)`);
+      return [...catalog, ...extra];
+    } catch (err) {
+      console.warn("Lex: merge AGU offline", err);
+      return catalog;
+    }
+  }
+
   async function loadCatalogFromStaticFallback() {
     const cached = await window.LexOffline?.loadCatalog?.();
     if (cached?.length) {
@@ -390,7 +414,8 @@
 
     if (merged.length) {
       window.__LEX_DATA_SOURCE = "supabase";
-      let prepared = window.LexFormat ? window.LexFormat.prepareCatalog(merged) : merged;
+      const withAgu = await mergeAguFromOfflineBundle(merged);
+      let prepared = window.LexFormat ? window.LexFormat.prepareCatalog(withAgu) : withAgu;
       await enrichLegisCatalog(prepared);
       console.info(`Lex: ${prepared.length} documentos (catálogo Supabase, ${merged.length} brutos)`);
       window.LexOffline?.saveCatalog?.(prepared, "supabase");
@@ -412,7 +437,8 @@
       }
       if (viewRows.length) {
         window.__LEX_DATA_SOURCE = "supabase_view";
-        let prepared = window.LexFormat ? window.LexFormat.prepareCatalog(viewRows) : viewRows;
+        const withAgu = await mergeAguFromOfflineBundle(viewRows);
+        let prepared = window.LexFormat ? window.LexFormat.prepareCatalog(withAgu) : withAgu;
         await enrichLegisCatalog(prepared);
         console.info(`Lex: ${prepared.length} documentos (catálogo view)`);
         window.LexOffline?.saveCatalog?.(prepared, "supabase_view");
@@ -755,6 +781,21 @@
 
   let flashcardsCache = null;
   let flashcardsLoadPromise = null;
+  let flashcardsHydratePromise = null;
+
+  function deckCardCount(deck) {
+    return deck.cardCount ?? (deck.cards?.length || 0);
+  }
+
+  function mapFlashcardCards(rawCards) {
+    return (rawCards || [])
+      .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0))
+      .map((c) => ({
+        front: c.front,
+        back: c.back,
+        highlight: c.highlight,
+      }));
+  }
 
   function mapFlashcardDecks(decks, cards) {
     const byDeck = {};
@@ -762,58 +803,173 @@
       if (!byDeck[c.deck_id]) byDeck[c.deck_id] = [];
       byDeck[c.deck_id].push(c);
     }
-    return decks.map((d) => ({
-      slug: d.slug,
-      name: d.name,
-      category: d.category,
-      cards: (byDeck[d.id] || [])
-        .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0))
-        .map((c) => ({
-          front: c.front,
-          back: c.back,
-          highlight: c.highlight,
-        })),
-    }));
+    return decks.map((d) => {
+      const mapped = mapFlashcardCards(byDeck[d.id] || []);
+      return {
+        slug: d.slug,
+        name: d.name,
+        category: d.category,
+        cardCount: mapped.length,
+        cards: mapped,
+      };
+    });
   }
 
-  async function lexFlashcardsTotal() {
-    const res = await fetch(`${cfg.supabaseUrl}/rest/v1/flashcards?select=id&limit=1`, {
-      headers: { ...headers(cfg.lexSchema), Prefer: "count=exact" },
-    });
+  async function lexDeckCardCount(deckId) {
+    const res = await fetch(
+      `${cfg.supabaseUrl}/rest/v1/flashcards?deck_id=eq.${encodeURIComponent(deckId)}&select=id&limit=1`,
+      { headers: { ...headers(cfg.lexSchema), Prefer: "count=exact" } }
+    );
     if (!res.ok) throw new Error(String(res.status));
     const range = res.headers.get("content-range") || "";
     const m = range.match(/\/(\d+)$/);
     return m ? parseInt(m[1], 10) : 0;
   }
 
-  async function loadFlashcardsFromSupabase() {
-    const decks = await lexFetch("flashcard_decks", "select=id,slug,name,category,sort_order&order=sort_order.asc");
-    if (!Array.isArray(decks) || !decks.length) throw new Error("empty");
+  async function fetchCardsForDeckId(deckId) {
     const limit = cfg.flashcardsPageSize || 1000;
-    const total = await lexFlashcardsTotal();
-    const pages = Math.max(1, Math.ceil(total / limit));
     const cardCols = "deck_id,front,back,highlight,sort_order";
     const cards = [];
-    for (let i = 0; i < pages; i += 1) {
+    for (let offset = 0; ; offset += limit) {
       const batch = await lexFetch(
         "flashcards",
-        `select=${cardCols}&order=deck_id.asc,sort_order.asc&limit=${limit}&offset=${i * limit}`
+        `select=${cardCols}&deck_id=eq.${encodeURIComponent(deckId)}&order=sort_order.asc&limit=${limit}&offset=${offset}`
       );
-      if (Array.isArray(batch)) cards.push(...batch);
+      if (!Array.isArray(batch) || !batch.length) break;
+      cards.push(...batch);
+      if (batch.length < limit) break;
     }
-    if (!cards.length) throw new Error("empty cards");
-    console.info(`Lex: ${decks.length} decks · ${cards.length} flashcards (Supabase)`);
-    return mapFlashcardDecks(decks, cards);
+    return cards;
+  }
+
+  async function loadFlashcardDeckIndexFromSupabase() {
+    const decks = await lexFetch("flashcard_decks", "select=id,slug,name,category,sort_order&order=sort_order.asc");
+    if (!Array.isArray(decks) || !decks.length) throw new Error("empty");
+    const index = await Promise.all(
+      decks.map(async (d) => {
+        let cardCount = 0;
+        try {
+          cardCount = await lexDeckCardCount(d.id);
+        } catch (_) {
+          /* ignora contagem individual */
+        }
+        return {
+          slug: d.slug,
+          name: d.name,
+          category: d.category,
+          cardCount,
+          cards: [],
+          _deckId: d.id,
+        };
+      })
+    );
+    if (!index.some((d) => d.cardCount > 0)) throw new Error("empty cards");
+    return index;
+  }
+
+  async function hydrateFlashcardsFromSupabase(index) {
+    const hydrated = await Promise.all(
+      index.map(async (d) => {
+        const raw = await fetchCardsForDeckId(d._deckId);
+        const cards = mapFlashcardCards(raw);
+        return {
+          slug: d.slug,
+          name: d.name,
+          category: d.category,
+          cardCount: cards.length,
+          cards,
+        };
+      })
+    );
+    return hydrated.filter((d) => d.cards.length);
+  }
+
+  async function loadFlashcardsFromSupabase() {
+    const index = await loadFlashcardDeckIndexFromSupabase();
+    const hydrated = await hydrateFlashcardsFromSupabase(index);
+    if (!hydrated.length) throw new Error("empty cards");
+    const total = hydrated.reduce((n, d) => n + d.cards.length, 0);
+    console.info(`Lex: ${hydrated.length} decks · ${total} flashcards (Supabase)`);
+    return hydrated;
+  }
+
+  async function loadFlashcardIndexFromFallback() {
+    let data;
+    try {
+      data = await fetchStaticJson(cfg.flashcardsCatalogFallback);
+    } catch (_) {
+      data = await fetchStaticJson(cfg.flashcardsFallback);
+    }
+    const decks = (data.decks || []).map((d) => ({
+      slug: d.slug,
+      name: d.name,
+      category: d.category,
+      cardCount: d.cardCount ?? d.cards?.length ?? 0,
+      cards: Array.isArray(d.cards) ? d.cards : [],
+    }));
+    if (!decks.length) throw new Error("empty");
+    if (!decks.some((d) => deckCardCount(d) > 0)) throw new Error("empty cards");
+    return decks;
+  }
+
+  async function hydrateDeckFromFallback(deck) {
+    if (deck.cards?.length) return deck;
+    const base = cfg.flashcardsDecksBase || "./data/flashcards/decks/";
+    const data = await fetchStaticJson(`${base}${deck.slug}.json`);
+    const cards = data.cards || [];
+    return { ...deck, cardCount: cards.length, cards };
+  }
+
+  async function hydrateFlashcardsFromFallback(index) {
+    const hydrated = await Promise.all(index.map((d) => hydrateDeckFromFallback(d)));
+    return hydrated.filter((d) => d.cards.length);
   }
 
   async function loadFlashcardsFromFallback() {
-    const data = await fetchStaticJson(cfg.flashcardsFallback);
-    const decks = data.decks || [];
-    if (!decks.length) throw new Error("empty");
-    const cardCount = decks.reduce((n, d) => n + (d.cards?.length || 0), 0);
-    if (!cardCount) throw new Error("empty cards");
-    console.info(`Lex: ${decks.length} decks · ${cardCount} flashcards (cache local)`);
-    return decks;
+    const index = await loadFlashcardIndexFromFallback();
+    if (index.every((d) => d.cards?.length)) {
+      console.info(
+        `Lex: ${index.length} decks · ${index.reduce((n, d) => n + d.cards.length, 0)} flashcards (cache local)`
+      );
+      return index;
+    }
+    const hydrated = await hydrateFlashcardsFromFallback(index);
+    if (!hydrated.length) throw new Error("empty cards");
+    const total = hydrated.reduce((n, d) => n + d.cards.length, 0);
+    console.info(`Lex: ${hydrated.length} decks · ${total} flashcards (cache local por deck)`);
+    return hydrated;
+  }
+
+  async function ensureFlashcardDeckHydrated(slug) {
+    const decks = await loadFlashcardDecks();
+    const deck = decks.find((d) => d.slug === slug);
+    if (!deck) return null;
+    if (deck.cards?.length) return deck;
+
+    try {
+      const index = await loadFlashcardDeckIndexFromSupabase();
+      const row = index.find((d) => d.slug === slug);
+      if (row?._deckId) {
+        const cards = mapFlashcardCards(await fetchCardsForDeckId(row._deckId));
+        Object.assign(deck, { cards, cardCount: cards.length });
+        return deck;
+      }
+    } catch (_) {
+      /* tenta fallback */
+    }
+
+    const hydrated = await hydrateDeckFromFallback(deck);
+    const idx = decks.findIndex((d) => d.slug === slug);
+    if (idx >= 0) decks[idx] = hydrated;
+    flashcardsCache = decks;
+    return hydrated;
+  }
+
+  function whenFlashcardsHydrated() {
+    if (flashcardsCache?.length && flashcardsCache.every((d) => d.cards?.length)) {
+      return Promise.resolve(flashcardsCache);
+    }
+    return flashcardsHydratePromise || Promise.resolve(flashcardsCache || []);
   }
 
   async function loadFlashcardDecks(force = false) {
@@ -821,18 +977,35 @@
     if (!force && flashcardsLoadPromise) return flashcardsLoadPromise;
 
     flashcardsLoadPromise = (async () => {
-      try {
-        flashcardsCache = await loadFlashcardsFromSupabase();
-        return flashcardsCache;
-      } catch (supabaseErr) {
-        console.warn("Lex: flashcards Supabase indisponível, tentando cache local", supabaseErr);
+      const loadFull = async () => {
         try {
-          flashcardsCache = await loadFlashcardsFromFallback();
-          return flashcardsCache;
-        } catch (fallbackErr) {
-          console.error("Lex: flashcards fallback falhou", fallbackErr);
-          throw fallbackErr;
+          return await loadFlashcardsFromSupabase();
+        } catch (supabaseErr) {
+          console.warn("Lex: flashcards Supabase indisponível, tentando cache local", supabaseErr);
+          return loadFlashcardsFromFallback();
         }
+      };
+
+      try {
+        const index = await loadFlashcardDeckIndexFromSupabase();
+        flashcardsCache = index;
+        flashcardsHydratePromise = loadFull()
+          .then((full) => {
+            flashcardsCache = full;
+            return full;
+          })
+          .catch((err) => {
+            console.warn("Lex: hidratação de flashcards falhou", err);
+            return flashcardsCache;
+          });
+        console.info(
+          `Lex: ${index.length} decks listados · hidratando ${index.reduce((n, d) => n + deckCardCount(d), 0)} cards…`
+        );
+        return index;
+      } catch (indexErr) {
+        console.warn("Lex: índice Supabase indisponível, carregamento completo", indexErr);
+        flashcardsCache = await loadFull();
+        return flashcardsCache;
       }
     })();
 
@@ -973,6 +1146,9 @@
     enrichDocuments,
     loadDocumentBody,
     loadFlashcardDecks,
+    ensureFlashcardDeckHydrated,
+    whenFlashcardsHydrated,
+    deckCardCount,
     loadQuestions,
     loadQuestionsCount,
     mapQuestaoRow,

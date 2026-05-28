@@ -1,4 +1,4 @@
-const CACHE = "naintegra-lex-v20";
+const CACHE = "naintegra-lex-v21";
 const DATA_CACHE = "naintegra-lex-data-v2";
 const API_CACHE = "naintegra-lex-api-v1";
 
@@ -102,7 +102,11 @@ self.addEventListener("fetch", (e) => {
   }
 
   if (isDataRequest(url)) {
-    if (url.pathname.endsWith("/flashcards.json")) {
+    if (
+      url.pathname.endsWith("/flashcards.json") ||
+      url.pathname.endsWith("/flashcards_catalog.json") ||
+      url.pathname.includes("/flashcards/decks/")
+    ) {
       e.respondWith(networkFirst(e.request, DATA_CACHE));
       return;
     }

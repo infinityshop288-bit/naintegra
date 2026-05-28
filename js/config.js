@@ -19,6 +19,8 @@ window.LEX_CONFIG = {
   legisSummariesFallback: "./data/legis_summaries.json",
   legisKnownMetaFallback: "./data/legis_known_meta.json",
   flashcardsFallback: "./data/flashcards.json",
+  flashcardsCatalogFallback: "./data/flashcards_catalog.json",
+  flashcardsDecksBase: "./data/flashcards/decks/",
   flashcardsPageSize: 1000,
   jurisBodiesFallback: "./data/juris_bodies.json",
   sumulasCatalogFallback: "./data/sumulas_catalog.json",
