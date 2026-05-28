@@ -1,0 +1,319 @@
+{
+  "generated_at": "2026-05-28T01:53:47.829283+00:00",
+  "slug": "licitacoes-lei-14133",
+  "name": "Licitações — Lei 14.133/2021",
+  "category": "Direito Administrativo",
+  "card_count": 62,
+  "cards": [
+    {
+      "front": "Qual dispositivo constitucional estabelece o dever de licitar?",
+      "back": "Art. 37, XXI da CF/88: obras, serviços, compras e alienações serão contratados mediante licitação pública, ressalvados os casos previstos em lei.",
+      "highlight": null
+    },
+    {
+      "front": "Quem tem competência privativa para legislar sobre normas gerais de licitação?",
+      "back": "A União (CF, art. 22, XXVII). Estados e Municípios podem legislar supletivamente para adaptação às suas realidades.",
+      "highlight": null
+    },
+    {
+      "front": "Quais são os três pressupostos para realização de licitação?",
+      "back": "Fático, lógico e jurídico — devem estar presentes de forma concomitante.",
+      "highlight": null
+    },
+    {
+      "front": "Quando entrou em vigor a Lei nº 14.133/2021?",
+      "back": "Em 1º de abril de 2021 (data da publicação), sem vacatio legis.",
+      "highlight": null
+    },
+    {
+      "front": "Quais leis foram revogadas imediatamente pela Lei 14.133/2021?",
+      "back": "Apenas os arts. 89 a 108 da Lei 8.666/93 (crimes em licitação) foram revogados de imediato.",
+      "highlight": null
+    },
+    {
+      "front": "Quando ocorreu a revogação total da Lei nº 8.666/93?",
+      "back": "Após 2 anos da publicação da Lei 14.133/2021, ou seja, em 1º de abril de 2023.",
+      "highlight": null
+    },
+    {
+      "front": "Pode-se combinar normas da Lei 8.666/93 com a Lei 14.133/2021 num mesmo processo?",
+      "back": "Não. É vedada a aplicação combinada. Deve-se optar por um regime e indicá-lo expressamente no edital.",
+      "highlight": null
+    },
+    {
+      "front": "Municípios com até quantos habitantes têm prazo especial para adaptar-se?",
+      "back": "Municípios com até 20.000 habitantes têm prazo de 6 anos para cumprir requisitos dos arts. 7º e 8º (agentes, licitações eletrônicas e divulgação em sítio oficial).",
+      "highlight": null
+    },
+    {
+      "front": "Quais são as 5 modalidades de licitação da Lei 14.133/2021?",
+      "back": "Pregão, Concorrência, Concurso, Leilão e Diálogo Competitivo.",
+      "highlight": null
+    },
+    {
+      "front": "Para que serve o Pregão? Qual critério de julgamento usa?",
+      "back": "Modalidade obrigatória para bens e serviços comuns. Critério: menor preço ou maior desconto.",
+      "highlight": null
+    },
+    {
+      "front": "Para que serve a Concorrência?",
+      "back": "Para bens e serviços especiais e obras/serviços comuns e especiais de engenharia. Admite todos os critérios de julgamento.",
+      "highlight": null
+    },
+    {
+      "front": "O Pregão pode ser usado para serviços de engenharia?",
+      "back": "Apenas para serviços comuns de engenharia (padronizáveis). Não se aplica a serviços técnicos especializados de natureza intelectual nem a obras.",
+      "highlight": null
+    },
+    {
+      "front": "Para que serve o Concurso?",
+      "back": "Escolha de trabalho técnico, científico ou artístico. Critério: melhor técnica ou conteúdo artístico. Vencedor recebe prêmio ou remuneração.",
+      "highlight": null
+    },
+    {
+      "front": "Para que serve o Leilão? Quais suas características únicas?",
+      "back": "Alienação de bens imóveis ou móveis inservíveis/apreendidos. Não exige cadastro prévio, não tem fase de habilitação e é homologado após pagamento.",
+      "highlight": null
+    },
+    {
+      "front": "O que é o Diálogo Competitivo e quando é usado?",
+      "back": "Modalidade para obras, serviços e compras com inovação tecnológica, impossibilidade de definir especificações precisas ou soluções disponíveis no mercado. Licitantes selecionados dialogam com a Administração antes de apresentar proposta final.",
+      "highlight": null
+    },
+    {
+      "front": "É permitido criar novas modalidades de licitação ou combiná-las?",
+      "back": "Não. O rol é taxativo e vedada a criação ou combinação de modalidades.",
+      "highlight": null
+    },
+    {
+      "front": "Qual é a ordem das fases do processo licitatório na Lei 14.133/2021?",
+      "back": "1) Preparatória → 2) Divulgação do edital → 3) Propostas/lances → 4) Julgamento → 5) Habilitação → 6) Recursal → 7) Homologação.",
+      "highlight": null
+    },
+    {
+      "front": "Na Lei 14.133/2021, julgamento vem antes ou depois da habilitação?",
+      "back": "Antes. A habilitação é posterior ao julgamento (inversão em relação à Lei 8.666/93). Excepcionalmente pode ser invertida se motivado e previsto no edital.",
+      "highlight": null
+    },
+    {
+      "front": "As licitações devem ser preferencialmente eletrônicas ou presenciais?",
+      "back": "Preferencialmente eletrônicas. A forma presencial exige motivação e a sessão deve ser gravada em áudio e vídeo.",
+      "highlight": null
+    },
+    {
+      "front": "O que deve conter o Estudo Técnico Preliminar (ETP)?",
+      "back": "Descrição da necessidade, estimativa de quantidades, estimativa de valor, parcelamento justificado, impactos ambientais, conclusão sobre viabilidade — entre outros elementos.",
+      "highlight": null
+    },
+    {
+      "front": "O orçamento estimado pode ser sigiloso?",
+      "back": "Sim, se justificado. O sigilo não prevalece para os órgãos de controle interno e externo.",
+      "highlight": null
+    },
+    {
+      "front": "Qual o prazo mínimo para propostas em pregão de aquisição de bens (menor preço)?",
+      "back": "8 dias úteis.",
+      "highlight": null
+    },
+    {
+      "front": "Qual o prazo mínimo para contratação integrada de obras?",
+      "back": "60 dias úteis.",
+      "highlight": null
+    },
+    {
+      "front": "Qual o prazo mínimo para propostas em critério de técnica e preço ou melhor técnica?",
+      "back": "35 dias úteis.",
+      "highlight": null
+    },
+    {
+      "front": "Qual o prazo para impugnar o edital de licitação?",
+      "back": "Até 3 dias úteis antes da abertura do certame. A resposta deve ser divulgada em até 3 dias úteis (limitada ao dia útil anterior à abertura).",
+      "highlight": null
+    },
+    {
+      "front": "Qual o prazo para recurso contra julgamento de propostas e habilitação?",
+      "back": "3 dias úteis, contados da intimação ou lavratura da ata.",
+      "highlight": null
+    },
+    {
+      "front": "Quais são os critérios de julgamento da Lei 14.133/2021?",
+      "back": "Menor preço, maior desconto, melhor técnica ou conteúdo artístico, técnica e preço, maior lance (leilão) e maior retorno econômico.",
+      "highlight": null
+    },
+    {
+      "front": "Quando usar técnica e preço? Qual a proporção máxima?",
+      "back": "Quando a qualidade técnica é relevante (serviços intelectuais, tecnologia sofisticada, obras especiais de engenharia). Máximo de 70% de valoração para a proposta técnica.",
+      "highlight": null
+    },
+    {
+      "front": "O que é o julgamento por maior retorno econômico?",
+      "back": "Usado exclusivamente para contrato de eficiência. Considera a maior economia gerada. O contratado é remunerado por percentual da economia efetivamente obtida.",
+      "highlight": null
+    },
+    {
+      "front": "Quais são os critérios de desempate em ordem?",
+      "back": "1) Disputa final; 2) Desempenho contratual prévio; 3) Ações de equidade entre homens e mulheres; 4) Programa de integridade.",
+      "highlight": null
+    },
+    {
+      "front": "Quando uma proposta de obra é considerada inexequível?",
+      "back": "Quando o valor for inferior a 75% do orçamento da Administração.",
+      "highlight": null
+    },
+    {
+      "front": "Quando se exige garantia adicional do licitante vencedor em obras?",
+      "back": "Quando a proposta for inferior a 85% do valor orçado. A garantia equivale à diferença entre o valor orçado e o da proposta.",
+      "highlight": null
+    },
+    {
+      "front": "Quais são as categorias de habilitação?",
+      "back": "Jurídica, técnica (técnico-profissional e técnico-operacional), fiscal/social/trabalhista e econômico-financeira.",
+      "highlight": null
+    },
+    {
+      "front": "Em geral, quando se exige a habilitação do licitante?",
+      "back": "Apenas do licitante vencedor (após julgamento), salvo se a fase de habilitação for invertida para antes do julgamento.",
+      "highlight": null
+    },
+    {
+      "front": "Quais documentos são exigidos na habilitação econômico-financeira?",
+      "back": "Balanço patrimonial dos 2 últimos exercícios e certidão negativa de falência. Vedada exigência de valores mínimos de faturamento ou índices de rentabilidade.",
+      "highlight": null
+    },
+    {
+      "front": "A exigência de atestados técnicos é restrita a quais parcelas?",
+      "back": "Parcelas de maior relevância ou valor significativo do objeto, com valor individual igual ou superior a 4% do valor total estimado.",
+      "highlight": null
+    },
+    {
+      "front": "Qual a diferença entre inexigibilidade e dispensa de licitação?",
+      "back": "Na inexigibilidade, a competição é inviável (rol exemplificativo). Na dispensa, a competição seria possível mas a lei faculta não realizá-la (rol taxativo).",
+      "highlight": null
+    },
+    {
+      "front": "Cite 3 hipóteses de inexigibilidade de licitação.",
+      "back": "1) Fornecedor exclusivo; 2) Profissional do setor artístico consagrado; 3) Serviços técnicos especializados de notória especialização; 4) Credenciamento; 5) Imóvel com características necessárias.",
+      "highlight": null
+    },
+    {
+      "front": "É possível inexigibilidade para serviços de publicidade e divulgação?",
+      "back": "Não. A lei veda expressamente a inexigibilidade para serviços de publicidade e divulgação.",
+      "highlight": null
+    },
+    {
+      "front": "Qual o limite de valor para dispensa de licitação em obras e serviços de engenharia?",
+      "back": "Inferiores a R$ 100.000,00. (Duplica para consórcio público ou agência executiva: R$ 200.000,00)",
+      "highlight": null
+    },
+    {
+      "front": "Qual o limite de valor para dispensa de licitação em outros serviços e compras?",
+      "back": "Inferiores a R$ 50.000,00. (Duplica para consórcio público ou agência executiva: R$ 100.000,00)",
+      "highlight": null
+    },
+    {
+      "front": "O que caracteriza a licitação deserta e a licitação fracassada?",
+      "back": "Deserta: não aparecem licitantes interessados. Fracassada: propostas com preços superiores ao praticado no mercado ou incompatíveis com os oficiais.",
+      "highlight": null
+    },
+    {
+      "front": "Qual o prazo máximo para obras e serviços em dispensa por emergência ou calamidade?",
+      "back": "Máximo de 1 ano contado da data de ocorrência. Vedada prorrogação e recontratação da mesma empresa.",
+      "highlight": null
+    },
+    {
+      "front": "Na contratação direta indevida com dolo, fraude ou erro grosseiro, quem responde?",
+      "back": "O contratado e o agente público responsável respondem solidariamente pelo dano causado ao erário.",
+      "highlight": null
+    },
+    {
+      "front": "Alienação de bem imóvel da Administração exige o quê?",
+      "back": "Interesse público justificado, avaliação prévia, autorização legislativa (exceto se derivado de procedimento judicial ou dação em pagamento) e licitação na modalidade leilão.",
+      "highlight": null
+    },
+    {
+      "front": "Em quais casos a alienação de imóvel dispensa licitação?",
+      "back": "Dação em pagamento, doação a outro órgão/entidade, permuta, investidura, venda a outro ente da Administração, habitação social, regularização fundiária — entre outros.",
+      "highlight": null
+    },
+    {
+      "front": "A alienação de bens móveis depende de qual modalidade?",
+      "back": "Leilão. Dispensada em casos como doação para fins sociais, permuta entre órgãos, venda de ações em bolsa ou materiais sem utilização previsível.",
+      "highlight": null
+    },
+    {
+      "front": "Quais são os procedimentos auxiliares da licitação?",
+      "back": "Credenciamento, pré-qualificação, procedimento de manifestação de interesse (PMI), sistema de registro de preços e registro cadastral.",
+      "highlight": null
+    },
+    {
+      "front": "Qual é o prazo de vigência da Ata de Registro de Preços (ARP)?",
+      "back": "1 ano, podendo ser prorrogada por igual período (mais 1 ano) se comprovado preço vantajoso.",
+      "highlight": null
+    },
+    {
+      "front": "O que é o 'efeito carona' no SRP?",
+      "back": "Possibilidade de órgão ou entidade que não participou da licitação aderir à ARP (órgão não participante), observados os limites de 50% por órgão e o dobro do quantitativo total.",
+      "highlight": null
+    },
+    {
+      "front": "A existência de preços registrados na ARP obriga a Administração a contratar?",
+      "back": "Não. Implica compromisso de fornecimento pelo fornecedor, mas a Administração pode realizar licitação específica se motivar.",
+      "highlight": null
+    },
+    {
+      "front": "Cite 8 princípios expressos no art. 5º da Lei 14.133/2021.",
+      "back": "Legalidade, impessoalidade, moralidade, publicidade, eficiência, interesse público, probidade, igualdade, planejamento, transparência, eficácia, segregação de funções, motivação, vinculação ao edital, julgamento objetivo, segurança jurídica, razoabilidade, competitividade, proporcionalidade, celeridade, economicidade e desenvolvimento nacional sustentável.",
+      "highlight": null
+    },
+    {
+      "front": "O que é o princípio da segregação de funções?",
+      "back": "Vedação de designar o mesmo agente público para funções mais suscetíveis a riscos simultaneamente, reduzindo ocultação de erros e fraudes.",
+      "highlight": null
+    },
+    {
+      "front": "Os crimes de licitação da Lei 14.133/2021 estão em qual diploma legal?",
+      "back": "No Código Penal (arts. 337-E a 337-P), inseridos como crimes contra a Administração Pública — e não na própria lei de licitações.",
+      "highlight": null
+    },
+    {
+      "front": "Qual a pena para contratação direta ilegal (art. 337-E)?",
+      "back": "Reclusão de 4 a 8 anos e multa.",
+      "highlight": null
+    },
+    {
+      "front": "Qual a pena para fraude em licitação ou contrato (art. 337-L)?",
+      "back": "Reclusão de 4 a 8 anos e multa.",
+      "highlight": null
+    },
+    {
+      "front": "Qual a pena para perturbação de processo licitatório (art. 337-I)?",
+      "back": "Detenção de 6 meses a 3 anos e multa.",
+      "highlight": null
+    },
+    {
+      "front": "Qual a pena mínima de multa cominada aos crimes de licitação?",
+      "back": "Não pode ser inferior a 2% do valor do contrato licitado ou celebrado com contratação direta.",
+      "highlight": null
+    },
+    {
+      "front": "Quem é o agente de contratação?",
+      "back": "Servidor efetivo ou empregado público designado pela autoridade competente para conduzir a licitação, dar impulso ao procedimento e executar atividades até a homologação.",
+      "highlight": null
+    },
+    {
+      "front": "Em pregão, como é chamado o agente de contratação?",
+      "back": "Pregoeiro.",
+      "highlight": null
+    },
+    {
+      "front": "Quando a comissão de contratação substitui o agente de contratação?",
+      "back": "Em licitações de bens ou serviços especiais. Formada por no mínimo 3 membros, que respondem solidariamente, salvo posição individual divergente registrada em ata.",
+      "highlight": null
+    },
+    {
+      "front": "Quais vedações se aplicam ao agente público em licitações?",
+      "back": "Não pode: restringir competitividade, estabelecer preferência por naturalidade/sede, incluir exigências impertinentes, tratar empresas brasileiras e estrangeiras de forma diferenciada, ou retardar ato de ofício injustificadamente.",
+      "highlight": null
+    }
+  ]
+}

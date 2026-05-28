@@ -1,12 +1,18 @@
 #!/usr/bin/env python3
 """Ingere legislação AGU coletada pelo naintegracursos-scraper → public.norma_chunks (Lex).
 
-Lê JSONL em data/processed/legislacao_agu/ (scraper) ou data/legislacao_agu/ (cópia local).
+Lê JSONL em data/processed/legislacao_agu/ (scraper), data/legislacao_agu/ (cópia local)
+ou data/legislacao_agu_recollection/ (re-coleta Planalto com encoding correto).
 
 Uso:
   set -a && source .env && set +a
   python3 scripts/ingest_agu_legislacao_from_scraper.py
   python3 scripts/ingest_agu_legislacao_from_scraper.py --dry-run
+  python3 scripts/verify_legislacao_correspondence.py
+
+  # Ingerir backup re-coletado:
+  AGU_LEGIS_INPUT_DIR=data/legislacao_agu_recollection/runs/<run_id> \\
+    python3 scripts/ingest_agu_legislacao_from_scraper.py --force
 """
 
 from __future__ import annotations

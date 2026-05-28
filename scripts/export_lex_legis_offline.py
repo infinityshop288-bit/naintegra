@@ -13,9 +13,12 @@ from pathlib import Path
 import httpx
 
 REPO = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(REPO / "src"))
 OUT_CATALOG = REPO / "web" / "lex" / "data" / "legis_catalog.json"
 OUT_BODIES = REPO / "web" / "lex" / "data" / "legis_bodies.json"
+AGU_DIR = REPO / "data" / "legislacao_agu"
 SOURCES = ["planalto", "rideel_vademecum"]
+PLANALTO_SOURCE = "planalto"
 
 
 def read_config() -> tuple[str, str]:
@@ -108,6 +111,120 @@ def fetch_body(client: httpx.Client, row: dict) -> str:
     return ""
 
 
+def _iter_agu_jsonl(path: Path):
+    with path.open(encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                obj = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if isinstance(obj, dict):
+                yield obj
+
+
+def load_agu_records(input_dir: Path) -> list[dict]:
+    from naintegra_lex_agent.norma_chunks import normalize_norma_url
+
+    files = sorted(input_dir.glob("*.jsonl"))
+    if not files:
+        return []
+    by_url: dict[str, dict] = {}
+    for fp in files:
+        for rec in _iter_agu_jsonl(fp):
+            url = normalize_norma_url(str(rec.get("url") or ""))
+            if not url:
+                continue
+            prev = by_url.get(url)
+            body_len = len(str(rec.get("content") or rec.get("summary") or ""))
+            prev_len = len(str((prev or {}).get("content") or (prev or {}).get("summary") or ""))
+            if not prev or body_len > prev_len:
+                by_url[url] = rec
+    return list(by_url.values())
+
+
+def map_agu_catalog_row(rec: dict) -> dict:
+    from naintegra_lex_agent.legal_text import pick_display_title
+    from naintegra_lex_agent.norma_chunks import legis_meta_from_url, normalize_norma_url
+
+    url = normalize_norma_url(str(rec.get("url") or ""))
+    meta_url = legis_meta_from_url(url)
+    titulo = pick_display_title(rec) or str(rec.get("title") or "").strip()
+    if titulo and meta_url.get("titulo"):
+        titulo = meta_url["titulo"]
+    tags = rec.get("tags") or []
+    meta = {
+        "titulo": titulo or url,
+        "secao_lei_seca": meta_url.get("secao_lei_seca") or "Legislação Especial",
+        "corpus": "legislacao_agu",
+        "collection": rec.get("collection") or "legislacao_agu",
+        "carreiras_agu": [
+            t
+            for t in tags
+            if isinstance(t, str)
+            and not t.startswith("agu:")
+            and t not in ("planalto", "agu")
+        ],
+        "legal_act_type": rec.get("legal_act_type"),
+    }
+    return {
+        "external_id": f"{PLANALTO_SOURCE}::{url}",
+        "doc_type": "legislacao",
+        "source_system": PLANALTO_SOURCE,
+        "doc_key": url,
+        "title": meta["titulo"],
+        "resumo": None,
+        "url": url,
+        "meta": meta,
+        "organized": {
+            "secao_lei_seca": meta["secao_lei_seca"],
+            "corpus": meta["corpus"],
+        },
+        "chunk_count": None,
+    }
+
+
+def merge_agu_legislacao(
+    client: httpx.Client,
+    catalog_docs: list[dict],
+    bodies: dict[str, str],
+) -> tuple[int, int]:
+    """Inclui normas AGU coletadas que ainda não aparecem na MV do catálogo."""
+    from naintegra_lex_agent.norma_chunks import normalize_norma_url
+
+    records = load_agu_records(AGU_DIR)
+    if not records:
+        return 0, 0
+
+    known = {normalize_norma_url(d.get("url") or d.get("doc_key") or "") for d in catalog_docs}
+    added = fail = 0
+    for rec in records:
+        mapped = map_agu_catalog_row(rec)
+        key = normalize_norma_url(mapped["doc_key"])
+        if key in known:
+            continue
+        row = {
+            "source": PLANALTO_SOURCE,
+            "url": mapped["url"],
+            "doc_key": mapped["doc_key"],
+        }
+        text = fetch_body(client, row)
+        if not text:
+            fail += 1
+            continue
+        catalog_docs.append(mapped)
+        bodies[mapped["doc_key"]] = text
+        bodies[mapped["url"]] = text
+        ext = mapped.get("external_id")
+        if ext:
+            bodies[ext] = text
+        known.add(key)
+        added += 1
+    return added, fail
+
+
 def main() -> int:
     sb_url, sb_key = read_config()
     headers = {
@@ -143,6 +260,13 @@ def main() -> int:
                 ok += 1
                 if ok % 25 == 0:
                     print(f"    {ok} textos…", flush=True)
+
+        if AGU_DIR.is_dir():
+            print("[…] legislação AGU (coleta recente)")
+            agu_ok, agu_fail = merge_agu_legislacao(client, catalog_docs, bodies)
+            ok += agu_ok
+            fail += agu_fail
+            print(f"    +{agu_ok} documento(s) AGU ({agu_fail} sem texto)")
 
     OUT_CATALOG.parent.mkdir(parents=True, exist_ok=True)
     OUT_CATALOG.write_text(

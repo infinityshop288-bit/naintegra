@@ -71,6 +71,7 @@
     questionsPage: 1,
     questionsPageSize: 50,
     decksLoading: false,
+    decksHydrating: false,
     flashManageEdit: null,
     documentsEnriching: false,
     qAnswers: {},
@@ -770,7 +771,10 @@
     const nLeg = byType("legislacao").length;
     const nJur = byType("jurisprudencia").length;
     const nQ = questionsTotal();
-    const nFlash = state.decks.reduce((sum, d) => sum + (d.cards?.length || 0), 0);
+    const nFlash = state.decks.reduce(
+      (sum, d) => sum + (window.LexData?.deckCardCount?.(d) ?? d.cards?.length ?? 0),
+      0
+    );
 
     const authAside = showAuthPanel
       ? `<aside class="landing-auth-aside"><div id="landing-auth-root"></div></aside>`
@@ -836,7 +840,7 @@
             <article class="deck-card ${d.custom ? "deck-card-custom" : ""}" data-deck="${esc(d.slug)}" data-search-text="${esc(searchText)}">
               <span class="tag">${esc(d.category)}${d.custom ? " · Meu" : ""}</span>
               <h3>${esc(d.name)}</h3>
-              <p>${(d.cards || []).length} cards · <strong>${due} vencem hoje</strong></p>
+              <p>${window.LexData?.deckCardCount?.(d) ?? (d.cards || []).length} cards · <strong>${due} vencem hoje</strong></p>
               ${manage}
             </article>`;
     };
@@ -1077,7 +1081,7 @@
       }
       return `<div class="empty">Deck não encontrado.</div>`;
     }
-    if (!deck.cards?.length && state.decksLoading) {
+    if (!deck.cards?.length && (state.decksLoading || state.decksHydrating)) {
       return `<div class="page-head"><h1>${esc(deck.name)}</h1><p>Carregando cards…</p></div><div class="empty">Aguarde um instante.</div>`;
     }
     const s = state.flashSession || { idx: 0, flipped: false, stats: { err: 0, mid: 0, ok: 0 } };
@@ -2249,6 +2253,22 @@
 
   function bindFlashSession(slug) {
     const deck = state.decks.find((d) => d.slug === slug);
+    if (deck && !deck.cards?.length && window.LexData?.ensureFlashcardDeckHydrated) {
+      state.decksHydrating = true;
+      render();
+      window.LexData.ensureFlashcardDeckHydrated(slug)
+        .then(() => {
+          state.decksHydrating = false;
+          render();
+          bindFlashSession(slug);
+        })
+        .catch((err) => {
+          console.warn("Lex: deck hydrate", err);
+          state.decksHydrating = false;
+          render();
+        });
+      return;
+    }
     const ensureSession = () => {
       if (!state.flashSession) state.flashSession = { idx: 0, flipped: false, stats: { err: 0, mid: 0, ok: 0 } };
       return state.flashSession;
@@ -2953,6 +2973,7 @@
       });
 
     state.decksLoading = true;
+    state.decksHydrating = false;
     if (window.LexFlashcardsUser) {
       state.decks = window.LexFlashcardsUser.mergeDecks([]);
       refreshSearchIndex();
@@ -2963,11 +2984,30 @@
         state.decks = window.LexFlashcardsUser
           ? window.LexFlashcardsUser.mergeDecks(decks)
           : decks;
+        state.decksLoading = false;
         refreshSearchIndex();
         render();
+        const hydrate = window.LexData.whenFlashcardsHydrated?.();
+        if (hydrate?.then) {
+          state.decksHydrating = true;
+          render();
+          hydrate
+            .then((full) => {
+              if (!full?.length) return;
+              state.decks = window.LexFlashcardsUser
+                ? window.LexFlashcardsUser.mergeDecks(full)
+                : full;
+              refreshSearchIndex();
+            })
+            .catch((err) => console.warn("Lex: flashcards hydrate", err))
+            .finally(() => {
+              state.decksHydrating = false;
+              render();
+            });
+        }
       })
-      .catch((err) => console.warn("Lex: flashcards", err))
-      .finally(() => {
+      .catch((err) => {
+        console.warn("Lex: flashcards", err);
         state.decksLoading = false;
         render();
       });

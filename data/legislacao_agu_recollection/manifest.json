@@ -1,0 +1,9 @@
+{
+  "last_run_id": "20260528T022032Z",
+  "last_run_at": "2026-05-28T02:20:49.635610+00:00",
+  "backup_root": "/Users/luizcarlos/Documents/GitHub/naintegra/data/legislacao_agu_recollection",
+  "last_jsonl": "/Users/luizcarlos/Documents/GitHub/naintegra/data/legislacao_agu_recollection/runs/20260528T022032Z/legislacao_agu_recollection.jsonl",
+  "last_report": "/Users/luizcarlos/Documents/GitHub/naintegra/data/legislacao_agu_recollection/runs/20260528T022032Z/report.json",
+  "fetched_ok": 26,
+  "failed": 0
+}

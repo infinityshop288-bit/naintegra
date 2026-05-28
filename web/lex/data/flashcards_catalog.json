@@ -1,0 +1,103 @@
+{
+  "generated_at": "2026-05-28T01:53:47.829283+00:00",
+  "deck_count": 16,
+  "card_count": 29218,
+  "decks": [
+    {
+      "slug": "dir-const",
+      "name": "Direito Constitucional",
+      "category": "Direito Público",
+      "card_count": 3467
+    },
+    {
+      "slug": "dir-proc-civil",
+      "name": "Direito Processual Civil",
+      "category": "Processo",
+      "card_count": 1977
+    },
+    {
+      "slug": "dir-proc-penal",
+      "name": "Direito Processual Penal",
+      "category": "Processo",
+      "card_count": 769
+    },
+    {
+      "slug": "dir-adm",
+      "name": "Direito Administrativo",
+      "category": "Direito Público",
+      "card_count": 3700
+    },
+    {
+      "slug": "dir-penal-geral",
+      "name": "Direito Penal - Parte Geral",
+      "category": "Direito Público",
+      "card_count": 3359
+    },
+    {
+      "slug": "dir-civil-obrig",
+      "name": "Direito Civil - Obrigações e Contratos",
+      "category": "Direito Privado",
+      "card_count": 2154
+    },
+    {
+      "slug": "dir-eleitoral",
+      "name": "Direito Eleitoral",
+      "category": "Direito Público",
+      "card_count": 932
+    },
+    {
+      "slug": "jurisprudencia",
+      "name": "Jurisprudência",
+      "category": "Jurisprudência",
+      "card_count": 9827
+    },
+    {
+      "slug": "dir-civil-geral",
+      "name": "Direito Civil - Parte Geral",
+      "category": "Direito Privado",
+      "card_count": 1126
+    },
+    {
+      "slug": "dir-penal-especial",
+      "name": "Direito Penal - Parte Especial",
+      "category": "Direito Público",
+      "card_count": 396
+    },
+    {
+      "slug": "dir-financeiro",
+      "name": "Direito Financeiro",
+      "category": "Direito Público",
+      "card_count": 385
+    },
+    {
+      "slug": "tutela-coletiva",
+      "name": "Tutela Coletiva e Direito Processual Coletivo",
+      "category": "Processo",
+      "card_count": 307
+    },
+    {
+      "slug": "lei-improbidade",
+      "name": "Lei de Improbidade Administrativa",
+      "category": "Direito Público",
+      "card_count": 298
+    },
+    {
+      "slug": "dir-economico",
+      "name": "Direito Econômico",
+      "category": "Direito Público",
+      "card_count": 188
+    },
+    {
+      "slug": "dir-previdenciario",
+      "name": "Direito Previdenciário",
+      "category": "Direito Privado",
+      "card_count": 271
+    },
+    {
+      "slug": "licitacoes-lei-14133",
+      "name": "Licitações — Lei 14.133/2021",
+      "category": "Direito Administrativo",
+      "card_count": 62
+    }
+  ]
+}

@@ -1,0 +1,1356 @@
+{
+  "summary": {
+    "total": 90,
+    "ok": 90,
+    "failed": 0,
+    "skipped_encoding": 26,
+    "encoding_only_fail": 0,
+    "issues_by_code": {
+      "ENCODING_CORRUPT": 26
+    }
+  },
+  "reports": [
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:2019-09-20;10024",
+      "title": "Decreto 10024",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 10.024",
+        "url": "Decreto nº 10.024",
+        "tag": "Decreto nº 10.024"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1942-10-07;10592",
+      "title": "Decreto 10592",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 10.592",
+        "url": "Decreto nº 10.592",
+        "tag": "Decreto nº 10.592"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1914-07-24;11016",
+      "title": "Decreto 11016",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 11.016",
+        "url": "Decreto nº 11.016",
+        "tag": "Decreto nº 11.016"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1942-12-24;11129",
+      "title": "Decreto 11129",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 11.129",
+        "url": "Decreto nº 11.129",
+        "tag": "Decreto nº 11.129"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/d1171.htm",
+      "title": "Decreto 1171",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Decreto nº 1.171",
+        "url": "Decreto nº 1.171",
+        "tag": "Decreto nº 1.171"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/d2799.htm",
+      "title": "Decreto 2799",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Decreto nº 2.799",
+        "url": "Decreto nº 2.799",
+        "tag": "Decreto nº 2.799"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/d3048.htm",
+      "title": "Decreto 3048",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Decreto nº 3.048",
+        "url": "Decreto nº 3.048",
+        "tag": "Decreto nº 3.048"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/d3298.htm",
+      "title": "Decreto 3298",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Decreto nº 3.298",
+        "url": "Decreto nº 3.298",
+        "tag": "Decreto nº 3.298"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/d3555.htm",
+      "title": "Decreto 3555",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Decreto nº 3.555",
+        "url": "Decreto nº 3.555",
+        "tag": "Decreto nº 3.555"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:2003-03-28;4657",
+      "title": "Decreto 4657",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 4.657",
+        "url": "Decreto nº 4.657",
+        "tag": "Decreto nº 4.657"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:2003-11-20;4887",
+      "title": "Decreto 4887",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 4.887",
+        "url": "Decreto nº 4.887",
+        "tag": "Decreto nº 4.887"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:2004-12-02;5296",
+      "title": "Decreto 5296",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 5.296",
+        "url": "Decreto nº 5.296",
+        "tag": "Decreto nº 5.296"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1940-07-26;6029",
+      "title": "Decreto 6029",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 6.029",
+        "url": "Decreto nº 6.029",
+        "tag": "Decreto nº 6.029"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1906-10-13;6170",
+      "title": "Decreto 6170",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 6.170",
+        "url": "Decreto nº 6.170",
+        "tag": "Decreto nº 6.170"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1940-11-09;6514",
+      "title": "Decreto 6514",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 6.514",
+        "url": "Decreto nº 6.514",
+        "tag": "Decreto nº 6.514"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1940-12-11;6593",
+      "title": "Decreto 6593",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 6.593",
+        "url": "Decreto nº 6.593",
+        "tag": "Decreto nº 6.593"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1941-03-12;6949",
+      "title": "Decreto 6949",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 6.949",
+        "url": "Decreto nº 6.949",
+        "tag": "Decreto nº 6.949"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1941-07-23;7581",
+      "title": "Decreto 7581",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 7.581",
+        "url": "Decreto nº 7.581",
+        "tag": "Decreto nº 7.581"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1909-12-09;7724",
+      "title": "Decreto 7724",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 7.724",
+        "url": "Decreto nº 7.724",
+        "tag": "Decreto nº 7.724"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1910-05-05;7983",
+      "title": "Decreto 7983",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 7.983",
+        "url": "Decreto nº 7.983",
+        "tag": "Decreto nº 7.983"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1979-09-06;83936",
+      "title": "Decreto 83936",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 83.936",
+        "url": "Decreto nº 83.936",
+        "tag": "Decreto nº 83.936"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:2015-03-31;8424",
+      "title": "Decreto 8424",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 8.424",
+        "url": "Decreto nº 8.424",
+        "tag": "Decreto nº 8.424"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:2016-12-27;8945",
+      "title": "Decreto 8945",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 8.945",
+        "url": "Decreto nº 8.945",
+        "tag": "Decreto nº 8.945"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1942-04-28;9311",
+      "title": "Decreto 9311",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 9.311",
+        "url": "Decreto nº 9.311",
+        "tag": "Decreto nº 9.311"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1885-10-17;9507",
+      "title": "Decreto 9507",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 9.507",
+        "url": "Decreto nº 9.507",
+        "tag": "Decreto nº 9.507"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:1885-10-17;9508",
+      "title": "Decreto 9508",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 9.508",
+        "url": "Decreto nº 9.508",
+        "tag": "Decreto nº 9.508"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:decreto:2018-11-21;9571",
+      "title": "Decreto 9571",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Decreto nº 9.571",
+        "url": "Decreto nº 9.571",
+        "tag": "Decreto nº 9.571"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l10035.htm",
+      "title": "Lei 10035",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 10.035",
+        "url": "Lei nº 10.035",
+        "tag": "Lei nº 10.035"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l10150.htm",
+      "title": "Lei 10150",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 10.150",
+        "url": "Lei nº 10.150",
+        "tag": "Lei nº 10.150"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2002-06-11;10467",
+      "title": "Lei 10467",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 10.467",
+        "url": "Lei nº 10.467",
+        "tag": "Lei nº 10.467"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2002-07-02;10480",
+      "title": "Lei 10480",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 10.480",
+        "url": "Lei nº 10.480",
+        "tag": "Lei nº 10.480"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2002-07-17;10520",
+      "title": "Lei 10520",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 10.520",
+        "url": "Lei nº 10.520",
+        "tag": "Lei nº 10.520"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2002-07-19;10522",
+      "title": "Lei 10522",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 10.522",
+        "url": "Lei nº 10.522",
+        "tag": "Lei nº 10.522"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2003-07-09;10701",
+      "title": "Lei 10701",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 10.701",
+        "url": "Lei nº 10.701",
+        "tag": "Lei nº 10.701"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2003-11-25;10779",
+      "title": "Lei 10779",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 10.779",
+        "url": "Lei nº 10.779",
+        "tag": "Lei nº 10.779"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2004-12-02;10973",
+      "title": "Lei 10973",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 10.973",
+        "url": "Lei nº 10.973",
+        "tag": "Lei nº 10.973"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2006-12-19;11418",
+      "title": "Lei 11418",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 11.418",
+        "url": "Lei nº 11.418",
+        "tag": "Lei nº 11.418"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2007-08-28;11516",
+      "title": "Lei 11516",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 11.516",
+        "url": "Lei nº 11.516",
+        "tag": "Lei nº 11.516"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2008-05-08;11672",
+      "title": "Lei 11672",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 11.672",
+        "url": "Lei nº 11.672",
+        "tag": "Lei nº 11.672"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2008-06-09;11689",
+      "title": "Lei 11689",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 11.689",
+        "url": "Lei nº 11.689",
+        "tag": "Lei nº 11.689"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2009-06-25;11952",
+      "title": "Lei 11952",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 11.952",
+        "url": "Lei nº 11.952",
+        "tag": "Lei nº 11.952"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2010-12-30;12376",
+      "title": "Lei 12376",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 12.376",
+        "url": "Lei nº 12.376",
+        "tag": "Lei nº 12.376"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2011-08-04;12462",
+      "title": "Lei 12462",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 12.462",
+        "url": "Lei nº 12.462",
+        "tag": "Lei nº 12.462"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2012-04-30;12618",
+      "title": "Lei 12618",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 12.618",
+        "url": "Lei nº 12.618",
+        "tag": "Lei nº 12.618"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2012-12-27;12764",
+      "title": "Lei 12764",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 12.764",
+        "url": "Lei nº 12.764",
+        "tag": "Lei nº 12.764"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2013-01-11;12783",
+      "title": "Lei 12783",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 12.783",
+        "url": "Lei nº 12.783",
+        "tag": "Lei nº 12.783"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2013-06-05;12815",
+      "title": "Lei 12815",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 12.815",
+        "url": "Lei nº 12.815",
+        "tag": "Lei nº 12.815"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2014-06-09;12990",
+      "title": "Lei 12990",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 12.990",
+        "url": "Lei nº 12.990",
+        "tag": "Lei nº 12.990"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2015-05-26;13129",
+      "title": "Lei 13129",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 13.129",
+        "url": "Lei nº 13.129",
+        "tag": "Lei nº 13.129"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2015-10-22;13178",
+      "title": "Lei 13178",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 13.178",
+        "url": "Lei nº 13.178",
+        "tag": "Lei nº 13.178"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2016-01-11;13243",
+      "title": "Lei 13243",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 13.243",
+        "url": "Lei nº 13.243",
+        "tag": "Lei nº 13.243"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2016-07-29;13327",
+      "title": "Lei 13327",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 13.327",
+        "url": "Lei nº 13.327",
+        "tag": "Lei nº 13.327"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2017-06-05;13448",
+      "title": "Lei 13448",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 13.448",
+        "url": "Lei nº 13.448",
+        "tag": "Lei nº 13.448"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2017-07-13;13467",
+      "title": "Lei 13467",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 13.467",
+        "url": "Lei nº 13.467",
+        "tag": "Lei nº 13.467"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2018-04-30;13656",
+      "title": "Lei 13656",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 13.656",
+        "url": "Lei nº 13.656",
+        "tag": "Lei nº 13.656"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2019-06-25;13848",
+      "title": "Lei 13848",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 13.848",
+        "url": "Lei nº 13.848",
+        "tag": "Lei nº 13.848"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2019-09-17;13872",
+      "title": "Lei 13872",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 13.872",
+        "url": "Lei nº 13.872",
+        "tag": "Lei nº 13.872"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2019-12-24;13964",
+      "title": "Lei 13964",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 13.964",
+        "url": "Lei nº 13.964",
+        "tag": "Lei nº 13.964"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2020-04-14;13988",
+      "title": "Lei 13988",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 13.988",
+        "url": "Lei nº 13.988",
+        "tag": "Lei nº 13.988"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2021-03-22;14126",
+      "title": "Lei 14126",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 14.126",
+        "url": "Lei nº 14.126",
+        "tag": "Lei nº 14.126"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2021-10-25;14230",
+      "title": "Lei 14230",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 14.230",
+        "url": "Lei nº 14.230",
+        "tag": "Lei nº 14.230"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2022-08-03;14430",
+      "title": "Lei 14430",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 14.430",
+        "url": "Lei nº 14.430",
+        "tag": "Lei nº 14.430"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:2022-08-15;14437",
+      "title": "Lei 14437",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 14.437",
+        "url": "Lei nº 14.437",
+        "tag": "Lei nº 14.437"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1947-11-22;147",
+      "title": "Lei 147",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 147",
+        "url": "Lei nº 147",
+        "tag": "Lei nº 147"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1957-12-26;3365",
+      "title": "Lei 3365",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 3.365",
+        "url": "Lei nº 3.365",
+        "tag": "Lei nº 3.365"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l4320.htm",
+      "title": "Lei 4320",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 4.320",
+        "url": "Lei nº 4.320",
+        "tag": "Lei nº 4.320"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1965-06-02;4657",
+      "title": "Lei 4657",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 4.657",
+        "url": "Lei nº 4.657",
+        "tag": "Lei nº 4.657"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l6969.htm",
+      "title": "Lei 6969",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 6.969",
+        "url": "Lei nº 6.969",
+        "tag": "Lei nº 6.969"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1947-08-21;73",
+      "title": "Lei 73",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 73",
+        "url": "Lei nº 73",
+        "tag": "Lei nº 73"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8397.htm",
+      "title": "Lei 8397",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 8.397",
+        "url": "Lei nº 8.397",
+        "tag": "Lei nº 8.397"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8437.htm",
+      "title": "Lei 8437",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 8.437",
+        "url": "Lei nº 8.437",
+        "tag": "Lei nº 8.437"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:lei:1993-06-21;8666",
+      "title": "Lei 8666",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Lei nº 8.666",
+        "url": "Lei nº 8.666",
+        "tag": "Lei nº 8.666"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8742.htm",
+      "title": "Lei 8742",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 8.742",
+        "url": "Lei nº 8.742",
+        "tag": "Lei nº 8.742"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8884.htm",
+      "title": "Lei 8884",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 8.884",
+        "url": "Lei nº 8.884",
+        "tag": "Lei nº 8.884"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9249.htm",
+      "title": "Lei 9249",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 9.249",
+        "url": "Lei nº 9.249",
+        "tag": "Lei nº 9.249"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9394.htm",
+      "title": "Lei 9394",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 9.394",
+        "url": "Lei nº 9.394",
+        "tag": "Lei nº 9.394"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9492.htm",
+      "title": "Lei 9492",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 9.492",
+        "url": "Lei nº 9.492",
+        "tag": "Lei nº 9.492"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9703.htm",
+      "title": "Lei 9703",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 9.703",
+        "url": "Lei nº 9.703",
+        "tag": "Lei nº 9.703"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9985.htm",
+      "title": "Lei 9985",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 9.985",
+        "url": "Lei nº 9.985",
+        "tag": "Lei nº 9.985"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9986.htm",
+      "title": "Lei 9986",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei nº 9.986",
+        "url": "Lei nº 9.986",
+        "tag": "Lei nº 9.986"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp108.htm",
+      "title": "Lei Complementar 108",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei Complementar nº 108",
+        "tag": "Lei Complementar nº 108"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp109.htm",
+      "title": "Lei Complementar 109",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei Complementar nº 109",
+        "tag": "Lei Complementar nº 109"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp118.htm",
+      "title": "Lei Complementar 118",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei Complementar nº 118",
+        "tag": "Lei Complementar nº 118"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp156.htm",
+      "title": "Lei Complementar 156",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei Complementar nº 156",
+        "tag": "Lei Complementar nº 156"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp159.htm",
+      "title": "Lei Complementar 159",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei Complementar nº 159",
+        "tag": "Lei Complementar nº 159"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp178.htm",
+      "title": "Lei Complementar 178",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei Complementar nº 178",
+        "tag": "Lei Complementar nº 178"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp73.htm",
+      "title": "Lei Complementar 73",
+      "ok": true,
+      "skipped": true,
+      "skip_reason": "encoding_corrupt",
+      "identities": {
+        "title": "Lei Complementar nº 73",
+        "tag": "Lei Complementar nº 73"
+      },
+      "issues": [
+        {
+          "code": "ENCODING_CORRUPT",
+          "severity": "warn",
+          "message": "Texto com caractere de substituição (U+FFFD); verificação texto/ementa limitada.",
+          "field": "content"
+        }
+      ]
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:medida.provisoria:2001-08-23;2170-36",
+      "title": "Medida Provisória 2170-36",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Medida Provisória nº 21.70-36",
+        "url": "Medida Provisória nº 21.70-36"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:medida.provisoria:2001-08-24;2180-35",
+      "title": "Medida Provisória 2180-35",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Medida Provisória nº 21.80-35",
+        "url": "Medida Provisória nº 21.80-35"
+      },
+      "issues": []
+    },
+    {
+      "url": "https://www.lexml.gov.br/urn/urn:lex:br:federal:medida.provisoria:2001-09-06;2229-43",
+      "title": "Medida Provisória 2229-43",
+      "ok": true,
+      "skipped": false,
+      "skip_reason": null,
+      "identities": {
+        "title": "Medida Provisória nº 22.29-43",
+        "url": "Medida Provisória nº 22.29-43"
+      },
+      "issues": []
+    }
+  ]
+}

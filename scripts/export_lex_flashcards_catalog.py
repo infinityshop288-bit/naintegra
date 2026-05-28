@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Exporta lex.flashcard_decks + lex.flashcards → web/lex/data/flashcards.json."""
+"""Exporta lex.flashcard_decks + lex.flashcards → web/lex/data/flashcards*.json."""
 
 from __future__ import annotations
 
@@ -13,6 +13,8 @@ import httpx
 
 REPO = Path(__file__).resolve().parent.parent
 OUT = REPO / "web" / "lex" / "data" / "flashcards.json"
+OUT_CATALOG = REPO / "web" / "lex" / "data" / "flashcards_catalog.json"
+OUT_DECKS_DIR = REPO / "web" / "lex" / "data" / "flashcards" / "decks"
 
 
 def _cfg() -> tuple[str, str]:
@@ -67,37 +69,77 @@ def main() -> int:
     for c in cards:
         by_deck.setdefault(c["deck_id"], []).append(c)
 
+    generated = datetime.now(timezone.utc).isoformat()
     payload_decks = []
+    catalog_decks = []
     total_cards = 0
+    OUT_DECKS_DIR.mkdir(parents=True, exist_ok=True)
+
     for d in decks:
         deck_cards = sorted(by_deck.get(d["id"], []), key=lambda x: x.get("sort_order") or 0)
-        total_cards += len(deck_cards)
-        payload_decks.append(
+        mapped_cards = [
             {
-                "slug": d["slug"],
+                "front": c["front"],
+                "back": c["back"],
+                "highlight": c.get("highlight"),
+            }
+            for c in deck_cards
+        ]
+        total_cards += len(mapped_cards)
+        slug = d["slug"]
+        deck_payload = {
+            "slug": slug,
+            "name": d["name"],
+            "category": d["category"],
+            "cards": mapped_cards,
+        }
+        payload_decks.append(deck_payload)
+        catalog_decks.append(
+            {
+                "slug": slug,
                 "name": d["name"],
                 "category": d["category"],
-                "cards": [
-                    {
-                        "front": c["front"],
-                        "back": c["back"],
-                        "highlight": c.get("highlight"),
-                    }
-                    for c in deck_cards
-                ],
+                "card_count": len(mapped_cards),
             }
+        )
+        (OUT_DECKS_DIR / f"{slug}.json").write_text(
+            json.dumps(
+                {
+                    "generated_at": generated,
+                    "slug": slug,
+                    "name": d["name"],
+                    "category": d["category"],
+                    "card_count": len(mapped_cards),
+                    "cards": mapped_cards,
+                },
+                ensure_ascii=False,
+                indent=2,
+            ),
+            encoding="utf-8",
         )
 
     payload = {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
+        "generated_at": generated,
         "deck_count": len(payload_decks),
         "card_count": total_cards,
         "decks": payload_decks,
     }
     OUT.write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
-    # Valida escrita (evita deploy de JSON truncado).
     json.loads(OUT.read_text(encoding="utf-8"))
-    print(f"Exportados {total_cards} cards em {len(payload_decks)} decks → {OUT}")
+
+    catalog = {
+        "generated_at": generated,
+        "deck_count": len(catalog_decks),
+        "card_count": total_cards,
+        "decks": catalog_decks,
+    }
+    OUT_CATALOG.write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding="utf-8")
+    json.loads(OUT_CATALOG.read_text(encoding="utf-8"))
+
+    print(
+        f"Exportados {total_cards} cards em {len(payload_decks)} decks → {OUT.name}, "
+        f"{OUT_CATALOG.name} e {OUT_DECKS_DIR}/"
+    )
     return 0
 
 

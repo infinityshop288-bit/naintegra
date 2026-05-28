@@ -25,3 +25,6 @@ if [ -f .env ]; then set -a; . ./.env; set +a; fi
 export PYTHONPATH="${ROOT}/src${PYTHONPATH:+:$PYTHONPATH}"
 export AGU_LEGIS_INPUT_DIR="$DEST"
 python3 "$ROOT/scripts/ingest_agu_legislacao_from_scraper.py" "$@"
+
+echo "==> Verificando correspondência título × URL × texto"
+python3 "$ROOT/scripts/verify_legislacao_correspondence.py" --json-out "$ROOT/data/reports/legislacao_correspondence.json"
