@@ -2147,7 +2147,7 @@
         return;
       }
       const s = document.createElement("script");
-      s.src = `${lexJsBase()}/js/study-plans.js?v=3`;
+      s.src = `${lexJsBase()}/js/study-plans.js?v=5`;
       s.dataset.lexStudyPlans = "1";
       s.onload = () => done(!!window.LexStudyPlans);
       s.onerror = () => done(false);
