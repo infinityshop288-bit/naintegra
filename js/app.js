@@ -57,6 +57,31 @@
     "Legislação Especial",
   ];
 
+  /** Disciplinas básicas do acervo NaIntegra Cursos (questões_banco). */
+  const DOUTRINA_DISCIPLINAS = [
+    {
+      slug: "portugues",
+      label: "Português",
+      abbr: "PT",
+      desc: "Gramática, concordância e interpretação de textos.",
+      materias: ["Português", "Língua Portuguesa"],
+    },
+    {
+      slug: "raciocinio-logico",
+      label: "Raciocínio Lógico",
+      abbr: "RL",
+      desc: "Proposições, conjuntos e argumentação.",
+      materias: ["Raciocínio Lógico"],
+    },
+    {
+      slug: "informatica",
+      label: "Informática",
+      abbr: "IF",
+      desc: "Sistemas operacionais, redes e segurança da informação.",
+      materias: ["Informática"],
+    },
+  ];
+
   let state = {
     documents: [],
     decks: [],
@@ -70,10 +95,17 @@
     questionsCount: null,
     questionsPage: 1,
     questionsPageSize: 50,
+    doutrinaPage: 1,
+    doutrinaPageSize: 50,
+    doutrinaFilter: { banca: "all", assunto: "all", result: "all" },
     decksLoading: false,
     decksHydrating: false,
     flashManageEdit: null,
     documentsEnriching: false,
+    studyPlanCareer: null,
+    studyPlanUf: null,
+    studyPlanExpandedDay: null,
+    studyPlansModuleLoading: false,
     qAnswers: {},
     qStatsPeriod: "7d",
     questaoPageIds: [],
@@ -417,7 +449,17 @@
     document.body.classList.toggle("lex-public-mode", publicLanding);
   }
 
+  function isLocalPreview() {
+    const h = location.hostname;
+    return h === "localhost" || h === "127.0.0.1" || h === "[::1]";
+  }
+
   async function ensureSubscriptionGate() {
+    if (isLocalPreview() || new URLSearchParams(location.search).get("promo") === "1") {
+      state.subscriptionChecked = true;
+      state.subscriptionActive = true;
+      return true;
+    }
     if (!window.LexSubscription) {
       state.subscriptionChecked = true;
       state.subscriptionActive = true;
@@ -763,6 +805,16 @@
           <span class="tile-abbr" aria-hidden="true">QT</span>
           <h2>Questões</h2>
           <p>${nQ} questões · filtros por banca</p>
+        </button>
+        <button class="tile" data-go="doutrina">
+          <span class="tile-abbr" aria-hidden="true">DO</span>
+          <h2>Doutrina</h2>
+          <p>Português, lógica e informática</p>
+        </button>
+        <button class="tile" data-go="plano-estudos">
+          <span class="tile-abbr" aria-hidden="true">PE</span>
+          <h2>Plano de estudos</h2>
+          <p>Trilha por carreira · lei e juris</p>
         </button>
       </div>`;
   }
@@ -1612,12 +1664,13 @@
     return true;
   }
 
-  function qStatsForPeriod(periodId) {
+  function qStatsForPeriod(periodId, qidSet) {
     const period = Q_STATS_PERIODS.find((p) => p.id === periodId) || Q_STATS_PERIODS[1];
     const now = Date.now();
     let total = 0;
     let ok = 0;
-    for (const qa of Object.values(state.qAnswers)) {
+    for (const [qid, qa] of Object.entries(state.qAnswers)) {
+      if (qidSet && !qidSet.has(qid)) continue;
       if (qa?.correct == null || !qa.revealedAt) continue;
       if (period.ms != null && now - qa.revealedAt > period.ms) continue;
       total++;
@@ -1625,6 +1678,170 @@
     }
     const pct = total ? Math.round((ok / total) * 100) : null;
     return { ...period, total, ok, err: total - ok, pct };
+  }
+
+  function findDoutrinaDisciplina(slug) {
+    return DOUTRINA_DISCIPLINAS.find((d) => d.slug === slug) || null;
+  }
+
+  function doutrinaMateriaMatch(disc, materia) {
+    const m = String(materia || "").trim();
+    return disc.materias.some((label) => label === m);
+  }
+
+  function doutrinaQuestionsFor(disc) {
+    const all = [...byType("questoes_objetivas"), ...byType("questoes_subjetivas")];
+    return all.filter((d) => doutrinaMateriaMatch(disc, org(d).materia));
+  }
+
+  function doutrinaFilterState() {
+    if (!state.doutrinaFilter) state.doutrinaFilter = { banca: "all", assunto: "all", result: "all" };
+    return state.doutrinaFilter;
+  }
+
+  function doutrinaAssuntoLabel(d) {
+    const a = (d.meta || {}).assunto;
+    return (a && String(a).trim()) || "Geral";
+  }
+
+  function renderDoutrina() {
+    if (state.questionsLoading) {
+      return `
+        <div class="page-head"><h1>Doutrina</h1><p>Carregando acervo do NaIntegra Cursos…</p></div>
+        <div class="loading">Aguarde…</div>`;
+    }
+
+    const cards = DOUTRINA_DISCIPLINAS.map((disc) => {
+      const items = doutrinaQuestionsFor(disc);
+      const assuntos = new Map();
+      items.forEach((d) => {
+        const label = doutrinaAssuntoLabel(d);
+        assuntos.set(label, (assuntos.get(label) || 0) + 1);
+      });
+      const topAssuntos = [...assuntos.entries()]
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 3)
+        .map(([name, n]) => `${name} (${n})`)
+        .join(" · ");
+      return `
+        <a class="doutrina-disc-card" href="#/doutrina/${encodeURIComponent(disc.slug)}">
+          <span class="doutrina-disc-abbr" aria-hidden="true">${esc(disc.abbr)}</span>
+          <h2>${esc(disc.label)}</h2>
+          <p class="doutrina-disc-desc">${esc(disc.desc)}</p>
+          <p class="doutrina-disc-meta">${items.length} questões${topAssuntos ? ` · ${esc(topAssuntos)}` : ""}</p>
+        </a>`;
+    }).join("");
+
+    const total = DOUTRINA_DISCIPLINAS.reduce((n, disc) => n + doutrinaQuestionsFor(disc).length, 0);
+
+    return `
+      <div class="page-head doutrina-page">
+        <h1>Doutrina</h1>
+        <p>Português, Raciocínio Lógico e Informática — questões do repositório <strong>NaIntegra Cursos</strong> (${total.toLocaleString("pt-BR")} no acervo).</p>
+      </div>
+      <div class="doutrina-disc-grid">${cards}</div>
+      <p class="doutrina-source-note">Material importado de provas anteriores (CESPE, FCC, FGV e outras bancas). Para o banco completo por carreira, use <a href="#/questoes">Questões</a>.</p>`;
+  }
+
+  function renderDoutrinaDisciplina(disc) {
+    const all = doutrinaQuestionsFor(disc);
+    const filter = doutrinaFilterState();
+    const statsPeriod = state.qStatsPeriod || "7d";
+    const qidSet = new Set(all.map((d) => d.external_id));
+    const stats = qStatsForPeriod(statsPeriod, qidSet);
+
+    let filtered = all.filter((d) => {
+      const o = org(d);
+      if (filter.banca !== "all" && o.banca !== filter.banca) return false;
+      if (filter.assunto !== "all" && doutrinaAssuntoLabel(d) !== filter.assunto) return false;
+      if (!questaoMatchesResultFilter(d, filter.result)) return false;
+      return true;
+    });
+
+    const focusQ = state.route.sub;
+    if (focusQ) {
+      const focus = all.find(
+        (d) => d.external_id === focusQ || d.lex_route_id === focusQ || d.doc_key === focusQ
+      );
+      if (focus) {
+        filtered = [focus, ...filtered.filter((d) => d.external_id !== focus.external_id)];
+        state.doutrinaPage = 1;
+      }
+    }
+
+    const bancas = ["all", ...new Set(all.map((d) => org(d).banca).filter(Boolean))].sort((a, b) => {
+      if (a === "all") return -1;
+      if (b === "all") return 1;
+      return a.localeCompare(b, "pt-BR");
+    });
+    const assuntos = ["all", ...new Set(all.map(doutrinaAssuntoLabel))].sort((a, b) => {
+      if (a === "all") return -1;
+      if (b === "all") return 1;
+      return a.localeCompare(b, "pt-BR");
+    });
+
+    const pageSize = state.doutrinaPageSize || 50;
+    const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
+    const page = Math.min(Math.max(1, state.doutrinaPage || 1), totalPages);
+    state.doutrinaPage = page;
+    const pageItems = filtered.slice((page - 1) * pageSize, page * pageSize);
+    state.questaoPageIds = pageItems.map((d) => d.external_id);
+
+    if (!all.length) {
+      return `
+        <div class="page-head"><h1>${esc(disc.label)}</h1><p><a href="#/doutrina">← Doutrina</a></p></div>
+        <div class="empty">Nenhuma questão desta disciplina no acervo ainda.</div>`;
+    }
+
+    return `
+      <div class="page-head doutrina-page">
+        <p class="doutrina-breadcrumb"><a href="#/doutrina">Doutrina</a> / <strong>${esc(disc.label)}</strong></p>
+        <h1>${esc(disc.label)}</h1>
+        <p>${all.length} questões · NaIntegra Cursos</p>
+      </div>
+      <section class="q-stats-panel" aria-label="Desempenho em ${esc(disc.label)}">
+        <h2 class="q-stats-title">Taxa de acerto</h2>
+        <div class="toolbar q-stats-periods">
+          ${Q_STATS_PERIODS.map(
+            (p) =>
+              `<button type="button" class="chip ${statsPeriod === p.id ? "active" : ""}" data-q-stats-period="${esc(p.id)}">${esc(p.label)}</button>`
+          ).join("")}
+        </div>
+        <p class="q-stats-summary">
+          ${
+            stats.total
+              ? `<strong>${stats.pct}%</strong> de acertos (${stats.ok} certas · ${stats.err} erradas · ${stats.total} respondidas)`
+              : `Nenhuma questão respondida${statsPeriod === "all" ? "" : " neste período"}.`
+          }
+        </p>
+      </section>
+      ${sectionSearchBar("doutrina", `Buscar em ${disc.label}…`)}
+      <div class="toolbar q-result-filters">
+        ${Q_RESULT_FILTERS.map(
+          (f) =>
+            `<button type="button" class="chip ${(filter.result || "all") === f.id ? "active" : ""}" data-doutrina-result="${esc(f.id)}">${esc(f.label)}</button>`
+        ).join("")}
+      </div>
+      <div class="toolbar doutrina-assunto-toolbar">
+        ${assuntos.map((a) => {
+          const label = a === "all" ? "Todos assuntos" : a;
+          return `<button type="button" class="chip ${filter.assunto === a ? "active" : ""}" data-doutrina-assunto="${esc(a)}">${esc(label)}</button>`;
+        }).join("")}
+      </div>
+      <div class="toolbar">
+        ${bancas.map((b) => `<button type="button" class="chip ${filter.banca === b ? "active" : ""}" data-doutrina-banca="${esc(b)}">${b === "all" ? "Todas bancas" : esc(b)}</button>`).join("")}
+      </div>
+      <p class="tag" style="margin:0 0 1rem">${filtered.length} no filtro · página ${page} de ${totalPages}</p>
+      <div class="section-list-scope" data-section-scope="doutrina">
+        <div class="card-list">
+          ${pageItems.map((d) => renderQuestaoCard(d)).join("")}
+        </div>
+        <div class="toolbar" style="margin-top:1rem">
+          <button type="button" class="chip" data-doutrina-page="prev" ${page <= 1 ? "disabled" : ""}>← Anterior</button>
+          <button type="button" class="chip" data-doutrina-page="next" ${page >= totalPages ? "disabled" : ""}>Próxima →</button>
+        </div>
+        <div class="empty section-search-empty" data-section-empty hidden>Nenhuma questão para este tema.</div>
+      </div>`;
   }
 
   function qAnswerState(qid) {
@@ -1741,13 +1958,24 @@
     const statsPeriod = state.qStatsPeriod || "7d";
     const stats = qStatsForPeriod(statsPeriod);
 
-    const filtered = all.filter((d) => {
+    let filtered = all.filter((d) => {
       const o = org(d);
       if (filter.banca !== "all" && o.banca !== filter.banca) return false;
       if (filter.disciplina !== "all" && (o.materia || "").toLowerCase() !== filter.disciplina) return false;
       if (!questaoMatchesResultFilter(d, filter.result)) return false;
       return true;
     });
+
+    const focusQ = state.route.sub;
+    if (focusQ) {
+      const focus = all.find(
+        (d) => d.external_id === focusQ || d.lex_route_id === focusQ || d.doc_key === focusQ
+      );
+      if (focus) {
+        filtered = [focus, ...filtered.filter((d) => d.external_id !== focus.external_id)];
+        state.questionsPage = 1;
+      }
+    }
 
     const bancas = ["all", ...new Set(all.map((d) => org(d).banca).filter(Boolean))];
     const pageSize = state.questionsPageSize || 50;
@@ -1818,6 +2046,7 @@
     legislacao: "Lei Seca",
     jurisprudencia: "Jurisprudência",
     questoes: "Questões",
+    doutrina: "Doutrina",
     flashcards: "Flashcards",
   };
 
@@ -1884,6 +2113,384 @@
         });
         const menu = wrap.querySelector(".report-error-menu");
         if (menu) menu.hidden = true;
+      });
+    });
+  }
+
+  function lexJsBase() {
+    const scripts = document.getElementsByTagName("script");
+    for (let i = scripts.length - 1; i >= 0; i--) {
+      const src = scripts[i].src;
+      if (src && /\/js\/app\.js/i.test(src)) {
+        return src.replace(/\/js\/app\.js.*$/i, "");
+      }
+    }
+    const path = location.pathname.replace(/\/[^/]*$/, "");
+    return `${location.origin}${path}`;
+  }
+
+  let studyPlansLoadPromise = null;
+
+  function ensureStudyPlansModule() {
+    if (window.LexStudyPlans) return Promise.resolve(true);
+    if (studyPlansLoadPromise) return studyPlansLoadPromise;
+    studyPlansLoadPromise = new Promise((resolve) => {
+      const done = (ok) => {
+        studyPlansLoadPromise = null;
+        resolve(ok);
+      };
+      const existing = document.querySelector("script[data-lex-study-plans]");
+      if (existing) {
+        if (window.LexStudyPlans) return done(true);
+        existing.addEventListener("load", () => done(!!window.LexStudyPlans));
+        existing.addEventListener("error", () => done(false));
+        return;
+      }
+      const s = document.createElement("script");
+      s.src = `${lexJsBase()}/js/study-plans.js?v=3`;
+      s.dataset.lexStudyPlans = "1";
+      s.onload = () => done(!!window.LexStudyPlans);
+      s.onerror = () => done(false);
+      document.head.appendChild(s);
+    });
+    return studyPlansLoadPromise;
+  }
+
+  function studyPlansApi() {
+    return window.LexStudyPlans;
+  }
+
+  function renderStudyPlanUnavailable() {
+    return `
+      <div class="page-head">
+        <h1>Plano de estudos</h1>
+        <p>Não foi possível carregar o módulo de planos.</p>
+      </div>
+      <div class="empty">
+        <p>Verifique se o arquivo <code>js/study-plans.js</code> está publicado no servidor (recarregue com Ctrl+Shift+R).</p>
+        <button type="button" class="btn primary" id="study-reload-module">Tentar novamente</button>
+      </div>`;
+  }
+
+  function renderStudyPlanWizard() {
+    const SP = studyPlansApi();
+    if (!SP) {
+      if (state.studyPlansModuleLoading) {
+        return `
+          <div class="page-head"><h1>Plano de estudos</h1><p>Carregando módulo…</p></div>
+          <div class="loading">Aguarde um instante.</div>`;
+      }
+      return renderStudyPlanUnavailable();
+    }
+    if (!state.documents.length) {
+      return `
+        <div class="page-head"><h1>Plano de estudos</h1><p>Carregando acervo jurídico…</p></div>
+        <div class="loading">Aguarde um instante.</div>`;
+    }
+    const saved = SP.loadSavedPlan();
+    const careers = SP.CAREERS;
+    const selected = state.studyPlanCareer || saved?.careerId || careers[0]?.id;
+    const ufSelected = state.studyPlanUf || saved?.uf || "geral";
+    const ufProfiles = SP.UF_PROFILES || { geral: { label: "Brasil (edital genérico)", bancas: [] } };
+
+    const careerCards = careers
+      .map(
+        (c) => `
+      <button type="button" class="study-career-card ${c.id === selected ? "selected" : ""}" data-career="${esc(c.id)}">
+        <h3>${esc(c.label)}</h3>
+        <p>${esc(c.description)}</p>
+      </button>`
+      )
+      .join("");
+
+    const career = SP.getCareer(selected);
+    const legisPreview = career ? SP.resolveLegis(state.documents, career) : [];
+    const jurisPreview = career ? SP.resolveJuris(state.documents, career) : [];
+    const decksPreview = career ? SP.resolveFlashcardDecks(state.decks, career) : [];
+    const questoesPreview =
+      career && SP.filterQuestions ? SP.filterQuestions(state.documents, selected, ufSelected) : [];
+    const ufProfile = SP.getUfProfile?.(ufSelected) || ufProfiles[ufSelected] || ufProfiles.geral;
+    const totalArts = legisPreview.reduce((s, l) => s + l.articles, 0);
+
+    const ufOptions = Object.entries(ufProfiles)
+      .map(
+        ([id, p]) =>
+          `<option value="${esc(id)}" ${id === ufSelected ? "selected" : ""}>${esc(p.label)}</option>`
+      )
+      .join("");
+
+    const missingWarn =
+      career && legisPreview.length < career.legis.length
+        ? `<p class="study-plan-warn">Algumas leis do edital típico ainda não constam no acervo (${career.legis.length - legisPreview.length} pendente(s)).</p>`
+        : "";
+
+    const enrichHint = state.documentsEnriching
+      ? `<p class="sync-hint">Carregando súmulas e temas no acervo… a prévia de jurisprudência será atualizada em instantes.</p>`
+      : "";
+
+    const savedBanner = saved
+      ? `<p class="sync-hint">Você já tem um plano ativo (${esc(saved.careerLabel)}, ${saved.totalDays} dias). <a href="#/plano-estudos/trilha">Abrir trilha</a> ou gere um novo abaixo.</p>`
+      : "";
+
+    const cloudHint = window.LexStore?.isLoggedIn?.()
+      ? `<p class="sync-hint">Com sua conta, o plano sincroniza entre dispositivos.</p>`
+      : `<p class="sync-hint">Entre na conta para salvar o plano na nuvem.</p>`;
+
+    return `
+      <div class="study-plan-page">
+        <div class="page-head">
+          <h1>Plano de estudos</h1>
+          <p>Trilha automática com <strong>disciplinas intercaladas</strong> a cada dia — legislação, jurisprudência, questões e flashcards em rodízio.</p>
+        </div>
+        ${savedBanner}
+        ${cloudHint}
+        ${enrichHint}
+        <h2 class="section-title">Objetivo de carreira</h2>
+        <div class="study-career-grid" id="study-career-grid">${careerCards}</div>
+        <div class="study-plan-form" id="study-plan-form">
+          <label for="study-days">Duração do plano (dias)</label>
+          <input type="number" id="study-days" min="14" max="365" value="${career?.defaultDays || 90}" />
+          <label for="study-start">Data de início</label>
+          <input type="date" id="study-start" value="${new Date().toISOString().slice(0, 10)}" />
+          <label for="study-uf">Estado do concurso (edital)</label>
+          <select id="study-uf">${ufOptions}</select>
+          <p class="sync-hint" style="margin-top:-0.5rem">Bancas priorizadas nas questões: ${ufProfile.bancas?.length ? esc(ufProfile.bancas.join(", ")) : "todas do acervo"}</p>
+          <label for="study-questoes-day">Questões por dia</label>
+          <input type="number" id="study-questoes-day" min="0" max="20" value="6" />
+          <div class="study-plan-summary" id="study-plan-preview">
+            <strong>${esc(career?.label || "")}</strong> — ${esc(career?.editalFocus || "")}
+            <ul>
+              <li><strong>${legisPreview.length}</strong> leis no acervo · ~<strong>${totalArts.toLocaleString("pt-BR")}</strong> unidades (artigos/dispositivos)</li>
+              <li><strong>${jurisPreview.length}</strong> itens de jurisprudência (súmulas e temas)</li>
+              <li><strong>${questoesPreview.length}</strong> questões filtradas${state.questionsLoaded ? "" : " (carregando banco…)"}</li>
+              <li><strong>${decksPreview.length}</strong> decks de flashcards · ${decksPreview.reduce((s, d) => s + d.cardCount, 0).toLocaleString("pt-BR")} cards</li>
+            </ul>
+            ${missingWarn}
+          </div>
+          <details class="study-syllabus">
+            <summary>Leis previstas para esta carreira</summary>
+            <ul>${(career?.legis || []).map((l) => `<li>${esc(l.label)}</li>`).join("")}</ul>
+          </details>
+          <button type="button" class="btn primary" id="study-generate-btn">Gerar plano e trilha</button>
+        </div>
+      </div>`;
+  }
+
+  function renderStudyTrail() {
+    const SP = studyPlansApi();
+    if (!SP) return renderStudyPlanUnavailable();
+    const plan = SP?.loadSavedPlan();
+    if (!plan) {
+      return `
+        <div class="page-head">
+          <h1>Trilha de estudos</h1>
+          <p>Nenhum plano gerado ainda.</p>
+        </div>
+        <a class="btn primary" href="#/plano-estudos">Criar plano</a>`;
+    }
+
+    const prog = SP.planProgress(plan);
+    const todayIdx = SP.todayIndex(plan);
+    const t = plan.targets || {};
+
+    const dayHtml = plan.trail
+      .map((day, idx) => {
+        const tasks = [
+          ...(day.legisTasks || []),
+          ...(day.jurisTasks || []),
+          ...(day.flashTasks || []),
+          ...(day.questoesTasks || []),
+        ];
+        const doneSet = new Set(day.completedTasks || []);
+        const dayDone = tasks.length > 0 && tasks.every((tk) => doneSet.has(tk.taskId));
+        const isToday = idx === todayIdx;
+        const expanded = state.studyPlanExpandedDay === idx || (isToday && state.studyPlanExpandedDay == null);
+
+        const legisRows = (day.legisTasks || [])
+          .map((task) => {
+            const done = doneSet.has(task.taskId);
+            const href = docHash("lei-seca", task.docId);
+            const range =
+              task.articleFrom === task.articleTo
+                ? `art. ${task.articleFrom}`
+                : `arts. ${task.articleFrom}–${task.articleTo}`;
+            return `
+            <label class="study-task ${done ? "done" : ""}">
+              <input type="checkbox" data-study-task data-day="${idx}" data-task="${esc(task.taskId)}" ${done ? "checked" : ""} />
+              <span><a href="${href}">${esc(task.title)}</a> — ${range} (${task.articleCount} un.)</span>
+            </label>`;
+          })
+          .join("");
+
+        const jurisRows = (day.jurisTasks || [])
+          .map((task) => {
+            const done = doneSet.has(task.taskId);
+            const href = docHash("jurisprudencia", task.docId);
+            return `
+            <label class="study-task ${done ? "done" : ""}">
+              <input type="checkbox" data-study-task data-day="${idx}" data-task="${esc(task.taskId)}" ${done ? "checked" : ""} />
+              <span><a href="${href}">${esc(task.title)}</a>${task.group ? ` <em>(${esc(task.group)})</em>` : ""}</span>
+            </label>`;
+          })
+          .join("");
+
+        const flashRows = (day.flashTasks || [])
+          .map((task) => {
+            const done = doneSet.has(task.taskId);
+            return `
+            <label class="study-task ${done ? "done" : ""}">
+              <input type="checkbox" data-study-task data-day="${idx}" data-task="${esc(task.taskId)}" ${done ? "checked" : ""} />
+              <span><a href="#/flashcards/${encodeURIComponent(task.slug)}">${esc(task.name)}</a> — ${task.count} cards</span>
+            </label>`;
+          })
+          .join("");
+
+        const questoesRows = (day.questoesTasks || [])
+          .map((task) => {
+            const done = doneSet.has(task.taskId);
+            const href = `#/questoes?q=${encodeURIComponent(task.docId)}`;
+            return `
+            <label class="study-task ${done ? "done" : ""}">
+              <input type="checkbox" data-study-task data-day="${idx}" data-task="${esc(task.taskId)}" ${done ? "checked" : ""} />
+              <span><a href="${href}">${esc(task.title)}</a>${task.questaoTipo ? ` <em>(${esc(task.questaoTipo)})</em>` : ""}</span>
+            </label>`;
+          })
+          .join("");
+
+        return `
+        <article class="study-day ${isToday ? "today" : ""} ${dayDone ? "done" : ""}">
+          <button type="button" class="study-day-head" data-study-day-toggle="${idx}" aria-expanded="${expanded}">
+            <strong>Dia ${day.day}</strong>
+            <span class="study-day-date">${esc(day.date)}</span>
+            <span class="study-day-badge">${day.articlesTarget} art. · ${day.jurisTarget} juris · ${day.questoesTarget || 0} quest. · ${day.flashTarget || 0} cards</span>
+          </button>
+          <div class="study-day-body" ${expanded ? "" : "hidden"}>
+            ${legisRows ? `<div class="study-task-group"><h4>Legislação</h4>${legisRows}</div>` : ""}
+            ${jurisRows ? `<div class="study-task-group"><h4>Jurisprudência</h4>${jurisRows}</div>` : ""}
+            ${questoesRows ? `<div class="study-task-group"><h4>Questões</h4>${questoesRows}</div>` : ""}
+            ${flashRows ? `<div class="study-task-group"><h4>Flashcards</h4>${flashRows}</div>` : ""}
+          </div>
+        </article>`;
+      })
+      .join("");
+
+    return `
+      <div class="study-plan-page">
+        <div class="page-head">
+          <h1>Trilha — ${esc(plan.careerLabel)}</h1>
+          <p>${plan.totalDays} dias · ${esc(plan.ufLabel || "Brasil")} · início ${esc(plan.startDate)} · meta: ~${t.articlesPerDay || "—"} artigos, ${t.jurisPerDay || "—"} juris, ${t.questoesPerDay || 0} questões/dia</p>
+        </div>
+        <div class="study-trail-head">
+          <div class="study-trail-progress">
+            <span>Progresso geral: <strong>${prog.pct}%</strong> (${prog.done}/${prog.total} tarefas)</span>
+            <div class="study-trail-progress-bar"><span style="width:${prog.pct}%"></span></div>
+          </div>
+          <div>
+            <a class="btn sm" href="#/plano-estudos">Novo plano</a>
+            <button type="button" class="btn sm" id="study-clear-plan">Excluir plano</button>
+          </div>
+        </div>
+        <div class="study-trail-meta">
+          <span>${(plan.legisCatalog || []).length} leis</span>
+          <span>${plan.jurisCount || 0} jurisprudências</span>
+          <span>${t.totalQuestoes || 0} questões na trilha</span>
+          <span>~${(t.totalLegisArticles || 0).toLocaleString("pt-BR")} artigos no total</span>
+        </div>
+        <div class="study-day-list">${dayHtml}</div>
+      </div>`;
+  }
+
+  function bindStudyPlanWizard() {
+    const SP = studyPlansApi();
+    if (!SP) return;
+
+    document.querySelectorAll("[data-career]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.studyPlanCareer = btn.getAttribute("data-career");
+        render();
+      });
+    });
+
+    document.getElementById("study-uf")?.addEventListener("change", (e) => {
+      state.studyPlanUf = e.target.value;
+      render();
+    });
+
+    document.getElementById("study-generate-btn")?.addEventListener("click", async () => {
+      const btn = document.getElementById("study-generate-btn");
+      const careerId = state.studyPlanCareer || SP.loadSavedPlan()?.careerId || SP.CAREERS[0]?.id;
+      const days = parseInt(document.getElementById("study-days")?.value, 10);
+      const startDate = document.getElementById("study-start")?.value;
+      const uf = document.getElementById("study-uf")?.value || "geral";
+      const questoesPerDay = parseInt(document.getElementById("study-questoes-day")?.value, 10);
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = "Gerando trilha…";
+      }
+      try {
+        await ensureQuestionsLoaded();
+        let docs = state.documents;
+        if (window.LexData?.enrichDocuments) {
+          docs = await window.LexData.enrichDocuments(docs);
+          state.documents = docs;
+          state.documentsEnriching = false;
+        }
+        const plan = SP.generatePlan({
+          careerId,
+          totalDays: days,
+          startDate,
+          documents: docs,
+          decks: state.decks,
+          uf,
+          questoesPerDay,
+        });
+        SP.savePlan(plan);
+        location.hash = "#/plano-estudos/trilha";
+      } catch (err) {
+        console.error(err);
+        alert("Não foi possível gerar o plano. Tente novamente.");
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = "Gerar plano e trilha";
+        }
+      }
+    });
+  }
+
+  function bindStudyTrail() {
+    const SP = studyPlansApi();
+    if (!SP) return;
+
+    document.getElementById("study-clear-plan")?.addEventListener("click", () => {
+      if (confirm("Excluir o plano de estudos salvo?")) {
+        SP.clearPlan();
+        location.hash = "#/plano-estudos";
+      }
+    });
+
+    document.querySelectorAll("[data-study-day-toggle]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.getAttribute("data-study-day-toggle"), 10);
+        state.studyPlanExpandedDay = state.studyPlanExpandedDay === idx ? null : idx;
+        render();
+      });
+    });
+
+    document.querySelectorAll("[data-study-task]").forEach((input) => {
+      input.addEventListener("change", () => {
+        const plan = SP.loadSavedPlan();
+        if (!plan) return;
+        const dayIndex = parseInt(input.getAttribute("data-day"), 10);
+        const taskId = input.getAttribute("data-task");
+        SP.toggleTask(plan, dayIndex, taskId);
+        const row = input.closest(".study-task");
+        if (row) row.classList.toggle("done", input.checked);
+        const prog = SP.planProgress(plan);
+        const bar = document.querySelector(".study-trail-progress-bar span");
+        const label = document.querySelector(".study-trail-progress strong");
+        if (bar) bar.style.width = `${prog.pct}%`;
+        if (label) label.textContent = `${prog.pct}%`;
       });
     });
   }
@@ -2702,22 +3309,158 @@
     } finally {
       if (token === questaoCommentsFetchToken) {
         state.questaoCommentsLoading = false;
-        if (state.route.path === "questoes") render();
+        if (state.route.path === "questoes" || state.route.path === "doutrina") render();
       }
     }
   }
 
+  function bindDoutrina() {
+    document.querySelectorAll("[data-doutrina-result]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        doutrinaFilterState().result = btn.getAttribute("data-doutrina-result");
+        state.doutrinaPage = 1;
+        render();
+      });
+    });
+    document.querySelectorAll("[data-doutrina-banca]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        doutrinaFilterState().banca = btn.getAttribute("data-doutrina-banca");
+        state.doutrinaPage = 1;
+        render();
+      });
+    });
+    document.querySelectorAll("[data-doutrina-assunto]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        doutrinaFilterState().assunto = btn.getAttribute("data-doutrina-assunto");
+        state.doutrinaPage = 1;
+        render();
+      });
+    });
+    document.querySelectorAll("[data-doutrina-page]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const dir = btn.getAttribute("data-doutrina-page");
+        if (dir === "prev" && state.doutrinaPage > 1) state.doutrinaPage--;
+        if (dir === "next") state.doutrinaPage++;
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+
+    if (state.route.path !== "doutrina" || !state.route.id) return;
+
+    document.querySelectorAll(".q-alt:not([disabled])").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const qid = btn.getAttribute("data-q-id");
+        const key = btn.getAttribute("data-alt-key");
+        const qa = qAnswerState(qid);
+        if (qa.revealed) return;
+        qa.pick = key;
+        render();
+      });
+    });
+    document.querySelectorAll("[data-q-check]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const qid = btn.getAttribute("data-q-check");
+        const qa = qAnswerState(qid);
+        if (!qa.pick || qa.revealed) return;
+        qa.revealed = true;
+        finalizeQAnswer(qid, findQuestion(qid));
+        render();
+        document.querySelector(`[id="gab-${CSS.escape(qid)}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      });
+    });
+    document.querySelectorAll("[data-q-reveal]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const qid = btn.getAttribute("data-q-reveal");
+        const qa = qAnswerState(qid);
+        qa.revealed = true;
+        finalizeQAnswer(qid, findQuestion(qid));
+        render();
+      });
+    });
+
+    document.querySelectorAll(".q-comment-form, .q-comment-edit-form").forEach((form) => {
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const qid = form.getAttribute("data-qid");
+        const body = new FormData(form).get("body");
+        if (!window.LexAuth?.getSession) return;
+        try {
+          const session = await window.LexAuth.getSession();
+          if (!session?.user) {
+            window.LexAuthUI?.open("login");
+            return;
+          }
+          await window.LexQuestaoComentarios.publishComment(qid, body, session);
+          state.questaoCommentEdit = null;
+          render();
+        } catch (err) {
+          console.warn("Lex: publicar comentário", err);
+          alert("Não foi possível publicar o comentário. Tente novamente.");
+        }
+      });
+    });
+
+    document.querySelectorAll(".q-comment-edit").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.questaoCommentEdit = {
+          qid: btn.getAttribute("data-qid"),
+          commentId: btn.getAttribute("data-comment-id"),
+        };
+        render();
+      });
+    });
+
+    document.querySelectorAll(".q-comment-cancel").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.questaoCommentEdit = null;
+        render();
+      });
+    });
+
+    document.querySelectorAll(".q-comment-delete").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        if (!window.confirm("Excluir seu comentário público?")) return;
+        const qid = btn.getAttribute("data-qid");
+        const commentId = btn.getAttribute("data-comment-id");
+        try {
+          const session = await window.LexAuth.getSession();
+          if (!session?.access_token) return;
+          await window.LexQuestaoComentarios.deleteComment(commentId, qid, session);
+          state.questaoCommentEdit = null;
+          render();
+        } catch (err) {
+          console.warn("Lex: excluir comentário", err);
+          alert("Não foi possível excluir o comentário.");
+        }
+      });
+    });
+
+    refreshQuestaoComments(state.questaoPageIds);
+
+    const qId = state.route.sub;
+    if (qId) {
+      const card =
+        document.querySelector(`[data-q="${CSS.escape(qId)}"]`) ||
+        [...document.querySelectorAll("[data-q]")].find((el) => el.getAttribute("data-q") === qId);
+      card?.scrollIntoView({ behavior: "smooth", block: "center" });
+      card?.classList.add("search-highlight");
+    }
+  }
+
   function bindQuestoes() {
+    document.querySelectorAll("[data-q-stats-period]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        state.qStatsPeriod = btn.getAttribute("data-q-stats-period") || "7d";
+        render();
+      });
+    });
+    if (state.route.path === "doutrina") return;
+
     document.querySelectorAll("[data-q-result]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.qFilter = { ...(state.qFilter || {}), result: btn.getAttribute("data-q-result") };
         state.questionsPage = 1;
-        render();
-      });
-    });
-    document.querySelectorAll("[data-q-stats-period]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        state.qStatsPeriod = btn.getAttribute("data-q-stats-period") || "7d";
         render();
       });
     });
@@ -2921,6 +3664,25 @@
     } else if (r.path === "questoes") {
       if (!state.questionsLoaded && !state.questionsLoading) ensureQuestionsLoaded();
       html = renderQuestoes();
+    } else if (r.path === "doutrina") {
+      if (!state.questionsLoaded && !state.questionsLoading) ensureQuestionsLoaded();
+      const disc = r.id ? findDoutrinaDisciplina(r.id) : null;
+      html = disc ? renderDoutrinaDisciplina(disc) : renderDoutrina();
+    } else if (r.path === "plano-estudos") {
+      if (!window.LexStudyPlans && !state.studyPlansModuleLoading) {
+        state.studyPlansModuleLoading = true;
+        setAppHtml(
+          `<div class="page-head"><h1>Plano de estudos</h1><p>Carregando módulo…</p></div><div class="loading">Aguarde…</div>`
+        );
+        ensureStudyPlansModule().then((ok) => {
+          state.studyPlansModuleLoading = false;
+          if (!ok) console.warn("Lex: study-plans.js não carregou");
+          render();
+        });
+        return;
+      }
+      if (!state.questionsLoaded && !state.questionsLoading) ensureQuestionsLoaded();
+      html = r.id === "trilha" ? renderStudyTrail() : renderStudyPlanWizard();
     } else if (r.path === "contato") html = renderContato();
     else if (r.path === "excluir-conta") html = renderExcluirConta();
     else html = renderHome();
@@ -2947,11 +3709,25 @@
     bindLeiSecaList();
     if (r.path !== "jurisprudencia") bindJuris();
     bindQuestoes();
+    bindDoutrina();
     bindContactForm();
     bindReportError();
+    if (r.path === "plano-estudos") {
+      document.getElementById("study-reload-module")?.addEventListener("click", () => {
+        state.studyPlansModuleLoading = true;
+        studyPlansLoadPromise = null;
+        ensureStudyPlansModule().then(() => {
+          state.studyPlansModuleLoading = false;
+          render();
+        });
+      });
+      if (r.id === "trilha") bindStudyTrail();
+      else bindStudyPlanWizard();
+    }
     if (r.path === "flashcards" && !r.id) bindPageSectionSearch("flashcards");
     else if (r.path === "lei-seca" && !r.id) bindPageSectionSearch("lei-seca");
     else if (r.path === "questoes") bindPageSectionSearch("questoes");
+    else if (r.path === "doutrina" && r.id) bindPageSectionSearch("doutrina");
   }
 
   function refreshSearchIndex() {
@@ -3136,5 +3912,5 @@
     render();
   });
 
-  init();
+  ensureStudyPlansModule().finally(() => init());
 })();

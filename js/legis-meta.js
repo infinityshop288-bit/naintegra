@@ -84,7 +84,9 @@
     if (knownMetaCache) return knownMetaCache;
     try {
       const cfg = window.LEX_CONFIG || {};
-      const res = await fetch(cfg.legisKnownMetaFallback || "./data/legis_known_meta.json");
+      const base = cfg.legisKnownMetaFallback || "./data/legis_known_meta.json";
+      const v = cfg.legisKnownMetaVersion || "1";
+      const res = await fetch(`${base}?v=${encodeURIComponent(v)}`, { cache: "no-store" });
       if (!res.ok) return {};
       const data = await res.json();
       knownMetaCache = data.entries || {};
@@ -325,6 +327,21 @@
     { re: /l6404/i, secao: "Legislação Especial", titulo: "Lei 6.404/1976 — Lei das S.A." },
     { re: /l6858/i, secao: "Legislação Especial", titulo: "Lei 6.858/1980 — Pagamento a terceiros" },
     { re: /l8036/i, secao: "Legislação Especial", titulo: "Lei 8.036/1990 — FGTS" },
+    { re: /l5474/i, secao: "Legislação Especial", titulo: "Lei 5.474/1968 — Lei das Duplicatas" },
+    { re: /l5478/i, secao: "Civil e Trabalho", titulo: "Lei 5.478/1968 — Lei de Alimentos" },
+    { re: /l12694/i, secao: "Penal e Processual", titulo: "Lei 12.694/2012 — Lei do Juiz sem Rosto" },
+    { re: /l14597/i, secao: "Legislação Especial", titulo: "Lei 14.597/2023 — Lei Geral do Esporte" },
+    { re: /l14852/i, secao: "Legislação Especial", titulo: "Lei 14.852/2024 — Marco Legal dos Jogos Eletrônicos" },
+    { re: /l2889/i, secao: "Penal e Processual", titulo: "Lei 2.889/1956 — Lei do Genocídio" },
+    { re: /l7492/i, secao: "Penal e Processual", titulo: "Lei 7.492/1986 — Lei do Colarinho Branco" },
+    { re: /l5250/i, secao: "Constituição e Adm.", titulo: "Lei 5.250/1967 — Lei de Imprensa" },
+    { re: /l4320/i, secao: "Constituição e Adm.", titulo: "Lei 4.320/1964 — Normas Gerais de Direito Financeiro" },
+    { re: /l8437/i, secao: "Constituição e Adm.", titulo: "Lei 8.437/1992 — Medidas cautelares contra o Público" },
+    { re: /l15272/i, secao: "Penal e Processual", titulo: "Lei 15.272/2025 — Atualizações processuais penais" },
+    { re: /l15358/i, secao: "Penal e Processual", titulo: "Lei 15.358/2026 — Marco Legal do Combate ao Crime Organizado" },
+    { re: /l15397/i, secao: "Penal e Processual", titulo: "Lei 15.397/2026 — Aumento de penas (crimes patrimoniais)" },
+    { re: /l9985/i, secao: "Legislação Especial", titulo: "Lei 9.985/2000 — SNUC" },
+    { re: /conama.*237|resolucao.*237.*conama/i, secao: "Legislação Especial", titulo: "Resolução CONAMA 237/1997 — Licenciamento ambiental" },
   ];
 
   function shouldPreferKnownLegisTitle(current, knownTitulo) {
@@ -334,6 +351,19 @@
     const knownYear = knownTitulo.match(/\/(\d{4})\b/)?.[1];
     if (curYear && knownYear && curYear !== knownYear) return true;
     if (/imprensa/i.test(current) && !/imprensa/i.test(knownTitulo)) return true;
+    if (/leni[eê]ncia|compliance|programa de integridade/i.test(current) && !/leni[eê]ncia/i.test(knownTitulo)) {
+      return true;
+    }
+    if (/simplifica[cç][aã]o tribut[aá]ria/i.test(current) && /juiz sem rosto|organiza[cç][aã]o criminosa/i.test(knownTitulo)) {
+      return true;
+    }
+    if (/\bIPVA\b/i.test(current) && /genoc[ií]dio/i.test(knownTitulo)) return true;
+    if (/cambial|duplicata.*nota promiss/i.test(current) && /colarinho branco|sistema financeiro/i.test(knownTitulo)) {
+      return true;
+    }
+    if (/acordo de leni[eê]ncia|programa de integridade|jogos eletr[oô]nicos.*integridade/i.test(current)) {
+      return true;
+    }
     const curRef = current.split("—")[0]?.trim();
     const knownRef = knownTitulo.split("—")[0]?.trim();
     if (curRef && knownRef && curRef === knownRef && current !== knownTitulo) return true;

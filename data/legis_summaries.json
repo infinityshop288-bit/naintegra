@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-26T14:33:53.885052+00:00",
-  "count": 196,
+  "generated_at": "2026-05-28T14:06:31.343870+00:00",
+  "count": 201,
   "summaries": {
     "/ccivil_03/decreto-lei/del2848.htm": {
       "titulo": "Decreto-Lei 2.848/1940 — Código Penal",
@@ -225,9 +225,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12690.htm"
     },
     "/ccivil_03/_ato2011-2014/2012/lei/l12694.htm": {
-      "titulo": "Lei 12.694/2012 — Simplificação tributária",
-      "resumo": "Altera normas tributárias e simplifica obrigações acessórias.",
-      "secao": "Legislação Especial",
+      "titulo": "Lei 12.694/2012 — Lei do Juiz sem Rosto",
+      "resumo": "Dispõe sobre julgamento colegiado em primeiro grau de crimes por organizações criminosas; altera CP e CPP.",
+      "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12694.htm"
     },
     "/ccivil_03/_ato2011-2014/2012/lei/l12714.htm": {
@@ -417,9 +417,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14457.htm"
     },
     "/ccivil_03/_ato2023-2026/2023/lei/l14597.htm": {
-      "titulo": "Lei 14.597/2023 — Acordo de leniência",
-      "resumo": "Altera normas sobre acordo de leniência e compliance.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 14.597/2023 — Lei Geral do Esporte",
+      "resumo": "Institui normas gerais sobre o esporte e a governança esportiva.",
+      "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14597.htm"
     },
     "/ccivil_03/_ato2023-2026/2023/lei/l14717.htm": {
@@ -429,9 +429,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14717.htm"
     },
     "/ccivil_03/_ato2023-2026/2024/lei/l14852.htm": {
-      "titulo": "Lei 14.852/2024 — Programa de integridade",
-      "resumo": "Altera normas sobre programas de integridade e anticorrupção.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 14.852/2024 — Marco Legal dos Jogos Eletrônicos",
+      "resumo": "Cria o marco legal para a indústria de jogos eletrônicos e altera leis correlatas.",
+      "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14852.htm"
     },
     "/ccivil_03/_ato2023-2026/2024/lei/l14965.htm": {
@@ -693,9 +693,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l1579.htm"
     },
     "/ccivil_03/leis/l2889.htm": {
-      "titulo": "Lei 2.889/1956 — IPVA",
-      "resumo": "Institui imposto sobre veículos automotores (IPVA).",
-      "secao": "Legislação Especial",
+      "titulo": "Lei 2.889/1956 — Lei do Genocídio",
+      "resumo": "Define e pune o crime de genocídio.",
+      "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l2889.htm"
     },
     "/ccivil_03/leis/l4090.htm": {
@@ -747,15 +747,15 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l5172.htm"
     },
     "/ccivil_03/leis/l5474.htm": {
-      "titulo": "Lei 5.474/1968 — Imprensa",
-      "resumo": "Altera normas sobre direito de resposta e liberdade de imprensa.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 5.474/1968 — Lei das Duplicatas",
+      "resumo": "Dispõe sobre a emissão, circulação e cobrança de duplicatas.",
+      "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l5474.htm"
     },
     "/ccivil_03/leis/l5478.htm": {
-      "titulo": "Lei 5.478/1968 — Imprensa",
-      "resumo": "Complementa normas sobre responsabilidade civil da imprensa.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 5.478/1968 — Lei de Alimentos",
+      "resumo": "Dispõe sobre a ação de alimentos e dá outras providências.",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l5478.htm"
     },
     "/ccivil_03/leis/l5584.htm": {
@@ -837,9 +837,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l7418.htm"
     },
     "/ccivil_03/leis/l7492.htm": {
-      "titulo": "Lei 7.492/1986 — Lei cambial",
-      "resumo": "Regula duplicata, nota promissória e títulos de crédito (Lei Cambial).",
-      "secao": "Civil e Trabalho",
+      "titulo": "Lei 7.492/1986 — Lei do Colarinho Branco",
+      "resumo": "Define crimes contra o sistema financeiro nacional.",
+      "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l7492.htm"
     },
     "/ccivil_03/leis/l7716.htm": {
@@ -1177,6 +1177,42 @@
       "resumo": "Institui Juizados Especiais Cíveis e Criminais no âmbito da Justiça Federal.",
       "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm"
+    },
+    "/ccivil_03/_ato2023-2026/2026/lei/l15397.htm": {
+      "titulo": "Lei 15.397/2026 — Aumento de penas (crimes patrimoniais)",
+      "resumo": "Altera o Código Penal para majorar penas de furto, roubo, estelionato e receptação.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15397.htm"
+    },
+    "/ccivil_03/_ato2023-2026/2026/lei/l15358.htm": {
+      "titulo": "Lei 15.358/2026 — Marco Legal do Combate ao Crime Organizado",
+      "resumo": "Institui o marco legal anticrime organizado (Lei Raul Jungmann / Antifacção).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15358.htm"
+    },
+    "/ccivil_03/_ato2023-2026/2025/lei/l15272.htm": {
+      "titulo": "Lei 15.272/2025 — Atualizações processuais penais",
+      "resumo": "Altera o CPP sobre prisão preventiva, audiência de custódia e coleta de DNA.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15272.htm"
+    },
+    "/ccivil_03/leis/l9985.htm": {
+      "titulo": "Lei 9.985/2000 — SNUC",
+      "resumo": "Institui o Sistema Nacional de Unidades de Conservação da Natureza.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9985.htm"
+    },
+    "/resolucao-conama-n-237-1997": {
+      "titulo": "Resolução CONAMA 237/1997 — Licenciamento ambiental",
+      "resumo": "Regulamenta procedimentos e critérios de licenciamento ambiental.",
+      "secao": "Legislação Especial",
+      "url": "https://conama.mma.gov.br/resolucao-conama-n-237-1997"
+    },
+    "https://conama.mma.gov.br/resolucao-conama-n-237-1997": {
+      "titulo": "Resolução CONAMA 237/1997 — Licenciamento ambiental",
+      "resumo": "Regulamenta procedimentos e critérios de licenciamento ambiental.",
+      "secao": "Legislação Especial",
+      "url": "https://conama.mma.gov.br/resolucao-conama-n-237-1997"
     }
   },
   "list": [
@@ -1589,9 +1625,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12690.htm"
     },
     {
-      "titulo": "Lei 12.694/2012 — Simplificação tributária",
-      "resumo": "Altera normas tributárias e simplifica obrigações acessórias.",
-      "secao": "Legislação Especial",
+      "titulo": "Lei 12.694/2012 — Lei do Juiz sem Rosto",
+      "resumo": "Dispõe sobre julgamento colegiado em primeiro grau de crimes por organizações criminosas; altera CP e CPP.",
+      "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12694.htm"
     },
     {
@@ -1781,9 +1817,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14457.htm"
     },
     {
-      "titulo": "Lei 14.597/2023 — Acordo de leniência",
-      "resumo": "Altera normas sobre acordo de leniência e compliance.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 14.597/2023 — Lei Geral do Esporte",
+      "resumo": "Institui normas gerais sobre o esporte e a governança esportiva.",
+      "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14597.htm"
     },
     {
@@ -1793,9 +1829,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14717.htm"
     },
     {
-      "titulo": "Lei 14.852/2024 — Programa de integridade",
-      "resumo": "Altera normas sobre programas de integridade e anticorrupção.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 14.852/2024 — Marco Legal dos Jogos Eletrônicos",
+      "resumo": "Cria o marco legal para a indústria de jogos eletrônicos e altera leis correlatas.",
+      "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14852.htm"
     },
     {
@@ -1811,9 +1847,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15040.htm"
     },
     {
-      "titulo": "Lei 2.889/1956 — IPVA",
-      "resumo": "Institui imposto sobre veículos automotores (IPVA).",
-      "secao": "Legislação Especial",
+      "titulo": "Lei 2.889/1956 — Lei do Genocídio",
+      "resumo": "Define e pune o crime de genocídio.",
+      "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l2889.htm"
     },
     {
@@ -1877,15 +1913,15 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/1950-1969/l5256.htm"
     },
     {
-      "titulo": "Lei 5.474/1968 — Imprensa",
-      "resumo": "Altera normas sobre direito de resposta e liberdade de imprensa.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 5.474/1968 — Lei das Duplicatas",
+      "resumo": "Dispõe sobre a emissão, circulação e cobrança de duplicatas.",
+      "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l5474.htm"
     },
     {
-      "titulo": "Lei 5.478/1968 — Imprensa",
-      "resumo": "Complementa normas sobre responsabilidade civil da imprensa.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 5.478/1968 — Lei de Alimentos",
+      "resumo": "Dispõe sobre a ação de alimentos e dá outras providências.",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l5478.htm"
     },
     {
@@ -1985,9 +2021,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l7418.htm"
     },
     {
-      "titulo": "Lei 7.492/1986 — Lei cambial",
-      "resumo": "Regula duplicata, nota promissória e títulos de crédito (Lei Cambial).",
-      "secao": "Civil e Trabalho",
+      "titulo": "Lei 7.492/1986 — Lei do Colarinho Branco",
+      "resumo": "Define crimes contra o sistema financeiro nacional.",
+      "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l7492.htm"
     },
     {
@@ -2355,6 +2391,36 @@
       "resumo": "Institui Fundo de Manutenção e Desenvolvimento da Educação Básica.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp76.htm"
+    },
+    {
+      "titulo": "Lei 15.397/2026 — Aumento de penas (crimes patrimoniais)",
+      "resumo": "Altera o Código Penal para majorar penas de furto, roubo, estelionato e receptação.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15397.htm"
+    },
+    {
+      "titulo": "Lei 15.358/2026 — Marco Legal do Combate ao Crime Organizado",
+      "resumo": "Institui o marco legal anticrime organizado (Lei Raul Jungmann / Antifacção).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15358.htm"
+    },
+    {
+      "titulo": "Lei 15.272/2025 — Atualizações processuais penais",
+      "resumo": "Altera o CPP sobre prisão preventiva, audiência de custódia e coleta de DNA.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15272.htm"
+    },
+    {
+      "titulo": "Lei 9.985/2000 — SNUC",
+      "resumo": "Institui o Sistema Nacional de Unidades de Conservação da Natureza.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l9985.htm"
+    },
+    {
+      "titulo": "Resolução CONAMA 237/1997 — Licenciamento ambiental",
+      "resumo": "Regulamenta procedimentos e critérios de licenciamento ambiental.",
+      "secao": "Legislação Especial",
+      "url": "https://conama.mma.gov.br/resolucao-conama-n-237-1997"
     }
   ]
 }

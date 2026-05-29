@@ -18,6 +18,8 @@ window.LEX_CONFIG = {
   legisBodiesFallback: "./data/legis_bodies.json",
   legisSummariesFallback: "./data/legis_summaries.json",
   legisKnownMetaFallback: "./data/legis_known_meta.json",
+  /** Bump ao corrigir títulos em legis_known_meta.json (quebra cache HTTP). */
+  legisKnownMetaVersion: "20260528e",
   flashcardsFallback: "./data/flashcards.json",
   flashcardsCatalogFallback: "./data/flashcards_catalog.json",
   flashcardsDecksBase: "./data/flashcards/decks/",

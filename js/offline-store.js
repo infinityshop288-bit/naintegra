@@ -1,7 +1,8 @@
 /** Cache persistente (IndexedDB) para uso offline do NaIntegra Lex. */
 (function () {
   const DB_NAME = "naintegra-lex-offline";
-  const DB_VERSION = 1;
+  const DB_VERSION = 2;
+  const CATALOG_META_VERSION = 3;
   const STORES = {
     catalog: "catalog",
     bodies: "bodies",
@@ -74,19 +75,22 @@
     }
   }
 
+  async function loadCatalog() {
+    const row = await get(STORES.catalog, "documents");
+    if (!row?.documents?.length) return null;
+    if ((row.version || 0) < CATALOG_META_VERSION) return null;
+    return row.documents;
+  }
+
   async function saveCatalog(documents, source) {
     if (!Array.isArray(documents) || !documents.length) return;
     await put(STORES.catalog, "documents", {
+      version: CATALOG_META_VERSION,
       documents,
       source: source || "unknown",
       savedAt: new Date().toISOString(),
       count: documents.length,
     });
-  }
-
-  async function loadCatalog() {
-    const row = await get(STORES.catalog, "documents");
-    return row?.documents || null;
   }
 
   async function saveDocumentBody(doc, body) {

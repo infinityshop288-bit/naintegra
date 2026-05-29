@@ -10,6 +10,7 @@
     questionAnswers: "lex_question_answers",
     fontSize: "lex_font_size",
     recentReads: "lex_recent_reads",
+    studyPlan: "lex_study_plan_v1",
   };
 
   let session = null;
@@ -278,11 +279,69 @@
     }
   }
 
+  function loadStudyPlan() {
+    return loadJson(LS.studyPlan, null);
+  }
+
+  function saveStudyPlan(plan) {
+    if (!plan) return;
+    saveJson(LS.studyPlan, plan);
+    scheduleStudyPlanSync(plan);
+  }
+
+  function clearStudyPlan() {
+    localStorage.removeItem(LS.studyPlan);
+    scheduleStudyPlanSync(null);
+  }
+
+  let studyPlanSyncTimer = null;
+
+  function scheduleStudyPlanSync(plan) {
+    if (!isLoggedIn()) return;
+    clearTimeout(studyPlanSyncTimer);
+    studyPlanSyncTimer = setTimeout(() => flushStudyPlanSync(plan), 600);
+  }
+
+  async function flushStudyPlanSync(plan) {
+    if (!isLoggedIn()) return;
+    const token = session.access_token;
+    const userId = session.user.id;
+    try {
+      if (!plan) {
+        await lexRequest(`user_study_plans?user_id=eq.${userId}`, token, { method: "DELETE" });
+        return;
+      }
+      await lexRequest("user_study_plans", token, {
+        method: "POST",
+        body: JSON.stringify({
+          user_id: userId,
+          career_id: plan.careerId,
+          uf: plan.uf || null,
+          plan_payload: plan,
+          updated_at: plan.updatedAt || new Date().toISOString(),
+        }),
+      });
+    } catch (err) {
+      console.warn("LexStore study plan sync:", err);
+    }
+  }
+
+  function mergeStudyPlanRemote(row) {
+    if (!row?.plan_payload) return;
+    const remote = row.plan_payload;
+    const local = loadStudyPlan();
+    const remoteTs = Date.parse(row.updated_at || remote.updatedAt || 0);
+    const localTs = Date.parse(local?.updatedAt || local?.createdAt || 0);
+    if (!local || remoteTs >= localTs) {
+      saveJson(LS.studyPlan, remote);
+    }
+  }
+
   async function pullRemote(sess) {
     if (!sess?.access_token) return;
     const token = sess.access_token;
     const userId = sess.user.id;
-    const [marks, progress, studied] = await Promise.all([
+    const [marks, progress, studied, studyPlanRows] = await Promise.all([
       lexRequest(
         `user_content_marks?user_id=eq.${userId}&select=doc_type,doc_id,block_key,highlight_html,note_text,updated_at`,
         token,
@@ -294,10 +353,16 @@
         { method: "GET" }
       ),
       lexRequest(`user_studied_items?user_id=eq.${userId}&select=item_id`, token, { method: "GET" }),
+      lexRequest(
+        `user_study_plans?user_id=eq.${userId}&select=career_id,uf,plan_payload,updated_at`,
+        token,
+        { method: "GET" }
+      ).catch(() => []),
     ]);
     mergeMarksRemote(marks);
     mergeProgressRemote(progress);
     mergeStudiedRemote(studied);
+    if (Array.isArray(studyPlanRows) && studyPlanRows[0]) mergeStudyPlanRemote(studyPlanRows[0]);
   }
 
   async function pushLocalMarks(sess) {
@@ -337,6 +402,8 @@
     migrateLegacyStorage();
     try {
       await pullRemote(sess);
+      const localPlan = loadStudyPlan();
+      if (localPlan) await flushStudyPlanSync(localPlan);
       await pushLocalMarks(sess);
       if (window.LexFlashcardsUser?.setCloudSession) {
         await window.LexFlashcardsUser.setCloudSession(sess);
@@ -379,5 +446,8 @@
     trackRecentRead,
     getRecentReads,
     flushSync,
+    loadStudyPlan,
+    saveStudyPlan,
+    clearStudyPlan,
   };
 })();
