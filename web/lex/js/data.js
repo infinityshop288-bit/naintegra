@@ -345,8 +345,9 @@
     const cached = await window.LexOffline?.loadCatalog?.();
     if (cached?.length) {
       window.__LEX_DATA_SOURCE = "offline_cache";
-      console.info(`Lex: ${cached.length} documentos (cache IndexedDB)`);
-      return cached;
+      const docs = cached.map((d) => enrichLegisDoc({ ...d }));
+      console.info(`Lex: ${docs.length} documentos (cache IndexedDB, metadados reidratados)`);
+      return docs;
     }
 
     try {
@@ -477,7 +478,14 @@
     const meta = window.LexLegisMeta?.metaFromUrl?.(url, doc.body || "") || known;
     if (!meta && !known && !window.LexLegisMeta?.resolveLegisTitle) return doc;
     const resolved = window.LexLegisMeta?.resolveLegisTitle?.(url, doc.body || "", doc.title);
-    if (resolved) doc.title = resolved;
+    if (resolved) {
+      const preferKnown =
+        known?.titulo &&
+        window.LexLegisMeta?.shouldPreferKnownLegisTitle?.(doc.title, known.titulo);
+      doc.title = preferKnown ? known.titulo : resolved;
+    } else if (known?.titulo) {
+      doc.title = known.titulo;
+    }
     const src = meta || known;
     if (known?.resumo) doc.resumo = known.resumo;
     else if (src?.resumo && !doc.resumo) doc.resumo = src.resumo;
@@ -520,8 +528,10 @@
       if (doc.doc_type !== "legislacao") continue;
       const cached = lookupLegisSummary(cache, doc.url, doc.doc_key);
       const known = window.LexLegisMeta?.lookupKnownMeta?.(doc.url || doc.doc_key || "");
-      if (cached?.titulo && !known?.titulo) doc.title = cached.titulo;
-      if (cached?.resumo && !known?.resumo) doc.resumo = cached.resumo;
+      if (known?.titulo) doc.title = known.titulo;
+      else if (cached?.titulo) doc.title = cached.titulo;
+      if (known?.resumo) doc.resumo = known.resumo;
+      else if (cached?.resumo && !doc.resumo) doc.resumo = cached.resumo;
       if (cached?.secao) {
         if (!doc.organized) doc.organized = {};
         doc.organized.secao_lei_seca = doc.organized.secao_lei_seca || cached.secao;

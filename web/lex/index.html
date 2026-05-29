@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="./css/styles.css?v=62" />
+  <link rel="stylesheet" href="./css/styles.css?v=64" />
 </head>
 <body>
   <div class="layout">
@@ -34,6 +34,8 @@
         <li><a href="#/lei-seca" data-route="/lei-seca">Lei Seca</a></li>
         <li><a href="#/jurisprudencia" data-route="/jurisprudencia">Jurisprudência</a></li>
         <li><a href="#/questoes" data-route="/questoes">Questões</a></li>
+        <li><a href="#/doutrina" data-route="/doutrina">Doutrina</a></li>
+        <li><a href="#/plano-estudos" data-route="/plano-estudos">Plano de estudos</a></li>
         <li><a href="#/contato" data-route="/contato">Contato</a></li>
         <li><a class="nav-external" href="/">NaIntegra Cursos</a></li>
       </ul>
@@ -70,6 +72,7 @@
     <a href="#/lei-seca" data-route="/lei-seca">Lei Seca</a>
     <a href="#/jurisprudencia" data-route="/jurisprudencia">Juris.</a>
     <a href="#/questoes" data-route="/questoes">Questões</a>
+    <a href="#/doutrina" data-route="/doutrina">Doutrina</a>
     <a href="#/contato" data-route="/contato">Contato</a>
   </nav>
 
@@ -84,28 +87,36 @@
   <div id="auth-modal-root"></div>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="./js/config.js?v=40"></script>
+  <script src="./js/config.js?v=42"></script>
   <script src="./js/auth.js?v=38"></script>
-  <script src="./js/user-sync.js?v=37"></script>
+  <script src="./js/user-sync.js?v=38"></script>
   <script src="./js/auth-ui.js?v=37"></script>
   <script src="./js/subscription.js?v=8"></script>
   <script src="./js/content-protection.js?v=1"></script>
-  <script src="./js/legis-meta.js?v=41"></script>
+  <script src="./js/legis-meta.js?v=43"></script>
   <script src="./js/lex-format.js?v=50"></script>
   <script src="./js/flashcards-user.js?v=3"></script>
   <script src="./js/questao-comentarios.js?v=1"></script>
-  <script src="./js/offline-store.js?v=1"></script>
-  <script src="./js/data.js?v=43"></script>
-  <script src="./js/search.js?v=32"></script>
+  <script src="./js/offline-store.js?v=3"></script>
+  <script src="./js/data.js?v=44"></script>
+  <script src="./js/search.js?v=33"></script>
   <script src="./js/section-search.js?v=32"></script>
-  <script src="./js/app.js?v=66"></script>
+  <script src="./js/study-plans.js?v=5"></script>
+  <script src="./js/app.js?v=71"></script>
   <script>
+    const lexIsLocalPreview = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
     if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./sw.js").catch((err) => {
-          console.warn("Lex: service worker", err);
+      if (lexIsLocalPreview) {
+        navigator.serviceWorker.getRegistrations().then((regs) => {
+          regs.forEach((r) => r.unregister());
         });
-      });
+      } else {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("./sw.js").catch((err) => {
+            console.warn("Lex: service worker", err);
+          });
+        });
+      }
     }
     window.addEventListener("online", () => {
       document.body.classList.remove("lex-offline-mode");

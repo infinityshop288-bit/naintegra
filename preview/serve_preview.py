@@ -42,6 +42,15 @@ def main() -> None:
                 return
             super().log_message(fmt, *args_)
 
+        def end_headers(self) -> None:
+            path = self.path.split("?", 1)[0]
+            if path.startswith(("/web/", "/preview/")) or path.endswith(
+                (".html", ".js", ".css", ".json")
+            ):
+                self.send_header("Cache-Control", "no-store, must-revalidate")
+                self.send_header("Pragma", "no-cache")
+            super().end_headers()
+
     socketserver.TCPServer.allow_reuse_address = True
 
     ports = list(range(args.port, args.port + 15))
@@ -78,6 +87,8 @@ def main() -> None:
     print()
     print("Abra no navegador:")
     print(f"  · Lex app:  {urls['lex']}")
+    print(f"  · Plano:    {urls['lex']}#/plano-estudos")
+    print(f"  · Demo:     {urls['lex']}?promo=1")
     print(f"  · Hub:      {urls['hub']}")
     print(f"  · Raiz:     {base}/")
     if bind == "0.0.0.0":

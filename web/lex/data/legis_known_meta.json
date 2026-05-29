@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-26T14:33:17.603342+00:00",
-  "count": 202,
+  "generated_at": "2026-05-28T14:05:53.092397+00:00",
+  "count": 221,
   "entries": {
     "constituicao.htm": {
       "titulo": "Constituição Federal de 1988",
@@ -103,9 +103,9 @@
       "secao": "Constituição e Adm."
     },
     "l2889": {
-      "titulo": "Lei 2.889/1956 — IPVA",
-      "resumo": "Institui imposto sobre veículos automotores (IPVA).",
-      "secao": "Legislação Especial"
+      "titulo": "Lei 2.889/1956 — Lei do Genocídio",
+      "resumo": "Define e pune o crime de genocídio.",
+      "secao": "Penal e Processual"
     },
     "l4090": {
       "titulo": "Lei 4.090/1962 — Ações nominativas",
@@ -152,20 +152,25 @@
       "resumo": "Dispõe sobre o Sistema Tributário Nacional (CTN).",
       "secao": "Legislação Especial"
     },
+    "l5250": {
+      "titulo": "Lei 5.250/1967 — Lei de Imprensa",
+      "resumo": "Regula direito de resposta e responsabilidade na imprensa.",
+      "secao": "Constituição e Adm."
+    },
     "l5256": {
       "titulo": "Lei 5.256/1967 — Prisão especial",
       "resumo": "Regula prisão especial de autoridades e agentes públicos.",
       "secao": "Penal e Processual"
     },
     "l5474": {
-      "titulo": "Lei 5.474/1968 — Imprensa",
-      "resumo": "Altera normas sobre direito de resposta e liberdade de imprensa.",
-      "secao": "Constituição e Adm."
+      "titulo": "Lei 5.474/1968 — Lei das Duplicatas",
+      "resumo": "Dispõe sobre a emissão, circulação e cobrança de duplicatas.",
+      "secao": "Legislação Especial"
     },
     "l5478": {
-      "titulo": "Lei 5.478/1968 — Imprensa",
-      "resumo": "Complementa normas sobre responsabilidade civil da imprensa.",
-      "secao": "Constituição e Adm."
+      "titulo": "Lei 5.478/1968 — Lei de Alimentos",
+      "resumo": "Dispõe sobre a ação de alimentos e dá outras providências.",
+      "secao": "Civil e Trabalho"
     },
     "l5584": {
       "titulo": "Lei 5.584/1970",
@@ -253,9 +258,9 @@
       "secao": "Legislação Especial"
     },
     "l7492": {
-      "titulo": "Lei 7.492/1986 — Lei cambial",
-      "resumo": "Regula duplicata, nota promissória e títulos de crédito (Lei Cambial).",
-      "secao": "Civil e Trabalho"
+      "titulo": "Lei 7.492/1986 — Lei do Colarinho Branco",
+      "resumo": "Define crimes contra o sistema financeiro nacional.",
+      "secao": "Penal e Processual"
     },
     "l7716": {
       "titulo": "Lei 7.716/1989 — Crimes de preconceito",
@@ -678,9 +683,9 @@
       "secao": "Civil e Trabalho"
     },
     "l12694": {
-      "titulo": "Lei 12.694/2012 — Simplificação tributária",
-      "resumo": "Altera normas tributárias e simplifica obrigações acessórias.",
-      "secao": "Legislação Especial"
+      "titulo": "Lei 12.694/2012 — Lei do Juiz sem Rosto",
+      "resumo": "Dispõe sobre julgamento colegiado em primeiro grau de crimes por organizações criminosas; altera CP e CPP.",
+      "secao": "Penal e Processual"
     },
     "l12714": {
       "titulo": "Lei 12.714/2012 — Interoperabilidade",
@@ -838,9 +843,9 @@
       "secao": "Civil e Trabalho"
     },
     "l14597": {
-      "titulo": "Lei 14.597/2023 — Acordo de leniência",
-      "resumo": "Altera normas sobre acordo de leniência e compliance.",
-      "secao": "Constituição e Adm."
+      "titulo": "Lei 14.597/2023 — Lei Geral do Esporte",
+      "resumo": "Institui normas gerais sobre o esporte e a governança esportiva.",
+      "secao": "Legislação Especial"
     },
     "l14717": {
       "titulo": "Lei 14.717/2023 — Crimes financeiros",
@@ -848,9 +853,9 @@
       "secao": "Penal e Processual"
     },
     "l14852": {
-      "titulo": "Lei 14.852/2024 — Programa de integridade",
-      "resumo": "Altera normas sobre programas de integridade e anticorrupção.",
-      "secao": "Constituição e Adm."
+      "titulo": "Lei 14.852/2024 — Marco Legal dos Jogos Eletrônicos",
+      "resumo": "Cria o marco legal para a indústria de jogos eletrônicos e altera leis correlatas.",
+      "secao": "Legislação Especial"
     },
     "l14965": {
       "titulo": "Lei 14.965/2024 — Concursos públicos",
@@ -860,6 +865,96 @@
     "l15040": {
       "titulo": "Lei 15.040/2024 — Lei do Contrato de Seguro",
       "resumo": "Dispõe sobre normas de seguro privado e revoga dispositivos do Código Civil e do DL 73/1966.",
+      "secao": "Legislação Especial"
+    },
+    "l15272": {
+      "titulo": "Lei 15.272/2025 — Atualizações processuais penais",
+      "resumo": "Altera o CPP sobre prisão preventiva, audiência de custódia e coleta de DNA.",
+      "secao": "Penal e Processual"
+    },
+    "l15358": {
+      "titulo": "Lei 15.358/2026 — Marco Legal do Combate ao Crime Organizado",
+      "resumo": "Institui o marco legal anticrime organizado (Lei Raul Jungmann / Antifacção).",
+      "secao": "Penal e Processual"
+    },
+    "l15397": {
+      "titulo": "Lei 15.397/2026 — Aumento de penas (crimes patrimoniais)",
+      "resumo": "Altera o Código Penal para majorar penas de furto, roubo, estelionato e receptação.",
+      "secao": "Penal e Processual"
+    },
+    "l4320": {
+      "titulo": "Lei 4.320/1964 — Normas Gerais de Direito Financeiro",
+      "resumo": "Estatui normas gerais de direito financeiro para orçamentos e balanços.",
+      "secao": "Constituição e Adm."
+    },
+    "l6969": {
+      "titulo": "Lei 6.969/1973 — Estatuto do Índio",
+      "resumo": "Dispõe sobre a política indigenista e direitos das populações indígenas.",
+      "secao": "Legislação Especial"
+    },
+    "l8397": {
+      "titulo": "Lei 8.397/1990 — Crimes de trânsito",
+      "resumo": "Altera o Código Penal e o CTB sobre crimes de trânsito.",
+      "secao": "Penal e Processual"
+    },
+    "l8437": {
+      "titulo": "Lei 8.437/1992 — Medidas cautelares contra o Público",
+      "resumo": "Dispõe sobre medidas cautelares contra atos do Poder Público.",
+      "secao": "Constituição e Adm."
+    },
+    "l8742": {
+      "titulo": "Lei 8.742/1993 — LOAS",
+      "resumo": "Dispõe sobre a organização da assistência social (LOAS/BPC).",
+      "secao": "Legislação Especial"
+    },
+    "l8884": {
+      "titulo": "Lei 8.884/1994 — CADE",
+      "resumo": "Regula defesa da concorrência e estrutura do CADE.",
+      "secao": "Legislação Especial"
+    },
+    "l9249": {
+      "titulo": "Lei 9.249/1995 — Imposto de Renda (PF)",
+      "resumo": "Dispõe sobre tributação de pessoas físicas e altera o IR.",
+      "secao": "Legislação Especial"
+    },
+    "l9394": {
+      "titulo": "Lei 9.394/1996 — LDB",
+      "resumo": "Estabelece as diretrizes e bases da educação nacional.",
+      "secao": "Legislação Especial"
+    },
+    "l9492": {
+      "titulo": "Lei 9.492/1997 — Protesto de títulos",
+      "resumo": "Regula o serviço de protesto de títulos.",
+      "secao": "Legislação Especial"
+    },
+    "l9703": {
+      "titulo": "Lei 9.703/1998 — Depósitos judiciais tributários",
+      "resumo": "Dispõe sobre depósitos judiciais e extrajudiciais de tributos federais.",
+      "secao": "Legislação Especial"
+    },
+    "l9985": {
+      "titulo": "Lei 9.985/2000 — SNUC",
+      "resumo": "Institui o Sistema Nacional de Unidades de Conservação da Natureza.",
+      "secao": "Legislação Especial"
+    },
+    "conama237": {
+      "titulo": "Resolução CONAMA 237/1997 — Licenciamento ambiental",
+      "resumo": "Regulamenta procedimentos e critérios de licenciamento ambiental.",
+      "secao": "Legislação Especial"
+    },
+    "l9986": {
+      "titulo": "Lei 9.986/2000 — RH das Agências Reguladoras",
+      "resumo": "Dispõe sobre gestão de recursos humanos das agências reguladoras.",
+      "secao": "Legislação Especial"
+    },
+    "l10035": {
+      "titulo": "Lei 10.035/2000 — Contribuições na JT",
+      "resumo": "Altera a CLT sobre execução de contribuições previdenciárias na Justiça do Trabalho.",
+      "secao": "Civil e Trabalho"
+    },
+    "l10150": {
+      "titulo": "Lei 10.150/2000 — Novação FCVS",
+      "resumo": "Dispõe sobre novação de dívidas do Fundo de Compensação de Variações Salariais.",
       "secao": "Legislação Especial"
     },
     "lcp64": {

@@ -156,6 +156,26 @@ PLANALTO_LEGIS_CATALOG: list[dict[str, str]] = [
         "titulo": "Lei 15.040/2024 — Lei do Contrato de Seguro",
         "secao": "Legislação Especial",
     },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15272.htm",
+        "titulo": "Lei 15.272/2025 — Atualizações processuais penais",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15358.htm",
+        "titulo": "Lei 15.358/2026 — Marco Legal do Combate ao Crime Organizado",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15397.htm",
+        "titulo": "Lei 15.397/2026 — Aumento de penas (crimes patrimoniais)",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l9985.htm",
+        "titulo": "Lei 9.985/2000 — SNUC",
+        "secao": "Legislação Especial",
+    },
 ]
 
 REVOKE_TAGS = frozenset({"s", "del", "strike"})
