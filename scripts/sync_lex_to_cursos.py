@@ -15,11 +15,22 @@ def run(cmd: list[str], cwd: Path | None = None) -> None:
     subprocess.run(cmd, cwd=cwd, check=True)
 
 
+def default_cursos_dir() -> str:
+    candidates = [
+        Path(__file__).resolve().parents[1].parent / "naintegracursos",
+        Path(__file__).resolve().parents[2].parent / "naintegracursos",
+    ]
+    for p in candidates:
+        if (p / ".git").is_dir():
+            return str(p)
+    return str(candidates[0])
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument(
         "--cursos-dir",
-        default=str(Path(__file__).resolve().parents[2].parent / "naintegracursos"),
+        default=default_cursos_dir(),
         help="Caminho do clone infinityshop288-bit/naintegracursos",
     )
     parser.add_argument("--push", action="store_true", help="git commit + push no repo cursos")

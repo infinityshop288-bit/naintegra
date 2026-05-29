@@ -64,18 +64,7 @@
         });
       } else if (d.doc_type === "questoes_objetivas" || d.doc_type === "questoes_subjetivas") {
         const meta = d.meta || {};
-        const materia = o.materia || "";
-        const doutrinaSlug =
-          materia === "Português" || materia === "Língua Portuguesa"
-            ? "portugues"
-            : materia === "Raciocínio Lógico"
-              ? "raciocinio-logico"
-              : materia === "Informática"
-                ? "informatica"
-                : null;
-        const href = doutrinaSlug
-          ? `#/doutrina/${doutrinaSlug}?q=${encodeURIComponent(d.external_id)}`
-          : `#/questoes?q=${encodeURIComponent(d.external_id)}`;
+        const href = `#/questoes?q=${encodeURIComponent(d.external_id)}`;
         items.push({
           kind: "questao",
           title: (d.body || d.title || "Questão").slice(0, 120),
