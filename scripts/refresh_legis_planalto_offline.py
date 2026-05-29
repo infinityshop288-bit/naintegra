@@ -71,6 +71,26 @@ NEW_LEGIS: list[dict[str, str]] = [
     },
 ]
 
+# Edital MPSP / carreiras jurídicas — diplomas ausentes do acervo offline
+MPSP_EDITAL_LEGIS: list[dict[str, str]] = [
+    {"url": "https://www.planalto.gov.br/ccivil_03/leis/l8625.htm", "secao": "Constituição e Adm."},
+    {"url": "https://www.planalto.gov.br/ccivil_03/leis/l7853.htm", "secao": "Legislação Especial"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/leis/l8080.htm", "secao": "Legislação Especial"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/leis/l8142.htm", "secao": "Legislação Especial"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11445.htm", "secao": "Legislação Especial"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12305.htm", "secao": "Legislação Especial"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm", "secao": "Legislação Especial"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13431.htm", "secao": "Penal e Processual"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13964.htm", "secao": "Penal e Processual"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14119.htm", "secao": "Legislação Especial"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm", "secao": "Penal e Processual"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp135.htm", "secao": "Constituição e Adm."},
+    {"url": "https://www.planalto.gov.br/ccivil_03/decreto/D0678.htm", "secao": "Legislação Especial"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/decreto/d5051.htm", "secao": "Legislação Especial"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D10932.htm", "secao": "Legislação Especial"},
+    {"url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D11129.htm", "secao": "Constituição e Adm."},
+]
+
 # Diplomas alterados — texto compilado no Planalto reflete vigência (~~revogado~~)
 REFRESH_COMPILED: list[str] = [
     "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848.htm",  # CP ← 15.397, 15.358
@@ -327,13 +347,36 @@ def main() -> int:
     parser.add_argument("--new-only", action="store_true", help="Só leis novas")
     parser.add_argument("--conama-237", action="store_true", help="Inclui Resolução CONAMA 237/1997 (MMA)")
     parser.add_argument("--snuc", action="store_true", help="Atualiza Lei 9.985/2000 (SNUC) no Planalto")
+    parser.add_argument(
+        "--mpsp-edital",
+        action="store_true",
+        help="Inclui leis do edital MPSP ainda ausentes do acervo offline",
+    )
     args = parser.parse_args()
 
     entries = build_entries()
     patch_catalog(entries)
 
-    explicit = bool(args.url or args.conama_237 or args.snuc)
+    explicit = bool(args.url or args.conama_237 or args.snuc or args.mpsp_edital)
     targets: list[tuple[str, dict[str, str] | None]] = []
+    if args.mpsp_edital:
+        entries = build_entries()
+        for spec in MPSP_EDITAL_LEGIS:
+            url = normalize_url(spec["url"])
+            key = match_key(url)
+            meta = entries.get(key or "", {})
+            titulo = spec.get("titulo") or meta.get("titulo") or titulo_for_url(url)
+            targets.append(
+                (
+                    url,
+                    {
+                        "url": url,
+                        "titulo": titulo,
+                        "resumo": spec.get("resumo") or meta.get("resumo", ""),
+                        "secao": spec.get("secao") or meta.get("secao") or "Legislação Especial",
+                    },
+                )
+            )
     if not explicit:
         if not args.compiled_only:
             for spec in NEW_LEGIS:

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-28T14:06:31.371674+00:00",
-  "count": 306,
+  "generated_at": "2026-05-29T23:04:47.507306+00:00",
+  "count": 322,
   "documents": [
     {
       "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm",
@@ -920,8 +920,8 @@
       "doc_type": "legislacao",
       "source_system": "rideel_vademecum",
       "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12288.htm",
-      "title": "Lei 12.288/2010 — Fundo da Cultura",
-      "resumo": "Institui Fundo Nacional de Cultura e incentivo à cultura.",
+      "title": "Lei 12.288/2010 — Estatuto da Igualdade Racial",
+      "resumo": "Institui o Estatuto da Igualdade Racial e mecanismos de combate ao racismo.",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12288.htm",
       "meta": {
         "corpus": "legislacao_rideel_vm",
@@ -931,7 +931,7 @@
         "relative_path": "output_rideel_legislacao_full/markdown/law_04c206a93daa_http_www.planalto.gov.br_ccivil_03__ato2007-2010_2010_lei_l12288.htm.md",
         "created_at_source": "2026-05-15T00:53:22.700368+00:00",
         "norma_schema_version": 1,
-        "titulo": "Lei 12.288/2010 — Fundo da Cultura",
+        "titulo": "Lei 12.288/2010 — Estatuto da Igualdade Racial",
         "secao_lei_seca": "Legislação Especial"
       },
       "organized": {
@@ -2545,8 +2545,8 @@
       "doc_type": "legislacao",
       "source_system": "rideel_vademecum",
       "doc_key": "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del1075.htm",
-      "title": "Decreto-Lei 1.075/1970",
-      "resumo": "Altera dispositivos sobre valor provisório de créditos tributários.",
+      "title": "Decreto-Lei 1.075/1970 — Imissão de posse (locação)",
+      "resumo": "Regula a imissão de posse, initio litis, em imóveis residenciais urbanos.",
       "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del1075.htm",
       "meta": {
         "corpus": "legislacao_rideel_vm",
@@ -2556,11 +2556,11 @@
         "relative_path": "output_rideel_legislacao_full/markdown/law_27348112aeec_http_www.planalto.gov.br_ccivil_03_decreto-lei_1965-1988_del1075.htm.md",
         "created_at_source": "2026-05-15T00:53:22.700368+00:00",
         "norma_schema_version": 1,
-        "titulo": "Decreto-Lei 1.075/1970",
-        "secao_lei_seca": "Legislação Especial"
+        "titulo": "Decreto-Lei 1.075/1970 — Imissão de posse (locação)",
+        "secao_lei_seca": "Civil e Trabalho"
       },
       "organized": {
-        "secao_lei_seca": "Legislação Especial",
+        "secao_lei_seca": "Civil e Trabalho",
         "corpus": "legislacao_rideel_vm"
       },
       "chunk_count": 1
@@ -2620,8 +2620,8 @@
       "doc_type": "legislacao",
       "source_system": "rideel_vademecum",
       "doc_key": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3688.htm",
-      "title": "Decreto-Lei 3.688/1941 — Procedimento penal militar",
-      "resumo": "Estabelece normas de processo penal militar.",
+      "title": "Decreto-Lei 3.688/1941 — Lei das Contravenções Penais",
+      "resumo": "Institui a Lei das Contravenções Penais.",
       "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3688.htm",
       "meta": {
         "corpus": "legislacao_rideel_vm",
@@ -2631,7 +2631,7 @@
         "relative_path": "output_rideel_legislacao_full/markdown/law_bbd09a1c1987_http_www.planalto.gov.br_ccivil_03_decreto-lei_del3688.htm.md",
         "created_at_source": "2026-05-15T00:53:22.700368+00:00",
         "norma_schema_version": 1,
-        "titulo": "Decreto-Lei 3.688/1941 — Procedimento penal militar",
+        "titulo": "Decreto-Lei 3.688/1941 — Lei das Contravenções Penais",
         "secao_lei_seca": "Penal e Processual"
       },
       "organized": {
@@ -2795,8 +2795,8 @@
       "doc_type": "legislacao",
       "source_system": "rideel_vademecum",
       "doc_key": "https://www.planalto.gov.br/ccivil_03/decreto/d70235cons.htm",
-      "title": "Decreto 70.235/1972 — Regimento Interno do STF",
-      "resumo": "Aprova o Regimento Interno do Supremo Tribunal Federal.",
+      "title": "Decreto 70.235/1972 — Processo administrativo fiscal",
+      "resumo": "Dispõe sobre o processo administrativo fiscal (texto vigente no Planalto nesta URL).",
       "url": "https://www.planalto.gov.br/ccivil_03/decreto/d70235cons.htm",
       "meta": {
         "corpus": "legislacao_rideel_vm",
@@ -2806,11 +2806,11 @@
         "relative_path": "output_rideel_legislacao_full/markdown/law_3b97acd661f7_http_www.planalto.gov.br_ccivil_03_decreto_d70235cons.htm.md",
         "created_at_source": "2026-05-15T00:53:22.700368+00:00",
         "norma_schema_version": 1,
-        "titulo": "Decreto 70.235/1972 — Regimento Interno do STF",
-        "secao_lei_seca": "Constituição e Adm."
+        "titulo": "Decreto 70.235/1972 — Processo administrativo fiscal",
+        "secao_lei_seca": "Legislação Especial"
       },
       "organized": {
-        "secao_lei_seca": "Constituição e Adm.",
+        "secao_lei_seca": "Legislação Especial",
         "corpus": "legislacao_rideel_vm"
       },
       "chunk_count": 32
@@ -2945,8 +2945,8 @@
       "doc_type": "legislacao",
       "source_system": "rideel_vademecum",
       "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/l0605.htm",
-      "title": "Lei 605/1949 — Radiodifusão",
-      "resumo": "Dispõe sobre radiodifusão sonora e imagens.",
+      "title": "Lei 605/1949 — Repouso semanal remunerado",
+      "resumo": "Dispõe sobre repouso semanal remunerado e pagamento em feriados.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l0605.htm",
       "meta": {
         "corpus": "legislacao_rideel_vm",
@@ -2956,11 +2956,11 @@
         "relative_path": "output_rideel_legislacao_full/markdown/law_172c989ccbfe_http_www.planalto.gov.br_ccivil_03_leis_l0605.htm.md",
         "created_at_source": "2026-05-15T00:53:22.700368+00:00",
         "norma_schema_version": 1,
-        "titulo": "Lei 605/1949 — Radiodifusão",
-        "secao_lei_seca": "Constituição e Adm."
+        "titulo": "Lei 605/1949 — Repouso semanal remunerado",
+        "secao_lei_seca": "Civil e Trabalho"
       },
       "organized": {
-        "secao_lei_seca": "Constituição e Adm.",
+        "secao_lei_seca": "Civil e Trabalho",
         "corpus": "legislacao_rideel_vm"
       },
       "chunk_count": 5
@@ -3120,8 +3120,8 @@
       "doc_type": "legislacao",
       "source_system": "rideel_vademecum",
       "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/l4090.htm",
-      "title": "Lei 4.090/1962 — Ações nominativas",
-      "resumo": "Regula emissão de ações nominativas e negociação de valores mobiliários.",
+      "title": "Lei 4.090/1962 — Gratificação de Natal (13º salário)",
+      "resumo": "Institui a gratificação de Natal para os trabalhadores.",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4090.htm",
       "meta": {
         "corpus": "legislacao_rideel_vm",
@@ -3131,11 +3131,11 @@
         "relative_path": "output_rideel_legislacao_full/markdown/law_54f13ddf535d_https_www.planalto.gov.br_ccivil_03_leis_l4090.htm.md",
         "created_at_source": "2026-05-15T00:53:22.700368+00:00",
         "norma_schema_version": 1,
-        "titulo": "Lei 4.090/1962 — Ações nominativas",
-        "secao_lei_seca": "Legislação Especial"
+        "titulo": "Lei 4.090/1962 — Gratificação de Natal (13º salário)",
+        "secao_lei_seca": "Civil e Trabalho"
       },
       "organized": {
-        "secao_lei_seca": "Legislação Especial",
+        "secao_lei_seca": "Civil e Trabalho",
         "corpus": "legislacao_rideel_vm"
       },
       "chunk_count": 1
@@ -4245,8 +4245,8 @@
       "doc_type": "legislacao",
       "source_system": "rideel_vademecum",
       "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/l8971.htm",
-      "title": "Lei 8.971/1995 — Informática",
-      "resumo": "Regula mercado de informática e propriedade de programas.",
+      "title": "Lei 8.971/1994 — Companheiros (alimentos e sucessão)",
+      "resumo": "Regula o direito dos companheiros a alimentos e à sucessão (Lei dos Companheiros).",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l8971.htm",
       "meta": {
         "corpus": "legislacao_rideel_vm",
@@ -4256,11 +4256,11 @@
         "relative_path": "output_rideel_legislacao_full/markdown/law_ef15c69a89c5_https_www.planalto.gov.br_ccivil_03_leis_l8971.htm.md",
         "created_at_source": "2026-05-15T00:53:22.700368+00:00",
         "norma_schema_version": 1,
-        "titulo": "Lei 8.971/1995 — Informática",
-        "secao_lei_seca": "Legislação Especial"
+        "titulo": "Lei 8.971/1994 — Companheiros (alimentos e sucessão)",
+        "secao_lei_seca": "Civil e Trabalho"
       },
       "organized": {
-        "secao_lei_seca": "Legislação Especial",
+        "secao_lei_seca": "Civil e Trabalho",
         "corpus": "legislacao_rideel_vm"
       },
       "chunk_count": 1
@@ -7525,6 +7525,406 @@
       "organized": {
         "secao_lei_seca": "Legislação Especial",
         "corpus": "legislacao_conama_mma"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/leis/l8625.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/l8625.htm",
+      "title": "Lei 8.625/1993 — Lei Orgânica Nacional do MP",
+      "resumo": "Dispõe sobre a organização, competências e prerrogativas do Ministério Público.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8625.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei 8.625/1993 — Lei Orgânica Nacional do MP",
+        "resumo": "Dispõe sobre a organização, competências e prerrogativas do Ministério Público.",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/l8625.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:11.161403+00:00",
+        "content_hash": "658b14e9fe62797f57e71c810a066c1b1afd8435f4de5a611b910ece12789211",
+        "secao_lei_seca": "Constituição e Adm.",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Constituição e Adm.",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/leis/l7853.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/l7853.htm",
+      "title": "Lei 7.853/1989 — Apoio à pessoa com deficiência",
+      "resumo": "Dispõe sobre apoio às pessoas portadoras de deficiência e normas de acessibilidade.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7853.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei 7.853/1989 — Apoio à pessoa com deficiência",
+        "resumo": "Dispõe sobre apoio às pessoas portadoras de deficiência e normas de acessibilidade.",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/l7853.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:13.048574+00:00",
+        "content_hash": "2b31ba12817f6d507870e0297ea8a7be45c8388ac2f1982accd0bce8695d1929",
+        "secao_lei_seca": "Legislação Especial",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Legislação Especial",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/leis/l8080.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/l8080.htm",
+      "title": "Lei 8.080/1990 — Lei Orgânica da Saúde (SUS)",
+      "resumo": "Dispõe sobre condições para promoção, proteção e recuperação da saúde (SUS).",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8080.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei 8.080/1990 — Lei Orgânica da Saúde (SUS)",
+        "resumo": "Dispõe sobre condições para promoção, proteção e recuperação da saúde (SUS).",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/l8080.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:15.163592+00:00",
+        "content_hash": "8f4eb893bb8c2da5fee7daab8c74bbae7803e06dc02c5dd71c9f9e27b166f7ac",
+        "secao_lei_seca": "Legislação Especial",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Legislação Especial",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/leis/l8142.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/l8142.htm",
+      "title": "Lei 8.142/1990 — Participação e recursos do SUS",
+      "resumo": "Dispõe sobre participação da comunidade e transferências intergovernamentais na saúde.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8142.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei 8.142/1990 — Participação e recursos do SUS",
+        "resumo": "Dispõe sobre participação da comunidade e transferências intergovernamentais na saúde.",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/l8142.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:16.873449+00:00",
+        "content_hash": "b89ff64d0bdb13bd34f4f6406c43895e7f50a3282b9efc70b940d4a10c34909b",
+        "secao_lei_seca": "Legislação Especial",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Legislação Especial",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11445.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11445.htm",
+      "title": "Lei 11.445/2007 — Diretrizes do saneamento básico",
+      "resumo": "Estabelece diretrizes nacionais para o saneamento básico.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11445.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei 11.445/2007 — Diretrizes do saneamento básico",
+        "resumo": "Estabelece diretrizes nacionais para o saneamento básico.",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11445.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:20.032776+00:00",
+        "content_hash": "b0a968296cb858ce8fbb798c6cb76730af80ce75c19e28f5f054feeb3b7be3a6",
+        "secao_lei_seca": "Legislação Especial",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Legislação Especial",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12305.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12305.htm",
+      "title": "Lei 12.305/2010 — Política Nacional de Resíduos Sólidos",
+      "resumo": "Institui a Política Nacional de Resíduos Sólidos (PNRS).",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12305.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei 12.305/2010 — Política Nacional de Resíduos Sólidos",
+        "resumo": "Institui a Política Nacional de Resíduos Sólidos (PNRS).",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12305.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:22.064038+00:00",
+        "content_hash": "97c733b3888aa15790a8e6d07d44f2750fee0f37054f05b2a3ce6a6b9df27dca",
+        "secao_lei_seca": "Legislação Especial",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Legislação Especial",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm",
+      "title": "Lei 13.019/2014 — Marco Regulatório das OSC",
+      "resumo": "Estabelece regime jurídico das parcerias entre administração pública e OSC.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei 13.019/2014 — Marco Regulatório das OSC",
+        "resumo": "Estabelece regime jurídico das parcerias entre administração pública e OSC.",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:24.271917+00:00",
+        "content_hash": "b051f74cfcd2d05ced9ed3814d09868873ae593b7ec25b9f64ea42e1951993e4",
+        "secao_lei_seca": "Legislação Especial",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Legislação Especial",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13431.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13431.htm",
+      "title": "Lei 13.431/2017 — Depoimento especial",
+      "resumo": "Dispõe sobre o depoimento especial de crianças e adolescentes vítimas ou testemunhas de violência.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13431.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei 13.431/2017 — Depoimento especial",
+        "resumo": "Dispõe sobre o depoimento especial de crianças e adolescentes vítimas ou testemunhas de violência.",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13431.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:25.931210+00:00",
+        "content_hash": "c657c91a46925a0e69bd7f1192da5bcd540ed569c5dea8f4850f4a17a7ce533c",
+        "secao_lei_seca": "Penal e Processual",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Penal e Processual",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13964.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13964.htm",
+      "title": "Lei 13.964/2019 — Pacote Anticrime",
+      "resumo": "Altera o CP e o CPP (juiz de garantias, ANPP, investigação criminal, entre outros).",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13964.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei 13.964/2019 — Pacote Anticrime",
+        "resumo": "Altera o CP e o CPP (juiz de garantias, ANPP, investigação criminal, entre outros).",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13964.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:28.796884+00:00",
+        "content_hash": "1efc52c6e61d049530d79b3efc3d6bd1b2ee6a14e40214d7a2346f66bdb21342",
+        "secao_lei_seca": "Penal e Processual",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Penal e Processual",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14119.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14119.htm",
+      "title": "Lei 14.119/2021 — Pagamento por serviços ambientais",
+      "resumo": "Institui o Pagamento por Serviços Ambientais (PSA).",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14119.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei 14.119/2021 — Pagamento por serviços ambientais",
+        "resumo": "Institui o Pagamento por Serviços Ambientais (PSA).",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14119.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:30.330839+00:00",
+        "content_hash": "f0765574ce9b10d0fbf35fb33bbf6b17d27d988218207d7530f263f388558e44",
+        "secao_lei_seca": "Legislação Especial",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Legislação Especial",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm",
+      "title": "Lei 14.811/2024 — Bullying e cyberbullying",
+      "resumo": "Tipifica crimes de bullying e cyberbullying e altera o CP.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei 14.811/2024 — Bullying e cyberbullying",
+        "resumo": "Tipifica crimes de bullying e cyberbullying e altera o CP.",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:32.481472+00:00",
+        "content_hash": "9dd3cb17cc274670326755dea3e1353286d0eac3d018bc5d436ad282cd6aa8a0",
+        "secao_lei_seca": "Penal e Processual",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Penal e Processual",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp135.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp135.htm",
+      "title": "Lei Complementar 135/2010 — Ficha Limpa",
+      "resumo": "Altera a LC 64/1990 sobre inelegibilidades (Lei da Ficha Limpa).",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp135.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Lei Complementar 135/2010 — Ficha Limpa",
+        "resumo": "Altera a LC 64/1990 sobre inelegibilidades (Lei da Ficha Limpa).",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp135.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:34.207988+00:00",
+        "content_hash": "8497280308e97d5f0c97908142a4d205f72103fe13458b8b33055b72c52b601c",
+        "secao_lei_seca": "Constituição e Adm.",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Constituição e Adm.",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/decreto/D0678.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/decreto/D0678.htm",
+      "title": "Decreto 678/1992 — Convenção Americana de DH",
+      "resumo": "Promulga a Convenção Americana sobre Direitos Humanos (Pacto de San José).",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/D0678.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Decreto 678/1992 — Convenção Americana de DH",
+        "resumo": "Promulga a Convenção Americana sobre Direitos Humanos (Pacto de San José).",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/decreto/D0678.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:37.655799+00:00",
+        "content_hash": "cd6d7b759294f283e52a5f74253fe63cbf4afb5dc61b43f01e3a140d3f725341",
+        "secao_lei_seca": "Legislação Especial",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Legislação Especial",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/decreto/d5051.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/decreto/d5051.htm",
+      "title": "Decreto 5.051/2004 — Convenção 169 da OIT",
+      "resumo": "Promulga a Convenção 169 da OIT sobre povos indígenas e tribais.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/decreto/d5051.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Decreto 5.051/2004 — Convenção 169 da OIT",
+        "resumo": "Promulga a Convenção 169 da OIT sobre povos indígenas e tribais.",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/decreto/d5051.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:38.949599+00:00",
+        "content_hash": "df02f5ee960748e99c9125656abdc12e771b3a696990f345a3225c7982eed754",
+        "secao_lei_seca": "Legislação Especial",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Legislação Especial",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D10932.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D10932.htm",
+      "title": "Decreto 10.932/2022 — Convenção Interamericana contra o Racismo",
+      "resumo": "Promulga a Convenção Interamericana contra o Racismo, a Discriminação Racial e Formas Correlatas de Intolerância.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D10932.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Decreto 10.932/2022 — Convenção Interamericana contra o Racismo",
+        "resumo": "Promulga a Convenção Interamericana contra o Racismo, a Discriminação Racial e Formas Correlatas de Intolerância.",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D10932.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:40.889965+00:00",
+        "content_hash": "43db0583d41e815ab6a2035197a42a7f1ae433afb6f6782ca8b5a197eca4a6d0",
+        "secao_lei_seca": "Legislação Especial",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Legislação Especial",
+        "corpus": "legislacao_planalto_refresh"
+      },
+      "chunk_count": null
+    },
+    {
+      "external_id": "planalto::https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D11129.htm",
+      "doc_type": "legislacao",
+      "source_system": "planalto",
+      "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D11129.htm",
+      "title": "Decreto 11.129/2022 — Lei Anticorrupção (regulamentação)",
+      "resumo": "Regulamenta dispositivos da Lei 12.846/2013 (Lei Anticorrupção).",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D11129.htm",
+      "meta": {
+        "corpus": "legislacao_planalto_refresh",
+        "titulo": "Decreto 11.129/2022 — Lei Anticorrupção (regulamentação)",
+        "resumo": "Regulamenta dispositivos da Lei 12.846/2013 (Lei Anticorrupção).",
+        "doc_key": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D11129.htm",
+        "doc_type": "legislacao",
+        "fetched_at": "2026-05-29T13:00:43.077161+00:00",
+        "content_hash": "e2e8947baab15544475bd6eb7da97e484ae16d4e030c0e7e3b50b6da16781966",
+        "secao_lei_seca": "Constituição e Adm.",
+        "norma_schema_version": 1
+      },
+      "organized": {
+        "secao_lei_seca": "Constituição e Adm.",
+        "corpus": "legislacao_planalto_refresh"
       },
       "chunk_count": null
     }

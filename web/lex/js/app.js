@@ -384,16 +384,22 @@
     const theme = params.get("t") || "";
     const sub = params.get("q");
     const plan = params.get("plan") || "";
+    const from = params.get("from") || "";
+    const sessao = params.get("sessao") || "";
+    const day = params.get("day") != null ? parseInt(params.get("day"), 10) : null;
+    const step = params.get("step") != null ? parseInt(params.get("step"), 10) : null;
+
+    const routeExtras = { sub, theme, plan, from, sessao, day, step };
 
     if (pathPart === "/" || !pathPart) {
-      return { path: "home", id: null, sub, theme, plan };
+      return { path: "home", id: null, ...routeExtras };
     }
 
     const rest = pathPart.startsWith("/") ? pathPart.slice(1) : pathPart;
     const slash = rest.indexOf("/");
     if (slash === -1) {
       const pathOnly = rest === "doutrina" ? "questoes" : rest;
-      return { path: pathOnly, id: null, sub, theme, plan };
+      return { path: pathOnly, id: null, ...routeExtras };
     }
 
     let path = rest.slice(0, slash);
@@ -407,7 +413,7 @@
         id = encodedId;
       }
     }
-    return { path, id: id || null, sub, theme, plan };
+    return { path, id: id || null, ...routeExtras };
   }
 
   function isPublicRoute(path) {
@@ -477,8 +483,35 @@
     if (app) app.innerHTML = html;
   }
 
-  function docHash(route, externalId) {
-    return `#/${route}/${encodeURIComponent(externalId)}`;
+  function docHash(route, externalId, extra = {}) {
+    const params = new URLSearchParams();
+    for (const [key, val] of Object.entries(extra)) {
+      if (val != null && val !== "") params.set(key, String(val));
+    }
+    const qs = params.toString();
+    const base = `#/${route}/${encodeURIComponent(externalId)}`;
+    return qs ? `${base}?${qs}` : base;
+  }
+
+  function routeHash(path) {
+    if (!path) return "#/";
+    const clean = String(path).replace(/^#?\/?/, "");
+    return `#/${clean}`;
+  }
+
+  const STUDY_TRAIL_ROUTE = "plano-estudos/trilha";
+
+  function studyTrailReturn({ sessao = false, day = null, step = null } = {}) {
+    const params = new URLSearchParams();
+    if (sessao) params.set("sessao", "1");
+    if (day != null && !Number.isNaN(day)) params.set("day", String(day));
+    if (step != null && !Number.isNaN(step)) params.set("step", String(step));
+    const qs = params.toString();
+    return qs ? `${STUDY_TRAIL_ROUTE}?${qs}` : STUDY_TRAIL_ROUTE;
+  }
+
+  function studyReturnLabel(from) {
+    return from && String(from).startsWith(STUDY_TRAIL_ROUTE) ? "← Voltar ao plano de estudos" : "← Voltar";
   }
 
   function byType(type) {
@@ -1112,12 +1145,13 @@
     if (!card) {
       const total = s.stats.err + s.stats.mid + s.stats.ok;
       return `
+        ${state.route.from ? renderStudyReturnBar(state.route.from) : ""}
         <div class="page-head"><h1>Sessão concluída</h1><p>${esc(deck.name)}</p></div>
         <div class="reader-body">
           <p><strong>Errei:</strong> ${s.stats.err}</p>
           <p><strong>Difícil:</strong> ${s.stats.mid}</p>
           <p><strong>Fácil:</strong> ${s.stats.ok}</p>
-          <p style="margin-top:1rem"><a href="#/flashcards">← Voltar aos decks</a></p>
+          <p style="margin-top:1rem"><a href="${state.route.from ? routeHash(state.route.from) : "#/flashcards"}">${esc(state.route.from ? studyReturnLabel(state.route.from) : "← Voltar aos decks")}</a></p>
         </div>`;
     }
     const backHtml = card.highlight
@@ -1135,6 +1169,7 @@
     const atLast = s.idx >= deck.cards.length - 1;
 
     return `
+      ${state.route.from ? renderStudyReturnBar(state.route.from) : ""}
       <div class="page-head">
         <h1>${esc(deck.name)}</h1>
         <p>Card ${s.idx + 1} de ${deck.cards.length}</p>
@@ -1260,8 +1295,15 @@
       </div>`;
   }
 
+  function legisBlockInRange(index, artRange) {
+    if (!artRange?.from || !artRange?.to) return true;
+    return index >= artRange.from - 1 && index <= artRange.to - 1;
+  }
+
   function renderReader(docId, backRoute, opts = {}) {
     const embedded = Boolean(opts.embedded);
+    const studyInline = Boolean(opts.studyInline);
+    const artRange = opts.artRange || null;
     const doc = findDocument(docId);
     if (!doc) return `<div class="empty">Documento não encontrado.</div>`;
     if (!doc.body) return `<div class="loading">Carregando texto…</div>`;
@@ -1279,14 +1321,16 @@
     const highlights = getHighlights(storageId, studyType);
     const notes = getNotes(storageId, studyType);
     const F = window.LexFormat;
+    const showLegisHeader = !artRange || artRange.from <= 1;
 
     let bodyHtml = "";
     if (doc.formatted?.mode === "legislacao") {
       const leg = doc.formatted;
       bodyHtml = `
-        ${leg.epigrafe ? `<header class="lei-epigrafe">${esc(leg.epigrafe)}</header>` : ""}
-        ${leg.ementa ? `<p class="lei-ementa">${esc(leg.ementa)}</p>` : ""}
+        ${showLegisHeader && leg.epigrafe ? `<header class="lei-epigrafe">${esc(leg.epigrafe)}</header>` : ""}
+        ${showLegisHeader && leg.ementa ? `<p class="lei-ementa">${esc(leg.ementa)}</p>` : ""}
         ${leg.blocks.map((b, i) => {
+          if (!legisBlockInRange(i, artRange)) return "";
           const saved = highlights[i];
           const note = notes[i];
           if (saved) {
@@ -1320,14 +1364,41 @@
     } else {
       bodyHtml = articles
         .map(
-          (a, i) => `
+          (a, i) => {
+            if (!legisBlockInRange(i, artRange)) return "";
+            return `
         <article class="article-block annot-block" id="art-${i}" data-art-id="${i}">
           <div class="article-num">${esc(a.label)}</div>
           <div class="article-text">${highlights[i] || esc(a.text)}</div>
           ${renderBlockNote(storageId, i, notes[i], studyType)}
-        </article>`
+        </article>`;
+          }
         )
         .join("");
+    }
+
+    if (studyInline) {
+      const readerMode = doc.formatted?.mode === "juris" ? "reader-juris" : "reader-lei";
+      return {
+        html: `
+          <div class="study-inline-reader">
+            <div class="study-inline-reader-toolbar reader-tools">
+              <button type="button" class="btn icon" data-inline-font="down" title="Diminuir letra">A−</button>
+              <span class="font-size-label" data-inline-font-label>${fontSize}px</span>
+              <button type="button" class="btn icon" data-inline-font="up" title="Aumentar letra">A+</button>
+              ${renderReportError({
+                area: studyType,
+                id: doc.external_id,
+                title: doc.title || docId,
+              })}
+            </div>
+            <div class="reader-body study-inline-reader-body ${readerMode}" style="font-size:${fontSize}px">
+              ${bodyHtml}
+            </div>
+          </div>`,
+        doc,
+        articles,
+      };
     }
 
     const voiceId = selectedTtsVoiceId();
@@ -1358,8 +1429,8 @@
             <div>
               ${
                 embedded
-                  ? `<button type="button" class="back-link" data-juris-close>← Voltar à lista</button>`
-                  : `<a href="#/${backRoute || "lei-seca"}" class="back-link">← Voltar</a>`
+                  ? `<button type="button" class="back-link" data-juris-close data-juris-from="${esc(backRoute || "")}">${esc(studyReturnLabel(backRoute))}</button>`
+                  : `<a href="${routeHash(backRoute || "lei-seca")}" class="back-link">${esc(studyReturnLabel(backRoute))}</a>`
               }
               <h1 class="reader-title">${esc(doc.title)}</h1>
             </div>
@@ -1799,6 +1870,7 @@
     }
 
     return `
+      ${renderStudyReturnBar(state.route.from)}
       <div class="page-head"><h1>Questões</h1><p>${objs.length} objetivas · ${subs.length} subjetivas</p></div>
       <section class="q-stats-panel" aria-label="Desempenho em questões objetivas">
         <h2 class="q-stats-title">Taxa de acerto</h2>
@@ -1953,7 +2025,7 @@
         return;
       }
       const s = document.createElement("script");
-      s.src = `${lexJsBase()}/js/study-plans.js?v=5`;
+      s.src = `${lexJsBase()}/js/study-plans.js?v=9`;
       s.dataset.lexStudyPlans = "1";
       s.onload = () => done(!!window.LexStudyPlans);
       s.onerror = () => done(false);
@@ -2082,6 +2154,373 @@
       </div>`;
   }
 
+  function renderStudyReturnBar(from) {
+    if (!from) return "";
+    return `<p class="study-return-bar"><a href="${routeHash(from)}" class="btn sm">${esc(studyReturnLabel(from))}</a></p>`;
+  }
+
+  function studyTaskOpenUrl(task, returnRoute) {
+    const from = returnRoute || STUDY_TRAIL_ROUTE;
+    if (task.kind === "legis" || task.type === "legis") {
+      return docHash("lei-seca", task.docId, { from });
+    }
+    if (task.kind === "juris" || task.type === "juris") {
+      return docHash("jurisprudencia", task.docId, { from });
+    }
+    if (task.kind === "questoes" || task.type === "questoes") {
+      return `#/questoes?q=${encodeURIComponent(task.docId)}&from=${encodeURIComponent(from)}`;
+    }
+    if (task.kind === "flashcards" || task.type === "flashcards") {
+      return `#/flashcards/${encodeURIComponent(task.slug)}?from=${encodeURIComponent(from)}`;
+    }
+    return routeHash(from);
+  }
+
+  function studyBlockKindLabel(block, SP) {
+    if (block.kinds?.includes("flashcards")) return "Flashcards";
+    const parts = (block.kinds || [])
+      .map((k) => SP.TASK_KIND_LABELS[k] || k)
+      .filter((k) => k !== "Flashcards");
+    return parts.length ? parts.join(" · ") : "Estudo integrado";
+  }
+
+  function renderStudyInlineFlashcards(task) {
+    const slug = typeof task === "string" ? task : task.slug;
+    const count = typeof task === "object" ? task.count || 0 : 0;
+    const deck = state.decks.find((d) => d.slug === slug);
+    if (!deck) return `<div class="loading">Carregando deck…</div>`;
+    if (!deck.cards?.length) {
+      if (state.decksLoading || state.decksHydrating) return `<div class="loading">Carregando cards…</div>`;
+      return `<div class="empty">Deck vazio.</div>`;
+    }
+    const n = count > 0 ? Math.min(count, deck.cards.length) : deck.cards.length;
+    const cards = deck.cards.slice(0, n);
+    return `
+      <div class="study-inline-flashcards">
+        <p class="study-inline-flash-meta">${esc(deck.name)} · ${n} card${n === 1 ? "" : "s"} nesta etapa</p>
+        ${cards
+          .map(
+            (c) => `
+          <details class="study-inline-flash">
+            <summary>${esc(c.front)}</summary>
+            <div class="study-inline-flash-back lex-protected"><p>${esc(c.back)}</p></div>
+          </details>`
+          )
+          .join("")}
+      </div>`;
+  }
+
+  function refreshStudyInlineQuestao(container, qid) {
+    const d = findQuestion(qid);
+    if (!d || !container) return;
+    container.innerHTML = renderQuestaoCard(d);
+    bindReportError();
+  }
+
+  function bindStudyInlineQuestoes(root) {
+    if (!root || root.dataset.qBound === "1") return;
+    root.dataset.qBound = "1";
+    root.addEventListener("click", (e) => {
+      const altBtn = e.target.closest(".q-alt:not([disabled])");
+      if (altBtn && root.contains(altBtn)) {
+        const qid = altBtn.getAttribute("data-q-id");
+        const qa = qAnswerState(qid);
+        if (qa.revealed) return;
+        qa.pick = altBtn.getAttribute("data-alt-key");
+        refreshStudyInlineQuestao(root, qid);
+        return;
+      }
+      const checkBtn = e.target.closest("[data-q-check]");
+      if (checkBtn && root.contains(checkBtn)) {
+        const qid = checkBtn.getAttribute("data-q-check");
+        const qa = qAnswerState(qid);
+        if (!qa.pick || qa.revealed) return;
+        qa.revealed = true;
+        finalizeQAnswer(qid, findQuestion(qid));
+        refreshStudyInlineQuestao(root, qid);
+        return;
+      }
+      const revealBtn = e.target.closest("[data-q-reveal]");
+      if (revealBtn && root.contains(revealBtn)) {
+        const qid = revealBtn.getAttribute("data-q-reveal");
+        qAnswerState(qid).revealed = true;
+        finalizeQAnswer(qid, findQuestion(qid));
+        refreshStudyInlineQuestao(root, qid);
+      }
+    });
+  }
+
+  async function hydrateStudyInlineContent(returnRoute) {
+    const embeds = document.querySelectorAll(".study-inline-body[data-study-kind]");
+    if (!embeds.length) return;
+
+    const needsQuestions = [...embeds].some((el) => el.getAttribute("data-study-kind") === "questoes");
+    if (needsQuestions && !state.questionsLoaded && !state.questionsLoading) {
+      await ensureQuestionsLoaded();
+    }
+
+    for (const embed of embeds) {
+      if (embed.dataset.hydrated === "1") continue;
+      const kind = embed.getAttribute("data-study-kind");
+      try {
+        if (kind === "legis" || kind === "juris") {
+          const docId = embed.getAttribute("data-doc-id");
+          const doc = findDocument(docId);
+          if (!doc) {
+            embed.innerHTML = `<div class="empty">Documento não encontrado.</div>`;
+            embed.dataset.hydrated = "1";
+            continue;
+          }
+          embed.innerHTML = `<div class="loading">Carregando texto…</div>`;
+          if (!doc.body) await window.LexData.loadDocumentBody(doc);
+          const artFrom = parseInt(embed.getAttribute("data-art-from"), 10);
+          const artTo = parseInt(embed.getAttribute("data-art-to"), 10);
+          const artRange =
+            kind === "legis" && Number.isFinite(artFrom) && Number.isFinite(artTo)
+              ? { from: artFrom, to: artTo }
+              : null;
+          mountReaderContent(embed, docId, returnRoute, { embedded: true, studyInline: true, artRange });
+          trackRecentRead(doc, returnRoute);
+        } else if (kind === "questoes") {
+          const qid = embed.getAttribute("data-q-id");
+          const d = findQuestion(qid);
+          embed.innerHTML = d ? renderQuestaoCard(d) : `<div class="empty">Questão não encontrada.</div>`;
+          bindStudyInlineQuestoes(embed);
+        } else if (kind === "flashcards") {
+          embed.innerHTML = renderStudyInlineFlashcards({
+            slug: embed.getAttribute("data-flash-slug"),
+            count: parseInt(embed.getAttribute("data-flash-count"), 10) || 0,
+          });
+        }
+        embed.dataset.hydrated = "1";
+      } catch (err) {
+        console.error(err);
+        embed.innerHTML = `<div class="empty">Não foi possível carregar este conteúdo.</div>`;
+        embed.dataset.hydrated = "1";
+      }
+    }
+    bindReportError();
+  }
+
+  function renderStudyBlockItem(task, dayIdx, returnRoute, doneSet) {
+    const kind = task.kind || task.type;
+    const kindLabel = studyPlansApi()?.TASK_KIND_LABELS[kind] || kind;
+    const done = doneSet.has(task.taskId);
+    const summary = studyTaskSummary(task);
+    const embedAttrs = [
+      `class="study-inline-body"`,
+      `data-study-kind="${esc(kind)}"`,
+      `data-study-embed="${esc(task.taskId)}"`,
+    ];
+    if (kind === "legis" || kind === "juris") {
+      embedAttrs.push(`data-doc-id="${esc(task.docId)}"`);
+    }
+    if (kind === "legis") {
+      embedAttrs.push(`data-art-from="${task.articleFrom || ""}"`, `data-art-to="${task.articleTo || ""}"`);
+    }
+    if (kind === "questoes") {
+      embedAttrs.push(`data-q-id="${esc(task.docId)}"`);
+    }
+    if (kind === "flashcards") {
+      embedAttrs.push(`data-flash-slug="${esc(task.slug)}"`, `data-flash-count="${task.count || 0}"`);
+    }
+
+    return `
+      <section class="study-block-item study-block-item-inline ${done ? "done" : ""}" data-study-inline>
+        <header class="study-block-item-head">
+          <span class="study-block-item-type">${esc(kindLabel)}</span>
+          ${done ? `<span class="study-block-item-done">✓</span>` : ""}
+          <label class="study-block-check">
+            <input type="checkbox" data-study-subtask data-day="${dayIdx}" data-task="${esc(task.taskId)}" ${done ? "checked" : ""} />
+            Concluído
+          </label>
+        </header>
+        <strong class="study-block-item-title">${esc(task.title || task.name || "Tarefa")}</strong>
+        ${summary ? `<p class="study-block-item-detail">${esc(summary)}</p>` : ""}
+        <div ${embedAttrs.join(" ")}>
+          <div class="loading">Carregando conteúdo…</div>
+        </div>
+      </section>`;
+  }
+
+  function renderStudyBlockRows(block, dayIdx, returnRoute, doneSet) {
+    return block.items.map((task) => renderStudyBlockItem(task, dayIdx, returnRoute, doneSet)).join("");
+  }
+
+  function studyTaskSummary(task) {
+    if (task.kind === "legis" || task.type === "legis") {
+      const range =
+        task.articleFrom === task.articleTo
+          ? `art. ${task.articleFrom}`
+          : `arts. ${task.articleFrom}–${task.articleTo}`;
+      return `${range} · ${task.articleCount} unidade(s)`;
+    }
+    if (task.kind === "juris" || task.type === "juris") {
+      return task.group ? `Grupo: ${task.group}` : "Leia o precedente completo";
+    }
+    if (task.kind === "questoes" || task.type === "questoes") {
+      return [task.materia, task.banca, task.questaoTipo].filter(Boolean).join(" · ") || "Resolva a questão";
+    }
+    if (task.kind === "flashcards" || task.type === "flashcards") {
+      return `${task.count || 0} cards nesta etapa`;
+    }
+    return "";
+  }
+
+  function renderStudySession() {
+    const SP = studyPlansApi();
+    if (!SP) return renderStudyPlanUnavailable();
+    const plan = SP.loadSavedPlan();
+    if (!plan) {
+      return `
+        <div class="page-head">
+          <h1>Estudo guiado</h1>
+          <p>Nenhum plano gerado ainda.</p>
+        </div>
+        <a class="btn primary" href="#/plano-estudos">Criar plano</a>`;
+    }
+
+    const dayIdx = Number.isInteger(state.route.day) ? state.route.day : SP.todayIndex(plan);
+    const day = plan.trail[dayIdx];
+    if (!day) {
+      return `
+        <div class="page-head"><h1>Estudo guiado</h1><p>Dia inválido.</p></div>
+        <a class="btn" href="${routeHash(STUDY_TRAIL_ROUTE)}">Ver trilha</a>`;
+    }
+
+    const { blocks, done, total, doneSet } = SP.dayBlockProgress(day);
+    const stepIdx = Math.min(
+      Math.max(0, Number.isInteger(state.route.step) ? state.route.step : SP.firstIncompleteBlock(day)),
+      Math.max(0, blocks.length - 1)
+    );
+    const returnRoute = studyTrailReturn({ sessao: true, day: dayIdx, step: stepIdx });
+    const dayPct = total ? Math.round((done / total) * 100) : 0;
+    const isToday = dayIdx === SP.todayIndex(plan);
+
+    if (!blocks.length) {
+      return `
+        <div class="study-session">
+          ${renderStudyReturnBar(STUDY_TRAIL_ROUTE)}
+          <div class="page-head">
+            <h1>Dia ${day.day}</h1>
+            <p>${esc(day.date)} · sem tarefas programadas</p>
+          </div>
+          <a class="btn primary" href="${routeHash(STUDY_TRAIL_ROUTE)}">Ver trilha completa</a>
+        </div>`;
+    }
+
+    if (done >= total) {
+      const nextDay = dayIdx + 1 < plan.trail.length ? dayIdx + 1 : null;
+      return `
+        <div class="study-session study-session-complete">
+          ${renderStudyReturnBar(STUDY_TRAIL_ROUTE)}
+          <div class="study-session-hero">
+            <span class="study-session-badge">Dia ${day.day} concluído</span>
+            <h1>Parabéns!</h1>
+            <p>Você finalizou todas as ${total} etapas de ${isToday ? "hoje" : `o dia ${day.day}`}.</p>
+          </div>
+          <div class="study-session-actions">
+            ${
+              nextDay != null
+                ? `<a class="btn primary" href="${routeHash(studyTrailReturn({ sessao: true, day: nextDay, step: 0 }))}">Começar dia ${plan.trail[nextDay].day}</a>`
+                : ""
+            }
+            <a class="btn" href="${routeHash(STUDY_TRAIL_ROUTE)}">Ver trilha completa</a>
+          </div>
+        </div>`;
+    }
+
+    const block = blocks[stepIdx];
+    const blockDone = SP.blockIsDone(block, doneSet);
+    const blockLabel = studyBlockKindLabel(block, SP);
+
+    const stepsHtml = blocks
+      .map((b, i) => {
+        const tDone = SP.blockIsDone(b, doneSet);
+        const active = i === stepIdx;
+        const tip = studyBlockKindLabel(b, SP);
+        return `<button type="button" class="study-step-pill ${active ? "active" : ""} ${tDone ? "done" : ""}" data-study-step="${i}" title="${esc(tip)}">${i + 1}</button>`;
+      })
+      .join("");
+
+    const itemsHtml = renderStudyBlockRows(block, dayIdx, returnRoute, doneSet);
+    const taskIdsAttr = block.taskIds.map((id) => esc(id)).join(",");
+
+    return `
+      <div class="study-session">
+        <div class="study-session-head">
+          <a href="${routeHash(STUDY_TRAIL_ROUTE)}" class="back-link">← Ver trilha completa</a>
+          <h1>${isToday ? "Estudo de hoje" : `Dia ${day.day}`}</h1>
+          <p>${esc(day.date)} · etapa ${stepIdx + 1} de ${total} · ${done}/${total} concluídas</p>
+          <div class="study-trail-progress-bar study-session-bar"><span style="width:${dayPct}%"></span></div>
+        </div>
+        <div class="study-session-steps" role="tablist" aria-label="Etapas do dia">${stepsHtml}</div>
+        <article class="study-session-card study-session-block">
+          <span class="study-session-type">${esc(blockLabel)}</span>
+          <h2>${esc(block.label || `Etapa ${stepIdx + 1}`)}</h2>
+          <p class="study-session-detail">Leia, resolva e marque como concluído cada item abaixo — tudo nesta página, sem sair da trilha.</p>
+          <div class="study-block-items">${itemsHtml}</div>
+          <div class="study-session-actions">
+            <button type="button" class="btn primary" data-study-advance-block data-day="${dayIdx}" data-step="${stepIdx}" data-tasks="${taskIdsAttr}">
+              ${blockDone ? "Avançar para próxima etapa" : "Concluir etapa e avançar"}
+            </button>
+          </div>
+        </article>
+        <p class="study-session-hint">Estude o conteúdo de cada bloco acima e toque em <strong>Concluir etapa e avançar</strong> quando terminar a etapa.</p>
+      </div>`;
+  }
+
+  function bindStudySession() {
+    const SP = studyPlansApi();
+    if (!SP) return;
+
+    const plan = SP.loadSavedPlan();
+    const dayIdx = Number.isInteger(state.route.day) ? state.route.day : plan ? SP.todayIndex(plan) : 0;
+    const stepIdx = Number.isInteger(state.route.step) ? state.route.step : 0;
+    const returnRoute = studyTrailReturn({ sessao: true, day: dayIdx, step: stepIdx });
+    hydrateStudyInlineContent(returnRoute);
+
+    document.querySelectorAll("[data-study-step]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const step = parseInt(btn.getAttribute("data-study-step"), 10);
+        const day = Number.isInteger(state.route.day) ? state.route.day : SP.todayIndex(SP.loadSavedPlan());
+        location.hash = routeHash(studyTrailReturn({ sessao: true, day, step }));
+      });
+    });
+
+    document.querySelectorAll("[data-study-subtask]").forEach((input) => {
+      input.addEventListener("change", () => {
+        const plan = SP.loadSavedPlan();
+        if (!plan) return;
+        const dayIndex = parseInt(input.getAttribute("data-day"), 10);
+        const taskId = input.getAttribute("data-task");
+        SP.toggleTask(plan, dayIndex, taskId);
+        render();
+      });
+    });
+
+    document.querySelectorAll("[data-study-advance-block]").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const plan = SP.loadSavedPlan();
+        if (!plan) return;
+        const dayIndex = parseInt(btn.getAttribute("data-day"), 10);
+        const stepIndex = parseInt(btn.getAttribute("data-step"), 10);
+        const taskIds = (btn.getAttribute("data-tasks") || "").split(",").filter(Boolean);
+        if (taskIds.length) SP.markBlockTasks(plan, dayIndex, taskIds);
+        const day = plan.trail[dayIndex];
+        const { blocks } = SP.dayBlockProgress(day);
+        const updatedDone = new Set(day.completedTasks || []);
+        let next = stepIndex + 1;
+        while (next < blocks.length && SP.blockIsDone(blocks[next], updatedDone)) next += 1;
+        if (next >= blocks.length) {
+          location.hash = routeHash(studyTrailReturn({ sessao: true, day: dayIndex, step: Math.max(0, blocks.length - 1) }));
+        } else {
+          location.hash = routeHash(studyTrailReturn({ sessao: true, day: dayIndex, step: next }));
+        }
+      });
+    });
+  }
+
   function renderStudyTrail() {
     const SP = studyPlansApi();
     if (!SP) return renderStudyPlanUnavailable();
@@ -2098,68 +2537,48 @@
     const prog = SP.planProgress(plan);
     const todayIdx = SP.todayIndex(plan);
     const t = plan.targets || {};
+    const todayDay = plan.trail[todayIdx];
+    const todayProgress = todayDay ? SP.dayBlockProgress(todayDay) : { done: 0, total: 0 };
+    const todayComplete = todayProgress.total > 0 && todayProgress.done >= todayProgress.total;
+    const trailReturn = STUDY_TRAIL_ROUTE;
 
     const dayHtml = plan.trail
       .map((day, idx) => {
-        const tasks = [
-          ...(day.legisTasks || []),
-          ...(day.jurisTasks || []),
-          ...(day.flashTasks || []),
-          ...(day.questoesTasks || []),
-        ];
+        const blocks = SP.buildDayStudyBlocks(day);
+        const allTasks = SP.dayTasks(day);
         const doneSet = new Set(day.completedTasks || []);
-        const dayDone = tasks.length > 0 && tasks.every((tk) => doneSet.has(tk.taskId));
+        const dayDone = allTasks.length > 0 && allTasks.every((tk) => doneSet.has(tk.taskId));
         const isToday = idx === todayIdx;
         const expanded = state.studyPlanExpandedDay === idx || (isToday && state.studyPlanExpandedDay == null);
 
-        const legisRows = (day.legisTasks || [])
-          .map((task) => {
-            const done = doneSet.has(task.taskId);
-            const href = docHash("lei-seca", task.docId);
-            const range =
-              task.articleFrom === task.articleTo
-                ? `art. ${task.articleFrom}`
-                : `arts. ${task.articleFrom}–${task.articleTo}`;
-            return `
-            <label class="study-task ${done ? "done" : ""}">
-              <input type="checkbox" data-study-task data-day="${idx}" data-task="${esc(task.taskId)}" ${done ? "checked" : ""} />
-              <span><a href="${href}">${esc(task.title)}</a> — ${range} (${task.articleCount} un.)</span>
-            </label>`;
-          })
-          .join("");
+        const blockRows = blocks
+          .map((block, bi) => {
+            const blockDone = SP.blockIsDone(block, doneSet);
+            const blockLabel = studyBlockKindLabel(block, SP);
+            const itemsHtml = block.items
+              .map((task) => {
+                const done = doneSet.has(task.taskId);
+                const kind = task.kind || task.type;
+                let href = "#";
+                if (kind === "legis") href = docHash("lei-seca", task.docId, { from: trailReturn });
+                else if (kind === "juris") href = docHash("jurisprudencia", task.docId, { from: trailReturn });
+                else if (kind === "questoes") href = `#/questoes?q=${encodeURIComponent(task.docId)}&from=${encodeURIComponent(trailReturn)}`;
+                else if (kind === "flashcards") href = `#/flashcards/${encodeURIComponent(task.slug)}?from=${encodeURIComponent(trailReturn)}`;
 
-        const jurisRows = (day.jurisTasks || [])
-          .map((task) => {
-            const done = doneSet.has(task.taskId);
-            const href = docHash("jurisprudencia", task.docId);
-            return `
-            <label class="study-task ${done ? "done" : ""}">
-              <input type="checkbox" data-study-task data-day="${idx}" data-task="${esc(task.taskId)}" ${done ? "checked" : ""} />
-              <span><a href="${href}">${esc(task.title)}</a>${task.group ? ` <em>(${esc(task.group)})</em>` : ""}</span>
-            </label>`;
-          })
-          .join("");
+                const detail = studyTaskSummary(task);
+                return `
+                <label class="study-task ${done ? "done" : ""}">
+                  <input type="checkbox" data-study-task data-day="${idx}" data-task="${esc(task.taskId)}" ${done ? "checked" : ""} />
+                  <span><em class="study-task-kind">${esc(SP.TASK_KIND_LABELS[kind] || kind)}</em> <a href="${href}">${esc(task.title || task.name)}</a>${detail ? ` — ${esc(detail)}` : ""}</span>
+                </label>`;
+              })
+              .join("");
 
-        const flashRows = (day.flashTasks || [])
-          .map((task) => {
-            const done = doneSet.has(task.taskId);
             return `
-            <label class="study-task ${done ? "done" : ""}">
-              <input type="checkbox" data-study-task data-day="${idx}" data-task="${esc(task.taskId)}" ${done ? "checked" : ""} />
-              <span><a href="#/flashcards/${encodeURIComponent(task.slug)}">${esc(task.name)}</a> — ${task.count} cards</span>
-            </label>`;
-          })
-          .join("");
-
-        const questoesRows = (day.questoesTasks || [])
-          .map((task) => {
-            const done = doneSet.has(task.taskId);
-            const href = `#/questoes?q=${encodeURIComponent(task.docId)}`;
-            return `
-            <label class="study-task ${done ? "done" : ""}">
-              <input type="checkbox" data-study-task data-day="${idx}" data-task="${esc(task.taskId)}" ${done ? "checked" : ""} />
-              <span><a href="${href}">${esc(task.title)}</a>${task.questaoTipo ? ` <em>(${esc(task.questaoTipo)})</em>` : ""}</span>
-            </label>`;
+            <div class="study-block ${blockDone ? "done" : ""}">
+              <h4 class="study-block-title">${esc(block.label || `Etapa ${bi + 1}`)} <span class="study-block-kinds">${esc(blockLabel)}</span></h4>
+              <div class="study-block-items study-block-items-compact">${itemsHtml}</div>
+            </div>`;
           })
           .join("");
 
@@ -2171,10 +2590,7 @@
             <span class="study-day-badge">${day.articlesTarget} art. · ${day.jurisTarget} juris · ${day.questoesTarget || 0} quest. · ${day.flashTarget || 0} cards</span>
           </button>
           <div class="study-day-body" ${expanded ? "" : "hidden"}>
-            ${legisRows ? `<div class="study-task-group"><h4>Legislação</h4>${legisRows}</div>` : ""}
-            ${jurisRows ? `<div class="study-task-group"><h4>Jurisprudência</h4>${jurisRows}</div>` : ""}
-            ${questoesRows ? `<div class="study-task-group"><h4>Questões</h4>${questoesRows}</div>` : ""}
-            ${flashRows ? `<div class="study-task-group"><h4>Flashcards</h4>${flashRows}</div>` : ""}
+            ${blockRows || `<p class="study-day-empty">Sem tarefas neste dia.</p>`}
           </div>
         </article>`;
       })
@@ -2201,6 +2617,17 @@
           <span>${plan.jurisCount || 0} jurisprudências</span>
           <span>${t.totalQuestoes || 0} questões na trilha</span>
           <span>~${(t.totalLegisArticles || 0).toLocaleString("pt-BR")} artigos no total</span>
+        </div>
+        <div class="study-session-cta">
+          <button type="button" class="btn primary study-session-start" id="study-start-session">
+            ${todayComplete ? "Rever estudo de hoje" : todayProgress.done > 0 ? "Continuar estudo de hoje" : "Clique aqui para começar"}
+          </button>
+          <p>Estude por etapas integradas: em cada etapa, lei, jurisprudência e questões juntos.</p>
+          ${
+            todayProgress.total
+              ? `<span class="study-session-cta-meta">${todayProgress.done}/${todayProgress.total} etapas de hoje</span>`
+              : ""
+          }
         </div>
         <div class="study-day-list">${dayHtml}</div>
       </div>`;
@@ -2267,6 +2694,15 @@
   function bindStudyTrail() {
     const SP = studyPlansApi();
     if (!SP) return;
+
+    document.getElementById("study-start-session")?.addEventListener("click", () => {
+      const plan = SP.loadSavedPlan();
+      if (!plan) return;
+      const dayIdx = SP.todayIndex(plan);
+      const day = plan.trail[dayIdx];
+      const step = day ? SP.firstIncompleteBlock(day) : 0;
+      location.hash = routeHash(studyTrailReturn({ sessao: true, day: dayIdx, step }));
+    });
 
     document.getElementById("study-clear-plan")?.addEventListener("click", () => {
       if (confirm("Excluir o plano de estudos salvo?")) {
@@ -2990,28 +3426,49 @@
     });
   }
 
-  function mountReaderContent(container, docId, backRoute, { embedded = false } = {}) {
+  function bindInlineReader(container) {
+    const body = container.querySelector(".study-inline-reader-body");
+    const label = container.querySelector("[data-inline-font-label]");
+    let fontIdx = loadJson(LS.fontSize, 2);
+
+    const applyFont = (idx) => {
+      fontIdx = Math.max(0, Math.min(FONT_SIZES.length - 1, idx));
+      const px = FONT_SIZES[fontIdx] || 15;
+      if (body) body.style.fontSize = `${px}px`;
+      if (label) label.textContent = `${px}px`;
+    };
+
+    container.querySelector('[data-inline-font="down"]')?.addEventListener("click", () => applyFont(fontIdx - 1));
+    container.querySelector('[data-inline-font="up"]')?.addEventListener("click", () => applyFont(fontIdx + 1));
+  }
+
+  function mountReaderContent(container, docId, backRoute, opts = {}) {
     const app = document.getElementById("app");
     const doc = findDocument(docId);
-    const reader = renderReader(docId, backRoute, { embedded });
+    const reader = renderReader(docId, backRoute, opts);
     if (typeof reader === "string") {
       container.innerHTML = reader;
       return null;
     }
     container.innerHTML = reader.html;
-    if (readerShowsNarrationPanel(doc)) {
-      if (embedded) container.classList.add("juris-reader-embed--panel");
+    if (opts.studyInline) {
+      container.classList.add("study-inline-reader-host");
+      bindInlineReader(container);
+    } else if (readerShowsNarrationPanel(doc)) {
+      if (opts.embedded) container.classList.add("juris-reader-embed--panel");
       else app?.classList.add("with-panel");
     } else {
       container.classList.remove("juris-reader-embed--panel");
     }
-    bindReader(docId, reader.articles, docStudyType(doc));
-    bindReportError();
-    bindJurisCloseButtons();
+    if (!opts.studyInline) {
+      bindReader(docId, reader.articles, docStudyType(doc));
+      bindReportError();
+      bindJurisCloseButtons();
+    }
     return reader;
   }
 
-  async function renderJurisprudenciaPage(openDocId) {
+  async function renderJurisprudenciaPage(openDocId, backRoute = "jurisprudencia") {
     const main = document.getElementById("main");
     const app = document.getElementById("app");
     main?.classList.remove("with-panel");
@@ -3034,7 +3491,7 @@
       return;
     }
 
-    trackRecentRead(doc, "jurisprudencia");
+    trackRecentRead(doc, backRoute);
 
     if (!doc.body) {
       embed.innerHTML = `<div class="loading">Carregando precedente…</div>`;
@@ -3048,7 +3505,7 @@
       }
     }
 
-    mountReaderContent(embed, openDocId, "jurisprudencia", { embedded: true });
+    mountReaderContent(embed, openDocId, backRoute, { embedded: true });
     requestAnimationFrame(() => {
       document.getElementById("juris-reader-shell")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
@@ -3059,7 +3516,8 @@
       if (btn.dataset.jurisCloseBound) return;
       btn.dataset.jurisCloseBound = "1";
       btn.addEventListener("click", () => {
-        location.hash = "#/jurisprudencia";
+        const from = btn.getAttribute("data-juris-from") || state.route.from;
+        location.hash = from ? routeHash(from) : "#/jurisprudencia";
       });
     });
   }
@@ -3270,7 +3728,7 @@
       } catch (err) {
         console.error(err);
         const detail = err?.message ? `<p class="meta-row"><small>${esc(String(err.message))}</small></p>` : "";
-        setAppHtml(`<div class="empty">Não foi possível carregar este documento.${detail}<p style="margin-top:0.75rem"><a href="#/${esc(backRoute || "jurisprudencia")}" class="btn">← Voltar</a></p></div>`);
+        setAppHtml(`<div class="empty">Não foi possível carregar este documento.${detail}<p style="margin-top:0.75rem"><a href="${routeHash(backRoute || "jurisprudencia")}" class="btn">${esc(studyReturnLabel(backRoute))}</a></p></div>`);
         return;
       }
     }
@@ -3324,12 +3782,12 @@
       else html = renderFlashcardsList();
     } else if (r.path === "lei-seca") {
       if (r.id) {
-        openReader(r.id, "lei-seca");
+        openReader(r.id, r.from || "lei-seca");
         return;
       }
       html = renderLeiSecaList();
     } else if (r.path === "jurisprudencia") {
-      renderJurisprudenciaPage(r.id || null);
+      renderJurisprudenciaPage(r.id || null, r.from || "jurisprudencia");
       return;
     } else if (r.path === "questoes") {
       if (!state.questionsLoaded && !state.questionsLoading) ensureQuestionsLoaded();
@@ -3348,7 +3806,8 @@
         return;
       }
       if (!state.questionsLoaded && !state.questionsLoading) ensureQuestionsLoaded();
-      html = r.id === "trilha" ? renderStudyTrail() : renderStudyPlanWizard();
+      if (r.id === "trilha" && r.sessao === "1") html = renderStudySession();
+      else html = r.id === "trilha" ? renderStudyTrail() : renderStudyPlanWizard();
     } else if (r.path === "contato") html = renderContato();
     else if (r.path === "excluir-conta") html = renderExcluirConta();
     else html = renderHome();
@@ -3386,7 +3845,8 @@
           render();
         });
       });
-      if (r.id === "trilha") bindStudyTrail();
+      if (r.id === "trilha" && r.sessao === "1") bindStudySession();
+      else if (r.id === "trilha") bindStudyTrail();
       else bindStudyPlanWizard();
     }
     if (r.path === "flashcards" && !r.id) bindPageSectionSearch("flashcards");

@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-28T14:06:31.343870+00:00",
-  "count": 201,
+  "generated_at": "2026-05-29T23:04:47.491748+00:00",
+  "count": 217,
   "summaries": {
     "/ccivil_03/decreto-lei/del2848.htm": {
       "titulo": "Decreto-Lei 2.848/1940 — Código Penal",
@@ -159,8 +159,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12153.htm"
     },
     "/ccivil_03/_ato2007-2010/2010/lei/l12288.htm": {
-      "titulo": "Lei 12.288/2010 — Fundo da Cultura",
-      "resumo": "Institui Fundo Nacional de Cultura e incentivo à cultura.",
+      "titulo": "Lei 12.288/2010 — Estatuto da Igualdade Racial",
+      "resumo": "Institui o Estatuto da Igualdade Racial e mecanismos de combate ao racismo.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12288.htm"
     },
@@ -567,9 +567,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del0911.htm"
     },
     "/ccivil_03/decreto-lei//1965-1988/del1075.htm": {
-      "titulo": "Decreto-Lei 1.075/1970",
-      "resumo": "Altera dispositivos sobre valor provisório de créditos tributários.",
-      "secao": "Legislação Especial",
+      "titulo": "Decreto-Lei 1.075/1970 — Imissão de posse (locação)",
+      "resumo": "Regula a imissão de posse, initio litis, em imóveis residenciais urbanos.",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del1075.htm"
     },
     "/ccivil_03/decreto-lei/1937-1946/del3931.htm": {
@@ -585,8 +585,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3365.htm"
     },
     "/ccivil_03/decreto-lei/del3688.htm": {
-      "titulo": "Decreto-Lei 3.688/1941 — Procedimento penal militar",
-      "resumo": "Estabelece normas de processo penal militar.",
+      "titulo": "Decreto-Lei 3.688/1941 — Lei das Contravenções Penais",
+      "resumo": "Institui a Lei das Contravenções Penais.",
       "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3688.htm"
     },
@@ -627,9 +627,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/decreto/d22626.htm"
     },
     "/ccivil_03/decreto/d70235cons.htm": {
-      "titulo": "Decreto 70.235/1972 — Regimento Interno do STF",
-      "resumo": "Aprova o Regimento Interno do Supremo Tribunal Federal.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Decreto 70.235/1972 — Processo administrativo fiscal",
+      "resumo": "Dispõe sobre o processo administrativo fiscal (texto vigente no Planalto nesta URL).",
+      "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/decreto/d70235cons.htm"
     },
     "/ccivil_03/leis/1950-1969/l4729.htm": {
@@ -657,9 +657,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406.htm"
     },
     "/ccivil_03/leis/l0605.htm": {
-      "titulo": "Lei 605/1949 — Radiodifusão",
-      "resumo": "Dispõe sobre radiodifusão sonora e imagens.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 605/1949 — Repouso semanal remunerado",
+      "resumo": "Dispõe sobre repouso semanal remunerado e pagamento em feriados.",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l0605.htm"
     },
     "/ccivil_03/leis/l10101.htm": {
@@ -699,9 +699,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l2889.htm"
     },
     "/ccivil_03/leis/l4090.htm": {
-      "titulo": "Lei 4.090/1962 — Ações nominativas",
-      "resumo": "Regula emissão de ações nominativas e negociação de valores mobiliários.",
-      "secao": "Legislação Especial",
+      "titulo": "Lei 4.090/1962 — Gratificação de Natal (13º salário)",
+      "resumo": "Institui a gratificação de Natal para os trabalhadores.",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4090.htm"
     },
     "/ccivil_03/leis/l4132.htm": {
@@ -939,9 +939,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l8934.htm"
     },
     "/ccivil_03/leis/l8971.htm": {
-      "titulo": "Lei 8.971/1995 — Informática",
-      "resumo": "Regula mercado de informática e propriedade de programas.",
-      "secao": "Legislação Especial",
+      "titulo": "Lei 8.971/1994 — Companheiros (alimentos e sucessão)",
+      "resumo": "Regula o direito dos companheiros a alimentos e à sucessão (Lei dos Companheiros).",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l8971.htm"
     },
     "/ccivil_03/leis/l8987cons.htm": {
@@ -1213,6 +1213,102 @@
       "resumo": "Regulamenta procedimentos e critérios de licenciamento ambiental.",
       "secao": "Legislação Especial",
       "url": "https://conama.mma.gov.br/resolucao-conama-n-237-1997"
+    },
+    "/ccivil_03/leis/l8625.htm": {
+      "titulo": "Lei 8.625/1993 — Lei Orgânica Nacional do MP",
+      "resumo": "Dispõe sobre a organização, competências e prerrogativas do Ministério Público.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8625.htm"
+    },
+    "/ccivil_03/leis/l7853.htm": {
+      "titulo": "Lei 7.853/1989 — Apoio à pessoa com deficiência",
+      "resumo": "Dispõe sobre apoio às pessoas portadoras de deficiência e normas de acessibilidade.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7853.htm"
+    },
+    "/ccivil_03/leis/l8080.htm": {
+      "titulo": "Lei 8.080/1990 — Lei Orgânica da Saúde (SUS)",
+      "resumo": "Dispõe sobre condições para promoção, proteção e recuperação da saúde (SUS).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8080.htm"
+    },
+    "/ccivil_03/leis/l8142.htm": {
+      "titulo": "Lei 8.142/1990 — Participação e recursos do SUS",
+      "resumo": "Dispõe sobre participação da comunidade e transferências intergovernamentais na saúde.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8142.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2007/lei/l11445.htm": {
+      "titulo": "Lei 11.445/2007 — Diretrizes do saneamento básico",
+      "resumo": "Estabelece diretrizes nacionais para o saneamento básico.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11445.htm"
+    },
+    "/ccivil_03/_ato2007-2010/2010/lei/l12305.htm": {
+      "titulo": "Lei 12.305/2010 — Política Nacional de Resíduos Sólidos",
+      "resumo": "Institui a Política Nacional de Resíduos Sólidos (PNRS).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12305.htm"
+    },
+    "/ccivil_03/_ato2011-2014/2014/lei/l13019.htm": {
+      "titulo": "Lei 13.019/2014 — Marco Regulatório das OSC",
+      "resumo": "Estabelece regime jurídico das parcerias entre administração pública e OSC.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm"
+    },
+    "/ccivil_03/_ato2015-2018/2017/lei/l13431.htm": {
+      "titulo": "Lei 13.431/2017 — Depoimento especial",
+      "resumo": "Dispõe sobre o depoimento especial de crianças e adolescentes vítimas ou testemunhas de violência.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13431.htm"
+    },
+    "/ccivil_03/_ato2019-2022/2019/lei/l13964.htm": {
+      "titulo": "Lei 13.964/2019 — Pacote Anticrime",
+      "resumo": "Altera o CP e o CPP (juiz de garantias, ANPP, investigação criminal, entre outros).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13964.htm"
+    },
+    "/ccivil_03/_ato2019-2022/2021/lei/l14119.htm": {
+      "titulo": "Lei 14.119/2021 — Pagamento por serviços ambientais",
+      "resumo": "Institui o Pagamento por Serviços Ambientais (PSA).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14119.htm"
+    },
+    "/ccivil_03/_ato2023-2026/2024/lei/l14811.htm": {
+      "titulo": "Lei 14.811/2024 — Bullying e cyberbullying",
+      "resumo": "Tipifica crimes de bullying e cyberbullying e altera o CP.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm"
+    },
+    "/ccivil_03/leis/lcp/lcp135.htm": {
+      "titulo": "Lei Complementar 135/2010 — Ficha Limpa",
+      "resumo": "Altera a LC 64/1990 sobre inelegibilidades (Lei da Ficha Limpa).",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp135.htm"
+    },
+    "/ccivil_03/decreto/d0678.htm": {
+      "titulo": "Decreto 678/1992 — Convenção Americana de DH",
+      "resumo": "Promulga a Convenção Americana sobre Direitos Humanos (Pacto de San José).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/D0678.htm"
+    },
+    "/ccivil_03/_ato2004-2006/2004/decreto/d5051.htm": {
+      "titulo": "Decreto 5.051/2004 — Convenção 169 da OIT",
+      "resumo": "Promulga a Convenção 169 da OIT sobre povos indígenas e tribais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/decreto/d5051.htm"
+    },
+    "/ccivil_03/_ato2019-2022/2022/decreto/d10932.htm": {
+      "titulo": "Decreto 10.932/2022 — Convenção Interamericana contra o Racismo",
+      "resumo": "Promulga a Convenção Interamericana contra o Racismo, a Discriminação Racial e Formas Correlatas de Intolerância.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D10932.htm"
+    },
+    "/ccivil_03/_ato2019-2022/2022/decreto/d11129.htm": {
+      "titulo": "Decreto 11.129/2022 — Lei Anticorrupção (regulamentação)",
+      "resumo": "Regulamenta dispositivos da Lei 12.846/2013 (Lei Anticorrupção).",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D11129.htm"
     }
   },
   "list": [
@@ -1235,9 +1331,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/decreto/antigos/d57663.htm"
     },
     {
-      "titulo": "Decreto 70.235/1972 — Regimento Interno do STF",
-      "resumo": "Aprova o Regimento Interno do Supremo Tribunal Federal.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Decreto 70.235/1972 — Processo administrativo fiscal",
+      "resumo": "Dispõe sobre o processo administrativo fiscal (texto vigente no Planalto nesta URL).",
+      "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/decreto/d70235cons.htm"
     },
     {
@@ -1247,9 +1343,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del0911.htm"
     },
     {
-      "titulo": "Decreto-Lei 1.075/1970",
-      "resumo": "Altera dispositivos sobre valor provisório de créditos tributários.",
-      "secao": "Legislação Especial",
+      "titulo": "Decreto-Lei 1.075/1970 — Imissão de posse (locação)",
+      "resumo": "Regula a imissão de posse, initio litis, em imóveis residenciais urbanos.",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del1075.htm"
     },
     {
@@ -1265,8 +1361,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3365.htm"
     },
     {
-      "titulo": "Decreto-Lei 3.688/1941 — Procedimento penal militar",
-      "resumo": "Estabelece normas de processo penal militar.",
+      "titulo": "Decreto-Lei 3.688/1941 — Lei das Contravenções Penais",
+      "resumo": "Institui a Lei das Contravenções Penais.",
       "secao": "Penal e Processual",
       "url": "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3688.htm"
     },
@@ -1415,9 +1511,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc91.htm"
     },
     {
-      "titulo": "Lei 605/1949 — Radiodifusão",
-      "resumo": "Dispõe sobre radiodifusão sonora e imagens.",
-      "secao": "Constituição e Adm.",
+      "titulo": "Lei 605/1949 — Repouso semanal remunerado",
+      "resumo": "Dispõe sobre repouso semanal remunerado e pagamento em feriados.",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l0605.htm"
     },
     {
@@ -1559,8 +1655,8 @@
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12153.htm"
     },
     {
-      "titulo": "Lei 12.288/2010 — Fundo da Cultura",
-      "resumo": "Institui Fundo Nacional de Cultura e incentivo à cultura.",
+      "titulo": "Lei 12.288/2010 — Estatuto da Igualdade Racial",
+      "resumo": "Institui o Estatuto da Igualdade Racial e mecanismos de combate ao racismo.",
       "secao": "Legislação Especial",
       "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12288.htm"
     },
@@ -1853,9 +1949,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l2889.htm"
     },
     {
-      "titulo": "Lei 4.090/1962 — Ações nominativas",
-      "resumo": "Regula emissão de ações nominativas e negociação de valores mobiliários.",
-      "secao": "Legislação Especial",
+      "titulo": "Lei 4.090/1962 — Gratificação de Natal (13º salário)",
+      "resumo": "Institui a gratificação de Natal para os trabalhadores.",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l4090.htm"
     },
     {
@@ -2141,9 +2237,9 @@
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l8934.htm"
     },
     {
-      "titulo": "Lei 8.971/1995 — Informática",
-      "resumo": "Regula mercado de informática e propriedade de programas.",
-      "secao": "Legislação Especial",
+      "titulo": "Lei 8.971/1994 — Companheiros (alimentos e sucessão)",
+      "resumo": "Regula o direito dos companheiros a alimentos e à sucessão (Lei dos Companheiros).",
+      "secao": "Civil e Trabalho",
       "url": "https://www.planalto.gov.br/ccivil_03/leis/l8971.htm"
     },
     {
@@ -2421,6 +2517,102 @@
       "resumo": "Regulamenta procedimentos e critérios de licenciamento ambiental.",
       "secao": "Legislação Especial",
       "url": "https://conama.mma.gov.br/resolucao-conama-n-237-1997"
+    },
+    {
+      "titulo": "Lei 8.625/1993 — Lei Orgânica Nacional do MP",
+      "resumo": "Dispõe sobre a organização, competências e prerrogativas do Ministério Público.",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8625.htm"
+    },
+    {
+      "titulo": "Lei 7.853/1989 — Apoio à pessoa com deficiência",
+      "resumo": "Dispõe sobre apoio às pessoas portadoras de deficiência e normas de acessibilidade.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l7853.htm"
+    },
+    {
+      "titulo": "Lei 8.080/1990 — Lei Orgânica da Saúde (SUS)",
+      "resumo": "Dispõe sobre condições para promoção, proteção e recuperação da saúde (SUS).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8080.htm"
+    },
+    {
+      "titulo": "Lei 8.142/1990 — Participação e recursos do SUS",
+      "resumo": "Dispõe sobre participação da comunidade e transferências intergovernamentais na saúde.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/l8142.htm"
+    },
+    {
+      "titulo": "Lei 11.445/2007 — Diretrizes do saneamento básico",
+      "resumo": "Estabelece diretrizes nacionais para o saneamento básico.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11445.htm"
+    },
+    {
+      "titulo": "Lei 12.305/2010 — Política Nacional de Resíduos Sólidos",
+      "resumo": "Institui a Política Nacional de Resíduos Sólidos (PNRS).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12305.htm"
+    },
+    {
+      "titulo": "Lei 13.019/2014 — Marco Regulatório das OSC",
+      "resumo": "Estabelece regime jurídico das parcerias entre administração pública e OSC.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm"
+    },
+    {
+      "titulo": "Lei 13.431/2017 — Depoimento especial",
+      "resumo": "Dispõe sobre o depoimento especial de crianças e adolescentes vítimas ou testemunhas de violência.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13431.htm"
+    },
+    {
+      "titulo": "Lei 13.964/2019 — Pacote Anticrime",
+      "resumo": "Altera o CP e o CPP (juiz de garantias, ANPP, investigação criminal, entre outros).",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13964.htm"
+    },
+    {
+      "titulo": "Lei 14.119/2021 — Pagamento por serviços ambientais",
+      "resumo": "Institui o Pagamento por Serviços Ambientais (PSA).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14119.htm"
+    },
+    {
+      "titulo": "Lei 14.811/2024 — Bullying e cyberbullying",
+      "resumo": "Tipifica crimes de bullying e cyberbullying e altera o CP.",
+      "secao": "Penal e Processual",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm"
+    },
+    {
+      "titulo": "Lei Complementar 135/2010 — Ficha Limpa",
+      "resumo": "Altera a LC 64/1990 sobre inelegibilidades (Lei da Ficha Limpa).",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp135.htm"
+    },
+    {
+      "titulo": "Decreto 678/1992 — Convenção Americana de DH",
+      "resumo": "Promulga a Convenção Americana sobre Direitos Humanos (Pacto de San José).",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/decreto/D0678.htm"
+    },
+    {
+      "titulo": "Decreto 5.051/2004 — Convenção 169 da OIT",
+      "resumo": "Promulga a Convenção 169 da OIT sobre povos indígenas e tribais.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/decreto/d5051.htm"
+    },
+    {
+      "titulo": "Decreto 10.932/2022 — Convenção Interamericana contra o Racismo",
+      "resumo": "Promulga a Convenção Interamericana contra o Racismo, a Discriminação Racial e Formas Correlatas de Intolerância.",
+      "secao": "Legislação Especial",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D10932.htm"
+    },
+    {
+      "titulo": "Decreto 11.129/2022 — Lei Anticorrupção (regulamentação)",
+      "resumo": "Regulamenta dispositivos da Lei 12.846/2013 (Lei Anticorrupção).",
+      "secao": "Constituição e Adm.",
+      "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D11129.htm"
     }
   ]
 }

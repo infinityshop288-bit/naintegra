@@ -172,6 +172,206 @@ PLANALTO_LEGIS_CATALOG: list[dict[str, str]] = [
         "secao": "Penal e Processual",
     },
     {
+        "url": "http://www.planalto.gov.br/ccivil_03/decreto-lei/del4657.htm",
+        "titulo": "Decreto-Lei 4.657/1942 — LINDB",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l9868.htm",
+        "titulo": "Lei 9.868/1999 — ADI e ADC",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12016.htm",
+        "titulo": "Lei 12.016/2009 — Mandado de Segurança",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l4717.htm",
+        "titulo": "Lei 4.717/1965 — Ação Popular",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm",
+        "titulo": "Lei 14.133/2021 — Nova Lei de Licitações",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm",
+        "titulo": "Lei 12.527/2011 — LAI",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/decreto-lei/del3365.htm",
+        "titulo": "Decreto-Lei 3.365/1941 — Desapropriação",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l8625.htm",
+        "titulo": "Lei 8.625/1993 — Lei Orgânica Nacional do MP",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l9455.htm",
+        "titulo": "Lei 9.455/1997 — Tortura",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l7716.htm",
+        "titulo": "Lei 7.716/1989 — Crimes de Racismo",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l9605.htm",
+        "titulo": "Lei 9.605/1998 — Crimes Ambientais",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l8137.htm",
+        "titulo": "Lei 8.137/1990 — Crimes contra a Ordem Tributária",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l7492.htm",
+        "titulo": "Lei 7.492/1986 — Crimes contra o SFN",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l9296.htm",
+        "titulo": "Lei 9.296/1996 — Interceptação Telefônica",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l9613.htm",
+        "titulo": "Lei 9.613/1998 — Lavagem de Capitais",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12850.htm",
+        "titulo": "Lei 12.850/2013 — Organização Criminosa",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13869.htm",
+        "titulo": "Lei 13.869/2019 — Abuso de Autoridade",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l9503.htm",
+        "titulo": "Lei 9.503/1997 — CTB",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l9099.htm",
+        "titulo": "Lei 9.099/1995 — Juizados Especiais",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13260.htm",
+        "titulo": "Lei 13.260/2016 — Terrorismo",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm",
+        "titulo": "Lei 14.811/2024 — Bullying e cyberbullying",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14597.htm",
+        "titulo": "Lei 14.597/2023 — Lei Geral do Esporte",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14344.htm",
+        "titulo": "Lei 14.344/2022 — Lei Henry Borel",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13431.htm",
+        "titulo": "Lei 13.431/2017 — Depoimento Especial",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13964.htm",
+        "titulo": "Lei 13.964/2019 — Pacote Anticrime",
+        "secao": "Penal e Processual",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l8245.htm",
+        "titulo": "Lei 8.245/1991 — Locações",
+        "secao": "Civil e Trabalho",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11101.htm",
+        "titulo": "Lei 11.101/2005 — Recuperação Judicial e Falência",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l7347.htm",
+        "titulo": "Lei 7.347/1985 — Ação Civil Pública",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12852.htm",
+        "titulo": "Lei 12.852/2013 — Estatuto da Juventude",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm",
+        "titulo": "Lei 13.146/2015 — Estatuto da Pessoa com Deficiência",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l8080.htm",
+        "titulo": "Lei 8.080/1990 — SUS",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l6938.htm",
+        "titulo": "Lei 6.938/1981 — PNMA",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651.htm",
+        "titulo": "Lei 12.651/2012 — Código Florestal",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11445.htm",
+        "titulo": "Lei 11.445/2007 — Saneamento Básico",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14119.htm",
+        "titulo": "Lei 14.119/2021 — Pagamento por Serviços Ambientais",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l10257.htm",
+        "titulo": "Lei 10.257/2001 — Estatuto da Cidade",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l6766.htm",
+        "titulo": "Lei 6.766/1979 — Parcelamento do Solo",
+        "secao": "Legislação Especial",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12846.htm",
+        "titulo": "Lei 12.846/2013 — Lei Anticorrupção",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l4737.htm",
+        "titulo": "Lei 4.737/1965 — Código Eleitoral",
+        "secao": "Constituição e Adm.",
+    },
+    {
+        "url": "http://www.planalto.gov.br/ccivil_03/leis/l9504.htm",
+        "titulo": "Lei 9.504/1997 — Lei das Eleições",
+        "secao": "Constituição e Adm.",
+    },
+    {
         "url": "http://www.planalto.gov.br/ccivil_03/leis/l9985.htm",
         "titulo": "Lei 9.985/2000 — SNUC",
         "secao": "Legislação Especial",
