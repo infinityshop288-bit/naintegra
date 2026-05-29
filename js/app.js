@@ -57,31 +57,6 @@
     "Legislação Especial",
   ];
 
-  /** Disciplinas básicas do acervo NaIntegra Cursos (questões_banco). */
-  const DOUTRINA_DISCIPLINAS = [
-    {
-      slug: "portugues",
-      label: "Português",
-      abbr: "PT",
-      desc: "Gramática, concordância e interpretação de textos.",
-      materias: ["Português", "Língua Portuguesa"],
-    },
-    {
-      slug: "raciocinio-logico",
-      label: "Raciocínio Lógico",
-      abbr: "RL",
-      desc: "Proposições, conjuntos e argumentação.",
-      materias: ["Raciocínio Lógico"],
-    },
-    {
-      slug: "informatica",
-      label: "Informática",
-      abbr: "IF",
-      desc: "Sistemas operacionais, redes e segurança da informação.",
-      materias: ["Informática"],
-    },
-  ];
-
   let state = {
     documents: [],
     decks: [],
@@ -95,9 +70,6 @@
     questionsCount: null,
     questionsPage: 1,
     questionsPageSize: 50,
-    doutrinaPage: 1,
-    doutrinaPageSize: 50,
-    doutrinaFilter: { banca: "all", assunto: "all", result: "all" },
     decksLoading: false,
     decksHydrating: false,
     flashManageEdit: null,
@@ -419,9 +391,13 @@
 
     const rest = pathPart.startsWith("/") ? pathPart.slice(1) : pathPart;
     const slash = rest.indexOf("/");
-    if (slash === -1) return { path: rest, id: null, sub, theme, plan };
+    if (slash === -1) {
+      const pathOnly = rest === "doutrina" ? "questoes" : rest;
+      return { path: pathOnly, id: null, sub, theme, plan };
+    }
 
-    const path = rest.slice(0, slash);
+    let path = rest.slice(0, slash);
+    if (path === "doutrina") path = "questoes";
     const encodedId = rest.slice(slash + 1);
     let id = encodedId;
     if (encodedId) {
@@ -805,11 +781,6 @@
           <span class="tile-abbr" aria-hidden="true">QT</span>
           <h2>Questões</h2>
           <p>${nQ} questões · filtros por banca</p>
-        </button>
-        <button class="tile" data-go="doutrina">
-          <span class="tile-abbr" aria-hidden="true">DO</span>
-          <h2>Doutrina</h2>
-          <p>Português, lógica e informática</p>
         </button>
         <button class="tile" data-go="plano-estudos">
           <span class="tile-abbr" aria-hidden="true">PE</span>
@@ -1680,170 +1651,6 @@
     return { ...period, total, ok, err: total - ok, pct };
   }
 
-  function findDoutrinaDisciplina(slug) {
-    return DOUTRINA_DISCIPLINAS.find((d) => d.slug === slug) || null;
-  }
-
-  function doutrinaMateriaMatch(disc, materia) {
-    const m = String(materia || "").trim();
-    return disc.materias.some((label) => label === m);
-  }
-
-  function doutrinaQuestionsFor(disc) {
-    const all = [...byType("questoes_objetivas"), ...byType("questoes_subjetivas")];
-    return all.filter((d) => doutrinaMateriaMatch(disc, org(d).materia));
-  }
-
-  function doutrinaFilterState() {
-    if (!state.doutrinaFilter) state.doutrinaFilter = { banca: "all", assunto: "all", result: "all" };
-    return state.doutrinaFilter;
-  }
-
-  function doutrinaAssuntoLabel(d) {
-    const a = (d.meta || {}).assunto;
-    return (a && String(a).trim()) || "Geral";
-  }
-
-  function renderDoutrina() {
-    if (state.questionsLoading) {
-      return `
-        <div class="page-head"><h1>Doutrina</h1><p>Carregando acervo do NaIntegra Cursos…</p></div>
-        <div class="loading">Aguarde…</div>`;
-    }
-
-    const cards = DOUTRINA_DISCIPLINAS.map((disc) => {
-      const items = doutrinaQuestionsFor(disc);
-      const assuntos = new Map();
-      items.forEach((d) => {
-        const label = doutrinaAssuntoLabel(d);
-        assuntos.set(label, (assuntos.get(label) || 0) + 1);
-      });
-      const topAssuntos = [...assuntos.entries()]
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 3)
-        .map(([name, n]) => `${name} (${n})`)
-        .join(" · ");
-      return `
-        <a class="doutrina-disc-card" href="#/doutrina/${encodeURIComponent(disc.slug)}">
-          <span class="doutrina-disc-abbr" aria-hidden="true">${esc(disc.abbr)}</span>
-          <h2>${esc(disc.label)}</h2>
-          <p class="doutrina-disc-desc">${esc(disc.desc)}</p>
-          <p class="doutrina-disc-meta">${items.length} questões${topAssuntos ? ` · ${esc(topAssuntos)}` : ""}</p>
-        </a>`;
-    }).join("");
-
-    const total = DOUTRINA_DISCIPLINAS.reduce((n, disc) => n + doutrinaQuestionsFor(disc).length, 0);
-
-    return `
-      <div class="page-head doutrina-page">
-        <h1>Doutrina</h1>
-        <p>Português, Raciocínio Lógico e Informática — questões do repositório <strong>NaIntegra Cursos</strong> (${total.toLocaleString("pt-BR")} no acervo).</p>
-      </div>
-      <div class="doutrina-disc-grid">${cards}</div>
-      <p class="doutrina-source-note">Material importado de provas anteriores (CESPE, FCC, FGV e outras bancas). Para o banco completo por carreira, use <a href="#/questoes">Questões</a>.</p>`;
-  }
-
-  function renderDoutrinaDisciplina(disc) {
-    const all = doutrinaQuestionsFor(disc);
-    const filter = doutrinaFilterState();
-    const statsPeriod = state.qStatsPeriod || "7d";
-    const qidSet = new Set(all.map((d) => d.external_id));
-    const stats = qStatsForPeriod(statsPeriod, qidSet);
-
-    let filtered = all.filter((d) => {
-      const o = org(d);
-      if (filter.banca !== "all" && o.banca !== filter.banca) return false;
-      if (filter.assunto !== "all" && doutrinaAssuntoLabel(d) !== filter.assunto) return false;
-      if (!questaoMatchesResultFilter(d, filter.result)) return false;
-      return true;
-    });
-
-    const focusQ = state.route.sub;
-    if (focusQ) {
-      const focus = all.find(
-        (d) => d.external_id === focusQ || d.lex_route_id === focusQ || d.doc_key === focusQ
-      );
-      if (focus) {
-        filtered = [focus, ...filtered.filter((d) => d.external_id !== focus.external_id)];
-        state.doutrinaPage = 1;
-      }
-    }
-
-    const bancas = ["all", ...new Set(all.map((d) => org(d).banca).filter(Boolean))].sort((a, b) => {
-      if (a === "all") return -1;
-      if (b === "all") return 1;
-      return a.localeCompare(b, "pt-BR");
-    });
-    const assuntos = ["all", ...new Set(all.map(doutrinaAssuntoLabel))].sort((a, b) => {
-      if (a === "all") return -1;
-      if (b === "all") return 1;
-      return a.localeCompare(b, "pt-BR");
-    });
-
-    const pageSize = state.doutrinaPageSize || 50;
-    const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize));
-    const page = Math.min(Math.max(1, state.doutrinaPage || 1), totalPages);
-    state.doutrinaPage = page;
-    const pageItems = filtered.slice((page - 1) * pageSize, page * pageSize);
-    state.questaoPageIds = pageItems.map((d) => d.external_id);
-
-    if (!all.length) {
-      return `
-        <div class="page-head"><h1>${esc(disc.label)}</h1><p><a href="#/doutrina">← Doutrina</a></p></div>
-        <div class="empty">Nenhuma questão desta disciplina no acervo ainda.</div>`;
-    }
-
-    return `
-      <div class="page-head doutrina-page">
-        <p class="doutrina-breadcrumb"><a href="#/doutrina">Doutrina</a> / <strong>${esc(disc.label)}</strong></p>
-        <h1>${esc(disc.label)}</h1>
-        <p>${all.length} questões · NaIntegra Cursos</p>
-      </div>
-      <section class="q-stats-panel" aria-label="Desempenho em ${esc(disc.label)}">
-        <h2 class="q-stats-title">Taxa de acerto</h2>
-        <div class="toolbar q-stats-periods">
-          ${Q_STATS_PERIODS.map(
-            (p) =>
-              `<button type="button" class="chip ${statsPeriod === p.id ? "active" : ""}" data-q-stats-period="${esc(p.id)}">${esc(p.label)}</button>`
-          ).join("")}
-        </div>
-        <p class="q-stats-summary">
-          ${
-            stats.total
-              ? `<strong>${stats.pct}%</strong> de acertos (${stats.ok} certas · ${stats.err} erradas · ${stats.total} respondidas)`
-              : `Nenhuma questão respondida${statsPeriod === "all" ? "" : " neste período"}.`
-          }
-        </p>
-      </section>
-      ${sectionSearchBar("doutrina", `Buscar em ${disc.label}…`)}
-      <div class="toolbar q-result-filters">
-        ${Q_RESULT_FILTERS.map(
-          (f) =>
-            `<button type="button" class="chip ${(filter.result || "all") === f.id ? "active" : ""}" data-doutrina-result="${esc(f.id)}">${esc(f.label)}</button>`
-        ).join("")}
-      </div>
-      <div class="toolbar doutrina-assunto-toolbar">
-        ${assuntos.map((a) => {
-          const label = a === "all" ? "Todos assuntos" : a;
-          return `<button type="button" class="chip ${filter.assunto === a ? "active" : ""}" data-doutrina-assunto="${esc(a)}">${esc(label)}</button>`;
-        }).join("")}
-      </div>
-      <div class="toolbar">
-        ${bancas.map((b) => `<button type="button" class="chip ${filter.banca === b ? "active" : ""}" data-doutrina-banca="${esc(b)}">${b === "all" ? "Todas bancas" : esc(b)}</button>`).join("")}
-      </div>
-      <p class="tag" style="margin:0 0 1rem">${filtered.length} no filtro · página ${page} de ${totalPages}</p>
-      <div class="section-list-scope" data-section-scope="doutrina">
-        <div class="card-list">
-          ${pageItems.map((d) => renderQuestaoCard(d)).join("")}
-        </div>
-        <div class="toolbar" style="margin-top:1rem">
-          <button type="button" class="chip" data-doutrina-page="prev" ${page <= 1 ? "disabled" : ""}>← Anterior</button>
-          <button type="button" class="chip" data-doutrina-page="next" ${page >= totalPages ? "disabled" : ""}>Próxima →</button>
-        </div>
-        <div class="empty section-search-empty" data-section-empty hidden>Nenhuma questão para este tema.</div>
-      </div>`;
-  }
-
   function qAnswerState(qid) {
     if (!state.qAnswers[qid]) state.qAnswers[qid] = { pick: null, revealed: false };
     return state.qAnswers[qid];
@@ -2046,7 +1853,6 @@
     legislacao: "Lei Seca",
     jurisprudencia: "Jurisprudência",
     questoes: "Questões",
-    doutrina: "Doutrina",
     flashcards: "Flashcards",
   };
 
@@ -3309,142 +3115,8 @@
     } finally {
       if (token === questaoCommentsFetchToken) {
         state.questaoCommentsLoading = false;
-        if (state.route.path === "questoes" || state.route.path === "doutrina") render();
+        if (state.route.path === "questoes") render();
       }
-    }
-  }
-
-  function bindDoutrina() {
-    document.querySelectorAll("[data-doutrina-result]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        doutrinaFilterState().result = btn.getAttribute("data-doutrina-result");
-        state.doutrinaPage = 1;
-        render();
-      });
-    });
-    document.querySelectorAll("[data-doutrina-banca]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        doutrinaFilterState().banca = btn.getAttribute("data-doutrina-banca");
-        state.doutrinaPage = 1;
-        render();
-      });
-    });
-    document.querySelectorAll("[data-doutrina-assunto]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        doutrinaFilterState().assunto = btn.getAttribute("data-doutrina-assunto");
-        state.doutrinaPage = 1;
-        render();
-      });
-    });
-    document.querySelectorAll("[data-doutrina-page]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const dir = btn.getAttribute("data-doutrina-page");
-        if (dir === "prev" && state.doutrinaPage > 1) state.doutrinaPage--;
-        if (dir === "next") state.doutrinaPage++;
-        render();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    });
-
-    if (state.route.path !== "doutrina" || !state.route.id) return;
-
-    document.querySelectorAll(".q-alt:not([disabled])").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const qid = btn.getAttribute("data-q-id");
-        const key = btn.getAttribute("data-alt-key");
-        const qa = qAnswerState(qid);
-        if (qa.revealed) return;
-        qa.pick = key;
-        render();
-      });
-    });
-    document.querySelectorAll("[data-q-check]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const qid = btn.getAttribute("data-q-check");
-        const qa = qAnswerState(qid);
-        if (!qa.pick || qa.revealed) return;
-        qa.revealed = true;
-        finalizeQAnswer(qid, findQuestion(qid));
-        render();
-        document.querySelector(`[id="gab-${CSS.escape(qid)}"]`)?.scrollIntoView({ behavior: "smooth", block: "nearest" });
-      });
-    });
-    document.querySelectorAll("[data-q-reveal]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const qid = btn.getAttribute("data-q-reveal");
-        const qa = qAnswerState(qid);
-        qa.revealed = true;
-        finalizeQAnswer(qid, findQuestion(qid));
-        render();
-      });
-    });
-
-    document.querySelectorAll(".q-comment-form, .q-comment-edit-form").forEach((form) => {
-      form.addEventListener("submit", async (e) => {
-        e.preventDefault();
-        const qid = form.getAttribute("data-qid");
-        const body = new FormData(form).get("body");
-        if (!window.LexAuth?.getSession) return;
-        try {
-          const session = await window.LexAuth.getSession();
-          if (!session?.user) {
-            window.LexAuthUI?.open("login");
-            return;
-          }
-          await window.LexQuestaoComentarios.publishComment(qid, body, session);
-          state.questaoCommentEdit = null;
-          render();
-        } catch (err) {
-          console.warn("Lex: publicar comentário", err);
-          alert("Não foi possível publicar o comentário. Tente novamente.");
-        }
-      });
-    });
-
-    document.querySelectorAll(".q-comment-edit").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        state.questaoCommentEdit = {
-          qid: btn.getAttribute("data-qid"),
-          commentId: btn.getAttribute("data-comment-id"),
-        };
-        render();
-      });
-    });
-
-    document.querySelectorAll(".q-comment-cancel").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        state.questaoCommentEdit = null;
-        render();
-      });
-    });
-
-    document.querySelectorAll(".q-comment-delete").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        if (!window.confirm("Excluir seu comentário público?")) return;
-        const qid = btn.getAttribute("data-qid");
-        const commentId = btn.getAttribute("data-comment-id");
-        try {
-          const session = await window.LexAuth.getSession();
-          if (!session?.access_token) return;
-          await window.LexQuestaoComentarios.deleteComment(commentId, qid, session);
-          state.questaoCommentEdit = null;
-          render();
-        } catch (err) {
-          console.warn("Lex: excluir comentário", err);
-          alert("Não foi possível excluir o comentário.");
-        }
-      });
-    });
-
-    refreshQuestaoComments(state.questaoPageIds);
-
-    const qId = state.route.sub;
-    if (qId) {
-      const card =
-        document.querySelector(`[data-q="${CSS.escape(qId)}"]`) ||
-        [...document.querySelectorAll("[data-q]")].find((el) => el.getAttribute("data-q") === qId);
-      card?.scrollIntoView({ behavior: "smooth", block: "center" });
-      card?.classList.add("search-highlight");
     }
   }
 
@@ -3455,8 +3127,6 @@
         render();
       });
     });
-    if (state.route.path === "doutrina") return;
-
     document.querySelectorAll("[data-q-result]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.qFilter = { ...(state.qFilter || {}), result: btn.getAttribute("data-q-result") };
@@ -3664,10 +3334,6 @@
     } else if (r.path === "questoes") {
       if (!state.questionsLoaded && !state.questionsLoading) ensureQuestionsLoaded();
       html = renderQuestoes();
-    } else if (r.path === "doutrina") {
-      if (!state.questionsLoaded && !state.questionsLoading) ensureQuestionsLoaded();
-      const disc = r.id ? findDoutrinaDisciplina(r.id) : null;
-      html = disc ? renderDoutrinaDisciplina(disc) : renderDoutrina();
     } else if (r.path === "plano-estudos") {
       if (!window.LexStudyPlans && !state.studyPlansModuleLoading) {
         state.studyPlansModuleLoading = true;
@@ -3709,7 +3375,6 @@
     bindLeiSecaList();
     if (r.path !== "jurisprudencia") bindJuris();
     bindQuestoes();
-    bindDoutrina();
     bindContactForm();
     bindReportError();
     if (r.path === "plano-estudos") {
@@ -3727,7 +3392,6 @@
     if (r.path === "flashcards" && !r.id) bindPageSectionSearch("flashcards");
     else if (r.path === "lei-seca" && !r.id) bindPageSectionSearch("lei-seca");
     else if (r.path === "questoes") bindPageSectionSearch("questoes");
-    else if (r.path === "doutrina" && r.id) bindPageSectionSearch("doutrina");
   }
 
   function refreshSearchIndex() {
