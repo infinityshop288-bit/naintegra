@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-28T14:05:53.092397+00:00",
-  "count": 221,
+  "generated_at": "2026-05-29T23:04:47.481666+00:00",
+  "count": 237,
   "entries": {
     "constituicao.htm": {
       "titulo": "Constituição Federal de 1988",
@@ -18,9 +18,9 @@
       "secao": "Legislação Especial"
     },
     "d70235": {
-      "titulo": "Decreto 70.235/1972 — Regimento Interno do STF",
-      "resumo": "Aprova o Regimento Interno do Supremo Tribunal Federal.",
-      "secao": "Constituição e Adm."
+      "titulo": "Decreto 70.235/1972 — Processo administrativo fiscal",
+      "resumo": "Dispõe sobre o processo administrativo fiscal (texto vigente no Planalto nesta URL).",
+      "secao": "Legislação Especial"
     },
     "del0911": {
       "titulo": "Decreto-Lei 911/1969 — Locação predial urbana",
@@ -28,9 +28,9 @@
       "secao": "Civil e Trabalho"
     },
     "del1075": {
-      "titulo": "Decreto-Lei 1.075/1970",
-      "resumo": "Altera dispositivos sobre valor provisório de créditos tributários.",
-      "secao": "Legislação Especial"
+      "titulo": "Decreto-Lei 1.075/1970 — Imissão de posse (locação)",
+      "resumo": "Regula a imissão de posse, initio litis, em imóveis residenciais urbanos.",
+      "secao": "Civil e Trabalho"
     },
     "del2848": {
       "titulo": "Decreto-Lei 2.848/1940 — Código Penal",
@@ -43,8 +43,8 @@
       "secao": "Legislação Especial"
     },
     "del3688": {
-      "titulo": "Decreto-Lei 3.688/1941 — Procedimento penal militar",
-      "resumo": "Estabelece normas de processo penal militar.",
+      "titulo": "Decreto-Lei 3.688/1941 — Lei das Contravenções Penais",
+      "resumo": "Institui a Lei das Contravenções Penais.",
       "secao": "Penal e Processual"
     },
     "del3689": {
@@ -78,9 +78,9 @@
       "secao": "Penal e Processual"
     },
     "l0605": {
-      "titulo": "Lei 605/1949 — Radiodifusão",
-      "resumo": "Dispõe sobre radiodifusão sonora e imagens.",
-      "secao": "Constituição e Adm."
+      "titulo": "Lei 605/1949 — Repouso semanal remunerado",
+      "resumo": "Dispõe sobre repouso semanal remunerado e pagamento em feriados.",
+      "secao": "Civil e Trabalho"
     },
     "l1060": {
       "titulo": "Lei 1.060/1950 — Assistência judiciária",
@@ -108,9 +108,9 @@
       "secao": "Penal e Processual"
     },
     "l4090": {
-      "titulo": "Lei 4.090/1962 — Ações nominativas",
-      "resumo": "Regula emissão de ações nominativas e negociação de valores mobiliários.",
-      "secao": "Legislação Especial"
+      "titulo": "Lei 4.090/1962 — Gratificação de Natal (13º salário)",
+      "resumo": "Institui a gratificação de Natal para os trabalhadores.",
+      "secao": "Civil e Trabalho"
     },
     "l4132": {
       "titulo": "Lei 4.132/1962 — Sociedades por ações",
@@ -363,9 +363,9 @@
       "secao": "Legislação Especial"
     },
     "l8971": {
-      "titulo": "Lei 8.971/1995 — Informática",
-      "resumo": "Regula mercado de informática e propriedade de programas.",
-      "secao": "Legislação Especial"
+      "titulo": "Lei 8.971/1994 — Companheiros (alimentos e sucessão)",
+      "resumo": "Regula o direito dos companheiros a alimentos e à sucessão (Lei dos Companheiros).",
+      "secao": "Civil e Trabalho"
     },
     "l8987": {
       "titulo": "Lei 8.987/1995 — Concessões",
@@ -628,9 +628,89 @@
       "secao": "Constituição e Adm."
     },
     "l12288": {
-      "titulo": "Lei 12.288/2010 — Fundo da Cultura",
-      "resumo": "Institui Fundo Nacional de Cultura e incentivo à cultura.",
+      "titulo": "Lei 12.288/2010 — Estatuto da Igualdade Racial",
+      "resumo": "Institui o Estatuto da Igualdade Racial e mecanismos de combate ao racismo.",
       "secao": "Legislação Especial"
+    },
+    "l7853": {
+      "titulo": "Lei 7.853/1989 — Apoio à pessoa com deficiência",
+      "resumo": "Dispõe sobre apoio às pessoas portadoras de deficiência e normas de acessibilidade.",
+      "secao": "Legislação Especial"
+    },
+    "l8080": {
+      "titulo": "Lei 8.080/1990 — Lei Orgânica da Saúde (SUS)",
+      "resumo": "Dispõe sobre condições para promoção, proteção e recuperação da saúde (SUS).",
+      "secao": "Legislação Especial"
+    },
+    "l8142": {
+      "titulo": "Lei 8.142/1990 — Participação e recursos do SUS",
+      "resumo": "Dispõe sobre participação da comunidade e transferências intergovernamentais na saúde.",
+      "secao": "Legislação Especial"
+    },
+    "l8625": {
+      "titulo": "Lei 8.625/1993 — Lei Orgânica Nacional do MP",
+      "resumo": "Dispõe sobre a organização, competências e prerrogativas do Ministério Público.",
+      "secao": "Constituição e Adm."
+    },
+    "l11445": {
+      "titulo": "Lei 11.445/2007 — Diretrizes do saneamento básico",
+      "resumo": "Estabelece diretrizes nacionais para o saneamento básico.",
+      "secao": "Legislação Especial"
+    },
+    "l12305": {
+      "titulo": "Lei 12.305/2010 — Política Nacional de Resíduos Sólidos",
+      "resumo": "Institui a Política Nacional de Resíduos Sólidos (PNRS).",
+      "secao": "Legislação Especial"
+    },
+    "l13019": {
+      "titulo": "Lei 13.019/2014 — Marco Regulatório das OSC",
+      "resumo": "Estabelece regime jurídico das parcerias entre administração pública e OSC.",
+      "secao": "Legislação Especial"
+    },
+    "l13431": {
+      "titulo": "Lei 13.431/2017 — Depoimento especial",
+      "resumo": "Dispõe sobre o depoimento especial de crianças e adolescentes vítimas ou testemunhas de violência.",
+      "secao": "Penal e Processual"
+    },
+    "l13964": {
+      "titulo": "Lei 13.964/2019 — Pacote Anticrime",
+      "resumo": "Altera o CP e o CPP (juiz de garantias, ANPP, investigação criminal, entre outros).",
+      "secao": "Penal e Processual"
+    },
+    "l14119": {
+      "titulo": "Lei 14.119/2021 — Pagamento por serviços ambientais",
+      "resumo": "Institui o Pagamento por Serviços Ambientais (PSA).",
+      "secao": "Legislação Especial"
+    },
+    "l14811": {
+      "titulo": "Lei 14.811/2024 — Bullying e cyberbullying",
+      "resumo": "Tipifica crimes de bullying e cyberbullying e altera o CP.",
+      "secao": "Penal e Processual"
+    },
+    "lcp135": {
+      "titulo": "Lei Complementar 135/2010 — Ficha Limpa",
+      "resumo": "Altera a LC 64/1990 sobre inelegibilidades (Lei da Ficha Limpa).",
+      "secao": "Constituição e Adm."
+    },
+    "d0678": {
+      "titulo": "Decreto 678/1992 — Convenção Americana de DH",
+      "resumo": "Promulga a Convenção Americana sobre Direitos Humanos (Pacto de San José).",
+      "secao": "Legislação Especial"
+    },
+    "d5051": {
+      "titulo": "Decreto 5.051/2004 — Convenção 169 da OIT",
+      "resumo": "Promulga a Convenção 169 da OIT sobre povos indígenas e tribais.",
+      "secao": "Legislação Especial"
+    },
+    "d10932": {
+      "titulo": "Decreto 10.932/2022 — Convenção Interamericana contra o Racismo",
+      "resumo": "Promulga a Convenção Interamericana contra o Racismo, a Discriminação Racial e Formas Correlatas de Intolerância.",
+      "secao": "Legislação Especial"
+    },
+    "d11129": {
+      "titulo": "Decreto 11.129/2022 — Lei Anticorrupção (regulamentação)",
+      "resumo": "Regulamenta dispositivos da Lei 12.846/2013 (Lei Anticorrupção).",
+      "secao": "Constituição e Adm."
     },
     "l12291": {
       "titulo": "Lei 12.291/2010 — Biocombustíveis",

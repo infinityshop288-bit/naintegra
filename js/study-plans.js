@@ -4,7 +4,9 @@
  */
 (function () {
   const LS_KEY = "lex_study_plan_v1";
-  const PLAN_VERSION = 2;
+  const PLAN_VERSION = 3;
+  const LEGIS_DAILY_MIN = 18;
+  const LEGIS_CHUNK_MAX = 8;
 
   const UF_PROFILES = {
     geral: { label: "Brasil (edital genérico)", bancas: [] },
@@ -136,6 +138,174 @@
   /** @typedef {{ match: string[], exclude?: string[], label: string, articlesFallback?: number, priority?: number }} LegisSpec */
   /** @typedef {{ id: string, label: string, filter: (d: object) => boolean, limit: number, priority?: number }} JurisSpec */
 
+  /** Blocos reutilizáveis — cobertura ampliada por edital e incidência em concursos. */
+  const LEGIS_NUCLEO = [
+    { label: "Constituição Federal (+ ADCT)", match: ["constituicao/constituicao"], exclude: ["emendas"], articlesFallback: 250 },
+    { label: "Código Penal", match: ["del2848"], articlesFallback: 260 },
+    { label: "Código de Processo Penal", match: ["del3689"], articlesFallback: 320 },
+    { label: "LINDB", match: ["del4657"], articlesFallback: 80 },
+    { label: "Código Civil", match: ["l10406"], articlesFallback: 380 },
+    { label: "Código de Processo Civil", match: ["l13105"], articlesFallback: 350 },
+  ];
+
+  const LEGIS_NUCLEO_PENAL = [
+    { label: "Constituição Federal (+ ADCT)", match: ["constituicao/constituicao"], exclude: ["emendas"], articlesFallback: 250 },
+    { label: "Código Penal", match: ["del2848"], articlesFallback: 260 },
+    { label: "Código de Processo Penal", match: ["del3689"], articlesFallback: 320 },
+    { label: "LINDB", match: ["del4657"], articlesFallback: 80 },
+  ];
+
+  const LEGIS_CONST_CONTROLE = [
+    { label: "Lei 9.868/1999 — ADI/ADC", match: ["l9868"], articlesFallback: 25 },
+    { label: "Lei 9.882/1999 — ADPF", match: ["l9882"], articlesFallback: 20 },
+    { label: "Lei 12.016/2009 — Mandado de Segurança", match: ["l12016"], articlesFallback: 20 },
+    { label: "Lei 4.717/1965 — Ação Popular", match: ["l4717"], articlesFallback: 15 },
+    { label: "Lei 13.300/2016 — Mandado de Injunção", match: ["l13300"], articlesFallback: 15 },
+  ];
+
+  const LEGIS_ADMIN = [
+    { label: "Lei 14.133/2021 — Nova Lei de Licitações", match: ["l14133"], articlesFallback: 120 },
+    { label: "Lei 9.784/1999 — Processo Administrativo", match: ["l9784"], articlesFallback: 35 },
+    { label: "Lei 8.429/1992 — Improbidade", match: ["l8429"], articlesFallback: 45 },
+    { label: "Lei 12.527/2011 — LAI", match: ["l12527"], articlesFallback: 45 },
+    { label: "Lei 13.460/2017 — Usuário de serviços públicos", match: ["l13460"], articlesFallback: 25 },
+    { label: "Dec.-Lei 3.365/1941 — Desapropriação", match: ["del3365"], articlesFallback: 35 },
+    { label: "Lei 8.112/1990 — Servidores", match: ["l8112"], articlesFallback: 70 },
+    { label: "Lei 9.494/1997 — Execução contra a Fazenda", match: ["l9494"], articlesFallback: 25 },
+  ];
+
+  const LEGIS_ADMIN_ESSENCIAL = [
+    { label: "Lei 8.429/1992 — Improbidade", match: ["l8429"], articlesFallback: 45 },
+    { label: "Lei 8.112/1990 — Servidores", match: ["l8112"], articlesFallback: 70 },
+    { label: "Lei 14.133/2021 — Licitações", match: ["l14133"], articlesFallback: 90 },
+    { label: "Lei 12.527/2011 — LAI", match: ["l12527"], articlesFallback: 15 },
+  ];
+
+  const LEGIS_MP_ORG = [
+    { label: "Lei 8.625/1993 — LON do MP", match: ["l8625"], articlesFallback: 40 },
+  ];
+
+  const LEGIS_PENAL_ESPECIAL = [
+    { label: "Lei 8.072/1990 — Crimes Hediondos", match: ["l8072"], articlesFallback: 15 },
+    { label: "Lei 9.455/1997 — Tortura", match: ["l9455"], articlesFallback: 15 },
+    { label: "Lei 7.716/1989 — Racismo", match: ["l7716"], articlesFallback: 12 },
+    { label: "Lei 9.605/1998 — Crimes Ambientais", match: ["l9605"], articlesFallback: 25 },
+    { label: "Lei 8.137/1990 — Crimes Tributários", match: ["l8137"], articlesFallback: 20 },
+    { label: "Lei 7.492/1986 — Sistema Financeiro", match: ["l7492"], articlesFallback: 20 },
+    { label: "Lei 9.296/1996 — Interceptação", match: ["l9296"], articlesFallback: 12 },
+    { label: "Lei 9.613/1998 — Lavagem de Capitais", match: ["l9613"], articlesFallback: 25 },
+    { label: "Lei 11.343/2006 — Drogas", match: ["l11343"], articlesFallback: 80 },
+    { label: "Lei 12.850/2013 — Organizações Criminosas", match: ["l12850"], articlesFallback: 40 },
+    { label: "Lei 13.869/2019 — Abuso de Autoridade", match: ["l13869"], articlesFallback: 25 },
+    { label: "Lei 10.826/2003 — Desarmamento", match: ["l10826"], articlesFallback: 35 },
+    { label: "Lei 9.503/1997 — CTB", match: ["l9503"], articlesFallback: 120 },
+    { label: "Lei 11.340/2006 — Maria da Penha", match: ["l11340"], articlesFallback: 15 },
+    { label: "Lei 9.099/1995 — Juizados Especiais", match: ["l9099"], articlesFallback: 15 },
+    { label: "Lei 13.260/2016 — Terrorismo", match: ["l13260"], articlesFallback: 20 },
+    { label: "Lei 14.811/2024 — Bullying/cyberbullying", match: ["l14811"], articlesFallback: 10 },
+    { label: "Lei 14.597/2023 — Lei Geral do Esporte", match: ["l14597"], articlesFallback: 80 },
+    { label: "Lei 14.344/2022 — Henry Borel", match: ["l14344"], articlesFallback: 25 },
+    { label: "Lei 13.431/2017 — Depoimento Especial", match: ["l13431"], articlesFallback: 20 },
+    { label: "Lei 13.964/2019 — Pacote Anticrime", match: ["l13964"], articlesFallback: 80 },
+    { label: "Lei 7.210/1984 — LEP", match: ["l7210"], articlesFallback: 200 },
+  ];
+
+  const LEGIS_PENAL_ESPECIAL_CORE = [
+    { label: "Lei 11.343/2006 — Drogas", match: ["l11343"], articlesFallback: 80 },
+    { label: "Lei 11.340/2006 — Maria da Penha", match: ["l11340"], articlesFallback: 15 },
+    { label: "Lei 8.072/1990 — Crimes Hediondos", match: ["l8072"], articlesFallback: 15 },
+    { label: "Lei 12.850/2013 — Organizações Criminosas", match: ["l12850"], articlesFallback: 40 },
+    { label: "Lei 13.869/2019 — Abuso de Autoridade", match: ["l13869"], articlesFallback: 25 },
+    { label: "Lei 9.605/1998 — Crimes Ambientais", match: ["l9605"], articlesFallback: 25 },
+    { label: "Lei 9.613/1998 — Lavagem de Capitais", match: ["l9613"], articlesFallback: 25 },
+    { label: "Lei 9.099/1995 — Juizados Especiais", match: ["l9099"], articlesFallback: 15 },
+    { label: "Lei 7.210/1984 — LEP", match: ["l7210"], articlesFallback: 200 },
+    { label: "Lei 13.964/2019 — Pacote Anticrime", match: ["l13964"], articlesFallback: 80 },
+  ];
+
+  const LEGIS_CIVIL_EMPRESARIAL = [
+    { label: "Lei 8.245/1991 — Locações", match: ["l8245"], articlesFallback: 40 },
+    { label: "Lei 11.101/2005 — Recuperação e Falência", match: ["l11101"], articlesFallback: 90 },
+    { label: "Lei 6.404/1976 — S.A.", match: ["l6404"], articlesFallback: 120 },
+    { label: "Lei 8.934/1994 — Registro de Empresas", match: ["l8934"], articlesFallback: 40 },
+    { label: "Lei 6.015/1973 — Registros Públicos", match: ["l6015"], articlesFallback: 80 },
+  ];
+
+  const LEGIS_TUTELA_COLETIVA = [
+    { label: "Lei 7.347/1985 — Ação Civil Pública", match: ["l7347"], articlesFallback: 20 },
+    { label: "Lei 8.078/1990 — CDC", match: ["l8078"], articlesFallback: 120 },
+    { label: "Lei 8.069/1990 — ECA", match: ["l8069cons", "l8069.htm", "/leis/l8069"], exclude: ["l8069a"], articlesFallback: 170 },
+    { label: "Lei 12.852/2013 — Estatuto da Juventude", match: ["l12852"], articlesFallback: 40 },
+    { label: "Lei 10.741/2003 — Estatuto do Idoso", match: ["l10741"], articlesFallback: 60 },
+    { label: "Lei 13.146/2015 — Estatuto da Pessoa com Deficiência", match: ["l13146"], articlesFallback: 80 },
+    { label: "Lei 7.853/1989 — Apoio à PcD", match: ["l7853"], articlesFallback: 15 },
+    { label: "Lei 12.288/2010 — Igualdade Racial", match: ["l12288"], articlesFallback: 25 },
+    { label: "Lei 12.846/2013 — Anticorrupção", match: ["l12846"], articlesFallback: 30 },
+    { label: "Lei 13.019/2014 — Marco das OSC", match: ["l13019"], articlesFallback: 50 },
+  ];
+
+  const LEGIS_SUS = [
+    { label: "Lei 8.080/1990 — SUS", match: ["l8080"], articlesFallback: 60 },
+    { label: "Lei 8.142/1990 — SUS (gestão)", match: ["l8142"], articlesFallback: 15 },
+  ];
+
+  const LEGIS_AMBIENTAL = [
+    { label: "Lei 6.938/1981 — PNMA", match: ["l6938"], articlesFallback: 35 },
+    { label: "Lei 9.985/2000 — SNUC", match: ["l9985"], articlesFallback: 40 },
+    { label: "Lei 12.651/2012 — Código Florestal", match: ["l12651"], articlesFallback: 80 },
+    { label: "Lei 11.445/2007 — Saneamento", match: ["l11445"], articlesFallback: 60 },
+    { label: "Lei 12.305/2010 — Resíduos Sólidos", match: ["l12305"], articlesFallback: 50 },
+    { label: "Lei 14.119/2021 — PSA ambiental", match: ["l14119"], articlesFallback: 25 },
+    { label: "Lei 10.257/2001 — Estatuto da Cidade", match: ["l10257"], articlesFallback: 60 },
+    { label: "Lei 6.766/1979 — Parcelamento do Solo", match: ["l6766"], articlesFallback: 30 },
+  ];
+
+  const LEGIS_DIREITOS_HUMANOS = [
+    { label: "Dec. 678/1992 — Convenção Americana de DH", match: ["d0678"], articlesFallback: 40 },
+    { label: "Dec. 5.051/2004 — Convenção 169 OIT", match: ["d5051"], articlesFallback: 40 },
+    { label: "Dec. 10.932/2022 — Convenção Interamericana contra Racismo", match: ["d10932"], articlesFallback: 30 },
+    { label: "Dec. 11.129/2022 — Regulamentação Anticorrupção", match: ["d11129"], articlesFallback: 40 },
+  ];
+
+  const LEGIS_ELEITORAL = [
+    { label: "Lei 4.737/1965 — Código Eleitoral", match: ["l4737"], articlesFallback: 120 },
+    { label: "Lei 9.504/1997 — Lei das Eleições", match: ["l9504"], articlesFallback: 80 },
+    { label: "LC 64/1990 — Inelegibilidades", match: ["lcp64"], articlesFallback: 20 },
+    { label: "LC 135/2010 — Ficha Limpa", match: ["lcp135"], articlesFallback: 15 },
+    { label: "Lei 9.096/1995 — Partidos Políticos", match: ["l9096"], articlesFallback: 40 },
+  ];
+
+  const LEGIS_TRIBUTARIO = [
+    { label: "CTN", match: ["l5172"], articlesFallback: 200 },
+    { label: "Lei 6.830/1980 — Execução fiscal", match: ["l6830"], articlesFallback: 80 },
+    { label: "Lei 8.137/1990 — Crimes tributários", match: ["l8137"], articlesFallback: 35 },
+    { label: "EC 132/2023 — Reforma tributária", match: ["emc132"], articlesFallback: 40 },
+    { label: "Lei Complementar 101/2000 — LRF", match: ["lcp101"], articlesFallback: 90 },
+    { label: "Lei 12.153/2009 — Juizados da Fazenda", match: ["l12153"], articlesFallback: 20 },
+  ];
+
+  function legSpecKey(spec) {
+    if (spec.corpus) return `corpus:${spec.corpus}`;
+    return (spec.match?.[0] || spec.label || "").toLowerCase();
+  }
+
+  /** Une blocos de legislação sem duplicar a mesma norma. */
+  function mergeLegis(...blocks) {
+    const out = [];
+    const seen = new Set();
+    let priority = 1;
+    for (const block of blocks) {
+      const items = Array.isArray(block) ? block : [block];
+      for (const item of items) {
+        const key = legSpecKey(item);
+        if (seen.has(key)) continue;
+        seen.add(key);
+        out.push({ ...item, priority: priority++ });
+      }
+    }
+    return out;
+  }
+
   const CAREERS = [
     {
       id: "magistratura_estadual",
@@ -159,22 +329,17 @@
         "licitacoes-lei-14133",
         "jurisprudencia",
       ],
-      legis: [
-        { label: "Constituição Federal", match: ["constituicao/constituicao"], exclude: ["emendas"], articlesFallback: 250, priority: 1 },
-        { label: "Código de Processo Civil", match: ["l13105"], articlesFallback: 350, priority: 2 },
-        { label: "Código Civil", match: ["l10406"], articlesFallback: 380, priority: 3 },
-        { label: "Código Penal", match: ["del2848"], articlesFallback: 260, priority: 4 },
-        { label: "Código de Processo Penal", match: ["del3689"], articlesFallback: 320, priority: 5 },
-        { label: "LINDB", match: ["del4657"], articlesFallback: 80, priority: 6 },
-        { label: "Lei 8.112/1990 — Servidores", match: ["l8112"], articlesFallback: 70, priority: 7 },
-        { label: "Lei de Improbidade", match: ["l8429"], articlesFallback: 45, priority: 8 },
-        { label: "Lei 14.133/2021 — Licitações", match: ["l14133"], articlesFallback: 90, priority: 9 },
-        { label: "Lei 12.527/2011 — LAI", match: ["l12527"], articlesFallback: 15, priority: 10 },
-        { label: "CDC", match: ["l8078"], articlesFallback: 120, priority: 11 },
-        { label: "CTN", match: ["l5172"], articlesFallback: 200, priority: 12 },
-        { label: "Lei 9.605/1998 — Crimes ambientais", match: ["l9605"], articlesFallback: 20, priority: 13 },
-        { label: "ECA", match: ["l8069cons", "l8069.htm", "/leis/l8069"], exclude: ["l8069a"], articlesFallback: 170, priority: 14 },
-      ],
+      legis: mergeLegis(
+        LEGIS_NUCLEO,
+        LEGIS_CONST_CONTROLE,
+        LEGIS_ADMIN,
+        LEGIS_PENAL_ESPECIAL,
+        LEGIS_CIVIL_EMPRESARIAL,
+        LEGIS_TUTELA_COLETIVA,
+        LEGIS_AMBIENTAL,
+        LEGIS_ELEITORAL,
+        [{ label: "CTN", match: ["l5172"], articlesFallback: 200 }]
+      ),
       juris: [
         { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 150, priority: 1 },
         { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 120, priority: 2 },
@@ -189,7 +354,7 @@
       short: "MP estadual",
       description:
         "Promotor de Justiça: ênfase em direito penal, processual penal, constitucional, administrativo e tutela coletiva.",
-      editalFocus: "Material penal e processual penal predominante; improbidade e organizações criminosas.",
+      editalFocus: "Edital MPSP: núcleo penal/processual, tutela coletiva, administrativo, eleitoral e direitos humanos.",
       defaultDays: 150,
       flashcardSlugs: [
         "dir-const",
@@ -201,21 +366,22 @@
         "lei-improbidade",
         "dir-civil-geral",
         "dir-proc-civil",
+        "dir-eleitoral",
         "jurisprudencia",
       ],
-      legis: [
-        { label: "Constituição Federal", match: ["constituicao/constituicao"], exclude: ["emendas"], articlesFallback: 250, priority: 1 },
-        { label: "Código Penal", match: ["del2848"], articlesFallback: 260, priority: 2 },
-        { label: "Código de Processo Penal", match: ["del3689"], articlesFallback: 320, priority: 3 },
-        { label: "Lei de Execução Penal", match: ["l7210"], articlesFallback: 200, priority: 4 },
-        { label: "Lei de Drogas", match: ["l11343"], articlesFallback: 80, priority: 5 },
-        { label: "Lei Maria da Penha", match: ["l11340"], articlesFallback: 15, priority: 6 },
-        { label: "Lei de Improbidade", match: ["l8429"], articlesFallback: 45, priority: 7 },
-        { label: "Lei 8.112/1990", match: ["l8112"], articlesFallback: 70, priority: 8 },
-        { label: "Lei 12.850/2013 — Organizações criminosas", match: ["l12850"], articlesFallback: 40, priority: 9 },
-        { label: "Código Civil (parte geral)", match: ["l10406"], articlesFallback: 380, priority: 10 },
-        { label: "CPC (essencial)", match: ["l13105"], articlesFallback: 350, priority: 11 },
-      ],
+      legis: mergeLegis(
+        LEGIS_NUCLEO,
+        LEGIS_CONST_CONTROLE,
+        LEGIS_ADMIN,
+        LEGIS_MP_ORG,
+        LEGIS_PENAL_ESPECIAL,
+        LEGIS_CIVIL_EMPRESARIAL,
+        LEGIS_TUTELA_COLETIVA,
+        LEGIS_SUS,
+        LEGIS_AMBIENTAL,
+        LEGIS_DIREITOS_HUMANOS,
+        LEGIS_ELEITORAL
+      ),
       juris: [
         { id: "stf_penal_const", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 100, priority: 1 },
         { id: "stj_penal", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 150, priority: 2 },
@@ -244,17 +410,14 @@
         "dir-previdenciario",
         "jurisprudencia",
       ],
-      legis: [
-        { label: "Constituição Federal", match: ["constituicao/constituicao"], exclude: ["emendas"], articlesFallback: 250, priority: 1 },
-        { label: "Código Penal", match: ["del2848"], articlesFallback: 260, priority: 2 },
-        { label: "Código de Processo Penal", match: ["del3689"], articlesFallback: 320, priority: 3 },
-        { label: "Código Civil", match: ["l10406"], articlesFallback: 380, priority: 4 },
-        { label: "Código de Processo Civil", match: ["l13105"], articlesFallback: 350, priority: 5 },
-        { label: "ECA", match: ["l8069cons", "l8069.htm", "/leis/l8069"], exclude: ["l8069a"], articlesFallback: 170, priority: 6 },
-        { label: "Lei Maria da Penha", match: ["l11340"], articlesFallback: 15, priority: 7 },
-        { label: "Lei de Execução Penal", match: ["l7210"], articlesFallback: 200, priority: 8 },
-        { label: "Lei 9.099/1995 — Juizados", match: ["l9099"], articlesFallback: 15, priority: 9 },
-      ],
+      legis: mergeLegis(
+        LEGIS_NUCLEO,
+        LEGIS_PENAL_ESPECIAL,
+        LEGIS_TUTELA_COLETIVA,
+        LEGIS_DIREITOS_HUMANOS,
+        LEGIS_CONST_CONTROLE,
+        [{ label: "Lei 9.784/1999 — Processo Administrativo", match: ["l9784"], articlesFallback: 35 }]
+      ),
       juris: [
         { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 80, priority: 1 },
         { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 100, priority: 2 },
@@ -279,19 +442,7 @@
         "lei-improbidade",
         "jurisprudencia",
       ],
-      legis: [
-        { label: "Constituição Federal", match: ["constituicao/constituicao"], exclude: ["emendas"], articlesFallback: 250, priority: 1 },
-        { label: "Código Penal", match: ["del2848"], articlesFallback: 260, priority: 2 },
-        { label: "Código de Processo Penal", match: ["del3689"], articlesFallback: 320, priority: 3 },
-        { label: "Lei de Drogas", match: ["l11343"], articlesFallback: 80, priority: 4 },
-        { label: "Lei de Execução Penal", match: ["l7210"], articlesFallback: 200, priority: 5 },
-        { label: "Lei Maria da Penha", match: ["l11340"], articlesFallback: 15, priority: 6 },
-        { label: "Lei de Abuso de Autoridade", match: ["l13869"], articlesFallback: 25, priority: 7 },
-        { label: "Lei de Improbidade", match: ["l8429"], articlesFallback: 45, priority: 8 },
-        { label: "Lei 8.112/1990", match: ["l8112"], articlesFallback: 70, priority: 9 },
-        { label: "Lei 9.605/1998 — Crimes ambientais", match: ["l9605"], articlesFallback: 20, priority: 10 },
-        { label: "Lei 12.850/2013 — Organizações criminosas", match: ["l12850"], articlesFallback: 40, priority: 11 },
-      ],
+      legis: mergeLegis(LEGIS_NUCLEO_PENAL, LEGIS_ADMIN_ESSENCIAL, LEGIS_PENAL_ESPECIAL),
       juris: [
         { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 60, priority: 1 },
         { id: "stj_sumulas", label: "Súmulas STJ (penal)", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 180, priority: 2 },
@@ -309,16 +460,7 @@
       editalFocus: "CP e CPP com menor profundidade em civil; súmulas e temas penais prioritários.",
       defaultDays: 90,
       flashcardSlugs: ["dir-const", "dir-adm", "dir-penal-geral", "dir-penal-especial", "dir-proc-penal"],
-      legis: [
-        { label: "Constituição Federal", match: ["constituicao/constituicao"], exclude: ["emendas"], articlesFallback: 250, priority: 1 },
-        { label: "Código Penal", match: ["del2848"], articlesFallback: 260, priority: 2 },
-        { label: "Código de Processo Penal", match: ["del3689"], articlesFallback: 320, priority: 3 },
-        { label: "Lei de Drogas", match: ["l11343"], articlesFallback: 80, priority: 4 },
-        { label: "Lei Maria da Penha", match: ["l11340"], articlesFallback: 15, priority: 5 },
-        { label: "Lei de Improbidade", match: ["l8429"], articlesFallback: 45, priority: 6 },
-        { label: "Lei 8.112/1990", match: ["l8112"], articlesFallback: 70, priority: 7 },
-        { label: "Lei 9.099/1995 — Juizados", match: ["l9099"], articlesFallback: 15, priority: 8 },
-      ],
+      legis: mergeLegis(LEGIS_NUCLEO_PENAL, LEGIS_ADMIN_ESSENCIAL, LEGIS_PENAL_ESPECIAL_CORE),
       juris: [
         { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 40, priority: 1 },
         { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 100, priority: 2 },
@@ -350,29 +492,21 @@
         "tutela-coletiva",
         "jurisprudencia",
       ],
-      legis: [
-        { label: "Constituição Federal", match: ["constituicao/constituicao"], exclude: ["emendas"], articlesFallback: 250, priority: 1 },
-        { label: "Código de Processo Civil", match: ["l13105"], articlesFallback: 350, priority: 2 },
-        { label: "Código Civil", match: ["l10406"], articlesFallback: 380, priority: 3 },
-        { label: "LINDB", match: ["del4657"], articlesFallback: 80, priority: 4 },
-        { label: "Lei 8.112/1990 — Servidores", match: ["l8112"], articlesFallback: 70, priority: 5 },
-        { label: "Lei 14.133/2021 — Licitações", match: ["l14133"], articlesFallback: 90, priority: 6 },
-        { label: "Lei de Improbidade", match: ["l8429"], articlesFallback: 45, priority: 7 },
-        { label: "Lei 12.527/2011 — LAI", match: ["l12527"], articlesFallback: 15, priority: 8 },
-        { label: "Lei 9.494/1997 — Execução contra a Fazenda", match: ["l9494"], articlesFallback: 25, priority: 9 },
-        { label: "CTN", match: ["l5172"], articlesFallback: 200, priority: 10 },
-        { label: "Código Penal", match: ["del2848"], articlesFallback: 260, priority: 11 },
-        { label: "Código de Processo Penal", match: ["del3689"], articlesFallback: 320, priority: 12 },
-        { label: "CDC", match: ["l8078"], articlesFallback: 120, priority: 13 },
-        { label: "Lei 9.605/1998 — Crimes ambientais", match: ["l9605"], articlesFallback: 20, priority: 14 },
+      legis: mergeLegis(
+        LEGIS_NUCLEO,
+        LEGIS_CONST_CONTROLE,
+        LEGIS_ADMIN,
+        LEGIS_PENAL_ESPECIAL_CORE,
+        LEGIS_TUTELA_COLETIVA,
+        LEGIS_AMBIENTAL,
+        [{ label: "CTN", match: ["l5172"], articlesFallback: 200 }],
         {
           label: "Normas AGU (decretos do acervo)",
           corpus: "legislacao_agu",
           maxFromCorpus: 10,
           articlesFallback: 25,
-          priority: 15,
-        },
-      ],
+        }
+      ),
       juris: [
         { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 140, priority: 1 },
         { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 130, priority: 2 },
@@ -400,30 +534,18 @@
         "licitacoes-lei-14133",
         "jurisprudencia",
       ],
-      legis: [
-        { label: "Constituição Federal", match: ["constituicao/constituicao"], exclude: ["emendas"], articlesFallback: 250, priority: 1 },
-        { label: "CTN", match: ["l5172"], articlesFallback: 200, priority: 2 },
-        { label: "Lei 6.830/1980 — Execução fiscal", match: ["l6830"], articlesFallback: 80, priority: 3 },
-        { label: "Lei 8.137/1990 — Crimes tributários", match: ["l8137"], articlesFallback: 35, priority: 4 },
-        { label: "Lei 9.494/1997 — Execução contra a Fazenda", match: ["l9494"], articlesFallback: 25, priority: 5 },
-        { label: "EC 132/2023 — Reforma tributária", match: ["emc132"], articlesFallback: 40, priority: 6 },
-        { label: "Lei Complementar 101/2000 — LRF", match: ["lcp101"], articlesFallback: 90, priority: 7 },
-        { label: "Lei 12.153/2009 — Juizados da Fazenda", match: ["l12153"], articlesFallback: 20, priority: 8 },
-        { label: "Código de Processo Civil", match: ["l13105"], articlesFallback: 350, priority: 9 },
-        { label: "Código Civil", match: ["l10406"], articlesFallback: 380, priority: 10 },
-        { label: "LINDB", match: ["del4657"], articlesFallback: 80, priority: 11 },
-        { label: "Lei 8.112/1990", match: ["l8112"], articlesFallback: 70, priority: 12 },
-        { label: "Lei 14.133/2021 — Licitações", match: ["l14133"], articlesFallback: 90, priority: 13 },
-        { label: "Lei de Improbidade", match: ["l8429"], articlesFallback: 45, priority: 14 },
-        { label: "Lei 12.527/2011 — LAI", match: ["l12527"], articlesFallback: 15, priority: 15 },
+      legis: mergeLegis(
+        LEGIS_NUCLEO,
+        LEGIS_TRIBUTARIO,
+        LEGIS_ADMIN,
+        LEGIS_CIVIL_EMPRESARIAL,
         {
           label: "Normas AGU (consultoria fiscal)",
           corpus: "legislacao_agu",
           maxFromCorpus: 6,
           articlesFallback: 20,
-          priority: 16,
-        },
-      ],
+        }
+      ),
       juris: [
         { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 100, priority: 1 },
         { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 150, priority: 2 },
@@ -454,28 +576,21 @@
         "dir-financeiro",
         "jurisprudencia",
       ],
-      legis: [
-        { label: "Constituição Federal", match: ["constituicao/constituicao"], exclude: ["emendas"], articlesFallback: 250, priority: 1 },
-        { label: "Código de Processo Civil", match: ["l13105"], articlesFallback: 350, priority: 2 },
-        { label: "Código Civil", match: ["l10406"], articlesFallback: 380, priority: 3 },
-        { label: "LINDB", match: ["del4657"], articlesFallback: 80, priority: 4 },
-        { label: "Lei 8.112/1990 — Servidores", match: ["l8112"], articlesFallback: 70, priority: 5 },
-        { label: "Lei 14.133/2021 — Licitações", match: ["l14133"], articlesFallback: 90, priority: 6 },
-        { label: "Lei de Improbidade", match: ["l8429"], articlesFallback: 45, priority: 7 },
-        { label: "Lei 12.527/2011 — LAI", match: ["l12527"], articlesFallback: 15, priority: 8 },
-        { label: "Lei 8.906/1994 — Estatuto da OAB", match: ["l8906"], articlesFallback: 80, priority: 9 },
-        { label: "CTN (noções)", match: ["l5172"], articlesFallback: 200, priority: 10 },
-        { label: "Lei 9.494/1997 — Execução contra a Fazenda", match: ["l9494"], articlesFallback: 25, priority: 11 },
-        { label: "Código Penal", match: ["del2848"], articlesFallback: 260, priority: 12 },
-        { label: "Código de Processo Penal", match: ["del3689"], articlesFallback: 320, priority: 13 },
+      legis: mergeLegis(
+        LEGIS_NUCLEO,
+        LEGIS_CONST_CONTROLE,
+        LEGIS_ADMIN,
+        LEGIS_TUTELA_COLETIVA,
+        [{ label: "Lei 8.906/1994 — Estatuto da OAB", match: ["l8906"], articlesFallback: 80 }],
+        LEGIS_PENAL_ESPECIAL_CORE,
+        [{ label: "CTN (noções)", match: ["l5172"], articlesFallback: 200 }],
         {
           label: "Normas AGU (organização e competências)",
           corpus: "legislacao_agu",
           maxFromCorpus: 12,
           articlesFallback: 25,
-          priority: 14,
-        },
-      ],
+        }
+      ),
       juris: [
         { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 120, priority: 1 },
         { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 120, priority: 2 },
@@ -625,9 +740,14 @@
   }
 
   function articleCount(doc, fallback) {
+    const fb = fallback || 40;
     const chunks = doc.chunk_count;
-    if (typeof chunks === "number" && chunks > 0) return Math.min(chunks, 800);
-    return fallback || 40;
+    if (typeof chunks === "number" && chunks > 0) {
+      const capped = Math.min(chunks, 800);
+      if (capped < fb * 0.35) return Math.round(fb * 0.6);
+      return capped;
+    }
+    return fb;
   }
 
   function resolveLegis(documents, career) {
@@ -710,7 +830,7 @@
   }
 
   /** Distribui em rodízio entre itens da fila (intercala disciplinas ao longo do dia). */
-  function distributeQueueInterleaved(queue, days, perDay) {
+  function distributeQueueInterleaved(queue, days, perDay, chunkMax = LEGIS_CHUNK_MAX) {
     const schedule = Array.from({ length: days }, () => []);
     if (!queue.length || perDay <= 0) return schedule;
 
@@ -737,7 +857,7 @@
       let used = 0;
       while (used < perDay && activeStates().length > 0) {
         const active = activeStates();
-        const bite = Math.max(1, Math.min(4, Math.ceil((perDay - used) / active.length)));
+        const bite = Math.max(1, Math.min(chunkMax, Math.ceil((perDay - used) / active.length)));
         for (const st of active) {
           if (used >= perDay) break;
           const take = Math.min(st.remaining, bite, perDay - used);
@@ -865,14 +985,16 @@
     const totalFlashCards = flashDecks.reduce((s, d) => s + d.cardCount, 0);
     const totalQuestoes = Math.min(questionPool.length, qPerDay * days);
 
-    const legisPerDay = Math.max(8, Math.ceil(totalLegisArticles / days));
+    const legisMinPerDay = career.legisMinPerDay ?? LEGIS_DAILY_MIN;
+    const legisChunkMax = career.legisChunkMax ?? LEGIS_CHUNK_MAX;
+    const legisPerDay = Math.max(legisMinPerDay, Math.ceil(totalLegisArticles / days));
     const jurisPerDay = Math.max(2, Math.ceil(totalJuris / days));
     const flashPerDay = flashDecks.length ? Math.max(10, Math.ceil(totalFlashCards / days)) : 0;
 
     const legisQueue = buildLegisQueue(legisResolved);
     const jurisQueue = buildJurisQueue(jurisResolved);
 
-    const legisSchedule = distributeQueueInterleaved(legisQueue, days, legisPerDay);
+    const legisSchedule = distributeQueueInterleaved(legisQueue, days, legisPerDay, legisChunkMax);
     const jurisSchedule = distributeJurisInterleaved(jurisQueue, days, jurisPerDay);
     const questoesSchedule = qPerDay
       ? distributeQuestionTasks(questionPool.slice(0, totalQuestoes), days, qPerDay)
@@ -1042,6 +1164,95 @@
     ];
   }
 
+  /** Agrupa legis + juris + questões na mesma etapa (intercaladas); flashcards ao final. */
+  function buildDayStudyBlocks(day) {
+    const legis = (day.legisTasks || []).map((t) => ({ ...t, kind: "legis" }));
+    const juris = (day.jurisTasks || []).map((t) => ({ ...t, kind: "juris" }));
+    const questoes = (day.questoesTasks || []).map((t) => ({ ...t, kind: "questoes" }));
+    const flash = (day.flashTasks || []).map((t) => ({ ...t, kind: "flashcards" }));
+
+    const blocks = [];
+    const maxCore = Math.max(legis.length, juris.length, questoes.length, 0);
+
+    for (let i = 0; i < maxCore; i++) {
+      const items = [];
+      if (legis[i]) items.push(legis[i]);
+      if (juris[i]) items.push(juris[i]);
+      if (questoes[i]) items.push(questoes[i]);
+      if (!items.length) continue;
+      const kinds = [...new Set(items.map((t) => t.kind))];
+      blocks.push({
+        blockId: `core:${i}`,
+        label: `Etapa ${blocks.length + 1}`,
+        kinds,
+        items,
+        taskIds: items.map((t) => t.taskId),
+      });
+    }
+
+    if (flash.length) {
+      blocks.push({
+        blockId: "flash",
+        label: "Flashcards",
+        kinds: ["flashcards"],
+        items: flash,
+        taskIds: flash.map((t) => t.taskId),
+      });
+    }
+
+    return blocks;
+  }
+
+  /** Lista plana (retrocompatível com checkboxes individuais). */
+  function orderedDayTasks(day) {
+    return buildDayStudyBlocks(day).flatMap((b) => b.items);
+  }
+
+  function blockIsDone(block, doneSet) {
+    return block.taskIds.every((id) => doneSet.has(id));
+  }
+
+  function dayBlockProgress(day) {
+    const blocks = buildDayStudyBlocks(day);
+    const doneSet = new Set(day.completedTasks || []);
+    const done = blocks.filter((b) => blockIsDone(b, doneSet)).length;
+    return { blocks, done, total: blocks.length, doneSet };
+  }
+
+  function dayTaskProgress(day) {
+    const tasks = orderedDayTasks(day);
+    const doneSet = new Set(day.completedTasks || []);
+    const done = tasks.filter((t) => doneSet.has(t.taskId)).length;
+    return { tasks, done, total: tasks.length, doneSet };
+  }
+
+  function firstIncompleteBlock(day) {
+    const { blocks, doneSet } = dayBlockProgress(day);
+    const idx = blocks.findIndex((b) => !blockIsDone(b, doneSet));
+    return idx >= 0 ? idx : Math.max(0, blocks.length - 1);
+  }
+
+  function firstIncompleteStep(day) {
+    return firstIncompleteBlock(day);
+  }
+
+  function markBlockTasks(plan, dayIndex, taskIds) {
+    const day = plan.trail[dayIndex];
+    if (!day) return plan;
+    const set = new Set(day.completedTasks || []);
+    for (const id of taskIds) set.add(id);
+    day.completedTasks = [...set];
+    savePlan(plan);
+    return plan;
+  }
+
+  const TASK_KIND_LABELS = {
+    legis: "Legislação",
+    juris: "Jurisprudência",
+    questoes: "Questões",
+    flashcards: "Flashcards",
+  };
+
   function planProgress(plan) {
     let done = 0;
     let total = 0;
@@ -1078,5 +1289,15 @@
     toggleTask,
     planProgress,
     todayIndex,
+    dayTasks,
+    buildDayStudyBlocks,
+    orderedDayTasks,
+    dayBlockProgress,
+    dayTaskProgress,
+    firstIncompleteBlock,
+    firstIncompleteStep,
+    markBlockTasks,
+    blockIsDone,
+    TASK_KIND_LABELS,
   };
 })();

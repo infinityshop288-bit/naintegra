@@ -2712,6 +2712,291 @@ body.lex-public-mode .content { padding: 0.75rem 1.15rem 1rem; }
 .study-task a { color: inherit; text-decoration: none; }
 .study-task a:hover { text-decoration: underline; color: #9a6e00; }
 .study-task.done { opacity: 0.65; text-decoration: line-through; }
+
+.study-return-bar {
+  margin: 0 0 1rem;
+}
+.study-session-cta {
+  margin: 0 0 1.5rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: 12px;
+  border: 1px solid rgba(154, 110, 0, 0.35);
+  background: linear-gradient(135deg, rgba(154, 110, 0, 0.08), rgba(201, 162, 39, 0.06));
+  text-align: center;
+}
+.study-session-cta p {
+  margin: 0.65rem 0 0;
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+.study-session-start {
+  font-size: 1rem;
+  padding: 0.75rem 1.5rem;
+}
+.study-session-cta-meta {
+  display: inline-block;
+  margin-top: 0.65rem;
+  font-size: 0.82rem;
+  color: #7a5600;
+  font-weight: 600;
+}
+.study-session { max-width: 920px; }
+.study-session-head { margin-bottom: 1.25rem; }
+.study-session-head h1 {
+  margin: 0.35rem 0 0.25rem;
+  font-family: var(--font-serif);
+}
+.study-session-head p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.study-session-bar { margin-top: 0.75rem; }
+.study-session-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+.study-step-pill {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  font: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.study-step-pill.active {
+  border-color: #9a6e00;
+  background: rgba(154, 110, 0, 0.15);
+  color: #7a5600;
+}
+.study-step-pill.done {
+  background: rgba(34, 139, 34, 0.12);
+  border-color: rgba(34, 139, 34, 0.35);
+  color: #166534;
+}
+.study-session-card {
+  padding: 1.35rem 1.4rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+}
+.study-session-type {
+  display: inline-block;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 700;
+  color: #9a6e00;
+  margin-bottom: 0.5rem;
+}
+.study-session-card h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.15rem;
+  font-family: var(--font-serif);
+}
+.study-session-detail {
+  margin: 0 0 1.1rem;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.study-session-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+.study-session-hint {
+  margin: 1rem 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.study-session-complete .study-session-hero {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+.study-session-badge {
+  display: inline-block;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(34, 139, 34, 0.12);
+  color: #166534;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.study-session-complete h1 {
+  margin: 0.75rem 0 0.35rem;
+  font-family: var(--font-serif);
+}
+.study-session-complete p {
+  margin: 0;
+  color: var(--muted);
+}
+.study-session-complete .study-session-actions {
+  justify-content: center;
+  margin-top: 1.25rem;
+}
+.study-block {
+  margin-top: 0.85rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(154, 110, 0, 0.03);
+}
+.study-block.done { opacity: 0.7; }
+.study-block-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.65rem;
+  align-items: center;
+}
+.study-block-kinds {
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: #9a6e00;
+  font-size: 0.78rem;
+}
+.study-block-items { display: flex; flex-direction: column; gap: 0.75rem; }
+.study-block-items-compact .study-task { padding: 0.35rem 0; }
+.study-task-kind {
+  font-style: normal;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #9a6e00;
+  margin-right: 0.25rem;
+}
+.study-day-empty {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.study-session-block .study-block-items {
+  margin: 1rem 0;
+}
+.study-block-item {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+}
+.study-block-item.done { opacity: 0.75; }
+.study-block-item-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.35rem;
+}
+.study-block-item-type {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #9a6e00;
+}
+.study-block-item-done { color: #166534; font-weight: 700; }
+.study-block-item-title {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 0.25rem;
+}
+.study-block-item-detail {
+  margin: 0 0 0.65rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.study-block-item-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  align-items: center;
+}
+.study-block-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.study-block-item-inline .study-block-item-head {
+  margin-bottom: 0.5rem;
+}
+.study-inline-body {
+  margin-top: 0.65rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.85rem;
+}
+.study-inline-reader-host .study-inline-reader {
+  margin: 0;
+}
+.study-inline-reader-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 0.65rem;
+  margin-bottom: 0.75rem;
+}
+.study-inline-reader-body {
+  max-height: none;
+  padding: 0;
+}
+.study-inline-reader-body .lei-artigo,
+.study-inline-reader-body .juris-item,
+.study-inline-reader-body .article-block {
+  margin-bottom: 0.85rem;
+}
+.study-block-item-inline .question-card {
+  margin: 0;
+  border: none;
+  padding: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.study-inline-flashcards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.study-inline-flash-meta {
+  margin: 0 0 0.35rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.study-inline-flash {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  background: rgba(154, 110, 0, 0.03);
+}
+.study-inline-flash summary {
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.45;
+}
+.study-inline-flash-back {
+  margin-top: 0.65rem;
+  padding-top: 0.65rem;
+  border-top: 1px dashed var(--border);
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+
 .study-syllabus {
   margin: 1.5rem 0;
   font-size: 0.88rem;
