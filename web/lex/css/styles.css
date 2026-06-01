@@ -922,7 +922,7 @@ input[type="search"], select {
 
 .highlight-toolbar {
   position: fixed;
-  bottom: 5rem;
+  bottom: calc(5rem + env(safe-area-inset-bottom, 0px));
   left: 50%;
   transform: translateX(-50%);
   display: none;
@@ -932,7 +932,9 @@ input[type="search"], select {
   border: 1px solid var(--border);
   border-radius: 10px;
   box-shadow: 0 8px 24px rgba(17, 16, 8, 0.12);
-  z-index: 50;
+  z-index: 60;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 .highlight-toolbar.visible { display: flex; }
 
@@ -942,6 +944,22 @@ input[type="search"], select {
   border-radius: 6px;
   border: 1px solid var(--border);
   cursor: pointer;
+  touch-action: manipulation;
+}
+
+@media (max-width: 960px) {
+  .highlight-toolbar {
+    bottom: calc(4.75rem + env(safe-area-inset-bottom, 0px));
+    padding: 0.55rem 0.6rem;
+    gap: 0.5rem;
+  }
+  .hl-btn,
+  .highlight-toolbar .hl-note-btn {
+    width: 2.25rem;
+    height: 2.25rem;
+    min-width: 2.25rem;
+    min-height: 2.25rem;
+  }
 }
 
 .audio-panel h4 {
@@ -2277,6 +2295,8 @@ input[type="search"], select {
 .reader-body.lex-protected .juris-section-text {
   -webkit-user-select: text;
   user-select: text;
+  -webkit-touch-callout: default;
+  touch-action: manipulation;
 }
 
 .block-note,
