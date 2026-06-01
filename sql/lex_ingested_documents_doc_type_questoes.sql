@@ -9,6 +9,7 @@ alter table lex.ingested_documents add constraint ingested_documents_doc_type_ch
     'jurisprudencia',
     'sumula',
     'questoes_objetivas',
-    'questoes_subjetivas'
+    'questoes_subjetivas',
+    'doutrina'
   )
 );

@@ -31,6 +31,7 @@ window.LEX_CONFIG = {
   questionsTable: "questoes_banco",
   questionsPageSize: 1000,
   questoesCatalogFallback: "./data/questoes_catalog.json",
+  doutrinaCatalogFallback: "./data/doutrina_catalog.json",
   contactEmail: "contato@naintegracursos.com.br",
   accountDeletionUrl: "https://www.naintegracursos.com.br/lex/#/excluir-conta",
   /** Fallback se content_metadata não estiver disponível. */
