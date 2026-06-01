@@ -2089,6 +2089,19 @@
       career && SP.filterQuestions ? SP.filterQuestions(state.documents, selected, ufSelected) : [];
     const ufProfile = SP.getUfProfile?.(ufSelected) || ufProfiles[ufSelected] || ufProfiles.geral;
     const totalArts = legisPreview.reduce((s, l) => s + l.articles, 0);
+    const totalFlashPreview = decksPreview.reduce((s, d) => s + d.cardCount, 0);
+    const planDaysDefault = career?.defaultDays || 90;
+    const dailyPreview = SP.computeDailyTargets
+      ? SP.computeDailyTargets({
+          days: planDaysDefault,
+          totalLegisArticles: totalArts,
+          totalJuris: jurisPreview.length,
+          totalFlashCards: totalFlashPreview,
+          questionPoolSize: questoesPreview.length,
+          questoesPerDayPreferred: 6,
+          legisMinPerDay: career?.legisMinPerDay,
+        })
+      : null;
 
     const ufOptions = Object.entries(ufProfiles)
       .map(
@@ -2133,15 +2146,17 @@
           <label for="study-uf">Estado do concurso (edital)</label>
           <select id="study-uf">${ufOptions}</select>
           <p class="sync-hint" style="margin-top:-0.5rem">Bancas priorizadas nas questões: ${ufProfile.bancas?.length ? esc(ufProfile.bancas.join(", ")) : "todas do acervo"}</p>
-          <label for="study-questoes-day">Questões por dia</label>
-          <input type="number" id="study-questoes-day" min="0" max="20" value="6" />
+          <label for="study-questoes-day">Questões por dia (mínimo)</label>
+          <input type="number" id="study-questoes-day" min="0" max="25" value="6" />
+          <p class="sync-hint" style="margin-top:-0.35rem">Quanto menos dias no plano, mais dispositivos, jurisprudência, questões e cards entram em cada dia para concluir o edital no prazo.</p>
           <div class="study-plan-summary" id="study-plan-preview">
             <strong>${esc(career?.label || "")}</strong> — ${esc(career?.editalFocus || "")}
             <ul>
               <li><strong>${legisPreview.length}</strong> leis no acervo · ~<strong>${totalArts.toLocaleString("pt-BR")}</strong> unidades (artigos/dispositivos)</li>
               <li><strong>${jurisPreview.length}</strong> itens de jurisprudência (súmulas e temas)</li>
               <li><strong>${questoesPreview.length}</strong> questões filtradas${state.questionsLoaded ? "" : " (carregando banco…)"}</li>
-              <li><strong>${decksPreview.length}</strong> decks de flashcards · ${decksPreview.reduce((s, d) => s + d.cardCount, 0).toLocaleString("pt-BR")} cards</li>
+              <li><strong>${decksPreview.length}</strong> decks de flashcards · ${totalFlashPreview.toLocaleString("pt-BR")} cards</li>
+              <li id="study-daily-quota-hint">${formatStudyDailyQuotaHint(dailyPreview, planDaysDefault)}</li>
             </ul>
             ${missingWarn}
           </div>
@@ -2633,20 +2648,61 @@
       </div>`;
   }
 
+  function formatStudyDailyQuotaHint(daily, days) {
+    if (!daily) {
+      return `Com <strong>${days}</strong> dias, a trilha distribui o edital ao longo do cronograma.`;
+    }
+    const pct = Math.round((daily.intensity - 1) * 100);
+    const boost =
+      pct > 0 ? ` · intensidade +${pct}% (prazo curto)` : "";
+    return `Com <strong>${daily.days}</strong> dias: ~<strong>${daily.legisPerDay.toLocaleString("pt-BR")}</strong> dispositivos, <strong>${daily.jurisPerDay}</strong> juris, <strong>${daily.questoesPerDay}</strong> questões e <strong>${daily.flashPerDay}</strong> flashcards por dia${boost}.`;
+  }
+
+  function refreshStudyDailyQuotaHint() {
+    const SP = studyPlansApi();
+    const el = document.getElementById("study-daily-quota-hint");
+    if (!el || !SP?.computeDailyTargets) return;
+    const careerId = state.studyPlanCareer || SP.loadSavedPlan()?.careerId || SP.CAREERS[0]?.id;
+    const career = SP.getCareer(careerId);
+    const uf = document.getElementById("study-uf")?.value || "geral";
+    const days = parseInt(document.getElementById("study-days")?.value, 10) || career?.defaultDays || 90;
+    const questoesMin = parseInt(document.getElementById("study-questoes-day")?.value, 10) || 6;
+    const legisPreview = career ? SP.resolveLegis(state.documents, career) : [];
+    const jurisPreview = career ? SP.resolveJuris(state.documents, career) : [];
+    const decksPreview = career ? SP.resolveFlashcardDecks(state.decks, career) : [];
+    const questoesPreview = career && SP.filterQuestions ? SP.filterQuestions(state.documents, careerId, uf) : [];
+    const daily = SP.computeDailyTargets({
+      days,
+      totalLegisArticles: legisPreview.reduce((s, l) => s + l.articles, 0),
+      totalJuris: jurisPreview.length,
+      totalFlashCards: decksPreview.reduce((s, d) => s + d.cardCount, 0),
+      questionPoolSize: questoesPreview.length,
+      questoesPerDayPreferred: questoesMin,
+      legisMinPerDay: career?.legisMinPerDay,
+    });
+    el.innerHTML = formatStudyDailyQuotaHint(daily, days);
+  }
+
   function bindStudyPlanWizard() {
     const SP = studyPlansApi();
     if (!SP) return;
+
+    document.getElementById("study-days")?.addEventListener("input", refreshStudyDailyQuotaHint);
+    document.getElementById("study-questoes-day")?.addEventListener("input", refreshStudyDailyQuotaHint);
+    document.getElementById("study-uf")?.addEventListener("change", refreshStudyDailyQuotaHint);
 
     document.querySelectorAll("[data-career]").forEach((btn) => {
       btn.addEventListener("click", () => {
         state.studyPlanCareer = btn.getAttribute("data-career");
         render();
+        refreshStudyDailyQuotaHint();
       });
     });
 
     document.getElementById("study-uf")?.addEventListener("change", (e) => {
       state.studyPlanUf = e.target.value;
       render();
+      refreshStudyDailyQuotaHint();
     });
 
     document.getElementById("study-generate-btn")?.addEventListener("click", async () => {
@@ -3272,63 +3328,147 @@
       true
     );
 
-    document.addEventListener("mouseup", () => {
-      if (!isReaderRoute()) return;
-      const sel = window.getSelection();
-      if (!sel || sel.isCollapsed || !sel.rangeCount) return;
-      const anchor = sel.anchorNode;
-      const el = anchor?.nodeType === 3 ? anchor.parentElement : anchor;
-      const block = el?.closest?.(".article-text");
-      if (!block) return;
-      const host = block.closest("[data-art-id]");
-      if (!host) return;
+    let highlightToolbarTimer = null;
+
+    function hideHighlightToolbar() {
       const toolbar = document.getElementById("highlight-toolbar");
       if (!toolbar) return;
+      toolbar.classList.remove("visible");
+      window.__lexHighlightSavedRange = null;
+    }
+
+    function highlightContextFromSelection(sel) {
+      if (!sel || sel.isCollapsed || !sel.rangeCount) return null;
+      const anchor = sel.anchorNode;
+      const focus = sel.focusNode;
+      const el = (node) => (node?.nodeType === 3 ? node.parentElement : node);
+      const block =
+        el(anchor)?.closest?.(".article-text, .lei-text") ||
+        el(focus)?.closest?.(".article-text, .lei-text");
+      if (!block) return null;
+      const host = block.closest("[data-art-id]");
+      if (!host) return null;
       const doc = findDocument(state.route.id);
       const artId = host.getAttribute("data-art-id");
       const part = block.getAttribute("data-hl-part") || "";
       const storageId = doc ? readerStorageId(doc) : readerStorageId(state.route.id);
+      let range = null;
+      try {
+        range = sel.getRangeAt(0).cloneRange();
+      } catch (_) {
+        range = null;
+      }
+      return {
+        artId,
+        part,
+        storageId,
+        docType: docStudyType(doc),
+        blockKey: highlightBlockKey(artId, part),
+        range,
+      };
+    }
+
+    function updateHighlightToolbarFromSelection() {
+      if (!isReaderRoute()) {
+        hideHighlightToolbar();
+        return;
+      }
+      const toolbar = document.getElementById("highlight-toolbar");
+      if (!toolbar) return;
+      const ctx = highlightContextFromSelection(window.getSelection());
+      if (!ctx) {
+        hideHighlightToolbar();
+        return;
+      }
+      window.__lexHighlightSavedRange = ctx.range;
       toolbar.classList.add("visible");
-      toolbar.dataset.artId = artId;
-      toolbar.dataset.blockKey = highlightBlockKey(artId, part);
-      toolbar.dataset.docId = storageId;
-      toolbar.dataset.docType = docStudyType(doc);
+      toolbar.dataset.artId = ctx.artId;
+      toolbar.dataset.blockKey = ctx.blockKey;
+      toolbar.dataset.docId = ctx.storageId;
+      toolbar.dataset.docType = ctx.docType;
+    }
+
+    function scheduleHighlightToolbarUpdate() {
+      clearTimeout(highlightToolbarTimer);
+      highlightToolbarTimer = setTimeout(updateHighlightToolbarFromSelection, 80);
+    }
+
+    document.addEventListener("mouseup", scheduleHighlightToolbarUpdate);
+    document.addEventListener("touchend", (e) => {
+      if (e.target.closest?.("#highlight-toolbar")) return;
+      scheduleHighlightToolbarUpdate();
     });
+    document.addEventListener("selectionchange", scheduleHighlightToolbarUpdate);
+
+    window.__lexUpdateHighlightToolbar = updateHighlightToolbarFromSelection;
   }
 
   function bindHighlightToolbar() {
     const toolbar = document.getElementById("highlight-toolbar");
     if (!toolbar || toolbar.dataset.bound) return;
     toolbar.dataset.bound = "1";
-    toolbar.querySelectorAll(".hl-btn").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const sel = window.getSelection();
-        if (!sel || sel.isCollapsed) return;
-        const color = btn.getAttribute("data-color");
-        const range = sel.getRangeAt(0);
-        const mark = document.createElement("mark");
-        mark.className = `hl-${color}`;
+
+    let lastHighlightApplyAt = 0;
+
+    function applyHighlightColor(color) {
+      const now = Date.now();
+      if (now - lastHighlightApplyAt < 350) return;
+      lastHighlightApplyAt = now;
+
+      const sel = window.getSelection();
+      let range = null;
+      try {
+        if (sel && !sel.isCollapsed && sel.rangeCount) range = sel.getRangeAt(0);
+      } catch (_) {
+        range = null;
+      }
+      if (!range && window.__lexHighlightSavedRange) {
         try {
-          range.surroundContents(mark);
-        } catch {
-          mark.appendChild(range.extractContents());
-          range.insertNode(mark);
+          range = window.__lexHighlightSavedRange.cloneRange();
+        } catch (_) {
+          range = null;
         }
-        const artId = toolbar.dataset.artId;
-        const blockKey = toolbar.dataset.blockKey || artId;
-        const docId = toolbar.dataset.docId;
-        const docType = toolbar.dataset.docType || "legislacao";
-        const host = document.getElementById(`art-${artId}`);
-        const part = blockKey.includes(".") ? blockKey.split(".").slice(1).join(".") : "";
-        const block = part
-          ? host?.querySelector(`.article-text[data-hl-part="${part}"]`)
-          : host?.querySelector(".article-text");
-        if (block) setHighlight(docId, blockKey, block.innerHTML, docType);
-        toolbar.classList.remove("visible");
-        sel.removeAllRanges();
+      }
+      if (!range) return;
+      const mark = document.createElement("mark");
+      mark.className = `hl-${color}`;
+      try {
+        range.surroundContents(mark);
+      } catch {
+        mark.appendChild(range.extractContents());
+        range.insertNode(mark);
+      }
+      const artId = toolbar.dataset.artId;
+      const blockKey = toolbar.dataset.blockKey || artId;
+      const docId = toolbar.dataset.docId;
+      const docType = toolbar.dataset.docType || "legislacao";
+      const host = document.getElementById(`art-${artId}`);
+      const part = blockKey.includes(".") ? blockKey.split(".").slice(1).join(".") : "";
+      const block = part
+        ? host?.querySelector(`.article-text[data-hl-part="${part}"]`)
+        : host?.querySelector(".article-text, .lei-text");
+      if (block) setHighlight(docId, blockKey, block.innerHTML, docType);
+      toolbar.classList.remove("visible");
+      window.__lexHighlightSavedRange = null;
+      sel?.removeAllRanges?.();
+    }
+
+    function keepSelectionForToolbar(e) {
+      e.preventDefault();
+    }
+
+    toolbar.querySelectorAll(".hl-btn").forEach((btn) => {
+      btn.addEventListener("mousedown", keepSelectionForToolbar);
+      btn.addEventListener("touchstart", keepSelectionForToolbar, { passive: false });
+      btn.addEventListener("click", () => applyHighlightColor(btn.getAttribute("data-color")));
+      btn.addEventListener("touchend", (e) => {
+        e.preventDefault();
+        applyHighlightColor(btn.getAttribute("data-color"));
       });
     });
-    document.getElementById("hl-note-btn")?.addEventListener("click", () => {
+
+    const noteBtn = document.getElementById("hl-note-btn");
+    const openNoteFromToolbar = () => {
       const artId = toolbar.dataset.artId;
       const blockKey = toolbar.dataset.blockKey || artId;
       const host = document.getElementById(`art-${artId}`);
@@ -3338,10 +3478,18 @@
       const panel = wrap?.querySelector(".block-note-panel");
       const input = wrap?.querySelector("[data-note-input]");
       toolbar.classList.remove("visible");
+      window.__lexHighlightSavedRange = null;
       if (panel) {
         panel.hidden = false;
         input?.focus();
       }
+    };
+    noteBtn?.addEventListener("mousedown", keepSelectionForToolbar);
+    noteBtn?.addEventListener("touchstart", keepSelectionForToolbar, { passive: false });
+    noteBtn?.addEventListener("click", openNoteFromToolbar);
+    noteBtn?.addEventListener("touchend", (e) => {
+      e.preventDefault();
+      openNoteFromToolbar();
     });
   }
 

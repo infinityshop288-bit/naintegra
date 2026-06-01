@@ -4,9 +4,85 @@
  */
 (function () {
   const LS_KEY = "lex_study_plan_v1";
-  const PLAN_VERSION = 3;
+  const PLAN_VERSION = 4;
   const LEGIS_DAILY_MIN = 18;
   const LEGIS_CHUNK_MAX = 8;
+
+  /** Planos curtos exigem mais carga diária para concluir o edital no prazo. */
+  function studyDaysIntensity(days) {
+    const d = Math.max(1, parseInt(days, 10) || 90);
+    if (d <= 14) return 1.45;
+    if (d <= 21) return 1.35;
+    if (d <= 30) return 1.25;
+    if (d <= 45) return 1.15;
+    if (d <= 60) return 1.08;
+    if (d <= 90) return 1.04;
+    return 1;
+  }
+
+  /**
+   * Calcula meta diária para esgotar `total` em `days` (mais dias → menos por dia).
+   * @param {number} total
+   * @param {number} days
+   * @param {{ min?: number, max?: number, preferred?: number }} opts
+   */
+  function dailyQuotaToFinish(total, days, opts = {}) {
+    const t = Math.max(0, Number(total) || 0);
+    const d = Math.max(1, parseInt(days, 10) || 1);
+    if (!t) return 0;
+    const { min = 0, max = Infinity, preferred = 0 } = opts;
+    const base = Math.ceil(t / d);
+    const boosted = Math.ceil(base * studyDaysIntensity(d));
+    let q = Math.max(base, boosted);
+    if (preferred > 0) q = Math.max(q, preferred);
+    return Math.min(max, Math.max(min, q));
+  }
+
+  function legisChunkMaxForDays(days) {
+    const d = parseInt(days, 10) || 90;
+    if (d <= 21) return 14;
+    if (d <= 45) return 12;
+    if (d <= 90) return 10;
+    return LEGIS_CHUNK_MAX;
+  }
+
+  function computeDailyTargets({
+    days,
+    totalLegisArticles = 0,
+    totalJuris = 0,
+    totalFlashCards = 0,
+    questionPoolSize = 0,
+    questoesPerDayPreferred = 6,
+    legisMinPerDay = LEGIS_DAILY_MIN,
+  }) {
+    const d = Math.max(14, Math.min(365, parseInt(days, 10) || 90));
+    const preferredQ = Math.max(0, Math.min(25, parseInt(questoesPerDayPreferred, 10) || 0));
+    const legisPerDay = dailyQuotaToFinish(totalLegisArticles, d, {
+      min: legisMinPerDay,
+      max: 160,
+      preferred: 0,
+    });
+    const jurisPerDay = dailyQuotaToFinish(totalJuris, d, { min: 2, max: 50, preferred: 0 });
+    const flashPerDay = totalFlashCards
+      ? dailyQuotaToFinish(totalFlashCards, d, { min: 10, max: 100, preferred: 0 })
+      : 0;
+    const questoesPerDay = dailyQuotaToFinish(questionPoolSize, d, {
+      min: 4,
+      max: 25,
+      preferred: preferredQ,
+    });
+    const totalQuestoesPlanned = Math.min(questionPoolSize, questoesPerDay * d);
+    return {
+      days: d,
+      intensity: studyDaysIntensity(d),
+      legisPerDay,
+      jurisPerDay,
+      flashPerDay,
+      questoesPerDay,
+      legisChunkMax: legisChunkMaxForDays(d),
+      totalQuestoesPlanned,
+    };
+  }
 
   const UF_PROFILES = {
     geral: { label: "Brasil (edital genérico)", bancas: [] },
@@ -978,18 +1054,26 @@
     const jurisResolved = resolveJuris(documents, career);
     const flashDecks = resolveFlashcardDecks(decks, career);
     const questionPool = filterQuestions(documents, careerId, ufKey);
-    const qPerDay = Math.max(0, Math.min(20, parseInt(questoesPerDay, 10) || 6));
-
     const totalLegisArticles = legisResolved.reduce((s, l) => s + l.articles, 0);
     const totalJuris = jurisResolved.length;
     const totalFlashCards = flashDecks.reduce((s, d) => s + d.cardCount, 0);
-    const totalQuestoes = Math.min(questionPool.length, qPerDay * days);
 
     const legisMinPerDay = career.legisMinPerDay ?? LEGIS_DAILY_MIN;
-    const legisChunkMax = career.legisChunkMax ?? LEGIS_CHUNK_MAX;
-    const legisPerDay = Math.max(legisMinPerDay, Math.ceil(totalLegisArticles / days));
-    const jurisPerDay = Math.max(2, Math.ceil(totalJuris / days));
-    const flashPerDay = flashDecks.length ? Math.max(10, Math.ceil(totalFlashCards / days)) : 0;
+    const daily = computeDailyTargets({
+      days,
+      totalLegisArticles,
+      totalJuris,
+      totalFlashCards,
+      questionPoolSize: questionPool.length,
+      questoesPerDayPreferred: questoesPerDay,
+      legisMinPerDay,
+    });
+    const legisPerDay = daily.legisPerDay;
+    const jurisPerDay = daily.jurisPerDay;
+    const flashPerDay = daily.flashPerDay;
+    const qPerDay = daily.questoesPerDay;
+    const legisChunkMax = career.legisChunkMax ?? daily.legisChunkMax;
+    const totalQuestoes = daily.totalQuestoesPlanned;
 
     const legisQueue = buildLegisQueue(legisResolved);
     const jurisQueue = buildJurisQueue(jurisResolved);
@@ -1103,6 +1187,7 @@
         jurisPerDay,
         flashcardsPerDay: flashPerDay,
         questoesPerDay: qPerDay,
+        intensity: daily.intensity,
         totalLegisArticles,
         totalJurisItems: totalJuris,
         totalFlashcards: totalFlashCards,
@@ -1283,6 +1368,8 @@
     resolveFlashcardDecks,
     filterQuestions,
     generatePlan,
+    computeDailyTargets,
+    studyDaysIntensity,
     loadSavedPlan,
     savePlan,
     clearPlan,
