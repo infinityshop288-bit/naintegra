@@ -1,0 +1,78 @@
+name: Deploy Delegado (Hostinger)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/delegado/**"
+      - ".github/workflows/deploy-delegado.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-delegado-production
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Publicar em naintegracursos.com.br/delegado
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect deploy method
+        id: mode
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          if [ -n "$FTP_SERVER" ] && [ -n "$FTP_USERNAME" ] && [ -n "$FTP_PASSWORD" ]; then
+            echo "method=ftp" >> "$GITHUB_OUTPUT"
+          elif [ -n "$SSH_HOST" ] && [ -n "$SSH_USERNAME" ] && [ -n "$SSH_PRIVATE_KEY" ]; then
+            echo "method=ssh" >> "$GITHUB_OUTPUT"
+          else
+            echo "method=none" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy via FTPS (Hostinger)
+        if: steps.mode.outputs.method == 'ftp'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftps
+          local-dir: ./web/delegado/
+          server-dir: ./public_html/delegado/
+          dangerous-clean-slate: false
+
+      - name: Deploy via SSH/rsync
+        if: steps.mode.outputs.method == 'ssh'
+        uses: burnett01/rsync-deployments@7.0.1
+        with:
+          switches: -avzr --delete
+          path: web/delegado/
+          remote_path: public_html/delegado/
+          remote_host: ${{ secrets.SSH_HOST }}
+          remote_user: ${{ secrets.SSH_USERNAME }}
+          remote_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          remote_port: 65002
+
+      - name: Credenciais ausentes
+        if: steps.mode.outputs.method == 'none'
+        run: |
+          echo "::error::Configure FTP ou SSH em GitHub → Settings → Secrets → Actions"
+          exit 1
+
+      - name: Smoke test
+        if: steps.mode.outputs.method != 'none'
+        run: |
+          for path in privacidade.html exclusao-dados.html index.html; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" "https://www.naintegracursos.com.br/delegado/${path}" || true)
+            echo "HTTP $code for /delegado/${path}"
+          done

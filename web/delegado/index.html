@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dashboard @delegadoluizcarlos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Source+Sans+3:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
+    <script src="./js/config.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./js/api.js"></script>
+    <script src="./js/dashboard.js" defer></script>
+  </head>
+  <body>
+    <div id="app">
+      <div id="login-screen" class="screen hidden">
+        <div class="login-card">
+          <p class="eyebrow">NaIntegra · Acesso restrito</p>
+          <h1>@delegadoluizcarlos</h1>
+          <p class="muted">Gestão de conteúdo, publicação e monitoramento Meta</p>
+          <div class="login-fields">
+            <label>
+              E-mail autorizado
+              <input id="login-email" type="email" autocomplete="username" placeholder="infinity.shop288@gmail.com" />
+            </label>
+            <label>
+              Senha
+              <input id="login-password" type="password" autocomplete="current-password" />
+            </label>
+            <button type="button" id="btn-login" class="btn primary">Entrar</button>
+            <p id="login-error" class="error hidden"></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="dashboard-screen" class="screen hidden">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Dashboard Meta</p>
+            <h1>@delegadoluizcarlos</h1>
+          </div>
+          <div class="topbar-actions">
+            <span id="user-email" class="badge"></span>
+            <button type="button" id="btn-logout" class="btn ghost">Sair</button>
+          </div>
+        </header>
+
+        <nav class="tabs" id="tabs">
+          <button type="button" data-tab="overview" class="tab active">Visão Geral</button>
+          <button type="button" data-tab="content" class="tab">Conteúdo (IA)</button>
+          <button type="button" data-tab="publish" class="tab">Publicação</button>
+          <button type="button" data-tab="ads" class="tab">Anúncios</button>
+          <button type="button" data-tab="monitoring" class="tab">Monitoramento</button>
+          <button type="button" data-tab="competitors" class="tab">Concorrentes</button>
+          <button type="button" data-tab="automations" class="tab">Automações</button>
+        </nav>
+
+        <main id="panels">
+          <section id="panel-overview" class="panel active"></section>
+          <section id="panel-content" class="panel"></section>
+          <section id="panel-publish" class="panel"></section>
+          <section id="panel-ads" class="panel"></section>
+          <section id="panel-monitoring" class="panel"></section>
+          <section id="panel-competitors" class="panel"></section>
+          <section id="panel-automations" class="panel"></section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

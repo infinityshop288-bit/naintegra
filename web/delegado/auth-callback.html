@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Autenticando…</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <script src="./js/config.js"></script>
+    <script src="./js/auth.js"></script>
+  </head>
+  <body>
+    <p style="font-family: system-ui; padding: 2rem">Concluindo login…</p>
+    <script>
+      (async () => {
+        try {
+          await window.DelegadoAuth.finishOAuthCallback();
+        } catch (e) {
+          document.body.innerHTML =
+            "<p style='font-family:system-ui;padding:2rem;color:#c0392b'>Falha no login: " +
+            (e.message || e) +
+            "</p>";
+        }
+      })();
+    </script>
+  </body>
+</html>
