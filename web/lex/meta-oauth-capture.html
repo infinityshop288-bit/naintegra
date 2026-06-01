@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Conectar Meta — @delegadoluizcarlos</title>
+    <style>
+      :root {
+        --bg: #0d0d0f;
+        --card: #16161a;
+        --text: #f0f0f0;
+        --muted: #aaa;
+        --gold: #c9a84c;
+        --ok: #3dd68c;
+      }
+      body {
+        font-family: system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        max-width: 640px;
+        margin: 2rem auto;
+        padding: 0 1rem 3rem;
+      }
+      .card {
+        background: var(--card);
+        border: 1px solid #333;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+      }
+      button, .btn {
+        background: var(--gold);
+        color: #111;
+        border: none;
+        border-radius: 8px;
+        padding: 0.75rem 1.25rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+      }
+      textarea, code {
+        font-family: ui-monospace, monospace;
+        font-size: 0.85rem;
+      }
+      textarea {
+        width: 100%;
+        min-height: 80px;
+        background: #111;
+        color: var(--ok);
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 0.75rem;
+      }
+      .muted { color: var(--muted); }
+      .ok { color: var(--ok); }
+    </style>
+  </head>
+  <body>
+    <h1>Conectar Meta / Instagram</h1>
+    <p class="muted">Dashboard @delegadoluizcarlos — renovação de Page Access Token</p>
+
+    <div id="step-login" class="card">
+      <h2>1. Autorizar permissões</h2>
+      <p>Inclui <code>instagram_basic</code> e <code>instagram_content_publish</code>.</p>
+      <button type="button" id="btn-oauth">Conectar com Facebook</button>
+    </div>
+
+    <div id="step-token" class="card" hidden>
+      <h2>2. Token capturado</h2>
+      <p class="ok">Copie o comando abaixo e rode no terminal do projeto:</p>
+      <textarea id="cmd" readonly></textarea>
+      <p style="margin-top:1rem">
+        <button type="button" id="btn-copy">Copiar comando</button>
+      </p>
+    </div>
+
+    <div class="card muted">
+      <p><strong>Redirect URI desta página</strong> (adicione no app Meta → Facebook Login → URIs válidos):</p>
+      <code id="redirect-uri"></code>
+    </div>
+
+    <script>
+      const APP_ID = "2257277374806887";
+      const SCOPES = [
+        "pages_show_list",
+        "pages_read_engagement",
+        "pages_manage_posts",
+        "instagram_basic",
+        "instagram_content_publish",
+        "instagram_manage_comments",
+        "instagram_manage_insights",
+        "ads_read",
+        "business_management",
+      ].join(",");
+      const REDIRECT = location.origin + location.pathname;
+      document.getElementById("redirect-uri").textContent = REDIRECT;
+
+      function buildOAuthUrl() {
+        const extras = encodeURIComponent(JSON.stringify({ setup: { channel: "IG_API_ONBOARDING" } }));
+        return (
+          "https://www.facebook.com/v23.0/dialog/oauth" +
+          "?client_id=" + APP_ID +
+          "&redirect_uri=" + encodeURIComponent(REDIRECT) +
+          "&response_type=token" +
+          "&display=page" +
+          "&scope=" + encodeURIComponent(SCOPES) +
+          "&extras=" + extras
+        );
+      }
+
+      function parseHashToken() {
+        const hash = location.hash.replace(/^#/, "");
+        if (!hash) return null;
+        const params = new URLSearchParams(hash);
+        return params.get("access_token");
+      }
+
+      function showToken(token) {
+        document.getElementById("step-login").hidden = true;
+        document.getElementById("step-token").hidden = false;
+        const cmd =
+          "python3 scripts/meta_instagram_setup.py token --short-token " + token;
+        document.getElementById("cmd").value = cmd;
+      }
+
+      document.getElementById("btn-oauth").addEventListener("click", () => {
+        location.href = buildOAuthUrl();
+      });
+
+      document.getElementById("btn-copy").addEventListener("click", () => {
+        const ta = document.getElementById("cmd");
+        ta.select();
+        navigator.clipboard?.writeText(ta.value);
+      });
+
+      const token = parseHashToken();
+      if (token) showToken(token);
+    </script>
+  </body>
+</html>
