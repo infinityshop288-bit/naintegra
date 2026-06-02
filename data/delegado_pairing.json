@@ -1,0 +1,15 @@
+{
+  "paired": true,
+  "pairing": {
+    "valid": true,
+    "checks": {
+      "token_valid": true,
+      "token_type": "PAGE",
+      "scopes": 27,
+      "page_name": "Infinity - Digital",
+      "ig_username": "delegadoluizcarlos",
+      "ig_id_match": true,
+      "followers": 1760
+    }
+  }
+}

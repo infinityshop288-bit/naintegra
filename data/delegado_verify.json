@@ -1,0 +1,72 @@
+[
+  {
+    "check": "META_ACCESS_TOKEN",
+    "status": "ok",
+    "detail": "presente (226 chars)"
+  },
+  {
+    "check": "IG_USER_ID",
+    "status": "ok",
+    "detail": "id numérico (17841445261762165)"
+  },
+  {
+    "check": "FB_PAGE_ID",
+    "status": "ok",
+    "detail": "1070313046173540"
+  },
+  {
+    "check": "META_AD_ACCOUNT_ID",
+    "status": "ok",
+    "detail": "act_995600442880094 (prefixo auto)"
+  },
+  {
+    "check": "ANTHROPIC_API_KEY",
+    "status": "ok",
+    "detail": "formato sk-ant-…"
+  },
+  {
+    "check": "SUPABASE",
+    "status": "ok",
+    "detail": "https://voybsggeedpwcfdadnzt.supabase.co"
+  },
+  {
+    "check": "debug_token",
+    "status": "ok",
+    "detail": "válido, expira em 0, 27 permissões"
+  },
+  {
+    "check": "permissoes_ig",
+    "status": "ok",
+    "detail": "básicas presentes"
+  },
+  {
+    "check": "instagram_profile",
+    "status": "ok",
+    "detail": "@delegadoluizcarlos — 1760 seguidores"
+  },
+  {
+    "check": "instagram_insights",
+    "status": "ok",
+    "detail": "Graph API insights OK"
+  },
+  {
+    "check": "claude_api",
+    "status": "warn",
+    "detail": "sem créditos — fallback local ativo (3 ideias)"
+  },
+  {
+    "check": "supabase_reach",
+    "status": "ok",
+    "detail": "HTTP 401"
+  },
+  {
+    "check": "schema_delegado",
+    "status": "ok",
+    "detail": "tabela content_queue acessível"
+  },
+  {
+    "check": "fastapi_app",
+    "status": "ok",
+    "detail": "NaIntegra — Dashboard @delegadoluizcarlos"
+  }
+]

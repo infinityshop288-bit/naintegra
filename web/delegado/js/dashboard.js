@@ -69,6 +69,7 @@
             <h2>Status da API Meta</h2>
             <p class="muted">Fonte: ${esc(k.fonte || "aguardando_api")}</p>
             ${data.error ? `<p class="error">${esc(data.error)}</p>` : ""}
+            ${(data.warnings || []).map((w) => `<p class="muted">${esc(w)}</p>`).join("")}
             <button type="button" class="btn ghost small" id="btn-debug-token">Validar token</button>
             <pre id="debug-output" class="muted" style="font-size:0.75rem;overflow:auto;max-height:200px;margin-top:0.75rem"></pre>
           </div>
@@ -127,10 +128,16 @@
         out.innerHTML = "<p class='error'>Informe um tema com pelo menos 3 caracteres.</p>";
         return;
       }
-      out.innerHTML = "<p class='muted'>Gerando com Claude…</p>";
+      out.innerHTML = "<p class='muted'>Gerando ideias…</p>";
       try {
         const res = await window.DelegadoApi.generateIdeas(tema, formato);
-        out.innerHTML = (res.ideas || [])
+        const sourceNote =
+          res.source === "fallback"
+            ? "<p class='muted'>Modo local (Claude indisponível) — ideias baseadas em templates.</p>"
+            : "";
+        out.innerHTML =
+          sourceNote +
+          (res.ideas || [])
           .map(
             (idea, i) => `
           <div class="idea-card">
@@ -322,6 +329,20 @@
       const data = await window.DelegadoApi.adsCampaigns();
       const campaigns = data.campaigns?.data || [];
       const insights = (data.account_insights?.data || [])[0] || {};
+      const links = data.setup_links || {};
+      if (data.ads_blocked) {
+        el.innerHTML = `
+          <div class="card highlight">
+            <h2>Anúncios — autorização pendente</h2>
+            <p class="error">${esc(data.error || "Conta de anúncios não autorizou o app.")}</p>
+            <p class="muted">${esc(data.hint || "")}</p>
+            <p style="margin-top:0.75rem">
+              ${links.assign_ad_account ? `<a href="${esc(links.assign_ad_account)}" target="_blank" rel="noopener">Abrir conta de anúncios no Business Manager</a>` : ""}
+            </p>
+            <p class="muted" style="margin-top:0.5rem">App: Claude · Business: Infinity - Digital</p>
+          </div>`;
+        return;
+      }
       el.innerHTML = `
         <div class="grid grid-4">
           ${kpiCard("Gasto (30d)", insights.spend, "graph_api")}
@@ -364,8 +385,21 @@
     try {
       const data = await window.DelegadoApi.monitoring();
       const metrics = flattenInsights(data.account_insights);
+      const derived = data.derived_metrics || {};
+      const chartMetrics =
+        Object.keys(metrics).length > 0
+          ? metrics
+          : {
+              curtidas: derived.total_likes,
+              comentários: derived.total_comments,
+              interações: derived.total_interactions,
+            };
       const media = data.recent_media?.data || [];
+      const warn = data.warning
+        ? `<p class="muted">${esc(data.warning)}</p>`
+        : "";
       el.innerHTML = `
+        ${warn}
         <div class="grid grid-2">
           <div class="card">
             <h2>Alcance × Interações</h2>
@@ -400,11 +434,11 @@
       charts.monitoring = new Chart(ctx, {
         type: "bar",
         data: {
-          labels: Object.keys(metrics),
+          labels: Object.keys(chartMetrics),
           datasets: [
             {
               label: "Valor",
-              data: Object.values(metrics),
+              data: Object.values(chartMetrics),
               backgroundColor: "rgba(201, 168, 76, 0.55)",
               borderColor: "#c9a84c",
               borderWidth: 1,

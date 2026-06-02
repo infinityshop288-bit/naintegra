@@ -59,6 +59,7 @@
     comments: (mediaId) => apiFetch("/monitoring/comments/" + mediaId),
     competitors: () => apiFetch("/competitors"),
     automations: () => apiFetch("/automations"),
+    pairing: () => apiFetch("/meta/pairing"),
     setAutomationStatus: (id, status) =>
       apiFetch("/automations/" + id, {
         method: "PATCH",

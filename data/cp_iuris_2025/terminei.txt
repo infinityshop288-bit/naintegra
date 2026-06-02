@@ -1,0 +1,4 @@
+Extração CP IURIS 2025 concluída.
+Chunks: 12547
+Saída: /Users/luizcarlos/Documents/GitHub/naintegra/data/cp_iuris_2025/knowledge.jsonl
+Corpus Lex: /Users/luizcarlos/Documents/GitHub/naintegra/data/cp_iuris_2025/corpus.jsonl

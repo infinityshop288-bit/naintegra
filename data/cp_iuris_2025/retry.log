@@ -1,0 +1,73 @@
+2026-06-01 11:03:45,342 INFO Retry CP IURIS: 13 trechos na fila (0 removidos do acervo)
+2026-06-01 11:03:45,757 INFO HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-01 11:04:30,795 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:05:49,364 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:06:51,390 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:08:21,502 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:08:21,531 INFO Lote: +4 chunks · 12538/12547 total · pendentes 9 · falhas lote 0 · workers 1
+2026-06-01 11:08:21,906 INFO Retry ciclo 1: +4 (pendentes 9)
+2026-06-01 11:08:22,283 INFO HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-01 11:08:57,427 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:10:06,530 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:11:11,596 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:11:11,603 WARNING Falha IA chunk c1f1795a (tentativa 1/3): Invalid \uXXXX escape: line 4 column 34 (char 184)
+2026-06-01 11:12:08,177 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:12:08,191 WARNING Falha IA chunk c1f1795a (tentativa 2/3): Invalid \uXXXX escape: line 4 column 108 (char 258)
+2026-06-01 11:13:06,729 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:13:06,732 WARNING Falha IA chunk c1f1795a (tentativa 3/3): Invalid \uXXXX escape: line 4 column 34 (char 184)
+2026-06-01 11:13:06,732 ERROR Chunk c1f1795a abandonado após 3 tentativas
+2026-06-01 11:14:06,015 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:14:06,020 WARNING Falha IA chunk 52b00532 (tentativa 1/3): Invalid \uXXXX escape: line 15 column 23 (char 1067)
+2026-06-01 11:14:50,626 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:14:50,645 INFO Lote: +3 chunks · 12541/12547 total · pendentes 6 · falhas lote 1 · workers 1
+2026-06-01 11:14:50,645 INFO Retry ciclo 2: +3 (pendentes 6)
+2026-06-01 11:14:51,082 INFO HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-01 11:15:40,016 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:16:23,211 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:17:28,795 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:17:28,798 WARNING Falha IA chunk d7f81206 (tentativa 1/3): Invalid \uXXXX escape: line 3 column 63 (char 125)
+2026-06-01 11:18:20,531 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:18:20,535 WARNING Falha IA chunk d7f81206 (tentativa 2/3): Invalid \uXXXX escape: line 3 column 63 (char 125)
+2026-06-01 11:19:07,754 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:19:07,758 WARNING Falha IA chunk d7f81206 (tentativa 3/3): Invalid \uXXXX escape: line 3 column 63 (char 125)
+2026-06-01 11:19:07,758 ERROR Chunk d7f81206 abandonado após 3 tentativas
+2026-06-01 11:20:03,563 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:20:03,567 WARNING Falha IA chunk bacbc60d (tentativa 1/3): Expecting ',' delimiter: line 23 column 28 (char 1083)
+2026-06-01 11:20:36,251 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:20:36,260 INFO Lote: +3 chunks · 12544/12547 total · pendentes 3 · falhas lote 1 · workers 1
+2026-06-01 11:20:36,261 INFO Retry ciclo 3: +3 (pendentes 3)
+2026-06-01 11:20:36,678 INFO HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-01 11:21:28,192 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:21:28,199 WARNING Falha IA chunk d7f81206 (tentativa 1/3): Invalid \uXXXX escape: line 3 column 63 (char 125)
+2026-06-01 11:22:51,332 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:22:51,336 WARNING Falha IA chunk d7f81206 (tentativa 2/3): Invalid \uXXXX escape: line 3 column 63 (char 125)
+2026-06-01 11:23:37,493 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:23:37,497 WARNING Falha IA chunk d7f81206 (tentativa 3/3): Invalid \uXXXX escape: line 3 column 63 (char 125)
+2026-06-01 11:23:37,497 ERROR Chunk d7f81206 abandonado após 3 tentativas
+2026-06-01 11:24:38,448 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:24:38,451 WARNING Falha IA chunk 09f37a4b (tentativa 1/3): Expecting ':' delimiter: line 13 column 23 (char 1089)
+2026-06-01 11:25:21,122 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:26:18,031 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:26:18,042 INFO Lote: +2 chunks · 12546/12547 total · pendentes 1 · falhas lote 1 · workers 1
+2026-06-01 11:26:18,042 INFO Retry ciclo 4: +2 (pendentes 1)
+2026-06-01 11:26:18,484 INFO HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-01 11:27:27,348 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:27:27,353 WARNING Falha IA chunk d7f81206 (tentativa 1/3): Invalid \uXXXX escape: line 3 column 57 (char 119)
+2026-06-01 11:28:09,622 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:28:09,626 WARNING Falha IA chunk d7f81206 (tentativa 2/3): Invalid \uXXXX escape: line 3 column 63 (char 125)
+2026-06-01 11:28:55,036 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:28:55,039 WARNING Falha IA chunk d7f81206 (tentativa 3/3): Invalid \uXXXX escape: line 3 column 63 (char 125)
+2026-06-01 11:28:55,039 ERROR Chunk d7f81206 abandonado após 3 tentativas
+2026-06-01 11:28:55,044 INFO Lote: +0 chunks · 12546/12547 total · pendentes 1 · falhas lote 1 · workers 1
+2026-06-01 11:28:55,044 INFO Retry ciclo 5: +0 (pendentes 1)
+2026-06-01 11:28:56,631 INFO HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+2026-06-01 11:29:40,788 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:29:40,791 WARNING Falha IA chunk d7f81206 (tentativa 1/3): Invalid \uXXXX escape: line 3 column 63 (char 125)
+2026-06-01 11:30:20,279 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:30:20,281 WARNING Falha IA chunk d7f81206 (tentativa 2/3): Invalid \uXXXX escape: line 3 column 63 (char 125)
+2026-06-01 11:30:58,836 INFO HTTP Request: POST http://127.0.0.1:11434/v1/chat/completions "HTTP/1.1 200 OK"
+2026-06-01 11:30:58,842 INFO Lote: +1 chunks · 12547/12547 total · pendentes 0 · falhas lote 0 · workers 1 · CONCLUÍDO
+Trechos ausentes: 13
+Recuperados nesta execução: 13
+Retry concluído com sucesso.
+EXIT:0

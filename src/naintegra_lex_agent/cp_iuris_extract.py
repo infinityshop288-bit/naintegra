@@ -216,7 +216,13 @@ def load_ai_config() -> dict[str, Any]:
     provider = os.environ.get("CP_IURIS_AI_PROVIDER", "ollama").strip() or "ollama"
     model = os.environ.get("CP_IURIS_AI_MODEL", "").strip() or os.environ.get(
         "LEX_AGENT_AI_MODEL", ""
-    ).strip() or default_ai_model(provider)
+    ).strip()
+    if not model:
+        state_path = Path(os.environ.get("CP_IURIS_OUTPUT_DIR", "data/cp_iuris_2025"))
+        if not state_path.is_absolute():
+            state_path = Path(__file__).resolve().parents[2] / state_path
+        saved = load_state(state_path / "state.json")
+        model = (saved.model if saved else "") or default_ai_model(provider)
     return {
         "provider": provider,
         "model": model,
@@ -369,6 +375,155 @@ def load_state(path: Path) -> ExtractionJobState | None:
         return ExtractionJobState(**data)
     except (json.JSONDecodeError, OSError, TypeError):
         return None
+
+
+def collect_abandoned_chunk_ids(
+    extraction_log: Path,
+    chunks_index: Path,
+) -> list[str]:
+    """Trechos que esgotaram tentativas em algum ciclo (prefixo de 8 chars no log)."""
+    if not extraction_log.is_file() or not chunks_index.is_file():
+        return []
+    prefixes: list[str] = []
+    for line in extraction_log.read_text(encoding="utf-8", errors="replace").splitlines():
+        m = re.search(r"Chunk ([0-9a-f]{8}) abandonado", line)
+        if m:
+            prefixes.append(m.group(1))
+    if not prefixes:
+        return []
+    index_data = json.loads(chunks_index.read_text(encoding="utf-8"))
+    by_prefix = {
+        str(row.get("chunk_id", ""))[:8]: str(row["chunk_id"])
+        for row in index_data.get("chunks", [])
+        if isinstance(row, dict) and row.get("chunk_id")
+    }
+    out: list[str] = []
+    seen: set[str] = set()
+    for prefix in prefixes:
+        cid = by_prefix.get(prefix)
+        if cid and cid not in seen:
+            seen.add(cid)
+            out.append(cid)
+    return out
+
+
+def remove_chunks_from_outputs(output_dir: Path, chunk_ids: set[str]) -> int:
+    """Remove trechos dos JSONL para permitir reextração. Retorna quantos foram removidos."""
+    if not chunk_ids:
+        return 0
+    removed = 0
+    knowledge_jsonl = output_dir / "knowledge.jsonl"
+    corpus_jsonl = output_dir / "corpus.jsonl"
+
+    if knowledge_jsonl.is_file():
+        kept: list[str] = []
+        with knowledge_jsonl.open(encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    row = json.loads(line)
+                except json.JSONDecodeError:
+                    kept.append(line)
+                    continue
+                cid = str(row.get("chunk_id") or "")
+                if cid in chunk_ids:
+                    removed += 1
+                    continue
+                kept.append(line)
+        knowledge_jsonl.write_text(
+            "".join(f"{line}\n" for line in kept),
+            encoding="utf-8",
+        )
+
+    if corpus_jsonl.is_file():
+        kept_corpus: list[str] = []
+        with corpus_jsonl.open(encoding="utf-8") as fh:
+            for line in fh:
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    row = json.loads(line)
+                except json.JSONDecodeError:
+                    kept_corpus.append(line)
+                    continue
+                ext = str(row.get("external_id") or "")
+                cid = ext.split("::", 1)[-1] if "::" in ext else str(row.get("doc_key") or "")
+                if cid in chunk_ids:
+                    continue
+                kept_corpus.append(line)
+        corpus_jsonl.write_text(
+            "".join(f"{line}\n" for line in kept_corpus),
+            encoding="utf-8",
+        )
+
+    state_path = output_dir / "state.json"
+    state = load_state(state_path)
+    if state and removed:
+        state.processed_chunks = max(0, state.processed_chunks - removed)
+        state.failed_chunks = 0
+        save_state(state_path, state)
+    return removed
+
+
+def retry_failed_extractions(
+    *,
+    output_dir: Path,
+    pdf_dirs: list[Path] | None = None,
+    chunk_ids: list[str] | None = None,
+    chunks_per_batch: int = 8,
+    parallel_workers: int = 2,
+    max_cycles: int = 50,
+) -> tuple[int, int]:
+    """Reprocessa trechos ausentes ou marcados como abandonados no log."""
+    output_dir = output_dir.resolve()
+    if chunk_ids is None:
+        chunk_ids = collect_abandoned_chunk_ids(
+            output_dir / "extraction.log",
+            output_dir / "chunks_index.json",
+        )
+    target = set(chunk_ids)
+    if not target:
+        pending_ids = set()
+        index_data = json.loads((output_dir / "chunks_index.json").read_text(encoding="utf-8"))
+        all_ids = {str(c["chunk_id"]) for c in index_data.get("chunks", []) if c.get("chunk_id")}
+        done = load_done_chunk_ids(output_dir / "knowledge.jsonl")
+        pending_ids = all_ids - done
+        target = pending_ids
+
+    if not target:
+        return 0, 0
+
+    removed = remove_chunks_from_outputs(output_dir, target)
+    logger.info("Retry CP IURIS: %s trechos na fila (%s removidos do acervo)", len(target), removed)
+
+    dirs = pdf_dirs or [Path(load_state(output_dir / "state.json").pdf_dir)] if load_state(output_dir / "state.json") else []
+    if not dirs:
+        dirs = discover_iuris_2025_pdfs([Path.home() / "Downloads"])
+
+    recovered = 0
+    for cycle in range(1, max_cycles + 1):
+        processed, pending_before, _total, finished = run_extraction_batch(
+            pdf_dirs=dirs,
+            output_dir=output_dir,
+            chunks_per_batch=chunks_per_batch,
+            parallel_workers=parallel_workers,
+        )
+        recovered += processed
+        if pending_before == 0 or finished:
+            break
+        logger.info("Retry ciclo %s: +%s (pendentes %s)", cycle, processed, pending_before - processed)
+
+    done_after = load_done_chunk_ids(output_dir / "knowledge.jsonl")
+    still_missing = len(target - done_after)
+    state = load_state(output_dir / "state.json")
+    if state:
+        state.failed_chunks = still_missing
+        state.processed_chunks = len(done_after)
+        save_state(output_dir / "state.json", state)
+    return recovered, still_missing
 
 
 def run_extraction_batch(

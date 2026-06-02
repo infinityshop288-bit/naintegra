@@ -1,0 +1,10 @@
+{
+  "pdf_dir": "/Users/luizcarlos/Downloads",
+  "output_dir": "/Users/luizcarlos/Documents/GitHub/naintegra/data/cp_iuris_2025",
+  "model": "llama3.2:3b",
+  "total_chunks": 12547,
+  "processed_chunks": 12547,
+  "failed_chunks": 0,
+  "last_chunk_id": "d7f81206c51333af3dd83e6d920a5971",
+  "updated_at": "2026-06-01T14:30:59.027308+00:00"
+}

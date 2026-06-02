@@ -269,7 +269,7 @@ def default_ai_model(provider: str) -> str:
     if provider == "openai":
         return "gpt-4o-mini"
     if provider in ("openai_compatible", "ollama"):
-        return "llama3.2"
+        return "llama3.2:3b"
     return "gpt-4o-mini"
 
 

@@ -434,67 +434,6 @@ a:hover { text-decoration: underline; }
 }
 .page-head p { margin: 0; color: var(--muted); font-size: 0.92rem; }
 
-.doutrina-disc-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-}
-.doutrina-disc-card {
-  display: block;
-  padding: 1.1rem 1.15rem;
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  background: var(--surface);
-  text-decoration: none;
-  color: inherit;
-  transition: border-color 0.15s ease, box-shadow 0.15s ease;
-}
-.doutrina-disc-card:hover {
-  border-color: rgba(154, 110, 0, 0.45);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-}
-.doutrina-disc-abbr {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.25rem;
-  height: 2.25rem;
-  border-radius: 8px;
-  background: rgba(154, 110, 0, 0.12);
-  color: var(--accent);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  font-weight: 600;
-  margin-bottom: 0.65rem;
-}
-.doutrina-disc-card h2 {
-  font-family: var(--font-serif);
-  font-size: 1.1rem;
-  margin: 0 0 0.35rem;
-  font-weight: 600;
-}
-.doutrina-disc-desc,
-.doutrina-disc-meta {
-  margin: 0;
-  font-size: 0.85rem;
-  color: var(--muted);
-  line-height: 1.45;
-}
-.doutrina-disc-meta { margin-top: 0.5rem; font-size: 0.8rem; }
-.doutrina-source-note {
-  font-size: 0.85rem;
-  color: var(--muted);
-  line-height: 1.5;
-}
-.doutrina-breadcrumb {
-  margin: 0 0 0.35rem;
-  font-size: 0.85rem;
-}
-.doutrina-breadcrumb a { color: var(--accent); text-decoration: none; }
-.doutrina-breadcrumb a:hover { text-decoration: underline; }
-.doutrina-assunto-toolbar .chip { max-width: 100%; }
-
 .toolbar {
   display: flex;
   flex-wrap: wrap;

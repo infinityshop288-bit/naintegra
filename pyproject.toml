@@ -18,6 +18,7 @@ dependencies = [
 [project.optional-dependencies]
 supabase = ["supabase>=2.4,<3"]
 playwright = ["playwright>=1.41,<2"]
+meta = ["fastapi>=0.115,<1", "uvicorn[standard]>=0.32,<1"]
 
 [project.scripts]
 naintegra-lex-agent = "naintegra_lex_agent.agent:main_sync"
@@ -31,12 +32,13 @@ naintegra-norma-normalize = "naintegra_lex_agent.norma_chunks_cli:main"
 naintegra-norma-consolidate-loop = "naintegra_lex_agent.norma_consolidate_loop:main"
 naintegra-cp-iuris-loop = "naintegra_lex_agent.cp_iuris_loop:main_sync"
 naintegra-lexml-legis-weekly = "naintegra_lex_agent.lexml_legis_weekly:main_sync"
+naintegra-delegado-api = "naintegra_meta.api:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/naintegra_lex_agent"]
+packages = ["src/naintegra_lex_agent", "src/naintegra_meta"]
 
 [tool.hatch.build.targets.sdist]
-include = ["src", "sql"]
+include = ["src", "sql", "web/delegado"]
 
 [tool.ruff]
 line-length = 100

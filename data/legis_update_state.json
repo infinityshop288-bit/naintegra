@@ -1,0 +1,68 @@
+{
+  "documents": {
+    "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm": {
+      "titulo": "Constituição Federal de 1988",
+      "content_hash": "f9b27a97e353b6550d282a062a61353a768fcd4c90226f8107ef3c47b4ef415e",
+      "char_count": 978246,
+      "last_checked": "2026-05-23T08:35:04.565984+00:00",
+      "last_updated": "2026-05-23T08:35:04.566010+00:00",
+      "chunks": 597
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406.htm": {
+      "titulo": "Lei nº 10.406/2002 — Código Civil",
+      "content_hash": "5a3e1a906fea5120a3d7da9e0dfcaf50ce7fb55cbaf0953108b13586cedec218",
+      "char_count": 834174,
+      "last_checked": "2026-05-23T08:35:12.653183+00:00",
+      "last_updated": "2026-05-23T08:35:12.653245+00:00",
+      "chunks": 497
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848.htm": {
+      "titulo": "Decreto-Lei nº 2.848/1940 — Código Penal",
+      "content_hash": "9f8c793081437637478b39bac9a3b82940c788fc03d8f8a728372299492efbad",
+      "char_count": 430913,
+      "last_checked": "2026-05-23T08:35:16.876039+00:00",
+      "last_updated": "2026-05-23T08:35:16.876051+00:00",
+      "chunks": 252
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm": {
+      "titulo": "Lei nº 13.105/2015 — Código de Processo Civil",
+      "content_hash": "268f6d5f79139e561fc4411e0a44d29e7cbf324c6fbd9fe88a942d17a6a92705",
+      "char_count": 604798,
+      "last_checked": "2026-05-23T08:35:21.707503+00:00",
+      "last_updated": "2026-05-23T08:35:21.707526+00:00",
+      "chunks": 354
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13300.htm": {
+      "titulo": "Lei nº 13.300/2016 — Lei do Mandado de Injunção",
+      "content_hash": "796a6222ded384c8792734406a7d557aeda7c5539c0eda458c8a2d7af3f6a2be",
+      "char_count": 7560,
+      "last_checked": "2026-05-23T03:16:27.339154+00:00",
+      "last_updated": "2026-05-23T03:16:27.339181+00:00",
+      "chunks": 5
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm": {
+      "titulo": "Lei nº 10.406/2002 — Código Civil",
+      "content_hash": "8333023336c954875e7532bf755f2068ba835206547208c2fe48687c13113b91",
+      "char_count": 652988,
+      "last_checked": "2026-05-23T08:41:24.943853+00:00",
+      "last_updated": "2026-05-23T08:41:24.943912+00:00",
+      "chunks": 383
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm": {
+      "titulo": "Lei 8.069/1990 — ECA",
+      "content_hash": "d8f3535252fce01af326ec189da5c10d2c6371950fd8572cf8a837ce4f2d0f79",
+      "char_count": 290645,
+      "last_checked": "2026-05-26T14:34:21.569729+00:00",
+      "last_updated": "2026-05-26T14:34:21.569812+00:00",
+      "chunks": 172
+    }
+  },
+  "last_run": "2026-05-26T14:34:25.444481+00:00",
+  "stats": {
+    "checked": 1,
+    "updated": 1,
+    "skipped": 0,
+    "errors": 0,
+    "chunks_upserted": 172
+  }
+}
