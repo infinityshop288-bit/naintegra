@@ -416,6 +416,18 @@
     return { path, id: id || null, ...routeExtras };
   }
 
+  /** Links antigos #/doutrina → questões (página removida). */
+  function redirectLegacyDoutrinaHash() {
+    const raw = (location.hash.replace(/^#/, "") || "/").split("?")[0];
+    const path = raw.startsWith("/") ? raw : `/${raw}`;
+    if (path === "/doutrina" || path.startsWith("/doutrina/")) {
+      const q = location.hash.includes("?") ? location.hash.slice(location.hash.indexOf("?")) : "";
+      location.replace(`#/questoes${q}`);
+      return true;
+    }
+    return false;
+  }
+
   function isPublicRoute(path) {
     if (!path || path === "home") return true;
     const pub = window.LEX_CONFIG?.publicRoutes || ["assinatura", "contato", "auth"];
@@ -4092,6 +4104,9 @@
   }
 
   async function init() {
+    if (redirectLegacyDoutrinaHash()) {
+      state.route = parseRoute();
+    }
     if (location.protocol === "file:") {
       document.getElementById("app").innerHTML =
         `<div class="empty">Abra o Lex via servidor HTTP: <code>python3 preview/serve_preview.py</code> e acesse <code>/web/lex/index.html</code>.</div>`;
@@ -4179,6 +4194,7 @@
   }
 
   window.addEventListener("hashchange", () => {
+    if (redirectLegacyDoutrinaHash()) return;
     state.route = parseRoute();
     if (!state.route.id?.startsWith("gerenciar/")) state.flashManageEdit = null;
     render();
