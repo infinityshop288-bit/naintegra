@@ -388,8 +388,10 @@
     const sessao = params.get("sessao") || "";
     const day = params.get("day") != null ? parseInt(params.get("day"), 10) : null;
     const step = params.get("step") != null ? parseInt(params.get("step"), 10) : null;
+    const artFrom = params.get("artFrom") != null ? parseInt(params.get("artFrom"), 10) : null;
+    const artTo = params.get("artTo") != null ? parseInt(params.get("artTo"), 10) : null;
 
-    const routeExtras = { sub, theme, plan, from, sessao, day, step };
+    const routeExtras = { sub, theme, plan, from, sessao, day, step, artFrom, artTo };
 
     if (pathPart === "/" || !pathPart) {
       return { path: "home", id: null, ...routeExtras };
@@ -1307,8 +1309,23 @@
       </div>`;
   }
 
-  function legisBlockInRange(index, artRange) {
+  function legisArtigoOrdinal(blocks, blockIndex) {
+    if (!Array.isArray(blocks) || blockIndex < 0) return -1;
+    let ord = -1;
+    for (let i = 0; i <= blockIndex; i++) {
+      if (blocks[i]?.type === "artigo") ord += 1;
+    }
+    return ord;
+  }
+
+  function legisBlockInRange(index, artRange, blocks) {
     if (!artRange?.from || !artRange?.to) return true;
+    if (Array.isArray(blocks) && blocks.length) {
+      const b = blocks[index];
+      if (b?.type !== "artigo") return false;
+      const ord = legisArtigoOrdinal(blocks, index);
+      return ord >= artRange.from - 1 && ord <= artRange.to - 1;
+    }
     return index >= artRange.from - 1 && index <= artRange.to - 1;
   }
 
@@ -1342,7 +1359,7 @@
         ${showLegisHeader && leg.epigrafe ? `<header class="lei-epigrafe">${esc(leg.epigrafe)}</header>` : ""}
         ${showLegisHeader && leg.ementa ? `<p class="lei-ementa">${esc(leg.ementa)}</p>` : ""}
         ${leg.blocks.map((b, i) => {
-          if (!legisBlockInRange(i, artRange)) return "";
+          if (!legisBlockInRange(i, artRange, leg.blocks)) return "";
           const saved = highlights[i];
           const note = notes[i];
           if (saved) {
@@ -1377,7 +1394,7 @@
       bodyHtml = articles
         .map(
           (a, i) => {
-            if (!legisBlockInRange(i, artRange)) return "";
+            if (!legisBlockInRange(i, artRange, articles)) return "";
             return `
         <article class="article-block annot-block" id="art-${i}" data-art-id="${i}">
           <div class="article-num">${esc(a.label)}</div>
@@ -2037,7 +2054,7 @@
         return;
       }
       const s = document.createElement("script");
-      s.src = `${lexJsBase()}/js/study-plans.js?v=9`;
+      s.src = `${lexJsBase()}/js/study-plans.js?v=11`;
       s.dataset.lexStudyPlans = "1";
       s.onload = () => done(!!window.LexStudyPlans);
       s.onerror = () => done(false);
@@ -2131,8 +2148,14 @@
       ? `<p class="sync-hint">Carregando súmulas e temas no acervo… a prévia de jurisprudência será atualizada em instantes.</p>`
       : "";
 
+    const planVer = SP.PLAN_VERSION ?? 5;
+    const planOutdated =
+      saved && typeof saved.version === "number" && saved.version < planVer
+        ? `<p class="study-plan-warn">Seu plano foi gerado com uma versão antiga da trilha (cobertura incompleta de leis e jurisprudência). <strong>Gere um novo plano</strong> para atualizar o cronograma.</p>`
+        : "";
+
     const savedBanner = saved
-      ? `<p class="sync-hint">Você já tem um plano ativo (${esc(saved.careerLabel)}, ${saved.totalDays} dias). <a href="#/plano-estudos/trilha">Abrir trilha</a> ou gere um novo abaixo.</p>`
+      ? `${planOutdated}<p class="sync-hint">Você já tem um plano ativo (${esc(saved.careerLabel)}, ${saved.totalDays} dias). <a href="#/plano-estudos/trilha">Abrir trilha</a> ou gere um novo abaixo.</p>`
       : "";
 
     const cloudHint = window.LexStore?.isLoggedIn?.()
@@ -2143,7 +2166,7 @@
       <div class="study-plan-page">
         <div class="page-head">
           <h1>Plano de estudos</h1>
-          <p>Trilha automática com <strong>disciplinas intercaladas</strong> a cada dia — legislação, jurisprudência, questões e flashcards em rodízio.</p>
+          <p>Trilha por <strong>edital típico</strong>: leis na ordem dos cronogramas de concurso (norma a norma), súmulas e temas do acervo, com jurisprudência e questões intercaladas por dia.</p>
         </div>
         ${savedBanner}
         ${cloudHint}
@@ -2587,7 +2610,14 @@
                 const done = doneSet.has(task.taskId);
                 const kind = task.kind || task.type;
                 let href = "#";
-                if (kind === "legis") href = docHash("lei-seca", task.docId, { from: trailReturn });
+                if (kind === "legis") {
+                  const extra = { from: trailReturn };
+                  if (task.articleFrom != null && task.articleTo != null) {
+                    extra.artFrom = task.articleFrom;
+                    extra.artTo = task.articleTo;
+                  }
+                  href = docHash("lei-seca", task.docId, extra);
+                }
                 else if (kind === "juris") href = docHash("jurisprudencia", task.docId, { from: trailReturn });
                 else if (kind === "questoes") href = `#/questoes?q=${encodeURIComponent(task.docId)}&from=${encodeURIComponent(trailReturn)}`;
                 else if (kind === "flashcards") href = `#/flashcards/${encodeURIComponent(task.slug)}?from=${encodeURIComponent(trailReturn)}`;
@@ -3625,6 +3655,7 @@
       bindReportError();
       bindJurisCloseButtons();
     }
+    window.LexPageFind?.onContentUpdate();
     return reader;
   }
 
@@ -3893,7 +3924,12 @@
       }
     }
 
-    const reader = renderReader(docId, backRoute);
+    const r = state.route || {};
+    const artRange =
+      Number.isFinite(r.artFrom) && Number.isFinite(r.artTo)
+        ? { from: r.artFrom, to: r.artTo }
+        : null;
+    const reader = renderReader(docId, backRoute, { artRange });
     if (typeof reader === "string") {
       setAppHtml(reader);
       return;
@@ -3904,6 +3940,7 @@
     }
     bindReader(docId, reader.articles, docStudyType(doc));
     bindReportError();
+    window.LexPageFind?.onContentUpdate();
   }
 
   function render() {
@@ -4012,6 +4049,7 @@
     if (r.path === "flashcards" && !r.id) bindPageSectionSearch("flashcards");
     else if (r.path === "lei-seca" && !r.id) bindPageSectionSearch("lei-seca");
     else if (r.path === "questoes") bindPageSectionSearch("questoes");
+    window.LexPageFind?.onContentUpdate();
   }
 
   function refreshSearchIndex() {
@@ -4168,6 +4206,7 @@
         window.LexSearch.init();
         window.LexSearch.refresh(documents, []);
       }
+      window.LexPageFind?.init();
     } catch (err) {
       console.error(err);
       document.getElementById("app").innerHTML =

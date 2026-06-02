@@ -94,6 +94,16 @@
     let hashTimer;
     input.addEventListener("input", () => {
       applyFilter(scopeEl, input.value);
+      const topFind = document.getElementById("page-find-input");
+      if (topFind && topFind.value !== input.value) topFind.value = input.value;
+      const meta = document.getElementById("page-find-meta");
+      if (meta && window.LexPageFind) {
+        const sectionMeta = document.querySelector(`[data-section-meta="${section}"]`);
+        if (sectionMeta && !sectionMeta.hidden) {
+          meta.textContent = sectionMeta.textContent;
+          meta.hidden = false;
+        }
+      }
       clearTimeout(hashTimer);
       hashTimer = setTimeout(() => {
         if (onQueryChange) onQueryChange(input.value);
