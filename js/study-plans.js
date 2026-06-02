@@ -4,7 +4,9 @@
  */
 (function () {
   const LS_KEY = "lex_study_plan_v1";
-  const PLAN_VERSION = 4;
+  const PLAN_VERSION = 5;
+  /** limit: 0 = incluir todo o acervo compatível com o filtro (sem teto artificial). */
+  const JURIS_LIMIT_ALL = 0;
   const LEGIS_DAILY_MIN = 18;
   const LEGIS_CHUNK_MAX = 8;
 
@@ -351,6 +353,10 @@
     { label: "Lei 9.096/1995 — Partidos Políticos", match: ["l9096"], articlesFallback: 40 },
   ];
 
+  const LEGIS_TRABALHO = [
+    { label: "Decreto-Lei 5.452/1943 — CLT", match: ["del5452"], articlesFallback: 280 },
+  ];
+
   const LEGIS_TRIBUTARIO = [
     { label: "CTN", match: ["l5172"], articlesFallback: 200 },
     { label: "Lei 6.830/1980 — Execução fiscal", match: ["l6830"], articlesFallback: 80 },
@@ -414,13 +420,14 @@
         LEGIS_TUTELA_COLETIVA,
         LEGIS_AMBIENTAL,
         LEGIS_ELEITORAL,
+        LEGIS_TRABALHO,
         [{ label: "CTN", match: ["l5172"], articlesFallback: 200 }]
       ),
       juris: [
-        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 150, priority: 1 },
-        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 120, priority: 2 },
-        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: 100, priority: 3 },
-        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: 80, priority: 4 },
+        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 1 },
+        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 2 },
+        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 3 },
+        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 4 },
       ],
       dailyMix: { legisShare: 0.65, jurisShare: 0.25, flashShare: 0.1 },
     },
@@ -459,10 +466,10 @@
         LEGIS_ELEITORAL
       ),
       juris: [
-        { id: "stf_penal_const", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 100, priority: 1 },
-        { id: "stj_penal", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 150, priority: 2 },
-        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: 80, priority: 3 },
-        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: 100, priority: 4 },
+        { id: "stf_penal_const", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 1 },
+        { id: "stj_penal", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 2 },
+        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 3 },
+        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 4 },
       ],
       dailyMix: { legisShare: 0.6, jurisShare: 0.3, flashShare: 0.1 },
     },
@@ -495,9 +502,10 @@
         [{ label: "Lei 9.784/1999 — Processo Administrativo", match: ["l9784"], articlesFallback: 35 }]
       ),
       juris: [
-        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 80, priority: 1 },
-        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 100, priority: 2 },
-        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: 60, priority: 3 },
+        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 1 },
+        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 2 },
+        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 3 },
+        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 4 },
       ],
       dailyMix: { legisShare: 0.62, jurisShare: 0.28, flashShare: 0.1 },
     },
@@ -520,10 +528,10 @@
       ],
       legis: mergeLegis(LEGIS_NUCLEO_PENAL, LEGIS_ADMIN_ESSENCIAL, LEGIS_PENAL_ESPECIAL),
       juris: [
-        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 60, priority: 1 },
-        { id: "stj_sumulas", label: "Súmulas STJ (penal)", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 180, priority: 2 },
-        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: 50, priority: 3 },
-        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: 70, priority: 4 },
+        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 1 },
+        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 2 },
+        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 3 },
+        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 4 },
       ],
       dailyMix: { legisShare: 0.68, jurisShare: 0.27, flashShare: 0.05 },
     },
@@ -538,9 +546,10 @@
       flashcardSlugs: ["dir-const", "dir-adm", "dir-penal-geral", "dir-penal-especial", "dir-proc-penal"],
       legis: mergeLegis(LEGIS_NUCLEO_PENAL, LEGIS_ADMIN_ESSENCIAL, LEGIS_PENAL_ESPECIAL_CORE),
       juris: [
-        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 40, priority: 1 },
-        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 100, priority: 2 },
-        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: 40, priority: 3 },
+        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 1 },
+        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 2 },
+        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 3 },
+        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 4 },
       ],
       dailyMix: { legisShare: 0.72, jurisShare: 0.23, flashShare: 0.05 },
     },
@@ -584,10 +593,10 @@
         }
       ),
       juris: [
-        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 140, priority: 1 },
-        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 130, priority: 2 },
-        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: 90, priority: 3 },
-        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: 90, priority: 4 },
+        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 1 },
+        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 2 },
+        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 3 },
+        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 4 },
       ],
       dailyMix: { legisShare: 0.64, jurisShare: 0.28, flashShare: 0.08 },
     },
@@ -623,10 +632,10 @@
         }
       ),
       juris: [
-        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 100, priority: 1 },
-        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 150, priority: 2 },
-        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: 70, priority: 3 },
-        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: 100, priority: 4 },
+        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 1 },
+        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 2 },
+        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 3 },
+        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 4 },
       ],
       dailyMix: { legisShare: 0.62, jurisShare: 0.3, flashShare: 0.08 },
     },
@@ -668,10 +677,10 @@
         }
       ),
       juris: [
-        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: 120, priority: 1 },
-        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: 120, priority: 2 },
-        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: 80, priority: 3 },
-        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: 80, priority: 4 },
+        { id: "stf_sumulas", label: "Súmulas STF", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 1 },
+        { id: "stj_sumulas", label: "Súmulas STJ", filter: (d) => d.doc_type === "sumula" && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 2 },
+        { id: "stf_rg", label: "Temas STF (RG)", filter: (d) => temaRg(d) && tribunalOf(d) === "STF", limit: JURIS_LIMIT_ALL, priority: 3 },
+        { id: "stj_rep", label: "Temas STJ (repetitivos)", filter: (d) => temaRepetitivo(d) && tribunalOf(d) === "STJ", limit: JURIS_LIMIT_ALL, priority: 4 },
       ],
       dailyMix: { legisShare: 0.63, jurisShare: 0.27, flashShare: 0.1 },
     },
@@ -683,11 +692,21 @@
   }
 
   function temaRg(doc) {
-    return doc?.catalog_kind === "tema" && (doc?.meta?.is_repercussao || doc?.meta?.tema_categoria === "repercussao_geral");
+    if (doc?.doc_type !== "jurisprudencia" && doc?.catalog_kind !== "tema") return false;
+    return Boolean(
+      doc?.meta?.is_repercussao ||
+        doc?.meta?.tema_categoria === "repercussao_geral" ||
+        doc?.is_repercussao === true
+    );
   }
 
   function temaRepetitivo(doc) {
-    return doc?.catalog_kind === "tema" && (doc?.meta?.is_repetitivo || doc?.meta?.tema_categoria === "recurso_repetitivo");
+    if (doc?.doc_type !== "jurisprudencia" && doc?.catalog_kind !== "tema") return false;
+    return Boolean(
+      doc?.meta?.is_repetitivo ||
+        doc?.meta?.tema_categoria === "recurso_repetitivo" ||
+        doc?.is_repetitivo === true
+    );
   }
 
   function temaNumero(doc) {
@@ -815,8 +834,18 @@
     return spec.match.some((m) => hay.includes(m.toLowerCase()));
   }
 
+  function countLegisArtigoBlocks(doc) {
+    const blocks = doc?.formatted?.blocks;
+    if (!Array.isArray(blocks) || !blocks.length) return 0;
+    return blocks.filter((b) => b.type === "artigo").length;
+  }
+
+  /** Unidades de estudo = artigos (não blocos estruturais do Planalto). */
   function articleCount(doc, fallback) {
     const fb = fallback || 40;
+    const artigos = countLegisArtigoBlocks(doc);
+    if (artigos > 0) return Math.min(artigos, 1200);
+
     const chunks = doc.chunk_count;
     if (typeof chunks === "number" && chunks > 0) {
       const capped = Math.min(chunks, 800);
@@ -846,9 +875,13 @@
 
       for (const doc of batch) {
         used.add(doc.external_id);
+        if (doc.body && typeof window !== "undefined" && window.LexFormat?.ensureFormatted) {
+          window.LexFormat.ensureFormatted(doc);
+        }
         const articles = articleCount(doc, spec.articlesFallback);
         const title = doc.title || spec.label;
         resolved.push({
+          specKey: legSpecKey(spec),
           specLabel: spec.corpus ? `${spec.label}: ${title}` : spec.label,
           docId: doc.lex_route_id || doc.external_id,
           title,
@@ -875,7 +908,8 @@
           return true;
         })
         .sort((a, b) => temaNumero(a) - temaNumero(b) || (a.title || "").localeCompare(b.title || ""));
-      const slice = pool.slice(0, spec.limit);
+      const cap = spec.limit > 0 ? spec.limit : pool.length;
+      const slice = pool.slice(0, cap);
       for (const doc of slice) {
         items.push({
           group: spec.label,
@@ -903,6 +937,51 @@
     const d = new Date(isoDate + "T12:00:00");
     d.setDate(d.getDate() + n);
     return d.toISOString().slice(0, 10);
+  }
+
+  /**
+   * Cronograma por norma (padrão de planos de lei seca): esgota cada lei antes da próxima,
+   * na ordem do edital (prioridade das specs).
+   */
+  function distributeLegisSequential(queue, days, perDay, chunkMax = LEGIS_CHUNK_MAX) {
+    const schedule = Array.from({ length: days }, () => []);
+    if (!queue.length || perDay <= 0) return schedule;
+
+    let dayIdx = 0;
+    let usedToday = 0;
+
+    const pushChunk = (st, take) => {
+      schedule[dayIdx].push({
+        ...st.item,
+        units: take,
+        offset: st.offset,
+        count: take,
+      });
+      st.offset += take;
+      st.remaining -= take;
+      usedToday += take;
+    };
+
+    for (const item of queue) {
+      const st = { item, remaining: item.units, offset: 0 };
+      while (st.remaining > 0) {
+        if (dayIdx >= days) dayIdx = days - 1;
+        if (usedToday >= perDay) {
+          dayIdx += 1;
+          usedToday = 0;
+          if (dayIdx >= days) dayIdx = days - 1;
+        }
+        const slot = perDay - usedToday;
+        const take = Math.max(1, Math.min(st.remaining, chunkMax, slot > 0 ? slot : chunkMax));
+        pushChunk(st, take);
+        if (usedToday >= perDay) {
+          dayIdx += 1;
+          usedToday = 0;
+        }
+      }
+    }
+
+    return schedule;
   }
 
   /** Distribui em rodízio entre itens da fila (intercala disciplinas ao longo do dia). */
@@ -1078,7 +1157,7 @@
     const legisQueue = buildLegisQueue(legisResolved);
     const jurisQueue = buildJurisQueue(jurisResolved);
 
-    const legisSchedule = distributeQueueInterleaved(legisQueue, days, legisPerDay, legisChunkMax);
+    const legisSchedule = distributeLegisSequential(legisQueue, days, legisPerDay, legisChunkMax);
     const jurisSchedule = distributeJurisInterleaved(jurisQueue, days, jurisPerDay);
     const questoesSchedule = qPerDay
       ? distributeQuestionTasks(questionPool.slice(0, totalQuestoes), days, qPerDay)
@@ -1165,7 +1244,7 @@
     }
 
     const missingLegis = career.legis
-      .filter((spec) => !legisResolved.some((r) => r.specLabel === spec.label))
+      .filter((spec) => !legisResolved.some((r) => r.specKey === legSpecKey(spec)))
       .map((s) => s.label);
 
     return {
@@ -1358,6 +1437,7 @@
   }
 
   window.LexStudyPlans = {
+    PLAN_VERSION,
     CAREERS,
     UF_PROFILES,
     CAREER_QUESTAO,

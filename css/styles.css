@@ -206,6 +206,90 @@ a:hover { text-decoration: underline; }
 
 .topbar-logo:hover { text-decoration: none; }
 
+.page-find {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+
+.page-find-inner {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
+}
+
+.page-find-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.page-find-input {
+  flex: 1 1 120px;
+  min-width: 0;
+  font-family: var(--font-sans);
+  font-size: 0.88rem;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.page-find-input:focus {
+  outline: none;
+  border-color: rgba(154, 110, 0, 0.45);
+  box-shadow: 0 0 0 3px var(--gold-soft);
+}
+
+.page-find-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.page-find-meta[hidden] { display: none; }
+
+.page-find-btn {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.page-find-btn:hover {
+  border-color: rgba(154, 110, 0, 0.35);
+  background: var(--gold-soft);
+}
+
+.page-find-clear {
+  font-size: 1.25rem;
+}
+
+mark.lex-page-find-mark {
+  background: #fde68a;
+  color: inherit;
+  padding: 0 0.05em;
+  border-radius: 2px;
+}
+
+mark.lex-page-find-mark.lex-page-find-current {
+  background: #f59e0b;
+  outline: 1px solid rgba(154, 110, 0, 0.5);
+}
+
 .global-search {
   position: relative;
   flex: 1 1 280px;
@@ -1353,6 +1437,8 @@ input[type="search"], select {
   body { padding-bottom: 4.5rem; }
   .content { padding: 1rem 1rem 2rem; }
   .app-topbar { padding: 0.55rem 1rem; }
+  .page-find { flex: 1 1 100%; }
+  .global-search { flex: 1 1 100%; }
 }
 
 .reader-title {
@@ -2284,6 +2370,7 @@ input[type="search"], select {
 .topbar-public-nav { display: none; }
 
 body.lex-public-mode .global-search { display: none; }
+body.lex-public-mode .page-find { flex: 1 1 100%; }
 body.lex-public-mode .sidebar-section,
 body.lex-public-mode .sidebar-last-update { display: none; }
 body.lex-public-mode .content { padding: 0.75rem 1.15rem 1rem; }

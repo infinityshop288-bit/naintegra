@@ -1,4 +1,4 @@
-const CACHE = "naintegra-lex-v26";
+const CACHE = "naintegra-lex-v27";
 const DATA_CACHE = "naintegra-lex-data-v2";
 const API_CACHE = "naintegra-lex-api-v1";
 
@@ -26,6 +26,7 @@ const SHELL = [
   "./js/data.js",
   "./js/search.js",
   "./js/section-search.js",
+  "./js/page-find.js",
   "./js/study-plans.js",
   "./js/app.js",
   "./js/user-sync.js",
