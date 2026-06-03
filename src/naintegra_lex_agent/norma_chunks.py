@@ -11,6 +11,7 @@ from urllib.parse import urlparse, urlunparse
 
 import httpx
 
+from .pt_norma import VERSION as PT_NORMA_VERSION, apply_pt_norma, domain_for_doc_type
 from .taxonomy import canonical_tribunal, infer_doc_type, organize_fields
 
 logger = logging.getLogger(__name__)
@@ -161,6 +162,7 @@ def standard_metadata(
     tribunal = tribunal_from_url(url_n)
     base: dict[str, Any] = {
         "norma_schema_version": NORMA_SCHEMA_VERSION,
+        "pt_norma_version": PT_NORMA_VERSION,
         "doc_type": doc_type,
         "doc_key": normalize_doc_key(url_n, source_file),
         "titulo": titulo or legis.get("titulo"),
@@ -185,6 +187,8 @@ def normalize_chunk_row(row: dict[str, Any]) -> dict[str, Any]:
     url = normalize_norma_url(str(row.get("url") or ""))
     source_file = str(row.get("source_file") or "").strip()
     text = fix_text_encoding(str(row.get("text") or ""))
+    doc_type = doc_type_for_source(source, url)
+    text = apply_pt_norma(text, domain=domain_for_doc_type(doc_type, source))
     meta_in = dict(row.get("metadata") or {})
     meta = standard_metadata(
         source=source,
@@ -231,6 +235,8 @@ def rows_from_document(
     if secao_lei_seca:
         meta_extra.setdefault("secao_lei_seca", secao_lei_seca)
     full = (header or "") + fix_text_encoding(body.strip())
+    doc_type = doc_type_for_source(source, url_n)
+    full = apply_pt_norma(full, domain=domain_for_doc_type(doc_type, source))
     if titulo and not header:
         full = f"# {titulo}\n\nFonte: {url_n}\n\n{full}"
     chunks = chunk_text(full, chunk_size)
@@ -308,6 +314,32 @@ def supabase_headers(key: str) -> dict[str, str]:
         "Authorization": f"Bearer {key}",
         "Content-Type": "application/json",
     }
+
+
+def reapply_pt_norma_rows(
+    rows: list[dict[str, Any]],
+    *,
+    only_stale: bool = False,
+) -> tuple[list[dict[str, Any]], int, int]:
+    """Reaplica português jurídico (pt_norma) antes do upsert.
+
+    Returns:
+        (linhas alteradas para upsert, quantidade alterada, quantidade ignorada por only_stale)
+    """
+    out: list[dict[str, Any]] = []
+    changed = 0
+    skipped = 0
+    for row in rows:
+        meta = dict(row.get("metadata") or {})
+        if only_stale and meta.get("pt_norma_version") == PT_NORMA_VERSION:
+            skipped += 1
+            continue
+        before = str(row.get("text") or "")
+        normalized = normalize_chunk_row(row)
+        if normalized["text"] != before or meta.get("pt_norma_version") != PT_NORMA_VERSION:
+            changed += 1
+            out.append(normalized)
+    return out, changed, skipped
 
 
 def upsert_rows_rpc(

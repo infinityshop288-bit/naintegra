@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Normaliza corpus em norma_chunks (URLs, metadata de catálogo, refresh MV).
+"""Normaliza corpus em norma_chunks (URLs, metadata, português jurídico, refresh MV).
 
 Uso:
   set -a && source .env && set +a
   python3 scripts/normalize_norma_corpus.py
-  python3 scripts/normalize_norma_corpus.py --source planalto --reupsert-text
+  python3 scripts/normalize_norma_corpus.py --apply-portuguese --only-stale
+  python3 scripts/normalize_norma_corpus.py --source planalto --apply-portuguese
+  python3 scripts/normalize_norma_corpus.py --source trilhante_informativo --apply-portuguese --dry-run
 """
 
 from __future__ import annotations
@@ -20,7 +22,12 @@ import httpx
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from naintegra_lex_agent.norma_chunks import refresh_catalog_mv, upsert_rows_rpc  # noqa: E402
+from naintegra_lex_agent.norma_chunks import (  # noqa: E402
+    refresh_catalog_mv,
+    reapply_pt_norma_rows,
+    upsert_rows_rpc,
+)
+from naintegra_lex_agent.pt_norma import VERSION as PT_NORMA_VERSION  # noqa: E402
 
 
 def _headers(key: str) -> dict[str, str]:
@@ -69,14 +76,60 @@ def fetch_chunks(supabase_url: str, key: str, source: str | None) -> list[dict]:
     return out
 
 
+def apply_portuguese_corpus(
+    *,
+    supabase_url: str,
+    key: str,
+    source: str | None,
+    only_stale: bool,
+    dry_run: bool,
+) -> int:
+    rows = fetch_chunks(supabase_url, key, source)
+    print(f"[INFO] {len(rows)} chunk(s) carregados (pt_norma v{PT_NORMA_VERSION})")
+    to_upsert, changed, skipped = reapply_pt_norma_rows(rows, only_stale=only_stale)
+    print(
+        f"[INFO] alterados: {changed} | ignorados (já em v{PT_NORMA_VERSION}): {skipped} | "
+        f"sem mudança de texto: {len(rows) - changed - skipped}"
+    )
+    if dry_run:
+        print("[DRY-RUN] Nenhum upsert executado.")
+        return 0
+    if not to_upsert:
+        print("[OK] Nenhum chunk precisou de atualização.")
+        refresh_catalog_mv(supabase_url=supabase_url, supabase_key=key)
+        return 0
+    total = upsert_rows_rpc(to_upsert, supabase_url=supabase_url, supabase_key=key)
+    refresh_catalog_mv(supabase_url=supabase_url, supabase_key=key)
+    print(f"[OK] {total} chunk(s) gravados no Supabase com português normalizado.")
+    return 0
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Normaliza norma_chunks no Supabase")
-    parser.add_argument("--source", help="Fonte específica")
+    parser.add_argument("--source", help="Fonte: planalto, trilhante_informativo, rideel_vademecum, …")
     parser.add_argument("--refresh-only", action="store_true")
+    parser.add_argument(
+        "--apply-portuguese",
+        action="store_true",
+        help=(
+            "Reaplica pt_norma (ortografia, tipografia, citações) e persiste texto em norma_chunks "
+            f"(versão atual: {PT_NORMA_VERSION})"
+        ),
+    )
+    parser.add_argument(
+        "--only-stale",
+        action="store_true",
+        help="Com --apply-portuguese: só chunks com metadata.pt_norma_version diferente da atual",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Com --apply-portuguese: mostra quantos chunks mudariam, sem gravar",
+    )
     parser.add_argument(
         "--reupsert-text",
         action="store_true",
-        help="Re-upsert completo (corrige encoding); use com --source planalto",
+        help="Alias de --apply-portuguese (retrocompat.)",
     )
     args = parser.parse_args()
 
@@ -86,10 +139,21 @@ def main() -> int:
         print("Defina LEX_AGENT_SUPABASE_URL e LEX_AGENT_SUPABASE_SERVICE_ROLE_KEY", file=sys.stderr)
         return 1
 
+    apply_pt = args.apply_portuguese or args.reupsert_text
+
     if args.refresh_only:
         ok = refresh_catalog_mv(supabase_url=url, supabase_key=key)
         print("[OK] MV refrescada" if ok else "[WARN] refresh expirou; rode enrich_norma_catalog_chunks no SQL")
         return 0
+
+    if apply_pt:
+        return apply_portuguese_corpus(
+            supabase_url=url,
+            key=key,
+            source=args.source,
+            only_stale=args.only_stale,
+            dry_run=args.dry_run,
+        )
 
     try:
         stats = rpc(url, key, "normalize_norma_chunks_corpus")
@@ -104,16 +168,12 @@ def main() -> int:
     except httpx.HTTPStatusError as exc:
         print(f"[WARN] enrich_norma_catalog_chunks: {exc.response.text[:200]}", file=sys.stderr)
 
-    if args.reupsert_text:
-        rows = fetch_chunks(url, key, args.source)
-        print(f"[INFO] re-upsert de {len(rows)} chunk(s)")
-        total = upsert_rows_rpc(rows, supabase_url=url, supabase_key=key)
-        refresh_catalog_mv(supabase_url=url, supabase_key=key)
-        print(f"[OK] {total} chunk(s) re-upsert(s)")
-    else:
-        refresh_catalog_mv(supabase_url=url, supabase_key=key)
-        print("[OK] catálogo refrescado")
-
+    refresh_catalog_mv(supabase_url=url, supabase_key=key)
+    print("[OK] catálogo refrescado")
+    print(
+        f"[DICA] Para persistir português jurídico no banco: "
+        f"python3 scripts/normalize_norma_corpus.py --apply-portuguese --only-stale"
+    )
     return 0
 
 

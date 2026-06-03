@@ -5,6 +5,7 @@
     notes: "lex_notes",
     progress: "lex_reading_progress",
     studied: "lex_studied_items",
+    favorites: "lex_favorite_items",
     flashReviews: "lex_flashcard_reviews",
     questionAnswers: "lex_question_answers",
     fontSize: "lex_font_size",
@@ -626,6 +627,46 @@
     }
   }
 
+  function isFavorite(id) {
+    if (store()?.isFavorite) return store().isFavorite(id);
+    return (loadJson(LS.favorites, []) || []).includes(id);
+  }
+
+  function toggleFavorite(id) {
+    if (store()?.toggleFavorite) store().toggleFavorite(id);
+    else {
+      let list = loadJson(LS.favorites, []) || [];
+      if (list.includes(id)) list = list.filter((x) => x !== id);
+      else list.push(id);
+      saveJson(LS.favorites, list);
+    }
+  }
+
+  function getFavoriteIds() {
+    if (store()?.loadJson) return store().loadJson(LS.favorites, []) || [];
+    return loadJson(LS.favorites, []) || [];
+  }
+
+  function favoriteJurisDocuments() {
+    const ids = new Set(getFavoriteIds());
+    if (!ids.size) return [];
+    return state.documents
+      .filter(
+        (d) =>
+          ids.has(d.external_id) &&
+          (d.doc_type === "sumula" ||
+            d.doc_type === "jurisprudencia" ||
+            d.catalog_kind === "tema" ||
+            d.catalog_kind === "sumula_individual")
+      )
+      .sort((a, b) => {
+        const ta = org(a).tribunal || "";
+        const tb = org(b).tribunal || "";
+        if (ta !== tb) return ta.localeCompare(tb, "pt-BR");
+        return (a.title || "").localeCompare(b.title || "", "pt-BR");
+      });
+  }
+
   function getHighlights(docId, docType) {
     if (store()) return store().getHighlights(docId, docType);
     const all = loadJson(LS.highlights, {});
@@ -823,6 +864,11 @@
           <span class="tile-abbr" aria-hidden="true">JU</span>
           <h2>Jurisprudência</h2>
           <p>${nJur} súmulas e teses</p>
+        </button>
+        <button class="tile" data-go="favoritos">
+          <span class="tile-abbr" aria-hidden="true">★</span>
+          <h2>Favoritos</h2>
+          <p>${favoriteJurisDocuments().length} precedentes salvos</p>
         </button>
         <button class="tile" data-go="questoes">
           <span class="tile-abbr" aria-hidden="true">QT</span>
@@ -1523,6 +1569,48 @@
       </div>`;
   }
 
+  function renderJurisCard(d, openDocId) {
+    const o = org(d);
+    const studied = isStudied(d.external_id);
+    const favorited = isFavorite(d.external_id);
+    const preview =
+      (window.LexFormat && window.LexFormat.jurisCardPreview(d)) ||
+      d.juris_card_preview ||
+      o.tribunal ||
+      "";
+    const searchText = SS() ? SS().jurisText(d, org) : d.title;
+    const openId = readerRouteId(d);
+    const isOpen = openDocId && openDocId === openId;
+    return `
+            <article class="juris-card ${studied ? "studied" : ""} ${favorited ? "favorited" : ""} ${isOpen ? "juris-card-open" : ""}" data-juris-open="${esc(openId)}" data-search-text="${esc(searchText)}">
+              <span class="juris-tribunal-badge">${esc(o.tribunal || "STF")}</span>
+              <h3>${esc(d.title)}</h3>
+              <p class="juris-card-sub">${esc(preview)}</p>
+              <div class="meta-row">
+                ${d.meta?.vinculante ? `<span class="tag">Vinculante</span>` : ""}
+                ${d.doc_type === "sumula" || d.catalog_kind === "sumula_individual" ? `<span class="tag">Súmula</span>` : ""}
+                ${d.catalog_kind === "tema" ? `<span class="tag">Tema</span>` : ""}
+                ${d.meta?.tema_categoria === "repercussao_geral" ? `<span class="tag">Repercussão Geral</span>` : ""}
+                ${d.meta?.tema_categoria === "recurso_repetitivo" ? `<span class="tag">Recurso Repetitivo</span>` : ""}
+                ${d.catalog_kind === "sumulas_vinculantes" ? `<span class="tag">Vinculante</span>` : ""}
+                ${studied ? `<span class="tag">✓ Estudada</span>` : ""}
+                ${favorited ? `<span class="tag tag-fav">★ Favorita</span>` : ""}
+              </div>
+              <div class="toolbar juris-card-actions" style="margin-top:0.75rem;margin-bottom:0">
+                <button type="button" class="btn primary" data-juris-open-btn="${esc(openId)}">${isOpen ? "▲ Recolher" : "📖 Abrir"}</button>
+                <button type="button" class="btn" data-studied="${esc(d.external_id)}">${studied ? "Desmarcar" : "✅ Estudada"}</button>
+                <button type="button" class="btn ${favorited ? "primary" : ""}" data-fav="${esc(d.external_id)}">${favorited ? "★ Favorita" : "☆ Favoritar"}</button>
+              </div>
+            </article>`;
+  }
+
+  function renderJurisCardList(items, openDocId, emptyHtml) {
+    if (!items.length) {
+      return emptyHtml || `<div class="empty">Nenhum precedente para exibir.</div>`;
+    }
+    return items.map((d) => renderJurisCard(d, openDocId)).join("");
+  }
+
   function renderJurisprudencia(openDocId) {
     const items = byType("jurisprudencia");
     const tribunals = ["all", ...new Set(items.map((d) => org(d).tribunal || "STF"))].filter(
@@ -1587,46 +1675,45 @@
       </div>
       <div class="section-list-scope" data-section-scope="jurisprudencia">
       <div class="card-list">
-        ${
-          filtered.length
-            ? filtered
-                .map((d) => {
-                  const o = org(d);
-                  const studied = isStudied(d.external_id);
-                  const preview =
-                    (window.LexFormat && window.LexFormat.jurisCardPreview(d)) ||
-                    d.juris_card_preview ||
-                    o.tribunal ||
-                    "";
-                  const searchText = SS() ? SS().jurisText(d, org) : d.title;
-                  const openId = readerRouteId(d);
-                  const isOpen = openDocId && openDocId === openId;
-                  return `
-            <article class="juris-card ${studied ? "studied" : ""} ${isOpen ? "juris-card-open" : ""}" data-juris-open="${esc(openId)}" data-search-text="${esc(searchText)}">
-              <span class="juris-tribunal-badge">${esc(o.tribunal || "STF")}</span>
-              <h3>${esc(d.title)}</h3>
-              <p class="juris-card-sub">${esc(preview)}</p>
-              <div class="meta-row">
-                ${d.meta?.vinculante ? `<span class="tag">Vinculante</span>` : ""}
-                ${d.doc_type === "sumula" || d.catalog_kind === "sumula_individual" ? `<span class="tag">Súmula</span>` : ""}
-                ${d.catalog_kind === "tema" ? `<span class="tag">Tema</span>` : ""}
-                ${d.meta?.tema_categoria === "repercussao_geral" ? `<span class="tag">Repercussão Geral</span>` : ""}
-                ${d.meta?.tema_categoria === "recurso_repetitivo" ? `<span class="tag">Recurso Repetitivo</span>` : ""}
-                ${d.catalog_kind === "sumulas_vinculantes" ? `<span class="tag">Vinculante</span>` : ""}
-                ${studied ? `<span class="tag">✓ Estudada</span>` : ""}
-              </div>
-              <div class="toolbar juris-card-actions" style="margin-top:0.75rem;margin-bottom:0">
-                <button type="button" class="btn primary" data-juris-open-btn="${esc(openId)}">${isOpen ? "▲ Recolher" : "📖 Abrir"}</button>
-                <button type="button" class="btn" data-studied="${esc(d.external_id)}">${studied ? "Desmarcar" : "✅ Estudada"}</button>
-                <button type="button" class="btn" data-fav="${esc(d.external_id)}">☆ Favoritar</button>
-              </div>
-            </article>`;
-                })
-                .join("")
-            : `<div class="empty">Nenhum precedente para os filtros selecionados.</div>`
-        }
+        ${renderJurisCardList(
+          filtered,
+          openDocId,
+          `<div class="empty">Nenhum precedente para os filtros selecionados.</div>`
+        )}
       </div>
       <div class="empty section-search-empty" data-section-empty hidden>Nenhum precedente para este tema.</div>
+      </div>
+      </div>`;
+  }
+
+  function renderFavoritos(openDocId) {
+    const items = favoriteJurisDocuments();
+    const fontIdx = loadJson(LS.fontSize, 2);
+    const fontSize = FONT_SIZES[fontIdx] || 15;
+    const readerShell = openDocId
+      ? `<section class="juris-reader-shell" id="juris-reader-shell" aria-label="Leitor de jurisprudência">
+          <div class="juris-reader-embed" id="juris-reader-embed"><div class="loading">Carregando precedente…</div></div>
+        </section>`
+      : "";
+
+    return `
+      <div class="juris-list-page favoritos-page" style="--juris-list-font:${fontSize}px">
+      ${renderJurisListChrome(fontSize)}
+      ${readerShell}
+      <div class="page-head">
+        <h1>Favoritos</h1>
+        <p>${items.length ? `${items.length} precedente${items.length === 1 ? "" : "s"} salvos` : "Nenhum favorito ainda"} — súmulas e temas que você marcou com ★ na <a href="#/jurisprudencia">Jurisprudência</a>.</p>
+      </div>
+      ${sectionSearchBar("favoritos", "Buscar nos favoritos (ex.: habeas corpus, STJ)…")}
+      <div class="section-list-scope" data-section-scope="favoritos">
+      <div class="card-list">
+        ${renderJurisCardList(
+          items,
+          openDocId,
+          `<div class="empty">Você ainda não favoritou nenhum precedente. Abra <a href="#/jurisprudencia">Jurisprudência</a> e toque em <strong>☆ Favoritar</strong> no card.</div>`
+        )}
+      </div>
+      <div class="empty section-search-empty" data-section-empty hidden>Nenhum favorito para este tema.</div>
       </div>
       </div>`;
   }
@@ -3653,23 +3740,25 @@
     if (!opts.studyInline) {
       bindReader(docId, reader.articles, docStudyType(doc));
       bindReportError();
-      bindJurisCloseButtons();
+      bindJurisCloseButtons(opts.listRoute || (backRoute === "favoritos" ? "favoritos" : "jurisprudencia"));
     }
+    applyCrossRefs(container.querySelector(".reader-body, .study-inline-reader-body"), doc);
     window.LexPageFind?.onContentUpdate();
     return reader;
   }
 
-  async function renderJurisprudenciaPage(openDocId, backRoute = "jurisprudencia") {
+  async function renderJurisListPage(openDocId, listRoute, renderListHtml, sectionKey, backRoute) {
+    const back = backRoute || listRoute;
     const main = document.getElementById("main");
     const app = document.getElementById("app");
     main?.classList.remove("with-panel");
     app?.classList.remove("with-panel");
 
-    setAppHtml(renderJurisprudencia(openDocId || null));
-    bindJuris();
+    setAppHtml(renderListHtml(openDocId || null));
+    bindJuris(listRoute);
     bindJurisListToolbar();
-    bindPageSectionSearch("jurisprudencia");
-    bindJurisCloseButtons();
+    bindPageSectionSearch(sectionKey);
+    bindJurisCloseButtons(listRoute);
 
     if (!openDocId) return;
 
@@ -3682,7 +3771,7 @@
       return;
     }
 
-    trackRecentRead(doc, backRoute);
+    trackRecentRead(doc, back);
 
     if (!doc.body) {
       embed.innerHTML = `<div class="loading">Carregando precedente…</div>`;
@@ -3696,28 +3785,43 @@
       }
     }
 
-    mountReaderContent(embed, openDocId, backRoute, { embedded: true });
+    mountReaderContent(embed, openDocId, back, { embedded: true, listRoute });
     requestAnimationFrame(() => {
       document.getElementById("juris-reader-shell")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
   }
 
-  function bindJurisCloseButtons() {
+  async function renderJurisprudenciaPage(openDocId, backRoute = "jurisprudencia") {
+    return renderJurisListPage(
+      openDocId,
+      "jurisprudencia",
+      renderJurisprudencia,
+      "jurisprudencia",
+      backRoute || "jurisprudencia"
+    );
+  }
+
+  async function renderFavoritosPage(openDocId, backRoute = "favoritos") {
+    return renderJurisListPage(openDocId, "favoritos", renderFavoritos, "favoritos", backRoute || "favoritos");
+  }
+
+  function bindJurisCloseButtons(listRoute = "jurisprudencia") {
+    const fallback = `#/${listRoute}`;
     document.querySelectorAll("[data-juris-close]").forEach((btn) => {
       if (btn.dataset.jurisCloseBound) return;
       btn.dataset.jurisCloseBound = "1";
       btn.addEventListener("click", () => {
         const from = btn.getAttribute("data-juris-from") || state.route.from;
-        location.hash = from ? routeHash(from) : "#/jurisprudencia";
+        location.hash = from ? routeHash(from) : fallback;
       });
     });
   }
 
-  function bindJuris() {
+  function bindJuris(listRoute = "jurisprudencia") {
     document.querySelectorAll("[data-juris-open]").forEach((el) => {
       el.addEventListener("click", (e) => {
         if (e.target.closest("[data-studied], [data-fav], [data-juris-open-btn], button")) return;
-        location.hash = docHash("jurisprudencia", el.getAttribute("data-juris-open"));
+        location.hash = docHash(listRoute, el.getAttribute("data-juris-open"));
       });
     });
     document.querySelectorAll("[data-juris-open-btn]").forEach((btn) => {
@@ -3725,8 +3829,8 @@
         e.stopPropagation();
         const id = btn.getAttribute("data-juris-open-btn");
         const current = state.route.id;
-        if (current && current === id) location.hash = "#/jurisprudencia";
-        else location.hash = docHash("jurisprudencia", id);
+        if (current && current === id) location.hash = `#/${listRoute}`;
+        else location.hash = docHash(listRoute, id);
       });
     });
     document.querySelectorAll("[data-tribunal]").forEach((btn) => {
@@ -3746,6 +3850,13 @@
         e.stopPropagation();
         toggleStudied(btn.getAttribute("data-studied"));
         renderRecentReads();
+        render();
+      });
+    });
+    document.querySelectorAll("[data-fav]").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleFavorite(btn.getAttribute("data-fav"));
         render();
       });
     });
@@ -3940,6 +4051,7 @@
     }
     bindReader(docId, reader.articles, docStudyType(doc));
     bindReportError();
+    applyCrossRefs(document.getElementById("reader-body"), doc);
     window.LexPageFind?.onContentUpdate();
   }
 
@@ -3986,6 +4098,9 @@
     } else if (r.path === "jurisprudencia") {
       renderJurisprudenciaPage(r.id || null, r.from || "jurisprudencia");
       return;
+    } else if (r.path === "favoritos") {
+      renderFavoritosPage(r.id || null, r.from || "favoritos");
+      return;
     } else if (r.path === "questoes") {
       if (!state.questionsLoaded && !state.questionsLoading) ensureQuestionsLoaded();
       html = renderQuestoes();
@@ -4029,7 +4144,7 @@
       else if (r.id) bindFlashSession(r.id);
     }
     bindLeiSecaList();
-    if (r.path !== "jurisprudencia") bindJuris();
+    if (r.path !== "jurisprudencia" && r.path !== "favoritos") bindJuris();
     bindQuestoes();
     bindContactForm();
     bindReportError();
@@ -4048,7 +4163,10 @@
     }
     if (r.path === "flashcards" && !r.id) bindPageSectionSearch("flashcards");
     else if (r.path === "lei-seca" && !r.id) bindPageSectionSearch("lei-seca");
-    else if (r.path === "questoes") bindPageSectionSearch("questoes");
+    else if (r.path === "questoes") {
+      bindPageSectionSearch("questoes");
+      requestAnimationFrame(() => applyCrossRefs(document.getElementById("app")));
+    } else if (r.path === "favoritos") bindPageSectionSearch("favoritos");
     window.LexPageFind?.onContentUpdate();
   }
 
@@ -4056,6 +4174,19 @@
     if (window.LexSearch) {
       window.LexSearch.refresh(state.documents, state.decks);
     }
+    window.LexCrossRefs?.setCatalog?.(state.documents);
+  }
+
+  function applyCrossRefs(scopeEl, sourceDoc) {
+    window.LexCrossRefs?.setCatalog?.(state.documents);
+    const root =
+      scopeEl ||
+      document.getElementById("reader-body") ||
+      document.querySelector(".study-inline-reader-body") ||
+      document.getElementById("app");
+    if (!root) return;
+    const doc = sourceDoc ?? (state.route?.id ? findDocument(state.route.id) : null);
+    window.LexCrossRefs?.enhanceReader?.(root, doc);
   }
 
   function startBackgroundLoads() {
@@ -4207,6 +4338,7 @@
         window.LexSearch.refresh(documents, []);
       }
       window.LexPageFind?.init();
+      window.LexCrossRefs?.setCatalog?.(documents);
     } catch (err) {
       console.error(err);
       document.getElementById("app").innerHTML =
@@ -4222,6 +4354,7 @@
     }
     bindInteractionDelegation();
     bindHighlightToolbar();
+    window.LexCrossRefs?.bind?.(() => findDocument(state.route?.id));
     initTtsVoices();
     initQAnswers();
     window.LexFlashcardsUser?.setOnDecksChange?.(() => {

@@ -492,9 +492,12 @@ def normalize_planalto_article_refs(text: str) -> str:
 
 
 def html_to_lex_text(html: str) -> str:
+    from .pt_norma import apply_pt_norma
+
     parser = _PlanaltoHtmlToLex()
     parser.feed(html)
-    return normalize_planalto_article_refs(parser.text())
+    text = normalize_planalto_article_refs(parser.text())
+    return apply_pt_norma(text, domain="legis")
 
 
 def normalize_for_hash(text: str) -> str:
