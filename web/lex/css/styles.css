@@ -1963,6 +1963,194 @@ input[type="search"], select {
   font: inherit;
 }
 
+.auth-password-wrap {
+  display: flex;
+  align-items: stretch;
+  gap: 0.35rem;
+  margin-top: 0.3rem;
+}
+
+.auth-password-wrap input {
+  flex: 1;
+  margin-top: 0;
+}
+
+.auth-pw-toggle {
+  flex-shrink: 0;
+  align-self: stretch;
+  padding: 0 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--gold);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.auth-pw-toggle:hover {
+  background: var(--gold-soft);
+}
+
+.auth-pw-toggle[aria-pressed="true"] {
+  background: var(--gold-soft);
+  border-color: var(--gold);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 0.75rem;
+}
+
+.hero-lang-note {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+/* Tour guiado (onboarding) */
+body.lex-onboarding-open {
+  overflow: hidden;
+}
+
+.lex-onboarding {
+  position: fixed;
+  inset: 0;
+  z-index: 13000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.lex-onboarding-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 16, 8, 0.55);
+}
+
+.lex-onboarding-card {
+  position: relative;
+  z-index: 1;
+  width: min(26rem, 100%);
+  max-height: min(90vh, 640px);
+  overflow: auto;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.35rem 1.25rem 1.15rem;
+  box-shadow: 0 12px 40px rgba(17, 16, 8, 0.2);
+}
+
+.lex-onboarding-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.55rem;
+  border: none;
+  background: transparent;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--muted);
+}
+
+.lex-onboarding-icon {
+  font-size: 2rem;
+  line-height: 1;
+  margin-bottom: 0.35rem;
+}
+
+.lex-onboarding-step {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.lex-onboarding-title {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  margin: 0.35rem 0 0.5rem;
+}
+
+.lex-onboarding-body {
+  margin: 0 0 1rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+
+.lex-onboarding-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.lex-onboarding-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--border);
+}
+
+.lex-onboarding-dot.active {
+  background: var(--gold);
+}
+
+.lex-onboarding-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: flex-end;
+}
+
+.lex-onboarding-actions .btn.primary {
+  margin-left: auto;
+}
+
+/* Banner de feedback / Play Store */
+.lex-feedback-banner {
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+  background: linear-gradient(135deg, var(--gold-soft), #fff8e8);
+  border: 1px solid rgba(154, 110, 0, 0.35);
+  border-radius: var(--radius);
+}
+
+.lex-feedback-inner {
+  position: relative;
+  padding-right: 1.5rem;
+}
+
+.lex-feedback-inner p {
+  margin: 0 0 0.65rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
+.lex-feedback-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.lex-feedback-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  background: transparent;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--muted);
+  line-height: 1;
+}
+
 .contact-card {
   max-width: 36rem;
   background: var(--surface);
@@ -2517,6 +2705,10 @@ body.lex-public-mode .content { padding: 0.75rem 1.15rem 1rem; }
   margin-bottom: 0.4rem;
   font-size: 0.8rem;
   gap: 0.2rem;
+}
+
+.lex-landing .auth-password-wrap input {
+  margin-top: 0;
 }
 
 .lex-landing .auth-form input {

@@ -33,6 +33,11 @@ window.LEX_CONFIG = {
   questoesCatalogFallback: "./data/questoes_catalog.json",
   doutrinaCatalogFallback: "./data/doutrina_catalog.json",
   contactEmail: "contato@naintegracursos.com.br",
+  playStoreUrl:
+    "https://play.google.com/store/apps/details?id=br.com.naintegracursos.lex",
+  appStoreUrl: "https://apps.apple.com/app/naintegra-lex",
+  /** Idioma da interface; conteúdo jurídico permanece em português (Brasil). */
+  appLanguage: "pt-BR",
   accountDeletionUrl: "https://www.naintegracursos.com.br/lex/#/excluir-conta",
   /** Fallback se content_metadata não estiver disponível. */
   lastContentUpdate: "2026-05-19T00:00:00Z",

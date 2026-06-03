@@ -21,7 +21,19 @@ SCENES = [
     ("03-flashcards", "#/flashcards", None),
     ("04-questoes", "#/questoes", "scroll:120"),
     ("05-jurisprudencia", "#/jurisprudencia", "scroll:280"),
+    ("06-favoritos", "#/favoritos", None),
+    ("07-plano-estudos", "#/plano-estudos", None),
 ]
+
+SCENE_CAPTIONS = {
+    "01-inicio": "Legislação e jurisprudência para concursos",
+    "02-lei-seca": "Lei seca · grifos, anotações e narração",
+    "03-flashcards": "Flashcards com repetição espaçada",
+    "04-questoes": "Questões comentadas por banca",
+    "05-jurisprudencia": "Súmulas e temas STF / STJ",
+    "06-favoritos": "Seus precedentes favoritos",
+    "07-plano-estudos": "Trilha de estudos por carreira",
+}
 
 DEVICES: dict[str, dict] = {
     "phone": {
@@ -86,8 +98,29 @@ def clean_ui(page) -> None:
         """() => {
           document.querySelectorAll('#auth-modal-backdrop, .auth-modal-backdrop').forEach(el => el.remove());
           document.getElementById('lex-watermark')?.remove();
+          document.getElementById('lex-onboarding')?.remove();
+          document.getElementById('lex-feedback-banner')?.remove();
+          document.body.classList.remove('lex-onboarding-open');
         }"""
     )
+
+
+def apply_caption(path: Path, caption: str) -> None:
+    from PIL import Image, ImageDraw, ImageFont
+
+    img = Image.open(path).convert("RGBA")
+    w, h = img.size
+    bar_h = max(72, int(h * 0.09))
+    overlay = Image.new("RGBA", (w, bar_h), (26, 24, 20, 220))
+    img.paste(overlay, (0, h - bar_h), overlay)
+    draw = ImageDraw.Draw(img)
+    try:
+        font = ImageFont.truetype("/System/Library/Fonts/Supplemental/Arial Bold.ttf", max(22, int(w * 0.028)))
+    except OSError:
+        font = ImageFont.load_default()
+    tw = draw.textlength(caption, font=font)
+    draw.text(((w - tw) / 2, h - bar_h + (bar_h - 28) / 2), caption, fill="#ffffff", font=font)
+    img.convert("RGB").save(path, "PNG", optimize=True)
 
 
 def save_shot(page, out: Path, size: tuple[int, int]) -> None:
@@ -140,6 +173,9 @@ def capture_all(devices: list[str]) -> dict[str, list[Path]]:
                 clean_ui(page)
                 out = out_dir / f"screenshot-{name}-{out_w}x{out_h}.png"
                 save_shot(page, out, (out_w, out_h))
+                cap = SCENE_CAPTIONS.get(name)
+                if cap:
+                    apply_caption(out, cap)
                 paths.append(out)
                 print(f"  {out.name}", flush=True)
 
