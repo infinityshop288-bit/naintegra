@@ -3,7 +3,7 @@
  * Remove artefatos de navegação e estrutura ementa · tese · julgado.
  */
 (function () {
-  const FORMAT_VERSION = 36;
+  const FORMAT_VERSION = 37;
   const NOISE_PATTERNS = [
     /<!--[\s\S]*?-->/g,
     /!\[[^\]]*\]\([^)]+\)/g,
@@ -83,6 +83,9 @@
     t = t.replace(/[ \t]+\n/g, "\n");
     t = t.replace(/\n{3,}/g, "\n\n");
     t = t.replace(/[ \t]{2,}/g, " ");
+    if (window.LexPtNorma?.apply) {
+      t = window.LexPtNorma.apply(t, { domain: isTrilhanteCrawl(t) ? "juris" : "all" });
+    }
     return t.trim();
   }
 
@@ -722,7 +725,11 @@
 
   function formatLeiPlainSegment(segment) {
     if (!segment) return "";
-    let html = escHtml(segment);
+    let plain = segment;
+    if (window.LexPtNorma?.apply) {
+      plain = window.LexPtNorma.apply(plain, { domain: "legis" });
+    }
+    let html = escHtml(plain);
     html = html.replace(REVISAO_NOTA_RE, (match) => `<span class="lei-nota-revisao">${match}</span>`);
     html = html.replace(ACAO_CONSTITUCIONAL_RE, (match) => `<mark class="lei-acao-const">${match}</mark>`);
     return html;
@@ -846,12 +853,16 @@
     t = t.replace(/\n+\s*(§\s*\d+[º°o]?(?:-[A-Z0-9]+)?)\s+(?=[A-ZÁÉÍÓÚ])/g, "\n\n$1 ");
     t = t.replace(/\n+\s*(Par[aá]grafo\s+[uú]nico[.\s])/gi, "\n\n$1");
 
-    return t
+    t = t
       .replace(
         /\n+(?!\s*(?:§\s*\d|Art\.?\s*(?:\d{1,3}(?:\.\d{3})+|\d+)(?!\d)|Par[aá]grafo\s+[uú]nico|TÍTULO|CAPÍTULO|SEÇÃO|Subseção|[IVXLC]{1,7}\s*[-–(]))/gi,
         " "
       )
       .replace(/[ \t]{2,}/g, " ");
+    if (window.LexPtNorma?.apply) {
+      t = window.LexPtNorma.apply(t, { domain: "legis" });
+    }
+    return t;
   }
 
   function ensureLegisStructureBreaks(text) {
@@ -959,6 +970,9 @@
 
   /** Separa palavras coladas por chunks ou artefatos do crawl. */
   function splitStuckWords(text) {
+    if (window.LexPtNorma?.splitStuckWords) {
+      return window.LexPtNorma.splitStuckWords(text);
+    }
     let t = text;
     const gluedSecond = [
       "público", "pública", "públicos", "públicas", "privado", "privada",

@@ -6,6 +6,7 @@
     notes: "lex_notes",
     progress: "lex_reading_progress",
     studied: "lex_studied_items",
+    favorites: "lex_favorite_items",
     flashReviews: "lex_flashcard_reviews",
     questionAnswers: "lex_question_answers",
     fontSize: "lex_font_size",
@@ -194,7 +195,7 @@
         }).catch(console.warn);
       } else {
         lexRequest(
-          `user_studied_items?user_id=eq.${userId}&item_id=eq.${encodeURIComponent(id)}`,
+          `user_studied_items?user_id=eq.${userId}&item_id=eq.${encodeURIComponent(id)}&item_type=eq.juris`,
           token,
           { method: "DELETE" }
         ).catch(console.warn);
@@ -272,10 +273,47 @@
   }
 
   function mergeStudiedRemote(rows) {
-    const ids = (rows || []).map((r) => r.item_id);
+    const ids = (rows || [])
+      .filter((r) => !r.item_type || r.item_type === "juris")
+      .map((r) => r.item_id);
     if (ids.length) {
       const local = loadJson(LS.studied, []) || [];
       saveJson(LS.studied, [...new Set([...local, ...ids])]);
+    }
+  }
+
+  function mergeFavoriteRemote(rows) {
+    const ids = (rows || []).filter((r) => r.item_type === "favorite").map((r) => r.item_id);
+    if (ids.length) {
+      const local = loadJson(LS.favorites, []) || [];
+      saveJson(LS.favorites, [...new Set([...local, ...ids])]);
+    }
+  }
+
+  function isFavorite(id) {
+    return (loadJson(LS.favorites, []) || []).includes(id);
+  }
+
+  function toggleFavorite(id) {
+    let list = loadJson(LS.favorites, []) || [];
+    if (list.includes(id)) list = list.filter((x) => x !== id);
+    else list.push(id);
+    saveJson(LS.favorites, list);
+    if (isLoggedIn()) {
+      const token = session.access_token;
+      const userId = session.user.id;
+      if (list.includes(id)) {
+        lexRequest("user_studied_items", token, {
+          method: "POST",
+          body: JSON.stringify({ user_id: userId, item_type: "favorite", item_id: id }),
+        }).catch(console.warn);
+      } else {
+        lexRequest(
+          `user_studied_items?user_id=eq.${userId}&item_id=eq.${encodeURIComponent(id)}&item_type=eq.favorite`,
+          token,
+          { method: "DELETE" }
+        ).catch(console.warn);
+      }
     }
   }
 
@@ -352,7 +390,9 @@
         token,
         { method: "GET" }
       ),
-      lexRequest(`user_studied_items?user_id=eq.${userId}&select=item_id`, token, { method: "GET" }),
+      lexRequest(`user_studied_items?user_id=eq.${userId}&select=item_id,item_type`, token, {
+        method: "GET",
+      }),
       lexRequest(
         `user_study_plans?user_id=eq.${userId}&select=career_id,uf,plan_payload,updated_at`,
         token,
@@ -362,6 +402,7 @@
     mergeMarksRemote(marks);
     mergeProgressRemote(progress);
     mergeStudiedRemote(studied);
+    mergeFavoriteRemote(studied);
     if (Array.isArray(studyPlanRows) && studyPlanRows[0]) mergeStudyPlanRemote(studyPlanRows[0]);
   }
 
@@ -440,6 +481,8 @@
     setReadingProgress,
     isStudied,
     toggleStudied,
+    isFavorite,
+    toggleFavorite,
     flashReviews,
     scheduleFlash,
     docTypeForRoute,

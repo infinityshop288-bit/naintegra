@@ -1065,7 +1065,10 @@
       doc_type: isSub ? "questoes_subjetivas" : "questoes_objetivas",
       source_system: "naintegracursos",
       title: [row.banca, row.ano, row.disciplina].filter(Boolean).join(" — "),
-      body: row.enunciado,
+      body:
+        (window.LexPtNorma?.apply && row.enunciado
+          ? window.LexPtNorma.apply(row.enunciado, { domain: "all" })
+          : row.enunciado) || "",
       meta: {
         alternativas: formatQuestaoAlternativas(row.alternativas),
         gabarito: row.gabarito,

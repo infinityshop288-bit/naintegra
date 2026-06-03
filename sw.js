@@ -1,4 +1,4 @@
-const CACHE = "naintegra-lex-v27";
+const CACHE = "naintegra-lex-v28";
 const DATA_CACHE = "naintegra-lex-data-v2";
 const API_CACHE = "naintegra-lex-api-v1";
 
@@ -20,6 +20,7 @@ const SHELL = [
   "./js/subscription.js",
   "./js/content-protection.js",
   "./js/legis-meta.js",
+  "./js/pt-norma.js",
   "./js/lex-format.js",
   "./js/flashcards-user.js",
   "./js/questao-comentarios.js",
@@ -27,6 +28,7 @@ const SHELL = [
   "./js/search.js",
   "./js/section-search.js",
   "./js/page-find.js",
+  "./js/cross-refs.js",
   "./js/study-plans.js",
   "./js/app.js",
   "./js/user-sync.js",
