@@ -8,12 +8,44 @@
     return el.innerHTML;
   }
 
+  function passwordFieldHtml(labelText, name, autocomplete) {
+    return `<label>${labelText}
+          <span class="auth-password-wrap">
+            <input type="password" name="${name}" required minlength="6" autocomplete="${autocomplete}" />
+            <button type="button" class="auth-pw-toggle" aria-label="Mostrar senha" aria-pressed="false" title="Mostrar senha">
+              <span class="auth-pw-toggle-show" aria-hidden="true">Mostrar</span>
+              <span class="auth-pw-toggle-hide" aria-hidden="true" hidden>Ocultar</span>
+            </button>
+          </span>
+        </label>`;
+  }
+
+  function bindPasswordToggles(root) {
+    if (!root) return;
+    root.querySelectorAll(".auth-password-wrap").forEach((wrap) => {
+      const input = wrap.querySelector("input");
+      const btn = wrap.querySelector(".auth-pw-toggle");
+      if (!input || !btn || btn.dataset.pwBound) return;
+      btn.dataset.pwBound = "1";
+      const showEl = btn.querySelector(".auth-pw-toggle-show");
+      const hideEl = btn.querySelector(".auth-pw-toggle-hide");
+      btn.addEventListener("click", () => {
+        const visible = input.type === "text";
+        input.type = visible ? "password" : "text";
+        btn.setAttribute("aria-pressed", visible ? "false" : "true");
+        btn.setAttribute("aria-label", visible ? "Mostrar senha" : "Ocultar senha");
+        if (showEl) showEl.hidden = !visible;
+        if (hideEl) hideEl.hidden = visible;
+      });
+    });
+  }
+
   function authFormFieldsHtml(view) {
     if (view === "reset-password") {
       return `
         <form class="auth-form" data-auth-form="1">
-          <label>Nova senha<input type="password" name="password" required minlength="6" autocomplete="new-password" /></label>
-          <label>Confirmar senha<input type="password" name="password2" required minlength="6" autocomplete="new-password" /></label>
+          ${passwordFieldHtml("Nova senha", "password", "new-password")}
+          ${passwordFieldHtml("Confirmar senha", "password2", "new-password")}
           <button type="submit" class="btn primary auth-submit">Salvar nova senha</button>
         </form>`;
     }
@@ -28,7 +60,7 @@
     return `
       <form class="auth-form" data-auth-form="1">
         <label>E-mail<input type="email" name="email" required autocomplete="email" /></label>
-        <label>Senha<input type="password" name="password" required minlength="6" autocomplete="${view === "signup" ? "new-password" : "current-password"}" /></label>
+        ${passwordFieldHtml("Senha", "password", view === "signup" ? "new-password" : "current-password")}
         ${
           view === "login"
             ? `<p class="auth-switch"><button type="button" class="link-btn" data-auth-view="recover">Esqueci minha senha</button></p>`
@@ -106,6 +138,8 @@
         }
       });
     });
+
+    bindPasswordToggles(container);
 
     const form = container.querySelector("[data-auth-form]");
     form?.addEventListener("submit", async (e) => {

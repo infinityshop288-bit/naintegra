@@ -1,4 +1,4 @@
-const CACHE = "naintegra-lex-v28";
+const CACHE = "naintegra-lex-v29";
 const DATA_CACHE = "naintegra-lex-data-v2";
 const API_CACHE = "naintegra-lex-api-v1";
 
@@ -17,6 +17,8 @@ const SHELL = [
   "./js/offline-store.js",
   "./js/auth.js",
   "./js/auth-ui.js",
+  "./js/onboarding.js",
+  "./js/feedback-prompt.js",
   "./js/subscription.js",
   "./js/content-protection.js",
   "./js/legis-meta.js",

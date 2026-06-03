@@ -848,6 +848,10 @@
         <h1>Acervo jurídico</h1>
         <p>Lei seca, jurisprudência, flashcards e questões comentadas — com grifos, anotações, <strong>narração em áudio</strong> e progresso na nuvem. Material atualizado semanalmente!</p>
         <p class="sync-hint" id="sync-hint" hidden>Entre na sua conta para sincronizar grifos e anotações entre dispositivos.</p>
+        <p class="hero-actions">
+          <button type="button" class="btn sm" id="lex-tour-btn" title="Tour guiado das funcionalidades">Tour guiado</button>
+          <span class="hero-lang-note" title="Conteúdo jurídico em português para concursos brasileiros">🇧🇷 Português (Brasil)</span>
+        </p>
       </section>
       <div class="tiles">
         <button class="tile" data-go="flashcards">
@@ -2938,6 +2942,8 @@
               <option value="Sugestão">Sugestão</option>
               <option value="Crítica">Crítica</option>
               <option value="Elogio">Elogio</option>
+              <option value="Bug no app">Bug no app</option>
+              <option value="Avaliação Play Store">Avaliação / Play Store</option>
             </select>
           </label>
           <label>
@@ -2954,6 +2960,13 @@
           </label>
           <button type="submit" class="btn primary contact-submit">Enviar e-mail</button>
         </form>
+        <p class="contact-alt">
+          Gostou do app? <a href="${esc(window.LEX_CONFIG?.playStoreUrl || "#")}" target="_blank" rel="noopener noreferrer">Avalie na Google Play</a>
+          — isso ajuda outros concurseiros.
+        </p>
+        <p class="contact-alt">
+          Interface em <strong>português (Brasil)</strong>. O acervo jurídico é em PT-BR, voltado a concursos públicos brasileiros.
+        </p>
         <p class="contact-alt">
           Também pode escrever diretamente para
           <a href="mailto:${esc(email)}">${esc(email)}</a>
@@ -4148,6 +4161,13 @@
     bindQuestoes();
     bindContactForm();
     bindReportError();
+    document.getElementById("lex-tour-btn")?.addEventListener("click", () => {
+      window.LexOnboarding?.reset?.();
+      window.LexOnboarding?.show?.({ force: true });
+    });
+    if (isLoggedIn() && state.subscriptionActive && r.path === "home") {
+      window.LexOnboarding?.maybeShow?.();
+    }
     if (r.path === "plano-estudos") {
       document.getElementById("study-reload-module")?.addEventListener("click", () => {
         state.studyPlansModuleLoading = true;
@@ -4363,6 +4383,7 @@
     });
     render();
     startBackgroundLoads();
+    window.LexFeedbackPrompt?.init?.();
   }
 
   window.addEventListener("hashchange", () => {
