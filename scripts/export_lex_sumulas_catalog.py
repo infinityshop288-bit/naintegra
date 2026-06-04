@@ -12,6 +12,13 @@ from pathlib import Path
 
 import httpx
 
+
+def strip_html(text: str) -> str:
+    import re
+
+    t = re.sub(r"<[^>]+>", " ", text or "")
+    return re.sub(r"\s+", " ", t).strip()
+
 REPO = Path(__file__).resolve().parent.parent
 OUT = REPO / "web" / "lex" / "data" / "sumulas_catalog.json"
 BASE = "https://informativos.trilhante.com.br"
@@ -76,6 +83,7 @@ def parse_page(html: str, listing_path: str, default_tribunal: str) -> list[dict
         slug = str(data.get("slug") or f"sumula-{num}-{tribunal.lower()}")
         url = slug_to_url(slug, listing_path)
         preview = str(data.get("destaque_oficial") or data.get("destaque") or "").strip()
+        enunciado = strip_html(preview) if preview else ""
         rid = route_id(tribunal, num, vinculante)
         items.append(
             {
@@ -85,6 +93,7 @@ def parse_page(html: str, listing_path: str, default_tribunal: str) -> list[dict
                 "tribunal": tribunal,
                 "numero": num,
                 "vinculante": vinculante,
+                "enunciado": enunciado[:2000],
                 "preview": preview[:800],
                 "doc_type": "sumula",
                 "source_system": "trilhante_informativo",

@@ -1,4 +1,4 @@
-const CACHE = "naintegra-lex-v29";
+const CACHE = "naintegra-lex-v30";
 const DATA_CACHE = "naintegra-lex-data-v2";
 const API_CACHE = "naintegra-lex-api-v1";
 
@@ -42,6 +42,7 @@ const SHELL = [
   "./data/flashcards.json",
   "./data/juris_bodies.json",
   "./data/sumulas_catalog.json",
+  "./data/sumulas_bodies.json",
   "./data/temas_catalog.json",
   "./data/questoes_catalog.json",
 ];
