@@ -25,6 +25,7 @@ window.LEX_CONFIG = {
   flashcardsDecksBase: "./data/flashcards/decks/",
   flashcardsPageSize: 1000,
   jurisBodiesFallback: "./data/juris_bodies.json",
+  sumulasBodiesFallback: "./data/sumulas_bodies.json",
   sumulasCatalogFallback: "./data/sumulas_catalog.json",
   temasCatalogFallback: "./data/temas_catalog.json",
   /** Banco de questões do NaIntegra Cursos (public.questoes_banco). */

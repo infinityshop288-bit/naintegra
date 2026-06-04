@@ -170,9 +170,10 @@
   function mapSumulaCatalogEntry(entry) {
     const previewRaw = entry.preview || "";
     const preview = window.LexFormat ? window.LexFormat.cleanRaw(previewRaw) : previewRaw.replace(/<[^>]+>/g, " ").trim();
+    const enunciado = (entry.enunciado || preview || "").trim();
     const label = entry.vinculante ? `SV ${entry.numero}` : `Súmula ${entry.numero}`;
-    const body = preview
-      ? `${label} — ${entry.tribunal}\n\n${preview}`
+    const body = enunciado
+      ? `${entry.title || `${label} — ${entry.tribunal}`}\n${entry.tribunal}\n\n${enunciado}`
       : null;
     return {
       external_id: entry.external_id || `trilhante_informativo::${entry.url}`,
@@ -180,12 +181,13 @@
       source_system: entry.source_system || "trilhante_informativo",
       doc_key: entry.doc_key || entry.url,
       title: entry.title || `${label} — ${entry.tribunal}`,
-      resumo: preview.slice(0, 240),
-      juris_card_preview: preview || null,
+      resumo: enunciado.slice(0, 240),
+      juris_card_preview: enunciado || preview || null,
       body,
       meta: {
         tribunal: entry.tribunal,
         sumula_numero: entry.numero,
+        sumula_enunciado: enunciado,
         vinculante: entry.vinculante,
       },
       organized: { tribunal: entry.tribunal },
@@ -556,6 +558,7 @@
   }
 
   let jurisBodiesCache = null;
+  let sumulasBodiesCache = null;
   let legisBodiesCache = null;
   let legisSummariesCache = null;
 
@@ -589,16 +592,30 @@
     return null;
   }
 
-  async function loadJurisBodiesCache() {
-    if (jurisBodiesCache) return jurisBodiesCache;
+  async function loadSumulasBodiesCache() {
+    if (sumulasBodiesCache) return sumulasBodiesCache;
     try {
-      const data = await fetchStaticJson(cfg.jurisBodiesFallback);
-      jurisBodiesCache = data.bodies || {};
-      return jurisBodiesCache;
+      const data = await fetchStaticJson(cfg.sumulasBodiesFallback);
+      sumulasBodiesCache = data.bodies || {};
+      return sumulasBodiesCache;
     } catch (err) {
-      console.warn("Lex: cache juris local", err);
+      console.warn("Lex: cache súmulas local", err);
       return {};
     }
+  }
+
+  async function loadJurisBodiesCache() {
+    if (jurisBodiesCache) return jurisBodiesCache;
+    const [jurisRes, sumRes] = await Promise.allSettled([
+      fetchStaticJson(cfg.jurisBodiesFallback),
+      fetchStaticJson(cfg.sumulasBodiesFallback),
+    ]);
+    const juris = jurisRes.status === "fulfilled" ? jurisRes.value.bodies || {} : {};
+    const sumulas = sumRes.status === "fulfilled" ? sumRes.value.bodies || {} : {};
+    if (jurisRes.status === "rejected") console.warn("Lex: cache juris local", jurisRes.reason);
+    if (sumRes.status === "rejected") console.warn("Lex: cache súmulas local", sumRes.reason);
+    jurisBodiesCache = { ...sumulas, ...juris };
+    return jurisBodiesCache;
   }
 
   async function loadLegisBodiesCache() {
@@ -714,12 +731,21 @@
       }
     }
 
-    if (source === "trilhante_informativo") {
+    if (source === "trilhante_informativo" || doc.doc_type === "sumula") {
+      const sumCache = await loadSumulasBodiesCache();
+      const sumCached = lookupCachedBody(sumCache, doc);
+      if (sumCached) {
+        doc.body = sumCached;
+        if (window.LexFormat) window.LexFormat.ensureFormatted(doc);
+        window.LexOffline?.saveDocumentBody?.(doc, doc.body);
+        return doc.body;
+      }
       const cache = await loadJurisBodiesCache();
       const cached = lookupCachedBody(cache, doc);
       if (cached) {
         doc.body = cached;
         if (window.LexFormat) window.LexFormat.ensureFormatted(doc);
+        window.LexOffline?.saveDocumentBody?.(doc, doc.body);
         return doc.body;
       }
     }

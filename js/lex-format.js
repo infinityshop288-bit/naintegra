@@ -3,7 +3,7 @@
  * Remove artefatos de navegação e estrutura ementa · tese · julgado.
  */
 (function () {
-  const FORMAT_VERSION = 37;
+  const FORMAT_VERSION = 38;
   const NOISE_PATTERNS = [
     /<!--[\s\S]*?-->/g,
     /!\[[^\]]*\]\([^)]+\)/g,
@@ -229,12 +229,21 @@
     const lines = afterDates
       .split("\n")
       .map((l) => l.trim())
-      .filter((l) => l.length > 40 && !/^(STF|STJ|TST|TSE|Súmula|Julgamento|Publicação|Conversação|Olá)/i.test(l));
-    enunciado = lines[0] || "";
+      .filter(
+        (l) =>
+          l.length >= 12 &&
+          !/^(STF|STJ|TST|TSE|Súmula|Sumula|Julgamento|Publicação|Conversação|Olá)/i.test(l) &&
+          !/^SV\s+\d+/i.test(l)
+      );
+    enunciado = lines.find((l) => l.length >= 12 && !/^[—–-]\s/.test(l)) || lines[0] || "";
 
     if (!enunciado) {
-      const m = clean.match(/S[úu]mula(?:\s+Vinculante)?\s+\d+\s+(?:\d{2}\/\d{4}\s+)?(.{40,}?)(?:\n|$)/i);
+      const m = clean.match(/S[úu]mula(?:\s+Vinculante)?\s+\d+\s+(?:\d{2}\/\d{4}\s+)?(.{12,}?)(?:\n|$)/i);
       enunciado = m?.[1]?.trim() || "";
+    }
+    if (!enunciado) {
+      const tail = afterDates.split("\n").map((l) => l.trim()).filter(Boolean);
+      enunciado = tail[tail.length - 1] || "";
     }
 
     const rotulo = vinc ? `SV ${num}` : `Súmula ${num}`;
@@ -1378,6 +1387,19 @@
 
     if (kind === "sumula_individual") {
       const item = parseSumulaPage(body, doc.url || doc.doc_key);
+      const fallbackEnunciado =
+        (doc.meta?.sumula_enunciado || doc.meta?.enunciado || doc.juris_card_preview || doc.resumo || "")
+          .trim();
+      if (!item.tese && fallbackEnunciado) {
+        item.tese = fallbackEnunciado;
+        if (!item.julgado) {
+          const vinc = item.tipo === "sumula_vinculante";
+          const num = (doc.meta?.sumula_numero || item.id?.replace(/^sumula-/, "") || "").trim();
+          item.julgado = vinc
+            ? `Enunciado de observância obrigatória (CF, art. 103-A). ${fallbackEnunciado}`
+            : `Enunciado sumulado pelo ${item.tribunal || doc.organized?.tribunal || "tribunal"}.${num ? ` Súmula nº ${num}.` : ""}`;
+        }
+      }
       if (item.tese) {
         return { mode: "juris", items: [item], articles: [{ id: 0, label: item.numero, text: item.tese }] };
       }
