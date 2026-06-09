@@ -1,15 +1,13 @@
 /**
- * Busca permanente no topo — localizar texto na página (como Ctrl+F).
- * Nas listagens, sincroniza com LexSectionSearch quando existir.
+ * Busca permanente — localizar qualquer palavra no conteúdo aberto (lei, juris, questão, lista).
  */
 (function () {
   const MIN_LEN = 2;
-  let rootEl = null;
-  let inputEl = null;
   let metaEl = null;
   let marks = [];
   let currentIdx = -1;
   let debounceTimer = null;
+  const inputs = new Set();
 
   function norm(text) {
     return String(text || "")
@@ -32,17 +30,28 @@
     return document.querySelector("[data-section-scope]");
   }
 
+  /** Leitor de lei/juris aberto (página cheia, embed ou plano de estudos). */
+  function openDocumentScope() {
+    const candidates = [
+      document.getElementById("reader-body"),
+      document.querySelector("#juris-reader-embed .reader-body"),
+      document.querySelector(".juris-reader-embed .reader-body"),
+      document.querySelector(".study-inline-reader-body"),
+      document.querySelector(".study-inline-reader-host .reader-body"),
+    ];
+    for (const el of candidates) {
+      if (el && el.textContent?.trim()) return el;
+    }
+    return null;
+  }
+
   function readerBody() {
-    return (
-      document.querySelector("#reader-body") ||
-      document.querySelector(".study-inline-reader-body") ||
-      document.querySelector(".juris-reader-embed .reader-body")
-    );
+    return openDocumentScope();
   }
 
   function findTarget() {
-    const reader = readerBody();
-    if (reader) return reader;
+    const doc = openDocumentScope();
+    if (doc) return doc;
     const scope = sectionScope();
     if (scope) return scope;
     return contentRoot();
@@ -51,7 +60,11 @@
   function shouldSkipNode(node) {
     const p = node.parentElement;
     if (!p) return true;
-    if (p.closest(".page-find, .global-search, .global-search-panel, .highlight-toolbar, .sidebar, .mobile-nav, #auth-modal-root")) {
+    if (
+      p.closest(
+        ".page-find, .reader-find, .global-search, .global-search-panel, .highlight-toolbar, .sidebar, .mobile-nav, #auth-modal-root"
+      )
+    ) {
       return true;
     }
     if (p.closest("[hidden], [aria-hidden='true']")) return true;
@@ -131,10 +144,31 @@
     return true;
   }
 
+  function primaryInput() {
+    return document.getElementById("page-find-input") || inputs.values().next().value;
+  }
+
+  function getQuery() {
+    return primaryInput()?.value?.trim() || "";
+  }
+
+  function syncAllInputs(value, source) {
+    for (const inp of inputs) {
+      if (inp !== source && inp.value !== value) inp.value = value;
+    }
+  }
+
+  function updatePlaceholders() {
+    const inDoc = Boolean(openDocumentScope());
+    const ph = inDoc ? "Buscar neste documento…" : "Buscar nesta página…";
+    for (const inp of inputs) inp.placeholder = ph;
+  }
+
   function updateMeta() {
+    if (!metaEl) metaEl = document.getElementById("page-find-meta");
+    const q = getQuery();
     if (!metaEl) return;
-    const q = inputEl?.value?.trim() || "";
-    if (sectionScope() && tokens(q).length) {
+    if (!openDocumentScope() && sectionScope() && tokens(q).length) {
       const meta = document.querySelector(
         `[data-section-meta="${sectionScope().getAttribute("data-section-scope")}"]`
       );
@@ -151,6 +185,10 @@
     }
     metaEl.textContent = `${currentIdx + 1} / ${marks.length}`;
     metaEl.hidden = false;
+    document.querySelectorAll("[data-reader-find-meta]").forEach((el) => {
+      el.textContent = metaEl.textContent;
+      el.hidden = metaEl.hidden;
+    });
   }
 
   function scrollToMark(idx) {
@@ -165,18 +203,26 @@
   }
 
   function runFind() {
-    const query = inputEl?.value?.trim() || "";
+    const query = getQuery();
     const toks = tokens(query);
     if (!toks.length) {
       clearMarks();
-      syncSectionSearch("");
+      if (!openDocumentScope()) syncSectionSearch("");
+      updateMeta();
+      return;
+    }
+
+    const docScope = openDocumentScope();
+    if (docScope) {
+      highlightIn(docScope, query);
+      scrollToMark(0);
       updateMeta();
       return;
     }
 
     const usedSection = syncSectionSearch(query);
     const target = findTarget();
-    if (!usedSection || readerBody()) {
+    if (!usedSection) {
       highlightIn(target, query);
       scrollToMark(0);
     } else {
@@ -187,7 +233,7 @@
   }
 
   function step(delta) {
-    const query = inputEl?.value?.trim() || "";
+    const query = getQuery();
     if (!tokens(query).length) return;
     if (marks.length) {
       scrollToMark(currentIdx + delta);
@@ -199,38 +245,22 @@
   }
 
   function clear() {
-    if (inputEl) inputEl.value = "";
+    syncAllInputs("", null);
     clearMarks();
     syncSectionSearch("");
     updateMeta();
     if (metaEl) metaEl.hidden = true;
+    document.querySelectorAll("[data-reader-find-meta]").forEach((el) => {
+      el.hidden = true;
+    });
   }
 
-  function mount(host) {
-    if (!host || host.dataset.mounted) return;
-    host.dataset.mounted = "1";
-    host.innerHTML = `
-      <div class="page-find-inner" role="search" aria-label="Buscar no texto da página">
-        <span class="page-find-label">Buscar</span>
-        <input
-          type="search"
-          class="page-find-input"
-          id="page-find-input"
-          placeholder="Localizar no texto…"
-          autocomplete="off"
-          enterkeyhint="search"
-          aria-controls="page-find-meta"
-        />
-        <span class="page-find-meta" id="page-find-meta" hidden></span>
-        <button type="button" class="page-find-btn" data-page-find-prev title="Ocorrência anterior" aria-label="Anterior">‹</button>
-        <button type="button" class="page-find-btn" data-page-find-next title="Próxima ocorrência" aria-label="Próxima">›</button>
-        <button type="button" class="page-find-btn page-find-clear" data-page-find-clear title="Limpar busca" aria-label="Limpar">×</button>
-      </div>`;
-
-    inputEl = host.querySelector(".page-find-input");
-    metaEl = host.querySelector(".page-find-meta");
+  function bindInput(inputEl, host, { compact = false } = {}) {
+    if (!inputEl || inputs.has(inputEl)) return;
+    inputs.add(inputEl);
 
     inputEl.addEventListener("input", () => {
+      syncAllInputs(inputEl.value, inputEl);
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(runFind, 120);
     });
@@ -257,9 +287,53 @@
     });
   }
 
+  function findHtml({ compact = false, inputId = "page-find-input", metaId = "page-find-meta" } = {}) {
+    const label = compact ? "" : `<span class="page-find-label">Buscar</span>`;
+    const metaAttr = compact ? "data-reader-find-meta" : `id="${metaId}"`;
+    return `
+      <div class="page-find-inner ${compact ? "page-find-inner--compact" : ""}" role="search" aria-label="Buscar no texto aberto">
+        ${label}
+        <input
+          type="search"
+          class="page-find-input"
+          id="${compact ? "" : inputId}"
+          placeholder="Buscar nesta página…"
+          autocomplete="off"
+          enterkeyhint="search"
+          aria-controls="${metaId}"
+        />
+        <span class="page-find-meta" ${metaAttr} hidden></span>
+        <button type="button" class="page-find-btn" data-page-find-prev title="Anterior" aria-label="Anterior">‹</button>
+        <button type="button" class="page-find-btn" data-page-find-next title="Próxima" aria-label="Próxima">›</button>
+        <button type="button" class="page-find-btn page-find-clear" data-page-find-clear title="Limpar" aria-label="Limpar">×</button>
+      </div>`;
+  }
+
+  function mount(host, opts = {}) {
+    if (!host || host.dataset.mounted) return;
+    host.dataset.mounted = "1";
+    host.innerHTML = findHtml(opts);
+    const inputEl = host.querySelector(".page-find-input");
+    if (!opts.compact && inputEl) inputEl.id = "page-find-input";
+    if (!opts.compact) metaEl = host.querySelector("#page-find-meta");
+    bindInput(inputEl, host, opts);
+    updatePlaceholders();
+    const q = getQuery();
+    if (tokens(q).length) runFind();
+  }
+
+  function mountReaderHost(container) {
+    const host = container?.querySelector?.("[data-reader-find-host]");
+    if (!host) return;
+    mount(host, { compact: true });
+    updatePlaceholders();
+    const q = getQuery();
+    if (tokens(q).length) runFind();
+  }
+
   function init(hostEl) {
-    rootEl = hostEl || document.getElementById("page-find");
-    if (rootEl) mount(rootEl);
+    const top = hostEl || document.getElementById("page-find");
+    if (top) mount(top);
 
     if (!document.documentElement.dataset.pageFindKeybound) {
       document.documentElement.dataset.pageFindKeybound = "1";
@@ -268,26 +342,26 @@
           const t = e.target;
           if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
           e.preventDefault();
-          inputEl?.focus();
-          inputEl?.select();
+          const inp = primaryInput();
+          inp?.focus();
+          inp?.select();
         }
       });
     }
   }
 
   function onContentUpdate() {
-    const q = inputEl?.value?.trim() || "";
+    updatePlaceholders();
+    document.querySelectorAll("[data-reader-find-host]").forEach((host) => {
+      if (!host.dataset.mounted) mount(host, { compact: true });
+    });
+    const q = getQuery();
     if (tokens(q).length) runFind();
     else clearMarks();
   }
 
-  function getQuery() {
-    return inputEl?.value?.trim() || "";
-  }
-
   function setQuery(q) {
-    if (!inputEl) return;
-    inputEl.value = q || "";
+    syncAllInputs(q || "", null);
     runFind();
   }
 
@@ -296,11 +370,19 @@
     clear,
     runFind,
     onContentUpdate,
+    mountReaderHost,
     getQuery,
     setQuery,
     focus: () => {
-      inputEl?.focus();
-      inputEl?.select();
+      const inp = primaryInput();
+      inp?.focus();
+      inp?.select();
     },
   };
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => init());
+  } else {
+    init();
+  }
 })();
