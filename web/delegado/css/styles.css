@@ -358,6 +358,33 @@ tr.highlight td {
   color: var(--gold);
 }
 
+.pkg-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.pkg-thumb {
+  margin: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.pkg-thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.pkg-thumb figcaption {
+  font-size: 0.7rem;
+  padding: 0.35rem 0.5rem;
+  color: var(--muted);
+}
+
 @media (max-width: 640px) {
   .topbar,
   .tabs,

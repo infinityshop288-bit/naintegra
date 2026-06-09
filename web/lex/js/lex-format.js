@@ -3,7 +3,7 @@
  * Remove artefatos de navegação e estrutura ementa · tese · julgado.
  */
 (function () {
-  const FORMAT_VERSION = 38;
+  const FORMAT_VERSION = 41;
   const NOISE_PATTERNS = [
     /<!--[\s\S]*?-->/g,
     /!\[[^\]]*\]\([^)]+\)/g,
@@ -47,12 +47,43 @@
   const SKIP_PATH_RE =
     /\/(buscador|login|register|assine|newsletter|home|aprenda|leis)(\?|$|\/)/i;
 
+  /** Corrige "Seçăo", "Seção" (NFC) e outros artefatos ISO-8859-1 do crawl Planalto. */
   function normalizePlanaltoEncoding(text) {
-    return String(text || "")
+    let t = String(text || "").normalize("NFC");
+    t = t
       .replace(/(\d)[şŞ](?=[.\s\-–])/g, "$1º")
       .replace(/\bn[şŞ](?=\s*[\d.])/gi, "nº")
       .replace(/\bn\s+[º°oşŞ.]/gi, "nº")
-      .replace(/§\s*(\d+)ş/gi, "§ $1º");
+      .replace(/§\s*(\d+)ş/gi, "§ $1º")
+      .replace(/(^|[\n\r])\s*Se[cç]ăo\b/gim, "$1Seção")
+      .replace(/(^|[\n\r])\s*SE[cç]ĂO\b/gim, "$1SEÇÃO")
+      .replace(/ă/g, "ã")
+      .replace(/Ă/g, "Ã")
+      .replace(/ŕ/g, "à")
+      .replace(/Ŕ/g, "À")
+      .replace(/ő/g, "õ")
+      .replace(/Ő/g, "Õ")
+      .replace(/ę/g, "e")
+      .replace(/Ę/g, "E")
+      .replace(
+        /(^|[\n\r.:;])\s*art\.?\s+((?:\d{1,3}(?:\.\d{3})+|\d+)(?!\d)[º°oşŞ]?)/gim,
+        (_, bol, num) => `${bol}\n\nArt. ${num}`
+      );
+    return t;
+  }
+
+  const SECAO_NUM_RE = /^Se[cç][ãaá]o\s+((?:[IVXLC]+|\d+)(?:-[A-Z0-9]+)?)/i;
+
+  function isSecaoHeaderLine(line) {
+    const s = String(line || "").trim();
+    const m = s.match(SECAO_NUM_RE);
+    if (!m) return false;
+    const rest = s.slice(m[0].length).trim();
+    if (!rest) return true;
+    if (/^deste\b|^dessa\b|^desta\b|^do\s+art\.?/i.test(rest)) return false;
+    if (/\bdo\s+Cap[ií]tulo\b|\bdesta\s+Lei\b/i.test(s)) return false;
+    if (/^[;:,]/.test(rest)) return false;
+    return /^(?:Da |Do |Dos |Das |De |Disposi|Assembl|Regras|Normas|\(Inclu)/i.test(rest);
   }
 
   function cleanRaw(text) {
@@ -758,7 +789,7 @@
     if (/^Parte\s+(Geral|Especial)/i.test(b)) return "parte";
     if (/^TÍTULO\s+[IVXLC\d]+/i.test(b)) return "titulo";
     if (/^CAPÍTULO\s+[IVXLC\d]+/i.test(b)) return "capitulo";
-    if (/^SEÇÃO\s+[IVXLC\d]+/i.test(b)) return "secao";
+    if (isSecaoHeaderLine(b)) return "secao";
     if (/^Art\.?\s*\d/i.test(b)) return "artigo";
     if (/^(§\s*\d|Par[aá]grafo\s+[uú]nico)/i.test(b)) return "paragrafo";
     if (/^[IVXLC]{1,7}\s*[-–]/.test(b)) return "inciso";
@@ -864,7 +895,7 @@
 
     t = t
       .replace(
-        /\n+(?!\s*(?:§\s*\d|Art\.?\s*(?:\d{1,3}(?:\.\d{3})+|\d+)(?!\d)|Par[aá]grafo\s+[uú]nico|TÍTULO|CAPÍTULO|SEÇÃO|Subseção|[IVXLC]{1,7}\s*[-–(]))/gi,
+        /\n+(?!\s*(?:§\s*\d|Art\.?\s*(?:\d{1,3}(?:\.\d{3})+|\d+)(?!\d)|Par[aá]grafo\s+[uú]nico|TÍTULO|CAPÍTULO|SEÇÃO|Se[cç][ãaá]o|Subse[cç][ãaá]o|[IVXLC]{1,7}\s*[-–(]))/gi,
         " "
       )
       .replace(/[ \t]{2,}/g, " ");
@@ -881,7 +912,7 @@
     return ensureArticleEpigraphBreaks(String(text || ""))
       .replace(
         new RegExp(
-          `([^\\n])\\s+(?=(?:${ARTICLE_HEAD_PREFIX}(?:${ARTICLE_NUM})(?!\\d)[º°o]?${ARTICLE_HEAD_TAIL}|TÍTULO\\s|CAPÍTULO\\s|SEÇÃO\\s|Subseção\\s|Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias|DISPOSI[CÇ][ÕO]ES CONSTITUCIONAIS TRANSIT[OÓ]RIAS))`,
+          `([^\\n])\\s+(?=(?:${ARTICLE_HEAD_PREFIX}(?:${ARTICLE_NUM})(?!\\d)[º°o]?${ARTICLE_HEAD_TAIL}|TÍTULO\\s|CAPÍTULO\\s|SEÇÃO\\s|Se[cç][ãaá]o\\s|Subse[cç][ãaá]o\\s|Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias|DISPOSI[CÇ][ÕO]ES CONSTITUCIONAIS TRANSIT[OÓ]RIAS))`,
           "g"
         ),
         "$1\n\n"
@@ -898,10 +929,19 @@
       const textoCompilado = clean.search(/(?:^|\n)\s*Texto compilado\b/mi);
       if (textoCompilado >= 0) return textoCompilado;
     }
-    const tituloI = clean.search(/(?:^|\n)\s*TÍTULO\s+I\b/mi);
-    if (tituloI >= 0) return tituloI;
-    const m = clean.match(LEGIS_BODY_START_RE);
-    return m ? m.index : -1;
+    const markers = [
+      /(?:^|\n)\s*TÍTULO\s+I\b/mi,
+      /(?:^|\n)\s*CAPÍTULO\s+I\b/mi,
+      /(?:^|\n)\s*LIVRO\s+I\b/mi,
+      /(?:^|\n)\s*PARTE\s+GERAL\b/mi,
+      LEGIS_BODY_START_RE,
+    ];
+    let start = -1;
+    for (const re of markers) {
+      const m = clean.match(re);
+      if (m && m.index >= 0 && (start < 0 || m.index < start)) start = m.index;
+    }
+    return start;
   }
 
   function normalizeCfAdctSectionHeader(body) {
@@ -1056,6 +1096,50 @@
     return out;
   }
 
+  function normalizeParagraphKey(head) {
+    const t = String(head || "").trim();
+    if (/^Par[aá]grafo\s+[uú]nico/i.test(t)) return "unico";
+    const m = t.match(/^§\s*(\d+)[º°oşŞ]?(?:-([A-Z0-9]+))?/i);
+    if (!m) return t.toLowerCase();
+    return m[2] ? `${m[1]}-${m[2].toUpperCase()}` : m[1];
+  }
+
+  /** Remove redações antigas do mesmo § / parágrafo único dentro do artigo (crawl Planalto). */
+  function dedupeParagraphChunks(text) {
+    const chunks = String(text || "")
+      .split(/\n\n+/)
+      .map((c) => c.trim())
+      .filter(Boolean);
+    if (chunks.length <= 1) return String(text || "").trim();
+
+    const out = [];
+    const indexByKey = new Map();
+
+    chunks.forEach((chunk, order) => {
+      const paraMatch = chunk.match(
+        /^(§\s*\d+[º°oşŞ]?(?:-[A-Z0-9]+)?|Par[aá]grafo\s+[uú]nico\.?)\s*/i
+      );
+      if (!paraMatch) {
+        out.push(chunk);
+        return;
+      }
+      const key = normalizeParagraphKey(paraMatch[1]);
+      const score = articleRevisionScore(chunk, order);
+      const prev = indexByKey.get(key);
+      if (!prev) {
+        indexByKey.set(key, { score, outIdx: out.length });
+        out.push(chunk);
+        return;
+      }
+      if (score >= prev.score) {
+        out[prev.outIdx] = chunk;
+        indexByKey.set(key, { score, outIdx: prev.outIdx });
+      }
+    });
+
+    return out.join("\n\n").trim();
+  }
+
   function formatArtigoBody(text, label) {
     let t = repairLegisText(text);
     if (label) {
@@ -1084,7 +1168,7 @@
       if (window.LexLegisMeta) raw = window.LexLegisMeta.normalizeLeiReferences(raw);
       t = raw.trim();
     }
-    return t.trim();
+    return dedupeParagraphChunks(t.trim());
   }
 
   function mergeParagraphsIntoArticles(blocks) {
@@ -1218,7 +1302,7 @@
     let body = skipUntil >= 0 ? cleanMeta.slice(skipUntil) : cleanMeta;
 
     const splitRe = new RegExp(
-      `\\n(?=(?:Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias|DISPOSI[CÇ][ÕO]ES CONSTITUCIONAIS TRANSIT[OÓ]RIAS|Parte\\s+(?:Geral|Especial)|TÍTULO|CAPÍTULO|SEÇÃO|Seção|Subseção)\\s|${ARTICLE_HEAD_PREFIX}(?:${ARTICLE_NUM})(?!\\d)[º°o]?${ARTICLE_HEAD_TAIL})`
+      `\\n(?=(?:Ato das Disposi[cç][õo]es Constitucionais Transit[oó]rias|DISPOSI[CÇ][ÕO]ES CONSTITUCIONAIS TRANSIT[OÓ]RIAS|Parte\\s+(?:Geral|Especial)|TÍTULO|CAPÍTULO|SEÇÃO|Se[cç][ãaá]o|Subse[cç][ãaá]o)\\s|${ARTICLE_HEAD_PREFIX}(?:${ARTICLE_NUM})(?!\\d)[º°o]?${ARTICLE_HEAD_TAIL})`
     );
 
     function buildBlocksFromSection(sectionBody, { adctSection = false } = {}) {
@@ -1243,7 +1327,12 @@
         if (!p || p.length < 4) continue;
         if (!adctSection && ADCT_HEAD_RE.test(p)) continue;
         if (adctSection && ADCT_HEAD_RE.test(p)) continue;
-        if (isArticleEpigraphLine(p) && !ARTICLE_HEAD_LINE.test(p) && !/^TÍTULO|^CAPÍTULO|^SEÇÃO/i.test(p)) {
+        if (
+          isArticleEpigraphLine(p) &&
+          !ARTICLE_HEAD_LINE.test(p) &&
+          !/^TÍTULO|^CAPÍTULO|^SEÇÃO/i.test(p) &&
+          !isSecaoHeaderLine(p.split("\n")[0])
+        ) {
           pendingEpigraph = parseArticleEpigraph(p);
           continue;
         }
@@ -1253,8 +1342,8 @@
           local.push({ type: "titulo", label: p.split("\n")[0].trim(), text: p });
         } else if (/^CAPÍTULO\s+[IVXLC\d]+/i.test(p) || /^CAPÍTULO\s*[—–-]/i.test(p.split("\n")[0])) {
           local.push({ type: "capitulo", label: p.split("\n")[0].trim(), text: p });
-        } else if (/^SEÇÃO\s+[IVXLC\d]+/i.test(p)) {
-          local.push({ type: "capitulo", label: p.split("\n")[0].trim(), text: p });
+        } else if (isSecaoHeaderLine(p.split("\n")[0])) {
+          local.push({ type: "secao", label: p.split("\n")[0].trim(), text: p });
         } else if (ARTICLE_HEAD_LINE.test(p)) {
           let raw = p;
           const trailing = extractTrailingEpigraph(raw);
@@ -1342,9 +1431,11 @@
         ? "lei-titulo"
         : block.type === "capitulo"
           ? "lei-capitulo"
-          : block.type === "artigo"
-            ? "lei-artigo"
-            : "lei-trecho";
+          : block.type === "secao"
+            ? "lei-secao"
+            : block.type === "artigo"
+              ? "lei-artigo"
+              : "lei-trecho";
     const bodyHtml =
       block.type === "artigo"
         ? renderArtigoContent(block.text)

@@ -19,8 +19,8 @@ class DelegadoStore:
     def __init__(self, settings: MetaSettings) -> None:
         self.settings = settings
         self.schema = settings.delegado_schema
-        self.base = (settings.supabase_url or "").rstrip("/")
-        self.key = settings.supabase_service_role_key or settings.supabase_anon_key or ""
+        self.base = (settings.supabase_url_resolved or "").rstrip("/")
+        self.key = settings.supabase_key_resolved
 
     @property
     def configured(self) -> bool:
@@ -51,6 +51,54 @@ class DelegadoStore:
         if resp.status_code >= 400:
             return []
         return resp.json()
+
+    def upsert_queue_item_service(self, item: dict[str, Any]) -> dict[str, Any]:
+        """Grava na fila com service role (pipeline/cron — sem publicar)."""
+
+        payload = {**item}
+        if not payload.get("id"):
+            payload["id"] = str(uuid4())
+        payload.setdefault("created_at", _now_iso())
+        payload["updated_at"] = _now_iso()
+        if not self.configured:
+            return payload
+        token = self.settings.supabase_service_role_key or self.key
+        with httpx.Client(timeout=60.0) as client:
+            resp = client.post(
+                self._table("content_queue"),
+                headers={
+                    **self._headers(token),
+                    "Prefer": "return=representation,resolution=merge-duplicates",
+                },
+                json=payload,
+            )
+        if resp.status_code >= 400 and "meta" in resp.text and payload.get("meta"):
+            payload_no_meta = {k: v for k, v in payload.items() if k != "meta"}
+            meta = payload.get("meta") or {}
+            extra = []
+            if meta.get("roteiro_falas"):
+                extra.append(f"[ROTEIRO]\n{meta['roteiro_falas']}")
+            if meta.get("texto_overlay"):
+                extra.append(f"[OVERLAY] {meta['texto_overlay']}")
+            if meta.get("slides"):
+                extra.append("[SLIDES]\n" + "\n".join(str(s) for s in meta["slides"]))
+            if extra:
+                payload_no_meta["legenda"] = (payload_no_meta.get("legenda") or "") + "\n\n" + "\n\n".join(
+                    extra
+                )
+            with httpx.Client(timeout=60.0) as client:
+                resp = client.post(
+                    self._table("content_queue"),
+                    headers={
+                        **self._headers(token),
+                        "Prefer": "return=representation,resolution=merge-duplicates",
+                    },
+                    json=payload_no_meta,
+                )
+        if resp.status_code >= 400:
+            raise RuntimeError(resp.text[:500])
+        rows = resp.json()
+        return rows[0] if isinstance(rows, list) and rows else payload
 
     async def upsert_queue_item(self, user_jwt: str, item: dict[str, Any]) -> dict[str, Any]:
         payload = {**item}

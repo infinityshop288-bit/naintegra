@@ -1,4 +1,4 @@
-const CACHE = "naintegra-lex-v30";
+const CACHE = "naintegra-lex-v31";
 const DATA_CACHE = "naintegra-lex-data-v2";
 const API_CACHE = "naintegra-lex-api-v1";
 

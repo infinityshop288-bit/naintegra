@@ -8,7 +8,7 @@ import httpx
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 
-from naintegra_meta.settings import MetaSettings
+from naintegra_meta.settings import MetaSettings, _env_first
 
 _bearer = HTTPBearer(auto_error=False)
 
@@ -35,8 +35,8 @@ async def require_delegado_user(
     jwt: str = Depends(get_bearer_token),
     settings: MetaSettings = Depends(_settings),
 ) -> AuthUser:
-    supabase_url = (settings.supabase_url or "").rstrip("/")
-    anon_key = settings.supabase_anon_key
+    supabase_url = (settings.supabase_url_resolved or "").rstrip("/")
+    anon_key = settings.supabase_anon_key or _env_first("SUPABASE_ANON_KEY")
     if not supabase_url or not anon_key:
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, detail="Supabase não configurado")
 

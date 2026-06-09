@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-05-29T23:04:47.481666+00:00",
-  "count": 237,
+  "generated_at": "2026-06-06T17:05:02.987262+00:00",
+  "count": 239,
   "entries": {
     "constituicao.htm": {
       "titulo": "Constituição Federal de 1988",
@@ -532,6 +532,11 @@
       "resumo": "Regula registro, posse e comercialização de armas de fogo e munição (Estatuto do Desarmamento).",
       "secao": "Penal e Processual"
     },
+    "l10216": {
+      "titulo": "Lei 10.216/2001 — Reforma Psiquiátrica",
+      "resumo": "Dispõe sobre a proteção e os direitos das pessoas portadoras de transtornos mentais.",
+      "secao": "Legislação Especial"
+    },
     "l10257": {
       "titulo": "Lei 10.257/2001 — Estatuto da Cidade",
       "resumo": "Regula política urbana e direito à cidade.",
@@ -911,6 +916,11 @@
       "titulo": "Lei 14.133/2021 — Nova Lei de Licitações",
       "resumo": "Regula licitações e contratos administrativos.",
       "secao": "Legislação Especial"
+    },
+    "l14193": {
+      "titulo": "Lei 14.193/2021 — Sociedade Anônima do Futebol",
+      "resumo": "Institui a SAF e disciplina a transformação de clubes em sociedades anônimas.",
+      "secao": "Civil e Trabalho"
     },
     "l14344": {
       "titulo": "Lei 14.344/2022 — Violência doméstica ampliada",

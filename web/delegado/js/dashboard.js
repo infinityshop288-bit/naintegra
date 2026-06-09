@@ -102,39 +102,213 @@
     const el = $("#panel-content");
     if (el.dataset.ready) return;
     el.dataset.ready = "1";
+    let providerOptions = "<option value=''>Padrão (Ollama)</option>";
+    try {
+      const prov = await window.DelegadoApi.contentProviders();
+      providerOptions = (prov.providers || [])
+        .map(
+          (p) =>
+            `<option value="${esc(p.id)}" ${p.id === prov.active ? "selected" : ""} ${
+              p.configured ? "" : "disabled"
+            }>${esc(p.label)}${p.configured ? "" : " (off)"}</option>`
+        )
+        .join("");
+    } catch (e) {
+      providerOptions =
+        "<option value=''>Padrão (Ollama)</option>";
+    }
+
+    let apiBanner = "";
+    const apiOk = await window.DelegadoApi.health();
+    if (!apiOk) {
+      apiBanner = `<div class="card" style="border-color:#c44">
+        <p class="error"><strong>API offline.</strong> ${esc(
+          "Inicie no terminal: cd naintegra && PYTHONPATH=src DELEGADO_AI_PROVIDER=ollama python3 -m uvicorn naintegra_meta.api:app --host 127.0.0.1 --port 8787"
+        )}</p>
+      </div>`;
+    }
+
     el.innerHTML = `
+      ${apiBanner}
+      <div class="card highlight">
+        <h2>Estilo @profalexandrezamboni</h2>
+        <p class="muted">Reels «Indo DIRETO ao ponto» + legenda numerada + «Qual a sua opinião?» — adaptado para PF (disclaimer educacional).</p>
+        <button type="button" class="btn ghost small" id="btn-show-calendar">Ver cronograma do mês</button>
+        <pre id="calendar-preview" class="muted hidden" style="font-size:0.75rem;max-height:220px;overflow:auto"></pre>
+      </div>
       <div class="card">
-        <h2>Gerador de ideias (Claude)</h2>
-        <p class="muted">Tema + formato → 3 ideias com gancho, legenda, hashtags e CTA</p>
+        <h2>Automação (aprovação manual)</h2>
+        <p class="muted">Gera post do dia no calendário → fila <code>aguardando_aprovacao</code>. Você publica manualmente na aba Publicação.</p>
+        <div class="field-row">
+          <label>Dias<input id="pipe-days" type="number" min="1" max="31" value="1" /></label>
+          <label>Provedor IA<select id="pipe-provider">${providerOptions}</select></label>
+        </div>
+        <button type="button" class="btn primary" id="btn-run-pipeline">Gerar fila de hoje</button>
+        <p id="pipeline-result" class="muted" style="margin-top:0.75rem"></p>
+      </div>
+      <div class="card highlight">
+        <h2>Pacote completo (texto + imagens)</h2>
+        <p class="muted">Legenda longa, roteiro Reels, slides e PNGs prontos (PIL local + DALL-E/Gemini se configurados). Usa biblioteca Marketing Digital + Lex.</p>
+        <div class="field-row">
+          <label>Tema<input id="pkg-tema" placeholder="Ex.: flagrante vs prisão em flagrante" /></label>
+          <label>Formato
+            <select id="pkg-formato">
+              <option value="carrossel" selected>Carrossel</option>
+              <option value="reels">Reels</option>
+              <option value="story">Story</option>
+            </select>
+          </label>
+          <label>Texto IA<select id="pkg-text-provider">${providerOptions}</select></label>
+          <label>Imagem<select id="pkg-image-provider"><option value="">Auto</option><option value="pillow" selected>Local PIL</option><option value="openai">OpenAI</option><option value="gemini">Gemini</option></select></label>
+        </div>
+        <label style="display:flex;align-items:center;gap:0.5rem;margin:0.5rem 0">
+          <input type="checkbox" id="pkg-ai-images" checked /> Tentar imagens IA (senão só slides PIL)
+        </label>
+        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
+          <button type="button" class="btn primary" id="btn-generate-package">Gerar pacote postável</button>
+          <button type="button" class="btn ghost" id="btn-compare-ias">Comparar IAs (texto)</button>
+        </div>
+        <p id="pkg-result" class="muted" style="margin-top:0.75rem"></p>
+        <div id="pkg-preview" class="pkg-preview-grid"></div>
+      </div>
+      <div class="card">
+        <h2>Gerador de ideias (IA)</h2>
+        <p class="muted">Tema + formato → 3 ideias (gancho overlay, roteiro, legenda Zamboni)</p>
         <div class="field-row">
           <label>Tema<input id="idea-tema" placeholder="Ex.: flagrante vs auto de prisão em flagrante" /></label>
           <label>Formato
             <select id="idea-formato">
               <option value="carrossel">Carrossel</option>
-              <option value="reels">Reels</option>
+              <option value="reels" selected>Reels</option>
               <option value="story">Story</option>
             </select>
           </label>
+          <label>Provedor<select id="idea-provider">${providerOptions}</select></label>
         </div>
         <button type="button" class="btn primary" id="btn-generate-ideas">Gerar ideias</button>
         <div id="ideas-output"></div>
       </div>`;
 
+    $("#btn-show-calendar")?.addEventListener("click", async () => {
+      const pre = $("#calendar-preview");
+      try {
+        const res = await window.DelegadoApi.contentCalendar("2026-06");
+        pre.textContent = JSON.stringify(res.calendar?.days || [], null, 2);
+        pre.classList.remove("hidden");
+      } catch (e) {
+        pre.textContent = e.message;
+        pre.classList.remove("hidden");
+      }
+    });
+
+    $("#btn-generate-package")?.addEventListener("click", async () => {
+      const tema = $("#pkg-tema").value.trim() || $("#idea-tema").value.trim();
+      const out = $("#pkg-result");
+      const prev = $("#pkg-preview");
+      if (tema.length < 3) {
+        out.textContent = "Informe um tema com pelo menos 3 caracteres.";
+        return;
+      }
+      out.textContent = "Gerando pacote (texto + imagens)… pode levar alguns minutos.";
+      prev.innerHTML = "";
+      try {
+        const res = await window.DelegadoApi.generatePackage({
+          tema,
+          formato: $("#pkg-formato").value,
+          text_provider: $("#pkg-text-provider").value || null,
+          image_provider: $("#pkg-image-provider").value || null,
+          use_ai_images: $("#pkg-ai-images").checked,
+          save_queue: true,
+        });
+        const pkg = res.package || {};
+        out.textContent = `Pacote ${pkg.package_id} — ${pkg.text_source || ""}. ${
+          pkg.queue_id ? "Na fila ✓" : pkg.queue_error || "Revise fila/outbox"
+        }`;
+        window._lastPackage = pkg;
+        const assets = pkg.assets || [];
+        prev.innerHTML = "";
+        for (const a of assets) {
+          const fig = document.createElement("figure");
+          fig.className = "pkg-thumb";
+          const img = document.createElement("img");
+          img.alt = a.label || a.kind || "";
+          const cap = document.createElement("figcaption");
+          cap.textContent = `${a.label || a.kind || ""} · ${a.image_provider || ""}`;
+          fig.append(img, cap);
+          prev.append(fig);
+          if (a.url) {
+            window.DelegadoApi.fetchAsset(a.url)
+              .then((blob) => {
+                img.src = URL.createObjectURL(blob);
+              })
+              .catch(() => {
+                cap.textContent += " (preview: faça login / API ativa)";
+              });
+          }
+        }
+        if (pkg.meta?.roteiro_falas) {
+          const pre = document.createElement("pre");
+          pre.className = "muted";
+          pre.style.gridColumn = "1/-1";
+          pre.textContent = pkg.meta.roteiro_falas;
+          prev.append(pre);
+        }
+      } catch (e) {
+        out.innerHTML = `<p class="error">${esc(window.DelegadoApi.apiNetworkError(e))}</p>`;
+      }
+    });
+
+    $("#btn-compare-ias")?.addEventListener("click", async () => {
+      const tema = $("#pkg-tema").value.trim();
+      const out = $("#pkg-result");
+      if (tema.length < 3) {
+        out.textContent = "Informe um tema.";
+        return;
+      }
+      out.textContent = "Comparando provedores de texto…";
+      try {
+        const res = await window.DelegadoApi.comparePackages(tema, $("#pkg-formato").value);
+        out.innerHTML =
+          "<pre class='muted' style='max-height:240px;overflow:auto'>" +
+          esc(JSON.stringify(res, null, 2)) +
+          "</pre>";
+      } catch (e) {
+        out.textContent = window.DelegadoApi.apiNetworkError(e);
+      }
+    });
+
+    $("#btn-run-pipeline")?.addEventListener("click", async () => {
+      const out = $("#pipeline-result");
+      out.textContent = "Gerando com Ollama/IA…";
+      try {
+        const res = await window.DelegadoApi.runPipeline({
+          days: Number($("#pipe-days").value) || 1,
+          provider: $("#pipe-provider").value || null,
+          dry_run: false,
+        });
+        out.textContent = `OK: ${res.created_count} item(ns) — provedor ${res.provider}. Abra Publicação para aprovar.`;
+      } catch (e) {
+        out.textContent = window.DelegadoApi.apiNetworkError(e);
+      }
+    });
+
     $("#btn-generate-ideas").addEventListener("click", async () => {
       const tema = $("#idea-tema").value.trim();
       const formato = $("#idea-formato").value;
+      const provider = $("#idea-provider")?.value || null;
       const out = $("#ideas-output");
       if (tema.length < 3) {
         out.innerHTML = "<p class='error'>Informe um tema com pelo menos 3 caracteres.</p>";
         return;
       }
-      out.innerHTML = "<p class='muted'>Gerando ideias…</p>";
+      out.innerHTML =
+        "<p class='muted'>Gerando ideias… Com Ollama local pode levar 1–2 minutos. Aguarde.</p>";
       try {
-        const res = await window.DelegadoApi.generateIdeas(tema, formato);
+        const res = await window.DelegadoApi.generateIdeas(tema, formato, provider);
         const sourceNote =
           res.source === "fallback"
-            ? "<p class='muted'>Modo local (Claude indisponível) — ideias baseadas em templates.</p>"
-            : "";
+            ? "<p class='muted'>Modo template local — IA indisponível.</p>"
+            : `<p class='muted'>Fonte: ${esc(res.source || "")}</p>`;
         out.innerHTML =
           sourceNote +
           (res.ideas || [])
@@ -143,6 +317,8 @@
           <div class="idea-card">
             <h3>${i + 1}. ${esc(idea.titulo || "Ideia")}</h3>
             <p><strong>Gancho:</strong> ${esc(idea.gancho || "")}</p>
+            ${idea.texto_overlay ? `<p><strong>Overlay:</strong> ${esc(idea.texto_overlay)}</p>` : ""}
+            ${idea.roteiro_falas ? `<p><strong>Roteiro:</strong> ${esc(idea.roteiro_falas)}</p>` : ""}
             <p>${esc(idea.legenda || "")}</p>
             <p class="hashtags">${esc((idea.hashtags || []).join(" "))}</p>
             <p><strong>CTA:</strong> ${esc(idea.cta || "")}</p>
@@ -173,7 +349,13 @@
                 formato: idea.formato_sugerido || formato,
                 legenda: idea.legenda || "",
                 hashtags: idea.hashtags || [],
-                status: "rascunho",
+                status: "aguardando_aprovacao",
+                meta: {
+                  gancho: idea.gancho,
+                  texto_overlay: idea.texto_overlay,
+                  roteiro_falas: idea.roteiro_falas,
+                  slides: idea.slides || [],
+                },
               });
               btn.textContent = "Na fila ✓";
             } catch (e) {
@@ -182,7 +364,7 @@
           });
         });
       } catch (e) {
-        out.innerHTML = `<p class="error">${esc(e.message)}</p>`;
+        out.innerHTML = `<p class="error">${esc(window.DelegadoApi.apiNetworkError(e))}</p>`;
       }
     });
   }
@@ -238,7 +420,7 @@
           <h2>Fila / calendário</h2>
           <div class="table-wrap">
             <table>
-              <thead><tr><th>Título</th><th>Formato</th><th>Status</th><th>Agendado</th><th></th></tr></thead>
+              <thead><tr><th>Título</th><th>Formato</th><th>Status</th><th>Agendado</th><th>Aprovação</th><th></th></tr></thead>
               <tbody id="queue-body">${queueRows(items)}</tbody>
             </table>
           </div>
@@ -251,7 +433,7 @@
   }
 
   function queueRows(items) {
-    if (!items.length) return "<tr><td colspan='5' class='muted'>Fila vazia</td></tr>";
+    if (!items.length) return "<tr><td colspan='6' class='muted'>Fila vazia</td></tr>";
     return items
       .map(
         (it) => `<tr>
@@ -259,6 +441,14 @@
         <td>${esc(it.formato)}</td>
         <td><span class="status-pill ${esc(it.status)}">${esc(it.status)}</span></td>
         <td>${esc(it.scheduled_at || "—")}</td>
+        <td>
+          ${
+            it.status === "aguardando_aprovacao"
+              ? `<button type="button" class="btn primary small btn-approve-q" data-id="${esc(it.id)}">Aprovar</button>
+                 <button type="button" class="btn ghost small btn-reject-q" data-id="${esc(it.id)}">Rejeitar</button>`
+              : ""
+          }
+        </td>
         <td><button type="button" class="btn ghost small btn-del-q" data-id="${esc(it.id)}">Remover</button></td>
       </tr>`
       )
@@ -310,6 +500,26 @@
       }
     });
 
+    document.querySelectorAll(".btn-approve-q").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          await window.DelegadoApi.patchQueueStatus(btn.dataset.id, "aprovado");
+          renderPublish();
+        } catch (e) {
+          alert(e.message);
+        }
+      });
+    });
+    document.querySelectorAll(".btn-reject-q").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        try {
+          await window.DelegadoApi.patchQueueStatus(btn.dataset.id, "rejeitado");
+          renderPublish();
+        } catch (e) {
+          alert(e.message);
+        }
+      });
+    });
     document.querySelectorAll(".btn-del-q").forEach((btn) => {
       btn.addEventListener("click", async () => {
         try {

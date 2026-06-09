@@ -1471,6 +1471,7 @@
                 title: doc.title || docId,
               })}
             </div>
+            <div class="reader-find-host" data-reader-find-host aria-label="Buscar neste documento"></div>
             <div class="reader-body study-inline-reader-body ${readerMode}" style="font-size:${fontSize}px">
               ${bodyHtml}
             </div>
@@ -1527,6 +1528,7 @@
               })}
             </div>
           </div>
+          <div class="reader-find-host" data-reader-find-host aria-label="Buscar neste documento"></div>
           <div class="reader-features-hint ${studyType === "jurisprudencia" ? "reader-features-hint-juris" : ""}" role="note">
             ${
               studyType === "jurisprudencia"
@@ -3756,6 +3758,7 @@
       bindJurisCloseButtons(opts.listRoute || (backRoute === "favoritos" ? "favoritos" : "jurisprudencia"));
     }
     applyCrossRefs(container.querySelector(".reader-body, .study-inline-reader-body"), doc);
+    window.LexPageFind?.mountReaderHost?.(container);
     window.LexPageFind?.onContentUpdate();
     return reader;
   }
@@ -4065,6 +4068,7 @@
     bindReader(docId, reader.articles, docStudyType(doc));
     bindReportError();
     applyCrossRefs(document.getElementById("reader-body"), doc);
+    window.LexPageFind?.mountReaderHost?.(app);
     window.LexPageFind?.onContentUpdate();
   }
 

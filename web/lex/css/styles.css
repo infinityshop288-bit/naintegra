@@ -290,6 +290,27 @@ mark.lex-page-find-mark.lex-page-find-current {
   outline: 1px solid rgba(154, 110, 0, 0.5);
 }
 
+.reader-find-host {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+  margin: 0 0 0.75rem;
+  padding: 0.5rem 0.65rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 2px 8px rgba(17, 16, 8, 0.06);
+}
+
+.reader-find-host .page-find-inner--compact {
+  gap: 0.3rem;
+}
+
+.reader-find-host .page-find-input {
+  flex: 1 1 140px;
+  min-width: 0;
+}
+
 .global-search {
   position: relative;
   flex: 1 1 280px;
@@ -1496,6 +1517,15 @@ input[type="search"], select {
   font-family: var(--font-serif);
   font-weight: 600;
   font-size: 0.95rem;
+}
+
+.lei-secao { margin: 1rem 0 0.35rem; }
+.lei-secao .lei-label {
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--muted);
+  letter-spacing: 0.02em;
 }
 
 .lei-artigo {

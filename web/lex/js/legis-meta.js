@@ -341,6 +341,8 @@
     { re: /l5474/i, secao: "Legislação Especial", titulo: "Lei 5.474/1968 — Lei das Duplicatas" },
     { re: /l5478/i, secao: "Civil e Trabalho", titulo: "Lei 5.478/1968 — Lei de Alimentos" },
     { re: /l12694/i, secao: "Penal e Processual", titulo: "Lei 12.694/2012 — Lei do Juiz sem Rosto" },
+    { re: /l10216/i, secao: "Legislação Especial", titulo: "Lei 10.216/2001 — Reforma Psiquiátrica" },
+    { re: /l14193/i, secao: "Civil e Trabalho", titulo: "Lei 14.193/2021 — Sociedade Anônima do Futebol" },
     { re: /l14597/i, secao: "Legislação Especial", titulo: "Lei 14.597/2023 — Lei Geral do Esporte" },
     { re: /l14852/i, secao: "Legislação Especial", titulo: "Lei 14.852/2024 — Marco Legal dos Jogos Eletrônicos" },
     { re: /l2889/i, secao: "Penal e Processual", titulo: "Lei 2.889/1956 — Lei do Genocídio" },

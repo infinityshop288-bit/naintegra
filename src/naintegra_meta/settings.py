@@ -1,5 +1,15 @@
+import os
+
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
+
+
+def _env_first(*names: str) -> str | None:
+    for name in names:
+        val = os.environ.get(name, "").strip()
+        if val:
+            return val
+    return None
 
 
 class MetaSettings(BaseSettings):
@@ -22,6 +32,10 @@ class MetaSettings(BaseSettings):
     anthropic_api_key: str | None = Field(default=None, alias="ANTHROPIC_API_KEY")
     anthropic_model: str = Field(default="claude-sonnet-4-20250514", alias="ANTHROPIC_MODEL")
 
+    delegado_ai_provider: str = Field(default="ollama", alias="DELEGADO_AI_PROVIDER")
+    delegado_ai_model: str | None = Field(default=None, alias="DELEGADO_AI_MODEL")
+    delegado_ollama_model: str = Field(default="llama3.2:3b", alias="DELEGADO_OLLAMA_MODEL")
+
     supabase_url: str | None = Field(default=None, alias="SUPABASE_URL")
     supabase_anon_key: str | None = Field(default=None, alias="SUPABASE_ANON_KEY")
     supabase_service_role_key: str | None = Field(default=None, alias="SUPABASE_SERVICE_ROLE_KEY")
@@ -38,6 +52,20 @@ class MetaSettings(BaseSettings):
     )
 
     delegado_schema: str = Field(default="delegado", alias="DELEGADO_SCHEMA")
+
+    @property
+    def supabase_url_resolved(self) -> str | None:
+        return self.supabase_url or _env_first("LEX_AGENT_SUPABASE_URL", "SUPABASE_URL")
+
+    @property
+    def supabase_key_resolved(self) -> str:
+        return (
+            self.supabase_service_role_key
+            or _env_first("SUPABASE_SERVICE_ROLE_KEY", "LEX_AGENT_SUPABASE_SERVICE_ROLE_KEY")
+            or self.supabase_anon_key
+            or _env_first("SUPABASE_ANON_KEY")
+            or ""
+        )
 
     @property
     def allowed_email_set(self) -> set[str]:

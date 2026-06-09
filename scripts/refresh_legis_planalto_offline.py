@@ -69,6 +69,18 @@ NEW_LEGIS: list[dict[str, str]] = [
         "resumo": "Altera o CPP sobre prisão preventiva, audiência de custódia e coleta de DNA.",
         "secao": "Penal e Processual",
     },
+    {
+        "url": "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14193.htm",
+        "titulo": "Lei 14.193/2021 — Sociedade Anônima do Futebol",
+        "resumo": "Institui a SAF e disciplina a transformação de clubes em sociedades anônimas.",
+        "secao": "Civil e Trabalho",
+    },
+    {
+        "url": "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10216.htm",
+        "titulo": "Lei 10.216/2001 — Reforma Psiquiátrica",
+        "resumo": "Dispõe sobre a proteção e os direitos das pessoas portadoras de transtornos mentais.",
+        "secao": "Legislação Especial",
+    },
 ]
 
 # Edital MPSP / carreiras jurídicas — diplomas ausentes do acervo offline

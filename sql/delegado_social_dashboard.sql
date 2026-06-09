@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS delegado.content_queue (
   media_url text,
   scheduled_at timestamptz,
   status text NOT NULL DEFAULT 'rascunho',
+  meta jsonb NOT NULL DEFAULT '{}',
   created_by uuid REFERENCES auth.users(id),
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now()

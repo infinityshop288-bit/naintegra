@@ -4,7 +4,19 @@ from __future__ import annotations
 
 from typing import Any
 
+from naintegra_meta.zamboni_style import ZAMBONI_BENCHMARK, EXPOSURE_RULES
+
+ZAMBONI_STYLE = {
+    "benchmark": ZAMBONI_BENCHMARK,
+    "exposure_rules": EXPOSURE_RULES.strip(),
+    "adaptacao_delegado": (
+        "Mesmo formato de Reels/legenda numerada do @profalexandrezamboni, "
+        "com disclaimer institucional PF e casos apenas didáticos/genéricos."
+    ),
+}
+
 COMPETITORS: list[dict[str, Any]] = [
+    {"handle": "@profalexandrezamboni", "seguidores": 412_000, "camada": "referencia_estilo", "nicho": "penal reels virais"},
     {"handle": "@direitonews", "seguidores": 958_000, "camada": "topo", "nicho": "portal jurídico"},
     {"handle": "@visaoefocopolicial", "seguidores": 775_000, "camada": "topo", "nicho": "concursos policiais"},
     {"handle": "@aurylopesjr", "seguidores": 523_000, "camada": "topo", "nicho": "processo penal"},
@@ -146,6 +158,7 @@ AUTOMATION_HYPOTHESES: list[dict[str, Any]] = [
 
 POSITIONING = {
     "diferencial": "Autoridade real de Delegado PF + casos práticos (flagrante, IPL, tipificação)",
+    "referencia_estilo_exposicao": "@profalexandrezamboni",
     "referencia_crescimento": "@visaoefocopolicial",
     "benchmark_direto": "@marcelo_daemon",
     "publico": "Concurseiros policiais e OAB — foco Direito Penal/Processo Penal",
