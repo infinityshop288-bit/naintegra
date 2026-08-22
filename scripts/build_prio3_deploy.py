@@ -68,10 +68,10 @@ def htpasswd_line(user: str, password: str) -> str:
 
 
 def write_htaccess(out: Path, cfg: dict[str, str]) -> None:
-    user = cfg.get("DASHBOARD_USER", "infinity.shop288@gmail.com")
     abs_pw = cfg.get("HTPASSWD_ABS_PATH", "").strip()
     if not abs_pw:
-        abs_pw = str(out / ".htpasswd")
+        # Mesmo diretório do .htaccess (public/xxx/ no Hostinger)
+        abs_pw = ".htpasswd"
     tpl = f"""# NaIntegra — dashboard protegido (Hostinger / Apache)
 <IfModule mod_auth_basic.c>
   AuthType Basic

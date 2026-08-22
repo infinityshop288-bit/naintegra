@@ -58,7 +58,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: infinityshop288-bit/naintegracursos
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.REPO_SYNC_TOKEN || secrets.GITHUB_TOKEN }}
           path: naintegracursos
 
       - name: Sync public/xxx
