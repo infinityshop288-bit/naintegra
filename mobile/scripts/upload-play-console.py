@@ -13,6 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 MOBILE = ROOT / "mobile"
 ASSETS = MOBILE / "store-assets" / "generated"
+SHOTS = ASSETS / "phone"
 AAB = MOBILE / "dist" / "naintegra-lex-release.aab"
 PACKAGE = "br.com.naintegracursos.lex"
 
@@ -221,7 +222,7 @@ def step_store_listing(page) -> None:
 
     icon = ASSETS / "icon-512-play-store.png"
     feature = ASSETS / "feature-graphic-1024x500.png"
-    shots = sorted(ASSETS.glob("screenshot-*.png"))
+    shots = sorted(SHOTS.glob("screenshot-*.png"))
 
     for path, label in (
         (icon, "ícone"),

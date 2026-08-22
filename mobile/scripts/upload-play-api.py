@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 MOBILE = ROOT / "mobile"
 ASSETS = MOBILE / "store-assets" / "generated"
+SHOTS = ASSETS / "phone"
 AAB = MOBILE / "dist" / "naintegra-lex-release.aab"
 PACKAGE = "br.com.naintegracursos.lex"
 LANG = "pt-BR"
@@ -98,7 +99,7 @@ def upload_images(service, package: str, edit_id: str) -> None:
         ).execute()
         print(f"  imagem: {image_type}")
 
-    for shot in sorted(ASSETS.glob("screenshot-*.png"))[:8]:
+    for shot in sorted(SHOTS.glob("screenshot-*.png"))[:8]:
         service.edits().images().upload(
             packageName=package,
             editId=edit_id,
@@ -153,8 +154,9 @@ def main() -> int:
     ensure_deps()
     if not AAB.exists():
         subprocess.run(["bash", str(MOBILE / "scripts" / "build-release-aab.sh")], check=True)
-    if not ASSETS.exists() or not list(ASSETS.glob("screenshot-*.png")):
-        subprocess.run([sys.executable, str(MOBILE / "scripts" / "generate-store-assets.py")], check=True)
+    if not SHOTS.exists() or not list(SHOTS.glob("screenshot-*.png")):
+        subprocess.run([sys.executable, str(MOBILE / "scripts" / "export-play-screenshots.py"), "--device", "phone"], check=True)
+    subprocess.run([sys.executable, str(MOBILE / "scripts" / "generate-store-assets.py")], check=True)
 
     creds_path = find_service_account(args.service_account)
     print(f"Service account: {creds_path}")

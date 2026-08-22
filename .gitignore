@@ -1,5 +1,7 @@
 .env
 .env.deploy
+.DS_Store
+supabase/.temp/
 .lex_agent/
 __pycache__/
 *.py[cod]

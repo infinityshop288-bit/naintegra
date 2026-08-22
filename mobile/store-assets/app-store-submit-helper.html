@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>NaIntegra Lex — App Store (colar)</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 720px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { font-size: 1.25rem; }
+    section { margin: 1.5rem 0; border: 1px solid #ddd; border-radius: 8px; padding: 1rem; }
+    label { font-weight: 600; display: block; margin-bottom: 0.25rem; }
+    textarea, input { width: 100%; font-family: inherit; font-size: 0.9rem; }
+    textarea { min-height: 4rem; }
+    .hint { color: #666; font-size: 0.85rem; margin-top: 0.5rem; }
+    ol { line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <h1>NaIntegra Lex — enviar para revisão (App Store Connect)</h1>
+  <p><strong>Assets:</strong> <code>mobile/store-assets/generated/app-store/</code> (capturas 1284×2778 + ícone 1024)</p>
+
+  <section>
+    <h2>Passos</h2>
+    <ol>
+      <li><a href="https://appstoreconnect.apple.com/apps/6778567767/distribution/info" target="_blank">Informações do app</a> → <strong>Configurar classificações etárias</strong> → responda tudo “Não/Nenhum” → Salvar</li>
+      <li><a href="https://appstoreconnect.apple.com/apps/6778567767/distribution/appprivacy" target="_blank">Privacidade do app</a> → clique <strong>Publicar</strong> (canto superior)</li>
+      <li><a href="https://appstoreconnect.apple.com/apps/6778567767/distribution/pricing" target="_blank">Preços</a> → <strong>Adicionar preços</strong> → Gratuito → confirmar</li>
+      <li><a href="https://appstoreconnect.apple.com/apps/6778567767/distribution/ios/version/inflight" target="_blank">Versão 1.0</a> → Compilação <strong>4</strong> → <strong>Gerenciar</strong> → criptografia padrão/isenta → Salvar</li>
+      <li>Na versão 1.0 → Salvar → <strong>Adicionar para revisão</strong></li>
+    </ol>
+  </section>
+
+  <section>
+    <label>Descrição</label>
+    <textarea id="desc" readonly></textarea>
+    <label style="margin-top:1rem">Palavras-chave</label>
+    <input id="kw" readonly>
+    <label style="margin-top:1rem">URL de suporte</label>
+    <input id="support" readonly>
+    <label style="margin-top:1rem">URL de marketing</label>
+    <input id="marketing" readonly>
+  </section>
+
+  <section>
+    <label>Revisor — e-mail (campo usuário no ASC)</label>
+    <input id="user" readonly>
+    <label style="margin-top:1rem">Revisor — senha</label>
+    <input id="pass" readonly>
+    <label style="margin-top:1rem">Notas para o revisor</label>
+    <textarea id="notes" readonly></textarea>
+  </section>
+
+  <p class="hint">Clique em cada campo e Cmd+A / Cmd+C para copiar.</p>
+  <script>
+    const D = `NaIntegra Lex reúne legislação federal organizada, jurisprudência dos tribunais superiores, flashcards e questões para concursos de segurança pública.
+
+Funcionalidades:
+• Leitura de leis artigo por artigo com formatação padronizada
+• Busca por tema na lei seca
+• Súmulas, temas de repercussão geral e julgados
+• Flashcards para revisão
+• Narração (Text-to-Speech) dos textos legais
+• Anotações e marcação de leitura
+
+Assinatura necessária para acesso completo ao acervo.`;
+    document.getElementById('desc').value = D;
+    document.getElementById('kw').value = 'concurso,policial,lei seca,jurisprudência,flashcards,direito,STF,legislação';
+    document.getElementById('support').value = 'https://www.naintegracursos.com.br/lex/#/contato';
+    document.getElementById('marketing').value = 'https://www.naintegracursos.com.br/lex/';
+    document.getElementById('user').value = 'teste.naintegra.lex@gmail.com';
+    document.getElementById('pass').value = 'NaIntegraLex2026!';
+    document.getElementById('notes').value = 'Use o E-MAIL completo teste.naintegra.lex@gmail.com (não "NaIntegra"). Assinatura ativa. iOS: IAP App Store; login Apple nativo. Exclusão: #/excluir-conta.';
+  </script>
+</body>
+</html>

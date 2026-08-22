@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
-"""Gera feature graphic (1024×500) e capturas (1080×1920) para Google Play."""
+"""Gera feature graphic (1024×500) e ícone 512 para Google Play.
+
+As capturas de tela são geradas por export-play-screenshots.py, que renderiza o
+repositório local em viewports de aparelho. Este script não captura da produção
+para não congelar na loja uma versão desatualizada da interface.
+"""
 from __future__ import annotations
 
 import subprocess
 import sys
-import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 MOBILE = ROOT / "mobile"
 OUT = MOBILE / "store-assets" / "generated"
 ICON = ROOT / "web" / "lex" / "icons" / "icon-512.png"
-LEX_URL = "https://www.naintegracursos.com.br/lex/"
 
 
 def ensure_pillow():
@@ -57,10 +60,10 @@ def make_feature_graphic() -> Path:
         fill="#5a5348",
         font=font_features,
     )
-    draw.text((text_x, 282), "Concursos públicos", fill="#9a6e00", font=font_tag)
+    draw.text((text_x, 282), "Concursos públicos · 100% grátis", fill="#9a6e00", font=font_tag)
     draw.text(
         (text_x, 330),
-        "Material atualizado semanalmente · ideal no transporte",
+        "Sem assinatura, sem anúncios · atualizado semanalmente",
         fill="#5a5348",
         font=font_note,
     )
@@ -79,36 +82,6 @@ def make_icon_copy() -> Path:
     return out
 
 
-def screenshots_playwright() -> list[Path]:
-    try:
-        from playwright.sync_api import sync_playwright
-    except ImportError:
-        subprocess.run([sys.executable, "-m", "pip", "install", "playwright", "-q"], check=True)
-        subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], check=True)
-        from playwright.sync_api import sync_playwright
-
-    OUT.mkdir(parents=True, exist_ok=True)
-    shots: list[Path] = []
-    routes = [
-        ("01-inicio", "#/"),
-        ("02-lei-seca", "#/lei-seca"),
-        ("03-flashcards", "#/flashcards"),
-        ("04-jurisprudencia", "#/jurisprudencia"),
-    ]
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        page = browser.new_page(viewport={"width": 1080, "height": 1920}, device_scale_factor=1)
-        for name, route in routes:
-            page.goto(f"{LEX_URL}{route}", wait_until="networkidle", timeout=90000)
-            page.wait_for_timeout(2500)
-            path = OUT / f"screenshot-{name}-1080x1920.png"
-            page.screenshot(path=str(path), full_page=False)
-            shots.append(path)
-            print(f"  captura: {path.name}")
-        browser.close()
-    return shots
-
-
 def main() -> int:
     print("==> Feature graphic + ícone")
     ensure_pillow()
@@ -117,13 +90,11 @@ def main() -> int:
     print(f"  {fg}")
     print(f"  {ic}")
 
-    print("==> Capturas de tela (Playwright → site produção)")
-    try:
-        shots = screenshots_playwright()
-        print(f"  {len(shots)} captura(s)")
-    except Exception as exc:
-        print(f"[AVISO] Capturas automáticas falharam: {exc}")
-        print("  Faça capturas manualmente no emulador AI Studio (1080×1920).")
+    shots = sorted((OUT / "phone").glob("screenshot-*.png"))
+    if shots:
+        print(f"==> Capturas já geradas: {len(shots)} em {OUT / 'phone'}")
+    else:
+        print("==> Capturas ausentes — rode: npm run play:screenshots")
 
     print(f"\nAssets em: {OUT}")
     return 0

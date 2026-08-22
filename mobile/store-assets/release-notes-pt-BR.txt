@@ -1,11 +1,9 @@
-Versão 1.0.0 — lançamento inicial
+Versão 1.1.0 — o NaIntegra Lex agora é gratuito
 
-• Lei seca com leitura artigo por artigo e busca por tema
-• Jurisprudência — súmulas, temas e julgados
-• Flashcards para revisão espaçada
-• Banco de questões integrado
-• Narração por voz (TTS) dos dispositivos legais
-• Login com Google e Apple
-• Anotações e grifos no dispositivo
+• Todo o acervo liberado sem custo: assinatura e pagamentos foram removidos do app
+• Não é mais necessário criar conta para estudar — abra e use
+• Conta agora é opcional, só para sincronizar grifos, anotações e progresso entre aparelhos
+• Nova página de Política de Privacidade dentro do app
+• Sem anúncios e sem compras no app
 
 Desenvolvido por NaIntegra Cursos.

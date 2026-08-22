@@ -7,7 +7,7 @@
   const STEPS = [
     {
       title: "Bem-vindo ao NaIntegra Lex",
-      body: "Estude legislação, jurisprudência, flashcards e questões para concursos de segurança pública — com material em português e atualização semanal.",
+      body: "Estude legislação, jurisprudência, flashcards e questões para concursos de segurança pública. Tudo gratuito, sem anúncios e sem precisar de conta.",
       icon: "📚",
     },
     {
@@ -40,8 +40,8 @@
       icon: "🔍",
     },
     {
-      title: "Sincronize seu progresso",
-      body: "Entre com Google ou Apple para salvar grifos, anotações e favoritos na nuvem entre celular e computador.",
+      title: "Sincronize seu progresso (opcional)",
+      body: "Se quiser usar o app em mais de um aparelho, crie uma conta para salvar grifos, anotações e favoritos na nuvem. É opcional — sem conta, tudo fica salvo no próprio aparelho.",
       icon: "☁️",
     },
   ];
@@ -160,12 +160,11 @@
     return true;
   }
 
-  /** Exibir tour na home logada com assinatura ativa. */
+  /** Exibir tour na home. */
   function maybeShow() {
     if (isDone()) return false;
     const path = (location.hash.replace(/^#/, "") || "/").split("?")[0];
     if (path !== "/" && path !== "") return false;
-    if (document.body.classList.contains("lex-public-mode")) return false;
     if (!document.querySelector(".tiles")) return false;
     return show();
   }

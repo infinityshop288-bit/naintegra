@@ -66,9 +66,17 @@
 
   function render() {
     if (!shouldShow()) return;
+    const showStore =
+      window.LexPlatform?.showAppStorePrompts?.() ||
+      window.LexPlatform?.showPlayStorePrompts?.() ||
+      !window.LexPlatform;
+    if (!showStore) return;
     remove();
     const host = document.getElementById("app") || document.getElementById("main");
     if (!host) return;
+
+    const storeUrl = window.LexPlatform?.storeReviewUrl?.() || playStoreUrl();
+    const storeLabel = window.LexPlatform?.storeReviewLabel?.() || "Play Store";
 
     const banner = document.createElement("div");
     banner.id = "lex-feedback-banner";
@@ -77,9 +85,9 @@
     banner.setAttribute("aria-label", "Avalie o aplicativo");
     banner.innerHTML = `
       <div class="lex-feedback-inner">
-        <p><strong>O Lex está ajudando nos seus estudos?</strong> Sua avaliação na Play Store ajuda outros concurseiros a encontrarem o app.</p>
+        <p><strong>O Lex está ajudando nos seus estudos?</strong> Sua avaliação na ${esc(storeLabel)} ajuda outros concurseiros a encontrarem o app.</p>
         <div class="lex-feedback-actions">
-          <a class="btn sm primary" href="${esc(playStoreUrl())}" target="_blank" rel="noopener noreferrer" data-feedback-rate>Avaliar na Play Store</a>
+          <a class="btn sm primary" href="${esc(storeUrl)}" target="_blank" rel="noopener noreferrer" data-feedback-rate>Avaliar na ${esc(storeLabel)}</a>
           <a class="btn sm" href="#/contato" data-feedback-contact>Sugerir melhoria</a>
           <button type="button" class="btn sm" data-feedback-later>Agora não</button>
           <button type="button" class="link-btn" data-feedback-dismiss>Não perguntar de novo</button>

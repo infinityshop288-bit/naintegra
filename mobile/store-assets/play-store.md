@@ -9,14 +9,16 @@ NaIntegra Lex
 
 ## Descrição curta (máx. 80 caracteres)
 ```
-Lei seca, súmulas, flashcards e questões para concursos públicos.
+Grátis: lei seca, súmulas, flashcards e questões para concursos.
 ```
 
 ## Descrição completa
 ```
 Você se prepara para concurso público — fiscal, tribunais, jurídico, administrativo, MP, Defensoria ou carreiras policiais? O NaIntegra Lex reúne, em um só lugar, tudo o que você precisa para dominar legislação e jurisprudência — com método, clareza e revisão inteligente.
 
-Chega de abrir dez abas, PDFs desorganizados e anotações espalhadas. Aqui você lê a lei na íntegra, acompanha o que já estudou, revisa com flashcards e testa o conhecimento com questões — no celular, no tablet ou no navegador, com progresso sincronizado e material atualizado semanalmente.
+100% GRATUITO. Sem assinatura, sem compras dentro do app, sem anúncios e sem limite de conteúdo. Você não precisa nem criar conta para começar a estudar: abra o app e todo o acervo já está liberado.
+
+Chega de abrir dez abas, PDFs desorganizados e anotações espalhadas. Aqui você lê a lei na íntegra, acompanha o que já estudou, revisa com flashcards e testa o conhecimento com questões — no celular, no tablet ou no navegador, com material atualizado semanalmente.
 
 Ideal para quem estuda durante o deslocamento: transforme o tempo no ônibus, metrô, trem ou van em revisão produtiva — lendo, ouvindo ou respondendo flashcards.
 
@@ -40,13 +42,16 @@ Banco integrado ao NaIntegra Cursos, com comentários da comunidade e filtros pa
 Não dá para ler agora? Ative a narração e estude no transporte público, no trânsito, na academia ou na fila — ouvindo dispositivos legais com voz natural. A forma ideal de aproveitar cada minuto do deslocamento.
 
 ✏️ ANOTAÇÕES E GRIFOS
-Destaque o que importa e registre observações pessoais. Tudo fica salvo na sua conta, pronto para revisar antes da prova.
+Destaque o que importa e registre observações pessoais. Tudo fica salvo, pronto para revisar antes da prova.
 
-☁️ SINCRONIZAÇÃO
-Entre com Google ou Apple e continue de onde parou em qualquer dispositivo. Seu progresso acompanha você.
+☁️ SINCRONIZAÇÃO (OPCIONAL)
+Quer estudar no celular e no computador? Crie uma conta gratuita — com Google, Apple ou e-mail — e continue de onde parou em qualquer aparelho. Sem conta, tudo fica salvo no próprio dispositivo.
 
 📴 OFFLINE
 Lei seca, súmulas, temas, flashcards e questões vêm baixados no aparelho — estude no metrô, no ônibus ou onde não houver sinal. Grifos, anotações e progresso ficam salvos localmente; login e comentários precisam de internet.
+
+🆓 SEM CUSTO
+Nenhuma funcionalidade é paga. Não há assinatura, período de teste que expira, compras dentro do app nem anúncios.
 
 ━━━━━━━━━━━━━━━━━━━━
 PARA QUEM É
@@ -58,6 +63,8 @@ Concurseiros que precisam de base sólida em Direito Constitucional, Penal, Admi
 POR QUE O NAINTEGRA LEX
 ━━━━━━━━━━━━━━━━━━━━
 
+• Totalmente gratuito, sem anúncios e sem compras no app
+• Funciona sem cadastro — conta só se você quiser sincronizar
 • Conteúdo jurídico organizado para estudo — não é só texto solto
 • Material atualizado semanalmente — legislação, jurisprudência e questões sempre em dia
 • Forma ideal para estudar no deslocamento — ônibus, metrô, trem e transporte público
@@ -69,18 +76,12 @@ POR QUE O NAINTEGRA LEX
 • Desenvolvido pelo NaIntegra Cursos, referência em preparação para concursos
 
 ━━━━━━━━━━━━━━━━━━━━
-ASSINATURA
-━━━━━━━━━━━━━━━━━━━━
-
-O acervo completo requer assinatura NaIntegra Lex (planos mensal ou anual). Você pode conhecer os planos dentro do app antes de assinar.
-
-━━━━━━━━━━━━━━━━━━━━
 
 Baixe agora e transforme horas de estudo em progresso real rumo à aprovação.
 
 NaIntegra Cursos — legislação e jurisprudência na íntegra, do jeito que concurseiro precisa.
 
-Política de privacidade: https://www.naintegracursos.com.br/lex/#/contato
+Política de privacidade: https://www.naintegracursos.com.br/lex/privacidade.html
 Exclusão de conta: https://www.naintegracursos.com.br/lex/#/excluir-conta
 Contato: contato@naintegracursos.com.br
 ```
@@ -92,10 +93,19 @@ Educación / Education
 contato@naintegracursos.com.br
 
 ## Política de privacidade
-https://www.naintegracursos.com.br/lex/#/contato
+https://www.naintegracursos.com.br/lex/privacidade.html
 
 ## Exclusão de conta (obrigatório na Play Store)
 https://www.naintegracursos.com.br/lex/#/excluir-conta
+
+## Monetização (Play Console → Preços)
+- App **gratuito**
+- **Sem** compras no app (nenhum produto de faturamento configurado)
+- **Sem** anúncios (marcar "Não contém anúncios")
+
+## Acesso ao app (Play Console → Acesso ao app)
+Marcar **"Todas as funcionalidades estão disponíveis sem restrições de acesso"** — não é
+necessário fornecer credenciais de teste, pois o app não exige login.
 
 ## Feature graphic
 - 1024×500 PNG — gerado: `mobile/store-assets/generated/feature-graphic-1024x500.png`

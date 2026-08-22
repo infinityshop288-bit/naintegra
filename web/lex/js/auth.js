@@ -232,6 +232,10 @@
   async function signInWithOAuth(provider) {
     if (ensureCanonicalOrigin()) return;
 
+    if (window.LexNativeBridge?.isNative?.()) {
+      return window.LexNativeBridge.signInWithOAuthNative(provider);
+    }
+
     const hash = window.location.hash || "#/";
     const safeHash = hash.includes("/auth/") ? "#/" : hash;
     const returnPath = `${lexPublicBase()}index.html${safeHash}`;
@@ -280,6 +284,7 @@
     resolveOAuthReturnTarget,
     readOAuthReturnPath,
     clearOAuthReturnPath,
+    storeOAuthReturnPath,
     ensureCanonicalOrigin,
   };
 

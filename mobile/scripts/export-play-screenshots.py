@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[2]
 MOBILE = ROOT / "mobile"
 GENERATED = MOBILE / "store-assets" / "generated"
 DOCS = Path.home() / "Documents" / "NaIntegra-Lex-GooglePlay"
-BASE = "http://127.0.0.1:8765/web/lex/index.html?promo=1"
+BASE = "http://127.0.0.1:8765/web/lex/index.html"
 
 SCENES = [
     ("01-inicio", "#/", None),
@@ -26,7 +26,7 @@ SCENES = [
 ]
 
 SCENE_CAPTIONS = {
-    "01-inicio": "Legislação e jurisprudência para concursos",
+    "01-inicio": "Grátis: legislação e jurisprudência para concursos",
     "02-lei-seca": "Lei seca · grifos, anotações e narração",
     "03-flashcards": "Flashcards com repetição espaçada",
     "04-questoes": "Questões comentadas por banca",

@@ -37,15 +37,11 @@ window.LEX_CONFIG = {
   playStoreUrl:
     "https://play.google.com/store/apps/details?id=br.com.naintegracursos.lex",
   appStoreUrl: "https://apps.apple.com/app/naintegra-lex",
+  nativeOAuthScheme: "NaIntegraLex://auth-callback",
   /** Idioma da interface; conteúdo jurídico permanece em português (Brasil). */
   appLanguage: "pt-BR",
   accountDeletionUrl: "https://www.naintegracursos.com.br/lex/#/excluir-conta",
+  privacyPolicyUrl: "https://www.naintegracursos.com.br/lex/privacidade.html",
   /** Fallback se content_metadata não estiver disponível. */
   lastContentUpdate: "2026-05-19T00:00:00Z",
-  /** Rotas acessíveis sem assinatura ativa. */
-  publicRoutes: ["assinatura", "contato", "excluir-conta", "auth"],
-  subscriptionPlans: {
-    "lex-mensal": { label: "Mensal", price: 19.9 },
-    "lex-anual": { label: "Anual", price: 199.9 },
-  },
 };

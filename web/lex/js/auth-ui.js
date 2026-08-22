@@ -84,19 +84,6 @@
       </div>`;
   }
 
-  function inlineAuthHtml(view, msg) {
-    return `
-      <div class="landing-auth-panel" id="entrar">
-        <div class="landing-auth-tabs" role="tablist">
-          <button type="button" class="landing-auth-tab ${view === "login" ? "active" : ""}" data-landing-auth-view="login">Entrar</button>
-          <button type="button" class="landing-auth-tab ${view === "signup" ? "active" : ""}" data-landing-auth-view="signup">Criar conta</button>
-        </div>
-        <h2 class="landing-auth-title">${view === "signup" ? "Criar conta" : "Entrar"}</h2>
-        ${msg ? `<p class="auth-msg">${esc(msg)}</p>` : ""}
-        ${authFormFieldsHtml(view)}
-      </div>`;
-  }
-
   function modalHtml(view, msg) {
     const titles = {
       login: "Entrar na sua conta",
@@ -178,38 +165,13 @@
     });
   }
 
-  function bindTopbarPublicNav() {
-    document.querySelectorAll(".topbar-public-nav [data-scroll-to]").forEach((el) => {
-      el.addEventListener("click", (e) => {
-        e.preventDefault();
-        if (!document.body.classList.contains("lex-public-mode")) {
-          location.hash = "#/";
-          setTimeout(() => {
-            document.getElementById(el.getAttribute("data-scroll-to"))?.scrollIntoView({ behavior: "smooth", block: "start" });
-          }, 50);
-          return;
-        }
-        document.getElementById(el.getAttribute("data-scroll-to"))?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
-  }
-
-  function scrollToLandingAuth(view) {
-    const target = document.getElementById("entrar") || document.getElementById("landing-auth-root");
-    target?.scrollIntoView({ behavior: "smooth", block: "start" });
-    const root = document.getElementById("landing-auth-root");
-    if (root) mountLandingAuth(root, view || "login");
-  }
-
   async function renderTopbarUser(user) {
     const slot = document.getElementById("auth-slot");
     if (!slot) return;
     if (user) {
-      const subscribed = window.LexSubscription ? await window.LexSubscription.isSubscribed() : false;
       slot.innerHTML = `
         <div class="auth-user">
           <span class="auth-user-name" title="${esc(user.email || "")}">${esc(window.LexAuth.userLabel(user))}</span>
-          ${subscribed ? "" : '<a class="btn sm primary" href="#/assinatura?plan=lex-anual">Assinar</a>'}
           <button type="button" class="btn sm" id="auth-logout">Sair</button>
         </div>`;
       document.getElementById("auth-logout")?.addEventListener("click", async () => {
@@ -217,17 +179,10 @@
       });
     } else {
       slot.innerHTML = `
-        <button type="button" class="btn sm" id="auth-signup-open">Criar conta</button>
+        <button type="button" class="btn sm" id="auth-signup-open" title="Opcional — sincroniza grifos, anotações e progresso">Criar conta</button>
         <button type="button" class="btn sm primary" id="auth-open">Entrar</button>`;
-      document.getElementById("auth-open")?.addEventListener("click", () => {
-        if (document.body.classList.contains("lex-public-mode")) scrollToLandingAuth("login");
-        else open("login");
-      });
-      document.getElementById("auth-signup-open")?.addEventListener("click", () => {
-        if (document.body.classList.contains("lex-public-mode")) scrollToLandingAuth("signup");
-        else open("signup");
-      });
-      bindTopbarPublicNav();
+      document.getElementById("auth-open")?.addEventListener("click", () => open("login"));
+      document.getElementById("auth-signup-open")?.addEventListener("click", () => open("signup"));
     }
   }
 
@@ -250,26 +205,6 @@
     });
   }
 
-  function mountLandingAuth(container, initialView, msg) {
-    if (!container) return;
-    let view = initialView || "login";
-    const paint = (nextView, nextMsg) => {
-      view = nextView || view;
-      container.innerHTML = inlineAuthHtml(view, nextMsg);
-      bindAuthContainer(container, view, {
-        modal: false,
-        onViewChange: (next, message) => paint(next, message),
-        onSuccess: () => {},
-      });
-      container.querySelectorAll("[data-landing-auth-view]").forEach((btn) => {
-        btn.addEventListener("click", () => {
-          paint(btn.getAttribute("data-landing-auth-view"));
-        });
-      });
-    };
-    paint(initialView, msg);
-  }
-
   async function init(onSession) {
     await renderTopbarUser(null);
     const session = await window.LexAuth.getSession().catch(() => null);
@@ -283,28 +218,14 @@
     window.LexAuth.onAuthStateChange(async (sess) => {
       await renderTopbarUser(sess?.user ?? null);
       if (onSession) await onSession(sess);
-      if (location.hash.includes("/assinatura") && window.LexSubscription) {
-        const r = location.hash.replace(/^#/, "") || "/";
-        const qIdx = r.indexOf("?");
-        const params = new URLSearchParams(qIdx >= 0 ? r.slice(qIdx + 1) : "");
-        const planId = params.get("plan") || "lex-mensal";
-        const html = await window.LexSubscription.renderAssinaturaPage(planId);
-        const app = document.getElementById("app");
-        if (app) app.innerHTML = html;
-        window.LexSubscription.bindAssinaturaPage(planId);
-      }
     });
 
     if (location.hash.includes("auth/reset-password")) {
       open("reset-password");
     } else if (location.hash.includes("auth/login") && !session?.user) {
-      if (document.body.classList.contains("lex-public-mode")) {
-        scrollToLandingAuth("login");
-      } else {
-        open("login");
-      }
+      open("login");
     }
   }
 
-  window.LexAuthUI = { init, open, close, renderTopbarUser, mountLandingAuth, scrollToLandingAuth };
+  window.LexAuthUI = { init, open, close, renderTopbarUser };
 })();

@@ -12,6 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 MOBILE = ROOT / "mobile"
 ASSETS = MOBILE / "store-assets" / "generated"
+SHOTS = ASSETS / "phone"
 DIST = MOBILE / "dist"
 AAB = DIST / "naintegra-lex-release.aab"
 PACKAGE = "br.com.naintegracursos.lex"
@@ -52,12 +53,20 @@ def body(page) -> str:
 
 
 def dismiss_errors(page) -> None:
-    for pat in (r"^close$", r"Dispensar", r"Dismiss", r"Tentar novamente", r"Try again"):
+    for pat in (r"Dispensar", r"Dismiss", r"Tentar novamente", r"Try again"):
         click(page, pat)
+    dlg = page.get_by_role("dialog")
+    if dlg.count():
+        btn = dlg.get_by_role("button", name=re.compile(r"^Fechar$|^Close$|^OK$", re.I))
+        if btn.count():
+            try:
+                btn.first.click(timeout=3000)
+            except Exception:
+                pass
     page.keyboard.press("Escape")
 
 
-def wait_ready(page, timeout_s: int = 30) -> None:
+def wait_ready(page, timeout_s: int = 120) -> bool:
     markers = (
         r"Painel de publicação|Publishing overview|NaIntegra",
         r"Teste fechado|Closed testing|Ficha da loja|Store listing",
@@ -74,11 +83,16 @@ def wait_ready(page, timeout_s: int = 30) -> None:
             page.wait_for_timeout(2000)
             continue
         if PACKAGE in page.url and any(re.search(m, text, re.I) for m in markers):
-            return
+            return True
         if PACKAGE in page.url and len(text) > 800 and "app-list" not in page.url:
-            return
+            if not re.search(r"Carregando o Google Play Console|Loading Google Play Console", text):
+                return True
         page.wait_for_timeout(1500)
     dismiss_errors(page)
+    text = body(page)
+    if re.search(r"Carregando o Google Play Console|Loading Google Play Console", text):
+        return False
+    return PACKAGE in page.url and len(text) > 400
 
 
 def base() -> str:
@@ -170,8 +184,7 @@ def goto_app(page) -> bool:
     page.goto(base() + "/app-dashboard", wait_until="domcontentloaded", timeout=120_000)
     page.wait_for_timeout(2500)
     ensure_dev(page)
-    wait_ready(page)
-    if PACKAGE in page.url and "app-dashboard" in page.url:
+    if wait_ready(page) and PACKAGE in page.url and "app-dashboard" in page.url:
         return True
     for pat in (r"Ver app", r"View app", r"NaIntegra LEX", r"NaIntegra Lex"):
         if click(page, pat):
@@ -192,8 +205,7 @@ def goto(page, *paths: str) -> bool:
             page.goto(base() + path, wait_until="domcontentloaded", timeout=120_000)
             page.wait_for_timeout(2500)
             ensure_dev(page)
-            wait_ready(page)
-            if PACKAGE in page.url and "app-list" not in page.url:
+            if wait_ready(page) and PACKAGE in page.url and "app-list" not in page.url:
                 return True
         except Exception:
             continue
@@ -257,7 +269,7 @@ def step2_store_listing(page) -> None:
     )
     upload(page, ASSETS / "icon-512-play-store.png")
     upload(page, ASSETS / "feature-graphic-1024x500.png")
-    for s in sorted(ASSETS.glob("screenshot-*.png"))[:4]:
+    for s in sorted(SHOTS.glob("screenshot-*.png"))[:4]:
         upload(page, s)
     save(page)
     shot(page, "step2-listing")
@@ -424,8 +436,12 @@ def step2_rollout(page) -> bool:
 
 def step3_send_review(page) -> bool:
     print("\n═══ PASSO 3: Enviar para revisão ═══", flush=True)
-    goto(page, "/publishing/overview", "/publishing", "/app-dashboard")
-    wait_ready(page)
+    for attempt in range(4):
+        goto(page, "/publishing/overview", "/publishing", "/app-dashboard")
+        if wait_ready(page, timeout_s=180):
+            break
+        print(f"  aguardando console carregar (tentativa {attempt + 1}/4)…", flush=True)
+        page.wait_for_timeout(5000)
     shot(page, "step3-before-send")
 
     def confirm_send() -> bool:

@@ -1,83 +1,80 @@
-# Publicar NaIntegra Lex — ações manuais (5 min)
+# Publicar NaIntegra Lex — app gratuito (v1.1.0)
 
-Automação concluiu **AAB v1.0.1 (versionCode 2)** e **archive iOS**. Falta confirmar na Play (países + testadores + implantar) e exportar iOS no Xcode.
+O app passou a ser **gratuito e sem login obrigatório**. Assinatura, checkout Mercado Pago e
+In-App Purchase da Apple foram removidos do código. Detalhes da mudança e da resposta à
+rejeição da Apple: [`APP-STORE-REJECTION-FIXES.md`](./APP-STORE-REJECTION-FIXES.md).
 
-Conta Play: **Arnold Scott** (`5476168127224845991`)
+| Item | Valor |
+|------|-------|
+| Package / Bundle ID | `br.com.naintegracursos.lex` |
+| Android | versionName **1.1.0** · versionCode **4** |
+| iOS | MARKETING_VERSION **1.1.0** · build **6** |
+| Conta Play | Arnold Scott (`5476168127224845991`) |
+| App Store Connect | adamId `6778567767` · Team `D7323783Z5` |
 
-## Google Play — teste fechado (obrigatório)
+## Pré-requisito: publicar o site
 
-Abra nesta ordem (logado como `infinity.shop288@gmail.com`):
+O app carrega o conteúdo de `https://www.naintegracursos.com.br/lex/`. **Enquanto o site não
+for atualizado, o app instalado continua mostrando o paywall antigo** — e a revisão das lojas
+reprovaria de novo.
 
-1. **Países** — marque **Brasil** → Salvar  
-   https://play.google.com/console/u/0/developers/5476168127224845991/app/br.com.naintegracursos.lex/tracks/closed-testing/countries
+```bash
+python3 scripts/deploy_lex_hostinger.py --source lex
+```
 
-2. **Testadores** — lista `NaIntegra Lex testers` com e-mails Google:
-   - `infinity.shop288@gmail.com`
-   - `contato@naintegracursos.com.br`
-   - `teste.naintegra.lex@gmail.com`
-   → Salvar  
-   https://play.google.com/console/u/0/developers/5476168127224845991/app/br.com.naintegracursos.lex/tracks/closed-testing/testers
+Requer `FTP_USERNAME` e `FTP_PASSWORD` preenchidos em `.env.deploy`
+(Hostinger → hPanel → Sites → Arquivos → Detalhes FTP).
 
-   Automação:
+Validar depois:
 
-   ```bash
-   cd mobile && npm run play:setup-test-access
-   ```
+```bash
+curl -s https://www.naintegracursos.com.br/lex/js/config.js | grep -c subscriptionPlans   # deve ser 0
+curl -s -o /dev/null -w '%{http_code}\n' https://www.naintegracursos.com.br/lex/privacidade.html  # deve ser 200
+```
 
-3. **Versão 2** — Revisar → **Iniciar implantação para teste fechado**  
-   https://play.google.com/console/u/0/developers/5476168127224845991/app/br.com.naintegracursos.lex/tracks/closed-testing
-
-4. **Enviar para revisão** — Painel de publicação → **Enviar alterações para revisão** → Confirmar  
-   https://play.google.com/console/u/0/developers/5476168127224845991/app/br.com.naintegracursos.lex/publishing/overview
-
-   Credenciais revisor (Acesso ao app — Google Play e Apple):
-
-   | Campo | Valor |
-   |-------|--------|
-   | E-mail | `teste.naintegra.lex@gmail.com` |
-   | Senha | `NaIntegraLex2026!` |
-
-   Assinatura Lex **ativa** no Supabase até 2027-05-26.
-
-   Automação rápida (só teste fechado + revisão):
-
-   ```bash
-   cd mobile && npm run play:complete-review:fast
-   ```
-
-AAB local (se precisar reenviar):  
-`~/Documents/NaIntegra-Lex-GooglePlay/naintegra-lex-release-v1.0.1-offline.aab`
-
-### Automatizar de vez (recomendado)
-
-Play Console → **Configurações** → **Acesso à API** → criar service account → baixar JSON para:
-
-`mobile/android/play-service-account.json`
-
-Depois:
+## Gerar os binários
 
 ```bash
 cd mobile
-npm run publish:play:api -- --track alpha --countries BR --testers "seu@gmail.com"
+npm run build:aab      # → dist/naintegra-lex-release.aab
+npm run archive:ios    # → dist/App.xcarchive
 ```
 
-(`alpha` = teste fechado na API)
+## Google Play
 
----
+1. **Monetização** — App **gratuito**, sem compras no app, sem anúncios.
+2. **Acesso ao app** — marcar *"Todas as funcionalidades estão disponíveis sem restrições"*.
+   Não é mais necessário fornecer conta de teste ao revisor.
+3. **Ficha da loja** — textos em [`play-store.md`](./play-store.md).
+   Capturas: `store-assets/generated/phone/` (regenerar com `npm run play:screenshots`).
+4. **Enviar a versão** e depois **Enviar alterações para revisão** no painel de publicação.
 
-## App Store — iOS
+Automação:
 
-Archive já gerado: `mobile/dist/App.xcarchive`
+```bash
+cd mobile
+npm run publish:play:api -- --track production --countries BR   # requer android/play-service-account.json
+# ou, via navegador:
+npm run play:complete-review
+```
 
-1. Abrir Xcode: `cd mobile && npm run ios`
-2. **Window → Organizer** → selecionar archive **App**
-3. **Distribute App** → App Store Connect → Upload  
-   (conta Apple Developer paga + Team **D7323783Z5**)
+## App Store
 
-Se export falhar: Xcode → **Settings → Accounts** → `infinity.shop288@gmail.com` → **Download Manual Profiles**
+1. **Remover os IAPs** `lex_mensal` / `lex_anual` da versão (não enviar para revisão).
+2. **Informações para revisão** — desmarcar *"Sign-in required"*.
+3. **Preço** — Grátis.
+4. **Política de privacidade** — `https://www.naintegracursos.com.br/lex/privacidade.html`
+5. **Rótulos de privacidade** — sem dados financeiros; ver [`app-store.md`](./app-store.md).
+6. Vincular a compilação **1.1.0 (6)** e reenviar para revisão.
 
----
+Automação:
 
-## Aviso ProGuard
+```bash
+cd mobile
+npm run appstore:publish          # archive + upload + submit
+npm run appstore:complete-review  # completa a ficha via navegador
+```
 
-Pode **ignorar** — o app não usa R8/ofuscação.
+## Notas da versão
+
+`store-assets/release-notes-pt-BR.txt`
