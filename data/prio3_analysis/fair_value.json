@@ -1,0 +1,51 @@
+{
+  "preco_atual": 55.83,
+  "acoes_bi": 0.801,
+  "market_cap_bi": 44.7,
+  "ev_bi": 69.7,
+  "divida_liquida_bi": 24.1,
+  "ev_ebitda_trailing": 7.161,
+  "pe_trailing": 16.9,
+  "pe_forward": 6.1,
+  "p_vp": 1.69,
+  "ebitda_1t26_anualizado_bi": 17.6,
+  "ebitda_cenarios_bi": {
+    "conservador": 13.0,
+    "base": 16.0,
+    "otimista": 18.0
+  },
+  "grid_preco_justo": {
+    "conservador": {
+      "4.0x": 34.82,
+      "4.5x": 42.93,
+      "5.0x": 51.04,
+      "5.5x": 59.16,
+      "6.0x": 67.27
+    },
+    "base": {
+      "4.0x": 49.79,
+      "4.5x": 59.78,
+      "5.0x": 69.77,
+      "5.5x": 79.75,
+      "6.0x": 89.74
+    },
+    "otimista": {
+      "4.0x": 59.78,
+      "4.5x": 71.01,
+      "5.0x": 82.25,
+      "5.5x": 93.48,
+      "6.0x": 104.72
+    }
+  },
+  "preco_justo_central": 69.77,
+  "upside_central_pct": 25.0,
+  "consenso_analistas": {
+    "n_analistas": 14,
+    "recomendacao": "buy",
+    "alvo_medio": 69.91429,
+    "alvo_mediana": 71.0,
+    "alvo_max": 80.0,
+    "alvo_min": 52.0
+  },
+  "upside_consenso_pct": 25.2
+}

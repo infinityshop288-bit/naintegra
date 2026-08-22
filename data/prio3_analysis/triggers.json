@@ -1,0 +1,1231 @@
+{
+  "baseline": {
+    "1": {
+      "media_pct": 0.11,
+      "acerto_pct": 51.0
+    },
+    "3": {
+      "media_pct": 0.34,
+      "acerto_pct": 50.7
+    },
+    "5": {
+      "media_pct": 0.56,
+      "acerto_pct": 51.0
+    },
+    "10": {
+      "media_pct": 1.1,
+      "acerto_pct": 54.8
+    },
+    "21": {
+      "media_pct": 2.51,
+      "acerto_pct": 57.5
+    }
+  },
+  "resultados": {
+    "RSI < 30 (sobrevendido)": {
+      "n": 70,
+      "por_horizonte": {
+        "1": {
+          "n": 70,
+          "media_pct": 0.12,
+          "acerto_pct": 48.6,
+          "vs_base_pp": 0.01,
+          "vs_base_acerto_pp": -2.5,
+          "tstat": 0.04
+        },
+        "3": {
+          "n": 70,
+          "media_pct": 0.75,
+          "acerto_pct": 50.0,
+          "vs_base_pp": 0.42,
+          "vs_base_acerto_pp": -0.8,
+          "tstat": 0.83
+        },
+        "5": {
+          "n": 68,
+          "media_pct": 0.99,
+          "acerto_pct": 54.4,
+          "vs_base_pp": 0.44,
+          "vs_base_acerto_pp": 3.2,
+          "tstat": 0.77
+        },
+        "10": {
+          "n": 63,
+          "media_pct": 0.69,
+          "acerto_pct": 57.1,
+          "vs_base_pp": -0.41,
+          "vs_base_acerto_pp": 1.9,
+          "tstat": -0.55
+        },
+        "21": {
+          "n": 62,
+          "media_pct": 5.3,
+          "acerto_pct": 72.6,
+          "vs_base_pp": 2.79,
+          "vs_base_acerto_pp": 14.1,
+          "tstat": 2.38
+        }
+      }
+    },
+    "RSI < 25 (muito sobrevendido)": {
+      "n": 40,
+      "por_horizonte": {
+        "1": {
+          "n": 40,
+          "media_pct": 0.19,
+          "acerto_pct": 50.0,
+          "vs_base_pp": 0.08,
+          "vs_base_acerto_pp": -1.1,
+          "tstat": 0.22
+        },
+        "3": {
+          "n": 40,
+          "media_pct": 0.86,
+          "acerto_pct": 50.0,
+          "vs_base_pp": 0.52,
+          "vs_base_acerto_pp": -0.8,
+          "tstat": 0.79
+        },
+        "5": {
+          "n": 39,
+          "media_pct": 0.93,
+          "acerto_pct": 51.3,
+          "vs_base_pp": 0.37,
+          "vs_base_acerto_pp": 0.0,
+          "tstat": 0.44
+        },
+        "10": {
+          "n": 35,
+          "media_pct": -0.86,
+          "acerto_pct": 42.9,
+          "vs_base_pp": -1.97,
+          "vs_base_acerto_pp": -12.4,
+          "tstat": -1.92
+        },
+        "21": {
+          "n": 35,
+          "media_pct": 3.05,
+          "acerto_pct": 60.0,
+          "vs_base_pp": 0.54,
+          "vs_base_acerto_pp": 1.5,
+          "tstat": 0.3
+        }
+      }
+    },
+    "RSI > 70 (sobrecomprado)": {
+      "n": 83,
+      "por_horizonte": {
+        "1": {
+          "n": 83,
+          "media_pct": 0.06,
+          "acerto_pct": 51.8,
+          "vs_base_pp": -0.05,
+          "vs_base_acerto_pp": 0.7,
+          "tstat": -0.2
+        },
+        "3": {
+          "n": 83,
+          "media_pct": 0.62,
+          "acerto_pct": 57.8,
+          "vs_base_pp": 0.28,
+          "vs_base_acerto_pp": 7.0,
+          "tstat": 0.71
+        },
+        "5": {
+          "n": 83,
+          "media_pct": 0.91,
+          "acerto_pct": 56.6,
+          "vs_base_pp": 0.35,
+          "vs_base_acerto_pp": 5.4,
+          "tstat": 0.68
+        },
+        "10": {
+          "n": 83,
+          "media_pct": 1.48,
+          "acerto_pct": 59.0,
+          "vs_base_pp": 0.38,
+          "vs_base_acerto_pp": 3.8,
+          "tstat": 0.48
+        },
+        "21": {
+          "n": 83,
+          "media_pct": 2.46,
+          "acerto_pct": 49.4,
+          "vs_base_pp": -0.05,
+          "vs_base_acerto_pp": -9.1,
+          "tstat": -0.05
+        }
+      }
+    },
+    "Pullback em tendencia (>MM200 e RSI<40)": {
+      "n": 53,
+      "por_horizonte": {
+        "1": {
+          "n": 53,
+          "media_pct": -0.17,
+          "acerto_pct": 43.4,
+          "vs_base_pp": -0.28,
+          "vs_base_acerto_pp": -7.7,
+          "tstat": -0.77
+        },
+        "3": {
+          "n": 52,
+          "media_pct": -0.32,
+          "acerto_pct": 42.3,
+          "vs_base_pp": -0.65,
+          "vs_base_acerto_pp": -8.5,
+          "tstat": -0.98
+        },
+        "5": {
+          "n": 50,
+          "media_pct": -0.71,
+          "acerto_pct": 40.0,
+          "vs_base_pp": -1.27,
+          "vs_base_acerto_pp": -11.2,
+          "tstat": -1.44
+        },
+        "10": {
+          "n": 45,
+          "media_pct": -1.59,
+          "acerto_pct": 40.0,
+          "vs_base_pp": -2.69,
+          "vs_base_acerto_pp": -15.2,
+          "tstat": -2.2
+        },
+        "21": {
+          "n": 37,
+          "media_pct": -0.45,
+          "acerto_pct": 54.1,
+          "vs_base_pp": -2.96,
+          "vs_base_acerto_pp": -4.4,
+          "tstat": -1.75
+        }
+      }
+    },
+    "Preco abaixo da Banda inferior (2σ)": {
+      "n": 60,
+      "por_horizonte": {
+        "1": {
+          "n": 60,
+          "media_pct": 0.17,
+          "acerto_pct": 43.3,
+          "vs_base_pp": 0.06,
+          "vs_base_acerto_pp": -7.7,
+          "tstat": 0.18
+        },
+        "3": {
+          "n": 60,
+          "media_pct": 0.94,
+          "acerto_pct": 51.7,
+          "vs_base_pp": 0.6,
+          "vs_base_acerto_pp": 0.8,
+          "tstat": 0.87
+        },
+        "5": {
+          "n": 60,
+          "media_pct": 1.78,
+          "acerto_pct": 53.3,
+          "vs_base_pp": 1.23,
+          "vs_base_acerto_pp": 2.1,
+          "tstat": 1.42
+        },
+        "10": {
+          "n": 60,
+          "media_pct": 1.68,
+          "acerto_pct": 58.3,
+          "vs_base_pp": 0.58,
+          "vs_base_acerto_pp": 3.1,
+          "tstat": 0.61
+        },
+        "21": {
+          "n": 59,
+          "media_pct": 2.31,
+          "acerto_pct": 61.0,
+          "vs_base_pp": -0.2,
+          "vs_base_acerto_pp": 2.5,
+          "tstat": -0.16
+        }
+      }
+    },
+    "Preco acima da Banda superior (2σ)": {
+      "n": 84,
+      "por_horizonte": {
+        "1": {
+          "n": 84,
+          "media_pct": 0.05,
+          "acerto_pct": 47.6,
+          "vs_base_pp": -0.06,
+          "vs_base_acerto_pp": -3.5,
+          "tstat": -0.25
+        },
+        "3": {
+          "n": 84,
+          "media_pct": -0.03,
+          "acerto_pct": 45.2,
+          "vs_base_pp": -0.37,
+          "vs_base_acerto_pp": -5.6,
+          "tstat": -0.88
+        },
+        "5": {
+          "n": 84,
+          "media_pct": 0.42,
+          "acerto_pct": 53.6,
+          "vs_base_pp": -0.14,
+          "vs_base_acerto_pp": 2.3,
+          "tstat": -0.25
+        },
+        "10": {
+          "n": 84,
+          "media_pct": 1.38,
+          "acerto_pct": 54.8,
+          "vs_base_pp": 0.27,
+          "vs_base_acerto_pp": -0.5,
+          "tstat": 0.37
+        },
+        "21": {
+          "n": 84,
+          "media_pct": 4.77,
+          "acerto_pct": 65.5,
+          "vs_base_pp": 2.26,
+          "vs_base_acerto_pp": 7.0,
+          "tstat": 2.01
+        }
+      }
+    },
+    "MACD cruza p/ cima do sinal": {
+      "n": 50,
+      "por_horizonte": {
+        "1": {
+          "n": 50,
+          "media_pct": -0.02,
+          "acerto_pct": 60.0,
+          "vs_base_pp": -0.13,
+          "vs_base_acerto_pp": 8.9,
+          "tstat": -0.38
+        },
+        "3": {
+          "n": 49,
+          "media_pct": -0.24,
+          "acerto_pct": 51.0,
+          "vs_base_pp": -0.58,
+          "vs_base_acerto_pp": 0.2,
+          "tstat": -0.99
+        },
+        "5": {
+          "n": 49,
+          "media_pct": -0.32,
+          "acerto_pct": 53.1,
+          "vs_base_pp": -0.87,
+          "vs_base_acerto_pp": 1.8,
+          "tstat": -1.29
+        },
+        "10": {
+          "n": 49,
+          "media_pct": 0.85,
+          "acerto_pct": 65.3,
+          "vs_base_pp": -0.25,
+          "vs_base_acerto_pp": 10.1,
+          "tstat": -0.27
+        },
+        "21": {
+          "n": 49,
+          "media_pct": 2.28,
+          "acerto_pct": 57.1,
+          "vs_base_pp": -0.23,
+          "vs_base_acerto_pp": -1.4,
+          "tstat": -0.14
+        }
+      }
+    },
+    "Golden cross (MM50 x MM200)": {
+      "n": 5,
+      "por_horizonte": {
+        "1": {
+          "n": 5,
+          "media_pct": 0.31,
+          "acerto_pct": 40.0,
+          "vs_base_pp": 0.2,
+          "vs_base_acerto_pp": -11.1,
+          "tstat": 0.3
+        },
+        "3": {
+          "n": 5,
+          "media_pct": -0.21,
+          "acerto_pct": 40.0,
+          "vs_base_pp": -0.54,
+          "vs_base_acerto_pp": -10.8,
+          "tstat": -0.64
+        },
+        "5": {
+          "n": 5,
+          "media_pct": -0.91,
+          "acerto_pct": 40.0,
+          "vs_base_pp": -1.47,
+          "vs_base_acerto_pp": -11.2,
+          "tstat": -0.76
+        },
+        "10": {
+          "n": 5,
+          "media_pct": 0.58,
+          "acerto_pct": 40.0,
+          "vs_base_pp": -0.52,
+          "vs_base_acerto_pp": -15.2,
+          "tstat": -0.13
+        },
+        "21": {
+          "n": 5,
+          "media_pct": 3.31,
+          "acerto_pct": 40.0,
+          "vs_base_pp": 0.8,
+          "vs_base_acerto_pp": -18.5,
+          "tstat": 0.13
+        }
+      }
+    },
+    "Cruza acima da MM50": {
+      "n": 48,
+      "por_horizonte": {
+        "1": {
+          "n": 48,
+          "media_pct": 0.04,
+          "acerto_pct": 54.2,
+          "vs_base_pp": -0.07,
+          "vs_base_acerto_pp": 3.1,
+          "tstat": -0.2
+        },
+        "3": {
+          "n": 48,
+          "media_pct": 0.85,
+          "acerto_pct": 50.0,
+          "vs_base_pp": 0.52,
+          "vs_base_acerto_pp": -0.8,
+          "tstat": 0.87
+        },
+        "5": {
+          "n": 48,
+          "media_pct": 0.6,
+          "acerto_pct": 52.1,
+          "vs_base_pp": 0.04,
+          "vs_base_acerto_pp": 0.8,
+          "tstat": 0.06
+        },
+        "10": {
+          "n": 48,
+          "media_pct": -0.1,
+          "acerto_pct": 47.9,
+          "vs_base_pp": -1.2,
+          "vs_base_acerto_pp": -7.3,
+          "tstat": -1.34
+        },
+        "21": {
+          "n": 48,
+          "media_pct": 1.57,
+          "acerto_pct": 54.2,
+          "vs_base_pp": -0.95,
+          "vs_base_acerto_pp": -4.3,
+          "tstat": -0.71
+        }
+      }
+    },
+    "Cruza acima da MM200": {
+      "n": 25,
+      "por_horizonte": {
+        "1": {
+          "n": 25,
+          "media_pct": 0.4,
+          "acerto_pct": 60.0,
+          "vs_base_pp": 0.29,
+          "vs_base_acerto_pp": 8.9,
+          "tstat": 0.71
+        },
+        "3": {
+          "n": 25,
+          "media_pct": 1.29,
+          "acerto_pct": 68.0,
+          "vs_base_pp": 0.96,
+          "vs_base_acerto_pp": 17.2,
+          "tstat": 1.25
+        },
+        "5": {
+          "n": 25,
+          "media_pct": 2.0,
+          "acerto_pct": 68.0,
+          "vs_base_pp": 1.45,
+          "vs_base_acerto_pp": 16.8,
+          "tstat": 1.57
+        },
+        "10": {
+          "n": 25,
+          "media_pct": 3.32,
+          "acerto_pct": 72.0,
+          "vs_base_pp": 2.22,
+          "vs_base_acerto_pp": 16.8,
+          "tstat": 1.97
+        },
+        "21": {
+          "n": 25,
+          "media_pct": 6.51,
+          "acerto_pct": 84.0,
+          "vs_base_pp": 4.0,
+          "vs_base_acerto_pp": 25.5,
+          "tstat": 2.2
+        }
+      }
+    },
+    "Queda >=8% em 5 pregoes": {
+      "n": 65,
+      "por_horizonte": {
+        "1": {
+          "n": 65,
+          "media_pct": -0.16,
+          "acerto_pct": 49.2,
+          "vs_base_pp": -0.27,
+          "vs_base_acerto_pp": -1.9,
+          "tstat": -0.61
+        },
+        "3": {
+          "n": 65,
+          "media_pct": 0.75,
+          "acerto_pct": 55.4,
+          "vs_base_pp": 0.42,
+          "vs_base_acerto_pp": 4.5,
+          "tstat": 0.51
+        },
+        "5": {
+          "n": 65,
+          "media_pct": 1.08,
+          "acerto_pct": 49.2,
+          "vs_base_pp": 0.53,
+          "vs_base_acerto_pp": -2.0,
+          "tstat": 0.54
+        },
+        "10": {
+          "n": 65,
+          "media_pct": -1.19,
+          "acerto_pct": 46.2,
+          "vs_base_pp": -2.29,
+          "vs_base_acerto_pp": -9.1,
+          "tstat": -2.57
+        },
+        "21": {
+          "n": 61,
+          "media_pct": -0.37,
+          "acerto_pct": 49.2,
+          "vs_base_pp": -2.89,
+          "vs_base_acerto_pp": -9.3,
+          "tstat": -1.93
+        }
+      }
+    },
+    "Queda >=12% em 5 pregoes": {
+      "n": 16,
+      "por_horizonte": {
+        "1": {
+          "n": 16,
+          "media_pct": -0.69,
+          "acerto_pct": 37.5,
+          "vs_base_pp": -0.8,
+          "vs_base_acerto_pp": -13.6,
+          "tstat": -0.98
+        },
+        "3": {
+          "n": 16,
+          "media_pct": 2.25,
+          "acerto_pct": 62.5,
+          "vs_base_pp": 1.91,
+          "vs_base_acerto_pp": 11.7,
+          "tstat": 0.86
+        },
+        "5": {
+          "n": 16,
+          "media_pct": 2.01,
+          "acerto_pct": 50.0,
+          "vs_base_pp": 1.46,
+          "vs_base_acerto_pp": -1.2,
+          "tstat": 0.88
+        },
+        "10": {
+          "n": 16,
+          "media_pct": -2.3,
+          "acerto_pct": 31.2,
+          "vs_base_pp": -3.4,
+          "vs_base_acerto_pp": -24.0,
+          "tstat": -2.33
+        },
+        "21": {
+          "n": 16,
+          "media_pct": -1.69,
+          "acerto_pct": 43.8,
+          "vs_base_pp": -4.2,
+          "vs_base_acerto_pp": -14.8,
+          "tstat": -1.82
+        }
+      }
+    },
+    "3 quedas seguidas": {
+      "n": 155,
+      "por_horizonte": {
+        "1": {
+          "n": 155,
+          "media_pct": -0.08,
+          "acerto_pct": 45.8,
+          "vs_base_pp": -0.19,
+          "vs_base_acerto_pp": -5.3,
+          "tstat": -0.98
+        },
+        "3": {
+          "n": 155,
+          "media_pct": 0.3,
+          "acerto_pct": 47.1,
+          "vs_base_pp": -0.03,
+          "vs_base_acerto_pp": -3.7,
+          "tstat": -0.08
+        },
+        "5": {
+          "n": 155,
+          "media_pct": 1.11,
+          "acerto_pct": 55.5,
+          "vs_base_pp": 0.55,
+          "vs_base_acerto_pp": 4.2,
+          "tstat": 1.07
+        },
+        "10": {
+          "n": 151,
+          "media_pct": 1.16,
+          "acerto_pct": 51.0,
+          "vs_base_pp": 0.06,
+          "vs_base_acerto_pp": -4.2,
+          "tstat": 0.09
+        },
+        "21": {
+          "n": 147,
+          "media_pct": 1.54,
+          "acerto_pct": 57.1,
+          "vs_base_pp": -0.97,
+          "vs_base_acerto_pp": -1.4,
+          "tstat": -1.07
+        }
+      }
+    },
+    "Nova maxima de 20 dias (rompimento)": {
+      "n": 190,
+      "por_horizonte": {
+        "1": {
+          "n": 190,
+          "media_pct": 0.13,
+          "acerto_pct": 52.6,
+          "vs_base_pp": 0.02,
+          "vs_base_acerto_pp": 1.6,
+          "tstat": 0.14
+        },
+        "3": {
+          "n": 190,
+          "media_pct": 0.28,
+          "acerto_pct": 50.0,
+          "vs_base_pp": -0.06,
+          "vs_base_acerto_pp": -0.8,
+          "tstat": -0.2
+        },
+        "5": {
+          "n": 190,
+          "media_pct": 0.4,
+          "acerto_pct": 50.0,
+          "vs_base_pp": -0.16,
+          "vs_base_acerto_pp": -1.2,
+          "tstat": -0.43
+        },
+        "10": {
+          "n": 190,
+          "media_pct": 1.37,
+          "acerto_pct": 54.7,
+          "vs_base_pp": 0.27,
+          "vs_base_acerto_pp": -0.5,
+          "tstat": 0.51
+        },
+        "21": {
+          "n": 190,
+          "media_pct": 3.43,
+          "acerto_pct": 58.9,
+          "vs_base_pp": 0.92,
+          "vs_base_acerto_pp": 0.4,
+          "tstat": 1.1
+        }
+      }
+    },
+    "Novo fundo de 20 dias": {
+      "n": 134,
+      "por_horizonte": {
+        "1": {
+          "n": 134,
+          "media_pct": 0.28,
+          "acerto_pct": 48.5,
+          "vs_base_pp": 0.17,
+          "vs_base_acerto_pp": -2.6,
+          "tstat": 0.68
+        },
+        "3": {
+          "n": 134,
+          "media_pct": 0.61,
+          "acerto_pct": 50.7,
+          "vs_base_pp": 0.27,
+          "vs_base_acerto_pp": -0.1,
+          "tstat": 0.67
+        },
+        "5": {
+          "n": 134,
+          "media_pct": 1.16,
+          "acerto_pct": 50.0,
+          "vs_base_pp": 0.6,
+          "vs_base_acerto_pp": -1.2,
+          "tstat": 1.21
+        },
+        "10": {
+          "n": 130,
+          "media_pct": 0.53,
+          "acerto_pct": 49.2,
+          "vs_base_pp": -0.57,
+          "vs_base_acerto_pp": -6.0,
+          "tstat": -0.94
+        },
+        "21": {
+          "n": 124,
+          "media_pct": 1.64,
+          "acerto_pct": 57.3,
+          "vs_base_pp": -0.88,
+          "vs_base_acerto_pp": -1.2,
+          "tstat": -0.95
+        }
+      }
+    },
+    "Rompe maxima de 52 semanas": {
+      "n": 67,
+      "por_horizonte": {
+        "1": {
+          "n": 67,
+          "media_pct": -0.1,
+          "acerto_pct": 49.3,
+          "vs_base_pp": -0.21,
+          "vs_base_acerto_pp": -1.8,
+          "tstat": -0.66
+        },
+        "3": {
+          "n": 67,
+          "media_pct": 0.05,
+          "acerto_pct": 46.3,
+          "vs_base_pp": -0.29,
+          "vs_base_acerto_pp": -4.6,
+          "tstat": -0.59
+        },
+        "5": {
+          "n": 67,
+          "media_pct": 0.01,
+          "acerto_pct": 49.3,
+          "vs_base_pp": -0.54,
+          "vs_base_acerto_pp": -2.0,
+          "tstat": -0.91
+        },
+        "10": {
+          "n": 67,
+          "media_pct": 1.9,
+          "acerto_pct": 55.2,
+          "vs_base_pp": 0.8,
+          "vs_base_acerto_pp": -0.0,
+          "tstat": 0.85
+        },
+        "21": {
+          "n": 67,
+          "media_pct": 3.15,
+          "acerto_pct": 55.2,
+          "vs_base_pp": 0.63,
+          "vs_base_acerto_pp": -3.3,
+          "tstat": 0.45
+        }
+      }
+    },
+    ">20% abaixo da MM200 (deep value)": {
+      "n": 4,
+      "por_horizonte": {
+        "1": {
+          "n": 4,
+          "media_pct": 3.19,
+          "acerto_pct": 100.0,
+          "vs_base_pp": 3.08,
+          "vs_base_acerto_pp": 48.9,
+          "tstat": 4.31
+        },
+        "3": {
+          "n": 4,
+          "media_pct": 1.59,
+          "acerto_pct": 75.0,
+          "vs_base_pp": 1.25,
+          "vs_base_acerto_pp": 24.2,
+          "tstat": 1.12
+        },
+        "5": {
+          "n": 4,
+          "media_pct": 3.84,
+          "acerto_pct": 100.0,
+          "vs_base_pp": 3.29,
+          "vs_base_acerto_pp": 48.8,
+          "tstat": 3.95
+        },
+        "10": {
+          "n": 4,
+          "media_pct": 7.39,
+          "acerto_pct": 100.0,
+          "vs_base_pp": 6.28,
+          "vs_base_acerto_pp": 44.8,
+          "tstat": 3.48
+        },
+        "21": {
+          "n": 4,
+          "media_pct": 18.53,
+          "acerto_pct": 100.0,
+          "vs_base_pp": 16.01,
+          "vs_base_acerto_pp": 41.5,
+          "tstat": 26.04
+        }
+      }
+    },
+    "Gap de baixa < -2%": {
+      "n": 61,
+      "por_horizonte": {
+        "1": {
+          "n": 61,
+          "media_pct": -0.25,
+          "acerto_pct": 49.2,
+          "vs_base_pp": -0.36,
+          "vs_base_acerto_pp": -1.9,
+          "tstat": -1.08
+        },
+        "3": {
+          "n": 61,
+          "media_pct": 0.78,
+          "acerto_pct": 54.1,
+          "vs_base_pp": 0.44,
+          "vs_base_acerto_pp": 3.3,
+          "tstat": 0.67
+        },
+        "5": {
+          "n": 61,
+          "media_pct": 1.41,
+          "acerto_pct": 54.1,
+          "vs_base_pp": 0.86,
+          "vs_base_acerto_pp": 2.9,
+          "tstat": 0.94
+        },
+        "10": {
+          "n": 61,
+          "media_pct": 1.91,
+          "acerto_pct": 55.7,
+          "vs_base_pp": 0.81,
+          "vs_base_acerto_pp": 0.5,
+          "tstat": 0.72
+        },
+        "21": {
+          "n": 59,
+          "media_pct": 3.57,
+          "acerto_pct": 59.3,
+          "vs_base_pp": 1.06,
+          "vs_base_acerto_pp": 0.8,
+          "tstat": 0.69
+        }
+      }
+    },
+    "Gap de alta > +2%": {
+      "n": 89,
+      "por_horizonte": {
+        "1": {
+          "n": 88,
+          "media_pct": 0.56,
+          "acerto_pct": 62.5,
+          "vs_base_pp": 0.45,
+          "vs_base_acerto_pp": 11.4,
+          "tstat": 1.58
+        },
+        "3": {
+          "n": 88,
+          "media_pct": 1.51,
+          "acerto_pct": 56.8,
+          "vs_base_pp": 1.17,
+          "vs_base_acerto_pp": 6.0,
+          "tstat": 2.03
+        },
+        "5": {
+          "n": 88,
+          "media_pct": 1.34,
+          "acerto_pct": 54.5,
+          "vs_base_pp": 0.78,
+          "vs_base_acerto_pp": 3.3,
+          "tstat": 1.11
+        },
+        "10": {
+          "n": 88,
+          "media_pct": 2.71,
+          "acerto_pct": 54.5,
+          "vs_base_pp": 1.61,
+          "vs_base_acerto_pp": -0.7,
+          "tstat": 1.62
+        },
+        "21": {
+          "n": 88,
+          "media_pct": 2.89,
+          "acerto_pct": 54.5,
+          "vs_base_pp": 0.38,
+          "vs_base_acerto_pp": -4.0,
+          "tstat": 0.29
+        }
+      }
+    },
+    "PRIO 20d - Brent 20d < -10pp (atraso)": {
+      "n": 116,
+      "por_horizonte": {
+        "1": {
+          "n": 116,
+          "media_pct": -0.11,
+          "acerto_pct": 50.9,
+          "vs_base_pp": -0.22,
+          "vs_base_acerto_pp": -0.2,
+          "tstat": -0.73
+        },
+        "3": {
+          "n": 116,
+          "media_pct": 0.01,
+          "acerto_pct": 46.6,
+          "vs_base_pp": -0.32,
+          "vs_base_acerto_pp": -4.3,
+          "tstat": -0.57
+        },
+        "5": {
+          "n": 116,
+          "media_pct": 0.09,
+          "acerto_pct": 44.8,
+          "vs_base_pp": -0.46,
+          "vs_base_acerto_pp": -6.4,
+          "tstat": -0.66
+        },
+        "10": {
+          "n": 116,
+          "media_pct": 1.0,
+          "acerto_pct": 47.4,
+          "vs_base_pp": -0.1,
+          "vs_base_acerto_pp": -7.8,
+          "tstat": -0.11
+        },
+        "21": {
+          "n": 116,
+          "media_pct": 2.08,
+          "acerto_pct": 56.0,
+          "vs_base_pp": -0.43,
+          "vs_base_acerto_pp": -2.5,
+          "tstat": -0.43
+        }
+      }
+    },
+    "PRIO 20d - Brent 20d > +10pp (esticado)": {
+      "n": 226,
+      "por_horizonte": {
+        "1": {
+          "n": 226,
+          "media_pct": 0.12,
+          "acerto_pct": 52.2,
+          "vs_base_pp": 0.01,
+          "vs_base_acerto_pp": 1.1,
+          "tstat": 0.05
+        },
+        "3": {
+          "n": 226,
+          "media_pct": 0.49,
+          "acerto_pct": 55.8,
+          "vs_base_pp": 0.16,
+          "vs_base_acerto_pp": 4.9,
+          "tstat": 0.59
+        },
+        "5": {
+          "n": 225,
+          "media_pct": 0.93,
+          "acerto_pct": 55.6,
+          "vs_base_pp": 0.37,
+          "vs_base_acerto_pp": 4.3,
+          "tstat": 1.08
+        },
+        "10": {
+          "n": 225,
+          "media_pct": 2.32,
+          "acerto_pct": 64.4,
+          "vs_base_pp": 1.22,
+          "vs_base_acerto_pp": 9.2,
+          "tstat": 2.7
+        },
+        "21": {
+          "n": 221,
+          "media_pct": 4.95,
+          "acerto_pct": 69.7,
+          "vs_base_pp": 2.43,
+          "vs_base_acerto_pp": 11.2,
+          "tstat": 3.07
+        }
+      }
+    },
+    "Segunda-feira": {
+      "n": 252,
+      "por_horizonte": {
+        "1": {
+          "n": 252,
+          "media_pct": 0.03,
+          "acerto_pct": 54.0,
+          "vs_base_pp": -0.08,
+          "vs_base_acerto_pp": 2.9,
+          "tstat": -0.53
+        },
+        "3": {
+          "n": 251,
+          "media_pct": 0.2,
+          "acerto_pct": 50.6,
+          "vs_base_pp": -0.14,
+          "vs_base_acerto_pp": -0.2,
+          "tstat": -0.49
+        },
+        "5": {
+          "n": 251,
+          "media_pct": 0.51,
+          "acerto_pct": 52.2,
+          "vs_base_pp": -0.04,
+          "vs_base_acerto_pp": 0.9,
+          "tstat": -0.12
+        },
+        "10": {
+          "n": 250,
+          "media_pct": 1.05,
+          "acerto_pct": 54.0,
+          "vs_base_pp": -0.05,
+          "vs_base_acerto_pp": -1.2,
+          "tstat": -0.11
+        },
+        "21": {
+          "n": 248,
+          "media_pct": 2.48,
+          "acerto_pct": 58.1,
+          "vs_base_pp": -0.03,
+          "vs_base_acerto_pp": -0.4,
+          "tstat": -0.04
+        }
+      }
+    },
+    "Sexta-feira": {
+      "n": 248,
+      "por_horizonte": {
+        "1": {
+          "n": 248,
+          "media_pct": -0.04,
+          "acerto_pct": 47.2,
+          "vs_base_pp": -0.15,
+          "vs_base_acerto_pp": -3.9,
+          "tstat": -0.97
+        },
+        "3": {
+          "n": 248,
+          "media_pct": 0.2,
+          "acerto_pct": 46.8,
+          "vs_base_pp": -0.13,
+          "vs_base_acerto_pp": -4.1,
+          "tstat": -0.48
+        },
+        "5": {
+          "n": 247,
+          "media_pct": 0.57,
+          "acerto_pct": 52.6,
+          "vs_base_pp": 0.02,
+          "vs_base_acerto_pp": 1.4,
+          "tstat": 0.04
+        },
+        "10": {
+          "n": 246,
+          "media_pct": 0.96,
+          "acerto_pct": 55.7,
+          "vs_base_pp": -0.14,
+          "vs_base_acerto_pp": 0.4,
+          "tstat": -0.29
+        },
+        "21": {
+          "n": 244,
+          "media_pct": 2.23,
+          "acerto_pct": 55.7,
+          "vs_base_pp": -0.29,
+          "vs_base_acerto_pp": -2.8,
+          "tstat": -0.38
+        }
+      }
+    }
+  },
+  "ranking_10d": [
+    {
+      "sinal": "Cruza acima da MM200",
+      "n": 25,
+      "media10_pct": 3.32,
+      "acerto_pct": 72.0,
+      "vs_base_pp": 2.22,
+      "tstat": 1.97
+    },
+    {
+      "sinal": "Gap de alta > +2%",
+      "n": 88,
+      "media10_pct": 2.71,
+      "acerto_pct": 54.5,
+      "vs_base_pp": 1.61,
+      "tstat": 1.62
+    },
+    {
+      "sinal": "PRIO 20d - Brent 20d > +10pp (esticado)",
+      "n": 225,
+      "media10_pct": 2.32,
+      "acerto_pct": 64.4,
+      "vs_base_pp": 1.22,
+      "tstat": 2.7
+    },
+    {
+      "sinal": "Gap de baixa < -2%",
+      "n": 61,
+      "media10_pct": 1.91,
+      "acerto_pct": 55.7,
+      "vs_base_pp": 0.81,
+      "tstat": 0.72
+    },
+    {
+      "sinal": "Rompe maxima de 52 semanas",
+      "n": 67,
+      "media10_pct": 1.9,
+      "acerto_pct": 55.2,
+      "vs_base_pp": 0.8,
+      "tstat": 0.85
+    },
+    {
+      "sinal": "Preco abaixo da Banda inferior (2σ)",
+      "n": 60,
+      "media10_pct": 1.68,
+      "acerto_pct": 58.3,
+      "vs_base_pp": 0.58,
+      "tstat": 0.61
+    },
+    {
+      "sinal": "RSI > 70 (sobrecomprado)",
+      "n": 83,
+      "media10_pct": 1.48,
+      "acerto_pct": 59.0,
+      "vs_base_pp": 0.38,
+      "tstat": 0.48
+    },
+    {
+      "sinal": "Preco acima da Banda superior (2σ)",
+      "n": 84,
+      "media10_pct": 1.38,
+      "acerto_pct": 54.8,
+      "vs_base_pp": 0.27,
+      "tstat": 0.37
+    },
+    {
+      "sinal": "Nova maxima de 20 dias (rompimento)",
+      "n": 190,
+      "media10_pct": 1.37,
+      "acerto_pct": 54.7,
+      "vs_base_pp": 0.27,
+      "tstat": 0.51
+    },
+    {
+      "sinal": "3 quedas seguidas",
+      "n": 151,
+      "media10_pct": 1.16,
+      "acerto_pct": 51.0,
+      "vs_base_pp": 0.06,
+      "tstat": 0.09
+    },
+    {
+      "sinal": "Segunda-feira",
+      "n": 250,
+      "media10_pct": 1.05,
+      "acerto_pct": 54.0,
+      "vs_base_pp": -0.05,
+      "tstat": -0.11
+    },
+    {
+      "sinal": "PRIO 20d - Brent 20d < -10pp (atraso)",
+      "n": 116,
+      "media10_pct": 1.0,
+      "acerto_pct": 47.4,
+      "vs_base_pp": -0.1,
+      "tstat": -0.11
+    },
+    {
+      "sinal": "Sexta-feira",
+      "n": 246,
+      "media10_pct": 0.96,
+      "acerto_pct": 55.7,
+      "vs_base_pp": -0.14,
+      "tstat": -0.29
+    },
+    {
+      "sinal": "MACD cruza p/ cima do sinal",
+      "n": 49,
+      "media10_pct": 0.85,
+      "acerto_pct": 65.3,
+      "vs_base_pp": -0.25,
+      "tstat": -0.27
+    },
+    {
+      "sinal": "RSI < 30 (sobrevendido)",
+      "n": 63,
+      "media10_pct": 0.69,
+      "acerto_pct": 57.1,
+      "vs_base_pp": -0.41,
+      "tstat": -0.55
+    },
+    {
+      "sinal": "Novo fundo de 20 dias",
+      "n": 130,
+      "media10_pct": 0.53,
+      "acerto_pct": 49.2,
+      "vs_base_pp": -0.57,
+      "tstat": -0.94
+    },
+    {
+      "sinal": "Cruza acima da MM50",
+      "n": 48,
+      "media10_pct": -0.1,
+      "acerto_pct": 47.9,
+      "vs_base_pp": -1.2,
+      "tstat": -1.34
+    },
+    {
+      "sinal": "RSI < 25 (muito sobrevendido)",
+      "n": 35,
+      "media10_pct": -0.86,
+      "acerto_pct": 42.9,
+      "vs_base_pp": -1.97,
+      "tstat": -1.92
+    },
+    {
+      "sinal": "Queda >=8% em 5 pregoes",
+      "n": 65,
+      "media10_pct": -1.19,
+      "acerto_pct": 46.2,
+      "vs_base_pp": -2.29,
+      "tstat": -2.57
+    },
+    {
+      "sinal": "Pullback em tendencia (>MM200 e RSI<40)",
+      "n": 45,
+      "media10_pct": -1.59,
+      "acerto_pct": 40.0,
+      "vs_base_pp": -2.69,
+      "tstat": -2.2
+    },
+    {
+      "sinal": "Queda >=12% em 5 pregoes",
+      "n": 16,
+      "media10_pct": -2.3,
+      "acerto_pct": 31.2,
+      "vs_base_pp": -3.4,
+      "tstat": -2.33
+    }
+  ]
+}

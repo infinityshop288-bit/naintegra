@@ -1,0 +1,134 @@
+{
+  "atualizado": "2026-08-22",
+  "indicadores": {
+    "selic_meta": {
+      "valor": 14.0,
+      "unid": "% a.a.",
+      "data": "16/09/2026",
+      "fonte": "BCB",
+      "tag": "oficial"
+    },
+    "ipca_mes": {
+      "valor": 0.07,
+      "unid": "% m",
+      "data": "01/07/2026",
+      "fonte": "BCB",
+      "tag": "oficial"
+    },
+    "ipca_12m": {
+      "valor": 4.44,
+      "unid": "% 12m",
+      "fonte": "BCB",
+      "tag": "oficial"
+    },
+    "igpm_mes": {
+      "valor": -1.16,
+      "unid": "% m",
+      "data": "01/07/2026",
+      "fonte": "BCB",
+      "tag": "oficial"
+    },
+    "igpm_12m": {
+      "valor": 2.77,
+      "unid": "% 12m",
+      "fonte": "BCB",
+      "tag": "oficial"
+    },
+    "desemprego_br": {
+      "valor": 5.4,
+      "unid": "%",
+      "data": "01/06/2026",
+      "fonte": "BCB/PNAD",
+      "tag": "oficial"
+    },
+    "inadimplencia_total": {
+      "valor": 4.68,
+      "unid": "%",
+      "data": "01/06/2026",
+      "fonte": "BCB",
+      "tag": "oficial"
+    },
+    "inadimplencia_pj": {
+      "valor": 3.19,
+      "unid": "%",
+      "data": "01/06/2026",
+      "fonte": "BCB",
+      "tag": "oficial"
+    },
+    "inadimplencia_pf": {
+      "valor": 5.57,
+      "unid": "%",
+      "data": "01/06/2026",
+      "fonte": "BCB",
+      "tag": "oficial"
+    },
+    "usd_brl": {
+      "valor": 5.1625,
+      "chg_pct": -0.46,
+      "data": "21/08/2026",
+      "fonte": "BCB",
+      "tag": "oficial"
+    },
+    "fed_funds": {
+      "valor": 3.63,
+      "unid": "% a.a.",
+      "data": "2026-07-01",
+      "fonte": "FRED",
+      "tag": "oficial"
+    },
+    "desemprego_us": {
+      "valor": 4.1,
+      "unid": "%",
+      "data": "2026-07-01",
+      "fonte": "FRED",
+      "tag": "oficial"
+    },
+    "us_10y": {
+      "valor": 4.69,
+      "unid": "%",
+      "data": "2026-08-20",
+      "fonte": "FRED",
+      "tag": "oficial"
+    },
+    "cpi_us_12m": {
+      "valor": 3.54,
+      "unid": "% 12m",
+      "data": "2026-07-01",
+      "fonte": "FRED",
+      "tag": "oficial"
+    },
+    "ibovespa": {
+      "valor": 171032.0,
+      "chg_pct": 1.85,
+      "ret_1m_pct": -3.2,
+      "fonte": "Yahoo",
+      "tag": "tempo real"
+    },
+    "dxy": {
+      "valor": 98.8,
+      "chg_pct": -0.1,
+      "fonte": "Yahoo",
+      "tag": "tempo real"
+    }
+  },
+  "direcoes": {
+    "selic_up": 0,
+    "usd_up": -1,
+    "ibov_up": -1,
+    "commodity_up": -1
+  },
+  "curados": {
+    "fluxo_estrangeiro_b3": {
+      "texto": "Fluxo de capital estrangeiro na B3 — acompanhar boletim diário da B3 (não há API pública aberta). Em 2026 o fluxo estrangeiro tem sido o principal suporte do Ibovespa.",
+      "tag": "curado/mensal"
+    },
+    "recuperacao_falencia": {
+      "texto": "Recuperações judiciais e falências (Serasa Experian, mensal). Tendência de alta nos pedidos de RJ desde 2024, puxada por juros altos e endividamento de PMEs.",
+      "tag": "curado/mensal"
+    },
+    "eleicao_2026": {
+      "texto": "Eleições gerais em outubro/2026 (presidencial + legislativo). Ano eleitoral eleva a volatilidade e o prêmio de risco; setores regulados (energia, bancos) e fiscais sensíveis à corrida eleitoral.",
+      "tag": "curado/contexto"
+    }
+  }
+}

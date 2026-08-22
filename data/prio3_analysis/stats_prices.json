@@ -1,0 +1,30 @@
+{
+  "PRIO3": {
+    "inicio": "2021-07-05",
+    "fim": "2026-07-08",
+    "preco_inicial": 21.4555,
+    "preco_final": 56.42,
+    "retorno_total_pct": 162.96,
+    "cagr_pct": 21.33,
+    "vol_anualizada_pct": 39.31,
+    "max": 72.1,
+    "min": 16.7231,
+    "max_data": "2026-03-30",
+    "min_data": "2021-08-17"
+  },
+  "BRENT": {
+    "inicio": "2021-07-06",
+    "fim": "2026-07-08",
+    "preco_inicial": 74.53,
+    "preco_final": 78.02,
+    "retorno_total_pct": 4.68,
+    "cagr_pct": 0.92,
+    "vol_anualizada_pct": 37.63,
+    "max": 127.98,
+    "min": 58.92,
+    "max_data": "2022-03-08",
+    "min_data": "2025-12-16"
+  },
+  "correlacao_prio3_brent_retornos_diarios": 0.485,
+  "beta_prio3_vs_brent": 0.506
+}

@@ -1,0 +1,95 @@
+name: Sync Dashboard PRIO3 → naintegracursos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/prio3_analysis/**"
+      - "scripts/build_prio3_deploy.py"
+      - "scripts/export_prio3_snapshots.py"
+      - "scripts/sync_prio3_to_cursos.py"
+      - ".github/workflows/sync-prio3-to-cursos.yml"
+  schedule:
+    # Snapshots de mercado a cada 15 min (seg–sex, horário BR ~11–21 UTC)
+    - cron: "*/15 11-21 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      refresh:
+        description: "Atualizar macro/análise/opções + snapshots API antes do sync"
+        type: boolean
+        default: true
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    name: public/xxx → Hostinger via naintegracursos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências (prio3)
+        run: |
+          cd data/prio3_analysis
+          python -m venv .venv
+          .venv/bin/pip install -q yfinance pandas numpy certifi
+
+      - name: Build bundle estático (xxx/)
+        env:
+          DASHBOARD_USER: ${{ secrets.DASHBOARD_USER }}
+          DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
+          HTPASSWD_ABS_PATH: ${{ secrets.HTPASSWD_ABS_PATH }}
+        run: |
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            python scripts/build_prio3_deploy.py --refresh
+          elif [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.refresh }}" = "true" ]; then
+            python scripts/build_prio3_deploy.py --refresh
+          else
+            python scripts/build_prio3_deploy.py
+          fi
+
+      - name: Checkout naintegracursos
+        uses: actions/checkout@v4
+        with:
+          repository: infinityshop288-bit/naintegracursos
+          token: ${{ secrets.GITHUB_TOKEN }}
+          path: naintegracursos
+
+      - name: Sync public/xxx
+        run: |
+          rm -rf naintegracursos/public/xxx
+          rsync -a --exclude '.DS_Store' xxx/ naintegracursos/public/xxx/
+
+      - name: Commit and push
+        working-directory: naintegracursos
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/xxx
+          if git diff --staged --quiet; then
+            echo "Sem alterações em public/xxx"
+            exit 0
+          fi
+          git commit -m "Publica dashboard PRIO3 em public/xxx (${GITHUB_SHA:0:7})"
+          git push origin HEAD:main
+
+      - name: Smoke test (após deploy Hostinger)
+        if: success()
+        run: |
+          sleep 30
+          user="${{ secrets.DASHBOARD_USER }}"
+          pass="${{ secrets.DASHBOARD_PASSWORD }}"
+          if [ -z "$user" ] || [ -z "$pass" ]; then
+            echo "DASHBOARD_* não configurados — teste manual em /xxx/painel.html"
+            exit 0
+          fi
+          code=$(curl -s -o /dev/null -w "%{http_code}" -u "$user:$pass" "https://www.naintegracursos.com.br/xxx/painel.html" || true)
+          echo "HTTP $code for /xxx/painel.html"
+          if [ "$code" != "200" ]; then
+            echo "::warning::Hostinger pode levar alguns minutos para publicar o commit."

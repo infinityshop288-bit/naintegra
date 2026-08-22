@@ -1,0 +1,1282 @@
+{
+  "fonte": "Yahoo Finance (PRIO3.SA, PETR3.SA, CVX, BZ=F)",
+  "periodo": {
+    "inicio": "2021-08-23",
+    "fim": "2026-08-20",
+    "pregoes": 1212
+  },
+  "labels": {
+    "PRIO3": "PRIO3",
+    "PETR3": "Petrobras",
+    "CVX": "Chevron",
+    "BRENT": "Brent"
+  },
+  "snapshot": {
+    "PRIO3": {
+      "preco": 62.04,
+      "ret_1m_pct": 3.8,
+      "ret_ytd_pct": 48.6,
+      "ret_total_pct": 232.7,
+      "vol_anual_pct": 40.3
+    },
+    "PETR3": {
+      "preco": 49.41,
+      "ret_1m_pct": 3.2,
+      "ret_ytd_pct": 57.2,
+      "ret_total_pct": 459.4,
+      "vol_anual_pct": 33.0
+    },
+    "CVX": {
+      "preco": 205.77,
+      "ret_1m_pct": 7.6,
+      "ret_ytd_pct": 35.7,
+      "ret_total_pct": 159.9,
+      "vol_anual_pct": 26.1
+    },
+    "BRENT": {
+      "preco": 93.78,
+      "ret_1m_pct": -0.3,
+      "ret_ytd_pct": 54.4,
+      "ret_total_pct": 36.4,
+      "vol_anual_pct": 40.0
+    }
+  },
+  "relativo_252d": {
+    "PRIO3": {
+      "corr": 0.53,
+      "beta": 0.351,
+      "n": 252
+    },
+    "PETR3": {
+      "corr": 0.597,
+      "beta": 0.32,
+      "n": 252
+    },
+    "CVX": {
+      "corr": 0.606,
+      "beta": 0.27,
+      "n": 252
+    }
+  },
+  "efeito_brent": {
+    "PRIO3": {
+      "brent_alta": {
+        "n": 624,
+        "media_pct": 1.084,
+        "mediana_pct": 0.89,
+        "acerto_pct": 67.9
+      },
+      "brent_baixa": {
+        "n": 528,
+        "media_pct": -0.985,
+        "mediana_pct": -0.951,
+        "acerto_pct": 67.4
+      },
+      "brent_lateral": {
+        "n": 59,
+        "media_pct": 0.052
+      }
+    },
+    "PETR3": {
+      "brent_alta": {
+        "n": 624,
+        "media_pct": 0.747,
+        "mediana_pct": 0.665,
+        "acerto_pct": 64.4
+      },
+      "brent_baixa": {
+        "n": 528,
+        "media_pct": -0.488,
+        "mediana_pct": -0.435,
+        "acerto_pct": 61.2
+      },
+      "brent_lateral": {
+        "n": 59,
+        "media_pct": -0.161
+      }
+    },
+    "CVX": {
+      "brent_alta": {
+        "n": 624,
+        "media_pct": 0.78,
+        "mediana_pct": 0.735,
+        "acerto_pct": 74.5
+      },
+      "brent_baixa": {
+        "n": 528,
+        "media_pct": -0.72,
+        "mediana_pct": -0.516,
+        "acerto_pct": 67.4
+      },
+      "brent_lateral": {
+        "n": 59,
+        "media_pct": 0.096
+      }
+    }
+  },
+  "acumulado_por_direcao_brent": {
+    "PRIO3": {
+      "soma_dias_brent_alta_pct": 676.1,
+      "soma_dias_brent_baixa_pct": -520.2,
+      "n_dias_alta": 624,
+      "n_dias_baixa": 528
+    },
+    "PETR3": {
+      "soma_dias_brent_alta_pct": 465.9,
+      "soma_dias_brent_baixa_pct": -257.9,
+      "n_dias_alta": 624,
+      "n_dias_baixa": 528
+    },
+    "CVX": {
+      "soma_dias_brent_alta_pct": 486.5,
+      "soma_dias_brent_baixa_pct": -380.1,
+      "n_dias_alta": 624,
+      "n_dias_baixa": 528
+    }
+  },
+  "indexado_mensal": [
+    {
+      "mes": "2021-09",
+      "PRIO3": 100.0,
+      "PETR3": 100.0,
+      "CVX": 100.0,
+      "BRENT": 100.0
+    },
+    {
+      "mes": "2021-10",
+      "PRIO3": 93.8,
+      "PETR3": 98.29,
+      "CVX": 112.85,
+      "BRENT": 107.46
+    },
+    {
+      "mes": "2021-11",
+      "PRIO3": 81.1,
+      "PETR3": 107.07,
+      "CVX": 112.54,
+      "BRENT": 89.88
+    },
+    {
+      "mes": "2021-12",
+      "PRIO3": 82.61,
+      "PETR3": 122.14,
+      "CVX": 117.09,
+      "BRENT": 101.02
+    },
+    {
+      "mes": "2022-01",
+      "PRIO3": 95.6,
+      "PETR3": 140.32,
+      "CVX": 130.95,
+      "BRENT": 116.16
+    },
+    {
+      "mes": "2022-02",
+      "PRIO3": 103.2,
+      "PETR3": 144.7,
+      "CVX": 141.44,
+      "BRENT": 124.72
+    },
+    {
+      "mes": "2022-03",
+      "PRIO3": 95.16,
+      "PETR3": 140.2,
+      "CVX": 164.06,
+      "BRENT": 137.43
+    },
+    {
+      "mes": "2022-04",
+      "PRIO3": 106.71,
+      "PETR3": 144.47,
+      "CVX": 157.86,
+      "BRENT": 139.25
+    },
+    {
+      "mes": "2022-05",
+      "PRIO3": 111.87,
+      "PETR3": 158.8,
+      "CVX": 177.43,
+      "BRENT": 156.44
+    },
+    {
+      "mes": "2022-06",
+      "PRIO3": 87.89,
+      "PETR3": 145.81,
+      "CVX": 147.08,
+      "BRENT": 146.22
+    },
+    {
+      "mes": "2022-07",
+      "PRIO3": 96.8,
+      "PETR3": 176.47,
+      "CVX": 166.38,
+      "BRENT": 140.1
+    },
+    {
+      "mes": "2022-08",
+      "PRIO3": 109.15,
+      "PETR3": 214.54,
+      "CVX": 162.03,
+      "BRENT": 122.89
+    },
+    {
+      "mes": "2022-09",
+      "PRIO3": 110.03,
+      "PETR3": 190.93,
+      "CVX": 147.27,
+      "BRENT": 112.02
+    },
+    {
+      "mes": "2022-10",
+      "PRIO3": 141.45,
+      "PETR3": 191.97,
+      "CVX": 185.44,
+      "BRENT": 120.77
+    },
+    {
+      "mes": "2022-11",
+      "PRIO3": 144.08,
+      "PETR3": 197.22,
+      "CVX": 189.36,
+      "BRENT": 108.8
+    },
+    {
+      "mes": "2022-12",
+      "PRIO3": 148.72,
+      "PETR3": 181.97,
+      "CVX": 184.21,
+      "BRENT": 104.76
+    },
+    {
+      "mes": "2023-01",
+      "PRIO3": 168.27,
+      "PETR3": 191.18,
+      "CVX": 179.77,
+      "BRENT": 107.6
+    },
+    {
+      "mes": "2023-02",
+      "PRIO3": 134.69,
+      "PETR3": 186.57,
+      "CVX": 167.55,
+      "BRENT": 106.84
+    },
+    {
+      "mes": "2023-03",
+      "PRIO3": 124.66,
+      "PETR3": 171.91,
+      "CVX": 170.04,
+      "BRENT": 101.59
+    },
+    {
+      "mes": "2023-04",
+      "PRIO3": 138.89,
+      "PETR3": 192.6,
+      "CVX": 175.69,
+      "BRENT": 101.3
+    },
+    {
+      "mes": "2023-05",
+      "PRIO3": 136.65,
+      "PETR3": 210.95,
+      "CVX": 158.51,
+      "BRENT": 92.54
+    },
+    {
+      "mes": "2023-06",
+      "PRIO3": 148.2,
+      "PETR3": 253.06,
+      "CVX": 165.59,
+      "BRENT": 95.39
+    },
+    {
+      "mes": "2023-07",
+      "PRIO3": 182.33,
+      "PETR3": 266.13,
+      "CVX": 172.23,
+      "BRENT": 108.97
+    },
+    {
+      "mes": "2023-08",
+      "PRIO3": 185.53,
+      "PETR3": 273.27,
+      "CVX": 171.16,
+      "BRENT": 110.62
+    },
+    {
+      "mes": "2023-09",
+      "PRIO3": 188.01,
+      "PETR3": 299.77,
+      "CVX": 179.15,
+      "BRENT": 121.38
+    },
+    {
+      "mes": "2023-10",
+      "PRIO3": 190.65,
+      "PETR3": 299.37,
+      "CVX": 154.83,
+      "BRENT": 111.32
+    },
+    {
+      "mes": "2023-11",
+      "PRIO3": 183.57,
+      "PETR3": 309.14,
+      "CVX": 154.17,
+      "BRENT": 105.49
+    },
+    {
+      "mes": "2023-12",
+      "PRIO3": 184.35,
+      "PETR3": 319.63,
+      "CVX": 160.79,
+      "BRENT": 99.83
+    },
+    {
+      "mes": "2024-01",
+      "PRIO3": 175.86,
+      "PETR3": 345.71,
+      "CVX": 158.28,
+      "BRENT": 104.06
+    },
+    {
+      "mes": "2024-02",
+      "PRIO3": 174.98,
+      "PETR3": 338.0,
+      "CVX": 164.98,
+      "BRENT": 106.5
+    },
+    {
+      "mes": "2024-03",
+      "PRIO3": 195.12,
+      "PETR3": 313.89,
+      "CVX": 171.2,
+      "BRENT": 111.41
+    },
+    {
+      "mes": "2024-04",
+      "PRIO3": 192.15,
+      "PETR3": 372.61,
+      "CVX": 175.03,
+      "BRENT": 111.9
+    },
+    {
+      "mes": "2024-05",
+      "PRIO3": 166.57,
+      "PETR3": 356.91,
+      "CVX": 177.93,
+      "BRENT": 103.95
+    },
+    {
+      "mes": "2024-06",
+      "PRIO3": 175.18,
+      "PETR3": 363.76,
+      "CVX": 171.48,
+      "BRENT": 110.05
+    },
+    {
+      "mes": "2024-07",
+      "PRIO3": 192.35,
+      "PETR3": 365.75,
+      "CVX": 175.92,
+      "BRENT": 102.8
+    },
+    {
+      "mes": "2024-08",
+      "PRIO3": 187.51,
+      "PETR3": 397.09,
+      "CVX": 164.01,
+      "BRENT": 100.36
+    },
+    {
+      "mes": "2024-09",
+      "PRIO3": 173.46,
+      "PETR3": 363.16,
+      "CVX": 163.26,
+      "BRENT": 91.4
+    },
+    {
+      "mes": "2024-10",
+      "PRIO3": 164.05,
+      "PETR3": 361.21,
+      "CVX": 164.97,
+      "BRENT": 93.17
+    },
+    {
+      "mes": "2024-11",
+      "PRIO3": 160.69,
+      "PETR3": 394.14,
+      "CVX": 181.34,
+      "BRENT": 92.89
+    },
+    {
+      "mes": "2024-12",
+      "PRIO3": 160.73,
+      "PETR3": 391.06,
+      "CVX": 160.22,
+      "BRENT": 94.74
+    },
+    {
+      "mes": "2025-01",
+      "PRIO3": 164.09,
+      "PETR3": 413.29,
+      "CVX": 167.07,
+      "BRENT": 97.76
+    },
+    {
+      "mes": "2025-02",
+      "PRIO3": 152.8,
+      "PETR3": 387.49,
+      "CVX": 179.6,
+      "BRENT": 93.2
+    },
+    {
+      "mes": "2025-03",
+      "PRIO3": 159.33,
+      "PETR3": 405.06,
+      "CVX": 189.42,
+      "BRENT": 95.19
+    },
+    {
+      "mes": "2025-04",
+      "PRIO3": 134.95,
+      "PETR3": 325.39,
+      "CVX": 154.06,
+      "BRENT": 80.39
+    },
+    {
+      "mes": "2025-05",
+      "PRIO3": 155.93,
+      "PETR3": 334.12,
+      "CVX": 156.67,
+      "BRENT": 81.38
+    },
+    {
+      "mes": "2025-06",
+      "PRIO3": 169.74,
+      "PETR3": 355.91,
+      "CVX": 164.11,
+      "BRENT": 86.11
+    },
+    {
+      "mes": "2025-07",
+      "PRIO3": 168.9,
+      "PETR3": 373.65,
+      "CVX": 173.79,
+      "BRENT": 92.37
+    },
+    {
+      "mes": "2025-08",
+      "PRIO3": 151.6,
+      "PETR3": 359.76,
+      "CVX": 186.11,
+      "BRENT": 86.75
+    },
+    {
+      "mes": "2025-09",
+      "PRIO3": 152.64,
+      "PETR3": 360.08,
+      "CVX": 179.95,
+      "BRENT": 85.35
+    },
+    {
+      "mes": "2025-10",
+      "PRIO3": 144.24,
+      "PETR3": 335.88,
+      "CVX": 182.77,
+      "BRENT": 82.87
+    },
+    {
+      "mes": "2025-11",
+      "PRIO3": 148.96,
+      "PETR3": 355.82,
+      "CVX": 177.09,
+      "BRENT": 80.49
+    },
+    {
+      "mes": "2025-12",
+      "PRIO3": 165.81,
+      "PETR3": 357.55,
+      "CVX": 178.47,
+      "BRENT": 78.86
+    },
+    {
+      "mes": "2026-01",
+      "PRIO3": 204.12,
+      "PETR3": 443.39,
+      "CVX": 207.29,
+      "BRENT": 90.03
+    },
+    {
+      "mes": "2026-02",
+      "PRIO3": 218.14,
+      "PETR3": 469.08,
+      "CVX": 220.98,
+      "BRENT": 92.31
+    },
+    {
+      "mes": "2026-03",
+      "PRIO3": 265.05,
+      "PETR3": 591.81,
+      "CVX": 244.81,
+      "BRENT": 150.73
+    },
+    {
+      "mes": "2026-04",
+      "PRIO3": 265.85,
+      "PETR3": 608.47,
+      "CVX": 228.73,
+      "BRENT": 145.2
+    },
+    {
+      "mes": "2026-05",
+      "PRIO3": 249.2,
+      "PETR3": 519.53,
+      "CVX": 217.87,
+      "BRENT": 117.23
+    },
+    {
+      "mes": "2026-06",
+      "PRIO3": 208.77,
+      "PETR3": 471.48,
+      "CVX": 197.93,
+      "BRENT": 92.87
+    },
+    {
+      "mes": "2026-07",
+      "PRIO3": 243.6,
+      "PETR3": 553.41,
+      "CVX": 235.03,
+      "BRENT": 114.77
+    },
+    {
+      "mes": "2026-08",
+      "PRIO3": 248.36,
+      "PETR3": 557.58,
+      "CVX": 247.85,
+      "BRENT": 119.43
+    }
+  ],
+  "diario_90d": [
+    {
+      "data": "2026-04-09",
+      "brent_pct": 1.23,
+      "brent_dir": "alta",
+      "PRIO3_pct": 2.11,
+      "PETR3_pct": 2.93,
+      "CVX_pct": -1.31
+    },
+    {
+      "data": "2026-04-10",
+      "brent_pct": -0.75,
+      "brent_dir": "baixa",
+      "PRIO3_pct": 3.36,
+      "PETR3_pct": 2.49,
+      "CVX_pct": -0.95
+    },
+    {
+      "data": "2026-04-13",
+      "brent_pct": 4.37,
+      "brent_dir": "alta",
+      "PRIO3_pct": -1.26,
+      "PETR3_pct": 1.78,
+      "CVX_pct": 1.71
+    },
+    {
+      "data": "2026-04-14",
+      "brent_pct": -4.6,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -2.57,
+      "PETR3_pct": -4.44,
+      "CVX_pct": -2.48
+    },
+    {
+      "data": "2026-04-15",
+      "brent_pct": 0.15,
+      "brent_dir": "alta",
+      "PRIO3_pct": -2.9,
+      "PETR3_pct": -1.94,
+      "CVX_pct": -1.13
+    },
+    {
+      "data": "2026-04-16",
+      "brent_pct": 4.7,
+      "brent_dir": "alta",
+      "PRIO3_pct": 1.68,
+      "PETR3_pct": 4.19,
+      "CVX_pct": 1.75
+    },
+    {
+      "data": "2026-04-17",
+      "brent_pct": -9.07,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -4.03,
+      "PETR3_pct": -5.31,
+      "CVX_pct": -2.21
+    },
+    {
+      "data": "2026-04-20",
+      "brent_pct": 5.64,
+      "brent_dir": "alta",
+      "PRIO3_pct": -0.05,
+      "PETR3_pct": 1.83,
+      "CVX_pct": -0.4
+    },
+    {
+      "data": "2026-04-22",
+      "brent_pct": 6.73,
+      "brent_dir": "alta",
+      "PRIO3_pct": 1.74,
+      "PETR3_pct": 1.86,
+      "CVX_pct": 1.68
+    },
+    {
+      "data": "2026-04-23",
+      "brent_pct": 3.1,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.03,
+      "PETR3_pct": 1.37,
+      "CVX_pct": 0.69
+    },
+    {
+      "data": "2026-04-24",
+      "brent_pct": 0.25,
+      "brent_dir": "alta",
+      "PRIO3_pct": -0.14,
+      "PETR3_pct": -0.97,
+      "CVX_pct": -1.27
+    },
+    {
+      "data": "2026-04-27",
+      "brent_pct": 2.75,
+      "brent_dir": "alta",
+      "PRIO3_pct": 2.75,
+      "PETR3_pct": 0.34,
+      "CVX_pct": -0.23
+    },
+    {
+      "data": "2026-04-28",
+      "brent_pct": 2.8,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.08,
+      "PETR3_pct": 0.72,
+      "CVX_pct": 1.94
+    },
+    {
+      "data": "2026-04-29",
+      "brent_pct": 6.08,
+      "brent_dir": "alta",
+      "PRIO3_pct": 3.07,
+      "PETR3_pct": 3.16,
+      "CVX_pct": 2.05
+    },
+    {
+      "data": "2026-04-30",
+      "brent_pct": -3.41,
+      "brent_dir": "baixa",
+      "PRIO3_pct": 0.05,
+      "PETR3_pct": 0.48,
+      "CVX_pct": 0.57
+    },
+    {
+      "data": "2026-05-04",
+      "brent_pct": 0.38,
+      "brent_dir": "alta",
+      "PRIO3_pct": 5.65,
+      "PETR3_pct": -0.8,
+      "CVX_pct": -0.53
+    },
+    {
+      "data": "2026-05-05",
+      "brent_pct": -3.99,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -0.94,
+      "PETR3_pct": -1.38,
+      "CVX_pct": 0.19
+    },
+    {
+      "data": "2026-05-06",
+      "brent_pct": -7.83,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -4.26,
+      "PETR3_pct": -3.77,
+      "CVX_pct": -3.88
+    },
+    {
+      "data": "2026-05-07",
+      "brent_pct": -1.19,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -3.22,
+      "PETR3_pct": -1.88,
+      "CVX_pct": -1.44
+    },
+    {
+      "data": "2026-05-08",
+      "brent_pct": 1.23,
+      "brent_dir": "alta",
+      "PRIO3_pct": -1.75,
+      "PETR3_pct": -0.87,
+      "CVX_pct": -0.48
+    },
+    {
+      "data": "2026-05-11",
+      "brent_pct": 2.88,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.57,
+      "PETR3_pct": 1.4,
+      "CVX_pct": 1.72
+    },
+    {
+      "data": "2026-05-12",
+      "brent_pct": 3.42,
+      "brent_dir": "alta",
+      "PRIO3_pct": 1.57,
+      "PETR3_pct": -1.16,
+      "CVX_pct": 0.65
+    },
+    {
+      "data": "2026-05-13",
+      "brent_pct": -1.99,
+      "brent_dir": "baixa",
+      "PRIO3_pct": 1.27,
+      "PETR3_pct": -2.47,
+      "CVX_pct": 0.03
+    },
+    {
+      "data": "2026-05-14",
+      "brent_pct": 0.09,
+      "brent_dir": "flat",
+      "PRIO3_pct": 2.81,
+      "PETR3_pct": 0.82,
+      "CVX_pct": 0.34
+    },
+    {
+      "data": "2026-05-15",
+      "brent_pct": 3.35,
+      "brent_dir": "alta",
+      "PRIO3_pct": 2.24,
+      "PETR3_pct": 2.17,
+      "CVX_pct": 2.39
+    },
+    {
+      "data": "2026-05-18",
+      "brent_pct": 2.6,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.03,
+      "PETR3_pct": 2.66,
+      "CVX_pct": 2.63
+    },
+    {
+      "data": "2026-05-19",
+      "brent_pct": -0.73,
+      "brent_dir": "baixa",
+      "PRIO3_pct": 0.73,
+      "PETR3_pct": -0.23,
+      "CVX_pct": 1.5
+    },
+    {
+      "data": "2026-05-20",
+      "brent_pct": -5.63,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -1.0,
+      "PETR3_pct": -3.85,
+      "CVX_pct": -3.0
+    },
+    {
+      "data": "2026-05-21",
+      "brent_pct": -2.32,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -0.92,
+      "PETR3_pct": 1.25,
+      "CVX_pct": -0.17
+    },
+    {
+      "data": "2026-05-22",
+      "brent_pct": 0.94,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.59,
+      "PETR3_pct": -0.3,
+      "CVX_pct": 0.22
+    },
+    {
+      "data": "2026-05-26",
+      "brent_pct": -3.82,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -5.34,
+      "PETR3_pct": -2.51,
+      "CVX_pct": -3.51
+    },
+    {
+      "data": "2026-05-27",
+      "brent_pct": -5.31,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -2.73,
+      "PETR3_pct": -1.62,
+      "CVX_pct": -1.25
+    },
+    {
+      "data": "2026-05-28",
+      "brent_pct": -0.62,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -0.02,
+      "PETR3_pct": -1.16,
+      "CVX_pct": 0.35
+    },
+    {
+      "data": "2026-05-29",
+      "brent_pct": -1.77,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -1.14,
+      "PETR3_pct": -1.7,
+      "CVX_pct": -0.31
+    },
+    {
+      "data": "2026-06-01",
+      "brent_pct": 3.18,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.92,
+      "PETR3_pct": 1.31,
+      "CVX_pct": 1.85
+    },
+    {
+      "data": "2026-06-02",
+      "brent_pct": 1.07,
+      "brent_dir": "alta",
+      "PRIO3_pct": -1.34,
+      "PETR3_pct": -0.36,
+      "CVX_pct": 0.93
+    },
+    {
+      "data": "2026-06-03",
+      "brent_pct": 1.89,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.98,
+      "PETR3_pct": -1.12,
+      "CVX_pct": 1.15
+    },
+    {
+      "data": "2026-06-05",
+      "brent_pct": -4.83,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -2.35,
+      "PETR3_pct": -0.52,
+      "CVX_pct": -1.27
+    },
+    {
+      "data": "2026-06-08",
+      "brent_pct": 1.25,
+      "brent_dir": "alta",
+      "PRIO3_pct": 2.32,
+      "PETR3_pct": 0.72,
+      "CVX_pct": 1.03
+    },
+    {
+      "data": "2026-06-09",
+      "brent_pct": -2.97,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -1.18,
+      "PETR3_pct": 0.17,
+      "CVX_pct": -1.31
+    },
+    {
+      "data": "2026-06-10",
+      "brent_pct": 1.8,
+      "brent_dir": "alta",
+      "PRIO3_pct": 1.75,
+      "PETR3_pct": 1.5,
+      "CVX_pct": 1.63
+    },
+    {
+      "data": "2026-06-11",
+      "brent_pct": -2.92,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -1.32,
+      "PETR3_pct": -0.02,
+      "CVX_pct": -2.1
+    },
+    {
+      "data": "2026-06-12",
+      "brent_pct": -3.37,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -1.14,
+      "PETR3_pct": -1.3,
+      "CVX_pct": 0.75
+    },
+    {
+      "data": "2026-06-15",
+      "brent_pct": -4.76,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -6.91,
+      "PETR3_pct": -5.3,
+      "CVX_pct": -3.64
+    },
+    {
+      "data": "2026-06-16",
+      "brent_pct": -5.06,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -0.44,
+      "PETR3_pct": -0.96,
+      "CVX_pct": -0.16
+    },
+    {
+      "data": "2026-06-17",
+      "brent_pct": 0.75,
+      "brent_dir": "alta",
+      "PRIO3_pct": -0.19,
+      "PETR3_pct": -0.58,
+      "CVX_pct": -1.4
+    },
+    {
+      "data": "2026-06-18",
+      "brent_pct": 0.38,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.41,
+      "PETR3_pct": 0.14,
+      "CVX_pct": -2.22
+    },
+    {
+      "data": "2026-06-22",
+      "brent_pct": -2.44,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -0.51,
+      "PETR3_pct": 1.18,
+      "CVX_pct": 0.82
+    },
+    {
+      "data": "2026-06-23",
+      "brent_pct": -1.05,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -1.02,
+      "PETR3_pct": 0.78,
+      "CVX_pct": 0.53
+    },
+    {
+      "data": "2026-06-24",
+      "brent_pct": -4.33,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -3.57,
+      "PETR3_pct": -2.68,
+      "CVX_pct": -2.57
+    },
+    {
+      "data": "2026-06-25",
+      "brent_pct": 2.06,
+      "brent_dir": "alta",
+      "PRIO3_pct": -0.3,
+      "PETR3_pct": -0.12,
+      "CVX_pct": 0.46
+    },
+    {
+      "data": "2026-06-26",
+      "brent_pct": -4.34,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -1.21,
+      "PETR3_pct": -1.17,
+      "CVX_pct": -0.69
+    },
+    {
+      "data": "2026-06-29",
+      "brent_pct": 1.61,
+      "brent_dir": "alta",
+      "PRIO3_pct": -0.26,
+      "PETR3_pct": 0.14,
+      "CVX_pct": -1.51
+    },
+    {
+      "data": "2026-06-30",
+      "brent_pct": -0.31,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -1.88,
+      "PETR3_pct": -1.25,
+      "CVX_pct": -1.61
+    },
+    {
+      "data": "2026-07-01",
+      "brent_pct": -1.85,
+      "brent_dir": "baixa",
+      "PRIO3_pct": 0.48,
+      "PETR3_pct": -0.5,
+      "CVX_pct": -0.04
+    },
+    {
+      "data": "2026-07-02",
+      "brent_pct": 0.32,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.32,
+      "PETR3_pct": 1.27,
+      "CVX_pct": 2.12
+    },
+    {
+      "data": "2026-07-06",
+      "brent_pct": 0.26,
+      "brent_dir": "alta",
+      "PRIO3_pct": 1.9,
+      "PETR3_pct": -0.59,
+      "CVX_pct": -0.65
+    },
+    {
+      "data": "2026-07-07",
+      "brent_pct": 3.01,
+      "brent_dir": "alta",
+      "PRIO3_pct": 4.97,
+      "PETR3_pct": 2.65,
+      "CVX_pct": 3.52
+    },
+    {
+      "data": "2026-07-08",
+      "brent_pct": 5.2,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.34,
+      "PETR3_pct": 2.79,
+      "CVX_pct": 1.13
+    },
+    {
+      "data": "2026-07-09",
+      "brent_pct": -2.2,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -1.44,
+      "PETR3_pct": -1.43,
+      "CVX_pct": -1.09
+    },
+    {
+      "data": "2026-07-10",
+      "brent_pct": -0.38,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -0.29,
+      "PETR3_pct": 1.52,
+      "CVX_pct": 1.35
+    },
+    {
+      "data": "2026-07-13",
+      "brent_pct": 9.59,
+      "brent_dir": "alta",
+      "PRIO3_pct": 3.16,
+      "PETR3_pct": 3.44,
+      "CVX_pct": 3.29
+    },
+    {
+      "data": "2026-07-14",
+      "brent_pct": 1.72,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.65,
+      "PETR3_pct": -0.5,
+      "CVX_pct": -0.24
+    },
+    {
+      "data": "2026-07-15",
+      "brent_pct": 0.26,
+      "brent_dir": "alta",
+      "PRIO3_pct": -0.12,
+      "PETR3_pct": 0.11,
+      "CVX_pct": -0.09
+    },
+    {
+      "data": "2026-07-16",
+      "brent_pct": -0.85,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -1.23,
+      "PETR3_pct": -1.95,
+      "CVX_pct": 1.24
+    },
+    {
+      "data": "2026-07-17",
+      "brent_pct": 4.59,
+      "brent_dir": "alta",
+      "PRIO3_pct": 1.87,
+      "PETR3_pct": 2.62,
+      "CVX_pct": 1.91
+    },
+    {
+      "data": "2026-07-20",
+      "brent_pct": 1.27,
+      "brent_dir": "alta",
+      "PRIO3_pct": -0.28,
+      "PETR3_pct": 0.68,
+      "CVX_pct": 1.24
+    },
+    {
+      "data": "2026-07-21",
+      "brent_pct": 2.01,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.85,
+      "PETR3_pct": 1.43,
+      "CVX_pct": 0.72
+    },
+    {
+      "data": "2026-07-22",
+      "brent_pct": 3.36,
+      "brent_dir": "alta",
+      "PRIO3_pct": 2.73,
+      "PETR3_pct": 2.39,
+      "CVX_pct": 1.0
+    },
+    {
+      "data": "2026-07-23",
+      "brent_pct": 7.04,
+      "brent_dir": "alta",
+      "PRIO3_pct": 1.29,
+      "PETR3_pct": 1.67,
+      "CVX_pct": 0.75
+    },
+    {
+      "data": "2026-07-24",
+      "brent_pct": -3.88,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -2.84,
+      "PETR3_pct": -2.36,
+      "CVX_pct": 0.19
+    },
+    {
+      "data": "2026-07-27",
+      "brent_pct": -8.7,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -5.29,
+      "PETR3_pct": -3.15,
+      "CVX_pct": -2.46
+    },
+    {
+      "data": "2026-07-28",
+      "brent_pct": -4.83,
+      "brent_dir": "baixa",
+      "PRIO3_pct": 1.9,
+      "PETR3_pct": 0.8,
+      "CVX_pct": -1.27
+    },
+    {
+      "data": "2026-07-29",
+      "brent_pct": 7.91,
+      "brent_dir": "alta",
+      "PRIO3_pct": 2.89,
+      "PETR3_pct": 2.35,
+      "CVX_pct": 2.28
+    },
+    {
+      "data": "2026-07-30",
+      "brent_pct": -1.88,
+      "brent_dir": "baixa",
+      "PRIO3_pct": 2.65,
+      "PETR3_pct": 2.19,
+      "CVX_pct": 0.23
+    },
+    {
+      "data": "2026-07-31",
+      "brent_pct": 1.22,
+      "brent_dir": "alta",
+      "PRIO3_pct": 1.48,
+      "PETR3_pct": 1.01,
+      "CVX_pct": 2.35
+    },
+    {
+      "data": "2026-08-03",
+      "brent_pct": -7.05,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -3.86,
+      "PETR3_pct": -0.86,
+      "CVX_pct": -1.85
+    },
+    {
+      "data": "2026-08-04",
+      "brent_pct": -5.26,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -0.09,
+      "PETR3_pct": -0.97,
+      "CVX_pct": -1.44
+    },
+    {
+      "data": "2026-08-05",
+      "brent_pct": 0.11,
+      "brent_dir": "alta",
+      "PRIO3_pct": 1.28,
+      "PETR3_pct": -2.08,
+      "CVX_pct": -2.1
+    },
+    {
+      "data": "2026-08-06",
+      "brent_pct": 3.83,
+      "brent_dir": "alta",
+      "PRIO3_pct": -1.0,
+      "PETR3_pct": 0.34,
+      "CVX_pct": 1.51
+    },
+    {
+      "data": "2026-08-07",
+      "brent_pct": 1.29,
+      "brent_dir": "alta",
+      "PRIO3_pct": -1.98,
+      "PETR3_pct": -3.42,
+      "CVX_pct": -1.41
+    },
+    {
+      "data": "2026-08-10",
+      "brent_pct": 4.99,
+      "brent_dir": "alta",
+      "PRIO3_pct": 6.6,
+      "PETR3_pct": 3.33,
+      "CVX_pct": 4.48
+    },
+    {
+      "data": "2026-08-11",
+      "brent_pct": 1.36,
+      "brent_dir": "alta",
+      "PRIO3_pct": -3.25,
+      "PETR3_pct": -1.44,
+      "CVX_pct": 0.9
+    },
+    {
+      "data": "2026-08-12",
+      "brent_pct": 0.08,
+      "brent_dir": "flat",
+      "PRIO3_pct": -0.19,
+      "PETR3_pct": -0.45,
+      "CVX_pct": -0.03
+    },
+    {
+      "data": "2026-08-13",
+      "brent_pct": -2.15,
+      "brent_dir": "baixa",
+      "PRIO3_pct": -0.12,
+      "PETR3_pct": 0.89,
+      "CVX_pct": 0.56
+    },
+    {
+      "data": "2026-08-14",
+      "brent_pct": 1.67,
+      "brent_dir": "alta",
+      "PRIO3_pct": -0.74,
+      "PETR3_pct": 0.21,
+      "CVX_pct": 1.16
+    },
+    {
+      "data": "2026-08-17",
+      "brent_pct": 2.65,
+      "brent_dir": "alta",
+      "PRIO3_pct": 5.03,
+      "PETR3_pct": 1.35,
+      "CVX_pct": 1.35
+    },
+    {
+      "data": "2026-08-18",
+      "brent_pct": 0.17,
+      "brent_dir": "alta",
+      "PRIO3_pct": -0.13,
+      "PETR3_pct": 0.15,
+      "CVX_pct": 1.5
+    },
+    {
+      "data": "2026-08-19",
+      "brent_pct": 0.66,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.05,
+      "PETR3_pct": 1.28,
+      "CVX_pct": 0.88
+    },
+    {
+      "data": "2026-08-20",
+      "brent_pct": 2.36,
+      "brent_dir": "alta",
+      "PRIO3_pct": 0.83,
+      "PETR3_pct": 2.64,
+      "CVX_pct": 0.0
+    }
+  ],
+  "leitura": "Nos dias em que o Brent sobe, PRIO3 reage com maior media (+1.084%). Nos dias de queda do Brent, PRIO3 cai menos (media -0.985%). Beta 252d: PRIO3 0.351, Petrobras 0.32, Chevron 0.27."
+}

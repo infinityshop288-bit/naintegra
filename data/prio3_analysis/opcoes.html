@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Oportunidades de Opções — 15 ações</title>
+<script src="dash-api.js"></script>
+<style>
+  :root{--bg:#0e1116;--panel:#161b22;--panel2:#1c232d;--stroke:#2a323d;--txt:#e6edf3;--txt2:#9aa7b4;--txt3:#6e7b8a;--info:#4c8dff;--success:#3fb950;--warning:#d29922;--danger:#f85149;--accent:#a371f7;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1240px;margin:0 auto;padding:20px 24px 60px}
+  h1{font-size:24px;margin:0} h2{font-size:16px;margin:0 0 10px;font-weight:600} h3{font-size:14px;margin:16px 0 8px;color:var(--txt2)}
+  .sub{color:var(--txt2);font-size:13px} .cap{color:var(--txt3);font-size:12px;margin-top:6px}
+  .pill{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:rgba(76,141,255,.15);color:var(--info);border:1px solid rgba(76,141,255,.35)}
+  .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .grid{display:grid;gap:14px}
+  .g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:1fr 1fr}
+  .card{background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:16px}
+  .callout{border:1px solid var(--stroke);border-left-width:3px;border-radius:8px;padding:12px 14px;background:var(--panel2)}
+  .callout .t{font-weight:600;margin-bottom:4px} .callout p{margin:0;color:var(--txt2);font-size:13px}
+  .callout.success{border-left-color:var(--success)} .callout.danger{border-left-color:var(--danger)} .callout.warning{border-left-color:var(--warning)} .callout.info{border-left-color:var(--info)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--stroke);white-space:nowrap}
+  th{color:var(--txt2);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.02em}
+  .up{color:var(--success)} .down{color:var(--danger)} .neu{color:var(--txt3)}
+  .callc{color:var(--success)} .putc{color:var(--danger)}
+  section{margin-top:26px}
+  .simple{border-left:3px solid var(--info);background:rgba(76,141,255,.08);padding:9px 13px;border-radius:6px;font-size:13.5px;margin-top:10px;color:var(--txt2)} .simple b{color:#7fb0ff}
+  nav.top{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+  nav.top a{font-size:13px;padding:7px 14px;border-radius:8px;text-decoration:none;color:var(--txt2);background:var(--panel);border:1px solid var(--stroke)}
+  nav.top a.on{color:#04122e;background:var(--info);border-color:var(--info);font-weight:700}
+  .badge{font-size:11px;font-weight:700;padding:1px 7px;border-radius:5px}
+  .badge.alta{background:rgba(63,185,80,.16);color:#5bd66b} .badge.baixa{background:rgba(248,81,73,.16);color:#ff8a90} .badge.neutro{background:rgba(210,153,34,.16);color:#e3b341}
+  .opt{background:var(--panel);border:1px solid var(--stroke);border-radius:11px;padding:14px}
+  .opt.buy{border-left:3px solid var(--success)} .opt.sell{border-left:3px solid var(--danger)} .opt.wait{border-left:3px solid var(--warning)}
+  .opt .hd{display:flex;justify-content:space-between;align-items:center}
+  .opt .tk{font-weight:800;font-size:15px} .opt .side{font-weight:800;font-size:13px}
+  .kv{display:flex;justify-content:space-between;font-size:12.5px;padding:3px 0;border-bottom:1px dashed var(--stroke)}
+  .kv b{color:var(--txt)} .kv span{color:var(--txt2)}
+  @media(max-width:1000px){.g3,.g2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top">
+    <a href="painel.html">Painel PRIO3</a>
+    <a href="mercado.html">Panorama de Mercado</a>
+    <a href="opcoes.html" class="on">Oportunidades de Opções</a>
+    <a href="radar.html">Radar de Trades</a>
+  </nav>
+
+  <div class="row" style="gap:12px"><h1>Oportunidades de Opções</h1><span class="pill" id="pgStatus">carregando…</span></div>
+  <div class="sub" style="margin-top:6px">Para cada ação: a opção do dia alinhada ao viés (CALL se alta, PUT se baixa), com as opções mais líquidas perto do dinheiro (ATM) do último pregão, e as séries que já fizeram ≥10x em 2026. Dados: B3 COTAHIST (EOD) + viés de <a href="mercado.html" style="color:var(--info)">Panorama de Mercado</a>.</div>
+  <div class="simple">💡 <b>Como usar:</b> o viés indica a <b>direção provável</b>. Se ALTA, a ideia é <b>CALL</b> (ganha se subir); se BAIXA, <b>PUT</b> (ganha se cair). Prefira opções <b>ATM</b> (strike perto do preço) e com <b>volume</b> (mais fácil entrar/sair). As séries "10x" mostram o que já aconteceu — são bilhetes de loteria: raras e arriscadas. <b>Nunca</b> aposte o que não pode perder.</div>
+
+  <section>
+    <h2>Oportunidades do dia — ranqueadas por força do viés</h2>
+    <div class="grid g3" id="oppGrid"></div>
+    <div class="cap">CALL/PUT = opção mais líquida perto do dinheiro no vencimento vivo mais próximo (fechamento COTAHIST do último pregão). Prêmio é o último fechamento da série — no intradia pode variar.</div>
+  </section>
+
+  <section>
+    <h2>Maiores multiplicadores de 2026 (todas as ações) — ≥10x</h2>
+    <div class="card" style="padding:0;overflow-x:auto">
+      <table id="tblMov"><thead><tr><th>Ativo</th><th>Série</th><th>Tipo</th><th style="text-align:right">Strike</th><th class="cap">Período</th><th style="text-align:right">Prêmio</th><th style="text-align:right">Mult.</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="cap">Fonte: B3 COTAHIST_A2026 (fechamentos por série). Filtro de liquidez (negócios &gt; 0) e descarte de prints pós-vencimento.</div>
+  </section>
+
+  <section>
+    <h2>Termômetro de opções por ação</h2>
+    <div class="card" style="padding:0;overflow-x:auto">
+      <table id="tblTherm"><thead><tr><th>Ativo</th><th style="text-align:right">Séries 2026</th><th style="text-align:right">≥10x</th><th style="text-align:right">Put/Call (vol)</th><th style="text-align:right">Vol. call</th><th style="text-align:right">Vol. put</th><th>Strike mais ativo</th></tr></thead><tbody></tbody></table>
+    </div>
+    <div class="simple">💡 <b>Put/Call ratio:</b> acima de 1 = mais gente comprando proteção/aposta de queda (defensivo); abaixo de 1 = predomínio de CALL (otimismo). O <b>strike mais ativo</b> costuma funcionar como "ímã" de preço no vencimento.</div>
+  </section>
+</div>
+
+<script>
+const C={success:"#3fb950",danger:"#f85149",warning:"#d29922",info:"#4c8dff",txt2:"#9aa7b4"};
+const f2=n=>n==null?'—':n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const brl=n=>n==null?'—':n.toLocaleString('pt-BR',{maximumFractionDigits:0});
+const pct1=n=>n==null?'—':`<span class="${n>=0?'up':'down'}">${n>0?'+':''}${n.toFixed(1)}%</span>`;
+const dt=s=>s?s.split('-').reverse().join('/'):'—';
+const dts=s=>s?s.slice(5).split('-').reverse().join('/'):'—';
+
+function optBlock(o,side){
+  if(!o)return `<div class="cap">sem série líquida</div>`;
+  const cls=side==='CALL'?'callc':'putc';
+  return `<div class="kv"><span>${side} <b class="${cls}">${o.cod}</b> (${o.moneyness})</span><b>R$ ${f2(o.premio)}</b></div>`+
+    `<div class="kv"><span>Strike / venc.</span><b>R$ ${f2(o.strike)} (${o.dist_strike_pct>0?'+':''}${o.dist_strike_pct}%) · ${dt(o.venc)}</b></div>`+
+    `<div class="kv"><span>Volume no pregão</span><b>R$ ${brl(o.vol)} · ${brl(o.neg)} neg.</b></div>`;
+}
+
+(async()=>{
+  let OP,AN;
+  try{OP=await(await fetch('multi_options.json',{cache:'no-store'})).json();}catch(e){document.getElementById('pgStatus').textContent='multi_options.json ausente';return;}
+  try{AN=await(await fetch('multi_analysis.json',{cache:'no-store'})).json();}catch(e){AN={acoes:[]};}
+  const score={},info={};
+  AN.acoes.forEach(a=>{score[a.ticker]=a.score;info[a.ticker]=a;});
+  document.getElementById('pgStatus').textContent='último pregão '+dt(OP.ultimo_pregao);
+
+  // ---- oportunidades ranqueadas ----
+  const items=Object.entries(OP.ativos).map(([t,d])=>({t,d,sc:score[t]??0}));
+  items.sort((a,b)=>Math.abs(b.sc)-Math.abs(a.sc));
+  const grid=document.getElementById('oppGrid');
+  grid.innerHTML=items.map(({t,d,sc})=>{
+    const alta=sc>=30, baixa=sc<=-30;
+    const cls=alta?'buy':(baixa?'sell':'wait');
+    const badge=alta?'alta':(baixa?'baixa':'neutro');
+    const lab=alta?'ALTA':(baixa?'BAIXA':'NEUTRO');
+    const a=info[t]||{}; const an=a.analistas||{};
+    const side=alta?'CALL':(baixa?'PUT':'CALL/PUT');
+    const rec=alta?'Viés de alta → foco em <b class="callc">CALL</b>.':(baixa?'Viés de baixa → foco em <b class="putc">PUT</b>.':'Viés neutro → aguardar definição ou operar os dois lados com cautela.');
+    let body='';
+    if(alta) body=optBlock(d.oportunidade.call,'CALL');
+    else if(baixa) body=optBlock(d.oportunidade.put,'PUT');
+    else body=optBlock(d.oportunidade.call,'CALL')+optBlock(d.oportunidade.put,'PUT');
+    return `<div class="opt ${cls}">
+      <div class="hd"><div><span class="tk">${t}</span> <span class="cap">${d.nome}</span></div><span class="badge ${badge}">${lab} ${sc>0?'+':''}${sc}</span></div>
+      <div class="cap" style="margin:2px 0 8px">${d.setor} · R$ ${f2(d.preco)} · ${rec}</div>
+      ${body}
+      <div class="kv"><span>Potencial técnico</span><b>alta ${a.potencial_alta_pct!=null?'+'+a.potencial_alta_pct+'%':'—'} · baixa ${a.potencial_baixa_pct!=null?a.potencial_baixa_pct+'%':'—'}</b></div>
+      <div class="kv" style="border:0"><span>Alvo analistas</span><b>${an.upside_pct!=null?(an.upside_pct>0?'+':'')+an.upside_pct+'%':'—'}${an.target?` (R$ ${f2(an.target)})`:''}</b></div>
+    </div>`;
+  }).join('');
+
+  // ---- movers consolidados ----
+  const allmov=[];
+  Object.entries(OP.ativos).forEach(([t,d])=>d.movers.forEach(m=>allmov.push({t,...m})));
+  allmov.sort((a,b)=>b.mult-a.mult);
+  document.querySelector('#tblMov tbody').innerHTML=allmov.slice(0,25).map(m=>{
+    const cc=m.tipo==='CALL'?'callc':'putc';
+    return `<tr><td><b>${m.t}</b></td><td class="${cc}">${m.cod}</td><td class="${cc}">${m.tipo}</td><td style="text-align:right">${f2(m.strike)}</td>`+
+      `<td class="cap">${dts(m.d0)}→${dts(m.d1)} (${m.pregoes}p)</td><td style="text-align:right">${f2(m.p0)}→${f2(m.p1)}</td>`+
+      `<td style="text-align:right;font-weight:700;color:${C.success}">${m.mult.toFixed(1)}x</td></tr>`;
+  }).join('');
+
+  // ---- termometro ----
+  document.querySelector('#tblTherm tbody').innerHTML=Object.entries(OP.ativos).map(([t,d])=>{
+    const T=d.termometro||{}; const ks=(T.strikes_ativos&&T.strikes_ativos[0])?('R$ '+f2(T.strikes_ativos[0].strike)):'—';
+    const pcrCol=T.pcr_volume>1?'down':'up';
+    return `<tr><td><b>${t}</b> <span class="cap">${d.nome}</span></td><td style="text-align:right">${brl(d.n_series)}</td>`+
+      `<td style="text-align:right">${d.n_movers_10x}</td><td style="text-align:right" class="${pcrCol}">${T.pcr_volume??'—'}</td>`+
+      `<td style="text-align:right">${brl(T.call_vol)}</td><td style="text-align:right">${brl(T.put_vol)}</td><td>${ks}</td></tr>`;
+  }).join('');
+})();
+</script>
+</body>
+</html>

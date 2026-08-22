@@ -24,3 +24,8 @@ data/flashcards_provas_smoke/
 
 # Artefato publicado em naintegracursos.com.br/lex (gerado por scripts/publish_lex_static.sh)
 /lex/
+# Artefato publicado em naintegracursos.com.br/xxx (gerado por scripts/build_prio3_deploy.py)
+/xxx/
+# Snapshots de API para deploy estático (gerado por scripts/export_prio3_snapshots.py)
+data/prio3_analysis/api/
+data/prio3_analysis/.venv/

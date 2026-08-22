@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PRIO3 vs. Brent — análise de 5 anos</title>
+<script src="dash-api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --stroke:#2a323d;
+    --txt:#e6edf3; --txt2:#9aa7b4; --txt3:#6e7b8a;
+    --info:#4c8dff; --success:#3fb950; --warning:#d29922; --danger:#f85149; --accent:#a371f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1120px;margin:0 auto;padding:28px 24px 60px}
+  h1{font-size:24px;margin:0}
+  h2{font-size:16px;margin:0 0 10px;font-weight:600}
+  .sub{color:var(--txt2);font-size:13px}
+  .cap{color:var(--txt3);font-size:12px;margin-top:6px}
+  .pill{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:rgba(76,141,255,.15);color:var(--info);border:1px solid rgba(76,141,255,.35);vertical-align:middle}
+  .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .grid{display:grid;gap:14px}
+  .g4{grid-template-columns:repeat(4,1fr)}
+  .g2{grid-template-columns:1fr 1fr}
+  .g21{grid-template-columns:1.3fr 1fr}
+  .stat{background:var(--panel);border:1px solid var(--stroke);border-radius:10px;padding:14px 16px}
+  .stat .v{font-size:22px;font-weight:700}
+  .stat .l{color:var(--txt2);font-size:12px;margin-top:2px}
+  .v.info{color:var(--info)} .v.success{color:var(--success)} .v.warning{color:var(--warning)}
+  .card{background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:18px}
+  .callout{border:1px solid var(--stroke);border-left-width:3px;border-radius:8px;padding:12px 14px;background:var(--panel2)}
+  .callout .t{font-weight:600;margin-bottom:4px}
+  .callout.success{border-left-color:var(--success)} .callout.info{border-left-color:var(--info)}
+  .callout.warning{border-left-color:var(--warning)} .callout.neutral{border-left-color:var(--txt3)}
+  .callout.danger{border-left-color:var(--danger)}
+  .callout p{margin:0;color:var(--txt2);font-size:13.5px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--stroke)}
+  th{color:var(--txt2);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.02em}
+  td.up{color:var(--success)} td.down{color:var(--danger)} td.neu{color:var(--txt3)}
+  .divider{height:1px;background:var(--stroke);margin:8px 0}
+  section{margin-top:26px}
+  .chartbox{position:relative;height:280px}
+  .chartbox.sm{height:240px}
+  .gauge{position:relative;height:14px;border-radius:8px;background:linear-gradient(90deg,var(--danger),#c9a227 45%,#c9a227 55%,var(--success));margin:10px 0 6px}
+  .gauge .mk{position:absolute;top:-6px;width:3px;height:26px;background:var(--txt);border-radius:2px;transform:translateX(-1px)}
+  .verdict{font-size:34px;font-weight:800;letter-spacing:.5px;line-height:1}
+  .news{border:1px solid var(--stroke);border-radius:10px;padding:12px 14px;background:var(--panel2)}
+  .news a{color:var(--info);text-decoration:none} .news a:hover{text-decoration:underline}
+  .news .src{font-size:11px;color:var(--txt3);text-transform:uppercase;letter-spacing:.03em}
+  tr.atm td{background:rgba(76,141,255,.12)}
+  td.callc{color:var(--success)} td.putc{color:var(--danger)}
+  code{background:var(--panel2);padding:1px 5px;border-radius:4px;font-size:12px}
+  .simple{border-left:3px solid var(--info);background:rgba(76,141,255,.08);padding:9px 13px;border-radius:6px;font-size:13.5px;margin-top:10px;color:var(--txt2)}
+  .simple b{color:#7fb0ff}
+  .glo{display:grid;grid-template-columns:1fr 1fr;gap:8px 22px}
+  .glo .term{padding:7px 0;border-bottom:1px solid var(--stroke)}
+  .glo .term b{color:var(--txt)} .glo .term span{color:var(--txt2);font-size:13px}
+  details.beg{border:1px solid var(--stroke);border-radius:10px;padding:10px 14px;background:var(--panel2);margin-top:10px}
+  details.beg summary{cursor:pointer;font-weight:600;color:var(--info)}
+  .step{display:flex;gap:10px;align-items:flex-start;margin:6px 0}
+  .step .n{flex:0 0 22px;height:22px;border-radius:50%;background:var(--info);color:#04122e;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px}
+  @media(max-width:820px){.glo{grid-template-columns:1fr}}
+  @media(max-width:820px){.g4{grid-template-columns:repeat(2,1fr)}.g2,.g21{grid-template-columns:1fr}}
+  nav.top{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+  nav.top a{font-size:13px;padding:7px 14px;border-radius:8px;text-decoration:none;color:var(--txt2);background:var(--panel);border:1px solid var(--stroke)}
+  nav.top a.on{color:#04122e;background:var(--info);border-color:var(--info);font-weight:700}
+  nav.top a:hover{color:var(--txt)}
+  .badge{font-size:11px;font-weight:700;padding:1px 7px;border-radius:5px;display:inline-block}
+  .badge.alta{background:rgba(63,185,80,.16);color:#5bd66b} .badge.baixa{background:rgba(248,81,73,.16);color:#ff8a90} .badge.neutro{background:rgba(210,153,34,.16);color:#e3b341}
+  .tag{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--panel2);color:var(--txt3);border:1px solid var(--stroke);text-transform:uppercase;letter-spacing:.03em}
+  .tag.rt{color:#5bd66b;border-color:rgba(63,185,80,.4)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top">
+    <a href="painel.html" class="on">Painel PRIO3</a>
+    <a href="mercado.html">Panorama de Mercado</a>
+    <a href="opcoes.html">Oportunidades de Opções</a>
+    <a href="radar.html">Radar de Trades</a>
+  </nav>
+  <div class="row" style="gap:12px">
+    <h1>PRIO3 vs. Brent — análise de 5 anos</h1>
+    <span class="pill">PRIO S.A. · B3</span>
+  </div>
+  <div class="sub" style="margin-top:6px">
+    Preços: Yahoo Finance (PRIO3.SA, BZ=F, USDBRL=X), fechamentos ajustados de 05/07/2021 a 08/07/2026.
+    Fatos relevantes: Portal de Dados Abertos da CVM (IPE), CNPJ 10.629.105/0001-68.
+  </div>
+
+  <section class="card" style="border-left:3px solid var(--info)">
+    <div class="row" style="gap:10px"><h2 style="margin:0">👋 Guia rápido para iniciantes</h2><span class="pill">comece por aqui</span></div>
+    <div class="cap" style="margin:6px 0 12px">O painel tem muita coisa técnica. Aqui vai o essencial em português simples.</div>
+
+    <div class="grid g2" style="gap:14px">
+      <div>
+        <div class="l" style="margin-bottom:6px">O que o painel está dizendo hoje</div>
+        <div class="step"><div class="n">1</div><div><b>PRIO3</b> é a ação da PRIO, uma petroleira. Está por volta de <b>R$ 57</b>, em tendência de fundo de <b>alta</b>.</div></div>
+        <div class="step"><div class="n">2</div><div>O robô do painel aponta viés de <b style="color:var(--success)">ALTA</b>. Motivos simples: o <b>petróleo disparou</b> (guerra Irã×EUA), a empresa está <b>produzindo mais</b> e a ação é considerada <b>barata</b> pelos analistas.</div></div>
+        <div class="step"><div class="n">3</div><div><b>Opção</b> é uma aposta <b>alavancada</b> no preço da ação: pode multiplicar seu dinheiro rápido, mas também <b>virar zero</b>. CALL ganha se a ação <b>sobe</b>; PUT ganha se a ação <b>cai</b>.</div></div>
+        <div class="step"><div class="n">4</div><div>Para o day-trade de <b>+5% a +10%</b> num dia, a ação precisa subir só <b>~1% a 1,7%</b> (a alavancagem faz o resto) — mas se cair 1%, você perde ~12%.</div></div>
+      </div>
+      <div>
+        <div class="l" style="margin-bottom:6px">Como ler as seções (de cima para baixo)</div>
+        <div class="cap" style="line-height:1.9">
+          <b>Cotações ao vivo</b> — preços de agora (petróleo e PRIO3).<br>
+          <b>Viés PRIO3</b> — o "resumo do robô": alta, neutro ou baixa.<br>
+          <b>Day-trade</b> — plano para operar amanhã com R$ 5.000.<br>
+          <b>Notícias</b> — a guerra e o efeito no petróleo.<br>
+          <b>Monitor de opções</b> — tabela de preços teóricos das opções.<br>
+          <b>Livro de operações</b> — negócios reais e quem fez 10x.<br>
+          <b>Candidatas a 10x</b> — as "loterias" e o quanto precisam subir.
+        </div>
+      </div>
+    </div>
+
+    <details class="beg">
+      <summary>📖 Dicionário rápido (clique para abrir) — todos os termos do painel</summary>
+      <div class="glo" style="margin-top:10px">
+        <div class="term"><b>Ação (PRIO3)</b><br><span>Um pedacinho da empresa PRIO negociado na bolsa (B3).</span></div>
+        <div class="term"><b>Opção</b><br><span>Contrato que dá o direito de comprar/vender a ação a um preço combinado. Muito alavancado.</span></div>
+        <div class="term"><b>CALL</b><br><span>Opção de <b>compra</b>. Ganha quando a ação <b>sobe</b>. Séries PRIO: PRIOG (jul), PRIOH (ago).</span></div>
+        <div class="term"><b>PUT</b><br><span>Opção de <b>venda</b>. Ganha quando a ação <b>cai</b>. Séries PRIO: PRIOS (jul), PRIOT (ago).</span></div>
+        <div class="term"><b>Strike</b><br><span>Preço combinado no contrato. Ex.: CALL strike R$ 60 vira interessante se a ação passa de R$ 60.</span></div>
+        <div class="term"><b>Prêmio</b><br><span>O preço que você paga pela opção (por ação). Ex.: R$ 3,77.</span></div>
+        <div class="term"><b>Vencimento</b><br><span>Data em que a opção "acaba". Depois disso ela vira zero ou é exercida.</span></div>
+        <div class="term"><b>ITM / ATM / OTM</b><br><span>Dentro / em cima / fora do dinheiro. OTM é mais barata e mais arriscada (precisa a ação andar mais).</span></div>
+        <div class="term"><b>Delta</b><br><span>Quanto o prêmio se move quando a ação anda R$ 1. Delta 0,50 ≈ metade. Serve de "chance de dar certo".</span></div>
+        <div class="term"><b>Theta</b><br><span>O quanto a opção perde por dia só pela passagem do tempo (desgaste).</span></div>
+        <div class="term"><b>Alavancagem</b><br><span>Efeito multiplicador. ~8x significa: ação +1% ≈ opção +8% (e vice-versa na queda).</span></div>
+        <div class="term"><b>Break-even (B/E)</b><br><span>Preço da ação em que você "empata" (nem ganha nem perde) no vencimento.</span></div>
+        <div class="term"><b>Volatilidade (IV vs realizada)</b><br><span>O "nervosismo" do preço. IV alta = opções caras. Comparar as duas diz se está caro ou barato.</span></div>
+        <div class="term"><b>Petróleo Brent / WTI</b><br><span>Os dois preços de referência do petróleo no mundo. Afetam a receita da PRIO.</span></div>
+        <div class="term"><b>Média móvel (MM50 / MM200)</b><br><span>Preço médio dos últimos 50 / 200 dias. Acima da MM200 = tendência de fundo positiva.</span></div>
+        <div class="term"><b>RSI</b><br><span>Termômetro de 0 a 100. Perto de 70 = "esticado p/ cima"; perto de 30 = "esticado p/ baixo".</span></div>
+        <div class="term"><b>MACD</b><br><span>Indicador de força/direção da tendência. "Cruzamento de alta" = sinal positivo.</span></div>
+        <div class="term"><b>Suporte / Resistência</b><br><span>Preços onde a ação costuma parar de cair / de subir.</span></div>
+        <div class="term"><b>EV/EBITDA e P/L</b><br><span>Medem se a ação está cara ou barata vs o lucro/geração de caixa. Menor costuma ser mais barato.</span></div>
+        <div class="term"><b>Dívida líq./EBITDA</b><br><span>Quanto a empresa deve vs o que ela gera. Abaixo de ~2x é confortável.</span></div>
+        <div class="term"><b>Preço-justo / consenso</b><br><span>Quanto a ação "deveria valer" pelos modelos e pela média dos analistas.</span></div>
+        <div class="term"><b>Put/Call ratio</b><br><span>Quanto se negocia de PUT vs CALL. Acima de 1 = mais proteção/pessimismo.</span></div>
+        <div class="term"><b>Day trade</b><br><span>Comprar e vender no mesmo dia. Não fica posição para o dia seguinte.</span></div>
+        <div class="term"><b>Lifting cost</b><br><span>Custo para extrair cada barril. Menor = mais lucro por barril.</span></div>
+      </div>
+    </details>
+  </section>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Cotações em tempo real</h2><span class="pill" id="rtStatus">conectando…</span></div>
+    <div class="cap" style="margin:6px 0 12px">Brent e WTI: <b>TradingEconomics</b> (CFD/OTC). PRIO3: <b>Yahoo Finance</b> (o TradingEconomics não tem página de cotação da ação). Atualiza a cada 20s enquanto a página estiver aberta.</div>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px" id="rtGrid">
+      <div class="card" data-q="brent">
+        <div class="l">Petróleo Brent · <span class="src">TradingEconomics</span></div>
+        <div class="v" style="font-size:28px" data-f="price">—</div>
+        <div class="row" style="gap:8px;margin-top:2px"><span data-f="chg" style="font-weight:600">—</span><span class="cap" data-f="unit">USD/bbl</span></div>
+        <div class="chartbox" style="height:80px;margin-top:8px"><canvas data-spark></canvas></div>
+      </div>
+      <div class="card" data-q="wti">
+        <div class="l">Petróleo bruto WTI · <span class="src">TradingEconomics</span></div>
+        <div class="v" style="font-size:28px" data-f="price">—</div>
+        <div class="row" style="gap:8px;margin-top:2px"><span data-f="chg" style="font-weight:600">—</span><span class="cap" data-f="unit">USD/bbl</span></div>
+        <div class="chartbox" style="height:80px;margin-top:8px"><canvas data-spark></canvas></div>
+      </div>
+      <div class="card" data-q="usd">
+        <div class="l">Dólar · USD/BRL · <span class="src">Yahoo Finance</span></div>
+        <div class="v" style="font-size:28px" data-f="price">—</div>
+        <div class="row" style="gap:8px;margin-top:2px"><span data-f="chg" style="font-weight:600">—</span><span class="cap" data-f="unit">BRL</span></div>
+        <div class="chartbox" style="height:80px;margin-top:8px"><canvas data-spark></canvas></div>
+      </div>
+      <div class="card" data-q="prio3">
+        <div class="l">PRIO3 · Prio S.A. · <span class="src">Yahoo Finance</span></div>
+        <div class="v" style="font-size:28px" data-f="price">—</div>
+        <div class="row" style="gap:8px;margin-top:2px"><span data-f="chg" style="font-weight:600">—</span><span class="cap" data-f="unit">BRL</span></div>
+        <div class="chartbox" style="height:80px;margin-top:8px"><canvas data-spark></canvas></div>
+      </div>
+      <div class="card" data-q="brav3">
+        <div class="l">BRAV3 · Brava Energia · <span class="src">Yahoo Finance</span></div>
+        <div class="v" style="font-size:28px" data-f="price">—</div>
+        <div class="row" style="gap:8px;margin-top:2px"><span data-f="chg" style="font-weight:600">—</span><span class="cap" data-f="unit">BRL</span></div>
+        <div class="chartbox" style="height:80px;margin-top:8px"><canvas data-spark></canvas></div>
+      </div>
+    </div>
+    <div id="invBox" class="simple" style="margin-top:12px">Estoques de petróleo (EUA): carregando…</div>
+    <div class="cap" style="margin-top:8px" id="rtNote">Requer o servidor local: nesta pasta rode <code>.venv/bin/python live_server.py</code> (ou <code>python3 live_server.py</code>) e abra <code>http://localhost:8899/painel.html</code>. O minigráfico mostra a sessão ao vivo (pontos coletados desde a abertura).</div>
+  </section>
+
+  <section>
+    <h2>Índice Bovespa — vertente do mercado</h2>
+    <div id="ibovBox">carregando…</div>
+    <div class="simple">💡 <b>Vertente</b> resume se o Ibovespa está em tendência de <b>alta (altista)</b>, <b>baixa (baixista)</b> ou <b>lateral (neutra)</b> — combina preço vs MM50/MM200, RSI, fluxo (MFI) e momentum. O pano de fundo do índice ajuda a ler se o ambiente favorece compra ou cautela em petroleiras como a PRIO3.</div>
+  </section>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Rotas marítimas de petróleo — chokepoints</h2><span class="cap" id="oilTs"></span></div>
+    <div id="oilHead"></div>
+    <div class="card" style="padding:0;overflow-x:auto;margin-top:12px">
+      <table id="tblOil"><thead><tr>
+        <th>Passagem</th><th>Região</th>
+        <th style="text-align:right">Fluxo óleo (EIA)</th>
+        <th style="text-align:right">Petroleiros/dia (7d)</th>
+        <th style="text-align:right">vs. base 90d</th>
+        <th style="text-align:right">% petroleiros</th>
+        <th>Status</th><th>Tendência 30d</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+    <div class="simple">💡 Mede <b>trânsitos de petroleiros</b> (AIS/IMF PortWatch) em passagens estratégicas. Queda forte (<b>reduzido</b>) pode sinalizar disrupção de oferta — altista para Brent e exportadoras (PRIO3, BRAV3). Dados com defasagem de ~3–7 dias.</div>
+  </section>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Análise automatizada — viés PRIO3</h2><span class="pill" id="sigStatus">calculando…</span></div>
+    <div class="cap" style="margin:6px 0 12px">Score composto de 14 fatores (técnicos, macro/petróleo e fundamentos), recalculado com o preço e o Brent ao vivo. Escala −100 (baixa) a +100 (alta).</div>
+    <div class="simple">💡 <b>Em palavras simples:</b> é o "resumo do robô". A agulha para a <b>direita (verde)</b> = tende a <b>subir</b>; para a <b>esquerda (vermelho)</b> = tende a <b>cair</b>. Quanto mais longe do meio, mais forte o sinal. Não é garantia — é a soma das evidências do painel.</div>
+    <div class="grid g21" style="align-items:start">
+      <div class="card">
+        <div class="row" style="justify-content:space-between;align-items:flex-end">
+          <div><div class="l">Viés atual</div><div class="verdict" id="sigLabel">—</div></div>
+          <div style="text-align:right"><div class="l">Score</div><div class="v" id="sigScore" style="font-size:30px">—</div></div>
+        </div>
+        <div class="gauge"><div class="mk" id="sigMk" style="left:50%"></div></div>
+        <div class="row" style="justify-content:space-between"><span class="cap">baixa −100</span><span class="cap">neutro 0</span><span class="cap">+100 alta</span></div>
+        <div id="sigCats" style="margin-top:12px;display:flex;flex-direction:column;gap:8px"></div>
+        <div class="cap" style="margin-top:10px">Não é recomendação de investimento — é a leitura consolidada dos dados do painel.</div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <table id="tblSig"><thead><tr><th>Fator</th><th>Categoria</th><th style="text-align:center">Sinal</th><th>Observação</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Day-trade PRIO3 — 14/07/2026 · R$ 5.000</h2><span class="pill" id="dtStatus">calculando…</span></div>
+    <div class="cap" style="margin:6px 0 12px" id="dtHead">Objetivo: +5% a +10% (ou mais) no capital em um pregão. Alinhado ao viés <b>ALTA</b> e ao choque do petróleo → estrutura principal é <b>CALL</b>.</div>
+    <div class="simple">💡 <b>Em palavras simples:</b> com R$ 5.000 você compra uma CALL (aposta que a ação sobe). Se a ação subir ~1–1,7% no dia, você faz +5–10%. O card <b>"Principal"</b> é o mais equilibrado; o <b>"Agressiva"</b> arrisca mais; o <b>"Contra-tendência"</b> (PUT) só ganha se a ação cair. <b>Cuidado:</b> a mesma força que multiplica o ganho multiplica a perda.</div>
+    <div class="grid" style="grid-template-columns:repeat(3,1fr);gap:14px" id="dtCards"></div>
+
+    <div class="grid g21" style="margin-top:16px;align-items:start">
+      <div class="card">
+        <div class="l" style="margin-bottom:6px">Projeção da estrutura principal (ATM) — retorno sobre R$ 5.000 por movimento intradiário do papel</div>
+        <div class="chartbox" style="height:260px"><canvas id="chDt"></canvas></div>
+        <div class="cap" style="margin-top:6px">Faixa-alvo +5%/+10% destacada. Inclui custo estimado de spread (round-trip) de 4% sobre o prêmio.</div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <table id="tblDt"><thead><tr><th>PRIO3</th><th style="text-align:right">Var. papel</th><th style="text-align:right">Prêmio</th><th style="text-align:right">Result. R$</th><th style="text-align:right">Result. %</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+
+    <div class="grid g2" style="gap:12px;margin-top:14px">
+      <div class="callout success"><div class="t">Plano sugerido (bull / CALL)</div>
+        <p><b>Gatilho de entrada:</b> abertura em gap de alta (petróleo +~10%) — <b>não perseguir o pico</b>; comprar no repique que segura acima da abertura/VWAP. <b>Alvo:</b> papel +1,0% a +1,7% ⇒ +5% a +10% no capital (realizar parcial). <b>Stop:</b> perder o suporte da abertura ou −0,7% no papel (≈ −8% do capital); stop duro em −R$ 500.</p></div>
+      <div class="callout danger"><div class="t">Risco — alavancagem corta dos dois lados</div>
+        <p>A mesma alavancagem (~8–9x) que dá +8% com o papel +1% gera <b>−12% se o papel cair 1%</b>. Se não houver o gap/força, o prêmio sangra (theta + spread ⇒ ~−4% já na largada). Day trade fecha <b>no mesmo pregão</b>. Isto é uma projeção teórica, <b>não recomendação</b>.</p></div>
+    </div>
+  </section>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Melhores horários — volume x direção (intradiário)</h2><span class="pill" id="ivStatus">carregando…</span></div>
+    <div class="cap" style="margin:6px 0 12px" id="ivHead">Volume médio por faixa de 15 min (PRIO3, Yahoo Finance). Cruzamento com viés direcional e continuação de tendência.</div>
+    <div class="simple">💡 <b>Em palavras simples:</b> volume alto = muita gente negociando → tendência tende a "andar" (bom para <b>seguir a alta</b>). Volume baixo = mercado devagar (o pedido foi mapear esses horários para <b>seguir a baixa</b>, mas cuidado: pouco volume = mais solavancos e stops). Barras <b>verdes</b> = janelas de maior volume; <b>cinza</b> = menor volume.</div>
+    <div class="grid g21" style="align-items:start">
+      <div class="card">
+        <div class="l" style="margin-bottom:6px">Volume médio por horário (fuso de Brasília)</div>
+        <div class="chartbox" style="height:300px"><canvas id="chIv"></canvas></div>
+        <div class="cap" style="margin-top:6px" id="ivFoot"></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div class="callout success"><div class="t">Seguir a ALTA — maior volume</div><div id="ivAlta">—</div></div>
+        <div class="callout"><div class="t">Seguir a BAIXA — menor volume</div><div id="ivBaixa">—</div></div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-top:14px">
+      <table id="tblIv"><thead><tr><th>Horário</th><th style="text-align:right">Vol. médio</th><th style="text-align:right">% do dia</th><th style="text-align:right">Retorno médio</th><th style="text-align:right">% barras de alta</th><th style="text-align:right">Continuação</th></tr></thead><tbody></tbody></table>
+    </div>
+  </section>
+
+  <section style="border-top:2px solid var(--info);padding-top:18px">
+    <div class="row" style="gap:10px"><h2 style="margin:0">BRAV3 — Brava Energia · análise + opções</h2><span class="pill" id="bvStatus">carregando…</span></div>
+    <div class="cap" style="margin:6px 0 12px" id="bvHead">Segunda maior produtora independente de óleo da B3 (fusão 3R + Enauta). Comparável à PRIO3, também alavancada ao petróleo.</div>
+    <div class="simple">💡 <b>Em palavras simples:</b> a BRAV3 é uma "prima" da PRIO3 — outra petroleira. Aqui estão o preço, a tendência, como ela anda junto com PRIO3/Brent, e as opções BRAV que mais se valorizaram na B3 este ano. <b>Menos líquida que a PRIO3</b> (menos negócios/dia), então as opções têm spread maior.</div>
+    <div class="grid g4" id="bvStats"></div>
+    <div class="grid g2" style="margin-top:14px;align-items:start">
+      <div class="callout"><div class="t">Leitura técnica</div><div id="bvTec">—</div></div>
+      <div class="callout info"><div class="t">BRAV3 × PRIO3 × Brent (relativo)</div><div id="bvRel">—</div></div>
+    </div>
+    <h3 style="margin:20px 0 8px">Opções BRAV — livro real da B3 (COTAHIST)</h3>
+    <div class="grid g4" id="bvThermo" style="margin-bottom:14px"></div>
+    <div class="grid g2" style="align-items:start">
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="l" style="padding:10px 12px 0">Séries que fizeram ≥10x em poucos pregões (2026)</div>
+        <table id="tblBvMov"><thead><tr><th>Série</th><th>Tipo</th><th style="text-align:right">Strike</th><th class="cap">Período</th><th style="text-align:right">Prêmio</th><th style="text-align:right">Mult.</th><th style="text-align:right">BRAV3</th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="l" style="padding:10px 12px 0" id="bvTapeHead">Livro do último pregão (por volume)</div>
+        <table id="tblBvTape"><thead><tr><th>Série</th><th>Tipo</th><th style="text-align:right">Strike</th><th style="text-align:right">Fech.</th><th style="text-align:right">Var.</th><th style="text-align:right">Neg.</th><th style="text-align:right">Financeiro</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <section style="border-top:2px solid var(--warning);padding-top:18px">
+    <div class="row" style="gap:10px"><h2 style="margin:0">PRIO3 × Petrobras × Chevron — efeito do Brent</h2><span class="pill" id="opStatus">carregando…</span></div>
+    <div class="cap" style="margin:6px 0 12px" id="opHead">Comparativo de petroleiras vs Brent (5 anos). Mede como cada ação reage nos dias em que o petróleo sobe ou cai.</div>
+    <div class="simple">💡 <b>Em palavras simples:</b> quando o Brent <b>sobe</b>, as três tendem a subir junto (produtoras de petróleo). A <b>PRIO3</b> reage com mais força nos dias de alta do Brent; a <b>Petrobras</b> e a <b>Chevron</b> são mais estáveis. Nos dias de <b>queda</b> do Brent, todas caem — mas a PRIO3 costuma cair mais (beta maior). O gráfico diário mostra esse efeito pregão a pregão.</div>
+    <div class="grid g4" id="opStats"></div>
+    <div class="grid g21" style="margin-top:14px;align-items:start">
+      <div class="card">
+        <div class="l" style="margin-bottom:6px">Evolução indexada (base 100) — mensal</div>
+        <div class="chartbox" style="height:280px"><canvas id="chOpIdx"></canvas></div>
+        <div class="cap" style="margin-top:6px">PRIO3 e PETR3 em BRL; Chevron (CVX) em USD — comparação por retorno relativo, não por moeda.</div>
+      </div>
+      <div class="card">
+        <div class="l" style="margin-bottom:6px">Retorno médio diário quando Brent sobe vs cai</div>
+        <div class="chartbox" style="height:280px"><canvas id="chOpBrent"></canvas></div>
+        <div class="cap" style="margin-top:6px" id="opLeitura">—</div>
+      </div>
+    </div>
+    <div class="grid g21" style="margin-top:14px;align-items:start">
+      <div class="card">
+        <div class="l" style="margin-bottom:6px">Evolução diária (90 pregões) — retorno % vs direção do Brent</div>
+        <div class="chartbox" style="height:300px"><canvas id="chOpDaily"></canvas></div>
+        <div class="cap" style="margin-top:6px">Barras verdes = Brent subiu no dia; vermelhas = Brent caiu. Mostra o retorno de cada ação no mesmo pregão.</div>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="l" style="padding:10px 12px 0">Sensibilidade ao Brent (252 pregões)</div>
+        <table id="tblOpRel"><thead><tr><th>Ativo</th><th style="text-align:right">Correlação</th><th style="text-align:right">Beta</th><th style="text-align:right">Média dia Brent↑</th><th style="text-align:right">Acerto↑</th><th style="text-align:right">Média dia Brent↓</th><th style="text-align:right">Acerto↓</th><th style="text-align:right">Soma ret. dias↑</th><th style="text-align:right">Soma ret. dias↓</th></tr></thead><tbody></tbody></table>
+        <div class="cap" style="padding:8px 12px">Beta = quanto a ação move (%) para cada 1% do Brent. Acerto↑ = % de vezes que a ação subiu quando Brent subiu.</div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Notícias — Guerra Irã × EUA e o petróleo</h2><span class="pill">snapshot · 14/07/2026</span></div>
+    <div class="callout danger" style="margin-top:10px"><div class="t">Choque de oferta: bloqueio do Estreito de Ormuz dispara o petróleo (~+10%)</div>
+      <p>EUA reinstauraram o bloqueio naval a navios iranianos e Trump anunciou taxa de 20% sobre a carga que cruza Ormuz — por onde passa ~20% do petróleo mundial. Brent saltou para ~US$ 83–85 e o WTI ~US$ 78 (maior alta diária em anos). Para a PRIO (produtora de óleo, beta ~0,5 vs. Brent), <b>preço mais alto do petróleo é positivo para receita/caixa</b>, mas eleva a volatilidade e o risco macro global.</p></div>
+    <div class="grid g2" id="newsGrid" style="gap:12px;margin-top:12px"></div>
+    <div class="cap" style="margin-top:8px">Fontes: AP, BBC, Japan Times, Gulf News (14/07/2026). Snapshot manual — para fluxo contínuo, ver <a href="https://news.google.com/search?q=iran%20us%20war%20oil%20hormuz&hl=pt-BR" target="_blank" rel="noopener">Google Notícias</a>.</div>
+  </section>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Monitor de opções — PRIO ago/2026 (PRIOH · PRIOT)</h2><span class="pill" id="optStatus">carregando…</span></div>
+    <div class="cap" style="margin:6px 0 10px" id="optNote">CALL série <b>PRIOH</b> (ago) e PUT série <b>PRIOT</b> (ago). Prêmios recalculados com o spot ao vivo.</div>
+    <div class="simple">💡 <b>Em palavras simples:</b> é a "tabela de preços" das opções. Cada linha é um <b>strike</b> (preço-alvo). À <b>esquerda</b> as CALLs (apostam na alta), à <b>direita</b> as PUTs (apostam na queda), com o strike no meio. "Prêmio" = quanto custa; "B/E" = preço que a ação precisa atingir para você empatar.</div>
+    <div class="card" style="padding:0;overflow:auto">
+      <table id="tblOpt"><thead><tr>
+        <th>CALL (PRIOH)</th><th style="text-align:right">Prêmio</th><th style="text-align:right">Δ</th><th style="text-align:right">B/E</th>
+        <th style="text-align:center">STRIKE</th>
+        <th style="text-align:right">B/E</th><th style="text-align:right">Prêmio</th><th style="text-align:right">Δ</th><th>PUT (PRIOT)</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+    <div class="cap" style="margin-top:8px">⚠️ Prêmios <b>teóricos</b> (Black-Scholes), não cotações em tempo real da B3 (que exigem feed pago/corretora). B/E = preço de equilíbrio no vencimento. Códigos B3 indicativos: número ≈ strike.</div>
+  </section>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Livro de operações — opções PRIO (B3)</h2><span class="pill" id="obStatus">EOD</span></div>
+    <div class="cap" style="margin:6px 0 10px" id="obHead">Negócios reais liquidados na B3 (fechamentos por série, COTAHIST).</div>
+    <div class="callout warning" style="margin-bottom:12px"><div class="t">Sim — opções da PRIO fazem &gt;10x em poucos pregões, nos choques</div>
+      <p>Nos <b>tombos</b> (30/03→01/04, PRIO −11%; 10→16/06, PRIO −10%) as <b>PUTs</b> semanais OTM foram de ~R$ 0,10 a R$ 2–5 (<b>12x a 30x em 2 pregões</b>). Nas <b>altas</b> de julho (PRIO +5–7%), <b>CALLs</b> semanais renderam <b>11x–13x</b>. É o padrão de opção fora-do-dinheiro barata + movimento forte do papel (exatamente o tipo de volatilidade que a guerra Irã×EUA está gerando agora).</p></div>
+    <div class="simple" style="margin-bottom:12px">💡 <b>Em palavras simples:</b> esta tabela mostra <b>negócios que realmente aconteceram</b> na bolsa. A coluna "Múltiplo" diz quantas vezes o dinheiro rendeu (ex.: <b>30x</b> = R$ 100 viraram R$ 3.000) e em quantos dias. Repare: os maiores ganhos vieram de <b>movimentos bruscos</b> do preço da ação.</div>
+
+    <div class="card" style="padding:0;overflow:auto;margin-bottom:14px">
+      <table id="tblMov"><thead><tr>
+        <th>Série</th><th>Tipo</th><th style="text-align:right">Strike</th><th>Venc.</th>
+        <th>Período</th><th style="text-align:right">Preço</th><th style="text-align:right">Múltiplo</th>
+        <th style="text-align:right">PRIO3 no período</th><th style="text-align:right">Negócios (pico)</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+    <div class="cap" style="margin-bottom:6px">Tape do último pregão (<span id="obTapeDate">—</span>) — top séries por volume financeiro</div>
+    <div class="card" style="padding:0;overflow:auto">
+      <table id="tblTape"><thead><tr>
+        <th>Série</th><th>Tipo</th><th style="text-align:right">Strike</th><th>Venc.</th>
+        <th style="text-align:right">Fech.</th><th style="text-align:right">Var. dia</th>
+        <th style="text-align:right">Negócios</th><th style="text-align:right">Contratos</th><th style="text-align:right">Volume R$</th>
+      </tr></thead><tbody></tbody></table>
+    </div>
+    <div class="cap" style="margin-top:8px">Fonte: B3 COTAHIST 2026 (dados EOD por série; atualiza 1×/dia). "Múltiplo" = fech. de pico ÷ fech. de entrada, exigindo negócios reais nos dois dias e pico até o vencimento. Não é recomendação.</div>
+  </section>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Candidatas a 10x — buscar o próximo múltiplo</h2><span class="pill" id="txStatus">calculando…</span></div>
+    <div class="cap" style="margin:6px 0 12px">Receita do 10x: opção <b>barata, bem fora-do-dinheiro</b> + movimento forte do papel. Abaixo, quanto o PRIO3 precisa <b>subir</b> para cada série valer <b>10× o prêmio de hoje</b> (em ~3 pregões), com probabilidade estimada.</div>
+    <div class="grid" id="txThermo" style="grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:14px"></div>
+    <div class="callout danger" style="margin-bottom:14px"><div class="t">Leitura profissional: é bilhete de loteria (EV tende a negativo)</div>
+      <p>A IV embutida (~50%) está <b>acima</b> da volatilidade realizada (~39%) — os prêmios já estão <b>caros</b> por causa da guerra, o que reduz o retorno esperado. Regra do profissional: arriscar aqui <b>só capital que pode virar zero</b> (≤1–2% da carteira), tratar como convexidade/tail-bet, e não como tese central. As séries <b>semanais</b> dão o maior multiplicador (e o maior risco de pó).</p></div>
+    <div id="txExp" class="grid g2" style="gap:14px"></div>
+    <div class="cap" style="margin-top:8px">Prob. ~ risco-neutro (lognormal, IV assumida, 3 pregões) — referência, não garantia. Prêmios teóricos (Black-Scholes). Não é recomendação de investimento.</div>
+  </section>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">🎓 O que um profissional também olha (explicado fácil)</h2></div>
+    <div class="cap" style="margin:6px 0 12px">Itens que aprofundam a análise. Alguns já estão no painel (✅); outros dependem de dados pagos (💲).</div>
+    <div class="grid" style="grid-template-columns:repeat(2,1fr);gap:10px 22px">
+      <div class="news"><div class="src">Sobre a opção</div><b>Volatilidade cara ou barata? (IV rank)</b><br><span class="cap">Ver se as opções estão "caras" hoje vs o normal do ano. Opção cara = ganho mais difícil. <b>Parcial no painel</b> (IV vs realizada).</span></div>
+      <div class="news"><div class="src">Sobre a opção</div><b>Probabilidade de lucro</b><br><span class="cap">Chance real de a aposta dar certo até o vencimento. ✅ já mostramos (coluna "Prob~" e o delta).</span></div>
+      <div class="news"><div class="src">Empresa</div><b>Preço do petróleo em que a PRIO empata</b><br><span class="cap">Abaixo de quanto de Brent a empresa para de lucrar. Mede a "margem de segurança". 💲/dado da empresa.</span></div>
+      <div class="news"><div class="src">Empresa</div><b>Reservas e curva de produção</b><br><span class="cap">Quanto petróleo ainda há nos campos (Wahoo, Peregrino) e por quantos anos. Sustenta o crescimento. 💲relatórios.</span></div>
+      <div class="news"><div class="src">Empresa</div><b>Hedge e dólar</b><br><span class="cap">A PRIO trava parte do preço do petróleo? Receita é em dólar — o câmbio importa. 💲release/RI.</span></div>
+      <div class="news"><div class="src">Macro</div><b>Curva e estoques do petróleo (EIA/OPEP)</b><br><span class="cap">Se o mercado espera petróleo mais caro ou mais barato à frente, e o nível de estoques. 💲/API pública.</span></div>
+      <div class="news"><div class="src">Risco</div><b>Tamanho da posição e stress test</b><br><span class="cap">Quanto arriscar por operação e o que acontece se o petróleo cair 10–20%. Regra de ouro do iniciante.</span></div>
+      <div class="news"><div class="src">Fluxo</div><b>Revisões de analistas e short interest</b><br><span class="cap">Se os especialistas estão elevando/cortando alvo e quanto há de aposta na queda. 💲dados de mercado.</span></div>
+    </div>
+  </section>
+
+  <section class="callout danger">
+    <div class="t">🛡️ Regras de segurança para iniciantes (leia antes de operar opção)</div>
+    <div class="grid g2" style="gap:6px 22px;margin-top:6px">
+      <div class="cap" style="font-size:13.5px;line-height:1.9">
+        1. <b>Opção pode virar zero.</b> Nunca coloque dinheiro que faça falta.<br>
+        2. <b>Arrisque pouco:</b> as "loterias" de 10x merecem no máximo <b>1–2% da carteira</b>.<br>
+        3. <b>Tenha um plano antes:</b> defina alvo de ganho e <b>stop</b> (perda máxima) na entrada.
+      </div>
+      <div class="cap" style="font-size:13.5px;line-height:1.9">
+        4. <b>Alavancagem corta dos dois lados:</b> o que multiplica o ganho multiplica a perda.<br>
+        5. <b>Comece pequeno e simule.</b> Entenda o produto antes de aumentar.<br>
+        6. Este painel é <b>educativo</b>, <b>não</b> é recomendação de investimento.
+      </div>
+    </div>
+  </section>
+
+  <section class="grid g4" style="margin-top:26px">
+    <div class="stat"><div class="v info">R$ 56,42</div><div class="l">PRIO3 (08/07/2026)</div></div>
+    <div class="stat"><div class="v">US$ 78,02</div><div class="l">Brent (barril)</div></div>
+    <div class="stat"><div class="v success">+163%</div><div class="l">Retorno PRIO3 em 5 anos</div></div>
+    <div class="stat"><div class="v success">21,3% a.a.</div><div class="l">CAGR PRIO3 (5 anos)</div></div>
+  </section>
+
+  <section class="callout success">
+    <div class="t">Tese central: PRIO cresceu por produção própria, não por preço do petróleo</div>
+    <p>Em 5 anos o Brent ficou praticamente de lado (+4,7%), enquanto PRIO3 subiu +163% — descolamento de ~158 p.p.
+    O motor foi o aumento de produção via aquisições (Frade, Wahoo, Albacora Leste, Peregrino) e novos poços, não a
+    commodity. Correlação diária com o Brent de apenas 0,49 e beta 0,51.</p>
+  </section>
+
+  <section class="card">
+    <h2>Desempenho relativo — base 100 (jul/2021)</h2>
+    <div class="chartbox"><canvas id="chIdx"></canvas></div>
+    <div class="cap">Eixo Y: preço reindexado a 100 no início. A distância entre as linhas é o descolamento acumulado. Fonte: Yahoo Finance · fechamentos mensais.</div>
+  </section>
+
+  <section class="grid g2">
+    <div class="card">
+      <h2>Retorno por ano-calendário (%)</h2>
+      <div class="chartbox sm"><canvas id="chAnnual"></canvas></div>
+      <div class="cap">2026* = ano parcial (até 08/07). Fonte: Yahoo Finance.</div>
+    </div>
+    <div class="card">
+      <h2>Preço de PRIO3 (R$) — evolução mensal</h2>
+      <div class="chartbox sm"><canvas id="chPrio"></canvas></div>
+      <div class="cap">Máxima R$ 72,10 (30/03/2026) · mínima R$ 16,72. Eixo Y em R$.</div>
+    </div>
+  </section>
+
+  <section class="grid g21">
+    <div class="card">
+      <h2>Correlação móvel PRIO3 × Brent (90 dias)</h2>
+      <div class="chartbox sm"><canvas id="chCorr"></canvas></div>
+      <div class="cap">Eixo Y: coeficiente de correlação (0 a 1). Fica em ~0,3–0,65 — moderada, nunca colada.</div>
+    </div>
+    <div class="card">
+      <h2>Fatos relevantes por categoria</h2>
+      <div class="chartbox sm"><canvas id="chPie"></canvas></div>
+      <div class="cap">Classificação de 112 fatos relevantes (2021–2026). Fonte: CVM (IPE).</div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin-top:26px"></div>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Análise técnica de PRIO3</h2><span class="pill">tendência de alta em correção</span></div>
+    <div class="grid g4" style="margin-top:10px">
+      <div class="stat"><div class="v">R$ 61,34</div><div class="l">Média móvel 50d</div></div>
+      <div class="stat"><div class="v success">R$ 50,96</div><div class="l">Média móvel 200d</div></div>
+      <div class="stat"><div class="v">47</div><div class="l">RSI (14) — neutro</div></div>
+      <div class="stat"><div class="v warning">-22%</div><div class="l">Distância da máxima 52s</div></div>
+    </div>
+    <div class="grid g2" style="margin-top:14px">
+      <div class="card">
+        <h2>Leitura dos indicadores</h2>
+        <table id="tblSin"><thead><tr><th>Indicador</th><th>Leitura</th><th>Viés</th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="card">
+        <h2>Níveis operacionais (R$)</h2>
+        <table id="tblLvl"><thead><tr><th>Tipo</th><th style="text-align:right">Nível</th><th>Referência</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+    <div class="callout info" style="margin-top:14px"><div class="t">Síntese técnica</div>
+      <p>Correção dentro de tendência de alta: preço acima da MM200 com golden cross ativo (viés de longo prazo positivo), mas abaixo da MM50/MM100 (fraqueza de curto prazo). O MACD virou (histograma positivo) e o RSI neutro (47) abrem espaço para retomada. Gatilho de força: reconquista da MM50 (~R$ 61) e do Fib 38,2% (R$ 59). Perda do suporte R$ 50,8 (Fib 61,8% ≈ MM200) enfraqueceria a estrutura. Suportes/resistências por swing points (12m) + Fibonacci do rali de 2026 (base R$ 37,1 → topo R$ 73,0); ATR(14) ≈ 2,3%/dia.</p></div>
+  </section>
+
+  <section class="card">
+    <div class="row" style="gap:10px"><h2 style="margin:0">Fundamentos divulgados pela empresa (CVM)</h2><span class="pill">DFP consolidado · R$ bi</span></div>
+    <div class="grid g21" style="margin-top:12px">
+      <div>
+        <div class="cap" style="margin:0 0 6px">Receita, EBITDA e lucro líquido (R$ bilhões)</div>
+        <div class="chartbox sm"><canvas id="chFund"></canvas></div>
+      </div>
+      <div>
+        <div class="cap" style="margin:0 0 6px">Alavancagem — Dívida líquida / EBITDA (x)</div>
+        <div class="chartbox sm"><canvas id="chLev"></canvas></div>
+      </div>
+    </div>
+    <table id="tblFund" style="margin-top:14px"><thead><tr><th>Ano</th><th style="text-align:right">Receita</th><th style="text-align:right">EBITDA</th><th style="text-align:right">Margem</th><th style="text-align:right">Lucro líq.</th><th style="text-align:right">Dív. líquida</th><th style="text-align:right">Dív.líq/EBITDA</th></tr></thead><tbody></tbody></table>
+    <div class="cap">EBITDA ≈ EBIT + depreciação/amortização (aprox. via DFC; exclui ajustes não recorrentes). Valores em R$ bilhões. Fonte: DFP consolidada, CVM. Moeda funcional USD, apresentação em R$.</div>
+    <div class="grid" style="gap:12px;margin-top:14px">
+      <div class="callout success"><div class="t">O que os números confirmam</div>
+        <p>Receita cresceu ~3,5x em 4 anos (R$ 4,4 bi → R$ 15,6 bi) com margem EBITDA alta (49–77%), típica de produtor de baixo custo. O valuation subiu por volume e eficiência, não por preço do petróleo.</p></div>
+      <div class="callout warning"><div class="t">Ponto de atenção: alavancagem</div>
+        <p>A compra de Peregrino elevou a dívida líquida a ~R$ 25 bi e a alavancagem a ~3,3x EBITDA em 2025 (ano de EBITDA menor: Brent baixo + maior depreciação). O lucro de 2024 (R$ 10,3 bi) foi inflado por itens não recorrentes e não deve ser extrapolado. A recuperação depende do EBITDA voltar a crescer com Wahoo/Peregrino a pleno para desalavancar.</p></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Linha do tempo — principais catalisadores (fatos relevantes)</h2>
+    <table id="tblCat"><thead><tr><th>Data</th><th>Evento</th><th>Categoria</th><th>Impacto</th></tr></thead><tbody></tbody></table>
+    <div class="cap">Seleção dos eventos mais relevantes entre os 112 fatos protocolados na CVM. Por ano: 2021=21 · 2022=27 · 2023=15 · 2024=14 · 2025=24 · 2026*=11.</div>
+  </section>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Indicadores operacionais (release 1T2026)</h2><span class="pill">dados da empresa</span></div>
+    <div class="grid g4" style="margin-top:10px">
+      <div class="stat"><div class="v info">155 mil</div><div class="l">Produção boe/d (1T26, +42%)</div></div>
+      <div class="stat"><div class="v success">US$ 9,40</div><div class="l">Lifting cost/bbl (-27%)</div></div>
+      <div class="stat"><div class="v">800+ mi</div><div class="l">Reservas 1P (barris)</div></div>
+      <div class="stat"><div class="v warning">2,0x</div><div class="l">Dív.líq/EBITDA (meta 1x/2027)</div></div>
+    </div>
+    <div class="grid g4" style="margin-top:12px">
+      <div class="stat"><div class="v success">200 mil</div><div class="l">Guidance produção 2026 (boe/d)</div></div>
+      <div class="stat"><div class="v info">US$ 852M</div><div class="l">EBITDA 1T26 (+91%)</div></div>
+      <div class="stat"><div class="v success">76%</div><div class="l">Margem EBITDA 1T26</div></div>
+      <div class="stat"><div class="v">30→40 mil</div><div class="l">Wahoo boe/d (3→4 poços)</div></div>
+    </div>
+    <div style="margin-top:14px">
+      <div class="cap" style="margin:0 0 6px">Produção (barras, mil boe/d) × Lifting cost (linha, US$/bbl) — por trimestre</div>
+      <div class="chartbox sm"><canvas id="chOper"></canvas></div>
+      <div class="cap">Relação inversa: no 3T25 a produção caiu a 88,2 (parada de Peregrino) e o lifting cost disparou a US$ 17,4; no 1T26 a produção saltou a 155 (Wahoo + Peregrino) e o custo caiu a US$ 9,4 (menor desde 2023). Referência pré-Peregrino: 4T23 = 100,3 mil boe/d e US$ 6,8/bbl. Fonte: releases/calls da PRIO (RI/CVM) e research.</div>
+    </div>
+    <div class="callout success" style="margin-top:14px"><div class="t">O motor de 2026 está entregando</div>
+      <p>O 1T2026 confirmou a virada: produção de 155 mil boe/d (+42%) rumo ao guidance de 200 mil boe/d, lifting cost de volta a US$ 9,4/bbl (menor desde 2023) com diluição de custos de Wahoo/Peregrino, e EBITDA de US$ 852 mi (+91%, margem 76%). A empresa já reporta alavancagem em ~2x (vs. 3,3x no fechamento de 2025), a caminho da meta de 1x até 2027 — a desalavancagem por crescimento se materializando.</p></div>
+  </section>
+
+  <section class="card">
+    <div class="row" style="gap:10px"><h2 style="margin:0">Preço justo (valuation)</h2><span class="pill" style="background:rgba(63,185,80,.15);color:var(--success);border-color:rgba(63,185,80,.35)">upside ~+25%</span></div>
+    <div class="grid g4" style="margin-top:12px">
+      <div class="stat"><div class="v success">R$ 70</div><div class="l">Preço justo (EV/EBITDA 5x)</div></div>
+      <div class="stat"><div class="v info">R$ 70</div><div class="l">Consenso 14 analistas (compra)</div></div>
+      <div class="stat"><div class="v">6,1x</div><div class="l">P/L futuro (vs. 16,9x atual)</div></div>
+      <div class="stat"><div class="v">7,2x</div><div class="l">EV/EBITDA atual</div></div>
+    </div>
+    <div class="grid g21" style="margin-top:14px">
+      <div>
+        <div class="cap" style="margin:0 0 6px">Preço justo por múltiplo × EBITDA normalizado (R$/ação)</div>
+        <table id="tblFair"><thead><tr><th>Cenário \ EV/EBITDA</th><th style="text-align:right">4,0x</th><th style="text-align:right">4,5x</th><th style="text-align:right">5,0x</th><th style="text-align:right">5,5x</th><th style="text-align:right">6,0x</th></tr></thead><tbody></tbody></table>
+        <div class="cap">Preço justo = (múltiplo × EBITDA − dívida líquida R$ 24,1 bi) ÷ 801 mi ações. Célula central (5,0x, R$ 16 bi) = R$ 69,8.</div>
+      </div>
+      <div>
+        <div class="cap" style="margin:0 0 6px">Faixa de preços-alvo dos analistas (R$)</div>
+        <div class="chartbox" style="height:200px"><canvas id="chTarget"></canvas></div>
+        <div class="cap">14 analistas · "compra". Preço atual R$ 55,83. Fonte: consenso (yfinance).</div>
+      </div>
+    </div>
+    <div class="grid" style="gap:12px;margin-top:14px">
+      <div class="callout success"><div class="t">Preço justo ≈ R$ 68–71 (upside ~+25%)</div>
+        <p>Dois métodos independentes convergem: modelo EV/EBITDA (5,0x sobre EBITDA normalizado de ~R$ 16 bi, líquido da dívida) aponta R$ 69,8; o consenso de 14 analistas indica média R$ 69,9 (mediana R$ 71). Ambos implicam ~+25% sobre os ~R$ 56 atuais. O P/L futuro de 6,1x (vs. 16,9x trailing) mostra que o mercado já espera forte crescimento de lucro — e o papel segue descontado.</p></div>
+      <div class="callout warning"><div class="t">Sensibilidade da avaliação</div>
+        <p>O preço justo é muito sensível ao Brent e ao múltiplo: no cenário conservador (EBITDA R$ 13 bi a 4,5x) cai a ~R$ 43; no otimista (R$ 18 bi a 5,5x) sobe a ~R$ 93. Trate R$ 70 como ponto central, não como certeza.</p></div>
+    </div>
+  </section>
+
+  <div class="divider" style="margin-top:26px"></div>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Gatilhos de investimento (estudo de padrões)</h2><span class="pill">backtest · 5 anos diários</span></div>
+    <div class="callout warning" style="margin-top:10px"><div class="t">Descoberta central: PRIO3 é momentum, não reversão à média</div>
+      <p>Testando 23 sinais contra o retorno futuro médio do ativo, o padrão é claro: comprar força funciona e comprar fraqueza não. Sinais de continuação (cruzar a MM200, superar o Brent, gap de alta) rendem acima da média; já "comprar na baixa" (RSI muito baixo, quedas fortes, pullback) tende a continuar caindo. Baseline de 10 pregões: +1,1% (54,8% de acerto).</p></div>
+    <div class="grid g21" style="margin-top:14px">
+      <div>
+        <div class="cap" style="margin:0 0 6px">Vantagem no retorno de 10 pregões vs. média do ativo (pontos percentuais)</div>
+        <div class="chartbox" style="height:320px"><canvas id="chTrig"></canvas></div>
+        <div class="cap">Verde = sinal de compra (retorno acima da média); vermelho = cautela/evitar. Fonte: backtest sobre preços diários (Yahoo Finance).</div>
+      </div>
+      <div>
+        <div class="cap" style="margin:0 0 6px">Detalhe dos gatilhos</div>
+        <table id="tblTrig"><thead><tr><th>Gatilho</th><th style="text-align:right">n</th><th style="text-align:right">Vant.10d</th><th style="text-align:right">Acerto</th><th style="text-align:right">t</th></tr></thead><tbody></tbody></table>
+        <div class="cap">"t" = t-stat aprox. (|t|≳2 = significativo). Os 2 melhores mantêm força em 21 pregões: cruzar a MM200 → +4,0pp e 84% de acerto; superar o Brent → +2,4pp e 70%.</div>
+      </div>
+    </div>
+    <div class="grid g2" style="gap:12px;margin-top:14px">
+      <div class="callout success"><div class="t">Regra de COMPRA (momentum)</div>
+        <p>Priorize entradas quando: (1) o preço cruza acima da MM200 (virada de tendência — melhor sinal, 84% em 21d); (2) PRIO supera o Brent em +10pp/20 pregões (força relativa — o mais robusto, t=2,7–3,1); (3) gap de alta &gt; 2% para trades de 1–3 pregões.</p></div>
+      <div class="callout warning"><div class="t">Regra de CAUTELA (não comprar por estar "barato")</div>
+        <p>Evite comprar só porque caiu: quedas de 8–12% em 5 pregões, RSI &lt; 25 e pullbacks com RSI &lt; 40 renderam abaixo da média em 10 pregões (t negativo). Espere a reversão de tendência. Serve também para proteger posições.</p></div>
+    </div>
+    <div class="callout info" style="margin-top:12px"><div class="t">Status dos gatilhos hoje (fech. 08/07, R$ 56,42)</div>
+      <p>PRIO3 está +10,7% acima da MM200 (tendência de fundo positiva) mas abaixo da MM50; força relativa vs. Brent em +5,9pp (abaixo do gatilho de +10pp); RSI 47 (neutro). Ainda não há gatilho forte de compra disparado — o que monitorar é a reconquista da MM50 (~R$ 61) e/ou PRIO voltar a superar o Brent em &gt;10pp.</p></div>
+  </section>
+
+  <div class="divider" style="margin-top:26px"></div>
+
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">E para PUT? (gatilhos de baixa)</h2><span class="pill" style="background:rgba(220,60,70,.15);color:#ff8a90">operação vendida / proteção</span></div>
+    <div class="callout danger" style="margin-top:10px"><div class="t">Descoberta central: PUT é estruturalmente difícil em PRIO3</div>
+      <p>O ativo tem drift de alta — em 10 pregões sobe 55,8% das vezes (só 44,2% de quedas) e as quedas costumam ser compradas. Testando 14 sinais de baixa, quase todos os "topos" intuitivos continuam subindo: RSI&gt;75 (+1,36%), Banda superior (+1,38%), MACD virando para baixo (+1,82%). Pior: perder a MM200 historicamente antecede repique (+4,58% em 10d, t=+2,2) — é sinal de CALL, não de PUT.</p></div>
+    <div class="grid g21" style="margin-top:14px">
+      <div>
+        <div class="cap" style="margin:0 0 6px">Retorno médio do ativo em 10 pregões após o sinal (%) — negativo favorece PUT</div>
+        <div class="chartbox" style="height:320px"><canvas id="chPut"></canvas></div>
+        <div class="cap">Baseline de 10 pregões = +1,1%. Apenas um sinal fica abaixo de zero (favorável a PUT): continuação de queda.</div>
+      </div>
+      <div>
+        <div class="cap" style="margin:0 0 6px">Detalhe dos gatilhos de baixa</div>
+        <table id="tblPut"><thead><tr><th>Gatilho</th><th style="text-align:right">n</th><th style="text-align:right">Ret.10d</th><th style="text-align:right">% quedas</th><th style="text-align:right">t</th><th>PUT?</th></tr></thead><tbody></tbody></table>
+        <div class="cap">"% quedas" = fração das vezes em que caiu em 10 pregões (acerto da PUT). Amostras limitadas e dependentes de regime.</div>
+      </div>
+    </div>
+    <div class="grid g2" style="gap:12px;margin-top:14px">
+      <div class="callout success"><div class="t">A única PUT com edge: CONTINUAÇÃO de queda</div>
+        <p>Comprar PUT depois que a queda já começou — -8% em 5 pregões — capturou -1,19% adicionais em 10 pregões (54% de acerto, t=-2,6). Trade tático e curto, surfando o momentum de baixa, com PUT de prazo curto e stop na estabilização. Não é comprar PUT "no topo".</p></div>
+      <div class="callout warning"><div class="t">Melhor uso da PUT: PROTEÇÃO, não aposta direcional</div>
+        <p>Dado o drift de alta, PUT direcional "seca" tem valor esperado negativo na maioria dos dias (theta + tendência jogam contra). Use PUT como seguro (protective put / colar) da posição comprada — travar perda da sua call ou de ações em custódia perto de resultados/eventos, aceitando o custo do prêmio.</p></div>
+    </div>
+    <div class="callout info" style="margin-top:12px"><div class="t">Status hoje</div>
+      <p>Nenhum gatilho de PUT ativo. O único sinal disparado recentemente foi "3 altas seguidas" — que, ao contrário da intuição, tem retorno positivo (+1,37%). O momento recente não favorece PUT direcional; se quiser downside, priorize proteção.</p></div>
+  </section>
+
+  <div class="divider" style="margin-top:26px"></div>
+
+  <section>
+    <h2>Oportunidades de investimento e racional</h2>
+    <div class="grid" style="gap:12px">
+      <div class="callout success"><div class="t">1) Ponto de entrada: correção sobre fundamentos em melhora</div>
+        <p>PRIO3 caiu ~22% da máxima justamente quando a produção dá o maior salto da história (start-up de Wahoo em mar/2026 + 4 poços produzindo, e Peregrino 100%-operado desde nov/2025). Preço corrigindo com volume de produção subindo tende a comprimir múltiplos. RSI neutro (47) e preço acima da MM200 indicam respiro, não reversão.</p></div>
+      <div class="callout info"><div class="t">2) Opcionalidade sobre petróleo com baixa dependência do preço</div>
+        <p>Com beta de 0,51 vs. Brent, a tese não exige petróleo em alta: mesmo com Brent lateral, o crescimento de barris (Wahoo + Peregrino) sustenta receita. Se o Brent subir, há alavancagem operacional adicional.</p></div>
+      <div class="callout info"><div class="t">3) Estruturas com opções (para quem opera derivativos)</div>
+        <p>PRIO3 tem opções líquidas na B3: (a) trava de alta / bull call spread para capturar a maturação de Wahoo com risco limitado ao prêmio; (b) venda coberta de call para renda na lateralização; (c) venda de put fora-do-dinheiro para tentar comprar mais barato recebendo prêmio.</p></div>
+      <div class="callout warning"><div class="t">Riscos que invalidam a tese</div>
+        <p>Queda estrutural do Brent (como em 2025, ~-20%) pressiona margem; risco operacional/ambiental (parada de Peregrino em ago/2025); execução e capex das aquisições; risco regulatório (licenças Ibama) e câmbio. Volatilidade ~39% a.a. exige posição dimensionada.</p></div>
+      <div class="callout neutral"><div class="t">Aviso</div>
+        <p>Conteúdo analítico e educacional a partir de dados públicos (Yahoo Finance e CVM). Não é recomendação de investimento.</p></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const MONTHLY = [
+  ["2021-07",17.82,100.0,100.0],["2021-08",19.14,107.4,95.6],["2021-09",24.98,140.2,102.9],["2021-10",23.43,131.5,110.5],["2021-11",20.26,113.7,92.5],["2021-12",20.64,115.8,101.9],
+  ["2022-01",23.88,134.0,119.5],["2022-02",25.78,144.6,132.3],["2022-03",23.77,133.4,141.4],["2022-04",26.66,149.6,143.2],["2022-05",27.95,156.8,160.9],["2022-06",21.95,123.2,150.4],
+  ["2022-07",24.18,135.7,144.1],["2022-08",27.27,153.0,126.4],["2022-09",27.49,154.2,115.2],["2022-10",35.33,198.3,124.2],["2022-11",35.99,202.0,111.9],["2022-12",37.15,208.5,112.6],
+  ["2023-01",42.03,235.9,110.7],["2023-02",33.65,188.8,109.9],["2023-03",31.14,174.7,104.5],["2023-04",34.69,194.7,104.2],["2023-05",34.14,191.5,95.2],["2023-06",37.02,207.7,98.1],
+  ["2023-07",45.55,255.6,112.1],["2023-08",46.35,260.1,113.8],["2023-09",46.96,263.5,124.9],["2023-10",47.62,267.2,114.5],["2023-11",45.86,257.3,108.5],["2023-12",46.05,258.4,100.9],
+  ["2024-01",43.93,246.5,107.0],["2024-02",43.71,245.3,109.6],["2024-03",48.74,273.5,114.6],["2024-04",48.0,269.3,115.1],["2024-05",41.61,233.5,106.9],["2024-06",43.76,245.5,113.2],
+  ["2024-07",48.05,269.6,105.8],["2024-08",46.84,262.8,103.2],["2024-09",43.33,243.1,94.0],["2024-10",40.98,229.9,95.8],["2024-11",40.14,225.2,95.6],["2024-12",40.15,225.3,97.8],
+  ["2025-01",40.99,230.0,100.6],["2025-02",38.17,214.2,95.9],["2025-03",39.8,223.3,97.9],["2025-04",33.71,189.2,82.7],["2025-05",38.95,218.6,83.7],["2025-06",42.4,237.9,88.6],
+  ["2025-07",42.19,236.7,95.0],["2025-08",37.87,212.5,89.2],["2025-09",38.13,214.0,87.8],["2025-10",36.03,202.2,85.2],["2025-11",37.21,208.8,82.8],["2025-12",41.42,232.4,79.7],
+  ["2026-01",50.99,286.1,92.6],["2026-02",54.49,305.8,95.0],["2026-03",66.21,371.5,155.1],["2026-04",66.41,372.6,149.4],["2026-05",62.25,349.3,120.6],["2026-06",52.15,292.6,95.5],["2026-07",56.42,316.6,102.2]
+];
+const CORR = [["2021-11",0.46],["2022-02",0.46],["2022-05",0.52],["2022-08",0.59],["2022-11",0.45],["2023-02",0.43],["2023-05",0.5],["2023-08",0.55],["2023-11",0.64],["2024-02",0.56],["2024-05",0.35],["2024-08",0.3],["2024-11",0.53],["2025-02",0.43],["2025-05",0.61],["2025-08",0.45],["2025-11",0.49],["2026-02",0.44],["2026-05",0.51],["2026-07",0.55]];
+const ANNUAL = {years:["2021","2022","2023","2024","2025","2026*"],prio3:[-3.8,83.4,25.5,-12.8,1.6,35.1],brent:[4.4,8.8,-10.3,-3.1,-19.9,28.4]};
+const PIE = [["Financiamento",19],["M&A / Aquisição",19],["Produção",15],["Retorno ao acionista",14],["Licenciamento",7],["Reservas",6]];
+const CAT = [
+  ["01/2021","Follow-on (captação p/ crescimento)","Financiamento","neu"],
+  ["06/2021","Aquisição de Wahoo e Itaipu","M&A","up"],
+  ["04/2022","Aquisição de Albacora Leste","M&A","up"],
+  ["10/2022","Incorporação da Dommo + recompra","M&A","up"],
+  ["07/2023","Sequência de start-ups de poços (Frade/Polvo)","Produção","up"],
+  ["11/2023","Conclusão da venda de Manati","M&A","neu"],
+  ["12/2023","Distribuição de dividendos intermediários","Provento","up"],
+  ["09/2024","Aquisição de participação em Peregrino","M&A","up"],
+  ["12/2024","Conclusão da 1ª parcela de Peregrino","M&A","up"],
+  ["05/2025","Compra de participações adicionais em Peregrino","M&A","up"],
+  ["08/2025","Parada não programada do Campo de Peregrino","Produção","down"],
+  ["10/2025","Retomada de produção de Peregrino","Produção","up"],
+  ["11/2025","Conclusão: 40% + operação de Peregrino","M&A","up"],
+  ["12/2025","Cancelamento de ações + novo buyback","Provento","up"],
+  ["03/2026","START-UP DO CAMPO DE WAHOO","Produção","up"],
+  ["03/2026","Certificação de Reservas 2026","Reservas","up"],
+  ["03-04/2026","1º, 2º e 3º poços de Wahoo em produção","Produção","up"],
+  ["06/2026","4º poço de Wahoo em produção","Produção","up"]
+];
+const C={info:"#4c8dff",success:"#3fb950",warning:"#d29922",danger:"#f85149",accent:"#a371f7",txt2:"#9aa7b4",grid:"rgba(255,255,255,.06)"};
+Chart.defaults.color=C.txt2; Chart.defaults.font.family="-apple-system,Segoe UI,Roboto,sans-serif"; Chart.defaults.font.size=11;
+const gridOpt={grid:{color:C.grid}};
+const labels=MONTHLY.map(m=>m[0]);
+const impLabel={up:"▲ positivo",down:"▼ negativo",neu:"● neutro"};
+
+new Chart(chIdx,{type:"line",data:{labels,datasets:[
+  {label:"PRIO3 (índice)",data:MONTHLY.map(m=>m[2]),borderColor:C.info,backgroundColor:"transparent",tension:.25,pointRadius:0,borderWidth:2},
+  {label:"Brent (índice)",data:MONTHLY.map(m=>m[3]),borderColor:C.warning,backgroundColor:"transparent",tension:.25,pointRadius:0,borderWidth:2}
+]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},scales:{x:{...gridOpt,ticks:{maxTicksLimit:12}},y:gridOpt}}});
+
+new Chart(chAnnual,{type:"bar",data:{labels:ANNUAL.years,datasets:[
+  {label:"PRIO3",data:ANNUAL.prio3,backgroundColor:C.info},
+  {label:"Brent",data:ANNUAL.brent,backgroundColor:C.warning}
+]},options:{responsive:true,maintainAspectRatio:false,scales:{x:gridOpt,y:gridOpt}}});
+
+new Chart(chPrio,{type:"line",data:{labels,datasets:[
+  {label:"PRIO3 (R$)",data:MONTHLY.map(m=>m[1]),borderColor:C.info,backgroundColor:"rgba(76,141,255,.15)",fill:true,tension:.25,pointRadius:0,borderWidth:2}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{...gridOpt,ticks:{maxTicksLimit:10}},y:gridOpt}}});
+
+new Chart(chCorr,{type:"line",data:{labels:CORR.map(c=>c[0]),datasets:[
+  {label:"Correlação (retornos diários)",data:CORR.map(c=>c[1]),borderColor:C.success,backgroundColor:"transparent",tension:.3,pointRadius:0,borderWidth:2}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{...gridOpt,ticks:{maxTicksLimit:8}},y:{...gridOpt,min:0,max:1}}}});
+
+new Chart(chPie,{type:"doughnut",data:{labels:PIE.map(p=>p[0]),datasets:[
+  {data:PIE.map(p=>p[1]),backgroundColor:[C.info,C.accent,C.success,C.warning,"#e06c75","#56b6c2"],borderColor:"#161b22",borderWidth:2}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:"right"}}}});
+
+const tb=document.querySelector("#tblCat tbody");
+CAT.forEach(r=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td class="${r[3]}">${impLabel[r[3]]}</td>`;tb.appendChild(tr);});
+
+// --- Analise tecnica: sinais e niveis ---
+const SIN=[
+  ["Tendência primária — preço vs. MM200","Acima (R$ 51,0)","up"],
+  ["Tendência média — preço vs. MM50","Abaixo (R$ 61,3)","down"],
+  ["Golden/Death cross (MM50 × MM200)","Golden cross ativo","up"],
+  ["MACD (12/26/9)","Histograma virou positivo","up"],
+  ["RSI (14)","47 — neutro","neu"],
+  ["Bollinger (%B, 20/2σ)","57% — meio da banda","neu"],
+  ["Volume 20d vs. 90d","Abaixo da média","neu"]
+];
+const sinGlyph={up:"▲ compra",down:"▼ venda",neu:"● neutro"};
+const tbSin=document.querySelector("#tblSin tbody");
+SIN.forEach(r=>{const tr=document.createElement("tr");tr.innerHTML=`<td>${r[0]}</td><td>${r[1]}</td><td class="${r[2]}">${sinGlyph[r[2]]}</td>`;tbSin.appendChild(tr);});
+
+const LVL=[
+  ["Resistência 3","70,62","topo de faixa"],["Resistência 2","64,51","Fib 23,6%"],["Resistência 1","59,28","Fib 38,2% / MM50"],
+  ["Preço atual","56,42","entre Fib 50% e 38,2%"],
+  ["Suporte 1","55,05","Fib 50%"],["Suporte 2","50,81","Fib 61,8% / MM200"],["Suporte 3","37,11","base do movimento 2026"]
+];
+const tbLvl=document.querySelector("#tblLvl tbody");
+LVL.forEach(r=>{const tr=document.createElement("tr");const cls=r[0].startsWith("Resist")?"down":r[0].startsWith("Suporte")?"up":"";tr.innerHTML=`<td>${r[0]}</td><td style="text-align:right">${r[1]}</td><td class="${cls}">${r[2]}</td>`;tbLvl.appendChild(tr);});
+
+// --- Fundamentos CVM ---
+const FUND=[
+  {ano:"2021",receita:4.40,ebitda:3.00,lucro:1.33,dl:2.93,margem:68,alav:0.98},
+  {ano:"2022",receita:6.36,ebitda:4.77,lucro:3.43,dl:-0.39,margem:75,alav:-0.08},
+  {ano:"2023",receita:11.91,ebitda:9.21,lucro:5.18,dl:7.22,margem:77,alav:0.78},
+  {ano:"2024",receita:14.36,ebitda:9.44,lucro:10.30,dl:18.44,margem:66,alav:1.95},
+  {ano:"2025",receita:15.58,ebitda:7.67,lucro:2.25,dl:25.04,margem:49,alav:3.27}
+];
+new Chart(chFund,{type:"bar",data:{labels:FUND.map(f=>f.ano),datasets:[
+  {label:"Receita",data:FUND.map(f=>f.receita),backgroundColor:C.info},
+  {label:"EBITDA",data:FUND.map(f=>f.ebitda),backgroundColor:C.success},
+  {label:"Lucro líquido",data:FUND.map(f=>f.lucro),backgroundColor:C.warning}
+]},options:{responsive:true,maintainAspectRatio:false,scales:{x:gridOpt,y:gridOpt}}});
+new Chart(chLev,{type:"line",data:{labels:FUND.map(f=>f.ano),datasets:[
+  {label:"Dív. líquida / EBITDA",data:FUND.map(f=>f.alav),borderColor:C.warning,backgroundColor:"rgba(210,153,34,.15)",fill:true,tension:.25,pointRadius:3,borderWidth:2}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:gridOpt,y:gridOpt}}});
+const tbFund=document.querySelector("#tblFund tbody");
+FUND.forEach(f=>{const tr=document.createElement("tr");const alavCls=f.alav>3?"down":f.alav<1?"up":"";tr.innerHTML=`<td>${f.ano}</td><td style="text-align:right">${f.receita.toFixed(2)}</td><td style="text-align:right">${f.ebitda.toFixed(2)}</td><td style="text-align:right">${f.margem}%</td><td style="text-align:right">${f.lucro.toFixed(2)}</td><td style="text-align:right">${f.dl.toFixed(2)}</td><td style="text-align:right" class="${alavCls}">${f.alav.toFixed(2)}x</td>`;tbFund.appendChild(tr);});
+
+// --- Preco justo: grid + alvo analistas ---
+const FAIR=[
+  ["Conservador (EBITDA R$ 13 bi)",[35,43,51,59,67]],
+  ["Base (EBITDA R$ 16 bi)",[50,60,70,80,90]],
+  ["Otimista (EBITDA R$ 18 bi)",[60,71,82,93,105]]
+];
+const tbFair=document.querySelector("#tblFair tbody");
+FAIR.forEach((r,ri)=>{const tr=document.createElement("tr");let cells=`<td>${r[0]}</td>`;r[1].forEach((v,ci)=>{const hl=(ri===1&&ci===2)?' style="text-align:right;color:var(--success);font-weight:700"':' style="text-align:right"';cells+=`<td${hl}>${v}</td>`;});tr.innerHTML=cells;tbFair.appendChild(tr);});
+
+new Chart(chTarget,{type:"bar",data:{labels:["Mínimo","Médio","Mediana","Máximo"],datasets:[
+  {label:"Preço-alvo (R$)",data:[52,69.9,71,80],backgroundColor:[C.txt2,C.success,C.info,C.success]}
+]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:gridOpt,y:{...gridOpt,suggestedMin:50}}}});
+
+// --- Producao x Lifting cost (eixo duplo) ---
+const SERIE={tri:["4T24","1T25","2T25","3T25","4T25","1T26"],prod:[87.6,109.3,100.1,88.2,128.0,155.0],lc:[11.1,12.8,13.8,17.4,12.5,9.4]};
+new Chart(chOper,{data:{labels:SERIE.tri,datasets:[
+  {type:"bar",label:"Produção (mil boe/d)",data:SERIE.prod,backgroundColor:C.info,yAxisID:"y",order:2},
+  {type:"line",label:"Lifting cost (US$/bbl)",data:SERIE.lc,borderColor:C.warning,backgroundColor:"transparent",tension:.25,pointRadius:4,borderWidth:2,yAxisID:"y1",order:1}
+]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:"index",intersect:false},scales:{
+  x:gridOpt,
+  y:{...gridOpt,position:"left",title:{display:true,text:"Produção (mil boe/d)"}},
+  y1:{grid:{drawOnChartArea:false},position:"right",title:{display:true,text:"Lifting cost (US$/bbl)"},suggestedMin:0}
+}}});
+
+// --- Gatilhos de investimento (backtest) ---
+const TRIG=[
+  ["Fechamento cruza ACIMA da MM200",25,2.22,72.0,1.97],
+  ["Gap de alta > +2% (curto prazo)",89,1.61,54.5,1.62],
+  ["PRIO supera Brent > +10pp/20 pregões",226,1.22,64.4,2.70],
+  ["Rompe máxima de 52 semanas",67,0.80,55.2,0.85],
+  ["Preço abaixo da Banda inferior (2σ)",60,0.58,58.3,0.61],
+  ["RSI < 25 (muito sobrevendido)",40,-1.97,42.9,-1.92],
+  ["Queda ≥ 8% em 5 pregões",65,-2.29,46.2,-2.57],
+  ["Pullback em tendência (>MM200 e RSI<40)",53,-2.69,40.0,-2.20],
+  ["Queda ≥ 12% em 5 pregões",16,-3.40,31.2,-2.33]
+];
+new Chart(chTrig,{type:"bar",data:{labels:TRIG.map(r=>r[0]),datasets:[
+  {label:"Vantagem 10 pregões (pp)",data:TRIG.map(r=>r[2]),backgroundColor:TRIG.map(r=>r[2]>=0?C.success:C.danger)}
+]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{...gridOpt,title:{display:true,text:"pontos percentuais vs. média"}},y:gridOpt}}});
+const tbTrig=document.querySelector("#tblTrig tbody");
+TRIG.forEach(r=>{const tr=document.createElement("tr");const cls=r[2]>=0?"up":"down";tr.innerHTML=`<td>${r[0]}</td><td style="text-align:right">${r[1]}</td><td style="text-align:right" class="${cls}">${r[2]>0?"+":""}${r[2].toFixed(2)}</td><td style="text-align:right">${r[3].toFixed(0)}%</td><td style="text-align:right">${r[4].toFixed(2)}</td>`;tbTrig.appendChild(tr);});
+
+// --- Gatilhos de BAIXA para PUT (backtest_put) ---
+// [sinal, n, ret10%, %quedas, t, serve(sim/fraco/nao)]
+const PUT=[
+  ["Queda ≥ 8% em 5 pregões (continuação)",65,-1.19,53.8,-2.57,"sim"],
+  ["Novo fundo de 20 dias",130,0.53,50.8,-0.94,"fraco"],
+  ["PRIO abaixo do Brent > 10pp/20d",116,1.00,52.6,-0.11,"fraco"],
+  ["Abaixo da MM200 e MACD < sinal",177,0.90,48.0,-0.48,"fraco"],
+  ["RSI > 75 (topo)",24,1.36,37.5,0.22,"nao"],
+  ["Preço acima da Banda superior (2σ)",84,1.38,45.2,0.37,"nao"],
+  ["MACD cruza para baixo do sinal",50,1.82,42.0,0.62,"nao"],
+  ["Fecha ABAIXO da MM200",25,4.58,28.0,2.17,"nao"]
+];
+new Chart(chPut,{type:"bar",data:{labels:PUT.map(r=>r[0]),datasets:[
+  {label:"Retorno 10 pregões (%)",data:PUT.map(r=>r[2]),backgroundColor:PUT.map(r=>r[2]<0?C.success:C.danger)}
+]},options:{indexAxis:"y",responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{...gridOpt,title:{display:true,text:"% (negativo favorece PUT)"}},y:gridOpt}}});
+const tbPut=document.querySelector("#tblPut tbody");
+const putLbl={sim:"✓ sim (único edge)",fraco:"~ fraco/neutro",nao:"✗ não (sobe)"};
+PUT.forEach(r=>{const tr=document.createElement("tr");const cls=r[2]<0?"up":"down";tr.innerHTML=`<td>${r[0]}</td><td style="text-align:right">${r[1]}</td><td style="text-align:right" class="${cls}">${r[2]>0?"+":""}${r[2].toFixed(2)}%</td><td style="text-align:right">${r[3].toFixed(0)}%</td><td style="text-align:right">${r[4].toFixed(2)}</td><td>${putLbl[r[5]]}</td>`;tbPut.appendChild(tr);});
+
+// --- Cotações em tempo real (via live_server.py -> /api/live) ---
+const RT={brent:{el:document.querySelector('[data-q=brent]'),hist:[],chart:null},
+          wti:{el:document.querySelector('[data-q=wti]'),hist:[],chart:null},
+          usd:{el:document.querySelector('[data-q=usd]'),hist:[],chart:null},
+          prio3:{el:document.querySelector('[data-q=prio3]'),hist:[],chart:null},
+          brav3:{el:document.querySelector('[data-q=brav3]'),hist:[],chart:null}};
+function fmtPrice(v){return v==null?'—':v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function spark(key){const s=RT[key];const cv=s.el.querySelector('[data-spark]');if(!s.chart){s.chart=new Chart(cv,{type:'line',data:{labels:s.hist.map((_,i)=>i),datasets:[{data:s.hist,borderColor:C.info,borderWidth:1.5,pointRadius:0,tension:.3,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false}},scales:{x:{display:false},y:{display:false}}}});}else{s.chart.data.labels=s.hist.map((_,i)=>i);s.chart.data.datasets[0].data=s.hist;s.chart.update('none');}}
+function paint(key,q){const s=RT[key];const el=s.el;if(!q||q.error||q.price==null){el.querySelector('[data-f=price]').textContent='indisponível';el.querySelector('[data-f=chg]').textContent=q&&q.error?'erro na fonte':'—';return;}
+  el.querySelector('[data-f=price]').textContent=fmtPrice(q.price);
+  if(q.unit)el.querySelector('[data-f=unit]').textContent=q.unit;
+  const chg=el.querySelector('[data-f=chg]');const up=(q.pct||0)>=0;chg.className='';chg.style.color=up?C.success:C.danger;
+  const pc=q.pct==null?'':`${up?'+':''}${q.pct.toFixed(2)}%`;const ab=q.change==null?'':` (${up?'+':''}${fmtPrice(q.change)})`;
+  chg.textContent=(pc||'—')+ab+(q.stale?' · atrasado':'');
+  s.hist.push(q.price);if(s.hist.length>120)s.hist.shift();spark(key);}
+async function tickRT(){const st=document.getElementById('rtStatus');const note=document.getElementById('rtNote');
+  try{const d=await dashFetch('api/live');
+    for(const k of ['brent','wti','usd','prio3','brav3'])paint(k,d.quotes[k]);
+    const ib=document.getElementById('invBox');const iv=d.inventory||{};
+    if(iv.change_mmbbl!=null){const build=iv.change_mmbbl>0;const cor=build?C.danger:C.success;
+      ib.innerHTML=`🛢️ <b>Estoques de petróleo (EUA, EIA):</b> <b style="color:${cor}">${iv.change_mmbbl>0?'+':''}${iv.change_mmbbl.toFixed(1)} mi barris</b> (semana de ${iv.semana||'—'}). ${build?'Alta de estoque = mais oferta → <b>pressão de baixa</b> no petróleo.':'Queda de estoque = menos oferta → <b>pressão de alta</b> no petróleo.'} Entra no viés automático.`;}
+    else{ib.innerHTML='🛢️ Estoques de petróleo (EUA): dado indisponível no momento.';}
+    const t=new Date((d.ts||Date.now()/1000)*1000);st.textContent='ao vivo · '+t.toLocaleTimeString('pt-BR');st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
+  }catch(e){st.textContent='servidor offline';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';
+    note.innerHTML='<b>As cotações ao vivo precisam do servidor local.</b> Nesta pasta rode <code>.venv/bin/python live_server.py</code> e abra <code>http://localhost:8899/painel.html</code> (abrir o arquivo direto por file:// não funciona por CORS).';}}
+
+// --- Notícias Irã x EUA (snapshot 14/07/2026) ---
+const NEWS=[
+ {src:"AP News",date:"14/07/2026",t:"EUA e Irã trocam novos ataques; Irã atinge dois petroleiros em Ormuz",d:"EUA anunciam nova rodada de ataques e retomam o bloqueio a portos iranianos. Brent +7,8% no dia, a US$ 81,9.",u:"https://apnews.com/article/iran-us-hormuz-strait-war-july-13-2026-6c2c44cfdd089d6393d18fa5930ed620"},
+ {src:"BBC News",date:"14/07/2026",t:"Disputa pelo controle do Estreito de Ormuz ameaça acordo de paz",d:"Trump diz que reinstaura bloqueio naval e cobrará 20% sobre toda carga em Ormuz (~20% do petróleo global passa ali).",u:"https://www.bbc.com/news/articles/cevlr112pmgo"},
+ {src:"Japan Times / Bloomberg",date:"14/07/2026",t:"Petróleo dispara com taxa de 20% de Trump para fluxos de Ormuz",d:"WTI +9,4% (~US$ 78), Brent fecha acima de US$ 83 — mais de 10% acima do fechamento de sexta.",u:"https://www.japantimes.co.jp/business/2026/07/14/markets/oil-trump-us-20-charge-hormuz/"},
+ {src:"Gulf News",date:"14/07/2026",t:"Petróleo sobe ~10%, maior alta diária em anos, por temor de choque de oferta",d:"Brent +9,4% (US$ 83,15) e WTI +9,35% (US$ 78,09); gasolina +6% e óleo de aquecimento +8%.",u:"https://gulfnews.com/business/energy/oil-rockets-nearly-10-as-us-iran-conflict-escalates-fueling-fears-of-global-supply-shock-1.500606929"},
+ {src:"BBC News",date:"14/07/2026",t:"EAU condenam ataque 'descarado' do Irã a petroleiros; EUA lançam novos ataques",d:"Bloqueio dos EUA em vigor a partir de terça (20:00 GMT); tráfego marítimo despenca e pressiona preços.",u:"https://www.bbc.co.uk/news/articles/c8d2vn38dy1o"}
+];
+const ng=document.getElementById("newsGrid");
+NEWS.forEach(n=>{const d=document.createElement("div");d.className="news";d.innerHTML=`<div class="src">${n.src} · ${n.date}</div><div style="font-weight:600;margin:3px 0"><a href="${n.u}" target="_blank" rel="noopener">${n.t}</a></div><div class="cap" style="font-size:13px;color:var(--txt2)">${n.d}</div>`;ng.appendChild(d);});
+
+// --- Sinal automatizado ---
+function badge(s){if(s>=2)return['▲▲',C.success];if(s===1)return['▲',C.success];if(s===0)return['●','#c9a227'];if(s===-1)return['▼',C.danger];return['▼▼',C.danger];}
+async function tickSignal(){const st=document.getElementById("sigStatus");
+ try{const d=await dashFetch('api/signal');
+  document.getElementById("sigLabel").textContent=d.label;
+  const col=d.tone==='success'?C.success:(d.tone==='danger'?C.danger:'#c9a227');
+  document.getElementById("sigLabel").style.color=col;
+  document.getElementById("sigScore").textContent=(d.score>0?'+':'')+d.score;
+  document.getElementById("sigScore").style.color=col;
+  document.getElementById("sigMk").style.left=((d.score+100)/2)+'%';
+  const cats=document.getElementById("sigCats");cats.innerHTML='';
+  Object.entries(d.categorias).forEach(([c,v])=>{const cc=v>=0?C.success:C.danger;const w=Math.abs(v)/100*50;
+    cats.innerHTML+=`<div><div class="row" style="justify-content:space-between"><span class="cap">${c}</span><span class="cap" style="color:${cc}">${v>0?'+':''}${v}</span></div><div style="height:6px;background:var(--stroke);border-radius:4px;position:relative"><div style="position:absolute;left:50%;width:${w}%;${v>=0?'':'transform:translateX(-100%);'}height:6px;background:${cc};border-radius:4px"></div></div></div>`;});
+  const tb=document.querySelector("#tblSig tbody");tb.innerHTML='';
+  d.fatores.forEach(f=>{const[a,cbg]=badge(f.score);const tr=document.createElement("tr");
+    tr.innerHTML=`<td>${f.nome}</td><td class="cap">${f.cat}</td><td style="text-align:center;color:${cbg};font-weight:700">${a}</td><td class="cap" style="font-size:12px">${f.obs}</td>`;tb.appendChild(tr);});
+  st.textContent='atualizado';st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
+ }catch(e){st.textContent='servidor offline';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
+
+// --- Monitor de opções ---
+async function tickOptions(){const st=document.getElementById("optStatus");const note=document.getElementById("optNote");
+ try{const d=await dashFetch('api/options');
+  const tb=document.querySelector("#tblOpt tbody");tb.innerHTML='';
+  (d.linhas||[]).forEach(l=>{const tr=document.createElement("tr");if(l.money==='ATM')tr.className='atm';
+    tr.innerHTML=`<td class="callc">${l.call_code}</td><td style="text-align:right" class="callc">${l.call.premio.toFixed(2)}</td><td style="text-align:right">${l.call.delta.toFixed(2)}</td><td style="text-align:right">${l.call_be.toFixed(2)}</td>`+
+    `<td style="text-align:center;font-weight:700">${l.strike}</td>`+
+    `<td style="text-align:right">${l.put_be.toFixed(2)}</td><td style="text-align:right" class="putc">${l.put.premio.toFixed(2)}</td><td style="text-align:right">${l.put.delta.toFixed(2)}</td><td class="putc">${l.put_code}</td>`;tb.appendChild(tr);});
+  if(d.spot){note.innerHTML=`Vencimento <b>${d.expiry.split('-').reverse().join('/')}</b> (${d.dias_corridos} dias) · spot <b>R$ ${d.spot.toFixed(2)}</b>${d.spot_stale?' (atrasado)':''} · vol implícita assumida <b>${(d.iv*100).toFixed(0)}%</b> · taxa <b>${(d.r*100).toFixed(1)}%</b>. CALL <code>PRIOH</code> · PUT <code>PRIOT</code>.`;}
+  st.textContent='ao vivo';st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
+ }catch(e){st.textContent='servidor offline';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
+
+// --- Day-trade PRIO3 ---
+let dtChart=null;
+function dtCard(l,titulo,tone){const col=tone==='success'?C.success:(tone==='danger'?C.danger:C.info);
+ return `<div class="card"><div class="row" style="justify-content:space-between"><div class="l">${titulo}</div><span class="pill" style="background:${col}22;color:${col}">${l.code}</span></div>
+ <div class="v" style="font-size:24px;margin-top:4px">R$ ${l.premio.toFixed(2)}<span class="cap" style="font-size:12px"> /ação · Δ ${l.delta.toFixed(2)}</span></div>
+ <div class="cap" style="margin-top:6px">Strike R$ ${l.strike} · ${l.lotes} lotes (${l.contratos} un.) · custo <b>R$ ${l.custo.toLocaleString('pt-BR')}</b></div>
+ <div class="cap">Alavancagem ~<b>${l.elasticidade}x</b></div>
+ <div style="margin-top:8px;font-size:13px">Papel p/ <b style="color:${C.success}">+5%</b>: <b>${l.move_5pct!=null?(l.move_5pct>0?'+':'')+l.move_5pct+'%':'—'}</b> · <b style="color:${C.success}">+10%</b>: <b>${l.move_10pct!=null?(l.move_10pct>0?'+':'')+l.move_10pct+'%':'—'}</b> · <b>+20%</b>: <b>${l.move_20pct!=null?(l.move_20pct>0?'+':'')+l.move_20pct+'%':'—'}</b></div></div>`;}
+async function tickDaytrade(){const st=document.getElementById("dtStatus");
+ try{const d=await dashFetch('api/daytrade');
+  document.getElementById("dtHead").innerHTML=`Objetivo: +5% a +10% (ou mais) no capital de <b>R$ ${d.capital.toLocaleString('pt-BR')}</b> em um pregão · spot <b>R$ ${d.spot.toFixed(2)}</b> · Brent ${d.brent_pct!=null?(d.brent_pct>0?'+':'')+d.brent_pct.toFixed(2)+'%':''}. Alinhado ao viés <b>ALTA</b> → estrutura principal <b>CALL</b>.`;
+  document.getElementById("dtCards").innerHTML=dtCard(d.atm,'Principal · CALL ATM','success')+dtCard(d.otm,'Agressiva · CALL OTM +5%','info')+dtCard(d.put,'Contra-tendência · PUT','danger');
+  // tabela e grafico da estrutura principal (ATM)
+  const cen=d.atm.cenarios;const tb=document.querySelector("#tblDt tbody");tb.innerHTML='';
+  cen.forEach(c=>{const cls=c.pl>=0?'up':'down';const tr=document.createElement('tr');
+   if(c.pl_pct>=5&&c.pl_pct<=10.9)tr.className='atm';
+   tr.innerHTML=`<td>${c.prio3.toFixed(2)}</td><td style="text-align:right" class="${c.move_pct>=0?'up':'down'}">${c.move_pct>0?'+':''}${c.move_pct}%</td><td style="text-align:right">${c.premio.toFixed(2)}</td><td style="text-align:right" class="${cls}">${c.pl>0?'+':''}${c.pl.toLocaleString('pt-BR')}</td><td style="text-align:right" class="${cls}">${c.pl_pct>0?'+':''}${c.pl_pct}%</td>`;tb.appendChild(tr);});
+  const labels=cen.map(c=>(c.move_pct>0?'+':'')+c.move_pct+'%');
+  const data=cen.map(c=>c.pl_pct);const bg=cen.map(c=>c.pl_pct>=5?C.success:(c.pl_pct<0?C.danger:'#c9a227'));
+  if(!dtChart){dtChart=new Chart(chDt,{type:'bar',data:{labels,datasets:[{label:'Result. % sobre capital',data,backgroundColor:bg}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:C.grid},title:{display:true,text:'variação do papel no dia'}},y:{grid:{color:C.grid},title:{display:true,text:'% sobre R$ 5.000'}}}}});}
+  else{dtChart.data.labels=labels;dtChart.data.datasets[0].data=data;dtChart.data.datasets[0].backgroundColor=bg;dtChart.update('none');}
+  st.textContent='ao vivo';st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
+ }catch(e){st.textContent='servidor offline';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
+
+// --- Livro de operações PRIO (B3 COTAHIST, EOD) ---
+function brl(v){return v==null?'—':Number(v).toLocaleString('pt-BR');}
+async function loadOptbook(){const st=document.getElementById("obStatus");
+ try{const d=await(await fetch('b3_options.json',{cache:'no-store'})).json();
+  document.getElementById("obHead").innerHTML=`Negócios reais liquidados na B3 · último pregão <b>${d.ultimo_pregao.split('-').reverse().join('/')}</b> · ${brl(d.n_series_ano)} séries negociadas em 2026 · <b>${d.n_movers_10x}</b> séries fizeram ≥10x.`;
+  document.getElementById("obTapeDate").textContent=d.ultimo_pregao.split('-').reverse().join('/');
+  const tm=document.querySelector("#tblMov tbody");tm.innerHTML='';
+  d.movers.forEach(m=>{const tcol=m.tipo==='CALL'?'callc':'putc';const tr=document.createElement('tr');
+   const pv=m.prio_var_pct==null?'—':`<span class="${m.prio_var_pct>=0?'up':'down'}">${m.prio_var_pct>0?'+':''}${m.prio_var_pct}%</span>`;
+   tr.innerHTML=`<td class="${tcol}">${m.cod}</td><td class="${tcol}">${m.tipo}</td><td style="text-align:right">${m.strike.toFixed(2)}</td><td class="cap">${m.venc.split('-').reverse().join('/')}</td>`+
+   `<td class="cap">${m.d0.slice(5).split('-').reverse().join('/')}→${m.d1.slice(5).split('-').reverse().join('/')} (${m.pregoes}p)</td>`+
+   `<td style="text-align:right">${m.p0.toFixed(2)}→${m.p1.toFixed(2)}</td>`+
+   `<td style="text-align:right;font-weight:700;color:${C.success}">${m.mult.toFixed(1)}x</td>`+
+   `<td style="text-align:right">${pv}</td><td style="text-align:right" class="cap">${brl(m.neg1)}</td>`;tm.appendChild(tr);});
+  const tt=document.querySelector("#tblTape tbody");tt.innerHTML='';
+  d.tape.forEach(r=>{const tcol=r.tipo==='CALL'?'callc':'putc';const tr=document.createElement('tr');
+   const cg=r.chg_pct==null?'—':`<span class="${r.chg_pct>=0?'up':'down'}">${r.chg_pct>0?'+':''}${r.chg_pct}%</span>`;
+   tr.innerHTML=`<td class="${tcol}">${r.cod}</td><td class="${tcol}">${r.tipo}</td><td style="text-align:right">${r.strike.toFixed(2)}</td><td class="cap">${r.venc.split('-').reverse().join('/')}</td>`+
+   `<td style="text-align:right">${r.close.toFixed(2)}</td><td style="text-align:right">${cg}</td>`+
+   `<td style="text-align:right">${brl(r.neg)}</td><td style="text-align:right">${brl(r.qtd)}</td><td style="text-align:right">${brl(r.vol)}</td>`;tt.appendChild(tr);});
+  window.OB=d;
+  st.textContent='dados de '+d.ultimo_pregao.split('-').reverse().join('/');st.style.background='rgba(76,141,255,.15)';st.style.color='#7fb0ff';
+ }catch(e){st.textContent='b3_options.json ausente';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
+
+// --- Candidatas a 10x + termometro profissional ---
+function tcard(titulo,valor,sub,col){return `<div class="stat"><div class="v" style="font-size:22px;color:${col||'var(--txt)'}">${valor}</div><div class="l">${titulo}</div><div class="cap" style="font-size:11px">${sub||''}</div></div>`;}
+async function tickTenx(){const st=document.getElementById("txStatus");
+ try{const d=await dashFetch('api/tenx');
+  const T=(window.OB&&window.OB.termometro)||{};
+  const em=d.expiries.map(e=>`±${e.mov_esperado_pct}% (${e.venc.slice(5).split('-').reverse().join('/')})`).join(' · ');
+  const ivcol=d.iv>d.rv?C.warning:C.success;
+  const ka=(T.strikes_ativos&&T.strikes_ativos[0])?('R$ '+T.strikes_ativos[0].strike):'—';
+  document.getElementById("txThermo").innerHTML=
+    tcard('Put/Call ratio (volume)',T.pcr_volume!=null?T.pcr_volume:'—',T.pcr_negocios!=null?('por negócios '+T.pcr_negocios):'',T.pcr_volume>1?C.danger:C.success)
+   +tcard('IV assumida vs realizada',(d.iv*100).toFixed(0)+'% / '+(d.rv*100).toFixed(0)+'%','prêmios '+(d.iv>d.rv?'caros':'baratos'),ivcol)
+   +tcard('Movimento esperado',em.split(' · ')[0],em.split(' · ')[1]||'',C.info)
+   +tcard('Strike mais ativo (magnet)',ka,'maior volume do pregão',C.accent);
+  const ex=document.getElementById("txExp");ex.innerHTML='';
+  d.expiries.forEach(e=>{let rows=e.candidatas.map(c=>`<tr><td class="callc">${c.code}</td><td style="text-align:right">${c.strike}</td><td style="text-align:right">${c.prem0.toFixed(2)}</td><td style="text-align:right">${c.alvo_10x.toFixed(2)}</td><td style="text-align:right">R$ ${c.S_alvo.toFixed(2)} <span class="up">(+${c.mov_pct}%)</span></td><td style="text-align:right" class="cap">${c.prob_pct}%</td></tr>`).join('');
+   ex.innerHTML+=`<div class="card" style="padding:0;overflow:hidden"><div class="l" style="padding:10px 12px 0">Vencimento ${e.venc.split('-').reverse().join('/')} · ${e.dias} dias · série ${e.serie} · mov. esperado ±${e.mov_esperado_pct}%</div><table><thead><tr><th>Série</th><th style="text-align:right">Strike</th><th style="text-align:right">Prêmio hoje</th><th style="text-align:right">Alvo 10x</th><th style="text-align:right">PRIO3 p/ 10x</th><th style="text-align:right">Prob~</th></tr></thead><tbody>${rows||'<tr><td colspan=6 class="cap">sem candidatas no filtro</td></tr>'}</tbody></table></div>`;});
+  st.textContent='ao vivo';st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
+ }catch(e){st.textContent='servidor offline';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
+
+// --- Perfil intradiário: volume x direção ---
+async function loadIntraday(){const st=document.getElementById("ivStatus");
+ try{const d=await(await fetch('intraday_volume.json',{cache:'no-store'})).json();
+  const alta=new Set(d.top_volume_alta), baixa=new Set(d.menor_volume_baixa);
+  document.getElementById("ivHead").innerHTML=`Volume médio por faixa de 15 min · <b>${d.pregoes}</b> pregões · ${d.fonte}. Verde = maior volume (seguir alta); cinza = menor volume (seguir baixa).`;
+  const labels=d.buckets.map(b=>b.hhmm);
+  const vols=d.buckets.map(b=>Math.round(b.vol_medio));
+  const bg=d.buckets.map(b=>alta.has(b.hhmm)?C.success:(baixa.has(b.hhmm)?'#5b6673':'rgba(255,255,255,.14)'));
+  if(window._chIv)window._chIv.destroy();
+  window._chIv=new Chart(document.getElementById("chIv"),{type:'bar',
+   data:{labels,datasets:[{label:'Volume médio',data:vols,backgroundColor:bg,borderRadius:3}]},
+   options:{plugins:{legend:{display:false},tooltip:{callbacks:{afterLabel:(c)=>{const b=d.buckets[c.dataIndex];return `ret médio ${b.ret_medio_pct.toFixed(3)}% · barras alta ${b.up_rate_pct.toFixed(0)}% · continua ${b.continua_pct?b.continua_pct.toFixed(0):'-'}%`;}}}},
+    scales:{x:{ticks:{color:C.txt2,maxRotation:90,minRotation:90,font:{size:9}},grid:{display:false}},y:{ticks:{color:C.txt2,callback:v=>brl(v)},grid:{color:C.grid}}}}});
+  const g=(s)=>d.buckets.filter(b=>s.has(b.hhmm)).sort((a,b)=>b.vol_medio-a.vol_medio);
+  const A=g(alta),B=g(baixa);
+  document.getElementById("ivAlta").innerHTML=`Janelas de <b>maior liquidez</b>: <b>${A.map(b=>b.hhmm).join(', ')}</b>. Concentram a abertura e o fechamento. Melhor para <b>entrar seguindo a tendência de alta</b> (momentum "anda" com volume). Destaque: <b>10:15–10:45</b> tem a maior continuação de tendência do dia (~59%).`;
+  document.getElementById("ivBaixa").innerHTML=`Janelas de <b>menor volume</b>: <b>${B.map(b=>b.hhmm).join(', ')}</b> (horário de almoço). Se for operar a baixa aqui, ciente de que <b>pouco volume = mais ruído/whipsaw</b>; use stop curto e alvo modesto. Viés levemente negativo em 12:15 e 14:15.`;
+  const tb=document.querySelector("#tblIv tbody");tb.innerHTML='';
+  d.buckets.forEach(b=>{const hi=alta.has(b.hhmm),lo=baixa.has(b.hhmm);const tr=document.createElement('tr');
+   if(hi)tr.style.background='rgba(63,185,80,.07)';if(lo)tr.style.background='rgba(255,255,255,.03)';
+   tr.innerHTML=`<td style="font-weight:${hi||lo?700:400}">${b.hhmm}</td><td style="text-align:right">${brl(Math.round(b.vol_medio))}</td>`+
+   `<td style="text-align:right">${b.part_pct.toFixed(1)}%</td>`+
+   `<td style="text-align:right"><span class="${b.ret_medio_pct>=0?'up':'down'}">${b.ret_medio_pct>0?'+':''}${b.ret_medio_pct.toFixed(3)}%</span></td>`+
+   `<td style="text-align:right">${b.up_rate_pct.toFixed(0)}%</td>`+
+   `<td style="text-align:right">${b.continua_pct?b.continua_pct.toFixed(0)+'%':'—'}</td>`;tb.appendChild(tr);});
+  document.getElementById("ivFoot").textContent='Continuação = % de vezes que a barra seguinte segue a direção da atual (persistência de tendência).';
+  st.textContent='ok';st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
+ }catch(e){st.textContent='intraday_volume.json ausente';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
+
+// --- BRAV3: analise + opcoes ---
+// --- Ibovespa + rotas marítimas ---
+function sparkLine(arr,w,h){if(!arr||arr.length<2)return '';const mn=Math.min(...arr),mx=Math.max(...arr),rg=(mx-mn)||1;
+  const pts=arr.map((v,i)=>`${(i/(arr.length-1)*w).toFixed(1)},${(h-((v-mn)/rg)*h).toFixed(1)}`).join(' ');
+  const col=arr[arr.length-1]>=arr[0]?C.success:C.danger;
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="display:block"><polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1.5"/></svg>`;}
+
+async function loadIbov(){
+  try{const d=await(await fetch('multi_analysis.json',{cache:'no-store'})).json();
+    const i=d.ibovespa; const box=document.getElementById('ibovBox'); if(!i||!box)return;
+    const col=i.vertente==='ALTISTA'?C.success:(i.vertente==='BAIXISTA'?C.danger:C.warning);
+    const arrow=i.vertente==='ALTISTA'?'▲':(i.vertente==='BAIXISTA'?'▼':'▬');
+    const dcol=i.variacao_dia_pct>=0?C.success:C.danger;
+    const gp=Math.max(2,Math.min(98,Math.round((i.score+100)/2)));
+    const spc=(v)=>(v>=0?'+':'')+v+'%';
+    const sg=(s)=>`<div class="row" style="justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--stroke)"><span class="cap">${s[0]}</span><span class="${s[2]}" style="font-size:12.5px">${s[1]}</span></div>`;
+    const met=(l,v,c)=>`<div class="stat"><div class="v"${c?` style="color:${c}"`:''}>${v}</div><div class="l">${l}</div></div>`;
+    box.innerHTML=`<div class="grid g2" style="align-items:stretch">
+      <div class="card" style="border-left:4px solid ${col}">
+        <div class="row" style="justify-content:space-between;align-items:flex-start">
+          <div><div class="cap">IBOVESPA · ^BVSP · <span class="tag rt">Yahoo</span></div>
+            <div style="font-size:32px;font-weight:800;line-height:1.1">${(i.pontos||0).toLocaleString('pt-BR')} <span style="font-size:15px;color:${dcol}">${spc(i.variacao_dia_pct)}</span></div></div>
+          <div style="text-align:right"><span class="badge" style="font-size:15px;padding:5px 13px;background:${col}22;color:${col}">${arrow} ${i.vertente}</span>
+            <div class="cap" style="margin-top:5px">placar ${i.score>=0?'+':''}${i.score}</div></div>
+        </div>
+        ${sparkLine(i.spark,340,54)}
+        <div class="gauge" style="margin-top:10px"><div class="mk" style="left:${gp}%"></div></div>
+        <div class="row" style="justify-content:space-between"><span class="cap">baixista</span><span class="cap">neutra</span><span class="cap">altista</span></div>
+        <p style="color:var(--txt2);font-size:13px;margin:14px 0 0">${i.resumo}</p>
+      </div>
+      <div class="card">
+        <div class="grid g4" style="gap:8px">
+          ${met('MM50',(i.mm50||0).toLocaleString('pt-BR'))}${met('MM200',(i.mm200||0).toLocaleString('pt-BR'))}
+          ${met('vs MM200',spc(i.dist_mm200_pct),i.dist_mm200_pct>=0?C.success:C.danger)}
+          ${met('RSI',i.rsi,i.rsi>70?C.danger:(i.rsi<30?C.success:null))}
+          ${met('MFI',i.mfi??'—',i.mfi>=55?C.success:(i.mfi<=45?C.danger:null))}
+          ${met('1 mês',spc(i.ret_1m),i.ret_1m>=0?C.success:C.danger)}
+          ${met('YTD',spc(i.ret_ytd),i.ret_ytd>=0?C.success:C.danger)}
+          ${met('Faixa 52s',i.pos_52w_pct+'%')}
+        </div>
+        <h3 style="margin:16px 0 4px;font-size:13px;color:var(--txt2)">Sinais técnicos</h3>
+        ${(i.sinais||[]).map(sg).join('')}
+      </div></div>`;
+  }catch(e){document.getElementById('ibovBox').innerHTML='<span class="cap">multi_analysis.json indisponível</span>';}
+}
+
+async function loadOilRoutes(){
+  let live=null;
+  try{live=await dashFetch('api/live');}catch(e){}
+  let OIL;
+  try{OIL=await(await fetch('oil_routes.json',{cache:'no-store'})).json();}
+  catch(e){document.getElementById('oilHead').innerHTML='<span class="cap">oil_routes.json indisponível</span>';return;}
+  document.getElementById('oilTs').textContent='· '+OIL.fonte+' · '+OIL.atualizado;
+  const rk=OIL.risco_rota; const rcol=rk==='ELEVADO'?C.danger:(rk==='MODERADO'?C.warning:C.success);
+  const q=live&&live.quotes?live.quotes:{};
+  const oilCard=(nm,o)=>{if(!o||o.price==null)return `<div class="stat"><div class="v">—</div><div class="l">${nm}</div></div>`;
+    const c=o.pct==null?C.txt2:(o.pct>=0?C.success:C.danger);
+    return `<div class="stat"><div class="v">US$ ${(+o.price).toFixed(2)} <span style="font-size:12px;color:${c}">${o.pct!=null?(o.pct>=0?'+':'')+o.pct.toFixed(2)+'%':''}</span></div><div class="l">${nm} <span class="tag rt">ao vivo</span></div></div>`;};
+  document.getElementById('oilHead').innerHTML=
+    `<div class="grid g2" style="align-items:stretch;margin-top:10px">`
+    +`<div class="card" style="border-left:4px solid ${rcol}"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Risco logístico</h3><span class="badge" style="font-size:14px;padding:4px 12px;background:${rcol}22;color:${rcol}">${rk}</span></div>`
+    +`<p style="color:var(--txt2);font-size:13px;margin:10px 0 12px">${OIL.resumo}</p>`
+    +`<a href="${OIL.mapa_ao_vivo}" target="_blank" rel="noopener" style="display:inline-block;background:${C.info}22;color:${C.info};border:1px solid ${C.info}55;border-radius:8px;padding:8px 14px;text-decoration:none;font-size:13px;font-weight:600">🛰️ Mapa AIS ao vivo (MarineTraffic) ↗</a></div>`
+    +`<div class="card"><h3 style="margin:0 0 10px">Petróleo — referência</h3><div class="grid g2" style="gap:8px">${oilCard('Brent',q.brent)}${oilCard('WTI',q.wti)}</div></div></div>`;
+  const stCol={reduzido:C.danger,elevado:C.info,normal:C.success,'sem dado':C.txt3};
+  const stTxt={reduzido:'Reduzido',elevado:'Elevado',normal:'Normal','sem dado':'—'};
+  document.querySelector('#tblOil tbody').innerHTML=OIL.chokepoints.map(c=>{const d=c.dados;
+    if(!d)return `<tr><td><b>${c.nome}</b></td><td class="cap">${c.regiao}</td><td style="text-align:right">${c.mbd} Mb/d</td><td colspan=5 class="cap">sem dados</td></tr>`;
+    const dev=d.desvio_pct; const dcol=dev==null?C.txt2:(dev<=-25?C.danger:(dev>=20?C.info:C.txt2));
+    const sc=stCol[d.status]||C.txt2;
+    return `<tr><td><b>${c.nome}</b><div class="cap" style="font-size:10px;white-space:normal;max-width:260px">${c.papel}</div></td><td class="cap">${c.regiao}</td>`
+      +`<td style="text-align:right"><b>${c.mbd}</b> Mb/d</td><td style="text-align:right">${d.media_7d??'—'}<div class="cap" style="font-size:10px">base ${d.media_90d??'—'}</div></td>`
+      +`<td style="text-align:right"><span style="color:${dcol}">${dev==null?'—':(dev>=0?'+':'')+dev+'%'}</span></td>`
+      +`<td style="text-align:right">${d.fatia_petroleiros_pct!=null?Math.round(d.fatia_petroleiros_pct)+'%':'—'}</td>`
+      +`<td><span class="badge" style="background:${sc}22;color:${sc}">${stTxt[d.status]||d.status}</span></td>`
+      +`<td>${sparkLine(d.spark,90,22)}</td></tr>`;
+  }).join('');
+}
+
+// --- PRIO3 × Petrobras × Chevron vs Brent ---
+async function loadOilPeers(){const st=document.getElementById("opStatus");
+ try{const d=await(await fetch('oil_peers_compare.json',{cache:'no-store'})).json();
+  document.getElementById("opHead").innerHTML=`Comparativo de petroleiras vs Brent · <b>${d.periodo.pregoes}</b> pregões (${d.periodo.inicio.split('-').reverse().join('/')}–${d.periodo.fim.split('-').reverse().join('/')}) · ${d.fonte}`;
+  const rc=(v)=>v==null?'—':`<span class="${v>=0?'up':'down'}">${v>0?'+':''}${v}%</span>`;
+  const sn=d.snapshot;
+  document.getElementById("opStats").innerHTML=
+    tcard('PRIO3',`R$ ${sn.PRIO3.preco.toFixed(2)}`,'YTD '+rc(sn.PRIO3.ret_ytd_pct)+' · 1m '+rc(sn.PRIO3.ret_1m_pct),C.info)
+   +tcard('Petrobras (PETR3)',`R$ ${sn.PETR3.preco.toFixed(2)}`,'YTD '+rc(sn.PETR3.ret_ytd_pct)+' · 1m '+rc(sn.PETR3.ret_1m_pct),C.success)
+   +tcard('Chevron (CVX)','US$ '+sn.CVX.preco.toFixed(2),'YTD '+rc(sn.CVX.ret_ytd_pct)+' · 1m '+rc(sn.CVX.ret_1m_pct),C.accent)
+   +tcard('Brent','US$ '+sn.BRENT.preco.toFixed(2),'YTD '+rc(sn.BRENT.ret_ytd_pct)+' · 1m '+rc(sn.BRENT.ret_1m_pct),C.warning);
+  document.getElementById("opLeitura").textContent=d.leitura||'';
+  const idx=d.indexado_mensal, labs=idx.map(r=>r.mes);
+  if(window._chOpIdx)window._chOpIdx.destroy();
+  window._chOpIdx=new Chart(document.getElementById("chOpIdx"),{type:'line',
+   data:{labels:labs,datasets:[
+    {label:'PRIO3',data:idx.map(r=>r.PRIO3),borderColor:C.info,tension:.25,pointRadius:0,borderWidth:2},
+    {label:'Petrobras',data:idx.map(r=>r.PETR3),borderColor:C.success,tension:.25,pointRadius:0,borderWidth:2},
+    {label:'Chevron',data:idx.map(r=>r.CVX),borderColor:C.accent,tension:.25,pointRadius:0,borderWidth:2},
+    {label:'Brent',data:idx.map(r=>r.BRENT),borderColor:C.warning,tension:.25,pointRadius:0,borderWidth:1.5,borderDash:[4,3]}
+   ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'bottom'}},scales:{x:{grid:{color:C.grid},ticks:{maxTicksLimit:12}},y:{grid:{color:C.grid},title:{display:true,text:'Índice (base 100)'}}}}});
+  const eff=d.efeito_brent, names=['PRIO3','PETR3','CVX'], lbls=['PRIO3','Petrobras','Chevron'];
+  const up=names.map(k=>eff[k].brent_alta.media_pct), dn=names.map(k=>eff[k].brent_baixa.media_pct);
+  if(window._chOpBrent)window._chOpBrent.destroy();
+  window._chOpBrent=new Chart(document.getElementById("chOpBrent"),{type:'bar',
+   data:{labels:lbls,datasets:[
+    {label:'Brent ↑ (média diária %)',data:up,backgroundColor:C.success,borderRadius:4},
+    {label:'Brent ↓ (média diária %)',data:dn,backgroundColor:C.danger,borderRadius:4}
+   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:C.grid},title:{display:true,text:'Retorno médio (%)'}}}}});
+  const daily=d.diario_90d.slice(-45);
+  const dLabs=daily.map(r=>r.data.slice(5).split('-').reverse().join('/'));
+  if(window._chOpDaily)window._chOpDaily.destroy();
+  window._chOpDaily=new Chart(document.getElementById("chOpDaily"),{type:'bar',
+   data:{labels:dLabs,datasets:[
+    {label:'PRIO3',data:daily.map(r=>r.PRIO3_pct),backgroundColor:daily.map(r=>r.brent_dir==='alta'?'rgba(76,141,255,.75)':'rgba(248,81,73,.55)'),borderRadius:2},
+    {label:'Petrobras',data:daily.map(r=>r.PETR3_pct),backgroundColor:daily.map(r=>r.brent_dir==='alta'?'rgba(63,185,80,.75)':'rgba(210,153,34,.55)'),borderRadius:2,hidden:true},
+    {label:'Chevron',data:daily.map(r=>r.CVX_pct),backgroundColor:daily.map(r=>r.brent_dir==='alta'?'rgba(163,113,247,.75)':'rgba(110,123,138,.55)'),borderRadius:2,hidden:true}
+   ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},
+    scales:{x:{grid:{display:false},ticks:{maxTicksLimit:15,font:{size:9}}},y:{grid:{color:C.grid},title:{display:true,text:'Retorno diário (%)'}}}}});
+  const rel=d.relativo_252d, acc=d.acumulado_por_direcao_brent;
+  const tb=document.querySelector("#tblOpRel tbody");tb.innerHTML='';
+  names.forEach((k,i)=>{const e=eff[k],r=rel[k],a=acc[k];
+   const tr=document.createElement('tr');
+   tr.innerHTML=`<td><b>${lbls[i]}</b></td><td style="text-align:right">${r.corr}</td><td style="text-align:right">${r.beta}</td>`+
+   `<td style="text-align:right" class="up">+${e.brent_alta.media_pct}%</td><td style="text-align:right">${e.brent_alta.acerto_pct}%</td>`+
+   `<td style="text-align:right" class="down">${e.brent_baixa.media_pct}%</td><td style="text-align:right">${e.brent_baixa.acerto_pct}%</td>`+
+   `<td style="text-align:right" class="up">+${a.soma_dias_brent_alta_pct}%</td><td style="text-align:right" class="down">${a.soma_dias_brent_baixa_pct}%</td>`;
+   tb.appendChild(tr);});
+  st.textContent='ok';st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
+ }catch(e){st.textContent='oil_peers_compare.json ausente';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
+
+async function loadBrav(){const st=document.getElementById("bvStatus");
+ try{const a=await(await fetch('brav_analysis.json',{cache:'no-store'})).json();
+  const s=a.snapshot,t=a.tecnicos,rl=a.relativo;
+  const rc=(v)=>v==null?'—':`<span class="${v>=0?'up':'down'}">${v>0?'+':''}${v}%</span>`;
+  document.getElementById("bvStats").innerHTML=
+    tcard('Preço',brl(s.preco),'atual. '+a.atualizado.split('-').reverse().join('/'),C.info)
+   +tcard('No ano (YTD)',rc(s.ret_ytd),'12m '+rc(s.ret_12m),s.ret_ytd>=0?C.success:C.danger)
+   +tcard('Faixa 52 sem.',brl(s.low_52s)+'–'+brl(s.high_52s),'do topo '+rc(s.dist_high_pct),C.accent)
+   +tcard('Volatilidade anual',t.vol_anual_pct+'%','RSI '+t.rsi14,t.rsi14>70?C.danger:(t.rsi14<30?C.success:C.warning));
+  const tcol=t.tendencia==='alta'?C.success:(t.tendencia==='baixa'?C.danger:C.warning);
+  document.getElementById("bvTec").innerHTML=`Tendência <b style="color:${tcol}">${t.tendencia.toUpperCase()}</b> · preço R$ ${s.preco} vs MM50 R$ ${t.sma50} e MM200 R$ ${t.sma200} (<b>${t.dist_sma200_pct>0?'+':''}${t.dist_sma200_pct}%</b> da MM200). RSI(14) <b>${t.rsi14}</b> (${t.rsi14>70?'sobrecomprado':(t.rsi14<30?'sobrevendido':'neutro')}). Retornos: 1m ${rc(s.ret_1m)}, 3m ${rc(s.ret_3m)}, 6m ${rc(s.ret_6m)}.`;
+  document.getElementById("bvRel").innerHTML=`Correlação com <b>PRIO3</b>: <b>${rl.vs_prio3.corr}</b> (beta ${rl.vs_prio3.beta}) — anda junto, mas com menos força. Correlação com <b>Brent</b>: <b>${rl.vs_brent.corr}</b> (beta ${rl.vs_brent.beta}). PRIO3 hoje ≈ R$ ${rl.prio3_preco}. Ambas são petroleiras: sobem/caem com o petróleo, mas a PRIO3 é mais líquida e reage mais rápido.`;
+
+  const o=await(await fetch('b3_options_brav.json',{cache:'no-store'})).json();
+  const T=o.termometro||{};
+  const ka=(T.strikes_ativos&&T.strikes_ativos[0])?('R$ '+T.strikes_ativos[0].strike):'—';
+  document.getElementById("bvThermo").innerHTML=
+    tcard('Séries negociadas (2026)',brl(o.n_series_ano),o.n_movers_10x+' fizeram ≥10x',C.info)
+   +tcard('Put/Call ratio (vol)',T.pcr_volume!=null?T.pcr_volume:'—',T.pcr_negocios!=null?('negócios '+T.pcr_negocios):'',T.pcr_volume>1?C.danger:C.success)
+   +tcard('Strike mais ativo',ka,'maior volume do pregão',C.accent)
+   +tcard('Último pregão',o.ultimo_pregao.split('-').reverse().join('/'),brl(T.call_vol||0)+' call / '+brl(T.put_vol||0)+' put',C.txt2);
+  const tm=document.querySelector("#tblBvMov tbody");tm.innerHTML='';
+  o.movers.slice(0,12).forEach(m=>{const cc=m.tipo==='CALL'?'callc':'putc';const tr=document.createElement('tr');
+   const pv=m.und_var_pct==null?'—':`<span class="${m.und_var_pct>=0?'up':'down'}">${m.und_var_pct>0?'+':''}${m.und_var_pct}%</span>`;
+   tr.innerHTML=`<td class="${cc}">${m.cod}</td><td class="${cc}">${m.tipo}</td><td style="text-align:right">${m.strike.toFixed(2)}</td>`+
+   `<td class="cap">${m.d0.slice(5).split('-').reverse().join('/')}→${m.d1.slice(5).split('-').reverse().join('/')} (${m.pregoes}p)</td>`+
+   `<td style="text-align:right">${m.p0.toFixed(2)}→${m.p1.toFixed(2)}</td>`+
+   `<td style="text-align:right;font-weight:700;color:${C.success}">${m.mult.toFixed(1)}x</td><td style="text-align:right">${pv}</td>`;tm.appendChild(tr);});
+  document.getElementById("bvTapeHead").textContent='Livro do último pregão ('+o.ultimo_pregao.split('-').reverse().join('/')+') — por volume';
+  const tt=document.querySelector("#tblBvTape tbody");tt.innerHTML='';
+  o.tape.slice(0,14).forEach(r=>{const cc=r.tipo==='CALL'?'callc':'putc';const tr=document.createElement('tr');
+   const cg=r.chg_pct==null?'—':`<span class="${r.chg_pct>=0?'up':'down'}">${r.chg_pct>0?'+':''}${r.chg_pct}%</span>`;
+   tr.innerHTML=`<td class="${cc}">${r.cod}</td><td class="${cc}">${r.tipo}</td><td style="text-align:right">${r.strike.toFixed(2)}</td>`+
+   `<td style="text-align:right">${r.close.toFixed(2)}</td><td style="text-align:right">${cg}</td>`+
+   `<td style="text-align:right">${brl(r.neg)}</td><td style="text-align:right">${brl(r.vol)}</td>`;tt.appendChild(tr);});
+  st.textContent='ok';st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
+ }catch(e){st.textContent='dados BRAV ausentes';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
+
+function tickAll(){tickRT();tickSignal();tickOptions();tickDaytrade();tickTenx();}
+tickAll();setInterval(tickAll,20000);
+loadOptbook().then(tickTenx);
+loadIntraday();
+loadIbov();
+loadOilRoutes();
+loadBrav();
+loadOilPeers();
+</script>
+</body>
+</html>

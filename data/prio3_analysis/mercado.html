@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Panorama de Mercado — 21 ações + macro</title>
+<script src="dash-api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --stroke:#2a323d;
+    --txt:#e6edf3; --txt2:#9aa7b4; --txt3:#6e7b8a;
+    --info:#4c8dff; --success:#3fb950; --warning:#d29922; --danger:#f85149; --accent:#a371f7;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1240px;margin:0 auto;padding:20px 24px 60px}
+  h1{font-size:24px;margin:0}
+  h2{font-size:16px;margin:0 0 10px;font-weight:600}
+  h3{font-size:14px;margin:16px 0 8px;color:var(--txt2)}
+  .sub{color:var(--txt2);font-size:13px}
+  .cap{color:var(--txt3);font-size:12px;margin-top:6px}
+  .pill{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:rgba(76,141,255,.15);color:var(--info);border:1px solid rgba(76,141,255,.35);vertical-align:middle}
+  .tag{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--panel2);color:var(--txt3);border:1px solid var(--stroke);text-transform:uppercase;letter-spacing:.03em}
+  .tag.rt{color:#5bd66b;border-color:rgba(63,185,80,.4)} .tag.of{color:#7fb0ff;border-color:rgba(76,141,255,.4)} .tag.cur{color:#d29922;border-color:rgba(210,153,34,.4)}
+  .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .grid{display:grid;gap:14px}
+  .g6{grid-template-columns:repeat(6,1fr)} .g4{grid-template-columns:repeat(4,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:1fr 1fr}
+  .stat{background:var(--panel);border:1px solid var(--stroke);border-radius:10px;padding:12px 14px}
+  .stat .v{font-size:20px;font-weight:700}
+  .stat .l{color:var(--txt2);font-size:11.5px;margin-top:2px}
+  .card{background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:18px}
+  .callout{border:1px solid var(--stroke);border-left-width:3px;border-radius:8px;padding:12px 14px;background:var(--panel2)}
+  .callout .t{font-weight:600;margin-bottom:4px}
+  .callout.success{border-left-color:var(--success)} .callout.info{border-left-color:var(--info)}
+  .callout.warning{border-left-color:var(--warning)} .callout.danger{border-left-color:var(--danger)}
+  .callout p{margin:0;color:var(--txt2);font-size:13.5px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--stroke);white-space:nowrap}
+  th{color:var(--txt2);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.02em;cursor:pointer;user-select:none}
+  .up{color:var(--success)} .down{color:var(--danger)} .neu{color:var(--txt3)}
+  section{margin-top:26px}
+  .simple{border-left:3px solid var(--info);background:rgba(76,141,255,.08);padding:9px 13px;border-radius:6px;font-size:13.5px;margin-top:10px;color:var(--txt2)}
+  .simple b{color:#7fb0ff}
+  nav.top{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+  nav.top a{font-size:13px;padding:7px 14px;border-radius:8px;text-decoration:none;color:var(--txt2);background:var(--panel);border:1px solid var(--stroke)}
+  nav.top a.on{color:#04122e;background:var(--info);border-color:var(--info);font-weight:700}
+  nav.top a:hover{color:var(--txt)}
+  .bias{display:inline-flex;align-items:center;gap:6px}
+  .biasbar{width:64px;height:7px;border-radius:4px;background:var(--panel2);position:relative;overflow:hidden}
+  .biasbar i{position:absolute;top:0;bottom:0;left:50%;transform-origin:left}
+  .badge{font-size:11px;font-weight:700;padding:1px 7px;border-radius:5px}
+  .badge.alta{background:rgba(63,185,80,.16);color:#5bd66b} .badge.baixa{background:rgba(248,81,73,.16);color:#ff8a90} .badge.neutro{background:rgba(210,153,34,.16);color:#e3b341}
+  .setor{font-size:11px;color:var(--txt3)}
+  .qcard{background:var(--panel);border:1px solid var(--stroke);border-radius:9px;padding:9px 11px}
+  .qcard .tk{font-weight:700;font-size:13px} .qcard .px{font-size:16px;font-weight:700;margin-top:1px}
+  @media(max-width:1000px){.g6{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(2,1fr)}.g3,.g2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top">
+    <a href="painel.html">Painel PRIO3</a>
+    <a href="mercado.html" class="on">Panorama de Mercado</a>
+    <a href="opcoes.html">Oportunidades de Opções</a>
+    <a href="radar.html">Radar de Trades</a>
+  </nav>
+
+  <div class="row" style="gap:12px">
+    <h1>Panorama de Mercado</h1>
+    <span class="pill" id="pgStatus">carregando…</span>
+  </div>
+  <div class="sub" style="margin-top:6px">21 ações (10 setores) + bloco macro Brasil/EUA. Análise automatizada por ação: técnica + macro setorial + sentimento de analistas. <span class="tag rt">tempo real</span> Yahoo/BCB · <span class="tag of">oficial</span> BCB/FRED · <span class="tag cur">curado</span> sem API aberta.</div>
+
+  <!-- IBOVESPA -->
+  <section>
+    <h2>Índice Bovespa — vertente do mercado</h2>
+    <div id="ibovBox"></div>
+    <div class="simple">💡 <b>Vertente</b> resume se o índice está em tendência de <b>alta (altista)</b>, <b>baixa (baixista)</b> ou <b>lateral (neutra)</b>, combinando preço vs médias (MM50/MM200), RSI, fluxo de dinheiro (MFI) e momentum. O placar vai de −100 (baixista forte) a +100 (altista forte) e dá o pano de fundo para ler as ações individuais.</div>
+  </section>
+
+  <!-- SENTIMENTO AGREGADO -->
+  <section>
+    <h2>Sentimento agregado do mercado</h2>
+    <div class="grid g4" id="sentGrid"></div>
+    <div class="simple">💡 <b>Em palavras simples:</b> conta quantas das 21 ações o robô vê como ALTA, BAIXA ou NEUTRA hoje, junto com a direção do Ibovespa. É a "temperatura" geral da bolsa.</div>
+  </section>
+
+  <!-- DESTAQUES / LEITURA CONSOLIDADA -->
+  <section>
+    <h2>Destaques do dia — leitura consolidada</h2>
+    <div class="grid g3" id="destGrid"></div>
+    <div class="simple" id="destFatos"></div>
+    <div class="simple">💡 <b>Como funciona:</b> cruza a <b>tendência</b> (viés técnico/macro/analistas) com o <b>preço</b> (barato/caro a partir do fluxo do mercado) e gera um sinal prático — <b>forte compra, compra, observar, cautela</b> ou <b>evitar</b>. A nota de <b>Oportunidade</b> (0–100) ranqueia os ativos mais atrativos para compra agora.</div>
+  </section>
+
+  <!-- ANALISE POR SEGMENTO -->
+  <section>
+    <h2>Análise por segmento</h2>
+    <div class="grid g4" id="segGrid"></div>
+    <div class="simple">💡 <b>Como ler:</b> agrupa as ações por setor. <b>Viés</b> = média do placar técnico/macro/analistas do setor. <b>Barato/Caro</b> = onde os preços do setor estão dentro das faixas do mês/ano combinado ao <b>fluxo</b> (MFI, dinheiro entrando ou saindo). Verde = setor descontado (barato); vermelho = esticado (caro).</div>
+  </section>
+
+  <!-- MACRO -->
+  <section>
+    <h2>Macro — Brasil & EUA <span class="cap" id="macroTs" style="font-weight:400"></span></h2>
+    <div class="grid g6" id="macroGrid"></div>
+    <div class="grid g3" style="margin-top:14px" id="macroCur"></div>
+    <div class="simple">💡 <b>Em palavras simples:</b> juros altos (Selic 14,25%) travam varejo e ajudam bancos/seguradoras; dólar alto ajuda exportadoras (petróleo, Vale); inflação e desemprego medem a saúde da economia. Esses fatores entram no viés de cada ação conforme o setor.</div>
+  </section>
+
+  <!-- MERCADOS GLOBAIS -->
+  <section>
+    <h2>Mercados globais &amp; influência no Brasil</h2>
+    <div id="gblHead"></div>
+    <div class="grid g3" id="gblGrid" style="margin-top:12px"></div>
+    <div class="simple">💡 <b>Como ler:</b> acompanha os principais direcionadores externos da B3 — <b>Bitcoin</b> (apetite a risco global), <b>juro de 10 anos dos EUA</b> (quando sobe, fortalece o dólar e drena capital de emergentes → pressiona o Ibovespa), e as <b>bolsas americana</b> (S&P 500, Nasdaq) e <b>europeia</b> (Euro Stoxx 50, DAX). O <b>ambiente externo</b> resume se o cenário lá fora está favorável, neutro ou adverso para o mercado brasileiro.</div>
+  </section>
+
+  <!-- ROTAS DE PETRÓLEO -->
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Rotas de transporte de petróleo — chokepoints</h2><span class="cap" id="oilTs"></span></div>
+    <div id="oilHead"></div>
+    <div class="card" style="padding:0;overflow-x:auto;margin-top:12px">
+      <table id="tblOil">
+        <thead><tr>
+          <th>Passagem</th><th>Região</th>
+          <th style="text-align:right">Fluxo óleo (EIA)</th>
+          <th style="text-align:right">Petroleiros/dia (7d)</th>
+          <th style="text-align:right">vs. base 90d</th>
+          <th style="text-align:right">% petroleiros</th>
+          <th>Status</th><th>Tendência 30d</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="simple">💡 <b>Como ler:</b> mede os <b>trânsitos de petroleiros</b> (navios-tanque) por dia em cada passagem estratégica, comparando a média de 7 dias com a base de 90 dias (<b>desvio</b>). Queda forte (<b>reduzido</b>) pode indicar disrupção de oferta — cenário altista para o petróleo e favorável às exportadoras (PRIO3, BRAV3). O <b>fluxo de óleo (EIA)</b> em Mb/d é a escala real de importância de cada rota. Dados do <b>IMF PortWatch</b> (derivados de AIS, ~3–7 dias de defasagem); o mapa ao vivo por navio é o MarineTraffic.</div>
+  </section>
+
+  <!-- PRIO3 × PETR × CVX vs BRENT -->
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Petroleiras — PRIO3 × Petrobras × Chevron vs Brent</h2><span class="pill" id="opmStatus">carregando…</span></div>
+    <div class="cap" style="margin:6px 0 10px">Efeito diário do Brent: retorno médio das ações quando o petróleo sobe ou cai. Análise completa com gráficos em <a href="painel.html" style="color:var(--info)">Painel PRIO3</a>.</div>
+    <div class="grid g2" style="align-items:start">
+      <div class="card" style="padding:0;overflow-x:auto">
+        <table id="tblOpm"><thead><tr><th>Ativo</th><th style="text-align:right">YTD</th><th style="text-align:right">Beta</th><th style="text-align:right">Brent↑ média</th><th style="text-align:right">Brent↓ média</th><th style="text-align:right">Acerto↑</th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="card"><div class="l" style="margin-bottom:6px">Retorno médio: dias Brent ↑ vs ↓</div><div style="height:220px;position:relative"><canvas id="chOpm"></canvas></div></div>
+    </div>
+    <div class="simple" id="opmLeitura" style="margin-top:10px">—</div>
+  </section>
+
+  <!-- COTAÇÕES -->
+  <section>
+    <h2>Cotações em tempo real <span class="tag rt">Yahoo</span></h2>
+    <div class="grid g6" id="quotes"></div>
+  </section>
+
+  <!-- AÇÕES -->
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Ações — análise automatizada</h2><span class="cap" id="stkTs"></span></div>
+    <div class="simple">💡 <b>Como ler:</b> <b>Viés</b> é o placar do robô (−100 baixa … +100 alta), somando tendência técnica, macro do setor e recomendação dos analistas. <b>Pot. alta/baixa</b> = distância até a resistência (teto) e o suporte (piso) técnicos. <b>Alvo analistas</b> = quanto falta para o preço-alvo médio. Clique no cabeçalho para ordenar.</div>
+    <div class="card" style="padding:0;overflow-x:auto;margin-top:12px">
+      <table id="tblStk">
+        <thead><tr>
+          <th data-k="ticker">Ativo</th><th data-k="setor">Setor</th>
+          <th data-k="preco" style="text-align:right">Preço</th><th data-k="dia" style="text-align:right">Dia</th>
+          <th data-k="tendencia">Tend.</th><th data-k="rsi" style="text-align:right">RSI</th>
+          <th data-k="dist200_pct" style="text-align:right">vs MM200</th>
+          <th data-k="sem" style="text-align:right">Semana (mín–máx)</th>
+          <th data-k="mes" style="text-align:right">Mês (mín–máx)</th>
+          <th data-k="valu">Barato / Caro (fluxo)</th>
+          <th data-k="opp">Leitura</th>
+          <th data-k="rec">Analistas</th><th data-k="upside" style="text-align:right">Alvo</th>
+          <th data-k="score">Viés</th>
+          <th data-k="potencial_alta_pct" style="text-align:right">Pot. alta</th>
+          <th data-k="potencial_baixa_pct" style="text-align:right">Pot. baixa</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="cap">Fontes: preços/analistas Yahoo Finance; técnicos calculados sobre 1 ano; macro BCB/FRED. Não é recomendação de investimento.</div>
+  </section>
+
+  <!-- FUNDAMENTOS (COMPARATIVO) -->
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Análise fundamentalista</h2><span class="cap" id="fdTs"></span></div>
+    <div class="simple">💡 <b>Como ler:</b> <b>P/L</b> = preço ÷ lucro (quanto menor, mais barato); <b>P/VP</b> = preço ÷ patrimônio; <b>EV/EBITDA</b> = valor da firma ÷ geração de caixa; <b>DY</b> = dividendos no ano; <b>ROE</b> = retorno sobre o patrimônio (qualidade); <b>Margem líq.</b> = lucro ÷ receita; <b>Dív/PL</b> = alavancagem. O <b>Fundamento</b> combina valor + qualidade + crescimento + saúde financeira (−100 frágil … +100 forte). Clique no cabeçalho para ordenar.</div>
+    <div class="card" style="padding:0;overflow-x:auto;margin-top:12px">
+      <table id="tblFund">
+        <thead><tr>
+          <th data-k="ticker">Ativo</th><th data-k="setor">Setor</th>
+          <th data-k="pl" style="text-align:right">P/L</th>
+          <th data-k="pvp" style="text-align:right">P/VP</th>
+          <th data-k="ev" style="text-align:right">EV/EBITDA</th>
+          <th data-k="dy" style="text-align:right">DY</th>
+          <th data-k="roe" style="text-align:right">ROE</th>
+          <th data-k="ml" style="text-align:right">Margem líq.</th>
+          <th data-k="dl" style="text-align:right">Dív/PL</th>
+          <th data-k="yoy" style="text-align:right">Rec. a/a</th>
+          <th data-k="score">Fundamento</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="cap">Fonte: Yahoo Finance (indicadores + DRE trimestral). Bancos/seguradoras não expõem EBITDA/margem bruta — o placar usa ROE, margem líquida, P/L, P/VP e dividendos. Não é recomendação de investimento.</div>
+  </section>
+
+  <!-- EMPRESA: FUNDAMENTOS + DEMONSTRAÇÕES + FATOS -->
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Empresa — fundamentos, demonstrações &amp; fatos</h2><span class="cap" id="frTs"></span></div>
+    <div class="row" style="margin:10px 0 4px"><label class="cap" for="frSel">Empresa:</label>
+      <select id="frSel" style="background:var(--panel);color:var(--txt);border:1px solid var(--stroke);border-radius:8px;padding:6px 10px;font-size:13px"></select></div>
+    <div id="frBody"></div>
+    <div class="simple">💡 Visão consolidada por empresa: <b>fundamentos</b> (múltiplos + placar), <b>demonstração financeira trimestral</b> (receita e lucro dos últimos ~2 anos, com margens) e os <b>documentos oficiais da CVM</b> — fatos relevantes e anúncios de resultados (ITR/DFP/releases). Clique em "abrir ↗" para o documento original.</div>
+  </section>
+</div>
+
+<script>
+const C={info:"#4c8dff",success:"#3fb950",warning:"#d29922",danger:"#f85149",accent:"#a371f7",txt2:"#9aa7b4",txt3:"#6e7b8a"};
+const brl=n=>n==null?'—':n.toLocaleString('pt-BR',{maximumFractionDigits:0});
+const f2=n=>n==null?'—':n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const pct=n=>n==null?'—':`<span class="${n>=0?'up':'down'}">${n>0?'+':''}${n.toFixed(2)}%</span>`;
+const pct1=n=>n==null?'—':`<span class="${n>=0?'up':'down'}">${n>0?'+':''}${n.toFixed(1)}%</span>`;
+const REC={strong_buy:'Compra forte',buy:'Compra',hold:'Manter',sell:'Venda',strong_sell:'Venda forte',underperform:'Abaixo',outperform:'Acima'};
+let ANALISE=null, MQ=null;
+
+function biasCell(score){
+  const cls=score>=30?'alta':(score<=-30?'baixa':'neutro');
+  const lab=score>=30?'ALTA':(score<=-30?'BAIXA':'NEUTRO');
+  const w=Math.min(50,Math.abs(score)/100*50);
+  const col=score>=0?C.success:C.danger;
+  const bar=`<span class="biasbar"><i style="width:${w}%;background:${col};${score<0?`left:auto;right:50%;`:''}"></i></span>`;
+  return `<span class="bias"><span class="badge ${cls}">${lab} ${score>0?'+':''}${score}</span>${bar}</span>`;
+}
+
+async function loadMacro(){
+  try{const m=await(await fetch('macro.json',{cache:'no-store'})).json();
+    document.getElementById('macroTs').textContent='· atualizado '+(m.atualizado||'');
+    const I=m.indicadores;
+    const card=(l,v,sub,tag)=>`<div class="stat"><div class="v">${v}</div><div class="l">${l}</div><div class="cap" style="font-size:10.5px">${sub||''} <span class="tag ${tag}">${tag==='rt'?'tempo real':(tag==='of'?'oficial':'curado')}</span></div></div>`;
+    const g=document.getElementById('macroGrid');
+    const it=(k)=>I[k]||{};
+    g.innerHTML=
+      card('Selic (meta)',(it('selic_meta').valor??'—')+'%','a.a.','of')
+     +card('IPCA 12m',(it('ipca_12m').valor??'—')+'%','mês '+(it('ipca_mes').valor??'—')+'%','of')
+     +card('IGP-M 12m',(it('igpm_12m').valor??'—')+'%','mês '+(it('igpm_mes').valor??'—')+'%','of')
+     +card('Desemprego BR',(it('desemprego_br').valor??'—')+'%','PNAD','of')
+     +card('Inadimplência',(it('inadimplencia_total').valor??'—')+'%','PF '+(it('inadimplencia_pf').valor??'—')+' / PJ '+(it('inadimplencia_pj').valor??'—'),'of')
+     +card('USD/BRL',f2(it('usd_brl').valor),pct(it('usd_brl').chg_pct),'of')
+     +card('Fed Funds',(it('fed_funds').valor??'—')+'%','EUA a.a.','of')
+     +card('Desemprego EUA',(it('desemprego_us').valor??'—')+'%','BLS/FRED','of')
+     +card('Treasury 10a',(it('us_10y').valor??'—')+'%','EUA','of')
+     +card('CPI EUA 12m',(it('cpi_us_12m').valor??'—')+'%','inflação EUA','of')
+     +card('Ibovespa',brl(it('ibovespa').valor),pct(it('ibovespa').chg_pct),'rt')
+     +card('DXY (dólar global)',f2(it('dxy').valor),pct(it('dxy').chg_pct),'rt');
+    const cur=m.curados||{};
+    document.getElementById('macroCur').innerHTML=Object.values(cur).map(c=>
+      `<div class="callout warning"><div class="t" style="font-size:12.5px">${c.tag}</div><p style="font-size:12.5px">${c.texto}</p></div>`).join('');
+  }catch(e){document.getElementById('macroGrid').innerHTML='<div class="cap">macro.json indisponível</div>';}
+}
+
+async function loadAnalise(){
+  try{const d=await(await fetch('multi_analysis.json',{cache:'no-store'})).json();
+    ANALISE=d; document.getElementById('stkTs').textContent='atualizado '+(d.atualizado||'');
+    renderIbov(); renderGlobal(); renderSent(); renderDestaques(); renderSeg(); renderStocks();
+  }catch(e){document.querySelector('#tblStk tbody').innerHTML='<tr><td colspan=16 class="cap">multi_analysis.json indisponível</td></tr>';}
+}
+
+function renderSent(){
+  const a=ANALISE.acoes.filter(x=>!x.erro);
+  const alta=a.filter(x=>x.label==='ALTA').length, baixa=a.filter(x=>x.label==='BAIXA').length, neu=a.length-alta-baixa;
+  const avg=Math.round(a.reduce((s,x)=>s+x.score,0)/a.length);
+  const iv=ANALISE.ibovespa;
+  const dir=(ANALISE.direcoes_macro||{});
+  const ibov=iv?iv.vertente.toLowerCase():(dir.ibov_up>0?'altista':(dir.ibov_up<0?'baixista':'neutra'));
+  const icol=ibov.startsWith('alt')?C.success:(ibov.startsWith('baix')?C.danger:C.warning);
+  const card=(l,v,col,sub)=>`<div class="stat"><div class="v" style="color:${col}">${v}</div><div class="l">${l}</div><div class="cap">${sub||''}</div></div>`;
+  document.getElementById('sentGrid').innerHTML=
+    card('Viés médio ('+a.length+' ações)',(avg>0?'+':'')+avg,avg>=30?C.success:(avg<=-30?C.danger:C.warning),avg>=30?'mercado comprador':(avg<=-30?'mercado vendedor':'neutro/misto'))
+   +card('Ações em ALTA',alta+' / '+a.length,C.success,'viés ≥ +30')
+   +card('Ações em BAIXA',baixa+' / '+a.length,C.danger,'viés ≤ −30')
+   +card('Vertente Ibovespa',ibov.toUpperCase(),icol,iv?('placar '+(iv.score>=0?'+':'')+iv.score):'21 pregões');
+}
+
+const SINAL={FORTE_COMPRA:{t:'Forte compra',c:'#3fb950'},COMPRA:{t:'Compra',c:'#5bd66b'},
+  OBSERVAR:{t:'Observar',c:'#4c8dff'},NEUTRO:{t:'Neutro',c:'#d29922'},
+  CAUTELA:{t:'Cautela',c:'#e0913a'},EVITAR:{t:'Evitar',c:'#f85149'}};
+const sinalBadge=(s)=>{const m=SINAL[s]||{t:s,c:C.txt2};return `<span class="badge" style="background:${m.c}22;color:${m.c}">${m.t}</span>`;};
+const spark=(arr,w=84,h=22)=>{ if(!arr||arr.length<2)return '';
+  const mn=Math.min(...arr),mx=Math.max(...arr),rg=(mx-mn)||1;
+  const pts=arr.map((v,i)=>`${(i/(arr.length-1)*w).toFixed(1)},${(h-((v-mn)/rg)*h).toFixed(1)}`).join(' ');
+  const col=arr[arr.length-1]>=arr[0]?C.success:C.danger;
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="display:block;margin-top:2px"><polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1.5"/></svg>`;};
+
+function renderIbov(){
+  const i=ANALISE.ibovespa; const box=document.getElementById('ibovBox'); if(!box)return;
+  if(!i){box.innerHTML='<div class="card"><span class="cap">Ibovespa indisponível</span></div>';return;}
+  const col=i.vertente==='ALTISTA'?C.success:(i.vertente==='BAIXISTA'?C.danger:C.warning);
+  const arrow=i.vertente==='ALTISTA'?'▲':(i.vertente==='BAIXISTA'?'▼':'▬');
+  const dcol=i.variacao_dia_pct>=0?C.success:C.danger;
+  const gp=Math.max(2,Math.min(98,Math.round((i.score+100)/2)));
+  const pts=(i.pontos||0).toLocaleString('pt-BR');
+  const sg=(s)=>`<div class="row" style="justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--stroke)"><span class="cap">${s[0]}</span><span class="${s[2]}" style="font-size:12.5px">${s[1]}</span></div>`;
+  const met=(l,v,c)=>`<div class="stat"><div class="v"${c?` style="color:${c}"`:''}>${v}</div><div class="l">${l}</div></div>`;
+  const spc=(v)=>(v>=0?'+':'')+v+'%';
+  box.innerHTML=`<div class="grid g2" style="align-items:stretch">
+    <div class="card" style="border-left:4px solid ${col}">
+      <div class="row" style="justify-content:space-between;align-items:flex-start">
+        <div><div class="cap">IBOVESPA · ^BVSP</div>
+          <div style="font-size:32px;font-weight:800;line-height:1.1">${pts} <span style="font-size:15px;color:${dcol}">${spc(i.variacao_dia_pct)}</span></div></div>
+        <div style="text-align:right"><div class="badge" style="font-size:15px;padding:5px 13px;background:${col}22;color:${col}">${arrow} ${i.vertente}</div>
+          <div class="cap" style="margin-top:5px">placar ${i.score>=0?'+':''}${i.score}</div></div>
+      </div>
+      ${spark(i.spark,340,54)}
+      <div style="height:9px;border-radius:6px;margin-top:10px;background:linear-gradient(90deg,${C.danger},${C.warning},${C.success})"></div>
+      <div style="position:relative;height:0"><div style="position:absolute;left:calc(${gp}% - 6px);top:2px;width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid var(--txt)"></div></div>
+      <div class="row" style="justify-content:space-between;margin-top:12px"><span class="cap">Baixista</span><span class="cap">Neutra</span><span class="cap">Altista</span></div>
+      <p style="color:var(--txt2);font-size:13px;margin:14px 0 0">${i.resumo}</p>
+    </div>
+    <div class="card">
+      <div class="grid g3" style="gap:8px">
+        ${met('MM50',(i.mm50||0).toLocaleString('pt-BR'))}
+        ${met('MM200',(i.mm200||0).toLocaleString('pt-BR'))}
+        ${met('vs MM200',spc(i.dist_mm200_pct),i.dist_mm200_pct>=0?C.success:C.danger)}
+        ${met('RSI (14)',i.rsi,i.rsi>70?C.danger:(i.rsi<30?C.success:null))}
+        ${met('Fluxo (MFI)',i.mfi==null?'—':i.mfi,i.mfi==null?null:(i.mfi>=55?C.success:(i.mfi<=45?C.danger:null)))}
+        ${met('Na faixa 52s',i.pos_52w_pct==null?'—':i.pos_52w_pct+'%')}
+        ${met('1 semana',spc(i.ret_1s),i.ret_1s>=0?C.success:C.danger)}
+        ${met('1 mês',spc(i.ret_1m),i.ret_1m>=0?C.success:C.danger)}
+        ${met('No ano',spc(i.ret_ytd),i.ret_ytd>=0?C.success:C.danger)}
+      </div>
+      <h3 style="margin:16px 0 4px;font-size:13px">Sinais técnicos</h3>
+      ${(i.sinais||[]).map(sg).join('')}
+    </div>
+  </div>`;
+}
+
+function renderDestaques(){
+  const d=ANALISE.destaques; if(!d)return;
+  const item=(x)=>`<div class="row" style="justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--stroke)">
+    <div><b>${x.ticker}</b> <span class="cap">R$ ${f2(x.preco)}</span>${x.fato_recente?` <span class="tag" style="color:${C.accent};border-color:${C.accent}55">fato ${x.fato_recente.dias}d</span>`:''}</div>
+    <div style="text-align:right">${sinalBadge(x.sinal)}<div class="cap" style="font-size:10px">${x.nivel} · viés ${x.vies>0?'+':''}${x.vies} · opp ${x.oportunidade}</div></div></div>`;
+  const card=(title,arr,color)=>`<div class="card" style="border-top:3px solid ${color};padding:14px"><h3 style="margin:0 0 6px">${title}</h3>${(arr||[]).map(item).join('')||'<div class="cap">—</div>'}</div>`;
+  document.getElementById('destGrid').innerHTML=
+    card('🎯 Melhores oportunidades',d.melhores_oportunidades,C.success)
+   +card('🟢 Mais baratos (fluxo)',d.mais_baratos,C.info)
+   +card('🔴 Mais esticados / caros',d.mais_esticados,C.danger);
+  const fr=d.com_fato_recente||[];
+  document.getElementById('destFatos').innerHTML=fr.length
+    ? '📌 <b>Fatos relevantes recentes:</b> '+fr.map(x=>`<b>${x.ticker}</b> (${x.fato_recente.dias}d) ${x.fato_recente.assunto}`).join(' &nbsp;·&nbsp; ')
+    : '📌 Sem fatos relevantes nos últimos 45 dias.';
+}
+
+function renderSeg(){
+  const segs=ANALISE.segmentos||[];
+  const g=document.getElementById('segGrid'); if(!g)return;
+  g.innerHTML=segs.map(s=>{
+    const t=s.valuation_tag; const tcol=t==='CARO'?C.danger:(t==='BARATO'?C.success:C.warning);
+    const cls=s.label==='ALTA'?'alta':(s.label==='BAIXA'?'baixa':'neutro');
+    return `<div class="card" style="padding:13px">
+      <div class="row" style="justify-content:space-between"><b>${s.setor}</b>
+        <span class="badge ${cls}">${s.label} ${s.vies_medio>0?'+':''}${s.vies_medio}</span></div>
+      <div style="margin-top:7px;font-size:13.5px">Valuation: <b style="color:${tcol}">${s.valuation_tag}</b>
+        <span class="cap">(${s.valuation_medio>0?'+':''}${s.valuation_medio})</span></div>
+      <div class="cap" style="margin-top:3px">Fluxo MFI ${s.mfi_medio==null?'—':s.mfi_medio} ·
+        <span class="up">${s.n_barato} barato</span> / <span class="down">${s.n_caro} caro</span> · ${s.n_ativos} ativos</div>
+      <div class="cap" style="margin-top:5px;color:var(--txt2)">${s.ativos.join(' · ')}</div>
+    </div>`;}).join('');
+}
+
+const rangeCell=(o)=>{ if(!o)return '—'; const p=o.pos_pct;
+  const col=p==null?C.txt3:(p>=70?C.danger:(p<=30?C.success:C.txt2));
+  return `R$ ${f2(o.low)} – ${f2(o.high)}<div class="cap" style="font-size:10px;color:${col}">na faixa: ${p==null?'—':p+'%'}</div>`;};
+const valCell=(v,f)=>{ if(!v)return '—'; const t=v.tag;
+  const col=t==='CARO'?C.danger:(t==='BARATO'?C.success:C.warning);
+  const bg=t==='CARO'?'rgba(248,81,73,.16)':(t==='BARATO'?'rgba(63,185,80,.16)':'rgba(210,153,34,.16)');
+  return `<span class="badge" style="background:${bg};color:${col}">${v.nivel}</span>`
+    +`<div class="cap" style="font-size:10px">score ${v.score>0?'+':''}${v.score} · MFI ${f&&f.mfi!=null?f.mfi:'—'} · ${f?f.direcao:''}</div>`;};
+
+let sortK='score', sortDir=-1;
+function renderStocks(){
+  const tb=document.querySelector('#tblStk tbody'); tb.innerHTML='';
+  const rows=ANALISE.acoes.filter(x=>!x.erro).slice();
+  const val=(x)=>({ticker:x.ticker,setor:x.setor,preco:x.preco,dia:(MQ&&MQ.quotes[x.ticker]&&MQ.quotes[x.ticker].pct)||0,
+    tendencia:x.tendencia,rsi:x.rsi,dist200_pct:x.dist200_pct,rec:x.analistas.mean||9,
+    sem:(x.semana&&x.semana.pos_pct)??-1,mes:(x.mes&&x.mes.pos_pct)??-1,valu:(x.valuation&&x.valuation.score)??0,
+    opp:(x.consolidado&&x.consolidado.oportunidade)??-1,
+    upside:x.analistas.upside_pct??-999,score:x.score,potencial_alta_pct:x.potencial_alta_pct,potencial_baixa_pct:x.potencial_baixa_pct}[sortK]);
+  rows.sort((p,q)=>{const a=val(p),b=val(q);return (a>b?1:a<b?-1:0)*sortDir;});
+  rows.forEach(x=>{
+    const q=(MQ&&MQ.quotes[x.ticker])||{};
+    const live=q.price||x.preco; const diaP=q.pct;
+    const tcol=x.tendencia==='alta'?'up':(x.tendencia==='baixa'?'down':'neu');
+    const a=x.analistas; const rec=REC[a.rec]||a.rec||'—';
+    const recCol=(a.mean&&a.mean<=2.5)?C.success:((a.mean&&a.mean>=3.5)?C.danger:C.txt2);
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><b>${x.ticker}</b><div class="setor">${x.nome}</div></td>`+
+      `<td class="setor">${x.setor}</td>`+
+      `<td style="text-align:right">${f2(live)}${spark(x.spark)}</td>`+
+      `<td style="text-align:right">${diaP==null?'—':pct(diaP)}</td>`+
+      `<td class="${tcol}">${x.tendencia}</td>`+
+      `<td style="text-align:right">${x.rsi}</td>`+
+      `<td style="text-align:right">${pct1(x.dist200_pct)}</td>`+
+      `<td style="text-align:right">${rangeCell(x.semana)}</td>`+
+      `<td style="text-align:right">${rangeCell(x.mes)}</td>`+
+      `<td>${valCell(x.valuation,x.fluxo)}</td>`+
+      `<td>${x.consolidado?sinalBadge(x.consolidado.sinal):'—'}<div class="cap" style="font-size:10px;white-space:normal;max-width:190px">${x.consolidado?x.consolidado.zona:''}</div>${x.fato_recente?`<div class="cap" style="font-size:10px;color:${C.accent}">● fato relevante ${x.fato_recente.dias}d</div>`:''}</td>`+
+      `<td><span style="color:${recCol}">${rec}</span>${a.n?` <span class="cap">(${a.n})</span>`:''}</td>`+
+      `<td style="text-align:right">${a.upside_pct==null?'—':pct1(a.upside_pct)}${a.target?`<div class="cap" style="font-size:10px">R$ ${f2(a.target)}</div>`:''}</td>`+
+      `<td>${biasCell(x.score)}</td>`+
+      `<td style="text-align:right"><span class="up">+${x.potencial_alta_pct}%</span><div class="cap" style="font-size:10px">R$ ${f2(x.resistencia)}</div></td>`+
+      `<td style="text-align:right"><span class="down">${x.potencial_baixa_pct}%</span><div class="cap" style="font-size:10px">R$ ${f2(x.suporte)}</div></td>`;
+    tb.appendChild(tr);
+  });
+}
+document.querySelectorAll('#tblStk th').forEach(th=>th.addEventListener('click',()=>{
+  const k=th.dataset.k; if(!k)return; if(sortK===k)sortDir*=-1; else{sortK=k;sortDir=(k==='ticker'||k==='setor')?1:-1;} renderStocks();
+}));
+
+async function loadQuotes(){
+  try{const d=await dashFetch('api/multiquotes'); MQ=d;
+    const order=ANALISE?ANALISE.acoes.filter(x=>!x.erro).map(x=>x.ticker):Object.keys(d.quotes);
+    const g=document.getElementById('quotes');
+    g.innerHTML=order.map(t=>{const q=d.quotes[t]||{};const p=q.pct;
+      return `<div class="qcard"><div class="tk">${t}</div><div class="px">${q.price==null?'—':f2(q.price)}</div><div>${p==null?'—':pct(p)}</div></div>`;}).join('')
+      +(d.quotes.IBOV?`<div class="qcard" style="border-color:var(--info)"><div class="tk">IBOV</div><div class="px">${brl(d.quotes.IBOV.price)}</div><div>${pct(d.quotes.IBOV.pct)}</div></div>`:'');
+    if(ANALISE)renderStocks();
+    document.getElementById('pgStatus').textContent='ao vivo';
+  }catch(e){document.getElementById('pgStatus').textContent='servidor offline';}
+}
+
+// ================= MERCADOS GLOBAIS =================
+function renderGlobal(){
+  const g=ANALISE?ANALISE.mercados_globais:null; const head=document.getElementById('gblHead'); if(!head)return;
+  if(!g){head.innerHTML='<div class="cap">mercados_globais indisponível</div>';return;}
+  const ae=g.ambiente_externo||{}; const amb=ae.label||'—';
+  const acol=amb==='FAVORÁVEL'?C.success:(amb==='DESFAVORÁVEL'?C.danger:C.warning);
+  head.innerHTML=`<div class="card" style="border-left:4px solid ${acol};margin-top:10px">`
+    +`<div class="row" style="justify-content:space-between"><h3 style="margin:0">Ambiente externo para o Brasil</h3>`
+    +`<span class="badge" style="font-size:14px;padding:4px 12px;background:${acol}22;color:${acol}">${amb} · placar ${ae.score>=0?'+':''}${ae.score}</span></div>`
+    +`<p style="color:var(--txt2);font-size:13px;margin:10px 0 0">${ae.resumo||''}</p></div>`;
+  const vcol=(v)=>({ALTISTA:C.success,BAIXISTA:C.danger,NEUTRA:C.warning,SUBINDO:C.danger,CAINDO:C.success,'ESTÁVEL':C.warning})[v]||C.txt2;
+  const arrow=(v)=>['ALTISTA','SUBINDO'].includes(v)?'▲':(['BAIXISTA','CAINDO'].includes(v)?'▼':'▬');
+  const fmt=(v,dec)=>v==null?'—':(+v).toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec});
+  document.getElementById('gblGrid').innerHTML=g.ativos.map(it=>{
+    const d=it.dados; const col=vcol(it.vertente);
+    if(!d)return `<div class="card"><div class="row" style="justify-content:space-between"><b>${it.nome}</b><span class="cap">sem dado</span></div></div>`;
+    const dc=d.var_dia_pct>=0?C.success:C.danger;
+    const val=it.unid==='US$'?('US$ '+fmt(d.preco,it.dec)):(it.unid==='%'?(fmt(d.preco,it.dec)+'%'):(fmt(d.preco,it.dec)+' pts'));
+    const rc=(v)=>v==null?C.txt2:(v>=0?C.success:C.danger);
+    return `<div class="card" style="border-top:3px solid ${col};padding:14px">`
+      +`<div class="row" style="justify-content:space-between;align-items:flex-start">`
+      +`<div><b>${it.nome}</b><div class="cap" style="font-size:10px">${it.classe}</div></div>`
+      +`<span class="badge" style="background:${col}22;color:${col}">${arrow(it.vertente)} ${it.vertente||'—'}</span></div>`
+      +`<div style="font-size:21px;font-weight:800;margin-top:6px">${val} <span style="font-size:12px;color:${dc}">${d.var_dia_pct>=0?'+':''}${d.var_dia_pct}%</span></div>`
+      +spark(d.spark,300,30)
+      +`<div class="row" style="gap:12px;margin-top:6px"><span class="cap">1m <span style="color:${rc(d.ret_1m)}">${d.ret_1m==null?'—':(d.ret_1m>=0?'+':'')+d.ret_1m+'%'}</span></span>`
+      +`<span class="cap">3m <span style="color:${rc(d.ret_3m)}">${d.ret_3m==null?'—':(d.ret_3m>=0?'+':'')+d.ret_3m+'%'}</span></span>`
+      +`<span class="cap">ano <span style="color:${rc(d.ret_ytd)}">${d.ret_ytd==null?'—':(d.ret_ytd>=0?'+':'')+d.ret_ytd+'%'}</span></span>`
+      +`<span class="cap">RSI ${d.rsi}</span></div>`
+      +`<p style="color:var(--txt2);font-size:11.5px;margin:10px 0 0;line-height:1.45">${it.influencia||''}</p></div>`;
+  }).join('');
+}
+
+// ================= ROTAS DE PETRÓLEO =================
+let OIL=null;
+async function loadOil(){
+  let live=null;
+  try{live=await dashFetch('api/live');}catch(e){}
+  try{OIL=await(await fetch('oil_routes.json',{cache:'no-store'})).json();}
+  catch(e){const h=document.getElementById('oilHead'); if(h)h.innerHTML='<div class="cap">oil_routes.json indisponível — rode oil_routes.py</div>'; return;}
+  renderOil(live);
+}
+function renderOil(live){
+  if(!OIL)return;
+  document.getElementById('oilTs').textContent='· '+(OIL.fonte||'')+' · '+(OIL.atualizado||'');
+  const rk=OIL.risco_rota||'—';
+  const rcol=rk==='ELEVADO'?C.danger:(rk==='MODERADO'?C.warning:C.success);
+  const q=live&&live.quotes?live.quotes:{};
+  const oil=(nm,o)=>{if(!o||o.price==null)return `<div class="stat"><div class="v">—</div><div class="l">${nm}</div></div>`;
+    const c=o.pct==null?C.txt2:(o.pct>=0?C.success:C.danger);
+    return `<div class="stat"><div class="v">US$ ${(+o.price).toFixed(2)} <span style="font-size:12px;color:${c}">${o.pct==null?'':(o.pct>=0?'+':'')+(+o.pct).toFixed(2)+'%'}</span></div><div class="l">${nm} <span class="tag rt">ao vivo</span></div></div>`;};
+  document.getElementById('oilHead').innerHTML=
+    `<div class="grid g2" style="align-items:stretch;margin-top:10px">`
+    +`<div class="card" style="border-left:4px solid ${rcol}">`
+    +`<div class="row" style="justify-content:space-between"><h3 style="margin:0">Risco logístico do petróleo</h3>`
+    +`<span class="badge" style="font-size:14px;padding:4px 12px;background:${rcol}22;color:${rcol}">${rk}</span></div>`
+    +`<p style="color:var(--txt2);font-size:13px;margin:10px 0 12px">${OIL.resumo||''}</p>`
+    +`<a href="${OIL.mapa_ao_vivo}" target="_blank" rel="noopener" style="display:inline-block;background:${C.info}22;color:${C.info};border:1px solid ${C.info}55;border-radius:8px;padding:8px 14px;text-decoration:none;font-size:13px;font-weight:600">🛰️ Abrir mapa AIS ao vivo — MarineTraffic (Golfo Pérsico) ↗</a></div>`
+    +`<div class="card"><h3 style="margin:0 0 10px">Petróleo — referência de preço</h3>`
+    +`<div class="grid g2" style="gap:8px">`+oil('Brent',q.brent)+oil('WTI',q.wti)+`</div>`
+    +`<p class="cap" style="margin:10px 0 0">O preço e a volatilidade do petróleo são a leitura de mercado, em tempo real, do risco de oferta/rotas. Alta sustentada favorece o viés de Óleo & Gás (PRIO3, BRAV3).</p></div>`
+    +`</div>`;
+  const stCol={reduzido:C.danger,elevado:C.info,normal:C.success,'sem dado':C.txt3};
+  const stTxt={reduzido:'Reduzido',elevado:'Elevado',normal:'Normal','sem dado':'—'};
+  const tb=document.querySelector('#tblOil tbody');
+  tb.innerHTML=OIL.chokepoints.map(c=>{const d=c.dados;
+    if(!d)return `<tr><td><b>${c.nome}</b></td><td class="cap">${c.regiao}</td><td style="text-align:right">${c.mbd} Mb/d</td><td colspan=5 class="cap">sem dados</td></tr>`;
+    const dev=d.desvio_pct; const dcol=dev==null?C.txt2:(dev<=-25?C.danger:(dev>=20?C.info:C.txt2));
+    const sc=stCol[d.status]||C.txt2;
+    return `<tr>`
+      +`<td><b>${c.nome}</b><div class="cap" style="font-size:10px;white-space:normal;max-width:280px">${c.papel}</div></td>`
+      +`<td class="cap">${c.regiao}</td>`
+      +`<td style="text-align:right"><b>${c.mbd}</b> Mb/d</td>`
+      +`<td style="text-align:right">${d.media_7d==null?'—':d.media_7d}<div class="cap" style="font-size:10px">base ${d.media_90d??'—'}</div></td>`
+      +`<td style="text-align:right"><span style="color:${dcol}">${dev==null?'—':(dev>=0?'+':'')+dev+'%'}</span></td>`
+      +`<td style="text-align:right">${d.fatia_petroleiros_pct==null?'—':Math.round(d.fatia_petroleiros_pct)+'%'}</td>`
+      +`<td><span class="badge" style="background:${sc}22;color:${sc}">${stTxt[d.status]||d.status}</span></td>`
+      +`<td>${spark(d.spark,90,22)}</td>`
+    +`</tr>`;
+  }).join('');
+}
+
+// ================= FUNDAMENTOS =================
+let FUND=null; let fundSortK='score', fundSortDir=-1;
+const FTAG={FORTE:{t:'Forte',c:'#3fb950'},'SÓLIDA':{t:'Sólida',c:'#5bd66b'},NEUTRA:{t:'Neutra',c:'#d29922'},'ATENÇÃO':{t:'Atenção',c:'#e0913a'},'FRÁGIL':{t:'Frágil',c:'#f85149'}};
+const fundBadge=(tag)=>{const m=FTAG[tag]||{t:tag,c:C.txt2};return `<span class="badge" style="background:${m.c}22;color:${m.c}">${m.t}</span>`;};
+const ndec=(v,d=1)=>v==null?'—':(+v).toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
+const pctv=(v)=>v==null?'—':(v>=0?'+':'')+ndec(v,1)+'%';
+
+async function loadFund(){
+  try{FUND=await(await fetch('fundamentals_multi.json',{cache:'no-store'})).json();
+    document.getElementById('fdTs').textContent='· '+(FUND.fonte||'')+' · atualizado '+(FUND.atualizado||'');
+    renderFund();
+    document.querySelectorAll('#tblFund th').forEach(th=>th.style.cursor='pointer');
+    document.querySelector('#tblFund thead').addEventListener('click',ev=>{const th=ev.target.closest('th'); if(!th)return;
+      const k=th.dataset.k; if(k===fundSortK)fundSortDir*=-1; else{fundSortK=k;fundSortDir=(k==='ticker'||k==='setor')?1:-1;} renderFund();});
+  }catch(e){const b=document.querySelector('#tblFund tbody'); if(b)b.innerHTML='<tr><td colspan=11 class="cap">fundamentals_multi.json indisponível — rode fundamentals_multi.py</td></tr>';}
+}
+function renderFund(){
+  if(!FUND)return; const tb=document.querySelector('#tblFund tbody'); if(!tb)return;
+  const rows=Object.entries(FUND.empresas).map(([t,e])=>({t,e}));
+  const key=({t,e})=>({ticker:t,setor:e.setor,pl:e.indicadores.pl??1e9,pvp:e.indicadores.pvp??1e9,
+    ev:e.indicadores.ev_ebitda??1e9,dy:e.indicadores.dy??-1,roe:e.indicadores.roe??-999,
+    ml:e.indicadores.margem_liq??-999,dl:e.indicadores.div_pl??-1,
+    yoy:(e.yoy&&e.yoy.receita_pct)??-999,score:e.score}[fundSortK]);
+  rows.sort((a,b)=>{const x=key(a),y=key(b);return (x>y?1:x<y?-1:0)*fundSortDir;});
+  tb.innerHTML=rows.map(({t,e})=>{const i=e.indicadores; const sc=FTAG[e.tag]||{c:C.txt2};
+    const roeCol=i.roe==null?'':(i.roe>=15?C.success:(i.roe<8?C.danger:''));
+    return `<tr>`+
+      `<td><b>${t}</b></td><td class="cap">${e.setor}</td>`+
+      `<td style="text-align:right">${i.pl?ndec(i.pl,1):'—'}</td>`+
+      `<td style="text-align:right">${i.pvp?ndec(i.pvp,1):'—'}</td>`+
+      `<td style="text-align:right">${i.ev_ebitda?ndec(i.ev_ebitda,1):'—'}</td>`+
+      `<td style="text-align:right">${i.dy?ndec(i.dy,1)+'%':'—'}</td>`+
+      `<td style="text-align:right"${roeCol?` class=""`:''}><span style="color:${roeCol}">${i.roe==null?'—':Math.round(i.roe)+'%'}</span></td>`+
+      `<td style="text-align:right">${i.margem_liq==null?'—':Math.round(i.margem_liq)+'%'}</td>`+
+      `<td style="text-align:right">${i.div_pl==null?'—':ndec(i.div_pl/100,1)+'x'}</td>`+
+      `<td style="text-align:right"><span style="color:${(e.yoy&&e.yoy.receita_pct>=0)?C.success:C.danger}">${e.yoy?pctv(e.yoy.receita_pct):'—'}</span></td>`+
+      `<td>${fundBadge(e.tag)} <span class="cap" style="font-size:10px">${e.score>=0?'+':''}${e.score}</span></td>`+
+    `</tr>`;
+  }).join('');
+}
+
+// grafico de barras da DRE trimestral (receita azul, lucro verde/vermelho)
+function dreChart(qs,moeda){
+  qs=(qs||[]).filter(q=>q.receita!=null); if(qs.length<2)return '<div class="cap">sem série trimestral</div>';
+  const W=100/qs.length, gap=1.4; const vals=qs.flatMap(q=>[q.receita||0,q.lucro||0]);
+  const mx=Math.max(...vals,0), mn=Math.min(...vals,0); const rng=(mx-mn)||1;
+  const H=150, top=8, bot=26, plot=H-top-bot; const y0=top+(mx/rng)*plot;
+  const bw=(W-gap*2)/2;
+  let svg=`<svg viewBox="0 0 100 ${H}" preserveAspectRatio="none" style="width:100%;height:170px">`;
+  svg+=`<line x1="0" y1="${y0.toFixed(1)}" x2="100" y2="${y0.toFixed(1)}" stroke="var(--stroke)" stroke-width="0.3"/>`;
+  qs.forEach((q,i)=>{const x=i*W;
+    const rv=q.receita||0, lv=q.lucro||0;
+    const rh=Math.abs(rv)/rng*plot, lh=Math.abs(lv)/rng*plot;
+    const ry=rv>=0?y0-rh:y0, ly=lv>=0?y0-lh:y0;
+    svg+=`<rect x="${(x+gap).toFixed(1)}" y="${ry.toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(0.3,rh).toFixed(1)}" fill="${C.info}" rx="0.4"/>`;
+    svg+=`<rect x="${(x+gap+bw).toFixed(1)}" y="${ly.toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(0.3,lh).toFixed(1)}" fill="${lv>=0?C.success:C.danger}" rx="0.4"/>`;
+    svg+=`<text x="${(x+W/2).toFixed(1)}" y="${H-14}" font-size="3.4" fill="var(--txt2)" text-anchor="middle">${q.periodo}</text>`;
+    svg+=`<text x="${(x+W/2).toFixed(1)}" y="${H-4}" font-size="3.2" fill="var(--txt3)" text-anchor="middle">${q.margem_liq==null?'':Math.round(q.margem_liq)+'%'}</text>`;
+  });
+  svg+=`</svg>`;
+  return svg;
+}
+
+let FATOS=null;
+async function loadFatos(){
+  try{const d=await(await fetch('fatos_relevantes_multi.json',{cache:'no-store'})).json(); FATOS=d;
+    const sel=document.getElementById('frSel');
+    const base=ANALISE?ANALISE.acoes.filter(x=>!x.erro).map(x=>x.ticker):[];
+    const extra=Object.keys(d.empresas||{}).concat(FUND?Object.keys(FUND.empresas||{}):[]);
+    const tks=[...new Set([...base,...extra])].filter(t=>(d.empresas&&d.empresas[t])||(FUND&&FUND.empresas&&FUND.empresas[t]));
+    const nm=(t)=>(d.empresas&&d.empresas[t]&&d.empresas[t].nome)||(FUND&&FUND.empresas&&FUND.empresas[t]&&FUND.empresas[t].nome)||t;
+    sel.innerHTML=tks.map(t=>`<option value="${t}">${t} — ${nm(t)}</option>`).join('');
+    document.getElementById('frTs').textContent='· '+(d.fonte||'')+' · atualizado '+(d.atualizado||'');
+    sel.onchange=()=>renderFatos(sel.value); if(tks.length)renderFatos(tks[0]);
+  }catch(e){document.getElementById('frBody').innerHTML='<div class="cap">fatos_relevantes_multi.json indisponível — rode scrape_fatos_multi.py</div>';}
+}
+function renderFatos(tk){
+  const e=(FATOS&&FATOS.empresas&&FATOS.empresas[tk])||{fatos:[],resultados:[],n_fatos_2anos:0,n_resultados_2anos:0};
+  const link=(u)=>u?`<a href="${u}" target="_blank" rel="noopener" style="color:var(--info);text-decoration:none">abrir ↗</a>`:'';
+  const catCol=(c)=>c&&c.startsWith('Release')?C.accent:(c&&c.startsWith('ITR')?C.info:(c&&c.startsWith('DFP')?C.success:C.warning));
+  const fatos=(e.fatos||[]).map(f=>`<tr><td class="cap" style="white-space:nowrap">${f.data}</td><td>${f.assunto}</td><td style="text-align:right">${link(f.link)}</td></tr>`).join('')||'<tr><td colspan=3 class="cap">sem registros</td></tr>';
+  const res=(e.resultados||[]).map(r=>`<tr><td class="cap" style="white-space:nowrap">${r.data}</td><td><span class="tag" style="color:${catCol(r.categoria)};border-color:${catCol(r.categoria)}44">${r.periodo||r.categoria}</span></td><td>${r.assunto}</td><td style="text-align:right">${link(r.link)}</td></tr>`).join('')||'<tr><td colspan=4 class="cap">sem registros</td></tr>';
+  const f=FUND&&FUND.empresas?FUND.empresas[tk]:null;
+  let fundCard='', dreCard='';
+  if(f){const i=f.indicadores; const cp=f.componentes||{};
+    const mult=(l,v)=>`<div class="stat" style="padding:9px 11px"><div class="v" style="font-size:16px">${v}</div><div class="l">${l}</div></div>`;
+    const comp=(l,v)=>v==null?'':`<div class="row" style="justify-content:space-between;gap:8px"><span class="cap">${l}</span>`
+      +`<span style="flex:1;height:6px;border-radius:4px;background:var(--stroke);position:relative;max-width:120px"><span style="position:absolute;left:${Math.round((v+100)/2)}%;top:-2px;width:8px;height:10px;border-radius:2px;background:${v>=15?C.success:(v<=-15?C.danger:C.warning)}"></span></span>`
+      +`<span class="cap" style="width:34px;text-align:right">${v>=0?'+':''}${v}</span></div>`;
+    fundCard=`<div class="card"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Fundamentos</h3>${fundBadge(f.tag)} <span class="cap">${f.score>=0?'+':''}${f.score}</span></div>`
+      +`<div class="grid g3" style="gap:8px;margin-top:10px">`
+      + mult('P/L',i.pl?ndec(i.pl,1):'—') + mult('P/VP',i.pvp?ndec(i.pvp,1):'—')
+      + mult('DY',i.dy?ndec(i.dy,1)+'%':'—') + mult('ROE',i.roe==null?'—':Math.round(i.roe)+'%')
+      + mult('Margem líq.',i.margem_liq==null?'—':Math.round(i.margem_liq)+'%')
+      + mult(f.is_financeira?'P/VP·setor':'EV/EBITDA',i.ev_ebitda?ndec(i.ev_ebitda,1):(f.is_financeira?'—':'—'))
+      +`</div>`
+      +`<div style="margin-top:12px">${comp('Valor',cp.valor)}${comp('Qualidade',cp.qualidade)}${comp('Crescimento',cp.crescimento)}${comp('Saúde fin.',cp.saude)}</div>`
+      +`<p style="color:var(--txt2);font-size:12.5px;margin:12px 0 0">${f.leitura||''}</p></div>`;
+    const un=`${f.moeda==='USD'?'US$':'R$'} bi`;
+    const yy=f.yoy||{}, tt=f.ttm||{};
+    dreCard=`<div class="card"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Demonstração financeira (trimestral)</h3>`
+      +`<span class="cap"><span style="color:${C.info}">■</span> receita &nbsp;<span style="color:${C.success}">■</span> lucro · ${un}</span></div>`
+      + dreChart(f.trimestres,f.moeda)
+      +`<div class="grid g3" style="gap:8px;margin-top:6px">`
+      +`<div class="stat" style="padding:9px 11px"><div class="v" style="font-size:15px">${tt.receita==null?'—':ndec(tt.receita,1)}</div><div class="l">Receita 12m (${un})</div></div>`
+      +`<div class="stat" style="padding:9px 11px"><div class="v" style="font-size:15px">${tt.lucro==null?'—':ndec(tt.lucro,1)}</div><div class="l">Lucro 12m (${un})</div></div>`
+      +`<div class="stat" style="padding:9px 11px"><div class="v" style="font-size:15px">${tt.margem_liq==null?'—':Math.round(tt.margem_liq)+'%'}</div><div class="l">Margem líq. 12m</div></div>`
+      +`</div>`
+      +`<div class="cap" style="margin-top:8px">Último tri vs 1 ano (${yy.base||'—'}): receita <span style="color:${yy.receita_pct>=0?C.success:C.danger}">${pctv(yy.receita_pct)}</span> · lucro <span style="color:${yy.lucro_pct>=0?C.success:C.danger}">${pctv(yy.lucro_pct)}</span></div></div>`;
+  }
+  document.getElementById('frBody').innerHTML=
+   `<div class="cap" style="margin:2px 0 10px">${e.nome_cvm||''} · CNPJ ${e.cnpj||'—'} · <b>${e.n_fatos_2anos}</b> fatos e <b>${e.n_resultados_2anos}</b> anúncios de resultado nos últimos 24 meses</div>`
+   +(f?`<div class="grid g2" style="margin-bottom:14px">${fundCard}${dreCard}</div>`:'')
+   +`<div class="grid g2">`
+   +`<div class="card"><h3 style="margin-top:0">Fatos relevantes (mais recentes)</h3><div style="overflow-x:auto"><table><tbody>${fatos}</tbody></table></div></div>`
+   +`<div class="card"><h3 style="margin-top:0">Anúncios de resultados (2 anos)</h3><div style="overflow-x:auto"><table><tbody>${res}</tbody></table></div></div>`
+   +`</div>`;
+}
+
+// ================= PRIO3 × PETR × CVX vs BRENT (resumo) =================
+async function loadOilPeersMercado(){
+  const st=document.getElementById('opmStatus');
+  try{const d=await(await fetch('oil_peers_compare.json',{cache:'no-store'})).json();
+    const rc=(v)=>v==null?'—':`<span class="${v>=0?'up':'down'}">${v>0?'+':''}${v}%</span>`;
+    const names=['PRIO3','PETR3','CVX'], lbls=['PRIO3','Petrobras','Chevron'];
+    const tb=document.querySelector('#tblOpm tbody'); tb.innerHTML='';
+    names.forEach((k,i)=>{const sn=d.snapshot[k],e=d.efeito_brent[k],r=d.relativo_252d[k];
+      const tr=document.createElement('tr');
+      tr.innerHTML=`<td><b>${lbls[i]}</b></td><td style="text-align:right">${rc(sn.ret_ytd_pct)}</td>`
+        +`<td style="text-align:right">${r.beta}</td><td style="text-align:right" class="up">+${e.brent_alta.media_pct}%</td>`
+        +`<td style="text-align:right" class="down">${e.brent_baixa.media_pct}%</td><td style="text-align:right">${e.brent_alta.acerto_pct}%</td>`;
+      tb.appendChild(tr);});
+    document.getElementById('opmLeitura').textContent=d.leitura||'';
+    const up=names.map(k=>d.efeito_brent[k].brent_alta.media_pct), dn=names.map(k=>d.efeito_brent[k].brent_baixa.media_pct);
+    if(window._chOpm)window._chOpm.destroy();
+    window._chOpm=new Chart(document.getElementById('chOpm'),{type:'bar',
+      data:{labels:lbls,datasets:[{label:'Brent ↑ (média %)',data:up,backgroundColor:C.success,borderRadius:4},{label:'Brent ↓ (média %)',data:dn,backgroundColor:C.danger,borderRadius:4}]},
+      options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},scales:{x:{grid:{display:false}},y:{grid:{color:C.grid},title:{display:true,text:'Retorno médio (%)'}}}}});
+    if(st){st.textContent='ok';st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';}
+  }catch(e){if(st){st.textContent='indisponível';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
+}
+
+(async()=>{
+  // renders rápidos (JSON estático) primeiro; chamadas ao vivo (lentas) por último
+  await loadAnalise(); await loadMacro(); await loadFund(); await loadFatos(); await loadOilPeersMercado();
+  loadOil(); await loadQuotes(); setInterval(loadQuotes,60000);
+})();
+</script>
+</body>
+</html>

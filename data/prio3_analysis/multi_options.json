@@ -1,0 +1,4905 @@
+{
+  "atualizado": "2026-08-22",
+  "ultimo_pregao": "2026-08-21",
+  "ativos": {
+    "PRIO3": {
+      "nome": "Prio S.A.",
+      "setor": "Óleo & Gás",
+      "root": "PRIO",
+      "preco": 62.04,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 4357,
+      "n_movers_10x": 29,
+      "termometro": {
+        "pcr_volume": 0.33,
+        "pcr_negocios": 0.82,
+        "call_vol": 19534507,
+        "put_vol": 6360785,
+        "strikes_ativos": [
+          {
+            "strike": 56.0,
+            "vol": 6502537
+          },
+          {
+            "strike": 57.0,
+            "vol": 6283494
+          },
+          {
+            "strike": 61.0,
+            "vol": 1338323
+          },
+          {
+            "strike": 62.0,
+            "vol": 654596
+          },
+          {
+            "strike": 62.5,
+            "vol": 604673
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "PRIOP640W1",
+          "tipo": "PUT",
+          "strike": 64.0,
+          "venc": "2026-04-02",
+          "d0": "2026-03-30",
+          "p0": 0.07,
+          "d1": "2026-04-01",
+          "p1": 2.1,
+          "mult": 30.0,
+          "pregoes": 2
+        },
+        {
+          "cod": "PRIOP650W1",
+          "tipo": "PUT",
+          "strike": 65.0,
+          "venc": "2026-04-02",
+          "d0": "2026-03-30",
+          "p0": 0.11,
+          "d1": "2026-04-01",
+          "p1": 2.6,
+          "mult": 23.6,
+          "pregoes": 2
+        },
+        {
+          "cod": "PRIOP660W1",
+          "tipo": "PUT",
+          "strike": 66.0,
+          "venc": "2026-04-02",
+          "d0": "2026-03-30",
+          "p0": 0.14,
+          "d1": "2026-04-01",
+          "p1": 2.72,
+          "mult": 19.4,
+          "pregoes": 2
+        },
+        {
+          "cod": "PRIOP680W1",
+          "tipo": "PUT",
+          "strike": 68.0,
+          "venc": "2026-04-02",
+          "d0": "2026-03-30",
+          "p0": 0.3,
+          "d1": "2026-04-01",
+          "p1": 5.2,
+          "mult": 17.3,
+          "pregoes": 2
+        },
+        {
+          "cod": "PRIOP670W1",
+          "tipo": "PUT",
+          "strike": 67.0,
+          "venc": "2026-04-02",
+          "d0": "2026-03-30",
+          "p0": 0.21,
+          "d1": "2026-04-01",
+          "p1": 3.56,
+          "mult": 17.0,
+          "pregoes": 2
+        },
+        {
+          "cod": "PRIOG590W5",
+          "tipo": "CALL",
+          "strike": 59.0,
+          "venc": "2026-07-31",
+          "d0": "2026-07-28",
+          "p0": 0.14,
+          "d1": "2026-07-31",
+          "p1": 2.0,
+          "mult": 14.3,
+          "pregoes": 3
+        },
+        {
+          "cod": "PRIOG555W2",
+          "tipo": "CALL",
+          "strike": 55.5,
+          "venc": "2026-07-10",
+          "d0": "2026-07-06",
+          "p0": 0.12,
+          "d1": "2026-07-08",
+          "p1": 1.59,
+          "mult": 13.3,
+          "pregoes": 2
+        },
+        {
+          "cod": "PRIOG550W2",
+          "tipo": "CALL",
+          "strike": 55.0,
+          "venc": "2026-07-10",
+          "d0": "2026-07-02",
+          "p0": 0.15,
+          "d1": "2026-07-08",
+          "p1": 1.93,
+          "mult": 12.9,
+          "pregoes": 4
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "PRIOI570",
+          "tipo": "CALL",
+          "strike": 57.0,
+          "venc": "2026-09-18",
+          "close": 6.45,
+          "vol": 6249904,
+          "neg": 24,
+          "chg_pct": -3.2
+        },
+        {
+          "cod": "PRIOH560",
+          "tipo": "CALL",
+          "strike": 56.0,
+          "venc": "2026-08-21",
+          "close": 6.7,
+          "vol": 6223792,
+          "neg": 11,
+          "chg_pct": -0.9
+        },
+        {
+          "cod": "PRIOH610",
+          "tipo": "CALL",
+          "strike": 61.0,
+          "venc": "2026-08-21",
+          "close": 1.73,
+          "vol": 1055767,
+          "neg": 28,
+          "chg_pct": 57.3
+        },
+        {
+          "cod": "PRIOU670",
+          "tipo": "PUT",
+          "strike": 67.0,
+          "venc": "2026-09-18",
+          "close": 4.62,
+          "vol": 441486,
+          "neg": 46,
+          "chg_pct": -4.0
+        },
+        {
+          "cod": "PRIOU675",
+          "tipo": "PUT",
+          "strike": 67.5,
+          "venc": "2026-09-18",
+          "close": 5.0,
+          "vol": 432325,
+          "neg": 71,
+          "chg_pct": -6.0
+        },
+        {
+          "cod": "PRIOV740",
+          "tipo": "PUT",
+          "strike": 74.0,
+          "venc": "2026-10-16",
+          "close": 10.72,
+          "vol": 378940,
+          "neg": 14,
+          "chg_pct": 2.2
+        },
+        {
+          "cod": "PRIOI590",
+          "tipo": "CALL",
+          "strike": 59.0,
+          "venc": "2026-09-18",
+          "close": 4.77,
+          "vol": 367493,
+          "neg": 25,
+          "chg_pct": 9.9
+        },
+        {
+          "cod": "PRIOU615",
+          "tipo": "PUT",
+          "strike": 61.5,
+          "venc": "2026-09-18",
+          "close": 1.46,
+          "vol": 330364,
+          "neg": 121,
+          "chg_pct": -14.6
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "PRIOI615W1",
+          "strike": 61.5,
+          "venc": "2026-09-04",
+          "premio": 2.27,
+          "vol": 9080,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": -0.9
+        },
+        "put": {
+          "cod": "PRIOU620W1",
+          "strike": 62.0,
+          "venc": "2026-09-04",
+          "premio": 1.11,
+          "vol": 222,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": -0.1
+        }
+      }
+    },
+    "BRAV3": {
+      "nome": "Brava Energia",
+      "setor": "Óleo & Gás",
+      "root": "BRAV",
+      "preco": 18.8,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 2203,
+      "n_movers_10x": 26,
+      "termometro": {
+        "pcr_volume": 20.8,
+        "pcr_negocios": 1.04,
+        "call_vol": 477667,
+        "put_vol": 9937677,
+        "strikes_ativos": [
+          {
+            "strike": 20.38,
+            "vol": 6886479
+          },
+          {
+            "strike": 37.13,
+            "vol": 1591291
+          },
+          {
+            "strike": 19.88,
+            "vol": 294687
+          },
+          {
+            "strike": 38.88,
+            "vol": 193596
+          },
+          {
+            "strike": 37.38,
+            "vol": 155323
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "BRAVC185W4",
+          "tipo": "CALL",
+          "strike": 18.5,
+          "venc": "2026-03-27",
+          "d0": "2026-03-23",
+          "p0": 0.07,
+          "d1": "2026-03-26",
+          "p1": 1.44,
+          "mult": 20.6,
+          "pregoes": 3
+        },
+        {
+          "cod": "BRAVC190W4",
+          "tipo": "CALL",
+          "strike": 19.0,
+          "venc": "2026-03-27",
+          "d0": "2026-03-20",
+          "p0": 0.05,
+          "d1": "2026-03-26",
+          "p1": 1.0,
+          "mult": 20.0,
+          "pregoes": 4
+        },
+        {
+          "cod": "BRAVD190W1",
+          "tipo": "CALL",
+          "strike": 18.86,
+          "venc": "2026-04-02",
+          "d0": "2026-03-23",
+          "p0": 0.09,
+          "d1": "2026-03-30",
+          "p1": 1.5,
+          "mult": 16.7,
+          "pregoes": 5
+        },
+        {
+          "cod": "BRAVD193W1",
+          "tipo": "CALL",
+          "strike": 19.36,
+          "venc": "2026-04-02",
+          "d0": "2026-03-20",
+          "p0": 0.09,
+          "d1": "2026-03-30",
+          "p1": 1.44,
+          "mult": 16.0,
+          "pregoes": 4
+        },
+        {
+          "cod": "BRAVD196W2",
+          "tipo": "CALL",
+          "strike": 19.61,
+          "venc": "2026-04-10",
+          "d0": "2026-03-23",
+          "p0": 0.08,
+          "d1": "2026-04-02",
+          "p1": 1.22,
+          "mult": 15.2,
+          "pregoes": 6
+        },
+        {
+          "cod": "BRAVC180W4",
+          "tipo": "CALL",
+          "strike": 18.0,
+          "venc": "2026-03-27",
+          "d0": "2026-03-20",
+          "p0": 0.14,
+          "d1": "2026-03-26",
+          "p1": 2.0,
+          "mult": 14.3,
+          "pregoes": 4
+        },
+        {
+          "cod": "BRAVD191W1",
+          "tipo": "CALL",
+          "strike": 19.11,
+          "venc": "2026-04-02",
+          "d0": "2026-03-20",
+          "p0": 0.1,
+          "d1": "2026-03-31",
+          "p1": 1.41,
+          "mult": 14.1,
+          "pregoes": 6
+        },
+        {
+          "cod": "BRAVD186W2",
+          "tipo": "CALL",
+          "strike": 18.61,
+          "venc": "2026-04-10",
+          "d0": "2026-03-20",
+          "p0": 0.17,
+          "d1": "2026-03-31",
+          "p1": 2.27,
+          "mult": 13.4,
+          "pregoes": 5
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "BRAVT203",
+          "tipo": "PUT",
+          "strike": 20.38,
+          "venc": "2026-08-21",
+          "close": 1.6,
+          "vol": 3486765,
+          "neg": 17,
+          "chg_pct": 6.7
+        },
+        {
+          "cod": "BRAVU205",
+          "tipo": "PUT",
+          "strike": 20.38,
+          "venc": "2026-09-18",
+          "close": 1.52,
+          "vol": 3397330,
+          "neg": 9,
+          "chg_pct": 5.6
+        },
+        {
+          "cod": "BRAVT372",
+          "tipo": "PUT",
+          "strike": 37.13,
+          "venc": "2026-08-21",
+          "close": 18.17,
+          "vol": 1057891,
+          "neg": 14,
+          "chg_pct": -0.9
+        },
+        {
+          "cod": "BRAVU372",
+          "tipo": "PUT",
+          "strike": 37.13,
+          "venc": "2026-09-18",
+          "close": 17.78,
+          "vol": 533400,
+          "neg": 2,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "BRAVM390",
+          "tipo": "PUT",
+          "strike": 38.88,
+          "venc": "2027-01-15",
+          "close": 18.02,
+          "vol": 193596,
+          "neg": 2,
+          "chg_pct": 0.7
+        },
+        {
+          "cod": "BRAVT200",
+          "tipo": "PUT",
+          "strike": 19.88,
+          "venc": "2026-08-21",
+          "close": 1.12,
+          "vol": 178155,
+          "neg": 131,
+          "chg_pct": 3.7
+        },
+        {
+          "cod": "BRAVW373",
+          "tipo": "PUT",
+          "strike": 37.38,
+          "venc": "2026-11-19",
+          "close": 17.25,
+          "vol": 155323,
+          "neg": 5,
+          "chg_pct": -0.1
+        },
+        {
+          "cod": "BRAVJ143",
+          "tipo": "CALL",
+          "strike": 14.38,
+          "venc": "2026-10-16",
+          "close": 4.77,
+          "vol": 119661,
+          "neg": 138,
+          "chg_pct": -1.6
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "BRAVI191W1",
+          "strike": 19.13,
+          "venc": "2026-09-04",
+          "premio": 0.43,
+          "vol": 262,
+          "neg": 3,
+          "moneyness": "ATM",
+          "dist_strike_pct": 1.8
+        },
+        "put": {
+          "cod": "BRAVU190",
+          "strike": 18.88,
+          "venc": "2026-09-18",
+          "premio": 0.58,
+          "vol": 29306,
+          "neg": 142,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.4
+        }
+      }
+    },
+    "MGLU3": {
+      "nome": "Magazine Luiza",
+      "setor": "Varejo",
+      "root": "MGLU",
+      "preco": 3.88,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 3012,
+      "n_movers_10x": 7,
+      "termometro": {
+        "pcr_volume": 9.53,
+        "pcr_negocios": 1.2,
+        "call_vol": 1835384,
+        "put_vol": 17495705,
+        "strikes_ativos": [
+          {
+            "strike": 27.43,
+            "vol": 2659005
+          },
+          {
+            "strike": 15.55,
+            "vol": 2478046
+          },
+          {
+            "strike": 16.89,
+            "vol": 2475564
+          },
+          {
+            "strike": 8.5,
+            "vol": 647535
+          },
+          {
+            "strike": 5.2,
+            "vol": 598015
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "MGLUC131",
+          "tipo": "CALL",
+          "strike": 12.56,
+          "venc": "2026-03-20",
+          "d0": "2026-01-19",
+          "p0": 0.08,
+          "d1": "2026-01-27",
+          "p1": 1.96,
+          "mult": 24.5,
+          "pregoes": 6
+        },
+        {
+          "cod": "MGLUR615W1",
+          "tipo": "PUT",
+          "strike": 6.15,
+          "venc": "2026-06-05",
+          "d0": "2026-05-27",
+          "p0": 0.05,
+          "d1": "2026-06-05",
+          "p1": 0.7,
+          "mult": 14.0,
+          "pregoes": 6
+        },
+        {
+          "cod": "MGLUA980W5",
+          "tipo": "CALL",
+          "strike": 9.33,
+          "venc": "2026-01-30",
+          "d0": "2026-01-20",
+          "p0": 0.06,
+          "d1": "2026-01-28",
+          "p1": 0.72,
+          "mult": 12.0,
+          "pregoes": 6
+        },
+        {
+          "cod": "MGLUG449W2",
+          "tipo": "CALL",
+          "strike": 4.49,
+          "venc": "2026-07-10",
+          "d0": "2026-07-08",
+          "p0": 0.06,
+          "d1": "2026-07-10",
+          "p1": 0.72,
+          "mult": 12.0,
+          "pregoes": 2
+        },
+        {
+          "cod": "MGLUR595W1",
+          "tipo": "PUT",
+          "strike": 5.95,
+          "venc": "2026-06-05",
+          "d0": "2026-05-28",
+          "p0": 0.05,
+          "d1": "2026-06-03",
+          "p1": 0.6,
+          "mult": 12.0,
+          "pregoes": 4
+        },
+        {
+          "cod": "MGLUR514",
+          "tipo": "PUT",
+          "strike": 5.14,
+          "venc": "2026-06-19",
+          "d0": "2026-06-09",
+          "p0": 0.06,
+          "d1": "2026-06-18",
+          "p1": 0.63,
+          "mult": 10.5,
+          "pregoes": 7
+        },
+        {
+          "cod": "MGLUR504",
+          "tipo": "PUT",
+          "strike": 5.04,
+          "venc": "2026-06-19",
+          "d0": "2026-06-09",
+          "p0": 0.05,
+          "d1": "2026-06-18",
+          "p1": 0.52,
+          "mult": 10.4,
+          "pregoes": 7
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "MGLUU274",
+          "tipo": "PUT",
+          "strike": 27.43,
+          "venc": "2026-09-18",
+          "close": 23.01,
+          "vol": 2659005,
+          "neg": 28,
+          "chg_pct": -0.0
+        },
+        {
+          "cod": "MGLUU155",
+          "tipo": "PUT",
+          "strike": 15.55,
+          "venc": "2026-09-18",
+          "close": 11.26,
+          "vol": 2478046,
+          "neg": 24,
+          "chg_pct": -0.2
+        },
+        {
+          "cod": "MGLUT168",
+          "tipo": "PUT",
+          "strike": 16.89,
+          "venc": "2026-08-21",
+          "close": 12.78,
+          "vol": 2475564,
+          "neg": 22,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "MGLUU850",
+          "tipo": "PUT",
+          "strike": 8.5,
+          "venc": "2026-09-18",
+          "close": 4.32,
+          "vol": 647535,
+          "neg": 34,
+          "chg_pct": 0.2
+        },
+        {
+          "cod": "MGLUU183",
+          "tipo": "PUT",
+          "strike": 18.3,
+          "venc": "2026-09-18",
+          "close": 13.97,
+          "vol": 583310,
+          "neg": 11,
+          "chg_pct": -0.1
+        },
+        {
+          "cod": "MGLUU520",
+          "tipo": "PUT",
+          "strike": 5.2,
+          "venc": "2026-09-18",
+          "close": 1.05,
+          "vol": 574058,
+          "neg": 396,
+          "chg_pct": -12.5
+        },
+        {
+          "cod": "MGLUT106",
+          "tipo": "PUT",
+          "strike": 10.67,
+          "venc": "2026-08-21",
+          "close": 6.55,
+          "vol": 430320,
+          "neg": 2,
+          "chg_pct": -0.5
+        },
+        {
+          "cod": "MGLUU103",
+          "tipo": "PUT",
+          "strike": 10.3,
+          "venc": "2026-09-18",
+          "close": 6.05,
+          "vol": 363000,
+          "neg": 5,
+          "chg_pct": 0.0
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "MGLUI386W1",
+          "strike": 3.86,
+          "venc": "2026-09-04",
+          "premio": 0.37,
+          "vol": 1850,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": -0.5
+        },
+        "put": {
+          "cod": "MGLUU391W1",
+          "strike": 3.91,
+          "venc": "2026-09-04",
+          "premio": 0.14,
+          "vol": 14,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.8
+        }
+      }
+    },
+    "LREN3": {
+      "nome": "Lojas Renner",
+      "setor": "Varejo",
+      "root": "LREN",
+      "preco": 10.5,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 1584,
+      "n_movers_10x": 22,
+      "termometro": {
+        "pcr_volume": 6.3,
+        "pcr_negocios": 1.47,
+        "call_vol": 961692,
+        "put_vol": 6058346,
+        "strikes_ativos": [
+          {
+            "strike": 37.77,
+            "vol": 1067154
+          },
+          {
+            "strike": 36.07,
+            "vol": 1065900
+          },
+          {
+            "strike": 11.42,
+            "vol": 334992
+          },
+          {
+            "strike": 11.92,
+            "vol": 309951
+          },
+          {
+            "strike": 18.64,
+            "vol": 288898
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "LRENT124W2",
+          "tipo": "PUT",
+          "strike": 12.42,
+          "venc": "2026-08-14",
+          "d0": "2026-08-05",
+          "p0": 0.05,
+          "d1": "2026-08-14",
+          "p1": 1.33,
+          "mult": 26.6,
+          "pregoes": 7
+        },
+        {
+          "cod": "LRENA145W5",
+          "tipo": "CALL",
+          "strike": 14.5,
+          "venc": "2026-01-30",
+          "d0": "2026-01-19",
+          "p0": 0.05,
+          "d1": "2026-01-28",
+          "p1": 1.02,
+          "mult": 20.4,
+          "pregoes": 7
+        },
+        {
+          "cod": "LRENA147W5",
+          "tipo": "CALL",
+          "strike": 14.75,
+          "venc": "2026-01-30",
+          "d0": "2026-01-20",
+          "p0": 0.05,
+          "d1": "2026-01-28",
+          "p1": 0.95,
+          "mult": 19.0,
+          "pregoes": 6
+        },
+        {
+          "cod": "LRENT129W1",
+          "tipo": "PUT",
+          "strike": 12.92,
+          "venc": "2026-08-07",
+          "d0": "2026-08-03",
+          "p0": 0.05,
+          "d1": "2026-08-07",
+          "p1": 0.87,
+          "mult": 17.4,
+          "pregoes": 4
+        },
+        {
+          "cod": "LRENE142W4",
+          "tipo": "CALL",
+          "strike": 14.21,
+          "venc": "2026-05-22",
+          "d0": "2026-05-19",
+          "p0": 0.06,
+          "d1": "2026-05-22",
+          "p1": 1.04,
+          "mult": 17.3,
+          "pregoes": 3
+        },
+        {
+          "cod": "LRENT124",
+          "tipo": "PUT",
+          "strike": 12.07,
+          "venc": "2026-08-21",
+          "d0": "2026-08-05",
+          "p0": 0.05,
+          "d1": "2026-08-14",
+          "p1": 0.85,
+          "mult": 17.0,
+          "pregoes": 7
+        },
+        {
+          "cod": "LRENT125",
+          "tipo": "PUT",
+          "strike": 12.32,
+          "venc": "2026-08-21",
+          "d0": "2026-08-05",
+          "p0": 0.07,
+          "d1": "2026-08-14",
+          "p1": 1.16,
+          "mult": 16.6,
+          "pregoes": 7
+        },
+        {
+          "cod": "LRENT129W2",
+          "tipo": "PUT",
+          "strike": 12.92,
+          "venc": "2026-08-14",
+          "d0": "2026-08-05",
+          "p0": 0.13,
+          "d1": "2026-08-14",
+          "p1": 1.85,
+          "mult": 14.2,
+          "pregoes": 7
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "LRENX377",
+          "tipo": "PUT",
+          "strike": 37.77,
+          "venc": "2026-12-18",
+          "close": 25.53,
+          "vol": 1067154,
+          "neg": 1,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "LRENT362",
+          "tipo": "PUT",
+          "strike": 36.07,
+          "venc": "2026-08-21",
+          "close": 25.5,
+          "vol": 1065900,
+          "neg": 1,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "LRENT220",
+          "tipo": "PUT",
+          "strike": 18.64,
+          "venc": "2026-08-21",
+          "close": 7.85,
+          "vol": 288898,
+          "neg": 11,
+          "chg_pct": -1.9
+        },
+        {
+          "cod": "LRENU189",
+          "tipo": "PUT",
+          "strike": 18.92,
+          "venc": "2026-09-18",
+          "close": 7.92,
+          "vol": 268488,
+          "neg": 10,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "LRENI117",
+          "tipo": "CALL",
+          "strike": 11.42,
+          "venc": "2026-09-18",
+          "close": 0.34,
+          "vol": 189619,
+          "neg": 375,
+          "chg_pct": 54.5
+        },
+        {
+          "cod": "LRENU134",
+          "tipo": "PUT",
+          "strike": 13.42,
+          "venc": "2026-09-18",
+          "close": 2.39,
+          "vol": 181680,
+          "neg": 37,
+          "chg_pct": -5.9
+        },
+        {
+          "cod": "LRENU139",
+          "tipo": "PUT",
+          "strike": 13.92,
+          "venc": "2026-09-18",
+          "close": 2.85,
+          "vol": 176815,
+          "neg": 50,
+          "chg_pct": -5.0
+        },
+        {
+          "cod": "LRENU121",
+          "tipo": "PUT",
+          "strike": 12.17,
+          "venc": "2026-09-18",
+          "close": 1.24,
+          "vol": 164089,
+          "neg": 58,
+          "chg_pct": -11.4
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "LRENI108W1",
+          "strike": 10.82,
+          "venc": "2026-09-04",
+          "premio": 0.34,
+          "vol": 1700,
+          "neg": 1,
+          "moneyness": "OTM",
+          "dist_strike_pct": 3.0
+        },
+        "put": {
+          "cod": "LRENU108W1",
+          "strike": 10.82,
+          "venc": "2026-09-04",
+          "premio": 0.29,
+          "vol": 610,
+          "neg": 3,
+          "moneyness": "ITM",
+          "dist_strike_pct": 3.0
+        }
+      }
+    },
+    "EQTL3": {
+      "nome": "Equatorial Energia",
+      "setor": "Energia elétrica",
+      "root": "EQTL",
+      "preco": 34.97,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 2001,
+      "n_movers_10x": 56,
+      "termometro": {
+        "pcr_volume": 1.0,
+        "pcr_negocios": 0.92,
+        "call_vol": 1791946,
+        "put_vol": 1784546,
+        "strikes_ativos": [
+          {
+            "strike": 36.74,
+            "vol": 962087
+          },
+          {
+            "strike": 34.99,
+            "vol": 337585
+          },
+          {
+            "strike": 37.99,
+            "vol": 321639
+          },
+          {
+            "strike": 34.74,
+            "vol": 266314
+          },
+          {
+            "strike": 35.99,
+            "vol": 229580
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "EQTLA385W4",
+          "tipo": "CALL",
+          "strike": 38.39,
+          "venc": "2026-01-23",
+          "d0": "2026-01-20",
+          "p0": 0.07,
+          "d1": "2026-01-23",
+          "p1": 1.94,
+          "mult": 27.7,
+          "pregoes": 3
+        },
+        {
+          "cod": "EQTLT356",
+          "tipo": "PUT",
+          "strike": 35.49,
+          "venc": "2026-08-21",
+          "d0": "2026-08-05",
+          "p0": 0.06,
+          "d1": "2026-08-14",
+          "p1": 1.65,
+          "mult": 27.5,
+          "pregoes": 7
+        },
+        {
+          "cod": "EQTLQ402",
+          "tipo": "PUT",
+          "strike": 40.24,
+          "venc": "2026-05-15",
+          "d0": "2026-05-06",
+          "p0": 0.07,
+          "d1": "2026-05-15",
+          "p1": 1.85,
+          "mult": 26.4,
+          "pregoes": 7
+        },
+        {
+          "cod": "EQTLQ404",
+          "tipo": "PUT",
+          "strike": 40.49,
+          "venc": "2026-05-15",
+          "d0": "2026-05-06",
+          "p0": 0.08,
+          "d1": "2026-05-15",
+          "p1": 1.95,
+          "mult": 24.4,
+          "pregoes": 7
+        },
+        {
+          "cod": "EQTLQ412",
+          "tipo": "PUT",
+          "strike": 41.24,
+          "venc": "2026-05-15",
+          "d0": "2026-05-06",
+          "p0": 0.13,
+          "d1": "2026-05-15",
+          "p1": 2.95,
+          "mult": 22.7,
+          "pregoes": 5
+        },
+        {
+          "cod": "EQTLT362",
+          "tipo": "PUT",
+          "strike": 36.24,
+          "venc": "2026-08-21",
+          "d0": "2026-08-05",
+          "p0": 0.09,
+          "d1": "2026-08-14",
+          "p1": 2.0,
+          "mult": 22.2,
+          "pregoes": 7
+        },
+        {
+          "cod": "EQTLA390W4",
+          "tipo": "CALL",
+          "strike": 38.89,
+          "venc": "2026-01-23",
+          "d0": "2026-01-20",
+          "p0": 0.07,
+          "d1": "2026-01-22",
+          "p1": 1.45,
+          "mult": 20.7,
+          "pregoes": 2
+        },
+        {
+          "cod": "EQTLT359",
+          "tipo": "PUT",
+          "strike": 35.99,
+          "venc": "2026-08-21",
+          "d0": "2026-08-04",
+          "p0": 0.1,
+          "d1": "2026-08-14",
+          "p1": 2.04,
+          "mult": 20.4,
+          "pregoes": 7
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "EQTLU367",
+          "tipo": "PUT",
+          "strike": 36.74,
+          "venc": "2026-09-18",
+          "close": 1.41,
+          "vol": 619281,
+          "neg": 12,
+          "chg_pct": -11.9
+        },
+        {
+          "cod": "EQTLI367",
+          "tipo": "CALL",
+          "strike": 36.74,
+          "venc": "2026-09-18",
+          "close": 0.9,
+          "vol": 342806,
+          "neg": 7,
+          "chg_pct": 7.1
+        },
+        {
+          "cod": "EQTLU349",
+          "tipo": "PUT",
+          "strike": 34.99,
+          "venc": "2026-09-18",
+          "close": 0.62,
+          "vol": 250549,
+          "neg": 156,
+          "chg_pct": -24.4
+        },
+        {
+          "cod": "EQTLI379",
+          "tipo": "CALL",
+          "strike": 37.99,
+          "venc": "2026-09-18",
+          "close": 0.49,
+          "vol": 221526,
+          "neg": 141,
+          "chg_pct": 32.4
+        },
+        {
+          "cod": "EQTLI347",
+          "tipo": "CALL",
+          "strike": 34.74,
+          "venc": "2026-09-18",
+          "close": 2.0,
+          "vol": 187286,
+          "neg": 23,
+          "chg_pct": 8.1
+        },
+        {
+          "cod": "EQTLI372",
+          "tipo": "CALL",
+          "strike": 37.24,
+          "venc": "2026-09-18",
+          "close": 0.73,
+          "vol": 181903,
+          "neg": 35,
+          "chg_pct": 58.7
+        },
+        {
+          "cod": "EQTLI359",
+          "tipo": "CALL",
+          "strike": 35.99,
+          "venc": "2026-09-18",
+          "close": 1.23,
+          "vol": 130281,
+          "neg": 31,
+          "chg_pct": 7.9
+        },
+        {
+          "cod": "EQTLU379",
+          "tipo": "PUT",
+          "strike": 37.99,
+          "venc": "2026-09-18",
+          "close": 2.29,
+          "vol": 96120,
+          "neg": 11,
+          "chg_pct": -19.6
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "EQTLI354W1",
+          "strike": 35.49,
+          "venc": "2026-09-04",
+          "premio": 1.19,
+          "vol": 595,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": 1.5
+        },
+        "put": {
+          "cod": "EQTLU359W1",
+          "strike": 35.99,
+          "venc": "2026-09-04",
+          "premio": 0.77,
+          "vol": 308,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": 2.9
+        }
+      }
+    },
+    "CMIG4": {
+      "nome": "Cemig",
+      "setor": "Energia elétrica",
+      "root": "CMIG",
+      "preco": 9.95,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 1265,
+      "n_movers_10x": 6,
+      "termometro": {
+        "pcr_volume": 17.81,
+        "pcr_negocios": 1.72,
+        "call_vol": 485438,
+        "put_vol": 8645379,
+        "strikes_ativos": [
+          {
+            "strike": 12.31,
+            "vol": 4489396
+          },
+          {
+            "strike": 11.36,
+            "vol": 2909784
+          },
+          {
+            "strike": 12.71,
+            "vol": 313234
+          },
+          {
+            "strike": 10.86,
+            "vol": 178354
+          },
+          {
+            "strike": 11.96,
+            "vol": 159575
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "CMIGP135W5",
+          "tipo": "PUT",
+          "strike": 13.31,
+          "venc": "2026-04-30",
+          "d0": "2026-04-20",
+          "p0": 0.06,
+          "d1": "2026-04-29",
+          "p1": 0.84,
+          "mult": 14.0,
+          "pregoes": 6
+        },
+        {
+          "cod": "CMIGP13W5",
+          "tipo": "PUT",
+          "strike": 13.06,
+          "venc": "2026-04-30",
+          "d0": "2026-04-22",
+          "p0": 0.05,
+          "d1": "2026-04-29",
+          "p1": 0.62,
+          "mult": 12.4,
+          "pregoes": 4
+        },
+        {
+          "cod": "CMIGT108W2",
+          "tipo": "PUT",
+          "strike": 10.81,
+          "venc": "2026-08-14",
+          "d0": "2026-08-04",
+          "p0": 0.05,
+          "d1": "2026-08-13",
+          "p1": 0.55,
+          "mult": 11.0,
+          "pregoes": 7
+        },
+        {
+          "cod": "CMIGB127",
+          "tipo": "CALL",
+          "strike": 11.42,
+          "venc": "2026-02-20",
+          "d0": "2026-01-19",
+          "p0": 0.05,
+          "d1": "2026-01-23",
+          "p1": 0.51,
+          "mult": 10.2,
+          "pregoes": 4
+        },
+        {
+          "cod": "CMIGT11",
+          "tipo": "PUT",
+          "strike": 10.86,
+          "venc": "2026-08-21",
+          "d0": "2026-08-05",
+          "p0": 0.06,
+          "d1": "2026-08-13",
+          "p1": 0.61,
+          "mult": 10.2,
+          "pregoes": 6
+        },
+        {
+          "cod": "CMIGT110W2",
+          "tipo": "PUT",
+          "strike": 11.06,
+          "venc": "2026-08-14",
+          "d0": "2026-08-05",
+          "p0": 0.08,
+          "d1": "2026-08-13",
+          "p1": 0.8,
+          "mult": 10.0,
+          "pregoes": 5
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "CMIGV124",
+          "tipo": "PUT",
+          "strike": 12.31,
+          "venc": "2026-10-16",
+          "close": 2.0,
+          "vol": 4401100,
+          "neg": 2,
+          "chg_pct": -0.5
+        },
+        {
+          "cod": "CMIGT115",
+          "tipo": "PUT",
+          "strike": 11.36,
+          "venc": "2026-08-21",
+          "close": 1.26,
+          "vol": 2758446,
+          "neg": 7,
+          "chg_pct": -7.4
+        },
+        {
+          "cod": "CMIGT131",
+          "tipo": "PUT",
+          "strike": 12.71,
+          "venc": "2026-08-21",
+          "close": 2.64,
+          "vol": 313234,
+          "neg": 16,
+          "chg_pct": 0.4
+        },
+        {
+          "cod": "CMIGT125",
+          "tipo": "PUT",
+          "strike": 11.96,
+          "venc": "2026-08-21",
+          "close": 1.87,
+          "vol": 159574,
+          "neg": 21,
+          "chg_pct": -7.4
+        },
+        {
+          "cod": "CMIGU120",
+          "tipo": "PUT",
+          "strike": 11.86,
+          "venc": "2026-09-18",
+          "close": 1.67,
+          "vol": 142423,
+          "neg": 29,
+          "chg_pct": -5.6
+        },
+        {
+          "cod": "CMIGU113",
+          "tipo": "PUT",
+          "strike": 11.36,
+          "venc": "2026-09-18",
+          "close": 1.19,
+          "vol": 127262,
+          "neg": 36,
+          "chg_pct": -8.5
+        },
+        {
+          "cod": "CMIGU110",
+          "tipo": "PUT",
+          "strike": 10.86,
+          "venc": "2026-09-18",
+          "close": 0.72,
+          "vol": 102145,
+          "neg": 38,
+          "chg_pct": -20.0
+        },
+        {
+          "cod": "CMIGT111",
+          "tipo": "PUT",
+          "strike": 10.96,
+          "venc": "2026-08-21",
+          "close": 0.86,
+          "vol": 92453,
+          "neg": 28,
+          "chg_pct": -14.0
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "CMIGI102W1",
+          "strike": 10.25,
+          "venc": "2026-09-04",
+          "premio": 0.1,
+          "vol": 70,
+          "neg": 1,
+          "moneyness": "OTM",
+          "dist_strike_pct": 3.0
+        },
+        "put": {
+          "cod": "CMIGU990W1",
+          "strike": 9.9,
+          "venc": "2026-09-04",
+          "premio": 0.09,
+          "vol": 138,
+          "neg": 3,
+          "moneyness": "ATM",
+          "dist_strike_pct": -0.5
+        }
+      }
+    },
+    "ITUB4": {
+      "nome": "Itaú Unibanco",
+      "setor": "Bancos",
+      "root": "ITUB",
+      "preco": 37.51,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 4812,
+      "n_movers_10x": 128,
+      "termometro": {
+        "pcr_volume": 1.06,
+        "pcr_negocios": 0.84,
+        "call_vol": 25349985,
+        "put_vol": 26830412,
+        "strikes_ativos": [
+          {
+            "strike": 39.05,
+            "vol": 8959189
+          },
+          {
+            "strike": 39.3,
+            "vol": 5882347
+          },
+          {
+            "strike": 36.71,
+            "vol": 3592028
+          },
+          {
+            "strike": 52.82,
+            "vol": 3094369
+          },
+          {
+            "strike": 51.7,
+            "vol": 3079370
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "ITUBA430W5",
+          "tipo": "CALL",
+          "strike": 41.73,
+          "venc": "2026-01-30",
+          "d0": "2026-01-20",
+          "p0": 0.06,
+          "d1": "2026-01-29",
+          "p1": 4.45,
+          "mult": 74.2,
+          "pregoes": 6
+        },
+        {
+          "cod": "ITUBA425W5",
+          "tipo": "CALL",
+          "strike": 41.24,
+          "venc": "2026-01-30",
+          "d0": "2026-01-19",
+          "p0": 0.08,
+          "d1": "2026-01-28",
+          "p1": 5.04,
+          "mult": 63.0,
+          "pregoes": 6
+        },
+        {
+          "cod": "ITUBB481",
+          "tipo": "CALL",
+          "strike": 44.58,
+          "venc": "2026-02-20",
+          "d0": "2026-01-19",
+          "p0": 0.05,
+          "d1": "2026-01-28",
+          "p1": 2.64,
+          "mult": 52.8,
+          "pregoes": 7
+        },
+        {
+          "cod": "ITUBA440W4",
+          "tipo": "CALL",
+          "strike": 40.58,
+          "venc": "2026-01-23",
+          "d0": "2026-01-19",
+          "p0": 0.06,
+          "d1": "2026-01-23",
+          "p1": 3.09,
+          "mult": 51.5,
+          "pregoes": 4
+        },
+        {
+          "cod": "ITUBB483",
+          "tipo": "CALL",
+          "strike": 44.82,
+          "venc": "2026-02-20",
+          "d0": "2026-01-20",
+          "p0": 0.05,
+          "d1": "2026-01-28",
+          "p1": 2.45,
+          "mult": 49.0,
+          "pregoes": 6
+        },
+        {
+          "cod": "ITUBB478",
+          "tipo": "CALL",
+          "strike": 44.34,
+          "venc": "2026-02-20",
+          "d0": "2026-01-19",
+          "p0": 0.06,
+          "d1": "2026-01-28",
+          "p1": 2.77,
+          "mult": 46.2,
+          "pregoes": 7
+        },
+        {
+          "cod": "ITUBA435W5",
+          "tipo": "CALL",
+          "strike": 42.21,
+          "venc": "2026-01-30",
+          "d0": "2026-01-15",
+          "p0": 0.08,
+          "d1": "2026-01-27",
+          "p1": 3.45,
+          "mult": 43.1,
+          "pregoes": 7
+        },
+        {
+          "cod": "ITUBT409W2",
+          "tipo": "PUT",
+          "strike": 40.64,
+          "venc": "2026-08-14",
+          "d0": "2026-08-05",
+          "p0": 0.06,
+          "d1": "2026-08-14",
+          "p1": 2.58,
+          "mult": 43.0,
+          "pregoes": 7
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "ITUBI431",
+          "tipo": "CALL",
+          "strike": 39.05,
+          "venc": "2026-09-18",
+          "close": 0.99,
+          "vol": 5229352,
+          "neg": 280,
+          "chg_pct": 80.0
+        },
+        {
+          "cod": "ITUBU431",
+          "tipo": "PUT",
+          "strike": 39.05,
+          "venc": "2026-09-18",
+          "close": 1.12,
+          "vol": 3664770,
+          "neg": 85,
+          "chg_pct": -30.0
+        },
+        {
+          "cod": "ITUBI36",
+          "tipo": "CALL",
+          "strike": 36.71,
+          "venc": "2026-09-18",
+          "close": 2.49,
+          "vol": 3531692,
+          "neg": 335,
+          "chg_pct": 33.9
+        },
+        {
+          "cod": "ITUBU399",
+          "tipo": "PUT",
+          "strike": 39.3,
+          "venc": "2026-09-18",
+          "close": 1.26,
+          "vol": 3523772,
+          "neg": 72,
+          "chg_pct": -23.2
+        },
+        {
+          "cod": "ITUBV535",
+          "tipo": "PUT",
+          "strike": 52.82,
+          "venc": "2026-10-16",
+          "close": 13.1,
+          "vol": 3094369,
+          "neg": 3,
+          "chg_pct": -2.5
+        },
+        {
+          "cod": "ITUBT523",
+          "tipo": "PUT",
+          "strike": 51.7,
+          "venc": "2026-08-21",
+          "close": 13.14,
+          "vol": 3079370,
+          "neg": 2,
+          "chg_pct": -1.6
+        },
+        {
+          "cod": "ITUBI399",
+          "tipo": "CALL",
+          "strike": 39.3,
+          "venc": "2026-09-18",
+          "close": 0.87,
+          "vol": 2324677,
+          "neg": 105,
+          "chg_pct": 77.6
+        },
+        {
+          "cod": "ITUBK362",
+          "tipo": "CALL",
+          "strike": 32.24,
+          "venc": "2026-11-19",
+          "close": 7.3,
+          "vol": 1390778,
+          "neg": 60,
+          "chg_pct": 0.7
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "ITUBI377W1",
+          "strike": 37.7,
+          "venc": "2026-09-04",
+          "premio": 1.45,
+          "vol": 94047,
+          "neg": 6,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.5
+        },
+        "put": {
+          "cod": "ITUBU374W1",
+          "strike": 37.45,
+          "venc": "2026-09-04",
+          "premio": 0.54,
+          "vol": 54,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": -0.2
+        }
+      }
+    },
+    "BBDC4": {
+      "nome": "Bradesco",
+      "setor": "Bancos",
+      "root": "BBDC",
+      "preco": 15.75,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 3889,
+      "n_movers_10x": 37,
+      "termometro": {
+        "pcr_volume": 3.44,
+        "pcr_negocios": 1.36,
+        "call_vol": 7145779,
+        "put_vol": 24558589,
+        "strikes_ativos": [
+          {
+            "strike": 21.01,
+            "vol": 4907592
+          },
+          {
+            "strike": 21.03,
+            "vol": 4023942
+          },
+          {
+            "strike": 16.28,
+            "vol": 2130473
+          },
+          {
+            "strike": 17.53,
+            "vol": 1054258
+          },
+          {
+            "strike": 22.9,
+            "vol": 1045016
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "BBDCA202W5",
+          "tipo": "CALL",
+          "strike": 19.88,
+          "venc": "2026-01-30",
+          "d0": "2026-01-16",
+          "p0": 0.06,
+          "d1": "2026-01-27",
+          "p1": 1.65,
+          "mult": 27.5,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBDCA195W4",
+          "tipo": "CALL",
+          "strike": 19.2,
+          "venc": "2026-01-23",
+          "d0": "2026-01-14",
+          "p0": 0.06,
+          "d1": "2026-01-23",
+          "p1": 1.4,
+          "mult": 23.3,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBDCA204W5",
+          "tipo": "CALL",
+          "strike": 20.13,
+          "venc": "2026-01-30",
+          "d0": "2026-01-15",
+          "p0": 0.06,
+          "d1": "2026-01-27",
+          "p1": 1.39,
+          "mult": 23.2,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBDCA199W5",
+          "tipo": "CALL",
+          "strike": 19.63,
+          "venc": "2026-01-30",
+          "d0": "2026-01-14",
+          "p0": 0.05,
+          "d1": "2026-01-23",
+          "p1": 1.14,
+          "mult": 22.8,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBDCA200W4",
+          "tipo": "CALL",
+          "strike": 19.7,
+          "venc": "2026-01-23",
+          "d0": "2026-01-20",
+          "p0": 0.05,
+          "d1": "2026-01-23",
+          "p1": 0.86,
+          "mult": 17.2,
+          "pregoes": 3
+        },
+        {
+          "cod": "BBDCG182W2",
+          "tipo": "CALL",
+          "strike": 17.93,
+          "venc": "2026-07-10",
+          "d0": "2026-07-08",
+          "p0": 0.05,
+          "d1": "2026-07-10",
+          "p1": 0.84,
+          "mult": 16.8,
+          "pregoes": 2
+        },
+        {
+          "cod": "BBDCA197W5",
+          "tipo": "CALL",
+          "strike": 19.38,
+          "venc": "2026-01-30",
+          "d0": "2026-01-14",
+          "p0": 0.09,
+          "d1": "2026-01-23",
+          "p1": 1.49,
+          "mult": 16.6,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBDCB185",
+          "tipo": "CALL",
+          "strike": 18.24,
+          "venc": "2026-02-20",
+          "d0": "2026-01-19",
+          "p0": 0.06,
+          "d1": "2026-01-28",
+          "p1": 0.97,
+          "mult": 16.2,
+          "pregoes": 7
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "BBDCT217",
+          "tipo": "PUT",
+          "strike": 21.01,
+          "venc": "2026-08-21",
+          "close": 4.92,
+          "vol": 4907592,
+          "neg": 68,
+          "chg_pct": -5.2
+        },
+        {
+          "cod": "BBDCU224",
+          "tipo": "PUT",
+          "strike": 21.03,
+          "venc": "2026-09-18",
+          "close": 4.71,
+          "vol": 4023942,
+          "neg": 70,
+          "chg_pct": -5.8
+        },
+        {
+          "cod": "BBDCU169",
+          "tipo": "PUT",
+          "strike": 16.28,
+          "venc": "2026-09-18",
+          "close": 0.4,
+          "vol": 1514983,
+          "neg": 862,
+          "chg_pct": -35.5
+        },
+        {
+          "cod": "BBDCV28",
+          "tipo": "PUT",
+          "strike": 22.9,
+          "venc": "2027-10-15",
+          "close": 4.34,
+          "vol": 1045016,
+          "neg": 43,
+          "chg_pct": 0.9
+        },
+        {
+          "cod": "BBDCU223",
+          "tipo": "PUT",
+          "strike": 21.78,
+          "venc": "2026-09-18",
+          "close": 5.43,
+          "vol": 1040349,
+          "neg": 34,
+          "chg_pct": -4.7
+        },
+        {
+          "cod": "BBDCU189",
+          "tipo": "PUT",
+          "strike": 17.53,
+          "venc": "2026-09-18",
+          "close": 1.23,
+          "vol": 956801,
+          "neg": 201,
+          "chg_pct": -23.1
+        },
+        {
+          "cod": "BBDCU221",
+          "tipo": "PUT",
+          "strike": 20.78,
+          "venc": "2026-09-18",
+          "close": 4.32,
+          "vol": 806462,
+          "neg": 10,
+          "chg_pct": -2.7
+        },
+        {
+          "cod": "BBDCT206",
+          "tipo": "PUT",
+          "strike": 19.01,
+          "venc": "2026-08-21",
+          "close": 2.8,
+          "vol": 701420,
+          "neg": 36,
+          "chg_pct": -13.8
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "BBDCI158W1",
+          "strike": 15.76,
+          "venc": "2026-09-04",
+          "premio": 0.67,
+          "vol": 1991,
+          "neg": 5,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.1
+        },
+        "put": {
+          "cod": "BBDCU158W1",
+          "strike": 15.76,
+          "venc": "2026-09-04",
+          "premio": 0.15,
+          "vol": 345,
+          "neg": 3,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.1
+        }
+      }
+    },
+    "BBAS3": {
+      "nome": "Banco do Brasil",
+      "setor": "Bancos",
+      "root": "BBAS",
+      "preco": 18.04,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 4055,
+      "n_movers_10x": 94,
+      "termometro": {
+        "pcr_volume": 1.91,
+        "pcr_negocios": 1.01,
+        "call_vol": 27673139,
+        "put_vol": 52729541,
+        "strikes_ativos": [
+          {
+            "strike": 19.31,
+            "vol": 19849847
+          },
+          {
+            "strike": 17.06,
+            "vol": 6901381
+          },
+          {
+            "strike": 17.56,
+            "vol": 5993481
+          },
+          {
+            "strike": 19.9,
+            "vol": 1962715
+          },
+          {
+            "strike": 20.65,
+            "vol": 1669275
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "BBASB227W1",
+          "tipo": "CALL",
+          "strike": 22.75,
+          "venc": "2026-02-06",
+          "d0": "2026-01-19",
+          "p0": 0.05,
+          "d1": "2026-01-28",
+          "p1": 2.61,
+          "mult": 52.2,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBASA220W5",
+          "tipo": "CALL",
+          "strike": 22.0,
+          "venc": "2026-01-30",
+          "d0": "2026-01-19",
+          "p0": 0.07,
+          "d1": "2026-01-28",
+          "p1": 3.36,
+          "mult": 48.0,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBASB225W1",
+          "tipo": "CALL",
+          "strike": 22.5,
+          "venc": "2026-02-06",
+          "d0": "2026-01-19",
+          "p0": 0.07,
+          "d1": "2026-01-28",
+          "p1": 2.99,
+          "mult": 42.7,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBASA220W4",
+          "tipo": "CALL",
+          "strike": 21.9,
+          "venc": "2026-01-23",
+          "d0": "2026-01-16",
+          "p0": 0.05,
+          "d1": "2026-01-23",
+          "p1": 2.09,
+          "mult": 41.8,
+          "pregoes": 5
+        },
+        {
+          "cod": "BBASA222W4",
+          "tipo": "CALL",
+          "strike": 22.15,
+          "venc": "2026-01-23",
+          "d0": "2026-01-15",
+          "p0": 0.05,
+          "d1": "2026-01-23",
+          "p1": 1.92,
+          "mult": 38.4,
+          "pregoes": 6
+        },
+        {
+          "cod": "BBASB240",
+          "tipo": "CALL",
+          "strike": 23.99,
+          "venc": "2026-02-20",
+          "d0": "2026-01-19",
+          "p0": 0.05,
+          "d1": "2026-01-28",
+          "p1": 1.91,
+          "mult": 38.2,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBASA225W5",
+          "tipo": "CALL",
+          "strike": 22.5,
+          "venc": "2026-01-30",
+          "d0": "2026-01-15",
+          "p0": 0.06,
+          "d1": "2026-01-26",
+          "p1": 2.02,
+          "mult": 33.7,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBASA225W4",
+          "tipo": "CALL",
+          "strike": 22.4,
+          "venc": "2026-01-23",
+          "d0": "2026-01-14",
+          "p0": 0.05,
+          "d1": "2026-01-23",
+          "p1": 1.58,
+          "mult": 31.6,
+          "pregoes": 7
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "BBASU194",
+          "tipo": "PUT",
+          "strike": 19.31,
+          "venc": "2026-09-18",
+          "close": 1.11,
+          "vol": 19313646,
+          "neg": 753,
+          "chg_pct": -8.3
+        },
+        {
+          "cod": "BBASI174",
+          "tipo": "CALL",
+          "strike": 17.06,
+          "venc": "2026-09-18",
+          "close": 1.71,
+          "vol": 6219408,
+          "neg": 73,
+          "chg_pct": 15.5
+        },
+        {
+          "cod": "BBASI176",
+          "tipo": "CALL",
+          "strike": 17.56,
+          "venc": "2026-09-18",
+          "close": 1.33,
+          "vol": 4080716,
+          "neg": 577,
+          "chg_pct": 20.9
+        },
+        {
+          "cod": "BBASU176",
+          "tipo": "PUT",
+          "strike": 17.56,
+          "venc": "2026-09-18",
+          "close": 0.3,
+          "vol": 1870828,
+          "neg": 798,
+          "chg_pct": -3.2
+        },
+        {
+          "cod": "BBASA232",
+          "tipo": "CALL",
+          "strike": 22.81,
+          "venc": "2027-01-15",
+          "close": 0.72,
+          "vol": 1446974,
+          "neg": 28,
+          "chg_pct": 4.3
+        },
+        {
+          "cod": "BBAST106",
+          "tipo": "PUT",
+          "strike": 106.15,
+          "venc": "2026-08-21",
+          "close": 87.67,
+          "vol": 1227480,
+          "neg": 3,
+          "chg_pct": -0.0
+        },
+        {
+          "cod": "BBASJ210",
+          "tipo": "CALL",
+          "strike": 19.15,
+          "venc": "2026-10-16",
+          "close": 1.0,
+          "vol": 1159925,
+          "neg": 83,
+          "chg_pct": 23.5
+        },
+        {
+          "cod": "BBASW240",
+          "tipo": "PUT",
+          "strike": 23.9,
+          "venc": "2026-11-19",
+          "close": 5.01,
+          "vol": 1015150,
+          "neg": 297,
+          "chg_pct": -0.4
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "BBASI181W1",
+          "strike": 18.15,
+          "venc": "2026-09-04",
+          "premio": 0.65,
+          "vol": 44772,
+          "neg": 41,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.6
+        },
+        "put": {
+          "cod": "BBASU181W1",
+          "strike": 18.15,
+          "venc": "2026-09-04",
+          "premio": 0.32,
+          "vol": 1186,
+          "neg": 6,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.6
+        }
+      }
+    },
+    "BBSE3": {
+      "nome": "BB Seguridade",
+      "setor": "Seguradora",
+      "root": "BBSE",
+      "preco": 36.55,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 2322,
+      "n_movers_10x": 53,
+      "termometro": {
+        "pcr_volume": 0.38,
+        "pcr_negocios": 1.27,
+        "call_vol": 6296909,
+        "put_vol": 2403460,
+        "strikes_ativos": [
+          {
+            "strike": 36.95,
+            "vol": 2824098
+          },
+          {
+            "strike": 36.7,
+            "vol": 1734279
+          },
+          {
+            "strike": 21.5,
+            "vol": 707483
+          },
+          {
+            "strike": 37.7,
+            "vol": 504514
+          },
+          {
+            "strike": 38.45,
+            "vol": 445268
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "BBSEF372",
+          "tipo": "CALL",
+          "strike": 37.29,
+          "venc": "2026-06-19",
+          "d0": "2026-06-09",
+          "p0": 0.06,
+          "d1": "2026-06-18",
+          "p1": 2.46,
+          "mult": 41.0,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBSEF393",
+          "tipo": "CALL",
+          "strike": 36.79,
+          "venc": "2026-06-19",
+          "d0": "2026-06-08",
+          "p0": 0.06,
+          "d1": "2026-06-17",
+          "p1": 2.4,
+          "mult": 40.0,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBSEF391",
+          "tipo": "CALL",
+          "strike": 36.54,
+          "venc": "2026-06-19",
+          "d0": "2026-06-03",
+          "p0": 0.05,
+          "d1": "2026-06-12",
+          "p1": 1.75,
+          "mult": 35.0,
+          "pregoes": 6
+        },
+        {
+          "cod": "BBSEF370",
+          "tipo": "CALL",
+          "strike": 37.04,
+          "venc": "2026-06-19",
+          "d0": "2026-06-09",
+          "p0": 0.09,
+          "d1": "2026-06-18",
+          "p1": 2.72,
+          "mult": 30.2,
+          "pregoes": 7
+        },
+        {
+          "cod": "BBSEF385",
+          "tipo": "CALL",
+          "strike": 38.54,
+          "venc": "2026-06-19",
+          "d0": "2026-06-16",
+          "p0": 0.06,
+          "d1": "2026-06-18",
+          "p1": 1.6,
+          "mult": 26.7,
+          "pregoes": 2
+        },
+        {
+          "cod": "BBSEA355W4",
+          "tipo": "CALL",
+          "strike": 35.5,
+          "venc": "2026-01-23",
+          "d0": "2026-01-14",
+          "p0": 0.07,
+          "d1": "2026-01-22",
+          "p1": 1.83,
+          "mult": 26.1,
+          "pregoes": 6
+        },
+        {
+          "cod": "BBSEA360W4",
+          "tipo": "CALL",
+          "strike": 36.0,
+          "venc": "2026-01-23",
+          "d0": "2026-01-13",
+          "p0": 0.05,
+          "d1": "2026-01-22",
+          "p1": 1.26,
+          "mult": 25.2,
+          "pregoes": 6
+        },
+        {
+          "cod": "BBSEC372",
+          "tipo": "CALL",
+          "strike": 37.26,
+          "venc": "2026-03-20",
+          "d0": "2026-01-15",
+          "p0": 0.06,
+          "d1": "2026-01-26",
+          "p1": 1.46,
+          "mult": 24.3,
+          "pregoes": 7
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "BBSEH389",
+          "tipo": "CALL",
+          "strike": 36.95,
+          "venc": "2026-08-21",
+          "close": 0.24,
+          "vol": 2503963,
+          "neg": 31,
+          "chg_pct": 380.0
+        },
+        {
+          "cod": "BBSEH386",
+          "tipo": "CALL",
+          "strike": 36.7,
+          "venc": "2026-08-21",
+          "close": 0.86,
+          "vol": 1473435,
+          "neg": 25,
+          "chg_pct": 681.8
+        },
+        {
+          "cod": "BBSEH280",
+          "tipo": "CALL",
+          "strike": 21.5,
+          "venc": "2027-08-20",
+          "close": 17.71,
+          "vol": 707478,
+          "neg": 70,
+          "chg_pct": -0.5
+        },
+        {
+          "cod": "BBSET396",
+          "tipo": "PUT",
+          "strike": 37.7,
+          "venc": "2026-08-21",
+          "close": 0.46,
+          "vol": 437044,
+          "neg": 37,
+          "chg_pct": -58.6
+        },
+        {
+          "cod": "BBSEU404",
+          "tipo": "PUT",
+          "strike": 38.45,
+          "venc": "2026-09-18",
+          "close": 1.39,
+          "vol": 427834,
+          "neg": 88,
+          "chg_pct": -22.3
+        },
+        {
+          "cod": "BBSEU426",
+          "tipo": "PUT",
+          "strike": 40.7,
+          "venc": "2026-09-18",
+          "close": 3.11,
+          "vol": 310385,
+          "neg": 43,
+          "chg_pct": 1.3
+        },
+        {
+          "cod": "BBSET389",
+          "tipo": "PUT",
+          "strike": 36.95,
+          "venc": "2026-08-21",
+          "close": 0.04,
+          "vol": 270557,
+          "neg": 17,
+          "chg_pct": -91.1
+        },
+        {
+          "cod": "BBSEH366",
+          "tipo": "CALL",
+          "strike": 34.7,
+          "venc": "2026-08-21",
+          "close": 2.54,
+          "vol": 157656,
+          "neg": 8,
+          "chg_pct": 25.1
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "BBSEI386W1",
+          "strike": 36.7,
+          "venc": "2026-09-04",
+          "premio": 0.84,
+          "vol": 420,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.4
+        },
+        "put": {
+          "cod": "BBSEU384W1",
+          "strike": 36.45,
+          "venc": "2026-09-04",
+          "premio": 0.21,
+          "vol": 946,
+          "neg": 4,
+          "moneyness": "ATM",
+          "dist_strike_pct": -0.3
+        }
+      }
+    },
+    "PSSA3": {
+      "nome": "Porto Seguro",
+      "setor": "Seguradora",
+      "root": "PSSA",
+      "preco": 46.53,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 858,
+      "n_movers_10x": 30,
+      "termometro": {
+        "pcr_volume": 59.99,
+        "pcr_negocios": 4.92,
+        "call_vol": 27004,
+        "put_vol": 1620098,
+        "strikes_ativos": [
+          {
+            "strike": 57.95,
+            "vol": 939589
+          },
+          {
+            "strike": 57.45,
+            "vol": 471710
+          },
+          {
+            "strike": 53.45,
+            "vol": 56651
+          },
+          {
+            "strike": 54.45,
+            "vol": 45500
+          },
+          {
+            "strike": 49.95,
+            "vol": 23360
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "PSSAT498",
+          "tipo": "PUT",
+          "strike": 49.45,
+          "venc": "2026-08-21",
+          "d0": "2026-08-03",
+          "p0": 0.1,
+          "d1": "2026-08-14",
+          "p1": 3.25,
+          "mult": 32.5,
+          "pregoes": 7
+        },
+        {
+          "cod": "PSSAT503",
+          "tipo": "PUT",
+          "strike": 49.95,
+          "venc": "2026-08-21",
+          "d0": "2026-08-03",
+          "p0": 0.12,
+          "d1": "2026-08-14",
+          "p1": 3.66,
+          "mult": 30.5,
+          "pregoes": 7
+        },
+        {
+          "cod": "PSSAT511",
+          "tipo": "PUT",
+          "strike": 48.95,
+          "venc": "2026-08-21",
+          "d0": "2026-08-04",
+          "p0": 0.11,
+          "d1": "2026-08-14",
+          "p1": 2.85,
+          "mult": 25.9,
+          "pregoes": 6
+        },
+        {
+          "cod": "PSSAF503",
+          "tipo": "CALL",
+          "strike": 50.37,
+          "venc": "2026-06-19",
+          "d0": "2026-06-08",
+          "p0": 0.1,
+          "d1": "2026-06-19",
+          "p1": 2.4,
+          "mult": 24.0,
+          "pregoes": 7
+        },
+        {
+          "cod": "PSSAG530",
+          "tipo": "CALL",
+          "strike": 53.37,
+          "venc": "2026-07-17",
+          "d0": "2026-06-08",
+          "p0": 0.05,
+          "d1": "2026-06-18",
+          "p1": 1.08,
+          "mult": 21.6,
+          "pregoes": 6
+        },
+        {
+          "cod": "PSSAT513",
+          "tipo": "PUT",
+          "strike": 50.95,
+          "venc": "2026-08-21",
+          "d0": "2026-08-04",
+          "p0": 0.19,
+          "d1": "2026-08-13",
+          "p1": 4.1,
+          "mult": 21.6,
+          "pregoes": 7
+        },
+        {
+          "cod": "PSSAT486",
+          "tipo": "PUT",
+          "strike": 48.2,
+          "venc": "2026-08-21",
+          "d0": "2026-08-04",
+          "p0": 0.1,
+          "d1": "2026-08-14",
+          "p1": 1.95,
+          "mult": 19.5,
+          "pregoes": 3
+        },
+        {
+          "cod": "PSSAF513",
+          "tipo": "CALL",
+          "strike": 51.37,
+          "venc": "2026-06-19",
+          "d0": "2026-06-08",
+          "p0": 0.07,
+          "d1": "2026-06-18",
+          "p1": 1.35,
+          "mult": 19.3,
+          "pregoes": 7
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "PSSAV579",
+          "tipo": "PUT",
+          "strike": 57.95,
+          "venc": "2026-10-16",
+          "close": 10.14,
+          "vol": 501125,
+          "neg": 15,
+          "chg_pct": 0.7
+        },
+        {
+          "cod": "PSSAV574",
+          "tipo": "PUT",
+          "strike": 57.45,
+          "venc": "2026-10-16",
+          "close": 9.71,
+          "vol": 471710,
+          "neg": 52,
+          "chg_pct": 5.1
+        },
+        {
+          "cod": "PSSAT583",
+          "tipo": "PUT",
+          "strike": 57.95,
+          "venc": "2026-08-21",
+          "close": 10.96,
+          "vol": 438400,
+          "neg": 7,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "PSSAV544",
+          "tipo": "PUT",
+          "strike": 54.45,
+          "venc": "2026-10-16",
+          "close": 6.5,
+          "vol": 45500,
+          "neg": 1,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "PSSAV534",
+          "tipo": "PUT",
+          "strike": 53.45,
+          "venc": "2026-10-16",
+          "close": 5.9,
+          "vol": 41300,
+          "neg": 2,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "PSSAU503",
+          "tipo": "PUT",
+          "strike": 49.95,
+          "venc": "2026-09-18",
+          "close": 2.8,
+          "vol": 13992,
+          "neg": 4,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "PSSAT538",
+          "tipo": "PUT",
+          "strike": 53.45,
+          "venc": "2026-08-21",
+          "close": 6.5,
+          "vol": 13512,
+          "neg": 4,
+          "chg_pct": -1.8
+        },
+        {
+          "cod": "PSSAT524",
+          "tipo": "PUT",
+          "strike": 52.45,
+          "venc": "2026-08-21",
+          "close": 5.5,
+          "vol": 13360,
+          "neg": 8,
+          "chg_pct": -5.2
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "PSSAI473",
+          "strike": 46.95,
+          "venc": "2026-09-18",
+          "premio": 1.32,
+          "vol": 270,
+          "neg": 2,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.9
+        },
+        "put": {
+          "cod": "PSSAU468",
+          "strike": 46.45,
+          "venc": "2026-09-18",
+          "premio": 0.76,
+          "vol": 76,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": -0.2
+        }
+      }
+    },
+    "VALE3": {
+      "nome": "Vale",
+      "setor": "Commodities",
+      "root": "VALE",
+      "preco": 74.02,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 6164,
+      "n_movers_10x": 56,
+      "termometro": {
+        "pcr_volume": 0.66,
+        "pcr_negocios": 0.69,
+        "call_vol": 66860578,
+        "put_vol": 44177947,
+        "strikes_ativos": [
+          {
+            "strike": 75.39,
+            "vol": 5195040
+          },
+          {
+            "strike": 75.7,
+            "vol": 4457052
+          },
+          {
+            "strike": 62.2,
+            "vol": 4430880
+          },
+          {
+            "strike": 59.7,
+            "vol": 4317373
+          },
+          {
+            "strike": 74.7,
+            "vol": 4171115
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "VALES746W2",
+          "tipo": "PUT",
+          "strike": 74.68,
+          "venc": "2026-07-10",
+          "d0": "2026-07-03",
+          "p0": 0.06,
+          "d1": "2026-07-08",
+          "p1": 2.11,
+          "mult": 35.2,
+          "pregoes": 3
+        },
+        {
+          "cod": "VALEO810W1",
+          "tipo": "PUT",
+          "strike": 81.0,
+          "venc": "2026-03-06",
+          "d0": "2026-03-02",
+          "p0": 0.07,
+          "d1": "2026-03-06",
+          "p1": 1.89,
+          "mult": 27.0,
+          "pregoes": 4
+        },
+        {
+          "cod": "VALES736W2",
+          "tipo": "PUT",
+          "strike": 73.68,
+          "venc": "2026-07-10",
+          "d0": "2026-07-06",
+          "p0": 0.05,
+          "d1": "2026-07-08",
+          "p1": 1.27,
+          "mult": 25.4,
+          "pregoes": 2
+        },
+        {
+          "cod": "VALES756W2",
+          "tipo": "PUT",
+          "strike": 75.68,
+          "venc": "2026-07-10",
+          "d0": "2026-07-03",
+          "p0": 0.13,
+          "d1": "2026-07-08",
+          "p1": 3.0,
+          "mult": 23.1,
+          "pregoes": 3
+        },
+        {
+          "cod": "VALEO840W1",
+          "tipo": "PUT",
+          "strike": 84.0,
+          "venc": "2026-03-06",
+          "d0": "2026-03-02",
+          "p0": 0.24,
+          "d1": "2026-03-06",
+          "p1": 5.04,
+          "mult": 21.0,
+          "pregoes": 4
+        },
+        {
+          "cod": "VALEO820W1",
+          "tipo": "PUT",
+          "strike": 82.0,
+          "venc": "2026-03-06",
+          "d0": "2026-03-02",
+          "p0": 0.14,
+          "d1": "2026-03-06",
+          "p1": 2.73,
+          "mult": 19.5,
+          "pregoes": 4
+        },
+        {
+          "cod": "VALER820W1",
+          "tipo": "PUT",
+          "strike": 82.0,
+          "venc": "2026-06-05",
+          "d0": "2026-06-02",
+          "p0": 0.16,
+          "d1": "2026-06-05",
+          "p1": 3.08,
+          "mult": 19.2,
+          "pregoes": 2
+        },
+        {
+          "cod": "VALEO850W1",
+          "tipo": "PUT",
+          "strike": 85.0,
+          "venc": "2026-03-06",
+          "d0": "2026-03-02",
+          "p0": 0.35,
+          "d1": "2026-03-06",
+          "p1": 6.05,
+          "mult": 17.3,
+          "pregoes": 4
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "VALEL673",
+          "tipo": "CALL",
+          "strike": 62.2,
+          "venc": "2026-12-18",
+          "close": 15.3,
+          "vol": 4430880,
+          "neg": 1,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "VALEH61",
+          "tipo": "CALL",
+          "strike": 59.7,
+          "venc": "2026-08-21",
+          "close": 16.05,
+          "vol": 4317373,
+          "neg": 5,
+          "chg_pct": 8.8
+        },
+        {
+          "cod": "VALET919",
+          "tipo": "PUT",
+          "strike": 90.2,
+          "venc": "2026-08-21",
+          "close": 14.9,
+          "vol": 3506150,
+          "neg": 15,
+          "chg_pct": 1.2
+        },
+        {
+          "cod": "VALEU931",
+          "tipo": "PUT",
+          "strike": 91.39,
+          "venc": "2026-09-18",
+          "close": 15.24,
+          "vol": 3317050,
+          "neg": 21,
+          "chg_pct": 2.1
+        },
+        {
+          "cod": "VALEH764",
+          "tipo": "CALL",
+          "strike": 74.7,
+          "venc": "2026-08-21",
+          "close": 0.41,
+          "vol": 3040558,
+          "neg": 638,
+          "chg_pct": -31.7
+        },
+        {
+          "cod": "VALEU821",
+          "tipo": "PUT",
+          "strike": 80.39,
+          "venc": "2026-09-18",
+          "close": 5.22,
+          "vol": 2869422,
+          "neg": 58,
+          "chg_pct": -5.1
+        },
+        {
+          "cod": "VALET774",
+          "tipo": "PUT",
+          "strike": 75.7,
+          "venc": "2026-08-21",
+          "close": 0.63,
+          "vol": 2823547,
+          "neg": 180,
+          "chg_pct": -46.2
+        },
+        {
+          "cod": "VALEI771",
+          "tipo": "CALL",
+          "strike": 75.39,
+          "venc": "2026-09-18",
+          "close": 2.3,
+          "vol": 2696603,
+          "neg": 1025,
+          "chg_pct": -0.9
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "VALEI759W1",
+          "strike": 74.2,
+          "venc": "2026-09-04",
+          "premio": 2.4,
+          "vol": 27931,
+          "neg": 15,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.2
+        },
+        "put": {
+          "cod": "VALEU759W1",
+          "strike": 74.2,
+          "venc": "2026-09-04",
+          "premio": 1.07,
+          "vol": 51766,
+          "neg": 12,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.2
+        }
+      }
+    },
+    "SUZB3": {
+      "nome": "Suzano",
+      "setor": "Commodities",
+      "root": "SUZB",
+      "preco": 44.16,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 2978,
+      "n_movers_10x": 71,
+      "termometro": {
+        "pcr_volume": 1.25,
+        "pcr_negocios": 0.66,
+        "call_vol": 7153349,
+        "put_vol": 8967155,
+        "strikes_ativos": [
+          {
+            "strike": 45.88,
+            "vol": 5469089
+          },
+          {
+            "strike": 45.13,
+            "vol": 1425459
+          },
+          {
+            "strike": 44.88,
+            "vol": 1210807
+          },
+          {
+            "strike": 57.13,
+            "vol": 712628
+          },
+          {
+            "strike": 43.38,
+            "vol": 583544
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "SUZBB530W4",
+          "tipo": "CALL",
+          "strike": 53.0,
+          "venc": "2026-02-27",
+          "d0": "2026-01-30",
+          "p0": 0.05,
+          "d1": "2026-02-11",
+          "p1": 3.95,
+          "mult": 79.0,
+          "pregoes": 3
+        },
+        {
+          "cod": "SUZBB540W4",
+          "tipo": "CALL",
+          "strike": 54.0,
+          "venc": "2026-02-27",
+          "d0": "2026-02-05",
+          "p0": 0.1,
+          "d1": "2026-02-11",
+          "p1": 4.07,
+          "mult": 40.7,
+          "pregoes": 1
+        },
+        {
+          "cod": "SUZBB550W2",
+          "tipo": "CALL",
+          "strike": 55.0,
+          "venc": "2026-02-13",
+          "d0": "2026-02-02",
+          "p0": 0.08,
+          "d1": "2026-02-13",
+          "p1": 3.21,
+          "mult": 40.1,
+          "pregoes": 7
+        },
+        {
+          "cod": "SUZBB540W2",
+          "tipo": "CALL",
+          "strike": 54.0,
+          "venc": "2026-02-13",
+          "d0": "2026-02-03",
+          "p0": 0.13,
+          "d1": "2026-02-13",
+          "p1": 4.4,
+          "mult": 33.8,
+          "pregoes": 7
+        },
+        {
+          "cod": "SUZBB580",
+          "tipo": "CALL",
+          "strike": 56.88,
+          "venc": "2026-02-20",
+          "d0": "2026-02-10",
+          "p0": 0.07,
+          "d1": "2026-02-12",
+          "p1": 1.92,
+          "mult": 27.4,
+          "pregoes": 2
+        },
+        {
+          "cod": "SUZBP493W2",
+          "tipo": "PUT",
+          "strike": 49.38,
+          "venc": "2026-04-10",
+          "d0": "2026-04-01",
+          "p0": 0.11,
+          "d1": "2026-04-07",
+          "p1": 2.8,
+          "mult": 25.5,
+          "pregoes": 3
+        },
+        {
+          "cod": "SUZBB570",
+          "tipo": "CALL",
+          "strike": 55.88,
+          "venc": "2026-02-20",
+          "d0": "2026-02-10",
+          "p0": 0.12,
+          "d1": "2026-02-13",
+          "p1": 2.88,
+          "mult": 24.0,
+          "pregoes": 3
+        },
+        {
+          "cod": "SUZBB530W2",
+          "tipo": "CALL",
+          "strike": 53.0,
+          "venc": "2026-02-13",
+          "d0": "2026-02-03",
+          "p0": 0.23,
+          "d1": "2026-02-12",
+          "p1": 5.49,
+          "mult": 23.9,
+          "pregoes": 7
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "SUZBU458",
+          "tipo": "PUT",
+          "strike": 45.88,
+          "venc": "2026-09-18",
+          "close": 1.52,
+          "vol": 3512826,
+          "neg": 9,
+          "chg_pct": -15.6
+        },
+        {
+          "cod": "SUZBI458",
+          "tipo": "CALL",
+          "strike": 45.88,
+          "venc": "2026-09-18",
+          "close": 1.13,
+          "vol": 1909314,
+          "neg": 30,
+          "chg_pct": 32.9
+        },
+        {
+          "cod": "SUZBT451",
+          "tipo": "PUT",
+          "strike": 45.13,
+          "venc": "2026-08-21",
+          "close": 0.08,
+          "vol": 1146965,
+          "neg": 7,
+          "chg_pct": -86.4
+        },
+        {
+          "cod": "SUZBT448",
+          "tipo": "PUT",
+          "strike": 44.88,
+          "venc": "2026-08-21",
+          "close": 0.05,
+          "vol": 798525,
+          "neg": 7,
+          "chg_pct": -83.3
+        },
+        {
+          "cod": "SUZBU571",
+          "tipo": "PUT",
+          "strike": 57.13,
+          "venc": "2026-09-18",
+          "close": 11.84,
+          "vol": 712628,
+          "neg": 104,
+          "chg_pct": 1.0
+        },
+        {
+          "cod": "SUZBI433",
+          "tipo": "CALL",
+          "strike": 43.38,
+          "venc": "2026-09-18",
+          "close": 2.62,
+          "vol": 404264,
+          "neg": 21,
+          "chg_pct": 5.2
+        },
+        {
+          "cod": "SUZBU541",
+          "tipo": "PUT",
+          "strike": 54.13,
+          "venc": "2026-09-18",
+          "close": 8.91,
+          "vol": 355408,
+          "neg": 83,
+          "chg_pct": 1.0
+        },
+        {
+          "cod": "SUZBI456",
+          "tipo": "CALL",
+          "strike": 45.63,
+          "venc": "2026-09-18",
+          "close": 1.2,
+          "vol": 331105,
+          "neg": 32,
+          "chg_pct": 7.1
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "SUZBI438W1",
+          "strike": 43.88,
+          "venc": "2026-09-04",
+          "premio": 1.66,
+          "vol": 22190,
+          "neg": 2,
+          "moneyness": "ATM",
+          "dist_strike_pct": -0.6
+        },
+        "put": {
+          "cod": "SUZBU443W1",
+          "strike": 44.38,
+          "venc": "2026-09-04",
+          "premio": 0.78,
+          "vol": 2340,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.5
+        }
+      }
+    },
+    "ABEV3": {
+      "nome": "Ambev",
+      "setor": "Alimentação",
+      "root": "ABEV",
+      "preco": 14.9,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 1824,
+      "n_movers_10x": 20,
+      "termometro": {
+        "pcr_volume": 2.77,
+        "pcr_negocios": 0.96,
+        "call_vol": 593079,
+        "put_vol": 1641987,
+        "strikes_ativos": [
+          {
+            "strike": 18.3,
+            "vol": 332695
+          },
+          {
+            "strike": 17.55,
+            "vol": 298345
+          },
+          {
+            "strike": 17.0,
+            "vol": 237035
+          },
+          {
+            "strike": 16.0,
+            "vol": 124032
+          },
+          {
+            "strike": 15.05,
+            "vol": 102291
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "ABEVE154W2",
+          "tipo": "CALL",
+          "strike": 15.42,
+          "venc": "2026-05-08",
+          "d0": "2026-05-04",
+          "p0": 0.06,
+          "d1": "2026-05-06",
+          "p1": 1.5,
+          "mult": 25.0,
+          "pregoes": 2
+        },
+        {
+          "cod": "ABEVE159",
+          "tipo": "CALL",
+          "strike": 15.92,
+          "venc": "2026-05-15",
+          "d0": "2026-04-27",
+          "p0": 0.05,
+          "d1": "2026-05-06",
+          "p1": 1.13,
+          "mult": 22.6,
+          "pregoes": 6
+        },
+        {
+          "cod": "ABEVE151W2",
+          "tipo": "CALL",
+          "strike": 15.17,
+          "venc": "2026-05-08",
+          "d0": "2026-05-04",
+          "p0": 0.09,
+          "d1": "2026-05-06",
+          "p1": 1.81,
+          "mult": 20.1,
+          "pregoes": 2
+        },
+        {
+          "cod": "ABEVE156W2",
+          "tipo": "CALL",
+          "strike": 15.67,
+          "venc": "2026-05-08",
+          "d0": "2026-04-27",
+          "p0": 0.06,
+          "d1": "2026-05-06",
+          "p1": 1.16,
+          "mult": 19.3,
+          "pregoes": 5
+        },
+        {
+          "cod": "ABEVE156",
+          "tipo": "CALL",
+          "strike": 15.67,
+          "venc": "2026-05-15",
+          "d0": "2026-04-29",
+          "p0": 0.07,
+          "d1": "2026-05-06",
+          "p1": 1.34,
+          "mult": 19.1,
+          "pregoes": 4
+        },
+        {
+          "cod": "ABEVE154",
+          "tipo": "CALL",
+          "strike": 15.42,
+          "venc": "2026-05-15",
+          "d0": "2026-04-29",
+          "p0": 0.1,
+          "d1": "2026-05-06",
+          "p1": 1.62,
+          "mult": 16.2,
+          "pregoes": 4
+        },
+        {
+          "cod": "ABEVE149W2",
+          "tipo": "CALL",
+          "strike": 14.92,
+          "venc": "2026-05-08",
+          "d0": "2026-04-29",
+          "p0": 0.13,
+          "d1": "2026-05-06",
+          "p1": 2.03,
+          "mult": 15.6,
+          "pregoes": 4
+        },
+        {
+          "cod": "ABEVF171",
+          "tipo": "CALL",
+          "strike": 17.17,
+          "venc": "2026-06-19",
+          "d0": "2026-04-24",
+          "p0": 0.05,
+          "d1": "2026-05-06",
+          "p1": 0.61,
+          "mult": 12.2,
+          "pregoes": 2
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "ABEVU183",
+          "tipo": "PUT",
+          "strike": 18.3,
+          "venc": "2026-09-18",
+          "close": 3.15,
+          "vol": 332695,
+          "neg": 3,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "ABEVV175",
+          "tipo": "PUT",
+          "strike": 17.55,
+          "venc": "2026-10-16",
+          "close": 2.32,
+          "vol": 297860,
+          "neg": 12,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "ABEVT177",
+          "tipo": "PUT",
+          "strike": 17.0,
+          "venc": "2026-08-21",
+          "close": 2.08,
+          "vol": 236254,
+          "neg": 6,
+          "chg_pct": 2.5
+        },
+        {
+          "cod": "ABEVT165",
+          "tipo": "PUT",
+          "strike": 16.5,
+          "venc": "2026-08-21",
+          "close": 1.53,
+          "vol": 83870,
+          "neg": 4,
+          "chg_pct": -5.6
+        },
+        {
+          "cod": "ABEVH140",
+          "tipo": "CALL",
+          "strike": 14.0,
+          "venc": "2026-08-21",
+          "close": 0.97,
+          "vol": 55948,
+          "neg": 7,
+          "chg_pct": 4.3
+        },
+        {
+          "cod": "ABEVI15",
+          "tipo": "CALL",
+          "strike": 15.05,
+          "venc": "2026-09-18",
+          "close": 0.38,
+          "vol": 51218,
+          "neg": 44,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "ABEVU163",
+          "tipo": "PUT",
+          "strike": 16.3,
+          "venc": "2026-09-18",
+          "close": 1.23,
+          "vol": 47979,
+          "neg": 8,
+          "chg_pct": -2.4
+        },
+        {
+          "cod": "ABEVT160",
+          "tipo": "PUT",
+          "strike": 16.0,
+          "venc": "2026-08-21",
+          "close": 1.02,
+          "vol": 47978,
+          "neg": 35,
+          "chg_pct": -2.9
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "ABEVI150W1",
+          "strike": 15.0,
+          "venc": "2026-09-04",
+          "premio": 0.29,
+          "vol": 13634,
+          "neg": 20,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.7
+        },
+        "put": {
+          "cod": "ABEVU150W1",
+          "strike": 15.0,
+          "venc": "2026-09-04",
+          "premio": 0.22,
+          "vol": 599,
+          "neg": 3,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.7
+        }
+      }
+    },
+    "MBRF3": {
+      "nome": "MBRF (Marfrig+BRF)",
+      "setor": "Alimentação",
+      "root": "MBRF",
+      "preco": 18.27,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 1469,
+      "n_movers_10x": 50,
+      "termometro": {
+        "pcr_volume": 0.25,
+        "pcr_negocios": 0.36,
+        "call_vol": 8718379,
+        "put_vol": 2163080,
+        "strikes_ativos": [
+          {
+            "strike": 14.25,
+            "vol": 1599445
+          },
+          {
+            "strike": 14.0,
+            "vol": 1507266
+          },
+          {
+            "strike": 17.5,
+            "vol": 744791
+          },
+          {
+            "strike": 18.5,
+            "vol": 697258
+          },
+          {
+            "strike": 17.69,
+            "vol": 689893
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "MBRFD185W1",
+          "tipo": "CALL",
+          "strike": 18.5,
+          "venc": "2026-04-02",
+          "d0": "2026-03-20",
+          "p0": 0.1,
+          "d1": "2026-03-30",
+          "p1": 3.75,
+          "mult": 37.5,
+          "pregoes": 5
+        },
+        {
+          "cod": "MBRFD199",
+          "tipo": "CALL",
+          "strike": 19.94,
+          "venc": "2026-04-17",
+          "d0": "2026-03-20",
+          "p0": 0.07,
+          "d1": "2026-03-30",
+          "p1": 2.4,
+          "mult": 34.3,
+          "pregoes": 6
+        },
+        {
+          "cod": "MBRFD221",
+          "tipo": "CALL",
+          "strike": 22.19,
+          "venc": "2026-04-17",
+          "d0": "2026-03-23",
+          "p0": 0.05,
+          "d1": "2026-03-30",
+          "p1": 1.67,
+          "mult": 33.4,
+          "pregoes": 4
+        },
+        {
+          "cod": "MBRFD195",
+          "tipo": "CALL",
+          "strike": 19.69,
+          "venc": "2026-04-17",
+          "d0": "2026-03-20",
+          "p0": 0.09,
+          "d1": "2026-03-30",
+          "p1": 2.81,
+          "mult": 31.2,
+          "pregoes": 6
+        },
+        {
+          "cod": "MBRFH173",
+          "tipo": "CALL",
+          "strike": 17.39,
+          "venc": "2026-08-21",
+          "d0": "2026-08-17",
+          "p0": 0.05,
+          "d1": "2026-08-21",
+          "p1": 1.56,
+          "mult": 31.2,
+          "pregoes": 4
+        },
+        {
+          "cod": "MBRFC190W4",
+          "tipo": "CALL",
+          "strike": 19.0,
+          "venc": "2026-03-27",
+          "d0": "2026-03-20",
+          "p0": 0.08,
+          "d1": "2026-03-27",
+          "p1": 2.17,
+          "mult": 27.1,
+          "pregoes": 5
+        },
+        {
+          "cod": "MBRFD200",
+          "tipo": "CALL",
+          "strike": 20.37,
+          "venc": "2026-04-17",
+          "d0": "2026-03-20",
+          "p0": 0.08,
+          "d1": "2026-03-31",
+          "p1": 2.03,
+          "mult": 25.4,
+          "pregoes": 7
+        },
+        {
+          "cod": "MBRFF162W4",
+          "tipo": "CALL",
+          "strike": 16.2,
+          "venc": "2026-06-26",
+          "d0": "2026-06-22",
+          "p0": 0.05,
+          "d1": "2026-06-26",
+          "p1": 1.25,
+          "mult": 25.0,
+          "pregoes": 3
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "MBRFI142",
+          "tipo": "CALL",
+          "strike": 14.25,
+          "venc": "2026-09-18",
+          "close": 5.11,
+          "vol": 1599445,
+          "neg": 600,
+          "chg_pct": 17.5
+        },
+        {
+          "cod": "MBRFI140",
+          "tipo": "CALL",
+          "strike": 14.0,
+          "venc": "2026-09-18",
+          "close": 5.14,
+          "vol": 1504597,
+          "neg": 553,
+          "chg_pct": 3.8
+        },
+        {
+          "cod": "MBRFI175",
+          "tipo": "CALL",
+          "strike": 17.5,
+          "venc": "2026-09-18",
+          "close": 1.95,
+          "vol": 734706,
+          "neg": 200,
+          "chg_pct": 43.4
+        },
+        {
+          "cod": "MBRFI180",
+          "tipo": "CALL",
+          "strike": 18.0,
+          "venc": "2026-09-18",
+          "close": 1.6,
+          "vol": 603336,
+          "neg": 142,
+          "chg_pct": 60.0
+        },
+        {
+          "cod": "MBRFU185",
+          "tipo": "PUT",
+          "strike": 18.5,
+          "venc": "2026-09-18",
+          "close": 0.87,
+          "vol": 514148,
+          "neg": 186,
+          "chg_pct": -12.1
+        },
+        {
+          "cod": "MBRFJ176",
+          "tipo": "CALL",
+          "strike": 17.69,
+          "venc": "2026-10-16",
+          "close": 2.33,
+          "vol": 510407,
+          "neg": 313,
+          "chg_pct": 19.5
+        },
+        {
+          "cod": "MBRFI190",
+          "tipo": "CALL",
+          "strike": 19.0,
+          "venc": "2026-09-18",
+          "close": 1.1,
+          "vol": 412645,
+          "neg": 119,
+          "chg_pct": 74.6
+        },
+        {
+          "cod": "MBRFI155",
+          "tipo": "CALL",
+          "strike": 15.5,
+          "venc": "2026-09-18",
+          "close": 3.66,
+          "vol": 383683,
+          "neg": 56,
+          "chg_pct": 26.6
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "MBRFI203W1",
+          "strike": 20.39,
+          "venc": "2026-09-04",
+          "premio": 0.18,
+          "vol": 198,
+          "neg": 1,
+          "moneyness": "OTM",
+          "dist_strike_pct": 11.6
+        },
+        "put": {
+          "cod": "MBRFU173W1",
+          "strike": 17.39,
+          "venc": "2026-09-04",
+          "premio": 0.27,
+          "vol": 27,
+          "neg": 1,
+          "moneyness": "OTM",
+          "dist_strike_pct": -4.8
+        }
+      }
+    },
+    "CYRE3": {
+      "nome": "Cyrela",
+      "setor": "Construção civil",
+      "root": "CYRE",
+      "preco": 22.57,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 1971,
+      "n_movers_10x": 25,
+      "termometro": {
+        "pcr_volume": 0.93,
+        "pcr_negocios": 1.19,
+        "call_vol": 1956075,
+        "put_vol": 1823493,
+        "strikes_ativos": [
+          {
+            "strike": 22.87,
+            "vol": 448345
+          },
+          {
+            "strike": 22.37,
+            "vol": 404509
+          },
+          {
+            "strike": 25.75,
+            "vol": 365146
+          },
+          {
+            "strike": 24.75,
+            "vol": 318263
+          },
+          {
+            "strike": 24.5,
+            "vol": 317325
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "CYREB939",
+          "tipo": "CALL",
+          "strike": 31.2,
+          "venc": "2026-02-20",
+          "d0": "2026-01-16",
+          "p0": 0.11,
+          "d1": "2026-01-27",
+          "p1": 3.3,
+          "mult": 30.0,
+          "pregoes": 4
+        },
+        {
+          "cod": "CYREA285W5",
+          "tipo": "CALL",
+          "strike": 28.5,
+          "venc": "2026-01-30",
+          "d0": "2026-01-15",
+          "p0": 0.06,
+          "d1": "2026-01-27",
+          "p1": 1.55,
+          "mult": 25.8,
+          "pregoes": 6
+        },
+        {
+          "cod": "CYREA265W5",
+          "tipo": "CALL",
+          "strike": 26.5,
+          "venc": "2026-01-30",
+          "d0": "2026-01-16",
+          "p0": 0.13,
+          "d1": "2026-01-28",
+          "p1": 3.33,
+          "mult": 25.6,
+          "pregoes": 7
+        },
+        {
+          "cod": "CYREB302",
+          "tipo": "CALL",
+          "strike": 30.25,
+          "venc": "2026-02-20",
+          "d0": "2026-01-20",
+          "p0": 0.05,
+          "d1": "2026-01-28",
+          "p1": 1.25,
+          "mult": 25.0,
+          "pregoes": 6
+        },
+        {
+          "cod": "CYREO290W1",
+          "tipo": "PUT",
+          "strike": 29.0,
+          "venc": "2026-03-06",
+          "d0": "2026-02-25",
+          "p0": 0.05,
+          "d1": "2026-03-06",
+          "p1": 1.12,
+          "mult": 22.4,
+          "pregoes": 5
+        },
+        {
+          "cod": "CYREA260W5",
+          "tipo": "CALL",
+          "strike": 26.0,
+          "venc": "2026-01-30",
+          "d0": "2026-01-16",
+          "p0": 0.19,
+          "d1": "2026-01-28",
+          "p1": 4.24,
+          "mult": 22.3,
+          "pregoes": 6
+        },
+        {
+          "cod": "CYRED282W5",
+          "tipo": "CALL",
+          "strike": 28.25,
+          "venc": "2026-04-30",
+          "d0": "2026-03-30",
+          "p0": 0.05,
+          "d1": "2026-04-08",
+          "p1": 1.08,
+          "mult": 21.6,
+          "pregoes": 1
+        },
+        {
+          "cod": "CYREA361W4",
+          "tipo": "CALL",
+          "strike": 26.0,
+          "venc": "2026-01-23",
+          "d0": "2026-01-19",
+          "p0": 0.08,
+          "d1": "2026-01-23",
+          "p1": 1.37,
+          "mult": 17.1,
+          "pregoes": 4
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "CYREH223",
+          "tipo": "CALL",
+          "strike": 22.37,
+          "venc": "2026-08-21",
+          "close": 0.65,
+          "vol": 402988,
+          "neg": 136,
+          "chg_pct": 140.7
+        },
+        {
+          "cod": "CYREH228",
+          "tipo": "CALL",
+          "strike": 22.87,
+          "venc": "2026-08-21",
+          "close": 0.18,
+          "vol": 376158,
+          "neg": 18,
+          "chg_pct": 63.6
+        },
+        {
+          "cod": "CYREU257",
+          "tipo": "PUT",
+          "strike": 25.75,
+          "venc": "2026-09-18",
+          "close": 2.8,
+          "vol": 362386,
+          "neg": 79,
+          "chg_pct": -6.7
+        },
+        {
+          "cod": "CYREU245",
+          "tipo": "PUT",
+          "strike": 24.5,
+          "venc": "2026-09-18",
+          "close": 1.8,
+          "vol": 302495,
+          "neg": 149,
+          "chg_pct": -21.7
+        },
+        {
+          "cod": "CYREI247",
+          "tipo": "CALL",
+          "strike": 24.75,
+          "venc": "2026-09-18",
+          "close": 0.31,
+          "vol": 268437,
+          "neg": 56,
+          "chg_pct": -16.2
+        },
+        {
+          "cod": "CYREU222",
+          "tipo": "PUT",
+          "strike": 22.25,
+          "venc": "2026-09-18",
+          "close": 0.58,
+          "vol": 190831,
+          "neg": 54,
+          "chg_pct": -32.6
+        },
+        {
+          "cod": "CYREU230",
+          "tipo": "PUT",
+          "strike": 23.0,
+          "venc": "2026-09-18",
+          "close": 0.88,
+          "vol": 144824,
+          "neg": 57,
+          "chg_pct": -18.5
+        },
+        {
+          "cod": "CYREI217",
+          "tipo": "CALL",
+          "strike": 21.75,
+          "venc": "2026-09-18",
+          "close": 1.79,
+          "vol": 133364,
+          "neg": 37,
+          "chg_pct": 8.5
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "CYREI247W1",
+          "strike": 24.75,
+          "venc": "2026-09-04",
+          "premio": 0.15,
+          "vol": 375,
+          "neg": 1,
+          "moneyness": "OTM",
+          "dist_strike_pct": 9.7
+        },
+        "put": {
+          "cod": "CYREU207W1",
+          "strike": 20.75,
+          "venc": "2026-09-04",
+          "premio": 0.11,
+          "vol": 21,
+          "neg": 2,
+          "moneyness": "OTM",
+          "dist_strike_pct": -8.1
+        }
+      }
+    },
+    "MRVE3": {
+      "nome": "MRV Engenharia",
+      "setor": "Construção civil",
+      "root": "MRVE",
+      "preco": 4.91,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 1821,
+      "n_movers_10x": 16,
+      "termometro": {
+        "pcr_volume": 4.9,
+        "pcr_negocios": 1.53,
+        "call_vol": 567302,
+        "put_vol": 2781851,
+        "strikes_ativos": [
+          {
+            "strike": 6.0,
+            "vol": 595371
+          },
+          {
+            "strike": 7.7,
+            "vol": 387010
+          },
+          {
+            "strike": 13.0,
+            "vol": 287300
+          },
+          {
+            "strike": 7.8,
+            "vol": 211820
+          },
+          {
+            "strike": 6.6,
+            "vol": 182228
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "MRVEO900W2",
+          "tipo": "PUT",
+          "strike": 9.0,
+          "venc": "2026-03-13",
+          "d0": "2026-03-02",
+          "p0": 0.07,
+          "d1": "2026-03-13",
+          "p1": 1.3,
+          "mult": 18.6,
+          "pregoes": 4
+        },
+        {
+          "cod": "MRVEB910",
+          "tipo": "CALL",
+          "strike": 9.1,
+          "venc": "2026-02-20",
+          "d0": "2026-02-04",
+          "p0": 0.05,
+          "d1": "2026-02-11",
+          "p1": 0.84,
+          "mult": 16.8,
+          "pregoes": 5
+        },
+        {
+          "cod": "MRVEB900",
+          "tipo": "CALL",
+          "strike": 9.0,
+          "venc": "2026-02-20",
+          "d0": "2026-02-04",
+          "p0": 0.06,
+          "d1": "2026-02-11",
+          "p1": 0.95,
+          "mult": 15.8,
+          "pregoes": 5
+        },
+        {
+          "cod": "MRVEO860W2",
+          "tipo": "PUT",
+          "strike": 8.6,
+          "venc": "2026-03-13",
+          "d0": "2026-03-05",
+          "p0": 0.06,
+          "d1": "2026-03-13",
+          "p1": 0.9,
+          "mult": 15.0,
+          "pregoes": 4
+        },
+        {
+          "cod": "MRVEB880",
+          "tipo": "CALL",
+          "strike": 8.8,
+          "venc": "2026-02-20",
+          "d0": "2026-02-04",
+          "p0": 0.09,
+          "d1": "2026-02-12",
+          "p1": 1.3,
+          "mult": 14.4,
+          "pregoes": 6
+        },
+        {
+          "cod": "MRVEB930",
+          "tipo": "CALL",
+          "strike": 9.3,
+          "venc": "2026-02-20",
+          "d0": "2026-02-02",
+          "p0": 0.05,
+          "d1": "2026-02-11",
+          "p1": 0.69,
+          "mult": 13.8,
+          "pregoes": 6
+        },
+        {
+          "cod": "MRVEB940",
+          "tipo": "CALL",
+          "strike": 9.4,
+          "venc": "2026-02-20",
+          "d0": "2026-02-02",
+          "p0": 0.05,
+          "d1": "2026-02-11",
+          "p1": 0.65,
+          "mult": 13.0,
+          "pregoes": 7
+        },
+        {
+          "cod": "MRVEO880W2",
+          "tipo": "PUT",
+          "strike": 8.8,
+          "venc": "2026-03-13",
+          "d0": "2026-03-02",
+          "p0": 0.07,
+          "d1": "2026-03-13",
+          "p1": 0.9,
+          "mult": 12.9,
+          "pregoes": 7
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "MRVEU77",
+          "tipo": "PUT",
+          "strike": 7.7,
+          "venc": "2026-09-18",
+          "close": 2.55,
+          "vol": 386270,
+          "neg": 135,
+          "chg_pct": -0.4
+        },
+        {
+          "cod": "MRVET600",
+          "tipo": "PUT",
+          "strike": 6.0,
+          "venc": "2026-08-21",
+          "close": 0.93,
+          "vol": 287581,
+          "neg": 21,
+          "chg_pct": -7.0
+        },
+        {
+          "cod": "MRVEU13",
+          "tipo": "PUT",
+          "strike": 13.0,
+          "venc": "2026-09-18",
+          "close": 7.79,
+          "vol": 287300,
+          "neg": 68,
+          "chg_pct": 0.1
+        },
+        {
+          "cod": "MRVEU60",
+          "tipo": "PUT",
+          "strike": 6.0,
+          "venc": "2026-09-18",
+          "close": 0.93,
+          "vol": 273274,
+          "neg": 25,
+          "chg_pct": -6.1
+        },
+        {
+          "cod": "MRVET660",
+          "tipo": "PUT",
+          "strike": 6.6,
+          "venc": "2026-08-21",
+          "close": 1.58,
+          "vol": 112528,
+          "neg": 141,
+          "chg_pct": 0.6
+        },
+        {
+          "cod": "MRVET780",
+          "tipo": "PUT",
+          "strike": 7.8,
+          "venc": "2026-08-21",
+          "close": 2.7,
+          "vol": 89950,
+          "neg": 7,
+          "chg_pct": -0.7
+        },
+        {
+          "cod": "MRVEV580",
+          "tipo": "PUT",
+          "strike": 5.8,
+          "venc": "2026-10-16",
+          "close": 0.83,
+          "vol": 89059,
+          "neg": 8,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "MRVET620",
+          "tipo": "PUT",
+          "strike": 6.2,
+          "venc": "2026-08-21",
+          "close": 1.13,
+          "vol": 84395,
+          "neg": 46,
+          "chg_pct": -5.8
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "MRVEI490",
+          "strike": 4.9,
+          "venc": "2026-09-18",
+          "premio": 0.38,
+          "vol": 25943,
+          "neg": 355,
+          "moneyness": "ATM",
+          "dist_strike_pct": -0.2
+        },
+        "put": {
+          "cod": "MRVEU500W1",
+          "strike": 5.0,
+          "venc": "2026-09-04",
+          "premio": 0.1,
+          "vol": 50,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": 1.8
+        }
+      }
+    },
+    "DIRR3": {
+      "nome": "Direcional",
+      "setor": "Construção civil",
+      "root": "DIRR",
+      "preco": 10.41,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 662,
+      "n_movers_10x": 1,
+      "termometro": {
+        "pcr_volume": 88.4,
+        "pcr_negocios": 3.07,
+        "call_vol": 34887,
+        "put_vol": 3083996,
+        "strikes_ativos": [
+          {
+            "strike": 20.33,
+            "vol": 1204140
+          },
+          {
+            "strike": 20.29,
+            "vol": 1132160
+          },
+          {
+            "strike": 18.08,
+            "vol": 73390
+          },
+          {
+            "strike": 13.83,
+            "vol": 68444
+          },
+          {
+            "strike": 14.71,
+            "vol": 64842
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "DIRRM152",
+          "tipo": "PUT",
+          "strike": 13.73,
+          "venc": "2026-01-16",
+          "d0": "2026-01-09",
+          "p0": 0.09,
+          "d1": "2026-01-16",
+          "p1": 0.98,
+          "mult": 10.9,
+          "pregoes": 5
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "DIRRT203",
+          "tipo": "PUT",
+          "strike": 20.33,
+          "venc": "2026-08-21",
+          "close": 9.87,
+          "vol": 1204140,
+          "neg": 1,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "DIRRV202",
+          "tipo": "PUT",
+          "strike": 20.29,
+          "venc": "2026-10-16",
+          "close": 9.28,
+          "vol": 1132160,
+          "neg": 1,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "DIRRN180",
+          "tipo": "PUT",
+          "strike": 18.08,
+          "venc": "2027-02-19",
+          "close": 6.59,
+          "vol": 73390,
+          "neg": 3,
+          "chg_pct": -1.5
+        },
+        {
+          "cod": "DIRRT138",
+          "tipo": "PUT",
+          "strike": 13.83,
+          "venc": "2026-08-21",
+          "close": 3.36,
+          "vol": 68444,
+          "neg": 21,
+          "chg_pct": -1.8
+        },
+        {
+          "cod": "DIRRU147",
+          "tipo": "PUT",
+          "strike": 14.71,
+          "venc": "2026-09-18",
+          "close": 4.08,
+          "vol": 64842,
+          "neg": 5,
+          "chg_pct": -0.7
+        },
+        {
+          "cod": "DIRRT148",
+          "tipo": "PUT",
+          "strike": 14.83,
+          "venc": "2026-08-21",
+          "close": 4.4,
+          "vol": 63357,
+          "neg": 4,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "DIRRT128",
+          "tipo": "PUT",
+          "strike": 12.83,
+          "venc": "2026-08-21",
+          "close": 2.34,
+          "vol": 56657,
+          "neg": 6,
+          "chg_pct": -4.5
+        },
+        {
+          "cod": "DIRRT140",
+          "tipo": "PUT",
+          "strike": 14.08,
+          "venc": "2026-08-21",
+          "close": 3.59,
+          "vol": 50680,
+          "neg": 4,
+          "chg_pct": -2.7
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "DIRRI102",
+          "strike": 10.21,
+          "venc": "2026-09-18",
+          "premio": 0.7,
+          "vol": 140,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": -1.9
+        },
+        "put": {
+          "cod": "DIRRU102",
+          "strike": 10.21,
+          "venc": "2026-09-18",
+          "premio": 0.28,
+          "vol": 4574,
+          "neg": 11,
+          "moneyness": "ATM",
+          "dist_strike_pct": -1.9
+        }
+      }
+    },
+    "CURY3": {
+      "nome": "Cury Construtora",
+      "setor": "Construção civil",
+      "root": "CURY",
+      "preco": 29.95,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 630,
+      "n_movers_10x": 9,
+      "termometro": {
+        "pcr_volume": 9.56,
+        "pcr_negocios": 1.27,
+        "call_vol": 10206,
+        "put_vol": 97542,
+        "strikes_ativos": [
+          {
+            "strike": 22.49,
+            "vol": 30000
+          },
+          {
+            "strike": 38.87,
+            "vol": 27590
+          },
+          {
+            "strike": 41.12,
+            "vol": 10808
+          },
+          {
+            "strike": 31.37,
+            "vol": 9661
+          },
+          {
+            "strike": 30.37,
+            "vol": 4308
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "CURYF329",
+          "tipo": "CALL",
+          "strike": 32.99,
+          "venc": "2026-06-19",
+          "d0": "2026-06-08",
+          "p0": 0.05,
+          "d1": "2026-06-15",
+          "p1": 1.03,
+          "mult": 20.6,
+          "pregoes": 3
+        },
+        {
+          "cod": "CURYF34",
+          "tipo": "CALL",
+          "strike": 33.49,
+          "venc": "2026-06-19",
+          "d0": "2026-06-05",
+          "p0": 0.05,
+          "d1": "2026-06-15",
+          "p1": 0.77,
+          "mult": 15.4,
+          "pregoes": 4
+        },
+        {
+          "cod": "CURYF33",
+          "tipo": "CALL",
+          "strike": 32.49,
+          "venc": "2026-06-19",
+          "d0": "2026-05-22",
+          "p0": 0.1,
+          "d1": "2026-05-27",
+          "p1": 1.45,
+          "mult": 14.5,
+          "pregoes": 3
+        },
+        {
+          "cod": "CURYF32",
+          "tipo": "CALL",
+          "strike": 31.49,
+          "venc": "2026-06-19",
+          "d0": "2026-06-05",
+          "p0": 0.16,
+          "d1": "2026-06-15",
+          "p1": 1.95,
+          "mult": 12.2,
+          "pregoes": 3
+        },
+        {
+          "cod": "CURYG350",
+          "tipo": "CALL",
+          "strike": 34.49,
+          "venc": "2026-07-17",
+          "d0": "2026-07-08",
+          "p0": 0.05,
+          "d1": "2026-07-10",
+          "p1": 0.6,
+          "mult": 12.0,
+          "pregoes": 2
+        },
+        {
+          "cod": "CURYF345",
+          "tipo": "CALL",
+          "strike": 34.51,
+          "venc": "2026-06-19",
+          "d0": "2026-05-15",
+          "p0": 0.05,
+          "d1": "2026-05-20",
+          "p1": 0.55,
+          "mult": 11.0,
+          "pregoes": 1
+        },
+        {
+          "cod": "CURYB37",
+          "tipo": "CALL",
+          "strike": 35.62,
+          "venc": "2026-02-20",
+          "d0": "2026-01-16",
+          "p0": 0.14,
+          "d1": "2026-01-27",
+          "p1": 1.52,
+          "mult": 10.9,
+          "pregoes": 6
+        },
+        {
+          "cod": "CURYS324",
+          "tipo": "PUT",
+          "strike": 32.49,
+          "venc": "2026-07-17",
+          "d0": "2026-07-15",
+          "p0": 0.14,
+          "d1": "2026-07-17",
+          "p1": 1.49,
+          "mult": 10.6,
+          "pregoes": 2
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "CURYO236",
+          "tipo": "PUT",
+          "strike": 22.49,
+          "venc": "2028-03-17",
+          "close": 1.0,
+          "vol": 30000,
+          "neg": 1,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "CURYU423",
+          "tipo": "PUT",
+          "strike": 38.87,
+          "venc": "2026-09-18",
+          "close": 8.71,
+          "vol": 27590,
+          "neg": 3,
+          "chg_pct": -3.2
+        },
+        {
+          "cod": "CURYX445",
+          "tipo": "PUT",
+          "strike": 41.12,
+          "venc": "2026-12-18",
+          "close": 10.82,
+          "vol": 10808,
+          "neg": 2,
+          "chg_pct": 1.1
+        },
+        {
+          "cod": "CURYT319",
+          "tipo": "PUT",
+          "strike": 31.37,
+          "venc": "2026-08-21",
+          "close": 1.0,
+          "vol": 4100,
+          "neg": 2,
+          "chg_pct": -4.8
+        },
+        {
+          "cod": "CURYI309",
+          "tipo": "CALL",
+          "strike": 30.37,
+          "venc": "2026-09-18",
+          "close": 1.12,
+          "vol": 4000,
+          "neg": 4,
+          "chg_pct": -6.7
+        },
+        {
+          "cod": "CURYV269",
+          "tipo": "PUT",
+          "strike": 26.37,
+          "venc": "2026-10-16",
+          "close": 0.72,
+          "vol": 3600,
+          "neg": 3,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "CURYT405",
+          "tipo": "PUT",
+          "strike": 37.12,
+          "venc": "2026-08-21",
+          "close": 7.02,
+          "vol": 3510,
+          "neg": 1,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "CURYV319",
+          "tipo": "PUT",
+          "strike": 31.37,
+          "venc": "2026-10-16",
+          "close": 2.65,
+          "vol": 3445,
+          "neg": 1,
+          "chg_pct": 0.0
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "CURYI309",
+          "strike": 30.37,
+          "venc": "2026-09-18",
+          "premio": 1.12,
+          "vol": 4000,
+          "neg": 4,
+          "moneyness": "ATM",
+          "dist_strike_pct": 1.4
+        },
+        "put": {
+          "cod": "CURYU304",
+          "strike": 29.87,
+          "venc": "2026-09-18",
+          "premio": 1.35,
+          "vol": 1113,
+          "neg": 3,
+          "moneyness": "ATM",
+          "dist_strike_pct": -0.3
+        }
+      }
+    },
+    "WEGE3": {
+      "nome": "WEG",
+      "setor": "Bens de capital",
+      "root": "WEGE",
+      "preco": 48.4,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 3484,
+      "n_movers_10x": 56,
+      "termometro": {
+        "pcr_volume": 0.16,
+        "pcr_negocios": 0.39,
+        "call_vol": 9765657,
+        "put_vol": 1601876,
+        "strikes_ativos": [
+          {
+            "strike": 48.87,
+            "vol": 1158362
+          },
+          {
+            "strike": 50.44,
+            "vol": 847687
+          },
+          {
+            "strike": 48.19,
+            "vol": 808944
+          },
+          {
+            "strike": 47.94,
+            "vol": 652727
+          },
+          {
+            "strike": 46.19,
+            "vol": 579764
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "WEGEA510W5",
+          "tipo": "CALL",
+          "strike": 49.76,
+          "venc": "2026-01-30",
+          "d0": "2026-01-20",
+          "p0": 0.07,
+          "d1": "2026-01-27",
+          "p1": 3.32,
+          "mult": 47.4,
+          "pregoes": 5
+        },
+        {
+          "cod": "WEGEA520W5",
+          "tipo": "CALL",
+          "strike": 50.76,
+          "venc": "2026-01-30",
+          "d0": "2026-01-19",
+          "p0": 0.05,
+          "d1": "2026-01-27",
+          "p1": 2.37,
+          "mult": 47.4,
+          "pregoes": 6
+        },
+        {
+          "cod": "WEGEA495W4",
+          "tipo": "CALL",
+          "strike": 48.26,
+          "venc": "2026-01-23",
+          "d0": "2026-01-19",
+          "p0": 0.05,
+          "d1": "2026-01-23",
+          "p1": 1.54,
+          "mult": 30.8,
+          "pregoes": 4
+        },
+        {
+          "cod": "WEGEB540W2",
+          "tipo": "CALL",
+          "strike": 54.0,
+          "venc": "2026-02-13",
+          "d0": "2026-01-20",
+          "p0": 0.05,
+          "d1": "2026-01-27",
+          "p1": 1.29,
+          "mult": 25.8,
+          "pregoes": 2
+        },
+        {
+          "cod": "WEGEB507W1",
+          "tipo": "CALL",
+          "strike": 50.76,
+          "venc": "2026-02-06",
+          "d0": "2026-01-20",
+          "p0": 0.12,
+          "d1": "2026-01-29",
+          "p1": 3.05,
+          "mult": 25.4,
+          "pregoes": 6
+        },
+        {
+          "cod": "WEGEB541",
+          "tipo": "CALL",
+          "strike": 54.11,
+          "venc": "2026-02-20",
+          "d0": "2026-01-19",
+          "p0": 0.06,
+          "d1": "2026-01-27",
+          "p1": 1.51,
+          "mult": 25.2,
+          "pregoes": 6
+        },
+        {
+          "cod": "WEGEA490W4",
+          "tipo": "CALL",
+          "strike": 47.76,
+          "venc": "2026-01-23",
+          "d0": "2026-01-19",
+          "p0": 0.1,
+          "d1": "2026-01-23",
+          "p1": 1.95,
+          "mult": 19.5,
+          "pregoes": 4
+        },
+        {
+          "cod": "WEGEB58",
+          "tipo": "CALL",
+          "strike": 55.61,
+          "venc": "2026-02-20",
+          "d0": "2026-01-20",
+          "p0": 0.05,
+          "d1": "2026-01-27",
+          "p1": 0.97,
+          "mult": 19.4,
+          "pregoes": 5
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "WEGEJ490",
+          "tipo": "CALL",
+          "strike": 48.87,
+          "venc": "2026-10-16",
+          "close": 3.04,
+          "vol": 1070440,
+          "neg": 279,
+          "chg_pct": 26.1
+        },
+        {
+          "cod": "WEGEI506",
+          "tipo": "CALL",
+          "strike": 50.44,
+          "venc": "2026-09-18",
+          "close": 1.22,
+          "vol": 792219,
+          "neg": 151,
+          "chg_pct": 48.8
+        },
+        {
+          "cod": "WEGEI483",
+          "tipo": "CALL",
+          "strike": 48.19,
+          "venc": "2026-09-18",
+          "close": 2.42,
+          "vol": 766720,
+          "neg": 327,
+          "chg_pct": 35.2
+        },
+        {
+          "cod": "WEGEI481",
+          "tipo": "CALL",
+          "strike": 47.94,
+          "venc": "2026-09-18",
+          "close": 2.62,
+          "vol": 632962,
+          "neg": 90,
+          "chg_pct": 34.4
+        },
+        {
+          "cod": "WEGEI493",
+          "tipo": "CALL",
+          "strike": 49.19,
+          "venc": "2026-09-18",
+          "close": 1.87,
+          "vol": 436319,
+          "neg": 247,
+          "chg_pct": 36.5
+        },
+        {
+          "cod": "WEGEJ485",
+          "tipo": "CALL",
+          "strike": 48.37,
+          "venc": "2026-10-16",
+          "close": 3.41,
+          "vol": 426868,
+          "neg": 71,
+          "chg_pct": 22.7
+        },
+        {
+          "cod": "WEGEH375",
+          "tipo": "CALL",
+          "strike": 37.37,
+          "venc": "2026-08-21",
+          "close": 12.06,
+          "vol": 421878,
+          "neg": 6,
+          "chg_pct": -0.2
+        },
+        {
+          "cod": "WEGEH420",
+          "tipo": "CALL",
+          "strike": 41.87,
+          "venc": "2026-08-21",
+          "close": 7.1,
+          "vol": 418900,
+          "neg": 2,
+          "chg_pct": 0.0
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "WEGEI489W1",
+          "strike": 48.87,
+          "venc": "2026-09-04",
+          "premio": 1.42,
+          "vol": 426,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": 1.0
+        },
+        "put": {
+          "cod": "WEGEU487W1",
+          "strike": 48.62,
+          "venc": "2026-09-04",
+          "premio": 0.63,
+          "vol": 63,
+          "neg": 1,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.5
+        }
+      }
+    },
+    "CSNA3": {
+      "nome": "CSN (Sid. Nacional)",
+      "setor": "Siderurgia",
+      "root": "CSNA",
+      "preco": 4.45,
+      "ultimo_pregao": "2026-08-21",
+      "n_series": 2176,
+      "n_movers_10x": 28,
+      "termometro": {
+        "pcr_volume": 3.99,
+        "pcr_negocios": 1.3,
+        "call_vol": 1782726,
+        "put_vol": 7106147,
+        "strikes_ativos": [
+          {
+            "strike": 12.07,
+            "vol": 956800
+          },
+          {
+            "strike": 12.05,
+            "vol": 934700
+          },
+          {
+            "strike": 16.3,
+            "vol": 859006
+          },
+          {
+            "strike": 9.05,
+            "vol": 521168
+          },
+          {
+            "strike": 8.97,
+            "vol": 508800
+          }
+        ]
+      },
+      "movers": [
+        {
+          "cod": "CSNAO688",
+          "tipo": "PUT",
+          "strike": 6.88,
+          "venc": "2026-03-20",
+          "d0": "2026-03-04",
+          "p0": 0.06,
+          "d1": "2026-03-13",
+          "p1": 1.13,
+          "mult": 18.8,
+          "pregoes": 7
+        },
+        {
+          "cod": "CSNAO668",
+          "tipo": "PUT",
+          "strike": 6.68,
+          "venc": "2026-03-20",
+          "d0": "2026-03-04",
+          "p0": 0.05,
+          "d1": "2026-03-13",
+          "p1": 0.93,
+          "mult": 18.6,
+          "pregoes": 7
+        },
+        {
+          "cod": "CSNAA100W5",
+          "tipo": "CALL",
+          "strike": 10.0,
+          "venc": "2026-01-30",
+          "d0": "2026-01-20",
+          "p0": 0.06,
+          "d1": "2026-01-29",
+          "p1": 1.0,
+          "mult": 16.7,
+          "pregoes": 7
+        },
+        {
+          "cod": "CSNAP640",
+          "tipo": "PUT",
+          "strike": 6.4,
+          "venc": "2026-04-17",
+          "d0": "2026-03-02",
+          "p0": 0.05,
+          "d1": "2026-03-13",
+          "p1": 0.83,
+          "mult": 16.6,
+          "pregoes": 7
+        },
+        {
+          "cod": "CSNAO648",
+          "tipo": "PUT",
+          "strike": 6.48,
+          "venc": "2026-03-20",
+          "d0": "2026-03-05",
+          "p0": 0.05,
+          "d1": "2026-03-13",
+          "p1": 0.75,
+          "mult": 15.0,
+          "pregoes": 6
+        },
+        {
+          "cod": "CSNAO708",
+          "tipo": "PUT",
+          "strike": 7.08,
+          "venc": "2026-03-20",
+          "d0": "2026-03-04",
+          "p0": 0.09,
+          "d1": "2026-03-13",
+          "p1": 1.32,
+          "mult": 14.7,
+          "pregoes": 7
+        },
+        {
+          "cod": "CSNAR680W1",
+          "tipo": "PUT",
+          "strike": 6.8,
+          "venc": "2026-06-05",
+          "d0": "2026-06-02",
+          "p0": 0.05,
+          "d1": "2026-06-05",
+          "p1": 0.71,
+          "mult": 14.2,
+          "pregoes": 2
+        },
+        {
+          "cod": "CSNAT520W1",
+          "tipo": "PUT",
+          "strike": 5.2,
+          "venc": "2026-08-07",
+          "d0": "2026-07-28",
+          "p0": 0.05,
+          "d1": "2026-08-03",
+          "p1": 0.7,
+          "mult": 14.0,
+          "pregoes": 4
+        }
+      ],
+      "tape_top": [
+        {
+          "cod": "CSNAT120",
+          "tipo": "PUT",
+          "strike": 12.07,
+          "venc": "2026-08-21",
+          "close": 7.36,
+          "vol": 956800,
+          "neg": 13,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "CSNAU120",
+          "tipo": "PUT",
+          "strike": 12.05,
+          "venc": "2026-09-18",
+          "close": 7.19,
+          "vol": 934700,
+          "neg": 13,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "CSNAU163",
+          "tipo": "PUT",
+          "strike": 16.3,
+          "venc": "2026-09-18",
+          "close": 11.44,
+          "vol": 859006,
+          "neg": 25,
+          "chg_pct": -0.1
+        },
+        {
+          "cod": "CSNAU905",
+          "tipo": "PUT",
+          "strike": 9.05,
+          "venc": "2026-09-18",
+          "close": 4.21,
+          "vol": 521168,
+          "neg": 5,
+          "chg_pct": -0.9
+        },
+        {
+          "cod": "CSNAT897",
+          "tipo": "PUT",
+          "strike": 8.97,
+          "venc": "2026-08-21",
+          "close": 4.24,
+          "vol": 508800,
+          "neg": 2,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "CSNAJ485",
+          "tipo": "CALL",
+          "strike": 4.85,
+          "venc": "2026-10-16",
+          "close": 0.48,
+          "vol": 421024,
+          "neg": 461,
+          "chg_pct": 14.3
+        },
+        {
+          "cod": "CSNAU565",
+          "tipo": "PUT",
+          "strike": 5.65,
+          "venc": "2026-09-18",
+          "close": 0.84,
+          "vol": 255219,
+          "neg": 148,
+          "chg_pct": -16.8
+        },
+        {
+          "cod": "CSNAT557",
+          "tipo": "PUT",
+          "strike": 5.57,
+          "venc": "2026-08-21",
+          "close": 0.81,
+          "vol": 236682,
+          "neg": 162,
+          "chg_pct": -29.6
+        }
+      ],
+      "oportunidade": {
+        "call": {
+          "cod": "CSNAI447W1",
+          "strike": 4.47,
+          "venc": "2026-09-04",
+          "premio": 0.4,
+          "vol": 1200,
+          "neg": 3,
+          "moneyness": "ATM",
+          "dist_strike_pct": 0.4
+        },
+        "put": {
+          "cod": "CSNAU457W1",
+          "strike": 4.57,
+          "venc": "2026-09-04",
+          "premio": 0.17,
+          "vol": 17493,
+          "neg": 3,
+          "moneyness": "ATM",
+          "dist_strike_pct": 2.7
+        }
+      }
+    }
+  }
+}

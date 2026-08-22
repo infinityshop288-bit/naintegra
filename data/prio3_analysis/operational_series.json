@@ -1,0 +1,13 @@
+{
+  "fonte": "Releases trimestrais e calls de resultados da PRIO (RI/CVM) + relatorios de research (Nord, XP, BTG, TN Petroleo, Money Times, Valor)",
+  "unidades": {"producao": "mil boe/d", "lifting_cost": "US$/bbl"},
+  "notas": "Serie de 6 trimestres consecutivos (4T24-1T26). Referencia pre-Peregrino: 4T23 = 100,3 kbpd e US$ 6,8/bbl (menor lifting cost historico).",
+  "trimestres": ["4T24", "1T25", "2T25", "3T25", "4T25", "1T26"],
+  "producao_kbpd": [87.6, 109.3, 100.1, 88.2, 128.0, 155.0],
+  "lifting_cost_usd_bbl": [11.1, 12.8, 13.8, 17.4, 12.5, 9.4],
+  "destaques": {
+    "3T25": "Vale do ciclo: parada mandatoria de Peregrino derruba producao a 88,2 e eleva lifting cost a US$ 17,4 (maior do periodo)",
+    "4T25": "Retomada de Peregrino + operacao assumida em nov/2025 elevam producao a 128",
+    "1T26": "Start-up de Wahoo (3 pocos) leva producao a 155 e lifting cost de volta a 1 digito (US$ 9,4)"
+  }
+}

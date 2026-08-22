@@ -1,0 +1,97 @@
+name: Deploy Dashboard PRIO3 (/xxx)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "data/prio3_analysis/**"
+      - "scripts/build_prio3_deploy.py"
+      - "scripts/export_prio3_snapshots.py"
+      - "scripts/deploy_prio3_hostinger.py"
+      - ".github/workflows/deploy-prio3-dashboard.yml"
+  schedule:
+    # Atualiza cotações/snapshots a cada 15 min (horário comercial BR, seg–sex)
+    - cron: "*/15 11-21 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      refresh:
+        description: "Atualizar macro/análise/opções antes do deploy"
+        type: boolean
+        default: true
+
+concurrency:
+  group: deploy-prio3-dashboard
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Publicar em naintegracursos.com.br/xxx
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências (prio3)
+        run: |
+          cd data/prio3_analysis
+          python -m venv .venv
+          .venv/bin/pip install -q yfinance pandas numpy certifi
+
+      - name: Build bundle estático
+        env:
+          DASHBOARD_USER: ${{ secrets.DASHBOARD_USER }}
+          DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
+          HTPASSWD_ABS_PATH: ${{ secrets.HTPASSWD_ABS_PATH }}
+        run: |
+          ARGS=""
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.refresh }}" = "true" ]; then
+            ARGS="--refresh"
+          elif [ "${{ github.event_name }}" = "schedule" ]; then
+            ARGS="--refresh"
+          fi
+          python scripts/build_prio3_deploy.py $ARGS
+
+      - name: Detect deploy method
+        id: mode
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [ -n "$FTP_SERVER" ] && [ -n "$FTP_USERNAME" ] && [ -n "$FTP_PASSWORD" ]; then
+            echo "method=ftp" >> "$GITHUB_OUTPUT"
+          else
+            echo "method=none" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy via FTPS (Hostinger)
+        if: steps.mode.outputs.method == 'ftp'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftps
+          local-dir: ./xxx/
+          server-dir: ./public_html/xxx/
+          dangerous-clean-slate: false
+
+      - name: Credenciais ausentes
+        if: steps.mode.outputs.method == 'none'
+        run: |
+          echo "::error::Configure FTP_* e DASHBOARD_PASSWORD em GitHub → Secrets"
+          exit 1
+
+      - name: Smoke test
+        if: steps.mode.outputs.method != 'none'
+        run: |
+          code=$(curl -s -o /dev/null -w "%{http_code}" -u "${{ secrets.DASHBOARD_USER }}:${{ secrets.DASHBOARD_PASSWORD }}" "https://www.naintegracursos.com.br/xxx/painel.html" || true)
+          echo "HTTP $code for /xxx/painel.html (com auth)"
+          if [ "$code" != "200" ]; then
+            echo "::warning::CDN pode levar alguns minutos; verifique .htpasswd e HTPASSWD_ABS_PATH no hPanel."

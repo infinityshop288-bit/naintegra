@@ -1,0 +1,37 @@
+{
+  "yf": {
+    "currentPrice": 55.83,
+    "sharesOutstanding": 801133501,
+    "marketCap": 44727283712,
+    "enterpriseValue": 69665939456,
+    "enterpriseToEbitda": 7.161,
+    "trailingPE": 16.918182,
+    "forwardPE": 6.1427593,
+    "priceToBook": 1.6928443,
+    "targetMeanPrice": 69.91429,
+    "targetMedianPrice": 71.0,
+    "targetHighPrice": 80.0,
+    "targetLowPrice": 52.0,
+    "numberOfAnalystOpinions": 14,
+    "recommendationKey": "buy",
+    "ebitda": 9729081344,
+    "totalDebt": 26901637120,
+    "totalCash": 2793646080,
+    "bookValue": 32.98,
+    "returnOnEquity": 0.09729999,
+    "dividendYield": null
+  },
+  "itr": {
+    "periodo": {
+      "ini": "2026-01-01",
+      "fim": "2026-03-31"
+    },
+    "receita": 6529947.0,
+    "ebit": 2452772.0,
+    "ebitda": 4399697.0,
+    "lucro_liquido": 2410883.0,
+    "divida_bruta": 26901637.0,
+    "caixa": 2793646.0,
+    "divida_liquida": 24107991.0
+  }
+}

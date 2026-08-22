@@ -1,0 +1,275 @@
+{
+  "fonte": "Yahoo Finance PRIO3.SA (15m, 60d)",
+  "pregoes": 59,
+  "tz": "America/Sao_Paulo",
+  "buckets": [
+    {
+      "hhmm": "10:00",
+      "vol_medio": 316386.441,
+      "part_pct": 3.807,
+      "ret_medio_pct": -0.177,
+      "up_rate_pct": 49.153,
+      "vol_alta_x_baixa": 0.834,
+      "continua_pct": 45.763
+    },
+    {
+      "hhmm": "10:15",
+      "vol_medio": 428388.136,
+      "part_pct": 4.779,
+      "ret_medio_pct": 0.004,
+      "up_rate_pct": 49.153,
+      "vol_alta_x_baixa": 1.277,
+      "continua_pct": 59.322
+    },
+    {
+      "hhmm": "10:30",
+      "vol_medio": 456505.085,
+      "part_pct": 5.48,
+      "ret_medio_pct": 0.028,
+      "up_rate_pct": 54.237,
+      "vol_alta_x_baixa": 1.024,
+      "continua_pct": 59.322
+    },
+    {
+      "hhmm": "10:45",
+      "vol_medio": 358233.898,
+      "part_pct": 4.239,
+      "ret_medio_pct": 0.063,
+      "up_rate_pct": 57.627,
+      "vol_alta_x_baixa": 0.868,
+      "continua_pct": 40.678
+    },
+    {
+      "hhmm": "11:00",
+      "vol_medio": 331444.068,
+      "part_pct": 3.986,
+      "ret_medio_pct": -0.097,
+      "up_rate_pct": 44.068,
+      "vol_alta_x_baixa": 0.818,
+      "continua_pct": 44.068
+    },
+    {
+      "hhmm": "11:15",
+      "vol_medio": 333705.085,
+      "part_pct": 3.948,
+      "ret_medio_pct": 0.065,
+      "up_rate_pct": 59.322,
+      "vol_alta_x_baixa": 0.982,
+      "continua_pct": 35.593
+    },
+    {
+      "hhmm": "11:30",
+      "vol_medio": 347584.746,
+      "part_pct": 4.075,
+      "ret_medio_pct": 0.005,
+      "up_rate_pct": 50.847,
+      "vol_alta_x_baixa": 0.831,
+      "continua_pct": 38.983
+    },
+    {
+      "hhmm": "11:45",
+      "vol_medio": 435061.017,
+      "part_pct": 4.096,
+      "ret_medio_pct": -0.023,
+      "up_rate_pct": 38.983,
+      "vol_alta_x_baixa": 3.334,
+      "continua_pct": 57.627
+    },
+    {
+      "hhmm": "12:00",
+      "vol_medio": 228566.102,
+      "part_pct": 2.795,
+      "ret_medio_pct": 0.073,
+      "up_rate_pct": 55.932,
+      "vol_alta_x_baixa": 1.141,
+      "continua_pct": 42.373
+    },
+    {
+      "hhmm": "12:15",
+      "vol_medio": 225881.356,
+      "part_pct": 2.607,
+      "ret_medio_pct": -0.041,
+      "up_rate_pct": 35.593,
+      "vol_alta_x_baixa": 1.234,
+      "continua_pct": 38.983
+    },
+    {
+      "hhmm": "12:30",
+      "vol_medio": 209661.017,
+      "part_pct": 2.456,
+      "ret_medio_pct": 0.004,
+      "up_rate_pct": 45.763,
+      "vol_alta_x_baixa": 1.196,
+      "continua_pct": 44.068
+    },
+    {
+      "hhmm": "12:45",
+      "vol_medio": 248167.797,
+      "part_pct": 3.104,
+      "ret_medio_pct": 0.014,
+      "up_rate_pct": 49.153,
+      "vol_alta_x_baixa": 1.131,
+      "continua_pct": 44.068
+    },
+    {
+      "hhmm": "13:00",
+      "vol_medio": 197884.746,
+      "part_pct": 2.435,
+      "ret_medio_pct": -0.022,
+      "up_rate_pct": 47.458,
+      "vol_alta_x_baixa": 1.22,
+      "continua_pct": 44.068
+    },
+    {
+      "hhmm": "13:15",
+      "vol_medio": 260413.559,
+      "part_pct": 2.974,
+      "ret_medio_pct": 0.038,
+      "up_rate_pct": 57.627,
+      "vol_alta_x_baixa": 0.48,
+      "continua_pct": 37.288
+    },
+    {
+      "hhmm": "13:30",
+      "vol_medio": 240350.847,
+      "part_pct": 2.89,
+      "ret_medio_pct": -0.004,
+      "up_rate_pct": 47.458,
+      "vol_alta_x_baixa": 1.161,
+      "continua_pct": 57.627
+    },
+    {
+      "hhmm": "13:45",
+      "vol_medio": 265681.356,
+      "part_pct": 3.016,
+      "ret_medio_pct": 0.008,
+      "up_rate_pct": 47.458,
+      "vol_alta_x_baixa": 1.444,
+      "continua_pct": 50.847
+    },
+    {
+      "hhmm": "14:00",
+      "vol_medio": 258469.492,
+      "part_pct": 2.919,
+      "ret_medio_pct": 0.05,
+      "up_rate_pct": 47.458,
+      "vol_alta_x_baixa": 1.163,
+      "continua_pct": 42.373
+    },
+    {
+      "hhmm": "14:15",
+      "vol_medio": 324098.305,
+      "part_pct": 3.62,
+      "ret_medio_pct": -0.073,
+      "up_rate_pct": 37.288,
+      "vol_alta_x_baixa": 1.109,
+      "continua_pct": 42.373
+    },
+    {
+      "hhmm": "14:30",
+      "vol_medio": 295905.085,
+      "part_pct": 3.732,
+      "ret_medio_pct": 0.013,
+      "up_rate_pct": 52.542,
+      "vol_alta_x_baixa": 1.015,
+      "continua_pct": 50.847
+    },
+    {
+      "hhmm": "14:45",
+      "vol_medio": 294794.915,
+      "part_pct": 3.276,
+      "ret_medio_pct": 0.004,
+      "up_rate_pct": 57.627,
+      "vol_alta_x_baixa": 1.116,
+      "continua_pct": 42.373
+    },
+    {
+      "hhmm": "15:00",
+      "vol_medio": 256994.915,
+      "part_pct": 2.975,
+      "ret_medio_pct": 0.041,
+      "up_rate_pct": 50.847,
+      "vol_alta_x_baixa": 1.304,
+      "continua_pct": 50.847
+    },
+    {
+      "hhmm": "15:15",
+      "vol_medio": 263327.119,
+      "part_pct": 3.119,
+      "ret_medio_pct": 0.078,
+      "up_rate_pct": 66.102,
+      "vol_alta_x_baixa": 1.044,
+      "continua_pct": 47.458
+    },
+    {
+      "hhmm": "15:30",
+      "vol_medio": 269084.746,
+      "part_pct": 3.212,
+      "ret_medio_pct": -0.005,
+      "up_rate_pct": 50.847,
+      "vol_alta_x_baixa": 0.83,
+      "continua_pct": 45.763
+    },
+    {
+      "hhmm": "15:45",
+      "vol_medio": 277050.847,
+      "part_pct": 3.424,
+      "ret_medio_pct": -0.001,
+      "up_rate_pct": 45.763,
+      "vol_alta_x_baixa": 1.269,
+      "continua_pct": 44.068
+    },
+    {
+      "hhmm": "16:00",
+      "vol_medio": 293586.441,
+      "part_pct": 3.496,
+      "ret_medio_pct": -0.008,
+      "up_rate_pct": 50.847,
+      "vol_alta_x_baixa": 1.175,
+      "continua_pct": 52.542
+    },
+    {
+      "hhmm": "16:15",
+      "vol_medio": 362077.966,
+      "part_pct": 4.287,
+      "ret_medio_pct": 0.027,
+      "up_rate_pct": 55.932,
+      "vol_alta_x_baixa": 1.087,
+      "continua_pct": 52.542
+    },
+    {
+      "hhmm": "16:30",
+      "vol_medio": 429701.695,
+      "part_pct": 5.217,
+      "ret_medio_pct": -0.008,
+      "up_rate_pct": 47.458,
+      "vol_alta_x_baixa": 0.909,
+      "continua_pct": 40.678
+    },
+    {
+      "hhmm": "16:45",
+      "vol_medio": 356432.203,
+      "part_pct": 4.035,
+      "ret_medio_pct": 0.037,
+      "up_rate_pct": 49.153,
+      "vol_alta_x_baixa": 0.769,
+      "continua_pct": 0.0
+    }
+  ],
+  "top_volume_alta": [
+    "10:30",
+    "11:45",
+    "16:30",
+    "10:15",
+    "16:15",
+    "10:45"
+  ],
+  "menor_volume_baixa": [
+    "13:00",
+    "12:30",
+    "12:15",
+    "12:00",
+    "13:30",
+    "12:45"
+  ]
+}

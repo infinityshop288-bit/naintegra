@@ -1,0 +1,67 @@
+[
+  {
+    "ano": 2021,
+    "moeda": "REAL",
+    "escala": "MIL",
+    "receita": 4396003.0,
+    "ebit": 2121443.0,
+    "dep_amort": 881271.0,
+    "ebitda": 3002714.0,
+    "lucro_liquido": 1333046.0,
+    "divida_bruta": 3901293.0,
+    "caixa": 970681.0,
+    "divida_liquida": 2930612.0
+  },
+  {
+    "ano": 2022,
+    "moeda": "REAL",
+    "escala": "MIL",
+    "receita": 6363475.0,
+    "ebit": 3916213.0,
+    "dep_amort": 854256.0,
+    "ebitda": 4770469.0,
+    "lucro_liquido": 3427072.0,
+    "divida_bruta": 9222756.0,
+    "caixa": 9612961.0,
+    "divida_liquida": -390205.0
+  },
+  {
+    "ano": 2023,
+    "moeda": "REAL",
+    "escala": "MIL",
+    "receita": 11905041.0,
+    "ebit": 7155862.0,
+    "dep_amort": 2054585.0,
+    "ebitda": 9210447.0,
+    "lucro_liquido": 5179905.0,
+    "divida_bruta": 9554402.0,
+    "caixa": 2335403.0,
+    "divida_liquida": 7218999.0
+  },
+  {
+    "ano": 2024,
+    "moeda": "REAL",
+    "escala": "MIL",
+    "receita": 14360653.0,
+    "ebit": 6945461.0,
+    "dep_amort": 2494296.0,
+    "ebitda": 9439757.0,
+    "lucro_liquido": 10301606.0,
+    "divida_bruta": 22433677.0,
+    "caixa": 3993359.0,
+    "divida_liquida": 18440318.0
+  },
+  {
+    "ano": 2025,
+    "moeda": "REAL",
+    "escala": "MIL",
+    "receita": 15583960.0,
+    "ebit": 1809322.0,
+    "dep_amort": 5855918.0,
+    "ebitda": 7665240.0,
+    "lucro_liquido": 2251479.0,
+    "divida_bruta": 28438286.0,
+    "caixa": 3398291.0,
+    "divida_liquida": 25039995.0
+  }
+]

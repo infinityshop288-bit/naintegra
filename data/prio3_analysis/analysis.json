@@ -1,0 +1,1149 @@
+{
+  "gerado_em": "2026-07-09",
+  "snapshot": {
+    "prio3_brl": 56.42,
+    "brent_usd": 78.02,
+    "usdbrl": 5.17,
+    "data": "2026-07-08"
+  },
+  "stats5y": {
+    "PRIO3": {
+      "inicio": "2021-07-05",
+      "fim": "2026-07-08",
+      "preco_inicial": 21.4555,
+      "preco_final": 56.42,
+      "retorno_total_pct": 162.96,
+      "cagr_pct": 21.33,
+      "vol_anualizada_pct": 39.31,
+      "max": 72.1,
+      "min": 16.7231,
+      "max_data": "2026-03-30",
+      "min_data": "2021-08-17"
+    },
+    "BRENT": {
+      "inicio": "2021-07-06",
+      "fim": "2026-07-08",
+      "preco_inicial": 74.53,
+      "preco_final": 78.02,
+      "retorno_total_pct": 4.68,
+      "cagr_pct": 0.92,
+      "vol_anualizada_pct": 37.63,
+      "max": 127.98,
+      "min": 58.92,
+      "max_data": "2022-03-08",
+      "min_data": "2025-12-16"
+    },
+    "correlacao_prio3_brent_retornos_diarios": 0.485,
+    "beta_prio3_vs_brent": 0.506
+  },
+  "annual_returns": {
+    "PRIO3": {
+      "2021": -3.8,
+      "2022": 83.4,
+      "2023": 25.5,
+      "2024": -12.8,
+      "2025": 1.6,
+      "2026": 35.1
+    },
+    "BRENT": {
+      "2021": 4.4,
+      "2022": 8.8,
+      "2023": -10.3,
+      "2024": -3.1,
+      "2025": -19.9,
+      "2026": 28.4
+    }
+  },
+  "monthly": [
+    {
+      "date": "2021-07",
+      "prio3": 17.82,
+      "brent": 76.33,
+      "prio3_idx": 100.0,
+      "brent_idx": 100.0
+    },
+    {
+      "date": "2021-08",
+      "prio3": 19.14,
+      "brent": 72.99,
+      "prio3_idx": 107.4,
+      "brent_idx": 95.6
+    },
+    {
+      "date": "2021-09",
+      "prio3": 24.98,
+      "brent": 78.52,
+      "prio3_idx": 140.2,
+      "brent_idx": 102.9
+    },
+    {
+      "date": "2021-10",
+      "prio3": 23.43,
+      "brent": 84.38,
+      "prio3_idx": 131.5,
+      "brent_idx": 110.5
+    },
+    {
+      "date": "2021-11",
+      "prio3": 20.26,
+      "brent": 70.57,
+      "prio3_idx": 113.7,
+      "brent_idx": 92.5
+    },
+    {
+      "date": "2021-12",
+      "prio3": 20.64,
+      "brent": 77.78,
+      "prio3_idx": 115.8,
+      "brent_idx": 101.9
+    },
+    {
+      "date": "2022-01",
+      "prio3": 23.88,
+      "brent": 91.21,
+      "prio3_idx": 134.0,
+      "brent_idx": 119.5
+    },
+    {
+      "date": "2022-02",
+      "prio3": 25.78,
+      "brent": 100.99,
+      "prio3_idx": 144.6,
+      "brent_idx": 132.3
+    },
+    {
+      "date": "2022-03",
+      "prio3": 23.77,
+      "brent": 107.91,
+      "prio3_idx": 133.4,
+      "brent_idx": 141.4
+    },
+    {
+      "date": "2022-04",
+      "prio3": 26.66,
+      "brent": 109.34,
+      "prio3_idx": 149.6,
+      "brent_idx": 143.2
+    },
+    {
+      "date": "2022-05",
+      "prio3": 27.95,
+      "brent": 122.84,
+      "prio3_idx": 156.8,
+      "brent_idx": 160.9
+    },
+    {
+      "date": "2022-06",
+      "prio3": 21.95,
+      "brent": 114.81,
+      "prio3_idx": 123.2,
+      "brent_idx": 150.4
+    },
+    {
+      "date": "2022-07",
+      "prio3": 24.18,
+      "brent": 110.01,
+      "prio3_idx": 135.7,
+      "brent_idx": 144.1
+    },
+    {
+      "date": "2022-08",
+      "prio3": 27.27,
+      "brent": 96.49,
+      "prio3_idx": 153.0,
+      "brent_idx": 126.4
+    },
+    {
+      "date": "2022-09",
+      "prio3": 27.49,
+      "brent": 87.96,
+      "prio3_idx": 154.2,
+      "brent_idx": 115.2
+    },
+    {
+      "date": "2022-10",
+      "prio3": 35.33,
+      "brent": 94.83,
+      "prio3_idx": 198.3,
+      "brent_idx": 124.2
+    },
+    {
+      "date": "2022-11",
+      "prio3": 35.99,
+      "brent": 85.43,
+      "prio3_idx": 202.0,
+      "brent_idx": 111.9
+    },
+    {
+      "date": "2022-12",
+      "prio3": 37.15,
+      "brent": 85.91,
+      "prio3_idx": 208.5,
+      "brent_idx": 112.6
+    },
+    {
+      "date": "2023-01",
+      "prio3": 42.03,
+      "brent": 84.49,
+      "prio3_idx": 235.9,
+      "brent_idx": 110.7
+    },
+    {
+      "date": "2023-02",
+      "prio3": 33.65,
+      "brent": 83.89,
+      "prio3_idx": 188.8,
+      "brent_idx": 109.9
+    },
+    {
+      "date": "2023-03",
+      "prio3": 31.14,
+      "brent": 79.77,
+      "prio3_idx": 174.7,
+      "brent_idx": 104.5
+    },
+    {
+      "date": "2023-04",
+      "prio3": 34.69,
+      "brent": 79.54,
+      "prio3_idx": 194.7,
+      "brent_idx": 104.2
+    },
+    {
+      "date": "2023-05",
+      "prio3": 34.14,
+      "brent": 72.66,
+      "prio3_idx": 191.5,
+      "brent_idx": 95.2
+    },
+    {
+      "date": "2023-06",
+      "prio3": 37.02,
+      "brent": 74.9,
+      "prio3_idx": 207.7,
+      "brent_idx": 98.1
+    },
+    {
+      "date": "2023-07",
+      "prio3": 45.55,
+      "brent": 85.56,
+      "prio3_idx": 255.6,
+      "brent_idx": 112.1
+    },
+    {
+      "date": "2023-08",
+      "prio3": 46.35,
+      "brent": 86.86,
+      "prio3_idx": 260.1,
+      "brent_idx": 113.8
+    },
+    {
+      "date": "2023-09",
+      "prio3": 46.96,
+      "brent": 95.31,
+      "prio3_idx": 263.5,
+      "brent_idx": 124.9
+    },
+    {
+      "date": "2023-10",
+      "prio3": 47.62,
+      "brent": 87.41,
+      "prio3_idx": 267.2,
+      "brent_idx": 114.5
+    },
+    {
+      "date": "2023-11",
+      "prio3": 45.86,
+      "brent": 82.83,
+      "prio3_idx": 257.3,
+      "brent_idx": 108.5
+    },
+    {
+      "date": "2023-12",
+      "prio3": 46.05,
+      "brent": 77.04,
+      "prio3_idx": 258.4,
+      "brent_idx": 100.9
+    },
+    {
+      "date": "2024-01",
+      "prio3": 43.93,
+      "brent": 81.71,
+      "prio3_idx": 246.5,
+      "brent_idx": 107.0
+    },
+    {
+      "date": "2024-02",
+      "prio3": 43.71,
+      "brent": 83.62,
+      "prio3_idx": 245.3,
+      "brent_idx": 109.6
+    },
+    {
+      "date": "2024-03",
+      "prio3": 48.74,
+      "brent": 87.48,
+      "prio3_idx": 273.5,
+      "brent_idx": 114.6
+    },
+    {
+      "date": "2024-04",
+      "prio3": 48.0,
+      "brent": 87.86,
+      "prio3_idx": 269.3,
+      "brent_idx": 115.1
+    },
+    {
+      "date": "2024-05",
+      "prio3": 41.61,
+      "brent": 81.62,
+      "prio3_idx": 233.5,
+      "brent_idx": 106.9
+    },
+    {
+      "date": "2024-06",
+      "prio3": 43.76,
+      "brent": 86.41,
+      "prio3_idx": 245.5,
+      "brent_idx": 113.2
+    },
+    {
+      "date": "2024-07",
+      "prio3": 48.05,
+      "brent": 80.72,
+      "prio3_idx": 269.6,
+      "brent_idx": 105.8
+    },
+    {
+      "date": "2024-08",
+      "prio3": 46.84,
+      "brent": 78.8,
+      "prio3_idx": 262.8,
+      "brent_idx": 103.2
+    },
+    {
+      "date": "2024-09",
+      "prio3": 43.33,
+      "brent": 71.77,
+      "prio3_idx": 243.1,
+      "brent_idx": 94.0
+    },
+    {
+      "date": "2024-10",
+      "prio3": 40.98,
+      "brent": 73.16,
+      "prio3_idx": 229.9,
+      "brent_idx": 95.8
+    },
+    {
+      "date": "2024-11",
+      "prio3": 40.14,
+      "brent": 72.94,
+      "prio3_idx": 225.2,
+      "brent_idx": 95.6
+    },
+    {
+      "date": "2024-12",
+      "prio3": 40.15,
+      "brent": 74.64,
+      "prio3_idx": 225.3,
+      "brent_idx": 97.8
+    },
+    {
+      "date": "2025-01",
+      "prio3": 40.99,
+      "brent": 76.76,
+      "prio3_idx": 230.0,
+      "brent_idx": 100.6
+    },
+    {
+      "date": "2025-02",
+      "prio3": 38.17,
+      "brent": 73.18,
+      "prio3_idx": 214.2,
+      "brent_idx": 95.9
+    },
+    {
+      "date": "2025-03",
+      "prio3": 39.8,
+      "brent": 74.74,
+      "prio3_idx": 223.3,
+      "brent_idx": 97.9
+    },
+    {
+      "date": "2025-04",
+      "prio3": 33.71,
+      "brent": 63.12,
+      "prio3_idx": 189.2,
+      "brent_idx": 82.7
+    },
+    {
+      "date": "2025-05",
+      "prio3": 38.95,
+      "brent": 63.9,
+      "prio3_idx": 218.6,
+      "brent_idx": 83.7
+    },
+    {
+      "date": "2025-06",
+      "prio3": 42.4,
+      "brent": 67.61,
+      "prio3_idx": 237.9,
+      "brent_idx": 88.6
+    },
+    {
+      "date": "2025-07",
+      "prio3": 42.19,
+      "brent": 72.53,
+      "prio3_idx": 236.7,
+      "brent_idx": 95.0
+    },
+    {
+      "date": "2025-08",
+      "prio3": 37.87,
+      "brent": 68.12,
+      "prio3_idx": 212.5,
+      "brent_idx": 89.2
+    },
+    {
+      "date": "2025-09",
+      "prio3": 38.13,
+      "brent": 67.02,
+      "prio3_idx": 214.0,
+      "brent_idx": 87.8
+    },
+    {
+      "date": "2025-10",
+      "prio3": 36.03,
+      "brent": 65.07,
+      "prio3_idx": 202.2,
+      "brent_idx": 85.2
+    },
+    {
+      "date": "2025-11",
+      "prio3": 37.21,
+      "brent": 63.2,
+      "prio3_idx": 208.8,
+      "brent_idx": 82.8
+    },
+    {
+      "date": "2025-12",
+      "prio3": 41.42,
+      "brent": 60.85,
+      "prio3_idx": 232.4,
+      "brent_idx": 79.7
+    },
+    {
+      "date": "2026-01",
+      "prio3": 50.99,
+      "brent": 70.69,
+      "prio3_idx": 286.1,
+      "brent_idx": 92.6
+    },
+    {
+      "date": "2026-02",
+      "prio3": 54.49,
+      "brent": 72.48,
+      "prio3_idx": 305.8,
+      "brent_idx": 95.0
+    },
+    {
+      "date": "2026-03",
+      "prio3": 66.21,
+      "brent": 118.35,
+      "prio3_idx": 371.5,
+      "brent_idx": 155.1
+    },
+    {
+      "date": "2026-04",
+      "prio3": 66.41,
+      "brent": 114.01,
+      "prio3_idx": 372.6,
+      "brent_idx": 149.4
+    },
+    {
+      "date": "2026-05",
+      "prio3": 62.25,
+      "brent": 92.05,
+      "prio3_idx": 349.3,
+      "brent_idx": 120.6
+    },
+    {
+      "date": "2026-06",
+      "prio3": 52.15,
+      "brent": 72.92,
+      "prio3_idx": 292.6,
+      "brent_idx": 95.5
+    },
+    {
+      "date": "2026-07",
+      "prio3": 56.42,
+      "brent": 78.02,
+      "prio3_idx": 316.6,
+      "brent_idx": 102.2
+    }
+  ],
+  "technicals": {
+    "preco_atual": 56.42,
+    "sma50": 61.34,
+    "sma200": 51.64,
+    "acima_sma50": false,
+    "acima_sma200": true,
+    "rsi14": 47.1,
+    "maxima_52s": 72.1,
+    "minima_52s": 34.2,
+    "dist_maxima_52s_pct": -21.7,
+    "drawdown_atual_pct": -21.7,
+    "max_drawdown_pct": -35.3,
+    "max_drawdown_data": "2025-04-10"
+  },
+  "rolling_corr": [
+    {
+      "date": "2021-11",
+      "corr": 0.46
+    },
+    {
+      "date": "2021-12",
+      "corr": 0.47
+    },
+    {
+      "date": "2022-01",
+      "corr": 0.45
+    },
+    {
+      "date": "2022-02",
+      "corr": 0.46
+    },
+    {
+      "date": "2022-03",
+      "corr": 0.52
+    },
+    {
+      "date": "2022-04",
+      "corr": 0.44
+    },
+    {
+      "date": "2022-05",
+      "corr": 0.52
+    },
+    {
+      "date": "2022-06",
+      "corr": 0.56
+    },
+    {
+      "date": "2022-07",
+      "corr": 0.54
+    },
+    {
+      "date": "2022-08",
+      "corr": 0.59
+    },
+    {
+      "date": "2022-09",
+      "corr": 0.49
+    },
+    {
+      "date": "2022-10",
+      "corr": 0.49
+    },
+    {
+      "date": "2022-11",
+      "corr": 0.45
+    },
+    {
+      "date": "2022-12",
+      "corr": 0.41
+    },
+    {
+      "date": "2023-01",
+      "corr": 0.52
+    },
+    {
+      "date": "2023-02",
+      "corr": 0.43
+    },
+    {
+      "date": "2023-03",
+      "corr": 0.51
+    },
+    {
+      "date": "2023-04",
+      "corr": 0.51
+    },
+    {
+      "date": "2023-05",
+      "corr": 0.5
+    },
+    {
+      "date": "2023-06",
+      "corr": 0.5
+    },
+    {
+      "date": "2023-07",
+      "corr": 0.57
+    },
+    {
+      "date": "2023-08",
+      "corr": 0.55
+    },
+    {
+      "date": "2023-09",
+      "corr": 0.57
+    },
+    {
+      "date": "2023-10",
+      "corr": 0.63
+    },
+    {
+      "date": "2023-11",
+      "corr": 0.64
+    },
+    {
+      "date": "2023-12",
+      "corr": 0.67
+    },
+    {
+      "date": "2024-01",
+      "corr": 0.67
+    },
+    {
+      "date": "2024-02",
+      "corr": 0.56
+    },
+    {
+      "date": "2024-03",
+      "corr": 0.49
+    },
+    {
+      "date": "2024-04",
+      "corr": 0.42
+    },
+    {
+      "date": "2024-05",
+      "corr": 0.35
+    },
+    {
+      "date": "2024-06",
+      "corr": 0.3
+    },
+    {
+      "date": "2024-07",
+      "corr": 0.34
+    },
+    {
+      "date": "2024-08",
+      "corr": 0.3
+    },
+    {
+      "date": "2024-09",
+      "corr": 0.44
+    },
+    {
+      "date": "2024-10",
+      "corr": 0.51
+    },
+    {
+      "date": "2024-11",
+      "corr": 0.53
+    },
+    {
+      "date": "2024-12",
+      "corr": 0.52
+    },
+    {
+      "date": "2025-01",
+      "corr": 0.47
+    },
+    {
+      "date": "2025-02",
+      "corr": 0.43
+    },
+    {
+      "date": "2025-03",
+      "corr": 0.46
+    },
+    {
+      "date": "2025-04",
+      "corr": 0.65
+    },
+    {
+      "date": "2025-05",
+      "corr": 0.61
+    },
+    {
+      "date": "2025-06",
+      "corr": 0.59
+    },
+    {
+      "date": "2025-07",
+      "corr": 0.6
+    },
+    {
+      "date": "2025-08",
+      "corr": 0.45
+    },
+    {
+      "date": "2025-09",
+      "corr": 0.54
+    },
+    {
+      "date": "2025-10",
+      "corr": 0.51
+    },
+    {
+      "date": "2025-11",
+      "corr": 0.49
+    },
+    {
+      "date": "2025-12",
+      "corr": 0.48
+    },
+    {
+      "date": "2026-01",
+      "corr": 0.49
+    },
+    {
+      "date": "2026-02",
+      "corr": 0.44
+    },
+    {
+      "date": "2026-03",
+      "corr": 0.34
+    },
+    {
+      "date": "2026-04",
+      "corr": 0.48
+    },
+    {
+      "date": "2026-05",
+      "corr": 0.51
+    },
+    {
+      "date": "2026-06",
+      "corr": 0.54
+    },
+    {
+      "date": "2026-07",
+      "corr": 0.55
+    }
+  ],
+  "fatos_total": 112,
+  "fatos_by_year": {
+    "2021": 21,
+    "2022": 27,
+    "2023": 15,
+    "2024": 14,
+    "2025": 24,
+    "2026": 11
+  },
+  "fatos_tag_counts": {
+    "Financiamento": 19,
+    "M&A / Aquisição": 19,
+    "Produção": 15,
+    "Retorno ao acionista": 14,
+    "Licenciamento": 7,
+    "Reservas": 6
+  },
+  "catalisadores": [
+    {
+      "date": "2021-01-18",
+      "assunto": "OFERTA PÚBLICA DE AÇÕES COM ESFORÇOS RESTRITOS (FOLLOW-ON)",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2021-01-21",
+      "assunto": "CONCLUSÃO DE AQUISIÇÃO DE 30% DO CAMPO DE FRADE",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2021-01-28",
+      "assunto": "OFERTA PÚBLICA DE AÇÕES COM ESFORÇOS RESTRITOS (FOLLOW-ON)",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2021-02-05",
+      "assunto": "CONCLUSÃO DA AQUISIÇÃO DE 30% DO CAMPO DE FRADE",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2021-03-04",
+      "assunto": "AQUISIÇÃO DE PARTICIPAÇÃO EM WAHOO",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2021-04-12",
+      "assunto": "CERTIFICAÇÃO DE RESERVAS E RECURSOS",
+      "tag": "Reservas"
+    },
+    {
+      "date": "2021-04-30",
+      "assunto": "Desdobramento das ações",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2021-05-27",
+      "assunto": "EMISSÃO DE NOTAS REPRESENTATIVAS DA DÍVIDA",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2021-06-02",
+      "assunto": "EMISSÃO DE NOTAS REPRESENTATIVAS DA DÍVIDA | PRECIFICAÇÃO",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2021-06-17",
+      "assunto": "CONCLUSÃO DE AQUISIÇÃO DE PARTICIPAÇÕES EM WAHOO E ITAIPU",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2021-07-08",
+      "assunto": "CONCLUSÃO DE AQUISIÇÃO DE PARTICIPAÇÃO EM WAHOO",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2021-10-26",
+      "assunto": "INÍCIO DE PRODUÇÃO DO POÇO TBMT-10H",
+      "tag": "Produção"
+    },
+    {
+      "date": "2022-04-25",
+      "assunto": "Licença de Operação - Frade",
+      "tag": "Licenciamento"
+    },
+    {
+      "date": "2022-04-27",
+      "assunto": "Aquisição de Participação no Campo de Albacora Leste",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2022-04-28",
+      "assunto": "FATO RELEVANTE - AQUISIÇÃO DE PARTICIPAÇÃO NO CAMPO DE ALBACORA LESTE",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2022-05-04",
+      "assunto": "Certificação de Reservas",
+      "tag": "Reservas"
+    },
+    {
+      "date": "2022-05-10",
+      "assunto": "Aquisição de Sonda",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2022-06-06",
+      "assunto": "Aquisição de Sonda",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2022-07-07",
+      "assunto": "Início de Produção do Poço ODP4",
+      "tag": "Produção"
+    },
+    {
+      "date": "2022-07-11",
+      "assunto": "Início de produção do Poço ODP4",
+      "tag": "Produção"
+    },
+    {
+      "date": "2022-07-20",
+      "assunto": "Emissão de Debêntures",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2022-08-01",
+      "assunto": "Início de produção do Poço MUP3A",
+      "tag": "Produção"
+    },
+    {
+      "date": "2022-08-24",
+      "assunto": "Liquidação da Emissão de Debêntures",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2022-08-25",
+      "assunto": "RETOMADA DA PRODUÇÃO EM FRADE",
+      "tag": "Produção"
+    },
+    {
+      "date": "2022-09-01",
+      "assunto": "Aquisição Dommo",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2022-09-26",
+      "assunto": "Aquisição de Participação em Itaipu",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2022-10-03",
+      "assunto": "Programa de Recompra de Ações",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2023-01-26",
+      "assunto": "Aquisição de Participação no Campo de Albacora Leste",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2023-01-26",
+      "assunto": "Conclusão de Aquisição de Participação em Albacora Leste",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2023-03-01",
+      "assunto": "Início de Produção do Poço MUP5",
+      "tag": "Produção"
+    },
+    {
+      "date": "2023-03-23",
+      "assunto": "Aquisição de participação em Itaipu",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2023-04-03",
+      "assunto": "Certificação de Reserva 2023",
+      "tag": "Reservas"
+    },
+    {
+      "date": "2023-04-05",
+      "assunto": "Início de Produção do Poço N5P2",
+      "tag": "Produção"
+    },
+    {
+      "date": "2023-07-17",
+      "assunto": "Início de Produção ODP5",
+      "tag": "Produção"
+    },
+    {
+      "date": "2023-09-20",
+      "assunto": "Início de produção do poço POL-Q",
+      "tag": "Produção"
+    },
+    {
+      "date": "2023-12-08",
+      "assunto": "Distribuição de Dividendos Intermediários",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2024-02-09",
+      "assunto": "Emissão de Debêntures",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2024-02-28",
+      "assunto": "Aumento de Capital Mediante Capitalização de Reserva",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2024-02-29",
+      "assunto": "Liquidação da Emissão de Debêntures",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2024-03-08",
+      "assunto": "Certificação de Reservas 2024",
+      "tag": "Reservas"
+    },
+    {
+      "date": "2024-03-11",
+      "assunto": "Programa de Recompra de Ações",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2024-03-22",
+      "assunto": "Aumento de Capital Mediante Capitalização de Reserva",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2024-03-25",
+      "assunto": "Emissão de Debêntures",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2024-04-15",
+      "assunto": "Liquidação da Emissão de Debêntures",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2024-09-25",
+      "assunto": "Fato Relevante - Negociação Para Aquisição Participação",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2024-09-27",
+      "assunto": "Aquisição de Participação no Campo de Peregrino",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2024-12-05",
+      "assunto": "Conclusão da Aquisição de Participação no Campo de Peregrino",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2024-12-30",
+      "assunto": "Aumento de Capital Mediante Capitalização de Reserva",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2025-01-02",
+      "assunto": "Aumento de Capital por Exercício de Opções de Compra de Ações",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2025-02-05",
+      "assunto": "5ª Emissão Debêntures",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2025-02-28",
+      "assunto": "Licença de Perfuração de Wahoo",
+      "tag": "Licenciamento"
+    },
+    {
+      "date": "2025-02-28",
+      "assunto": "Aumento de Capital Mediante Capitalização de Reserva",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2025-02-28",
+      "assunto": "Liquidação da 5ª Emissão de Debêntures",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2025-03-13",
+      "assunto": "Certificação de Reservas 2025",
+      "tag": "Reservas"
+    },
+    {
+      "date": "2025-04-24",
+      "assunto": "Anuência do Ibama para workover dos poços no Campo de Tubarão Martelo",
+      "tag": "Licenciamento"
+    },
+    {
+      "date": "2025-05-01",
+      "assunto": "Aquisição de Participações no Campo de Peregrino",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2025-06-23",
+      "assunto": "6ª Emissão Debêntures",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2025-07-04",
+      "assunto": "Aditamento 6ª Emissão Debêntures",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2025-07-16",
+      "assunto": "Liquidação da 6ª Emissão de Debêntures",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2025-07-18",
+      "assunto": "Licença Prévia - Wahoo",
+      "tag": "Licenciamento"
+    },
+    {
+      "date": "2025-09-15",
+      "assunto": "Licença de Instalação - Wahoo",
+      "tag": "Licenciamento"
+    },
+    {
+      "date": "2025-10-01",
+      "assunto": "Emissão de Notas Representativa de Divida e Oferta de Recompra",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2025-10-01",
+      "assunto": "Emissão de Notas Representativa de Divida e Oferta de Recompra",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2025-10-06",
+      "assunto": "Emissão de Notas Representativas de Dívida | Pricing",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2025-10-08",
+      "assunto": "Resultado da Oferta de Recompra de Notas Representativas de Dívida",
+      "tag": "Financiamento"
+    },
+    {
+      "date": "2025-10-17",
+      "assunto": "Retomada de Produção do Campo de Peregrino",
+      "tag": "Produção"
+    },
+    {
+      "date": "2025-10-28",
+      "assunto": "Aumento de Capital Mediante Capitalização de Reserva",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2025-11-11",
+      "assunto": "Conclusão da Aquisição de 40% e Operação do Campo de Peregrino",
+      "tag": "M&A / Aquisição"
+    },
+    {
+      "date": "2025-12-17",
+      "assunto": "Cancelamento de Ações em Tesouraria",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2025-12-17",
+      "assunto": "Programa de Recompra de Ações",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2026-01-02",
+      "assunto": "Aumento de Capital por Exercício de Opções de Compra de Ações",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2026-01-02",
+      "assunto": "Aumento de Capital por Exercício de Opções de Compra de Ações",
+      "tag": "Retorno ao acionista"
+    },
+    {
+      "date": "2026-03-03",
+      "assunto": "Licença de Operação - Wahoo",
+      "tag": "Licenciamento"
+    },
+    {
+      "date": "2026-03-10",
+      "assunto": "Certificação de Reservas 2026",
+      "tag": "Reservas"
+    },
+    {
+      "date": "2026-03-16",
+      "assunto": "Licença de Perfuração em Frade",
+      "tag": "Licenciamento"
+    },
+    {
+      "date": "2026-03-19",
+      "assunto": "Start-up do Campo de Wahoo",
+      "tag": "Produção"
+    },
+    {
+      "date": "2026-03-23",
+      "assunto": "Produção do Primeiro Poço de Wahoo",
+      "tag": "Produção"
+    },
+    {
+      "date": "2026-03-27",
+      "assunto": "Produção do segundo poço de Wahoo",
+      "tag": "Produção"
+    },
+    {
+      "date": "2026-04-06",
+      "assunto": "Produção do Terceiro Poço de Wahoo",
+      "tag": "Produção"
+    },
+    {
+      "date": "2026-06-16",
+      "assunto": "Produção do Quarto Poço de Wahoo",
+      "tag": "Produção"
+    }
+  ]
+}

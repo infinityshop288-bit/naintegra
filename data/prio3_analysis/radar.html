@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Radar de Day-Trade — opções (≥3%/dia)</title>
+<script src="dash-api.js"></script>
+<style>
+  :root{--bg:#0e1116;--panel:#161b22;--panel2:#1c232d;--stroke:#2a323d;--txt:#e6edf3;--txt2:#9aa7b4;--txt3:#6e7b8a;--info:#4c8dff;--success:#3fb950;--warning:#d29922;--danger:#f85149;--accent:#a371f7;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1240px;margin:0 auto;padding:20px 24px 60px}
+  h1{font-size:24px;margin:0} h2{font-size:16px;margin:0 0 10px;font-weight:600}
+  .sub{color:var(--txt2);font-size:13px} .cap{color:var(--txt3);font-size:12px;margin-top:6px}
+  .pill{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:rgba(76,141,255,.15);color:var(--info);border:1px solid rgba(76,141,255,.35)}
+  .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:1fr 1fr} .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:16px}
+  .stat{background:var(--panel);border:1px solid var(--stroke);border-radius:10px;padding:12px 14px}
+  .stat .v{font-size:20px;font-weight:700} .stat .l{color:var(--txt2);font-size:11.5px;margin-top:2px}
+  .callout{border:1px solid var(--stroke);border-left-width:3px;border-radius:8px;padding:12px 14px;background:var(--panel2)}
+  .callout .t{font-weight:600;margin-bottom:4px} .callout p{margin:0;color:var(--txt2);font-size:13px}
+  .callout.success{border-left-color:var(--success)} .callout.danger{border-left-color:var(--danger)} .callout.warning{border-left-color:var(--warning)} .callout.info{border-left-color:var(--info)}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--stroke);white-space:nowrap}
+  th{color:var(--txt2);font-weight:600;font-size:11px;text-transform:uppercase}
+  .up{color:var(--success)} .down{color:var(--danger)} .neu{color:var(--txt3)}
+  .callc{color:var(--success)} .putc{color:var(--danger)}
+  section{margin-top:24px}
+  .simple{border-left:3px solid var(--info);background:rgba(76,141,255,.08);padding:9px 13px;border-radius:6px;font-size:13.5px;margin-top:10px;color:var(--txt2)} .simple b{color:#7fb0ff}
+  nav.top{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+  nav.top a{font-size:13px;padding:7px 14px;border-radius:8px;text-decoration:none;color:var(--txt2);background:var(--panel);border:1px solid var(--stroke)}
+  nav.top a.on{color:#04122e;background:var(--info);border-color:var(--info);font-weight:700}
+  .badge{font-size:11px;font-weight:700;padding:1px 7px;border-radius:5px}
+  .badge.alta{background:rgba(63,185,80,.16);color:#5bd66b} .badge.baixa{background:rgba(248,81,73,.16);color:#ff8a90} .badge.neutro{background:rgba(210,153,34,.16);color:#e3b341}
+  .tset{border:1px solid var(--stroke);border-radius:12px;overflow:hidden}
+  .tset .hd{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--panel)}
+  .tset.al{border-left:4px solid var(--success)} .tset.aw{border-left:4px solid var(--warning)} .tset.av{border-left:4px solid var(--danger)}
+  .tk{font-weight:800;font-size:16px}
+  .tgrid{display:grid;grid-template-columns:1.2fr 1fr;gap:0}
+  .tgrid>div{padding:12px 16px} .tgrid .rt{border-left:1px solid var(--stroke)}
+  .kv{display:flex;justify-content:space-between;font-size:12.5px;padding:4px 0;border-bottom:1px dashed var(--stroke)}
+  .kv b{color:var(--txt)} .kv span{color:var(--txt2)}
+  .money{font-size:13px}
+  .btn{display:inline-block;font-size:12px;font-weight:700;padding:6px 12px;border-radius:7px;border:1px solid var(--info);color:var(--info);background:transparent;cursor:pointer;margin-top:8px}
+  .btn:hover{background:rgba(76,141,255,.12)}
+  .tag{font-size:10px;padding:1px 6px;border-radius:4px;background:var(--panel2);color:var(--txt3);border:1px solid var(--stroke)}
+  @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.g2,.tgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top">
+    <a href="painel.html">Painel PRIO3</a>
+    <a href="mercado.html">Panorama de Mercado</a>
+    <a href="opcoes.html">Oportunidades de Opções</a>
+    <a href="radar.html" class="on">Radar de Trades</a>
+  </nav>
+
+  <div class="row" style="gap:12px"><h1>Radar de Day-Trade — opções</h1><span class="pill" id="pgStatus">carregando…</span></div>
+  <div class="sub" style="margin-top:6px">Setups com perspectiva de ganho no dia, gestão de risco embutida. <b>Nenhuma ordem é enviada</b> — cada setup vira um <b>ticket</b> para você autorizar e executar na XP. Prêmios são referência EOD (COTAHIST); confirme bid/ask ao vivo na XP.</div>
+
+  <section>
+    <div class="grid g4" id="rules"></div>
+  </section>
+
+  <div class="callout danger" style="margin-top:16px">
+    <div class="t">⚠️ Regras de segurança (sempre)</div>
+    <p><b>1)</b> Confirme o <b>bid/ask ao vivo</b> na XP antes de entrar — o prêmio EOD é só referência. <b>2)</b> Programe o <b>stop-loss e o stop-gain no home broker</b> assim que executar (ordens OCO/"stop"). <b>3)</b> Perda máxima do dia: <b>R$ 250</b> — atingiu, encerra o dia. <b>4)</b> Só opere setups <b>"alinhados ✓"</b>; "aguardar" = espere o intradia confirmar; "evitar" = fora. <b>5)</b> Isto não é recomendação de investimento; a decisão e a execução são suas.</p>
+  </div>
+  <div class="simple">💡 <b>Como funciona a autorização:</b> escolha um setup <b>alinhado ✓</b>, clique em <b>"Copiar ticket"</b>, me diga <b>"autorizo o [ativo]"</b> e eu te oriento a digitar exatamente cada campo na XP (ativo, quantidade, preço, stop). Eu não clico por você.</div>
+
+  <section>
+    <div class="row"><h2 style="margin:0">Tickets do dia — ranqueados</h2><span class="cap" id="genTs"></span></div>
+    <div id="setups" style="display:flex;flex-direction:column;gap:14px;margin-top:12px"></div>
+  </section>
+</div>
+
+<script>
+const f2=n=>n==null?'—':n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+const brl=n=>n==null?'—':n.toLocaleString('pt-BR',{maximumFractionDigits:0});
+const pct=n=>n==null?'—':`<span class="${n>=0?'up':'down'}">${n>0?'+':''}${n.toFixed(2)}%</span>`;
+const dt=s=>s?s.split('-').reverse().join('/'):'—';
+
+function timingClass(s){return s.alinhado?'al':(s.timing.startsWith('aguardar')?'aw':'av');}
+function timingBadge(s){
+  if(s.alinhado)return `<span class="badge alta">ALINHADO ✓</span>`;
+  if(s.timing.startsWith('aguardar'))return `<span class="badge neutro">AGUARDAR</span>`;
+  return `<span class="badge baixa">EVITAR</span>`;
+}
+
+function ticketText(s){
+  const t=s.ticket,g=t.stop_gain,l=t.stop_loss;
+  return `TICKET ${s.ticker} (${s.setor})\n`+
+    `Ativo/opção: ${s.opcao.cod} — ${s.lado} strike R$ ${f2(s.opcao.strike)} venc ${dt(s.opcao.venc)} (${t.dte}d)\n`+
+    `Operação: COMPRA de ${t.contratos} contratos\n`+
+    `Entrada (ref.): R$ ${f2(t.entrada_ref)}  → custo ~R$ ${brl(t.custo)}\n`+
+    `STOP-GAIN: prêmio R$ ${f2(g.premio)}  (+R$ ${brl(g.ganho_rs)} ≈ +${g.ganho_pct_capital}% cap · papel ${s.lado==='CALL'?'+':'−'}${g.mov_papel_pct}%)\n`+
+    `STOP-LOSS: prêmio R$ ${f2(l.premio)}  (−R$ ${brl(l.perda_rs)} ≈ −${l.perda_pct_capital}% cap · papel ${s.lado==='CALL'?'−':'+'}${l.mov_papel_pct}%)\n`+
+    `R:R ${t.rr}:1  |  confirme bid/ask ao vivo na XP antes de enviar.`;
+}
+
+(async()=>{
+  let d;
+  try{d=await dashFetch('api/radar');}catch(e){document.getElementById('pgStatus').textContent='servidor offline';return;}
+  if(d.error){document.getElementById('pgStatus').textContent='erro: '+d.error;return;}
+  document.getElementById('pgStatus').textContent='atualizado '+d.gerado;
+  document.getElementById('genTs').textContent='opções: último pregão '+dt(d.ultimo_pregao_opcoes)+' · '+d.setups.length+' setups';
+  const R=d.regras;
+  document.getElementById('rules').innerHTML=
+    `<div class="stat"><div class="v">R$ ${brl(R.capital)}</div><div class="l">Capital por trade</div></div>`+
+    `<div class="stat"><div class="v" style="color:var(--danger)">R$ ${brl(R.perda_max_dia)}</div><div class="l">Perda máx./dia (stop-loss)</div></div>`+
+    `<div class="stat"><div class="v" style="color:var(--success)">≥ ${R.alvo_min_pct}%</div><div class="l">Alvo mínimo no capital</div></div>`+
+    `<div class="stat"><div class="v">${R.stop_move_pct}% / ${R.target_move_pct}%</div><div class="l">Stop / alvo (mov. do papel) · R:R 2:1</div></div>`;
+
+  const box=document.getElementById('setups');
+  box.innerHTML=d.setups.map((s,i)=>{
+    const t=s.ticket,g=t.stop_gain,l=t.stop_loss;
+    const cls=timingClass(s);
+    const vb=s.vies>=30?'alta':(s.vies<=-30?'baixa':'neutro');
+    const ladoCol=s.lado==='CALL'?'callc':'putc';
+    const tape=(s.ordens_registradas||[]).map(r=>`<tr><td class="${r.tipo==='CALL'?'callc':'putc'}">${r.cod}</td><td>${r.tipo}</td><td style="text-align:right">${f2(r.strike)}</td><td style="text-align:right">${f2(r.close)}</td><td style="text-align:right">${brl(r.vol)}</td><td style="text-align:right">${brl(r.neg)}</td></tr>`).join('')||'<tr><td colspan=6 class="cap">sem registros</td></tr>';
+    return `<div class="tset ${cls}">
+      <div class="hd">
+        <div><span class="tk">${s.ticker}</span> <span class="cap">${s.nome} · ${s.setor}</span></div>
+        <div class="row" style="gap:8px">${timingBadge(s)}<span class="badge ${vb}">Viés ${s.vies>0?'+':''}${s.vies}</span><span class="tag ${ladoCol}">${s.lado}</span></div>
+      </div>
+      <div class="tgrid">
+        <div>
+          <div class="kv"><span>Opção</span><b class="${ladoCol}">${s.opcao.cod}</b></div>
+          <div class="kv"><span>Strike / venc.</span><b>R$ ${f2(s.opcao.strike)} · ${dt(s.opcao.venc)} (${t.dte}d) · ${s.opcao.moneyness}</b></div>
+          <div class="kv"><span>Comprar</span><b>${t.contratos} contratos · custo ~R$ ${brl(t.custo)}</b></div>
+          <div class="kv"><span>Entrada (ref. EOD)</span><b>R$ ${f2(t.entrada_ref)}</b></div>
+          <div class="kv"><span class="up">Stop-gain</span><b class="up">R$ ${f2(g.premio)} → +R$ ${brl(g.ganho_rs)} (papel ${s.lado==='CALL'?'+':'−'}${g.mov_papel_pct}%)</b></div>
+          <div class="kv"><span class="down">Stop-loss</span><b class="down">R$ ${f2(l.premio)} → −R$ ${brl(l.perda_rs)} (papel ${s.lado==='CALL'?'−':'+'}${l.mov_papel_pct}%)</b></div>
+          <div class="kv" style="border:0"><span>Risco:retorno</span><b>${t.rr}:1 · elasticidade ~${t.elasticidade}x${t.capado_por_capital?' · limitado pelo capital':''}</b></div>
+          <button class="btn" onclick='navigator.clipboard.writeText(this.dataset.t);this.textContent="✓ copiado";' data-t="${ticketText(s).replace(/"/g,'&quot;')}">Copiar ticket</button>
+        </div>
+        <div class="rt">
+          <div class="kv"><span>Preço / dia</span><b>R$ ${f2(s.preco)} ${s.dia_pct==null?'':pct(s.dia_pct)}</b></div>
+          <div class="kv"><span>Tend. diária / RSI</span><b>${s.tend_diaria} · ${s.rsi}</b></div>
+          <div class="kv"><span>Tend. intradia</span><b class="${s.tend_intra==='alta'?'up':(s.tend_intra==='baixa'?'down':'neu')}">${s.tend_intra}${s.vs_vwap_pct!=null?` (${s.vs_vwap_pct>0?'+':''}${s.vs_vwap_pct}% vs VWAP)`:''}</b></div>
+          <div class="kv" style="border:0"><span>Timing</span><b>${s.timing}</b></div>
+          <div class="cap" style="margin-top:8px">Ordens registradas (últ. pregão) <span class="tag">EOD B3</span></div>
+          <table style="margin-top:4px"><thead><tr><th>Série</th><th>T</th><th style="text-align:right">K</th><th style="text-align:right">Fech.</th><th style="text-align:right">Vol</th><th style="text-align:right">Neg</th></tr></thead><tbody>${tape}</tbody></table>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  if(!d.setups.length)box.innerHTML='<div class="cap">Nenhum setup elegível no momento.</div>';
+})();
+</script>
+</body>
+</html>

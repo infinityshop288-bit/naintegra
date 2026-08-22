@@ -1,0 +1,684 @@
+{
+  "baseline": {
+    "1": {
+      "media_pct": 0.11,
+      "queda_pct": 48.2
+    },
+    "3": {
+      "media_pct": 0.34,
+      "queda_pct": 48.8
+    },
+    "5": {
+      "media_pct": 0.56,
+      "queda_pct": 48.5
+    },
+    "10": {
+      "media_pct": 1.1,
+      "queda_pct": 44.2
+    },
+    "21": {
+      "media_pct": 2.51,
+      "queda_pct": 40.8
+    }
+  },
+  "resultados": {
+    "Fecha ABAIXO da MM200 (perda de tendência)": {
+      "n": 25,
+      "por_horizonte": {
+        "1": {
+          "n": 25,
+          "media_pct": 0.27,
+          "queda_pct": 48.0,
+          "vs_base_pp": 0.16,
+          "tstat": 0.27
+        },
+        "3": {
+          "n": 25,
+          "media_pct": 1.01,
+          "queda_pct": 48.0,
+          "vs_base_pp": 0.67,
+          "tstat": 0.72
+        },
+        "5": {
+          "n": 25,
+          "media_pct": 2.82,
+          "queda_pct": 36.0,
+          "vs_base_pp": 2.26,
+          "tstat": 1.89
+        },
+        "10": {
+          "n": 25,
+          "media_pct": 4.58,
+          "queda_pct": 28.0,
+          "vs_base_pp": 3.48,
+          "tstat": 2.17
+        },
+        "21": {
+          "n": 25,
+          "media_pct": 6.35,
+          "queda_pct": 32.0,
+          "vs_base_pp": 3.83,
+          "tstat": 1.97
+        }
+      }
+    },
+    "Fecha abaixo da MM50": {
+      "n": 49,
+      "por_horizonte": {
+        "1": {
+          "n": 49,
+          "media_pct": -0.05,
+          "queda_pct": 49.0,
+          "vs_base_pp": -0.16,
+          "tstat": -0.44
+        },
+        "3": {
+          "n": 49,
+          "media_pct": 0.49,
+          "queda_pct": 51.0,
+          "vs_base_pp": 0.15,
+          "tstat": 0.23
+        },
+        "5": {
+          "n": 49,
+          "media_pct": 0.7,
+          "queda_pct": 53.1,
+          "vs_base_pp": 0.15,
+          "tstat": 0.16
+        },
+        "10": {
+          "n": 49,
+          "media_pct": 1.28,
+          "queda_pct": 42.9,
+          "vs_base_pp": 0.18,
+          "tstat": 0.16
+        },
+        "21": {
+          "n": 49,
+          "media_pct": 0.33,
+          "queda_pct": 49.0,
+          "vs_base_pp": -2.18,
+          "tstat": -1.59
+        }
+      }
+    },
+    "Death cross (MM50 x MM200)": {
+      "n": 5,
+      "por_horizonte": {
+        "1": {
+          "n": 5,
+          "media_pct": 0.23,
+          "queda_pct": 40.0,
+          "vs_base_pp": 0.12,
+          "tstat": 0.18
+        },
+        "3": {
+          "n": 5,
+          "media_pct": 2.09,
+          "queda_pct": 20.0,
+          "vs_base_pp": 1.76,
+          "tstat": 1.81
+        },
+        "5": {
+          "n": 5,
+          "media_pct": 2.0,
+          "queda_pct": 40.0,
+          "vs_base_pp": 1.44,
+          "tstat": 1.04
+        },
+        "10": {
+          "n": 5,
+          "media_pct": 0.85,
+          "queda_pct": 20.0,
+          "vs_base_pp": -0.25,
+          "tstat": -0.21
+        },
+        "21": {
+          "n": 5,
+          "media_pct": 0.92,
+          "queda_pct": 60.0,
+          "vs_base_pp": -1.59,
+          "tstat": -0.33
+        }
+      }
+    },
+    "MACD cruza p/ baixo do sinal": {
+      "n": 50,
+      "por_horizonte": {
+        "1": {
+          "n": 50,
+          "media_pct": 0.57,
+          "queda_pct": 42.0,
+          "vs_base_pp": 0.46,
+          "tstat": 1.1
+        },
+        "3": {
+          "n": 50,
+          "media_pct": 1.4,
+          "queda_pct": 42.0,
+          "vs_base_pp": 1.07,
+          "tstat": 1.77
+        },
+        "5": {
+          "n": 50,
+          "media_pct": 1.67,
+          "queda_pct": 40.0,
+          "vs_base_pp": 1.11,
+          "tstat": 1.46
+        },
+        "10": {
+          "n": 50,
+          "media_pct": 1.82,
+          "queda_pct": 42.0,
+          "vs_base_pp": 0.72,
+          "tstat": 0.62
+        },
+        "21": {
+          "n": 50,
+          "media_pct": 3.61,
+          "queda_pct": 40.0,
+          "vs_base_pp": 1.1,
+          "tstat": 0.62
+        }
+      }
+    },
+    "Novo fundo de 20 dias (rompimento p/ baixo)": {
+      "n": 134,
+      "por_horizonte": {
+        "1": {
+          "n": 134,
+          "media_pct": 0.28,
+          "queda_pct": 51.5,
+          "vs_base_pp": 0.17,
+          "tstat": 0.68
+        },
+        "3": {
+          "n": 134,
+          "media_pct": 0.61,
+          "queda_pct": 49.3,
+          "vs_base_pp": 0.27,
+          "tstat": 0.67
+        },
+        "5": {
+          "n": 134,
+          "media_pct": 1.16,
+          "queda_pct": 50.0,
+          "vs_base_pp": 0.6,
+          "tstat": 1.21
+        },
+        "10": {
+          "n": 130,
+          "media_pct": 0.53,
+          "queda_pct": 50.8,
+          "vs_base_pp": -0.57,
+          "tstat": -0.94
+        },
+        "21": {
+          "n": 124,
+          "media_pct": 1.64,
+          "queda_pct": 42.7,
+          "vs_base_pp": -0.88,
+          "tstat": -0.95
+        }
+      }
+    },
+    "Novo fundo de 52 semanas": {
+      "n": 11,
+      "por_horizonte": {
+        "1": {
+          "n": 11,
+          "media_pct": 1.48,
+          "queda_pct": 36.4,
+          "vs_base_pp": 1.37,
+          "tstat": 1.54
+        },
+        "3": {
+          "n": 11,
+          "media_pct": 1.27,
+          "queda_pct": 18.2,
+          "vs_base_pp": 0.93,
+          "tstat": 0.94
+        },
+        "5": {
+          "n": 11,
+          "media_pct": 1.3,
+          "queda_pct": 36.4,
+          "vs_base_pp": 0.75,
+          "tstat": 0.9
+        },
+        "10": {
+          "n": 11,
+          "media_pct": 1.18,
+          "queda_pct": 36.4,
+          "vs_base_pp": 0.07,
+          "tstat": 0.08
+        },
+        "21": {
+          "n": 11,
+          "media_pct": 8.19,
+          "queda_pct": 9.1,
+          "vs_base_pp": 5.68,
+          "tstat": 3.31
+        }
+      }
+    },
+    "Abaixo da MM200 E MACD<sinal (baixa confirmada)": {
+      "n": 177,
+      "por_horizonte": {
+        "1": {
+          "n": 177,
+          "media_pct": 0.18,
+          "queda_pct": 50.8,
+          "vs_base_pp": 0.07,
+          "tstat": 0.36
+        },
+        "3": {
+          "n": 177,
+          "media_pct": 0.4,
+          "queda_pct": 49.7,
+          "vs_base_pp": 0.06,
+          "tstat": 0.2
+        },
+        "5": {
+          "n": 177,
+          "media_pct": 0.55,
+          "queda_pct": 52.0,
+          "vs_base_pp": -0.01,
+          "tstat": -0.03
+        },
+        "10": {
+          "n": 177,
+          "media_pct": 0.9,
+          "queda_pct": 48.0,
+          "vs_base_pp": -0.2,
+          "tstat": -0.48
+        },
+        "21": {
+          "n": 177,
+          "media_pct": 4.13,
+          "queda_pct": 33.9,
+          "vs_base_pp": 1.62,
+          "tstat": 2.55
+        }
+      }
+    },
+    "RSI > 75 (topo — testar reversão)": {
+      "n": 24,
+      "por_horizonte": {
+        "1": {
+          "n": 24,
+          "media_pct": -0.56,
+          "queda_pct": 62.5,
+          "vs_base_pp": -0.67,
+          "tstat": -1.19
+        },
+        "3": {
+          "n": 24,
+          "media_pct": 0.18,
+          "queda_pct": 50.0,
+          "vs_base_pp": -0.15,
+          "tstat": -0.21
+        },
+        "5": {
+          "n": 24,
+          "media_pct": 0.89,
+          "queda_pct": 45.8,
+          "vs_base_pp": 0.33,
+          "tstat": 0.41
+        },
+        "10": {
+          "n": 24,
+          "media_pct": 1.36,
+          "queda_pct": 37.5,
+          "vs_base_pp": 0.26,
+          "tstat": 0.22
+        },
+        "21": {
+          "n": 24,
+          "media_pct": 3.65,
+          "queda_pct": 50.0,
+          "vs_base_pp": 1.14,
+          "tstat": 0.6
+        }
+      }
+    },
+    "Preço > Banda superior (2σ) — esticado": {
+      "n": 84,
+      "por_horizonte": {
+        "1": {
+          "n": 84,
+          "media_pct": 0.05,
+          "queda_pct": 52.4,
+          "vs_base_pp": -0.06,
+          "tstat": -0.25
+        },
+        "3": {
+          "n": 84,
+          "media_pct": -0.03,
+          "queda_pct": 54.8,
+          "vs_base_pp": -0.37,
+          "tstat": -0.88
+        },
+        "5": {
+          "n": 84,
+          "media_pct": 0.42,
+          "queda_pct": 46.4,
+          "vs_base_pp": -0.14,
+          "tstat": -0.25
+        },
+        "10": {
+          "n": 84,
+          "media_pct": 1.38,
+          "queda_pct": 45.2,
+          "vs_base_pp": 0.27,
+          "tstat": 0.37
+        },
+        "21": {
+          "n": 84,
+          "media_pct": 4.77,
+          "queda_pct": 34.5,
+          "vs_base_pp": 2.26,
+          "tstat": 2.01
+        }
+      }
+    },
+    ">25% acima da MM200 (sobreesticado)": {
+      "n": 202,
+      "por_horizonte": {
+        "1": {
+          "n": 202,
+          "media_pct": 0.09,
+          "queda_pct": 44.6,
+          "vs_base_pp": -0.02,
+          "tstat": -0.1
+        },
+        "3": {
+          "n": 202,
+          "media_pct": 0.17,
+          "queda_pct": 50.5,
+          "vs_base_pp": -0.16,
+          "tstat": -0.54
+        },
+        "5": {
+          "n": 202,
+          "media_pct": 0.22,
+          "queda_pct": 51.5,
+          "vs_base_pp": -0.33,
+          "tstat": -0.9
+        },
+        "10": {
+          "n": 202,
+          "media_pct": 0.53,
+          "queda_pct": 48.5,
+          "vs_base_pp": -0.57,
+          "tstat": -1.05
+        },
+        "21": {
+          "n": 200,
+          "media_pct": 0.86,
+          "queda_pct": 48.5,
+          "vs_base_pp": -1.66,
+          "tstat": -1.88
+        }
+      }
+    },
+    "3 altas seguidas (exaustão curta)": {
+      "n": 187,
+      "por_horizonte": {
+        "1": {
+          "n": 186,
+          "media_pct": 0.22,
+          "queda_pct": 43.0,
+          "vs_base_pp": 0.11,
+          "tstat": 0.64
+        },
+        "3": {
+          "n": 184,
+          "media_pct": 0.23,
+          "queda_pct": 48.4,
+          "vs_base_pp": -0.11,
+          "tstat": -0.4
+        },
+        "5": {
+          "n": 183,
+          "media_pct": 0.27,
+          "queda_pct": 51.4,
+          "vs_base_pp": -0.29,
+          "tstat": -0.76
+        },
+        "10": {
+          "n": 183,
+          "media_pct": 1.37,
+          "queda_pct": 41.5,
+          "vs_base_pp": 0.26,
+          "tstat": 0.49
+        },
+        "21": {
+          "n": 183,
+          "media_pct": 2.84,
+          "queda_pct": 41.0,
+          "vs_base_pp": 0.32,
+          "tstat": 0.38
+        }
+      }
+    },
+    "PRIO 20d - Brent 20d < -10pp (fraqueza relativa)": {
+      "n": 116,
+      "por_horizonte": {
+        "1": {
+          "n": 116,
+          "media_pct": -0.11,
+          "queda_pct": 48.3,
+          "vs_base_pp": -0.22,
+          "tstat": -0.73
+        },
+        "3": {
+          "n": 116,
+          "media_pct": 0.01,
+          "queda_pct": 53.4,
+          "vs_base_pp": -0.32,
+          "tstat": -0.57
+        },
+        "5": {
+          "n": 116,
+          "media_pct": 0.09,
+          "queda_pct": 55.2,
+          "vs_base_pp": -0.46,
+          "tstat": -0.66
+        },
+        "10": {
+          "n": 116,
+          "media_pct": 1.0,
+          "queda_pct": 52.6,
+          "vs_base_pp": -0.1,
+          "tstat": -0.11
+        },
+        "21": {
+          "n": 116,
+          "media_pct": 2.08,
+          "queda_pct": 44.0,
+          "vs_base_pp": -0.43,
+          "tstat": -0.43
+        }
+      }
+    },
+    "Queda >=8% em 5 pregões (continuação)": {
+      "n": 65,
+      "por_horizonte": {
+        "1": {
+          "n": 65,
+          "media_pct": -0.16,
+          "queda_pct": 50.8,
+          "vs_base_pp": -0.27,
+          "tstat": -0.61
+        },
+        "3": {
+          "n": 65,
+          "media_pct": 0.75,
+          "queda_pct": 44.6,
+          "vs_base_pp": 0.42,
+          "tstat": 0.51
+        },
+        "5": {
+          "n": 65,
+          "media_pct": 1.08,
+          "queda_pct": 50.8,
+          "vs_base_pp": 0.53,
+          "tstat": 0.54
+        },
+        "10": {
+          "n": 65,
+          "media_pct": -1.19,
+          "queda_pct": 53.8,
+          "vs_base_pp": -2.29,
+          "tstat": -2.57
+        },
+        "21": {
+          "n": 61,
+          "media_pct": -0.37,
+          "queda_pct": 50.8,
+          "vs_base_pp": -2.89,
+          "tstat": -1.93
+        }
+      }
+    },
+    "Perde a MM200 estando abaixo por >=3 dias": {
+      "n": 313,
+      "por_horizonte": {
+        "1": {
+          "n": 313,
+          "media_pct": 0.17,
+          "queda_pct": 47.6,
+          "vs_base_pp": 0.06,
+          "tstat": 0.49
+        },
+        "3": {
+          "n": 313,
+          "media_pct": 0.38,
+          "queda_pct": 47.0,
+          "vs_base_pp": 0.04,
+          "tstat": 0.23
+        },
+        "5": {
+          "n": 313,
+          "media_pct": 0.57,
+          "queda_pct": 47.6,
+          "vs_base_pp": 0.02,
+          "tstat": 0.07
+        },
+        "10": {
+          "n": 313,
+          "media_pct": 1.13,
+          "queda_pct": 40.9,
+          "vs_base_pp": 0.03,
+          "tstat": 0.08
+        },
+        "21": {
+          "n": 313,
+          "media_pct": 2.46,
+          "queda_pct": 36.1,
+          "vs_base_pp": -0.05,
+          "tstat": -0.1
+        }
+      }
+    }
+  },
+  "ranking_put_10d": [
+    {
+      "sinal": "Queda >=8% em 5 pregões (continuação)",
+      "n": 65,
+      "media10_pct": -1.19,
+      "queda_pct": 53.8,
+      "vs_base_pp": -2.29,
+      "tstat": -2.57
+    },
+    {
+      "sinal": "Novo fundo de 20 dias (rompimento p/ baixo)",
+      "n": 130,
+      "media10_pct": 0.53,
+      "queda_pct": 50.8,
+      "vs_base_pp": -0.57,
+      "tstat": -0.94
+    },
+    {
+      "sinal": ">25% acima da MM200 (sobreesticado)",
+      "n": 202,
+      "media10_pct": 0.53,
+      "queda_pct": 48.5,
+      "vs_base_pp": -0.57,
+      "tstat": -1.05
+    },
+    {
+      "sinal": "Abaixo da MM200 E MACD<sinal (baixa confirmada)",
+      "n": 177,
+      "media10_pct": 0.9,
+      "queda_pct": 48.0,
+      "vs_base_pp": -0.2,
+      "tstat": -0.48
+    },
+    {
+      "sinal": "PRIO 20d - Brent 20d < -10pp (fraqueza relativa)",
+      "n": 116,
+      "media10_pct": 1.0,
+      "queda_pct": 52.6,
+      "vs_base_pp": -0.1,
+      "tstat": -0.11
+    },
+    {
+      "sinal": "Perde a MM200 estando abaixo por >=3 dias",
+      "n": 313,
+      "media10_pct": 1.13,
+      "queda_pct": 40.9,
+      "vs_base_pp": 0.03,
+      "tstat": 0.08
+    },
+    {
+      "sinal": "Fecha abaixo da MM50",
+      "n": 49,
+      "media10_pct": 1.28,
+      "queda_pct": 42.9,
+      "vs_base_pp": 0.18,
+      "tstat": 0.16
+    },
+    {
+      "sinal": "RSI > 75 (topo — testar reversão)",
+      "n": 24,
+      "media10_pct": 1.36,
+      "queda_pct": 37.5,
+      "vs_base_pp": 0.26,
+      "tstat": 0.22
+    },
+    {
+      "sinal": "3 altas seguidas (exaustão curta)",
+      "n": 183,
+      "media10_pct": 1.37,
+      "queda_pct": 41.5,
+      "vs_base_pp": 0.26,
+      "tstat": 0.49
+    },
+    {
+      "sinal": "Preço > Banda superior (2σ) — esticado",
+      "n": 84,
+      "media10_pct": 1.38,
+      "queda_pct": 45.2,
+      "vs_base_pp": 0.27,
+      "tstat": 0.37
+    },
+    {
+      "sinal": "MACD cruza p/ baixo do sinal",
+      "n": 50,
+      "media10_pct": 1.82,
+      "queda_pct": 42.0,
+      "vs_base_pp": 0.72,
+      "tstat": 0.62
+    },
+    {
+      "sinal": "Fecha ABAIXO da MM200 (perda de tendência)",
+      "n": 25,
+      "media10_pct": 4.58,
+      "queda_pct": 28.0,
+      "vs_base_pp": 3.48,
+      "tstat": 2.17
+    }
+  ]
+}

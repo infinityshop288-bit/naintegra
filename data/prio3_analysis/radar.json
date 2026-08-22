@@ -1,0 +1,1169 @@
+{
+  "gerado": "2026-07-15 17:33",
+  "regras": {
+    "capital": 5000.0,
+    "perda_max_dia": 250.0,
+    "alvo_min_pct": 3.0,
+    "stop_move_pct": 1.2,
+    "target_move_pct": 2.4
+  },
+  "ultimo_pregao_opcoes": "2026-07-13",
+  "obs": "Prêmios são referência EOD (COTAHIST). Confirme bid/ask ao vivo na XP antes de entrar. Nenhuma ordem é enviada automaticamente.",
+  "setups": [
+    {
+      "ticker": "PSSA3",
+      "nome": "Porto Seguro",
+      "setor": "Seguradora",
+      "vies": 47,
+      "label": "ALTA",
+      "preco": 55.1,
+      "dia_pct": null,
+      "tend_diaria": "alta",
+      "rsi": 63.4,
+      "tend_intra": "lateral",
+      "vs_vwap_pct": -0.13,
+      "lado": "CALL",
+      "alinhado": false,
+      "timing": "aguardar confirmação",
+      "opcao": {
+        "cod": "PSSAH553",
+        "strike": 54.95,
+        "venc": "2026-08-21",
+        "moneyness": "ATM",
+        "premio_ref": 1.64,
+        "dist_strike_pct": -0.3
+      },
+      "ticket": {
+        "contratos": 7,
+        "custo": 1148.0,
+        "dte": 37,
+        "entrada_ref": 1.64,
+        "elasticidade": 16.8,
+        "delta": 0.5,
+        "capado_por_capital": false,
+        "rr": 2.0,
+        "stop_gain": {
+          "premio": 2.3,
+          "ganho_rs": 462.84,
+          "ganho_pct_capital": 9.3,
+          "mov_papel_pct": 2.4
+        },
+        "stop_loss": {
+          "premio": 1.31,
+          "perda_rs": 231.42,
+          "perda_pct_capital": 4.6,
+          "mov_papel_pct": 1.2
+        },
+        "parcial_min": {
+          "premio": 1.69,
+          "ganho_rs": 34.44,
+          "ganho_pct_capital": 3.0,
+          "mov_papel_pct": 0.18
+        }
+      },
+      "ordens_registradas": [
+        {
+          "cod": "PSSAH518",
+          "tipo": "CALL",
+          "strike": 51.45,
+          "venc": "2026-08-21",
+          "close": 3.5,
+          "vol": 37815,
+          "neg": 2,
+          "chg_pct": -1.4
+        },
+        {
+          "cod": "PSSAG510",
+          "tipo": "CALL",
+          "strike": 50.95,
+          "venc": "2026-07-17",
+          "close": 3.18,
+          "vol": 34200,
+          "neg": 2,
+          "chg_pct": 17.8
+        },
+        {
+          "cod": "PSSAG488",
+          "tipo": "CALL",
+          "strike": 48.45,
+          "venc": "2026-07-17",
+          "close": 5.63,
+          "vol": 28150,
+          "neg": 2,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "PSSAH503",
+          "tipo": "CALL",
+          "strike": 49.95,
+          "venc": "2026-08-21",
+          "close": 4.88,
+          "vol": 24400,
+          "neg": 2,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "PSSAG500",
+          "tipo": "CALL",
+          "strike": 49.95,
+          "venc": "2026-07-17",
+          "close": 4.4,
+          "vol": 6215,
+          "neg": 3,
+          "chg_pct": -2.2
+        }
+      ],
+      "pcr": 0.05
+    },
+    {
+      "ticker": "BBSE3",
+      "nome": "BB Seguridade",
+      "setor": "Seguradora",
+      "vies": 27,
+      "label": "NEUTRO",
+      "preco": 40.54,
+      "dia_pct": null,
+      "tend_diaria": "alta",
+      "rsi": 72.5,
+      "tend_intra": "lateral",
+      "vs_vwap_pct": 0.17,
+      "lado": "CALL",
+      "alinhado": false,
+      "timing": "aguardar confirmação",
+      "opcao": {
+        "cod": "BBSEG401W4",
+        "strike": 40.18,
+        "venc": "2026-07-24",
+        "moneyness": "ATM",
+        "premio_ref": 0.64,
+        "dist_strike_pct": -0.9
+      },
+      "ticket": {
+        "contratos": 10,
+        "custo": 640.0,
+        "dte": 9,
+        "entrada_ref": 0.64,
+        "elasticidade": 31.7,
+        "delta": 0.5,
+        "capado_por_capital": false,
+        "rr": 2.0,
+        "stop_gain": {
+          "premio": 1.13,
+          "ganho_rs": 486.48,
+          "ganho_pct_capital": 9.7,
+          "mov_papel_pct": 2.4
+        },
+        "stop_loss": {
+          "premio": 0.4,
+          "perda_rs": 243.24,
+          "perda_pct_capital": 4.9,
+          "mov_papel_pct": 1.2
+        },
+        "parcial_min": {
+          "premio": 0.66,
+          "ganho_rs": 19.2,
+          "ganho_pct_capital": 3.0,
+          "mov_papel_pct": 0.09
+        }
+      },
+      "ordens_registradas": [
+        {
+          "cod": "BBSEH354",
+          "tipo": "CALL",
+          "strike": 35.43,
+          "venc": "2026-08-21",
+          "close": 5.36,
+          "vol": 326485,
+          "neg": 38,
+          "chg_pct": 0.2
+        },
+        {
+          "cod": "BBSEH359W2",
+          "tipo": "CALL",
+          "strike": 35.93,
+          "venc": "2026-08-14",
+          "close": 4.82,
+          "vol": 264820,
+          "neg": 104,
+          "chg_pct": 0.4
+        },
+        {
+          "cod": "BBSEG310",
+          "tipo": "CALL",
+          "strike": 28.43,
+          "venc": "2026-07-17",
+          "close": 11.5,
+          "vol": 195500,
+          "neg": 1,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "BBSET399",
+          "tipo": "PUT",
+          "strike": 39.93,
+          "venc": "2026-08-21",
+          "close": 0.69,
+          "vol": 194185,
+          "neg": 149,
+          "chg_pct": -13.8
+        },
+        {
+          "cod": "BBSES426",
+          "tipo": "PUT",
+          "strike": 42.68,
+          "venc": "2026-07-17",
+          "close": 2.42,
+          "vol": 192998,
+          "neg": 15,
+          "chg_pct": 0.8
+        }
+      ],
+      "pcr": 0.27
+    },
+    {
+      "ticker": "BBAS3",
+      "nome": "Banco do Brasil",
+      "setor": "Bancos",
+      "vies": 25,
+      "label": "NEUTRO",
+      "preco": 20.66,
+      "dia_pct": null,
+      "tend_diaria": "lateral",
+      "rsi": 58.7,
+      "tend_intra": "lateral",
+      "vs_vwap_pct": -0.17,
+      "lado": "CALL",
+      "alinhado": false,
+      "timing": "aguardar confirmação",
+      "opcao": {
+        "cod": "BBASG206W4",
+        "strike": 20.64,
+        "venc": "2026-07-24",
+        "moneyness": "ATM",
+        "premio_ref": 0.2,
+        "dist_strike_pct": -0.1
+      },
+      "ticket": {
+        "contratos": 20,
+        "custo": 400.0,
+        "dte": 9,
+        "entrada_ref": 0.2,
+        "elasticidade": 51.6,
+        "delta": 0.5,
+        "capado_por_capital": false,
+        "rr": 2.0,
+        "stop_gain": {
+          "premio": 0.45,
+          "ganho_rs": 495.84,
+          "ganho_pct_capital": 9.9,
+          "mov_papel_pct": 2.4
+        },
+        "stop_loss": {
+          "premio": 0.08,
+          "perda_rs": 247.92,
+          "perda_pct_capital": 5.0,
+          "mov_papel_pct": 1.2
+        },
+        "parcial_min": {
+          "premio": 0.21,
+          "ganho_rs": 12.0,
+          "ganho_pct_capital": 3.0,
+          "mov_papel_pct": 0.06
+        }
+      },
+      "ordens_registradas": [
+        {
+          "cod": "BBAST240",
+          "tipo": "PUT",
+          "strike": 23.65,
+          "venc": "2026-08-21",
+          "close": 3.09,
+          "vol": 2021773,
+          "neg": 72,
+          "chg_pct": 8.4
+        },
+        {
+          "cod": "BBASS238",
+          "tipo": "PUT",
+          "strike": 23.39,
+          "venc": "2026-07-17",
+          "close": 3.13,
+          "vol": 1649207,
+          "neg": 33,
+          "chg_pct": 11.8
+        },
+        {
+          "cod": "BBASS24",
+          "tipo": "PUT",
+          "strike": 23.64,
+          "venc": "2026-07-17",
+          "close": 3.34,
+          "vol": 933103,
+          "neg": 84,
+          "chg_pct": 8.4
+        },
+        {
+          "cod": "BBAST27",
+          "tipo": "PUT",
+          "strike": 27.15,
+          "venc": "2026-08-21",
+          "close": 6.48,
+          "vol": 573987,
+          "neg": 8,
+          "chg_pct": 3.3
+        },
+        {
+          "cod": "BBASH212",
+          "tipo": "CALL",
+          "strike": 20.9,
+          "venc": "2026-08-21",
+          "close": 0.55,
+          "vol": 568661,
+          "neg": 169,
+          "chg_pct": -35.3
+        }
+      ],
+      "pcr": 2.07
+    },
+    {
+      "ticker": "BRAV3",
+      "nome": "Brava Energia",
+      "setor": "Óleo & Gás",
+      "vies": 20,
+      "label": "NEUTRO",
+      "preco": 19.84,
+      "dia_pct": null,
+      "tend_diaria": "alta",
+      "rsi": 57.3,
+      "tend_intra": "lateral",
+      "vs_vwap_pct": -0.07,
+      "lado": "CALL",
+      "alinhado": false,
+      "timing": "aguardar confirmação",
+      "opcao": {
+        "cod": "BRAVH205W2",
+        "strike": 20.5,
+        "venc": "2026-08-14",
+        "moneyness": "OTM",
+        "premio_ref": 0.32,
+        "dist_strike_pct": 3.3
+      },
+      "ticket": {
+        "contratos": 27,
+        "custo": 864.0,
+        "dte": 30,
+        "entrada_ref": 0.32,
+        "elasticidade": 23.6,
+        "delta": 0.38,
+        "capado_por_capital": false,
+        "rr": 2.0,
+        "stop_gain": {
+          "premio": 0.5,
+          "ganho_rs": 488.54,
+          "ganho_pct_capital": 9.8,
+          "mov_papel_pct": 2.4
+        },
+        "stop_loss": {
+          "premio": 0.23,
+          "perda_rs": 244.27,
+          "perda_pct_capital": 4.9,
+          "mov_papel_pct": 1.2
+        },
+        "parcial_min": {
+          "premio": 0.33,
+          "ganho_rs": 25.92,
+          "ganho_pct_capital": 3.0,
+          "mov_papel_pct": 0.13
+        }
+      },
+      "ordens_registradas": [
+        {
+          "cod": "BRAVT190",
+          "tipo": "PUT",
+          "strike": 18.88,
+          "venc": "2026-08-21",
+          "close": 1.24,
+          "vol": 334921,
+          "neg": 273,
+          "chg_pct": 1.6
+        },
+        {
+          "cod": "BRAVU220",
+          "tipo": "PUT",
+          "strike": 21.88,
+          "venc": "2026-09-18",
+          "close": 3.62,
+          "vol": 257702,
+          "neg": 45,
+          "chg_pct": 4.3
+        },
+        {
+          "cod": "BRAVU205",
+          "tipo": "PUT",
+          "strike": 20.38,
+          "venc": "2026-09-18",
+          "close": 2.41,
+          "vol": 212420,
+          "neg": 63,
+          "chg_pct": -3.6
+        },
+        {
+          "cod": "BRAVU240",
+          "tipo": "PUT",
+          "strike": 23.88,
+          "venc": "2026-09-18",
+          "close": 5.39,
+          "vol": 152324,
+          "neg": 5,
+          "chg_pct": 12.3
+        },
+        {
+          "cod": "BRAVT223",
+          "tipo": "PUT",
+          "strike": 22.38,
+          "venc": "2026-08-21",
+          "close": 3.95,
+          "vol": 143961,
+          "neg": 29,
+          "chg_pct": 12.9
+        }
+      ],
+      "pcr": 2.35
+    },
+    {
+      "ticker": "VALE3",
+      "nome": "Vale",
+      "setor": "Commodities",
+      "vies": -15,
+      "label": "NEUTRO",
+      "preco": 74.42,
+      "dia_pct": null,
+      "tend_diaria": "lateral",
+      "rsi": 39.1,
+      "tend_intra": "lateral",
+      "vs_vwap_pct": 0.29,
+      "lado": "PUT",
+      "alinhado": false,
+      "timing": "aguardar confirmação",
+      "opcao": {
+        "cod": "VALES746W4",
+        "strike": 74.65,
+        "venc": "2026-07-24",
+        "moneyness": "ATM",
+        "premio_ref": 2.42,
+        "dist_strike_pct": 0.3
+      },
+      "ticket": {
+        "contratos": 5,
+        "custo": 1210.0,
+        "dte": 9,
+        "entrada_ref": 2.42,
+        "elasticidade": 15.4,
+        "delta": 0.5,
+        "capado_por_capital": false,
+        "rr": 2.0,
+        "stop_gain": {
+          "premio": 3.31,
+          "ganho_rs": 446.52,
+          "ganho_pct_capital": 8.9,
+          "mov_papel_pct": 2.4
+        },
+        "stop_loss": {
+          "premio": 1.97,
+          "perda_rs": 223.26,
+          "perda_pct_capital": 4.5,
+          "mov_papel_pct": 1.2
+        },
+        "parcial_min": {
+          "premio": 2.49,
+          "ganho_rs": 36.3,
+          "ganho_pct_capital": 3.0,
+          "mov_papel_pct": 0.2
+        }
+      },
+      "ordens_registradas": [
+        {
+          "cod": "VALES765",
+          "tipo": "PUT",
+          "strike": 73.15,
+          "venc": "2026-07-17",
+          "close": 1.07,
+          "vol": 1500444,
+          "neg": 765,
+          "chg_pct": 81.4
+        },
+        {
+          "cod": "VALEL814",
+          "tipo": "CALL",
+          "strike": 76.46,
+          "venc": "2026-12-18",
+          "close": 5.36,
+          "vol": 1487073,
+          "neg": 2,
+          "chg_pct": -0.2
+        },
+        {
+          "cod": "VALEG775",
+          "tipo": "CALL",
+          "strike": 74.15,
+          "venc": "2026-07-17",
+          "close": 0.48,
+          "vol": 1209178,
+          "neg": 687,
+          "chg_pct": -60.7
+        },
+        {
+          "cod": "VALEG765",
+          "tipo": "CALL",
+          "strike": 73.15,
+          "venc": "2026-07-17",
+          "close": 0.85,
+          "vol": 1142817,
+          "neg": 683,
+          "chg_pct": -49.4
+        },
+        {
+          "cod": "VALES746",
+          "tipo": "PUT",
+          "strike": 74.65,
+          "venc": "2026-07-17",
+          "close": 2.08,
+          "vol": 1113234,
+          "neg": 653,
+          "chg_pct": 62.5
+        }
+      ],
+      "pcr": 1.14
+    },
+    {
+      "ticker": "PRIO3",
+      "nome": "Prio S.A.",
+      "setor": "Óleo & Gás",
+      "vies": 13,
+      "label": "NEUTRO",
+      "preco": 57.28,
+      "dia_pct": null,
+      "tend_diaria": "lateral",
+      "rsi": 51.8,
+      "tend_intra": "lateral",
+      "vs_vwap_pct": 0.49,
+      "lado": "CALL",
+      "alinhado": false,
+      "timing": "aguardar confirmação",
+      "opcao": {
+        "cod": "PRIOG570W4",
+        "strike": 57.0,
+        "venc": "2026-07-24",
+        "moneyness": "ATM",
+        "premio_ref": 1.8,
+        "dist_strike_pct": -0.5
+      },
+      "ticket": {
+        "contratos": 7,
+        "custo": 1260.0,
+        "dte": 9,
+        "entrada_ref": 1.8,
+        "elasticidade": 15.9,
+        "delta": 0.5,
+        "capado_por_capital": false,
+        "rr": 2.0,
+        "stop_gain": {
+          "premio": 2.49,
+          "ganho_rs": 481.15,
+          "ganho_pct_capital": 9.6,
+          "mov_papel_pct": 2.4
+        },
+        "stop_loss": {
+          "premio": 1.46,
+          "perda_rs": 240.58,
+          "perda_pct_capital": 4.8,
+          "mov_papel_pct": 1.2
+        },
+        "parcial_min": {
+          "premio": 1.85,
+          "ganho_rs": 37.8,
+          "ganho_pct_capital": 3.0,
+          "mov_papel_pct": 0.19
+        }
+      },
+      "ordens_registradas": [
+        {
+          "cod": "PRIOS840",
+          "tipo": "PUT",
+          "strike": 84.0,
+          "venc": "2026-07-17",
+          "close": 26.89,
+          "vol": 3452744,
+          "neg": 21,
+          "chg_pct": -1.2
+        },
+        {
+          "cod": "PRIOT820",
+          "tipo": "PUT",
+          "strike": 82.0,
+          "venc": "2026-08-21",
+          "close": 24.42,
+          "vol": 1953800,
+          "neg": 11,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "PRIOL595",
+          "tipo": "CALL",
+          "strike": 59.5,
+          "venc": "2026-12-18",
+          "close": 5.39,
+          "vol": 1922067,
+          "neg": 2,
+          "chg_pct": -0.2
+        },
+        {
+          "cod": "PRIOT810",
+          "tipo": "PUT",
+          "strike": 81.0,
+          "venc": "2026-08-21",
+          "close": 23.34,
+          "vol": 1546146,
+          "neg": 48,
+          "chg_pct": -0.5
+        },
+        {
+          "cod": "PRIOG590",
+          "tipo": "CALL",
+          "strike": 59.0,
+          "venc": "2026-07-17",
+          "close": 0.58,
+          "vol": 667666,
+          "neg": 81,
+          "chg_pct": 107.1
+        }
+      ],
+      "pcr": 1.03
+    },
+    {
+      "ticker": "EQTL3",
+      "nome": "Equatorial Energia",
+      "setor": "Energia elétrica",
+      "vies": 55,
+      "label": "ALTA",
+      "preco": 40.57,
+      "dia_pct": null,
+      "tend_diaria": "lateral",
+      "rsi": 58.5,
+      "tend_intra": "baixa",
+      "vs_vwap_pct": -0.65,
+      "lado": "CALL",
+      "alinhado": false,
+      "timing": "contra o intradia — evitar",
+      "opcao": {
+        "cod": "EQTLG399W4",
+        "strike": 39.99,
+        "venc": "2026-07-24",
+        "moneyness": "ATM",
+        "premio_ref": 1.06,
+        "dist_strike_pct": -1.4
+      },
+      "ticket": {
+        "contratos": 10,
+        "custo": 1060.0,
+        "dte": 9,
+        "entrada_ref": 1.06,
+        "elasticidade": 19.1,
+        "delta": 0.5,
+        "capado_por_capital": false,
+        "rr": 2.0,
+        "stop_gain": {
+          "premio": 1.55,
+          "ganho_rs": 486.84,
+          "ganho_pct_capital": 9.7,
+          "mov_papel_pct": 2.4
+        },
+        "stop_loss": {
+          "premio": 0.82,
+          "perda_rs": 243.42,
+          "perda_pct_capital": 4.9,
+          "mov_papel_pct": 1.2
+        },
+        "parcial_min": {
+          "premio": 1.09,
+          "ganho_rs": 31.8,
+          "ganho_pct_capital": 3.0,
+          "mov_papel_pct": 0.16
+        }
+      },
+      "ordens_registradas": [
+        {
+          "cod": "EQTLG379",
+          "tipo": "CALL",
+          "strike": 37.99,
+          "venc": "2026-07-17",
+          "close": 2.2,
+          "vol": 191180,
+          "neg": 9,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "EQTLH399",
+          "tipo": "CALL",
+          "strike": 39.99,
+          "venc": "2026-08-21",
+          "close": 1.88,
+          "vol": 98275,
+          "neg": 20,
+          "chg_pct": -16.8
+        },
+        {
+          "cod": "EQTLU409",
+          "tipo": "PUT",
+          "strike": 40.99,
+          "venc": "2026-09-18",
+          "close": 1.88,
+          "vol": 60761,
+          "neg": 11,
+          "chg_pct": 16.8
+        },
+        {
+          "cod": "EQTLH417",
+          "tipo": "CALL",
+          "strike": 41.74,
+          "venc": "2026-08-21",
+          "close": 1.1,
+          "vol": 58992,
+          "neg": 44,
+          "chg_pct": 0.9
+        },
+        {
+          "cod": "EQTLH404",
+          "tipo": "CALL",
+          "strike": 40.49,
+          "venc": "2026-08-21",
+          "close": 1.61,
+          "vol": 56204,
+          "neg": 12,
+          "chg_pct": -16.6
+        }
+      ],
+      "pcr": 0.54
+    },
+    {
+      "ticker": "ITUB4",
+      "nome": "Itaú Unibanco",
+      "setor": "Bancos",
+      "vies": 48,
+      "label": "ALTA",
+      "preco": 43.26,
+      "dia_pct": null,
+      "tend_diaria": "lateral",
+      "rsi": 59.9,
+      "tend_intra": "baixa",
+      "vs_vwap_pct": -0.35,
+      "lado": "CALL",
+      "alinhado": false,
+      "timing": "contra o intradia — evitar",
+      "opcao": {
+        "cod": "ITUBG435W4",
+        "strike": 43.16,
+        "venc": "2026-07-24",
+        "moneyness": "ATM",
+        "premio_ref": 1.2,
+        "dist_strike_pct": -0.2
+      },
+      "ticket": {
+        "contratos": 9,
+        "custo": 1080.0,
+        "dte": 9,
+        "entrada_ref": 1.2,
+        "elasticidade": 18.0,
+        "delta": 0.5,
+        "capado_por_capital": false,
+        "rr": 2.0,
+        "stop_gain": {
+          "premio": 1.72,
+          "ganho_rs": 467.21,
+          "ganho_pct_capital": 9.3,
+          "mov_papel_pct": 2.4
+        },
+        "stop_loss": {
+          "premio": 0.94,
+          "perda_rs": 233.6,
+          "perda_pct_capital": 4.7,
+          "mov_papel_pct": 1.2
+        },
+        "parcial_min": {
+          "premio": 1.24,
+          "ganho_rs": 32.4,
+          "ganho_pct_capital": 3.0,
+          "mov_papel_pct": 0.17
+        }
+      },
+      "ordens_registradas": [
+        {
+          "cod": "ITUBI452",
+          "tipo": "CALL",
+          "strike": 44.57,
+          "venc": "2026-09-18",
+          "close": 1.84,
+          "vol": 7641260,
+          "neg": 25,
+          "chg_pct": -16.0
+        },
+        {
+          "cod": "ITUBU452",
+          "tipo": "PUT",
+          "strike": 44.57,
+          "venc": "2026-09-18",
+          "close": 1.81,
+          "vol": 7261688,
+          "neg": 25,
+          "chg_pct": 4.6
+        },
+        {
+          "cod": "ITUBH445",
+          "tipo": "CALL",
+          "strike": 44.22,
+          "venc": "2026-08-21",
+          "close": 1.4,
+          "vol": 2949261,
+          "neg": 211,
+          "chg_pct": -18.6
+        },
+        {
+          "cod": "ITUBT445",
+          "tipo": "PUT",
+          "strike": 44.22,
+          "venc": "2026-08-21",
+          "close": 1.39,
+          "vol": 1775982,
+          "neg": 110,
+          "chg_pct": 19.8
+        },
+        {
+          "cod": "ITUBF373",
+          "tipo": "CALL",
+          "strike": 37.39,
+          "venc": "2027-06-18",
+          "close": 11.13,
+          "vol": 1324189,
+          "neg": 14,
+          "chg_pct": -5.3
+        }
+      ],
+      "pcr": 0.48
+    },
+    {
+      "ticker": "BBDC4",
+      "nome": "Bradesco",
+      "setor": "Bancos",
+      "vies": 33,
+      "label": "ALTA",
+      "preco": 18.53,
+      "dia_pct": null,
+      "tend_diaria": "lateral",
+      "rsi": 58.2,
+      "tend_intra": "baixa",
+      "vs_vwap_pct": -0.25,
+      "lado": "CALL",
+      "alinhado": false,
+      "timing": "contra o intradia — evitar",
+      "opcao": {
+        "cod": "BBDCG188W4",
+        "strike": 18.58,
+        "venc": "2026-07-24",
+        "moneyness": "ATM",
+        "premio_ref": 0.44,
+        "dist_strike_pct": 0.3
+      },
+      "ticket": {
+        "contratos": 22,
+        "custo": 968.0,
+        "dte": 9,
+        "entrada_ref": 0.44,
+        "elasticidade": 21.1,
+        "delta": 0.5,
+        "capado_por_capital": false,
+        "rr": 2.0,
+        "stop_gain": {
+          "premio": 0.66,
+          "ganho_rs": 489.19,
+          "ganho_pct_capital": 9.8,
+          "mov_papel_pct": 2.4
+        },
+        "stop_loss": {
+          "premio": 0.33,
+          "perda_rs": 244.6,
+          "perda_pct_capital": 4.9,
+          "mov_papel_pct": 1.2
+        },
+        "parcial_min": {
+          "premio": 0.45,
+          "ganho_rs": 29.04,
+          "ganho_pct_capital": 3.0,
+          "mov_papel_pct": 0.14
+        }
+      },
+      "ordens_registradas": [
+        {
+          "cod": "BBDCH184",
+          "tipo": "CALL",
+          "strike": 17.81,
+          "venc": "2026-08-21",
+          "close": 1.4,
+          "vol": 3410215,
+          "neg": 93,
+          "chg_pct": -12.5
+        },
+        {
+          "cod": "BBDCA229",
+          "tipo": "CALL",
+          "strike": 22.59,
+          "venc": "2027-01-15",
+          "close": 0.78,
+          "vol": 1970045,
+          "neg": 19,
+          "chg_pct": 2.6
+        },
+        {
+          "cod": "BBDCS214",
+          "tipo": "PUT",
+          "strike": 21.08,
+          "venc": "2026-07-17",
+          "close": 2.29,
+          "vol": 1666015,
+          "neg": 42,
+          "chg_pct": 4.6
+        },
+        {
+          "cod": "BBDCT217",
+          "tipo": "PUT",
+          "strike": 21.06,
+          "venc": "2026-08-21",
+          "close": 2.11,
+          "vol": 1396055,
+          "neg": 99,
+          "chg_pct": 9.3
+        },
+        {
+          "cod": "BBDCH20",
+          "tipo": "CALL",
+          "strike": 18.81,
+          "venc": "2026-08-21",
+          "close": 0.73,
+          "vol": 1025603,
+          "neg": 240,
+          "chg_pct": -20.7
+        }
+      ],
+      "pcr": 0.62
+    },
+    {
+      "ticker": "CMIG4",
+      "nome": "Cemig",
+      "setor": "Energia elétrica",
+      "vies": 24,
+      "label": "NEUTRO",
+      "preco": 11.16,
+      "dia_pct": null,
+      "tend_diaria": "lateral",
+      "rsi": 53.6,
+      "tend_intra": "baixa",
+      "vs_vwap_pct": -0.15,
+      "lado": "CALL",
+      "alinhado": false,
+      "timing": "contra o intradia — evitar",
+      "opcao": {
+        "cod": "CMIGG112W4",
+        "strike": 11.06,
+        "venc": "2026-07-24",
+        "moneyness": "ATM",
+        "premio_ref": 0.21,
+        "dist_strike_pct": -0.9
+      },
+      "ticket": {
+        "contratos": 37,
+        "custo": 777.0,
+        "dte": 9,
+        "entrada_ref": 0.21,
+        "elasticidade": 26.6,
+        "delta": 0.5,
+        "capado_por_capital": false,
+        "rr": 2.0,
+        "stop_gain": {
+          "premio": 0.34,
+          "ganho_rs": 495.5,
+          "ganho_pct_capital": 9.9,
+          "mov_papel_pct": 2.4
+        },
+        "stop_loss": {
+          "premio": 0.14,
+          "perda_rs": 247.75,
+          "perda_pct_capital": 5.0,
+          "mov_papel_pct": 1.2
+        },
+        "parcial_min": {
+          "premio": 0.22,
+          "ganho_rs": 23.31,
+          "ganho_pct_capital": 3.0,
+          "mov_papel_pct": 0.11
+        }
+      },
+      "ordens_registradas": [
+        {
+          "cod": "CMIGT191",
+          "tipo": "PUT",
+          "strike": 18.96,
+          "venc": "2026-08-21",
+          "close": 7.57,
+          "vol": 140802,
+          "neg": 2,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "CMIGS217",
+          "tipo": "PUT",
+          "strike": 19.81,
+          "venc": "2026-07-17",
+          "close": 8.69,
+          "vol": 138062,
+          "neg": 3,
+          "chg_pct": -0.1
+        },
+        {
+          "cod": "CMIGH954",
+          "tipo": "CALL",
+          "strike": 9.36,
+          "venc": "2026-08-21",
+          "close": 1.86,
+          "vol": 101262,
+          "neg": 4,
+          "chg_pct": -3.1
+        },
+        {
+          "cod": "CMIGS146",
+          "tipo": "PUT",
+          "strike": 12.81,
+          "venc": "2026-07-17",
+          "close": 1.71,
+          "vol": 68140,
+          "neg": 2,
+          "chg_pct": 17.9
+        },
+        {
+          "cod": "CMIGH115",
+          "tipo": "CALL",
+          "strike": 11.36,
+          "venc": "2026-08-21",
+          "close": 0.26,
+          "vol": 62709,
+          "neg": 139,
+          "chg_pct": -36.6
+        }
+      ],
+      "pcr": 1.13
+    },
+    {
+      "ticker": "LREN3",
+      "nome": "Lojas Renner",
+      "setor": "Varejo",
+      "vies": 13,
+      "label": "NEUTRO",
+      "preco": 14.19,
+      "dia_pct": null,
+      "tend_diaria": "baixa",
+      "rsi": 46.0,
+      "tend_intra": "baixa",
+      "vs_vwap_pct": -0.57,
+      "lado": "CALL",
+      "alinhado": false,
+      "timing": "contra o intradia — evitar",
+      "opcao": {
+        "cod": "LRENG146W4",
+        "strike": 14.42,
+        "venc": "2026-07-24",
+        "moneyness": "ATM",
+        "premio_ref": 0.37,
+        "dist_strike_pct": 1.6
+      },
+      "ticket": {
+        "contratos": 29,
+        "custo": 1073.0,
+        "dte": 9,
+        "entrada_ref": 0.37,
+        "elasticidade": 19.2,
+        "delta": 0.5,
+        "capado_por_capital": false,
+        "rr": 2.0,
+        "stop_gain": {
+          "premio": 0.54,
+          "ganho_rs": 493.81,
+          "ganho_pct_capital": 9.9,
+          "mov_papel_pct": 2.4
+        },
+        "stop_loss": {
+          "premio": 0.28,
+          "perda_rs": 246.91,
+          "perda_pct_capital": 4.9,
+          "mov_papel_pct": 1.2
+        },
+        "parcial_min": {
+          "premio": 0.38,
+          "ganho_rs": 32.19,
+          "ganho_pct_capital": 3.0,
+          "mov_papel_pct": 0.16
+        }
+      },
+      "ordens_registradas": [
+        {
+          "cod": "LRENT142",
+          "tipo": "PUT",
+          "strike": 14.07,
+          "venc": "2026-08-21",
+          "close": 0.62,
+          "vol": 239727,
+          "neg": 216,
+          "chg_pct": 0.0
+        },
+        {
+          "cod": "LRENS171",
+          "tipo": "PUT",
+          "strike": 16.92,
+          "venc": "2026-07-17",
+          "close": 2.69,
+          "vol": 186629,
+          "neg": 6,
+          "chg_pct": 7.2
+        },
+        {
+          "cod": "LRENT175",
+          "tipo": "PUT",
+          "strike": 17.32,
+          "venc": "2026-08-21",
+          "close": 2.95,
+          "vol": 146500,
+          "neg": 3,
+          "chg_pct": 1.0
+        },
+        {
+          "cod": "LRENS172",
+          "tipo": "PUT",
+          "strike": 16.17,
+          "venc": "2026-07-17",
+          "close": 1.89,
+          "vol": 117530,
+          "neg": 6,
+          "chg_pct": 8.0
+        },
+        {
+          "cod": "LRENT174",
+          "tipo": "PUT",
+          "strike": 17.07,
+          "venc": "2026-08-21",
+          "close": 2.68,
+          "vol": 101580,
+          "neg": 3,
+          "chg_pct": 3.1
+        }
+      ],
+      "pcr": 3.21
+    }
+  ]
+}
