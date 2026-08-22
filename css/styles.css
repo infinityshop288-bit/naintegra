@@ -908,6 +908,11 @@ input[type="search"], select {
   border-color: var(--gold);
   color: #fff;
 }
+.btn.danger {
+  background: #b91c1c;
+  border-color: #b91c1c;
+  color: #fff;
+}
 .btn.icon { min-width: 2rem; text-align: center; }
 
 .article-pills {

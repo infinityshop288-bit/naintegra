@@ -84,8 +84,6 @@
     questaoPageIds: [],
     questaoCommentsLoading: false,
     questaoCommentEdit: null,
-    subscriptionActive: false,
-    subscriptionChecked: false,
     currentUser: null,
   };
 
@@ -431,40 +429,8 @@
     return false;
   }
 
-  function isPublicRoute(path) {
-    if (!path || path === "home") return true;
-    const pub = window.LEX_CONFIG?.publicRoutes || ["assinatura", "contato", "auth"];
-    return pub.includes(path) || path.startsWith("auth");
-  }
-
-  function isLandingRoute(path) {
-    return !path || path === "home" || path === "precos";
-  }
-
-  function updatePublicLayout(path) {
-    const publicLanding = !isLoggedIn() && isLandingRoute(path);
-    document.body.classList.toggle("lex-public-mode", publicLanding);
-  }
-
-  function isLocalPreview() {
-    const h = location.hostname;
-    return h === "localhost" || h === "127.0.0.1" || h === "[::1]";
-  }
-
-  async function ensureSubscriptionGate() {
-    if (isLocalPreview() || new URLSearchParams(location.search).get("promo") === "1") {
-      state.subscriptionChecked = true;
-      state.subscriptionActive = true;
-      return true;
-    }
-    if (!window.LexSubscription) {
-      state.subscriptionChecked = true;
-      state.subscriptionActive = true;
-      return true;
-    }
-    state.subscriptionActive = await window.LexSubscription.isSubscribed(true);
-    state.subscriptionChecked = true;
-    return state.subscriptionActive;
+  function isHomeRoute(path) {
+    return !path || path === "home";
   }
 
   function updateThemeHash(theme) {
@@ -846,8 +812,8 @@
     return `
       <section class="hero">
         <h1>Acervo jurídico</h1>
-        <p>Lei seca, jurisprudência, flashcards e questões comentadas — com grifos, anotações, <strong>narração em áudio</strong> e progresso na nuvem. Material atualizado semanalmente!</p>
-        <p class="sync-hint" id="sync-hint" hidden>Entre na sua conta para sincronizar grifos e anotações entre dispositivos.</p>
+        <p><strong>Gratuito e sem anúncios.</strong> Lei seca, jurisprudência, flashcards e questões comentadas — com grifos, anotações e <strong>narração em áudio</strong>. Material atualizado semanalmente!</p>
+        <p class="sync-hint" id="sync-hint" hidden>Tudo liberado sem login. Crie uma conta apenas se quiser sincronizar grifos, anotações e progresso entre aparelhos.</p>
         <p class="hero-actions">
           <button type="button" class="btn sm" id="lex-tour-btn" title="Tour guiado das funcionalidades">Tour guiado</button>
           <span class="hero-lang-note" title="Conteúdo jurídico em português para concursos brasileiros">🇧🇷 Português (Brasil)</span>
@@ -887,59 +853,8 @@
       </div>`;
   }
 
-  function renderLandingPage(showAuthPanel) {
-    const nLeg = byType("legislacao").length;
-    const nJur = byType("jurisprudencia").length;
-    const nQ = questionsTotal();
-    const nFlash = state.decks.reduce(
-      (sum, d) => sum + (window.LexData?.deckCardCount?.(d) ?? d.cards?.length ?? 0),
-      0
-    );
-
-    const authAside = showAuthPanel
-      ? `<aside class="landing-auth-aside"><div id="landing-auth-root"></div></aside>`
-      : `<aside class="landing-auth-aside">
-          <div class="landing-auth-panel landing-auth-panel--cta">
-            <h2 class="landing-auth-title">Assine para acessar</h2>
-            <p class="landing-auth-lead">Conta ativa — escolha um plano.</p>
-            <a class="btn primary block" href="#/assinatura?plan=lex-anual">Anual · R$ 199,90</a>
-            <a class="btn block" href="#/assinatura?plan=lex-mensal">Mensal · R$ 19,90</a>
-          </div>
-        </aside>`;
-
-    return `
-      <div class="lex-landing">
-        <div class="landing-hero-grid">
-          <section class="landing-intro">
-            <h1>Legislação e jurisprudência para concursos</h1>
-            <p class="landing-intro-lead">Lei seca, súmulas, flashcards e questões comentadas — com grifos, anotações e <strong>narração em áudio</strong>. Material atualizado semanalmente.</p>
-            <article class="landing-audio-feature" aria-labelledby="landing-audio-title">
-              <span class="landing-audio-icon" aria-hidden="true">🎧</span>
-              <div class="landing-audio-copy">
-                <h2 id="landing-audio-title">Ouça as leis na íntegra</h2>
-                <p>Narração artigo a artigo, com controle de velocidade. Revise no trânsito, na academia ou antes de dormir — sem precisar olhar a tela.</p>
-              </div>
-            </article>
-            <p class="landing-meta">${nLeg.toLocaleString("pt-BR")} leis · ${nJur.toLocaleString("pt-BR")} jurisprudências · ${nQ.toLocaleString("pt-BR")} questões · ${nFlash.toLocaleString("pt-BR")} flashcards</p>
-            <div class="landing-plan-list" id="precos">
-              <div class="landing-plan-item">
-                <span class="landing-plan-copy"><strong>Mensal</strong> R$ 19,90/mês</span>
-                <a class="btn sm" href="#/assinatura?plan=lex-mensal">Assinar</a>
-              </div>
-              <div class="landing-plan-item landing-plan-item--featured">
-                <span class="landing-plan-copy"><strong>Anual</strong> R$ 199,90/ano</span>
-                <a class="btn sm primary" href="#/assinatura?plan=lex-anual">Assinar</a>
-              </div>
-            </div>
-          </section>
-          ${authAside}
-        </div>
-      </div>`;
-  }
-
   function renderHome() {
-    if (isLoggedIn() && state.subscriptionActive) return renderDashboardHome();
-    return renderLandingPage(!isLoggedIn());
+    return renderDashboardHome();
   }
 
   function renderFlashcardsList() {
@@ -2931,6 +2846,21 @@
   function renderContato() {
     const email = contactEmail();
     const deleteUrl = window.LEX_CONFIG?.accountDeletionUrl || `${location.origin}${location.pathname}#/excluir-conta`;
+    const showPlay = window.LexPlatform?.showPlayStorePrompts?.() ?? true;
+    const showAppStore = window.LexPlatform?.showAppStorePrompts?.() ?? false;
+    const storeUrl = window.LexPlatform?.storeReviewUrl?.() || window.LEX_CONFIG?.playStoreUrl || "#";
+    const storeLabel = window.LexPlatform?.storeReviewLabel?.() || "Google Play";
+    const ratingOption = showPlay
+      ? `<option value="Avaliação Play Store">Avaliação / Play Store</option>`
+      : showAppStore
+        ? `<option value="Avaliação App Store">Avaliação / App Store</option>`
+        : "";
+    const storeLink = showPlay || showAppStore
+      ? `<p class="contact-alt">
+          Gostou do app? <a href="${esc(storeUrl)}" target="_blank" rel="noopener noreferrer">Avalie na ${esc(storeLabel)}</a>
+          — isso ajuda outros concurseiros.
+        </p>`
+      : "";
     return `
       <div class="page-head">
         <h1>Fale Conosco</h1>
@@ -2945,7 +2875,7 @@
               <option value="Crítica">Crítica</option>
               <option value="Elogio">Elogio</option>
               <option value="Bug no app">Bug no app</option>
-              <option value="Avaliação Play Store">Avaliação / Play Store</option>
+              ${ratingOption}
             </select>
           </label>
           <label>
@@ -2962,10 +2892,7 @@
           </label>
           <button type="submit" class="btn primary contact-submit">Enviar e-mail</button>
         </form>
-        <p class="contact-alt">
-          Gostou do app? <a href="${esc(window.LEX_CONFIG?.playStoreUrl || "#")}" target="_blank" rel="noopener noreferrer">Avalie na Google Play</a>
-          — isso ajuda outros concurseiros.
-        </p>
+        ${storeLink}
         <p class="contact-alt">
           Interface em <strong>português (Brasil)</strong>. O acervo jurídico é em PT-BR, voltado a concursos públicos brasileiros.
         </p>
@@ -2977,24 +2904,36 @@
           Para solicitar exclusão da sua conta e dados, acesse
           <a href="${esc(deleteUrl)}">Exclusão de conta</a>.
         </p>
+        <p class="contact-alt">
+          Saiba como tratamos seus dados na
+          <a href="./privacidade.html">Política de Privacidade</a>.
+        </p>
       </div>`;
   }
 
   function renderExcluirConta() {
     const email = contactEmail();
     const deleteUrl = window.LEX_CONFIG?.accountDeletionUrl || `${location.origin}${location.pathname}#/excluir-conta`;
+    const showPlayLink = window.LexPlatform?.showPlayStorePrompts?.() ?? true;
+    const linkNote = showPlayLink
+      ? `<p class="contact-alt">
+          Link desta página: <a href="${esc(deleteUrl)}">${esc(deleteUrl)}</a>
+        </p>`
+      : "";
     return `
       <div class="page-head">
         <h1>Exclusão de conta</h1>
-        <p>Solicite a remoção da sua conta NaIntegra Lex e dos dados associados.</p>
+        <p>Exclua permanentemente sua conta NaIntegra Lex e os dados associados.</p>
       </div>
       <div class="contact-card">
-        <h2>Como solicitar</h2>
-        <p>Envie um e-mail para <a href="mailto:${esc(email)}?subject=${encodeURIComponent("Exclusão de conta NaIntegra Lex")}">${esc(email)}</a> com o assunto <strong>Exclusão de conta NaIntegra Lex</strong>, informando o e-mail usado no cadastro (Google ou Apple).</p>
-        <p>Responderemos em até 7 dias úteis confirmando a exclusão.</p>
+        <h2>Excluir agora (no app)</h2>
+        <p>Se você estiver logado, pode excluir a conta imediatamente abaixo. Esta ação é irreversível.</p>
+        <div id="delete-account-panel">
+          <p class="pay-hint" id="delete-account-hint">Carregando…</p>
+        </div>
         <h2>O que é excluído</h2>
         <ul>
-          <li>Cadastro e login (Google/Apple vinculados ao Lex)</li>
+          <li>Cadastro e login (Google ou Apple vinculados ao Lex)</li>
           <li>Progresso de leitura, anotações e grifos sincronizados</li>
           <li>Flashcards personalizados e decks criados por você</li>
           <li>Comentários públicos em questões</li>
@@ -3006,10 +2945,105 @@
           <li>Backups de segurança por até 30 dias, apenas para recuperação de incidentes</li>
         </ul>
         <p class="contact-alt">
-          Link desta página (para a Play Store): <a href="${esc(deleteUrl)}">${esc(deleteUrl)}</a>
+          Dúvidas? Escreva para <a href="mailto:${esc(email)}">${esc(email)}</a>
         </p>
+        ${linkNote}
         <p><a href="#/contato" class="btn">← Voltar ao contato</a></p>
       </div>`;
+  }
+
+  async function bindExcluirConta() {
+    const panel = document.getElementById("delete-account-panel");
+    if (!panel) return;
+
+    let user = null;
+    try {
+      user = await window.LexAuth.getUser();
+    } catch (_) {
+      /* ignore */
+    }
+
+    if (!user) {
+      panel.innerHTML = `
+        <p class="pay-hint">Entre na sua conta para excluí-la.</p>
+        <button type="button" class="btn primary" id="delete-account-login">Entrar</button>`;
+      document.getElementById("delete-account-login")?.addEventListener("click", () => {
+        window.LexAuthUI?.open?.("login");
+      });
+      return;
+    }
+
+    panel.innerHTML = `
+      <p class="pay-hint">Conta: <strong>${esc(user.email || window.LexAuth.userLabel(user))}</strong></p>
+      <label class="delete-confirm-row">
+        <input type="checkbox" id="delete-account-confirm" />
+        Entendo que a exclusão é permanente e não pode ser desfeita.
+      </label>
+      <button type="button" class="btn danger block" id="delete-account-btn" disabled>Excluir minha conta</button>
+      <p class="auth-msg" id="delete-account-msg" hidden></p>`;
+
+    const confirm = document.getElementById("delete-account-confirm");
+    const btn = document.getElementById("delete-account-btn");
+    const msg = document.getElementById("delete-account-msg");
+
+    confirm?.addEventListener("change", () => {
+      if (btn) btn.disabled = !confirm.checked;
+    });
+
+    btn?.addEventListener("click", async () => {
+      if (!confirm?.checked) return;
+      const ok = window.confirm(
+        "Tem certeza? Sua conta e todos os dados serão excluídos permanentemente.",
+      );
+      if (!ok) return;
+
+      btn.disabled = true;
+      btn.textContent = "Excluindo…";
+      if (msg) {
+        msg.hidden = false;
+        msg.textContent = "";
+      }
+
+      try {
+        const headers = {
+          apikey: window.LEX_CONFIG.supabaseAnonKey,
+          "Content-Type": "application/json",
+        };
+        const session = await window.LexAuth.getSession();
+        if (!session?.access_token) throw new Error("Sessão expirada. Entre novamente.");
+        headers.Authorization = `Bearer ${session.access_token}`;
+
+        const res = await fetch(
+          `${window.LEX_CONFIG.supabaseUrl}/functions/v1/lex-delete-account`,
+          {
+            method: "POST",
+            headers,
+            body: JSON.stringify({ confirm: true }),
+          },
+        );
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok || !data.ok) {
+          throw new Error(data.error || "Não foi possível excluir a conta");
+        }
+
+        try {
+          localStorage.clear();
+          sessionStorage.clear();
+        } catch (_) {
+          /* ignore */
+        }
+        await window.LexAuth.signOut().catch(() => {});
+        panel.innerHTML = `<p class="auth-msg success">Conta excluída com sucesso.</p>`;
+        setTimeout(() => {
+          window.location.hash = "#/";
+          window.location.reload();
+        }, 1500);
+      } catch (err) {
+        if (msg) msg.textContent = err.message || "Erro ao excluir conta";
+        btn.disabled = false;
+        btn.textContent = "Excluir minha conta";
+      }
+    });
   }
 
   function bindContactForm() {
@@ -3043,25 +3077,6 @@
         location.hash = `#/${el.getAttribute("data-go")}`;
       });
     });
-  }
-
-  function bindLanding() {
-    document.querySelectorAll("[data-auth-open]").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const view = btn.getAttribute("data-auth-open") || "login";
-        if (window.LexAuthUI?.scrollToLandingAuth) window.LexAuthUI.scrollToLandingAuth(view);
-        else window.LexAuthUI?.open(view);
-      });
-    });
-    document.querySelectorAll("[data-scroll-to]").forEach((el) => {
-      el.addEventListener("click", (e) => {
-        e.preventDefault();
-        const id = el.getAttribute("data-scroll-to");
-        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    });
-    const authRoot = document.getElementById("landing-auth-root");
-    if (authRoot) window.LexAuthUI?.mountLandingAuth(authRoot, "login");
   }
 
   function bindFlashcardsList() {
@@ -4081,26 +4096,10 @@
     renderRecentReads();
 
     const r = state.route;
-    updatePublicLayout(r.path);
-
-    if (r.path === "assinatura") {
-      const planId = r.plan || "lex-mensal";
-      window.LexSubscription?.renderAssinaturaPage(planId).then((h) => {
-        setAppHtml(h);
-        window.LexSubscription?.bindAssinaturaPage(planId);
-      });
-      setAppHtml(`<div class="loading">Carregando checkout…</div>`);
-      return;
-    }
-
-    if (!state.subscriptionActive && state.subscriptionChecked && !isPublicRoute(r.path)) {
-      location.hash = "#/";
-      return;
-    }
 
     let html = "";
 
-    if (isLandingRoute(r.path)) html = renderHome();
+    if (isHomeRoute(r.path)) html = renderHome();
     else if (r.path === "flashcards") {
       if (r.id === "criar") html = renderFlashCreate();
       else if (r.id?.startsWith("gerenciar/")) html = renderFlashManage(r.id.slice("gerenciar/".length));
@@ -4144,13 +4143,7 @@
     setAppHtml(html);
 
     bindHome();
-    bindLanding();
-    if (isLandingRoute(r.path) && r.path === "precos") {
-      requestAnimationFrame(() => {
-        document.getElementById("precos")?.scrollIntoView({ behavior: "smooth", block: "start" });
-      });
-    }
-    if (state.subscriptionActive && isLandingRoute(r.path)) {
+    if (isHomeRoute(r.path)) {
       const hint = document.getElementById("sync-hint");
       if (hint) hint.hidden = Boolean(window.LexStore?.isLoggedIn?.());
     }
@@ -4164,12 +4157,13 @@
     if (r.path !== "jurisprudencia" && r.path !== "favoritos") bindJuris();
     bindQuestoes();
     bindContactForm();
+    if (r.path === "excluir-conta") bindExcluirConta();
     bindReportError();
     document.getElementById("lex-tour-btn")?.addEventListener("click", () => {
       window.LexOnboarding?.reset?.();
       window.LexOnboarding?.show?.({ force: true });
     });
-    if (isLoggedIn() && state.subscriptionActive && r.path === "home") {
+    if (isHomeRoute(r.path)) {
       window.LexOnboarding?.maybeShow?.();
     }
     if (r.path === "plano-estudos") {
@@ -4288,7 +4282,7 @@
     if (!app || document.getElementById("lex-offline-banner")) return;
     const offline = !navigator.onLine || offlineSources.has(src);
     const msg = offline
-      ? "Modo offline — acervo baixado no aparelho. Login, assinatura e comentários precisam de internet."
+      ? "Modo offline — acervo baixado no aparelho. Login e comentários precisam de internet."
       : "Conteúdo em cache local — sincronize online para atualizar o acervo.";
     app.insertAdjacentHTML(
       "afterbegin",
@@ -4306,52 +4300,18 @@
       return;
     }
 
-    const promo = new URLSearchParams(location.search).get("promo") === "1";
-    if (promo) {
-      state.currentUser = {
-        id: "promo-demo",
-        email: "estudante@demo.com",
-        user_metadata: { full_name: "Maria" },
-      };
-      state.subscriptionActive = true;
-      state.subscriptionChecked = true;
-    }
-
     if (window.LexAuthUI) {
       await window.LexAuthUI.init(async (session) => {
-        state.currentUser = promo ? state.currentUser : (session?.user ?? null);
-        if (window.LexStore) await window.LexStore.setSession(promo ? { user: state.currentUser, access_token: "promo" } : session);
-        if (window.LexSubscription) window.LexSubscription.invalidateCache();
+        state.currentUser = session?.user ?? null;
+        if (window.LexStore) await window.LexStore.setSession(session);
         const hint = document.getElementById("sync-hint");
         if (hint) hint.hidden = Boolean(state.currentUser);
-        if (!promo) await ensureSubscriptionGate();
-        else {
-          state.subscriptionActive = true;
-          state.subscriptionChecked = true;
-        }
-        if (state.currentUser && state.subscriptionActive && window.LexProtect && !promo) {
-          window.LexProtect.init();
-        }
         render();
       });
     }
 
-    window.LexSubscription?.renderSidebarUpdate?.();
-
-    if (!promo) {
-      await ensureSubscriptionGate();
-    } else {
-      state.subscriptionActive = true;
-      state.subscriptionChecked = true;
-    }
-    if (state.subscriptionActive && window.LexProtect && !promo) {
-      window.LexProtect.init();
-    }
-
-    const r0 = state.route;
-    if (!state.subscriptionActive && !isPublicRoute(r0.path)) {
-      location.hash = "#/";
-    }
+    window.LexContentUpdate?.renderSidebarUpdate?.();
+    window.LexProtect?.init?.();
 
     try {
       const documents = await window.LexData.loadDocumentsCatalog();

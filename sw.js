@@ -1,10 +1,11 @@
-const CACHE = "naintegra-lex-v31";
+const CACHE = "naintegra-lex-v32";
 const DATA_CACHE = "naintegra-lex-data-v2";
 const API_CACHE = "naintegra-lex-api-v1";
 
 const SHELL = [
   "./",
   "./index.html",
+  "./privacidade.html",
   "./css/styles.css",
   "./manifest.json",
   "./favicon-32.png",
@@ -19,7 +20,7 @@ const SHELL = [
   "./js/auth-ui.js",
   "./js/onboarding.js",
   "./js/feedback-prompt.js",
-  "./js/subscription.js",
+  "./js/content-update.js",
   "./js/content-protection.js",
   "./js/legis-meta.js",
   "./js/pt-norma.js",
