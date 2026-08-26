@@ -18,6 +18,10 @@ ENDPOINTS = (
     ("tenx", "tenx"),
     ("multiquotes", "multiquotes"),
     ("radar", "radar"),
+    ("macro", "macro_live"),
+    ("multi_analysis", "multi_analysis_live"),
+    ("fundamentals", "fundamentals_live"),
+    ("fiis", "fiis_dashboard"),
 )
 
 

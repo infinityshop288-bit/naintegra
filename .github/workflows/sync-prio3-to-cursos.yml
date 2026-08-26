@@ -11,7 +11,7 @@ on:
       - ".github/workflows/sync-prio3-to-cursos.yml"
   schedule:
     # Snapshots de mercado a cada 15 min (seg–sex, horário BR ~11–21 UTC)
-    - cron: "*/15 11-21 * * 1-5"
+    - cron: "*/5 10-22 * * 1-5"
   workflow_dispatch:
     inputs:
       refresh:

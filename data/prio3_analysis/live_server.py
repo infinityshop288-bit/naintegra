@@ -566,6 +566,67 @@ def radar() -> dict:
     return data
 
 
+def macro_live() -> dict:
+    from macro import build_macro
+    return build_macro()
+
+
+def multi_analysis_live(tickers: list[str] | None = None) -> dict:
+    import multi_analysis
+    return multi_analysis.build_multi_analysis(fresh_macro=True, tickers=tickers)
+
+
+def fundamentals_live(tickers: list[str] | None = None) -> dict:
+    import fundamentals_multi
+    return fundamentals_multi.build_fundamentals(tickers=tickers)
+
+
+def fiis_dashboard() -> dict:
+    """Painel consolidado dos FIIs: técnico + fundamental + cotação ao vivo."""
+    from universe import FII_TICKERS, FII_SETOR
+    ma = multi_analysis_live(tickers=FII_TICKERS)
+    fm = fundamentals_live(tickers=FII_TICKERS)
+    mq = multiquotes().get("quotes", {})
+    fiis = []
+    for t in FII_TICKERS:
+        tech = next((a for a in ma["acoes"] if a.get("ticker") == t), {"ticker": t, "erro": "sem dados"})
+        fund = fm["empresas"].get(t, {})
+        q = mq.get(t, {})
+        dy = fund.get("indicadores", {}).get("dy")
+        dy_pct = round(dy * 100, 2) if dy is not None and dy < 1 else dy
+        fiis.append({
+            "ticker": t,
+            "nome": tech.get("nome") or fund.get("nome"),
+            "preco": q.get("price") or tech.get("preco"),
+            "var_dia_pct": q.get("pct"),
+            "tecnico": tech if not tech.get("erro") else None,
+            "fundamental": fund or None,
+            "dy_pct": dy_pct,
+            "pvp": fund.get("indicadores", {}).get("pvp"),
+            "score_tecnico": tech.get("score") if not tech.get("erro") else None,
+            "score_fundamental": fund.get("score"),
+            "vies_label": tech.get("label") if not tech.get("erro") else None,
+            "fund_tag": fund.get("tag"),
+            "consolidado": tech.get("consolidado") if not tech.get("erro") else None,
+            "valuation": tech.get("valuation") if not tech.get("erro") else None,
+            "fluxo": tech.get("fluxo") if not tech.get("erro") else None,
+        })
+    seg = next((s for s in ma.get("segmentos", []) if s.get("setor") == FII_SETOR), None)
+    macro = ma.get("direcoes_macro", {})
+    selic_impact = "Selic em alta pressiona FIIs (cap rate ↑); queda de juros favorece valorização."
+    if macro.get("selic_up", 0) < 0:
+        selic_impact = "Selic em queda ou estável — ambiente mais favorável a FIIs de renda."
+    elif macro.get("selic_up", 0) > 0:
+        selic_impact = "Selic em alta — FIIs de papel (KNCR, MANA) podem se beneficiar; tijolo exige cautela."
+    return {
+        "atualizado": ma.get("atualizado"),
+        "fiis": fiis,
+        "segmento": seg,
+        "macro_fii": {"direcoes": macro, "leitura": selic_impact},
+        "ibovespa": ma.get("ibovespa"),
+    }
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *a, **k):
         super().__init__(*a, directory=str(ROOT), **k)
@@ -598,6 +659,14 @@ class Handler(SimpleHTTPRequestHandler):
             self._json(multiquotes()); return
         if route == "/api/radar":
             self._json(radar()); return
+        if route == "/api/macro":
+            self._json(macro_live()); return
+        if route == "/api/multi_analysis":
+            self._json(multi_analysis_live()); return
+        if route == "/api/fundamentals":
+            self._json(fundamentals_live()); return
+        if route == "/api/fiis":
+            self._json(fiis_dashboard()); return
         super().do_GET()
 
 

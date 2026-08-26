@@ -107,7 +107,7 @@ def dir_of(s: pd.Series, lag: int = 21) -> int:
     return 1 if ch > 0.01 else (-1 if ch < -0.01 else 0)
 
 
-def main() -> None:
+def build_macro() -> dict:
     out = {"atualizado": date.today().isoformat(), "indicadores": {}, "direcoes": {}}
     I = out["indicadores"]
 
@@ -185,7 +185,13 @@ def main() -> None:
         "eleicao_2026": {"texto": "Eleições gerais em outubro/2026 (presidencial + legislativo). Ano eleitoral eleva a volatilidade e o prêmio de risco; setores regulados (energia, bancos) e fiscais sensíveis à corrida eleitoral.", "tag": "curado/contexto"},
     }
 
+    return out
+
+
+def main() -> None:
+    out = build_macro()
     (ROOT / "macro.json").write_text(json.dumps(out, indent=2, ensure_ascii=False))
+    I = out["indicadores"]
     print(json.dumps({"indicadores": {k: v.get("valor") for k, v in I.items()}, "direcoes": out["direcoes"]}, indent=2, ensure_ascii=False))
 
 

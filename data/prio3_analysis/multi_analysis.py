@@ -568,20 +568,31 @@ def build_segmentos(acoes):
     return segs
 
 
-def main() -> None:
+def build_multi_analysis(fresh_macro: bool = False, tickers: list[str] | None = None) -> dict:
     macro = {}
-    p = ROOT / "macro.json"
-    if p.exists():
-        macro = json.loads(p.read_text())
+    if fresh_macro:
+        try:
+            from macro import build_macro
+            macro = build_macro()
+        except Exception:  # noqa: BLE001
+            fresh_macro = False
+    if not macro:
+        p = ROOT / "macro.json"
+        if p.exists():
+            macro = json.loads(p.read_text())
     dirs = macro.get("direcoes", {})
     pcr_map = load_pcr()
     fatos_map = load_fatos_recentes()
     ibov = analisa_ibov()
     globais = mercados_globais()
 
+    universe_items = UNIVERSE.items()
+    if tickers:
+        universe_items = [(t, UNIVERSE[t]) for t in tickers if t in UNIVERSE]
+
     hist = load_hist()
     acoes = []
-    for t, (nome, setor, root) in UNIVERSE.items():
+    for t, (nome, setor, root) in universe_items:
         df = hist.get(t)
         if df is None:
             acoes.append({"ticker": t, "nome": nome, "setor": setor, "erro": "sem dados"})
@@ -679,6 +690,15 @@ def main() -> None:
     out = {"atualizado": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
            "ibovespa": ibov, "mercados_globais": globais,
            "direcoes_macro": dirs, "destaques": destaques, "segmentos": segmentos, "acoes": acoes}
+    return out
+
+
+def main() -> None:
+    out = build_multi_analysis()
+    acoes = out["acoes"]
+    ibov = out["ibovespa"]
+    globais = out["mercados_globais"]
+    segmentos = out["segmentos"]
     (ROOT / "multi_analysis.json").write_text(json.dumps(out, indent=2, ensure_ascii=False))
 
     if ibov:

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Panorama de Mercado — 21 ações + macro</title>
+<title>Panorama de Mercado — ações + FIIs + macro</title>
 <script src="dash-api.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
@@ -62,6 +62,7 @@
   <nav class="top">
     <a href="painel.html">Painel PRIO3</a>
     <a href="mercado.html" class="on">Panorama de Mercado</a>
+    <a href="fiis.html">Monitor FIIs</a>
     <a href="opcoes.html">Oportunidades de Opções</a>
     <a href="radar.html">Radar de Trades</a>
   </nav>
@@ -70,7 +71,7 @@
     <h1>Panorama de Mercado</h1>
     <span class="pill" id="pgStatus">carregando…</span>
   </div>
-  <div class="sub" style="margin-top:6px">21 ações (10 setores) + bloco macro Brasil/EUA. Análise automatizada por ação: técnica + macro setorial + sentimento de analistas. <span class="tag rt">tempo real</span> Yahoo/BCB · <span class="tag of">oficial</span> BCB/FRED · <span class="tag cur">curado</span> sem API aberta.</div>
+  <div class="sub" style="margin-top:6px">29 ativos (11 setores, incl. FIIs) + bloco macro Brasil/EUA. Recalculado a <b>cada acesso</b> via API ao vivo (fallback: JSON estático). <span class="tag rt">tempo real</span> Yahoo/BCB · <span class="tag of">oficial</span> BCB/FRED.</div>
 
   <!-- IBOVESPA -->
   <section>
@@ -235,7 +236,7 @@ function biasCell(score){
 }
 
 async function loadMacro(){
-  try{const m=await(await fetch('macro.json',{cache:'no-store'})).json();
+  try{const m=await dashLoad('macro');
     document.getElementById('macroTs').textContent='· atualizado '+(m.atualizado||'');
     const I=m.indicadores;
     const card=(l,v,sub,tag)=>`<div class="stat"><div class="v">${v}</div><div class="l">${l}</div><div class="cap" style="font-size:10.5px">${sub||''} <span class="tag ${tag}">${tag==='rt'?'tempo real':(tag==='of'?'oficial':'curado')}</span></div></div>`;
@@ -261,8 +262,10 @@ async function loadMacro(){
 }
 
 async function loadAnalise(){
-  try{const d=await(await fetch('multi_analysis.json',{cache:'no-store'})).json();
+  try{document.getElementById('pgStatus').textContent='recalculando análises…';
+    const d=await dashLoad('multi_analysis');
     ANALISE=d; document.getElementById('stkTs').textContent='atualizado '+(d.atualizado||'');
+    document.getElementById('pgStatus').textContent='ok · '+ (d.atualizado||'');
     renderIbov(); renderGlobal(); renderSent(); renderDestaques(); renderSeg(); renderStocks();
   }catch(e){document.querySelector('#tblStk tbody').innerHTML='<tr><td colspan=16 class="cap">multi_analysis.json indisponível</td></tr>';}
 }
@@ -520,7 +523,7 @@ const ndec=(v,d=1)=>v==null?'—':(+v).toLocaleString('pt-BR',{minimumFractionDi
 const pctv=(v)=>v==null?'—':(v>=0?'+':'')+ndec(v,1)+'%';
 
 async function loadFund(){
-  try{FUND=await(await fetch('fundamentals_multi.json',{cache:'no-store'})).json();
+  try{FUND=await dashLoad('fundamentals');
     document.getElementById('fdTs').textContent='· '+(FUND.fonte||'')+' · atualizado '+(FUND.atualizado||'');
     renderFund();
     document.querySelectorAll('#tblFund th').forEach(th=>th.style.cursor='pointer');

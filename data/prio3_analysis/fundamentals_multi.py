@@ -26,6 +26,7 @@ from universe import UNIVERSE, yahoo_symbol  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent
 FIN_SETORES = {"Bancos", "Seguradora"}
+FII_SETORES = {"Fundos Imobiliários"}
 
 
 def clip(x, lo=-100.0, hi=100.0):
@@ -107,8 +108,46 @@ def ttm(qs):
             "margem_liq": round(ni / rev * 100, 1) if (rev and ni is not None) else None}
 
 
-def score(ind, is_fin):
+def score_fii(ind):
+    """Placar para FIIs: valor (P/VP, DY) + liquidez implicita via cap."""
+    def av(parts):
+        parts = [(w, v) for w, v in parts if v is not None]
+        wsum = sum(w for w, _ in parts)
+        return (sum(w * v for w, v in parts) / wsum) if wsum else None
+
+    pb, dy = ind.get("pvp"), ind.get("dy")
+    dy_pct = (dy * 100) if dy is not None and dy < 1 else dy
+    valor = av([
+        (0.55, clip((1.05 - pb) * 70) if (pb and pb > 0) else None),
+        (0.45, clip((dy_pct or 0) * 6) if dy_pct is not None else None),
+    ])
+    qualidade = av([
+        (0.60, clip((pb - 0.7) * -30) if (pb and pb > 1.3) else (10 if pb and pb <= 1.0 else 0)),
+        (0.40, clip(15) if dy_pct and dy_pct >= 8 else (0 if dy_pct is None else clip(dy_pct * 2))),
+    ])
+    comp = [(0.55, valor), (0.45, qualidade)]
+    comp = [(w, v) for w, v in comp if v is not None]
+    wsum = sum(w for w, _ in comp) or 1
+    sc = round(clip(sum(w * v for w, v in comp) / wsum))
+    if sc >= 45:
+        tag = "FORTE"
+    elif sc >= 15:
+        tag = "SÓLIDA"
+    elif sc > -15:
+        tag = "NEUTRA"
+    elif sc > -45:
+        tag = "ATENÇÃO"
+    else:
+        tag = "FRÁGIL"
+    return sc, tag, {"valor": None if valor is None else round(valor),
+                     "qualidade": None if qualidade is None else round(qualidade),
+                     "crescimento": None, "saude": None}
+
+
+def score(ind, is_fin, is_fii=False):
     """Placar fundamentalista -100..+100 (valor + qualidade + crescimento + saude)."""
+    if is_fii:
+        return score_fii(ind)
     def av(parts):
         parts = [(w, v) for w, v in parts if v is not None]
         wsum = sum(w for w, _ in parts)
@@ -159,7 +198,22 @@ def score(ind, is_fin):
                      "saude": None if saude is None else round(saude)}
 
 
-def leitura(ind, tag, yy, is_fin):
+def leitura(ind, tag, yy, is_fin, is_fii=False):
+    if is_fii:
+        bits = []
+        if ind.get("pvp"):
+            bits.append(f"P/VP {ind['pvp']:.2f}")
+        dy = ind.get("dy")
+        dy_pct = (dy * 100) if dy is not None and dy < 1 else dy
+        if dy_pct is not None:
+            bits.append(f"DY {dy_pct:.1f}%")
+        if ind.get("vpa"):
+            bits.append(f"VPA R$ {ind['vpa']:.2f}")
+        head = {"FORTE": "FII atrativo", "SÓLIDA": "FII sólido",
+                "NEUTRA": "FII neutro", "ATENÇÃO": "FII exige atenção",
+                "FRÁGIL": "FII frágil"}[tag]
+        return f"{head} — " + ", ".join(bits) + ". FIIs: sensíveis à Selic; P/VP abaixo de 1 e DY elevado favorecem entrada."
+
     bits = []
     if ind.get("pl"):
         bits.append(f"P/L {ind['pl']:.1f}")
@@ -185,9 +239,13 @@ def leitura(ind, tag, yy, is_fin):
     return f"{head} — " + ", ".join(bits) + "." + tail
 
 
-def main() -> None:
+def build_fundamentals(tickers=None) -> dict:
+    """Gera dict de fundamentos (sem gravar arquivo). tickers=None → universo completo."""
+    items = UNIVERSE.items()
+    if tickers:
+        items = [(t, UNIVERSE[t]) for t in tickers if t in UNIVERSE]
     empresas = {}
-    for t, (nome, setor, root) in UNIVERSE.items():
+    for t, (nome, setor, root) in items:
         sym = yahoo_symbol(t)
         info = {}
         for _ in range(2):
@@ -199,6 +257,7 @@ def main() -> None:
                 time.sleep(1.0)
         tk = yf.Ticker(sym)
         is_fin = setor in FIN_SETORES
+        is_fii = setor in FII_SETORES
         moeda = info.get("financialCurrency") or "BRL"
 
         def g(k):
@@ -220,22 +279,29 @@ def main() -> None:
         qs = quarters(tk, div)
         yy = yoy(qs)
         tt = ttm(qs)
-        sc, tag, comp = score(ind, is_fin)
-        txt = leitura(ind, tag, yy, is_fin)
+        sc, tag, comp = score(ind, is_fin, is_fii=is_fii)
+        txt = leitura(ind, tag, yy, is_fin, is_fii=is_fii)
         empresas[t] = {
-            "nome": nome, "setor": setor, "moeda": moeda, "is_financeira": is_fin,
+            "nome": nome, "setor": setor, "moeda": moeda,
+            "is_financeira": is_fin, "is_fii": is_fii,
             "indicadores": {k: (round(v, 2) if isinstance(v, float) else v) for k, v in ind.items()},
             "score": sc, "tag": tag, "componentes": comp, "leitura": txt,
             "yoy": yy, "ttm": tt, "trimestres": qs,
         }
-        print(f"{t:<7}{setor:<18}{tag:<9} score {sc:>4} | "
-              f"P/L {ind['pl'] if ind['pl'] else '-'} ROE {round(ind['roe']) if ind['roe'] is not None else '-'}% "
-              f"| tri {len(qs)} | YoY rec {yy['receita_pct']} luc {yy['lucro_pct']}")
+    return {"atualizado": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
+            "fonte": "Yahoo Finance (info + DRE trimestral)", "empresas": empresas}
 
-    out = {"atualizado": pd.Timestamp.now().strftime("%Y-%m-%d %H:%M"),
-           "fonte": "Yahoo Finance (info + DRE trimestral)", "empresas": empresas}
+
+def main() -> None:
+    out = build_fundamentals()
+    for t, e in out["empresas"].items():
+        ind = e["indicadores"]
+        yy = e["yoy"]
+        print(f"{t:<7}{e['setor']:<22}{e['tag']:<9} score {e['score']:>4} | "
+              f"P/VP {ind['pvp'] if ind['pvp'] else '-'} DY {round((ind['dy'] or 0)*100 if ind['dy'] and ind['dy']<1 else (ind['dy'] or 0)) if ind['dy'] else '-'}% "
+              f"| tri {len(e['trimestres'])}")
     (ROOT / "fundamentals_multi.json").write_text(json.dumps(out, indent=2, ensure_ascii=False))
-    print("\nsalvo fundamentals_multi.json |", len(empresas), "empresas")
+    print("\nsalvo fundamentals_multi.json |", len(out["empresas"]), "empresas")
 
 
 if __name__ == "__main__":

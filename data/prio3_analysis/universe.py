@@ -20,6 +20,7 @@ SECTOR_TILT = {
     "Construção civil": {"selic_up": -0.9, "usd_up": -0.2, "ibov_up": +0.7, "commodity_up": -0.2},
     "Bens de capital":  {"selic_up": -0.3, "usd_up": +0.6, "ibov_up": +0.5, "commodity_up": -0.2},
     "Siderurgia":       {"selic_up": -0.4, "usd_up": +0.6, "ibov_up": +0.5, "commodity_up": +0.8},
+    "Fundos Imobiliários": {"selic_up": -0.85, "usd_up": -0.15, "ibov_up": +0.45, "commodity_up": -0.05},
 }
 
 # ticker -> (nome, setor, raiz de opcao)
@@ -45,9 +46,19 @@ UNIVERSE = {
     "CURY3": ("Cury Construtora",   "Construção civil", "CURY"),
     "WEGE3": ("WEG",                "Bens de capital",  "WEGE"),
     "CSNA3": ("CSN (Sid. Nacional)","Siderurgia",       "CSNA"),
+    "KNCR11": ("Kinea Rendimentos Imob.", "Fundos Imobiliários", "KNCR"),
+    "MANA11": ("Manati Capital Hedge FII", "Fundos Imobiliários", "MANA"),
+    "RURA11": ("Riza Arctium Real Estate", "Fundos Imobiliários", "RURA"),
+    "RBRP11": ("RBR Properties", "Fundos Imobiliários", "RBRP"),
+    "HGLG11": ("CSHG Logística", "Fundos Imobiliários", "HGLG"),
+    "XPML11": ("XP Malls", "Fundos Imobiliários", "XPML"),
+    "CLIN11": ("Clave Índices de Preços", "Fundos Imobiliários", "CLIN"),
+    "MXRF11": ("Maxi Renda", "Fundos Imobiliários", "MXRF"),
 }
 
 TICKERS = list(UNIVERSE)
+FII_TICKERS = [t for t, (_, s, _) in UNIVERSE.items() if s == "Fundos Imobiliários"]
+FII_SETOR = "Fundos Imobiliários"
 
 
 def yahoo_symbol(t: str) -> str:
