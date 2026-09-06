@@ -10,14 +10,15 @@ set -uo pipefail
 cd "$(dirname "$0")"
 PY=.venv/bin/python
 
-echo "[1/5] macro..."         && $PY macro.py            >/dev/null && echo "  ok"
-echo "[2/5] analise..."       && $PY multi_analysis.py   >/dev/null && echo "  ok"
-echo "[3/5] opcoes (COTAHIST)..." && $PY build_opts.py   >/dev/null && echo "  ok"
-echo "[4/5] opcoes (agrega)..."   && $PY multi_options.py >/dev/null && echo "  ok"
-echo "[5/7] fatos/result..."  && $PY scrape_fatos_multi.py >/dev/null && echo "  ok"
-echo "[6/7] fundamentos..."   && $PY fundamentals_multi.py >/dev/null && echo "  ok"
-echo "[7/8] rotas petróleo..." && $PY oil_routes.py        >/dev/null && echo "  ok"
-echo "[8/8] peers vs Brent..." && $PY oil_peers_compare.py >/dev/null && echo "  ok"
+echo "[1/9] macro..."         && $PY macro.py            >/dev/null && echo "  ok"
+echo "[2/9] analise..."       && $PY multi_analysis.py   >/dev/null && echo "  ok"
+echo "[3/9] opcoes (COTAHIST)..." && $PY build_opts.py   >/dev/null && echo "  ok"
+echo "[4/9] opcoes (agrega)..."   && $PY multi_options.py >/dev/null && echo "  ok"
+echo "[5/9] fatos/result..."  && $PY scrape_fatos_multi.py >/dev/null && echo "  ok"
+echo "[6/9] macro+juros..."   && $PY macro.py            >/dev/null && echo "  ok"
+echo "[7/9] fundamentos..."   && $PY fundamentals_multi.py >/dev/null && echo "  ok"
+echo "[8/9] rotas petróleo..." && $PY oil_routes.py        >/dev/null && echo "  ok"
+echo "[9/9] peers vs Brent..." && $PY oil_peers_compare.py >/dev/null && echo "  ok"
 # reprocessa a analise p/ incorporar o Put/Call Ratio recem-gerado (fluxo por ativo)
 $PY multi_analysis.py >/dev/null
 echo "Concluido. Recarregue mercado.html / opcoes.html."

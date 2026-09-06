@@ -38,7 +38,7 @@ jobs:
         run: |
           cd data/prio3_analysis
           python -m venv .venv
-          .venv/bin/pip install -q yfinance pandas numpy certifi
+          .venv/bin/pip install -q yfinance pandas numpy certifi requests
 
       - name: Build bundle estático (xxx/)
         env:

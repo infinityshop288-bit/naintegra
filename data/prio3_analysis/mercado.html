@@ -107,7 +107,13 @@
     <h2>Macro — Brasil & EUA <span class="cap" id="macroTs" style="font-weight:400"></span></h2>
     <div class="grid g6" id="macroGrid"></div>
     <div class="grid g3" style="margin-top:14px" id="macroCur"></div>
-    <div class="simple">💡 <b>Em palavras simples:</b> juros altos (Selic 14,25%) travam varejo e ajudam bancos/seguradoras; dólar alto ajuda exportadoras (petróleo, Vale); inflação e desemprego medem a saúde da economia. Esses fatores entram no viés de cada ação conforme o setor.</div>
+    <h3 style="margin:18px 0 8px;font-size:14px;color:var(--txt2)">Agenda macro &amp; juros (próximos eventos)</h3>
+    <div id="macroAgenda"></div>
+    <h3 style="margin:18px 0 8px;font-size:14px;color:var(--txt2)">Focus BCB — expectativas</h3>
+    <div class="grid g2" id="macroFocus"></div>
+    <h3 style="margin:18px 0 8px;font-size:14px;color:var(--txt2)">Fatos relevantes sobre juros (CVM)</h3>
+    <div class="card" style="padding:0;overflow-x:auto" id="macroFatosJuros"></div>
+    <div class="simple">💡 <b>Em palavras simples:</b> juros altos (Selic) travam varejo e FIIs de tijolo; ajudam bancos/seguradoras e FIIs de papel (KNCR, MANA). A <b>agenda</b> lista Copom, Fed e IPCA futuros. O <b>Focus</b> traz a mediana de mercado para Selic. Os <b>fatos CVM</b> são comunicados oficiais recentes sobre juros/inflação.</div>
   </section>
 
   <!-- MERCADOS GLOBAIS -->
@@ -258,7 +264,21 @@ async function loadMacro(){
     const cur=m.curados||{};
     document.getElementById('macroCur').innerHTML=Object.values(cur).map(c=>
       `<div class="callout warning"><div class="t" style="font-size:12.5px">${c.tag}</div><p style="font-size:12.5px">${c.texto}</p></div>`).join('');
-  }catch(e){document.getElementById('macroGrid').innerHTML='<div class="cap">macro.json indisponível</div>';}
+    const agenda=m.agenda_macro||[];
+    document.getElementById('macroAgenda').innerHTML=agenda.length
+      ?`<div class="grid g2">${agenda.map(e=>`<div class="callout info"><div class="t">${e.data} · ${e.evento}</div><p style="font-size:12.5px;margin:4px 0 0">${e.impacto||''}</p><div class="cap">${e.fonte||e.tag||''}</div></div>`).join('')}</div>`
+      :'<div class="cap">Agenda indisponível</div>';
+    const fs=m.focus_selic||{}, fi=m.focus_ipca||{};
+    const fa=fs.atual||{}, ia=fi.atual||{};
+    document.getElementById('macroFocus').innerHTML=
+      `<div class="stat"><div class="v">${fa.mediana??'—'}%</div><div class="l">Focus Selic mediana (${fa.reuniao||'—'})</div><div class="cap">min ${fa.minimo??'—'} · max ${fa.maximo??'—'}</div></div>`
+      +`<div class="stat"><div class="v">${ia.mediana??'—'}%</div><div class="l">Focus IPCA 12m (${ia.referencia||'—'})</div></div>`;
+    if(m.leitura_juros) document.getElementById('macroAgenda').insertAdjacentHTML('afterbegin',`<div class="callout warning" style="margin-bottom:10px"><p style="margin:0;font-size:13px">${m.leitura_juros}</p></div>`);
+    const fj=m.fatos_juros||[];
+    document.getElementById('macroFatosJuros').innerHTML=fj.length
+      ?`<table><thead><tr><th>Data</th><th>Empresa</th><th>Assunto</th></tr></thead><tbody>${fj.map(f=>`<tr><td class="cap">${f.data}</td><td>${f.empresa||'—'}</td><td>${f.assunto}${f.link?` <a href="${f.link}" target="_blank" style="color:var(--info)">↗</a>`:''}</td></tr>`).join('')}</tbody></table>`
+      :'<div class="cap" style="padding:12px">Nenhum fato CVM sobre juros nos últimos 6 meses</div>';
+  }catch(e){document.getElementById('macroGrid').innerHTML='<div class="cap">macro indisponível</div>';}
 }
 
 async function loadAnalise(){
@@ -580,7 +600,7 @@ function dreChart(qs,moeda){
 
 let FATOS=null;
 async function loadFatos(){
-  try{const d=await(await fetch('fatos_relevantes_multi.json',{cache:'no-store'})).json(); FATOS=d;
+  try{const d=await dashLoad('fatos_relevantes_multi'); FATOS=d;
     const sel=document.getElementById('frSel');
     const base=ANALISE?ANALISE.acoes.filter(x=>!x.erro).map(x=>x.ticker):[];
     const extra=Object.keys(d.empresas||{}).concat(FUND?Object.keys(FUND.empresas||{}):[]);

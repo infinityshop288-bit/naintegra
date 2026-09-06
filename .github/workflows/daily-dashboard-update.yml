@@ -1,0 +1,75 @@
+name: Atualização diária Dashboard (/xxx)
+
+on:
+  schedule:
+    # 08:00 BRT (11:00 UTC) — atualização completa diária
+    - cron: "0 11 * * *"
+    # 20:30 BRT (23:30 UTC) seg–sex — pós-pregão B3
+    - cron: "30 23 * * 1-5"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  update:
+    name: Refresh completo → naintegracursos/public/xxx
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: |
+          cd data/prio3_analysis
+          python -m venv .venv
+          .venv/bin/pip install -q yfinance pandas numpy certifi requests
+
+      - name: Atualização completa (macro, fatos CVM, FIIs, opções…)
+        env:
+          DASHBOARD_USER: ${{ secrets.DASHBOARD_USER }}
+          DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
+          HTPASSWD_ABS_PATH: ${{ secrets.HTPASSWD_ABS_PATH }}
+        run: bash scripts/daily_platform_update.sh
+
+      - name: Checkout naintegracursos
+        uses: actions/checkout@v4
+        with:
+          repository: infinityshop288-bit/naintegracursos
+          token: ${{ secrets.REPO_SYNC_TOKEN || secrets.GITHUB_TOKEN }}
+          path: naintegracursos
+
+      - name: Sync public/xxx
+        run: |
+          rm -rf naintegracursos/public/xxx
+          rsync -a --exclude '.DS_Store' xxx/ naintegracursos/public/xxx/
+
+      - name: Commit and push
+        working-directory: naintegracursos
+        env:
+          REPO_TOKEN: ${{ secrets.REPO_SYNC_TOKEN || secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/xxx
+          if git diff --staged --quiet; then
+            echo "Sem alterações em public/xxx"
+            exit 0
+          fi
+          git commit -m "Atualização diária dashboard PRIO3 ($(date -u +%Y-%m-%dT%H:%MZ))"
+          git push https://x-access-token:${REPO_TOKEN}@github.com/infinityshop288-bit/naintegracursos.git HEAD:main
+
+      - name: Verificar publicação
+        env:
+          DASHBOARD_USER: ${{ secrets.DASHBOARD_USER }}
+          DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
+        run: |
+          sleep 45
+          code=$(curl -s -o /dev/null -w "%{http_code}" -u "$DASHBOARD_USER:$DASHBOARD_PASSWORD" \
+            "https://www.naintegracursos.com.br/xxx/api/macro.json" || true)
+          echo "HTTP $code /xxx/api/macro.json"
+          test "$code" = "200" || echo "::warning::Hostinger pode levar alguns minutos"

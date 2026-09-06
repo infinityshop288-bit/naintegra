@@ -157,6 +157,11 @@ def dedupe(rows, keyfn=None):
 def main() -> None:
     print("Baixando IPE CVM…")
     ipe = load_ipe()
+    try:
+        from macro_calendar import build_macro_extras, fatos_juros_cvm
+        macro_extra = {"fatos_juros_cvm": fatos_juros_cvm(ipe), "agenda_resumo": build_macro_extras(ipe)["agenda_macro"][:6]}
+    except Exception:  # noqa: BLE001
+        macro_extra = {"fatos_juros_cvm": [], "agenda_resumo": []}
     cutoff = (date.today() - timedelta(days=730)).isoformat()
     empresas = {}
     for tk, (nome, setor, root) in UNIVERSE.items():
@@ -203,7 +208,8 @@ def main() -> None:
         print(f"  {tk:<7}{clean_txt(nome_cvm)[:34]:<35} fatos={len(fatos):>3} resultados={len(resultados):>3}")
 
     out = {"atualizado": date.today().isoformat(), "janela_resultados": "24 meses",
-           "fonte": "CVM — Portal de Dados Abertos (IPE)", "empresas": empresas}
+           "fonte": "CVM — Portal de Dados Abertos (IPE)", "empresas": empresas,
+           "macro_juros": macro_extra}
     (OUT / "fatos_relevantes_multi.json").write_text(json.dumps(out, indent=2, ensure_ascii=False))
     print("\nsalvo fatos_relevantes_multi.json |", len(empresas), "empresas")
 

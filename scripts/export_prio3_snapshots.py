@@ -4,13 +4,15 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1] / "data" / "prio3_analysis"
 OUT = ROOT / "api"
 
-ENDPOINTS = (
+# Endpoints ao vivo (cotacoes, radar)
+LIVE_ENDPOINTS = (
     ("live", "get_live"),
     ("signal", "signal"),
     ("options", "option_chain"),
@@ -18,10 +20,18 @@ ENDPOINTS = (
     ("tenx", "tenx"),
     ("multiquotes", "multiquotes"),
     ("radar", "radar"),
-    ("macro", "macro_live"),
-    ("multi_analysis", "multi_analysis_live"),
-    ("fundamentals", "fundamentals_live"),
     ("fiis", "fiis_dashboard"),
+)
+
+# JSON gerados pelo refresh_market.sh (copia direta — mais rapido no CI)
+DISK_JSON = (
+    "macro",
+    "multi_analysis",
+    "fundamentals_multi",
+    "fatos_relevantes_multi",
+    "multi_options",
+    "oil_routes",
+    "oil_peers_compare",
 )
 
 
@@ -32,7 +42,21 @@ def main() -> int:
 
     OUT.mkdir(parents=True, exist_ok=True)
     meta: dict[str, str] = {}
-    for name, fn_name in ENDPOINTS:
+
+    for name in DISK_JSON:
+        src = ROOT / f"{name}.json"
+        api_name = name.replace("_multi", "") if name == "fundamentals_multi" else name
+        if name == "fundamentals_multi":
+            api_name = "fundamentals"
+        dst = OUT / f"{api_name}.json"
+        print(f"  api/{api_name}.json (disco) ...", flush=True)
+        if src.is_file():
+            shutil.copy2(src, dst)
+            meta[api_name] = "disco"
+        else:
+            meta[api_name] = "ausente"
+
+    for name, fn_name in LIVE_ENDPOINTS:
         fn = getattr(ls, fn_name)
         print(f"  api/{name}.json ...", flush=True)
         try:

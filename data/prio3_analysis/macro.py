@@ -185,6 +185,19 @@ def build_macro() -> dict:
         "eleicao_2026": {"texto": "Eleições gerais em outubro/2026 (presidencial + legislativo). Ano eleitoral eleva a volatilidade e o prêmio de risco; setores regulados (energia, bancos) e fiscais sensíveis à corrida eleitoral.", "tag": "curado/contexto"},
     }
 
+    try:
+        from macro_calendar import build_macro_extras
+        extras = build_macro_extras()
+        p = ROOT / "fatos_relevantes_multi.json"
+        if p.exists() and not extras.get("fatos_juros"):
+            mj = json.loads(p.read_text()).get("macro_juros", {})
+            extras["fatos_juros"] = mj.get("fatos_juros_cvm") or []
+        out.update(extras)
+    except Exception as e:  # noqa: BLE001
+        out["agenda_macro"] = []
+        out["fatos_juros"] = []
+        out["leitura_juros"] = f"Agenda macro indisponível: {e}"
+
     return out
 
 
