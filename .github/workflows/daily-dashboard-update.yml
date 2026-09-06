@@ -34,6 +34,7 @@ jobs:
           DASHBOARD_USER: ${{ secrets.DASHBOARD_USER }}
           DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
           HTPASSWD_ABS_PATH: ${{ secrets.HTPASSWD_ABS_PATH }}
+          PRIO3_USE_TIMESFM: "0"
         run: bash scripts/daily_platform_update.sh
 
       - name: Checkout naintegracursos

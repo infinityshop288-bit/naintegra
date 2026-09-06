@@ -1,0 +1,5 @@
+# Dependências opcionais para previsões TimesFM (Google) no dashboard PRIO3.
+# Instale apenas se quiser usar o motor TimesFM localmente (~800 MB de modelo).
+# CI/GitHub Actions usa fallback estatístico (PRIO3_USE_TIMESFM=0).
+timesfm[torch]>=2.5
+torch>=2.0.0

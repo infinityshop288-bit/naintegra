@@ -22,6 +22,7 @@ JSON_FILES = (
     "oil_routes.json",
     "oil_peers_compare.json",
     "radar.json",
+    "ai_patterns.json",
     "analysis.json",
     "technical.json",
     "fundamentals.json",
@@ -36,7 +37,7 @@ JSON_FILES = (
     "operational_series.json",
 )
 
-HTML_FILES = ("painel.html", "mercado.html", "fiis.html", "opcoes.html", "radar.html")
+HTML_FILES = ("painel.html", "mercado.html", "fiis.html", "opcoes.html", "radar.html", "patterns.html")
 SKIP_NAMES = {".DS_Store", ".venv", "__pycache__"}
 
 

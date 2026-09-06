@@ -627,6 +627,18 @@ def fiis_dashboard() -> dict:
     }
 
 
+def ai_patterns_live() -> dict:
+    p = ROOT / "ai_patterns.json"
+    if p.is_file():
+        return json.loads(p.read_text(encoding="utf-8"))
+    try:
+        from ai_patterns import build_ai_patterns
+
+        return build_ai_patterns()
+    except Exception as e:  # noqa: BLE001
+        return {"error": str(e), "series": []}
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *a, **k):
         super().__init__(*a, directory=str(ROOT), **k)
@@ -667,6 +679,8 @@ class Handler(SimpleHTTPRequestHandler):
             self._json(fundamentals_live()); return
         if route == "/api/fiis":
             self._json(fiis_dashboard()); return
+        if route == "/api/ai_patterns":
+            self._json(ai_patterns_live()); return
         super().do_GET()
 
 

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Padrões IA — TimesFM &amp; previsões</title>
+<script src="dash-api.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  :root{--bg:#0e1116;--panel:#161b22;--panel2:#1c232d;--stroke:#2a323d;--txt:#e6edf3;--txt2:#9aa7b4;--txt3:#6e7b8a;--info:#4c8dff;--success:#3fb950;--warning:#d29922;--danger:#f85149;--accent:#a371f7;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1240px;margin:0 auto;padding:20px 24px 60px}
+  h1{font-size:24px;margin:0} h2{font-size:16px;margin:0 0 10px;font-weight:600}
+  .sub{color:var(--txt2);font-size:13px} .cap{color:var(--txt3);font-size:12px;margin-top:6px}
+  .pill{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:rgba(163,113,247,.15);color:var(--accent);border:1px solid rgba(163,113,247,.35)}
+  .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .grid{display:grid;gap:14px}
+  .g2{grid-template-columns:1fr 1fr} .g3{grid-template-columns:repeat(3,1fr)} .g4{grid-template-columns:repeat(4,1fr)}
+  .card{background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:16px}
+  .stat{background:var(--panel);border:1px solid var(--stroke);border-radius:10px;padding:12px 14px}
+  .stat .v{font-size:20px;font-weight:700} .stat .l{color:var(--txt2);font-size:11.5px;margin-top:2px}
+  .callout{border:1px solid var(--stroke);border-left-width:3px;border-radius:8px;padding:12px 14px;background:var(--panel2)}
+  .callout .t{font-weight:600;margin-bottom:4px} .callout p{margin:0;color:var(--txt2);font-size:13px}
+  .callout.info{border-left-color:var(--info)} .callout.warning{border-left-color:var(--warning)} .callout.success{border-left-color:var(--success)}
+  table{width:100%;border-collapse:collapse;font-size:12.5px}
+  th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--stroke)}
+  th{color:var(--txt2);font-weight:600;font-size:11px;text-transform:uppercase}
+  .up{color:var(--success)} .down{color:var(--danger)} .neu{color:var(--txt3)}
+  section{margin-top:24px}
+  nav.top{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+  nav.top a{font-size:13px;padding:7px 14px;border-radius:8px;text-decoration:none;color:var(--txt2);background:var(--panel);border:1px solid var(--stroke)}
+  nav.top a.on{color:#04122e;background:var(--info);border-color:var(--info);font-weight:700}
+  .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;display:inline-block}
+  .badge.alta{background:rgba(63,185,80,.16);color:#5bd66b} .badge.baixa{background:rgba(248,81,73,.16);color:#ff8a90} .badge.lateral{background:rgba(210,153,34,.16);color:#e3b341}
+  .badge.timesfm{background:rgba(163,113,247,.2);color:#c9a0ff} .badge.stat{background:rgba(76,141,255,.15);color:#7fb0ff}
+  .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+  .tab{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--stroke);background:var(--panel2);color:var(--txt2);cursor:pointer}
+  .tab.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+  .sgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+  .scard{background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px}
+  .scard .hd{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .scard .nm{font-weight:700;font-size:14px}
+  .chartbox{height:120px;position:relative}
+  .pat{font-size:11.5px;color:var(--txt2);padding:4px 0;border-top:1px dashed var(--stroke)}
+  .pat li{margin:2px 0}
+  @media(max-width:900px){.g4,.g3{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top">
+    <a href="painel.html">Painel PRIO3</a>
+    <a href="mercado.html">Panorama de Mercado</a>
+    <a href="fiis.html">Monitor FIIs</a>
+    <a href="opcoes.html">Oportunidades de Opções</a>
+    <a href="radar.html">Radar de Trades</a>
+    <a href="patterns.html" class="on">Padrões IA</a>
+  </nav>
+
+  <div class="row"><h1>Padrões IA — previsões &amp; detecção</h1><span class="pill" id="pgStatus">carregando…</span></div>
+  <div class="sub" style="margin-top:6px">Previsões de séries temporais com <b>TimesFM</b> (Google, quando disponível) ou modelo estatístico. Identifica padrões em <b>preços</b>, <b>demanda/volume</b>, <b>volatilidade</b>, <b>cripto</b> e <b>tráfego web</b> (Wikipedia como proxy).</div>
+
+  <section>
+    <div class="grid g4" id="stats"></div>
+  </section>
+
+  <section>
+    <div class="callout info">
+      <div class="t">Como interpretar</div>
+      <p>Faixa <b>p10–p90</b> = cenário pessimista/otimista; linha central = mediana prevista. Padrões detectados são heurísticas sobre momentum, anomalias e regimes de vol — não substituem análise fundamental. Atualizado diariamente pelo pipeline automático.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Insights do dia</h2>
+    <div id="insights"></div>
+  </section>
+
+  <section>
+    <div class="row"><h2 style="margin:0">Séries por categoria</h2></div>
+    <div class="tabs" id="tabs"></div>
+    <div class="sgrid" id="series"></div>
+  </section>
+
+  <section>
+    <h2>Correlações (90 dias)</h2>
+    <div class="card"><table><thead><tr><th>Série A</th><th>Série B</th><th>Correlação</th></tr></thead><tbody id="corr"></tbody></table></div>
+  </section>
+</div>
+
+<script>
+const f2=n=>n==null?'—':Number(n).toLocaleString('pt-BR',{maximumFractionDigits:2});
+const pct=n=>n==null?'—':`<span class="${n>=0?'up':'down'}">${n>0?'+':''}${Number(n).toFixed(1)}%</span>`;
+const trendBadge=t=>`<span class="badge ${t==='alta'?'alta':(t==='baixa'?'baixa':'lateral')}">${(t||'—').toUpperCase()}</span>`;
+const engBadge=e=>`<span class="badge ${e==='timesfm-2.5'?'timesfm':'stat'}">${e==='timesfm-2.5'?'TimesFM':'Stats'}</span>`;
+let charts=[];
+
+function destroyCharts(){charts.forEach(c=>c.destroy());charts=[];}
+
+function renderChart(canvas,s){
+  const hist=s.historico||[], fc=s.forecast||[];
+  const labels=[...hist.map(h=>h.data.slice(5)),...fc.map(f=>f.data.slice(5))];
+  const histVals=[...hist.map(h=>h.valor),...Array(fc.length).fill(null)];
+  const p50=[...Array(hist.length).fill(null),...fc.map(f=>f.p50)];
+  const p10=[...Array(hist.length).fill(null),...fc.map(f=>f.p10)];
+  const p90=[...Array(hist.length).fill(null),...fc.map(f=>f.p90)];
+  const ctx=canvas.getContext('2d');
+  const ch=new Chart(ctx,{
+    type:'line',
+    data:{
+      labels,
+      datasets:[
+        {label:'Histórico',data:histVals,borderColor:'#4c8dff',borderWidth:1.5,pointRadius:0,tension:.2},
+        {label:'p50',data:p50,borderColor:'#a371f7',borderWidth:2,borderDash:[4,2],pointRadius:0,tension:.2},
+        {label:'p10-p90',data:p90,fill:'-1',backgroundColor:'rgba(163,113,247,.12)',borderColor:'rgba(163,113,247,.3)',pointRadius:0,tension:.2},
+        {label:'p10',data:p10,borderColor:'rgba(163,113,247,.3)',borderWidth:1,pointRadius:0,tension:.2}
+      ]
+    },
+    options:{
+      responsive:true,maintainAspectRatio:false,animation:false,
+      plugins:{legend:{display:false}},
+      scales:{x:{display:false},y:{display:false}}
+    }
+  });
+  charts.push(ch);
+}
+
+function renderSeries(list,cat){
+  destroyCharts();
+  const box=document.getElementById('series');
+  const filtered=cat==='all'?list:list.filter(s=>s.categoria===cat);
+  box.innerHTML=filtered.map(s=>`
+    <div class="scard">
+      <div class="hd">
+        <div><div class="nm">${s.nome}</div><div class="cap">${s.unidade} · ${s.ultima_data}</div></div>
+        <div>${trendBadge(s.tendencia)} ${engBadge(s.engine)}</div>
+      </div>
+      <div class="row" style="gap:16px;font-size:12px">
+        <div><span class="cap">Último</span><br><b>${f2(s.ultimo)}</b></div>
+        <div><span class="cap">Prev. ${s.forecast?.length||21}d</span><br>${pct(s.previsao_pct_horizonte)}</div>
+        <div><span class="cap">Vol.</span><br>${s.vol_regime||'—'}</div>
+        <div><span class="cap">Conf.</span><br>${Math.round((s.confianca||0)*100)}%</div>
+      </div>
+      <div class="chartbox"><canvas id="c_${s.id}"></canvas></div>
+      ${(s.padroes||[]).length?`<ul class="pat">${s.padroes.map(p=>`<li>• ${p}</li>`).join('')}</ul>`:''}
+    </div>`).join('');
+  filtered.forEach(s=>{const el=document.getElementById('c_'+s.id);if(el)renderChart(el,s);});
+}
+
+(async()=>{
+  let d;
+  try{d=await dashLoad('ai_patterns');}catch(e){
+    document.getElementById('pgStatus').textContent='dados indisponíveis';
+    return;
+  }
+  document.getElementById('pgStatus').textContent='atualizado '+d.gerado+' · '+d.engine;
+  document.getElementById('stats').innerHTML=
+    `<div class="stat"><div class="v">${d.series?.length||0}</div><div class="l">Séries analisadas</div></div>`+
+    `<div class="stat"><div class="v">${d.horizon_dias}d</div><div class="l">Horizonte de previsão</div></div>`+
+    `<div class="stat"><div class="v" style="color:var(--accent)">${d.engine||'—'}</div><div class="l">Motor principal</div></div>`+
+    `<div class="stat"><div class="v">${Object.keys(d.categorias||{}).length}</div><div class="l">Categorias</div></div>`;
+
+  document.getElementById('insights').innerHTML=(d.insights||[]).map(t=>
+    `<div class="callout warning" style="margin-bottom:8px"><p>${t}</p></div>`).join('')||'<div class="cap">Sem insights</div>';
+
+  const cats=d.categorias||{};
+  let active='all';
+  const tabs=document.getElementById('tabs');
+  tabs.innerHTML=`<button class="tab on" data-c="all">Todas</button>`+
+    Object.entries(cats).map(([k,v])=>`<button class="tab" data-c="${k}">${v}</button>`).join('');
+  tabs.querySelectorAll('.tab').forEach(btn=>btn.onclick=()=>{
+    tabs.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));
+    btn.classList.add('on');
+    active=btn.dataset.c;
+    renderSeries(d.series||[],active);
+  });
+
+  document.getElementById('corr').innerHTML=(d.correlacoes||[]).map(r=>{
+    const c=r.corr_90d;
+    const cls=c>=0.5?'up':(c<=-0.5?'down':'neu');
+    return `<tr><td>${r.a}</td><td>${r.b}</td><td class="${cls}">${c>0?'+':''}${c.toFixed(2)}</td></tr>`;
+  }).join('')||'<tr><td colspan=3 class="cap">—</td></tr>';
+
+  renderSeries(d.series||[],active);
+})();
+</script>
+</body>
+</html>

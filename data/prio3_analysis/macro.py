@@ -192,6 +192,14 @@ def build_macro() -> dict:
         if p.exists() and not extras.get("fatos_juros"):
             mj = json.loads(p.read_text()).get("macro_juros", {})
             extras["fatos_juros"] = mj.get("fatos_juros_cvm") or []
+        fj = extras.get("fatos_juros") or []
+        prox_copom = next((e for e in extras.get("agenda_macro") or [] if e.get("tipo") == "juros_br"), None)
+        selic_med = (extras.get("focus_selic") or {}).get("atual", {}).get("mediana")
+        extras["leitura_juros"] = (
+            f"Focus mediana Selic {selic_med}% "
+            f"({'próx. Copom ' + prox_copom['data'] if prox_copom else 'sem Copom próximo'}). "
+            f"{len(fj)} fatos CVM sobre juros/crédito nos últimos 6 meses."
+        )
         out.update(extras)
     except Exception as e:  # noqa: BLE001
         out["agenda_macro"] = []

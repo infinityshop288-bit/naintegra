@@ -36,7 +36,9 @@ FOMC_2026 = [
 
 JUROS_KW = re.compile(
     r"SELIC|COPOM|TAXA DE JUROS|JUROS BASIC|FOCUS|IPCA|INFLA[CÇ][AÃ]O|"
-    r"MONET[AÁ]RIA|FED FUNDS|FOMC|BANCO CENTRAL|BCB",
+    r"MONET[AÁ]RIA|FED FUNDS|FOMC|BANCO CENTRAL|BCB|CDI|DI\b|"
+    r"DEB[EÊ]NTUR|EMISS[AÃ]O|CAPTA[CÇ][AÃ]O|CR[EÉ]DITO|FINANCI|"
+    r"REPACTUA[CÇ][AÃ]O|CUSTO.*FINANC|LINHA.*CR[EÉ]DITO|CESS[AÃ]O.*CR[EÉ]DIT",
     re.I,
 )
 
@@ -127,6 +129,14 @@ def agenda_eventos(hoje: date | None = None) -> list[dict]:
     return [e for e in ev if date.fromisoformat(e["data"]) >= hoje][:12]
 
 
+def _universe_names() -> set[str]:
+    try:
+        from universe import UNIVERSE
+        return {n.split()[0].lower() for _, (n, _, _) in UNIVERSE.items()}
+    except Exception:  # noqa: BLE001
+        return set()
+
+
 def fatos_juros_cvm(ipe_df) -> list[dict]:
     if ipe_df is None or ipe_df.empty:
         return []
@@ -134,9 +144,13 @@ def fatos_juros_cvm(ipe_df) -> list[dict]:
     fr = ipe_df[ipe_df["Categoria"].str.contains("Fato Relevante", case=False, na=False)].copy()
     fr = fr[fr["Data_Entrega"] >= cutoff]
     fr = fr[fr["Assunto"].astype(str).str.contains(JUROS_KW, na=False)]
-    fr = fr.sort_values("Data_Entrega", ascending=False)
+    uni = _universe_names()
+    fr["_prio"] = fr["Nome_Companhia"].astype(str).str.lower().apply(
+        lambda n: 0 if any(u in n for u in uni) else 1
+    )
+    fr = fr.sort_values(["_prio", "Data_Entrega"], ascending=[True, False])
     out, seen = [], set()
-    for _, r in fr.head(40).iterrows():
+    for _, r in fr.head(60).iterrows():
         assunto = re.sub(r"\s+", " ", str(r.get("Assunto") or "")).strip()
         key = assunto[:80].lower()
         if key in seen:
