@@ -35,9 +35,38 @@ jobs:
           DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
           HTPASSWD_ABS_PATH: ${{ secrets.HTPASSWD_ABS_PATH }}
           PRIO3_USE_TIMESFM: "0"
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: bash scripts/daily_platform_update.sh
 
+      - name: Detect deploy method
+        id: mode
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        run: |
+          if [ -n "$FTP_SERVER" ] && [ -n "$FTP_USERNAME" ] && [ -n "$FTP_PASSWORD" ]; then
+            echo "method=ftp" >> "$GITHUB_OUTPUT"
+          else
+            echo "method=git" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Deploy via FTPS (Hostinger)
+        if: steps.mode.outputs.method == 'ftp'
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          protocol: ftps
+          local-dir: ./xxx/
+          server-dir: ./public_html/xxx/
+          dangerous-clean-slate: false
+
       - name: Checkout naintegracursos
+        if: steps.mode.outputs.method == 'git' || always()
         uses: actions/checkout@v4
         with:
           repository: infinityshop288-bit/naintegracursos
@@ -70,7 +99,8 @@ jobs:
           DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
         run: |
           sleep 45
-          code=$(curl -s -o /dev/null -w "%{http_code}" -u "$DASHBOARD_USER:$DASHBOARD_PASSWORD" \
-            "https://www.naintegracursos.com.br/xxx/api/macro.json" || true)
-          echo "HTTP $code /xxx/api/macro.json"
-          test "$code" = "200" || echo "::warning::Hostinger pode levar alguns minutos"
+          for path in api/macro.json api/ai_insights.json dash-ai.js; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" -u "$DASHBOARD_USER:$DASHBOARD_PASSWORD" \
+              "https://www.naintegracursos.com.br/xxx/$path" || true)
+            echo "HTTP $code /xxx/$path"
+          done
