@@ -33,6 +33,7 @@ DISK_JSON = (
     "oil_routes",
     "oil_peers_compare",
     "ai_patterns",
+    "ai_insights",
 )
 
 

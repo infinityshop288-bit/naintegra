@@ -639,6 +639,13 @@ def ai_patterns_live() -> dict:
         return {"error": str(e), "series": []}
 
 
+def ai_insights_live() -> dict:
+    p = ROOT / "ai_insights.json"
+    if p.is_file():
+        return json.loads(p.read_text(encoding="utf-8"))
+    return {"error": "ai_insights.json ausente — rode ai_insights.py"}
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *a, **k):
         super().__init__(*a, directory=str(ROOT), **k)
@@ -681,6 +688,8 @@ class Handler(SimpleHTTPRequestHandler):
             self._json(fiis_dashboard()); return
         if route == "/api/ai_patterns":
             self._json(ai_patterns_live()); return
+        if route == "/api/ai_insights":
+            self._json(ai_insights_live()); return
         super().do_GET()
 
 

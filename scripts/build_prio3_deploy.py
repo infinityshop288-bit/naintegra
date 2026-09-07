@@ -23,6 +23,7 @@ JSON_FILES = (
     "oil_peers_compare.json",
     "radar.json",
     "ai_patterns.json",
+    "ai_insights.json",
     "analysis.json",
     "technical.json",
     "fundamentals.json",
@@ -149,6 +150,8 @@ def main() -> int:
     for html in HTML_FILES:
         shutil.copy2(SRC / html, out / html)
     shutil.copy2(SRC / "dash-api.js", out / "dash-api.js")
+    if (SRC / "dash-ai.js").is_file():
+        shutil.copy2(SRC / "dash-ai.js", out / "dash-ai.js")
 
     for name in JSON_FILES:
         src = SRC / name

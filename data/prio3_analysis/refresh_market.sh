@@ -19,7 +19,8 @@ echo "[6/10] macro+juros..."   && $PY macro.py            >/dev/null && echo "  
 echo "[7/10] fundamentos..."   && $PY fundamentals_multi.py >/dev/null && echo "  ok"
 echo "[8/10] rotas petróleo..." && $PY oil_routes.py        >/dev/null && echo "  ok"
 echo "[9/10] peers vs Brent..." && $PY oil_peers_compare.py >/dev/null && echo "  ok"
-echo "[10/10] padroes IA..."   && $PY ai_patterns.py      >/dev/null && echo "  ok"
+echo "[10/11] padroes IA..."   && $PY ai_patterns.py      >/dev/null && echo "  ok"
+echo "[11/11] insights IA..."   && $PY ai_insights.py     >/dev/null && echo "  ok"
 # reprocessa a analise p/ incorporar o Put/Call Ratio recem-gerado (fluxo por ativo)
 $PY multi_analysis.py >/dev/null
 echo "Concluido. Recarregue mercado.html / opcoes.html."

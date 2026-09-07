@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Padrões IA — TimesFM &amp; previsões</title>
 <script src="dash-api.js"></script>
+<script src="dash-ai.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
   :root{--bg:#0e1116;--panel:#161b22;--panel2:#1c232d;--stroke:#2a323d;--txt:#e6edf3;--txt2:#9aa7b4;--txt3:#6e7b8a;--info:#4c8dff;--success:#3fb950;--warning:#d29922;--danger:#f85149;--accent:#a371f7;}
@@ -44,7 +45,9 @@
   .chartbox{height:120px;position:relative}
   .pat{font-size:11.5px;color:var(--txt2);padding:4px 0;border-top:1px dashed var(--stroke)}
   .pat li{margin:2px 0}
-  @media(max-width:900px){.g4,.g3{grid-template-columns:repeat(2,1fr)}.g2{grid-template-columns:1fr}}
+  .btn{display:inline-block;font-size:12px;font-weight:700;padding:8px 14px;border-radius:8px;border:1px solid var(--accent);color:var(--accent);background:rgba(163,113,247,.1);cursor:pointer}
+  .btn:hover{background:rgba(163,113,247,.2)} .btn:disabled{opacity:.5;cursor:wait}
+  .ai-md{font-size:13.5px;color:var(--txt2);line-height:1.55} .ai-md b{color:var(--txt)}
 </style>
 </head>
 <body>
@@ -73,7 +76,16 @@
   </section>
 
   <section>
-    <h2>Insights do dia</h2>
+    <div class="row" style="justify-content:space-between;align-items:flex-end">
+      <h2 style="margin:0">Análise IA (Supabase)</h2>
+      <button class="btn" id="btnAiRefresh" type="button">Atualizar análise IA</button>
+    </div>
+    <div class="cap" id="aiMeta" style="margin:6px 0 10px">Groq → GitHub → Gemini → Claude → OpenRouter</div>
+    <div id="aiBox"></div>
+  </section>
+
+  <section>
+    <h2>Insights quantitativos</h2>
     <div id="insights"></div>
   </section>
 
@@ -148,12 +160,60 @@ function renderSeries(list,cat){
   filtered.forEach(s=>{const el=document.getElementById('c_'+s.id);if(el)renderChart(el,s);});
 }
 
+function renderAiInsights(ai){
+  const box=document.getElementById('aiBox');
+  if(!ai||ai.error&&!ai.market&&!ai.patterns){
+    box.innerHTML='<div class="cap">Análise IA indisponível — clique em Atualizar ou aguarde o refresh diário.</div>';
+    return;
+  }
+  const m=ai.market||{}, p=ai.patterns||{};
+  const prov=ai.provider||m.provider||p.provider||'—';
+  document.getElementById('aiMeta').textContent='Provedor: '+prov+' · gerado '+(ai.gerado||'—');
+  const riscos=(m.riscos||[]).map(x=>`<li>${x}</li>`).join('');
+  const opps=(m.oportunidades||[]).map(x=>`<li>${x}</li>`).join('');
+  const pads=(p.padroes_detectados||[]).map(x=>`<li><b>${x.serie||'—'}</b>: ${x.padrao||''} — ${x.impacto||''}</li>`).join('');
+  box.innerHTML=
+    `<div class="callout info" style="margin-bottom:10px"><div class="t">Resumo</div><p class="ai-md">${m.resumo||'—'}</p></div>`+
+    `<div class="grid g2">
+      <div class="card"><div class="t" style="font-weight:600;margin-bottom:8px">Riscos</div><ul class="ai-md">${riscos||'<li>—</li>'}</ul></div>
+      <div class="card"><div class="t" style="font-weight:600;margin-bottom:8px">Oportunidades</div><ul class="ai-md">${opps||'<li>—</li>'}</ul></div>
+    </div>`+
+    (p.regime_mercado?`<div class="callout warning" style="margin-top:10px"><div class="t">Regime ${p.regime_mercado} · PRIO3: ${p.sinal_prio3||'—'}</div><p class="ai-md">${p.justificativa||''}</p></div>`:'')+
+    (pads?`<div class="card" style="margin-top:10px"><div class="t" style="font-weight:600;margin-bottom:8px">Padrões detectados pela IA</div><ul class="ai-md">${pads}</ul></div>`:'')+
+    (m.macro_juros?`<div class="callout info" style="margin-top:10px"><div class="t">Juros / Selic</div><p class="ai-md">${m.macro_juros}</p></div>`:'');
+}
+
+async function loadAiInsights(patternsData, cached){
+  try{
+    if(cached) renderAiInsights(cached);
+    const prov=await dashAIProviders().catch(()=>null);
+    if(prov?.configured_count) document.getElementById('aiMeta').textContent=
+      `${prov.configured_count} provedor(es) ativo(s): ${prov.providers.filter(x=>x.configured).map(x=>x.provider).join(', ')}`;
+  }catch(_){}
+}
+
 (async()=>{
-  let d;
+  let d, aiCached;
   try{d=await dashLoad('ai_patterns');}catch(e){
     document.getElementById('pgStatus').textContent='dados indisponíveis';
     return;
   }
+  try{aiCached=await dashLoad('ai_insights');}catch(_){}
+  renderAiInsights(aiCached);
+  loadAiInsights(d, aiCached);
+
+  document.getElementById('btnAiRefresh').onclick=async function(){
+    const btn=this; btn.disabled=true; btn.textContent='Gerando…';
+    try{
+      const ctx={gerado:d.gerado,engine:d.engine,horizon_dias:d.horizon_dias,insights:d.insights,correlacoes:d.correlacoes,
+        series:(d.series||[]).map(s=>({id:s.id,nome:s.nome,categoria:s.categoria,ultimo:s.ultimo,tendencia:s.tendencia,vol_regime:s.vol_regime,previsao_pct_horizonte:s.previsao_pct_horizonte,padroes:s.padroes}))};
+      const market=await dashAIMarketInsights(ctx);
+      const patterns=await dashAIPatternAnalysis(ctx);
+      renderAiInsights({gerado:new Date().toLocaleString('pt-BR'),provider:market.provider||patterns.provider,market, patterns});
+    }catch(e){
+      document.getElementById('aiBox').insertAdjacentHTML('afterbegin',`<div class="callout warning"><p>Erro IA: ${e.message}</p></div>`);
+    }finally{btn.disabled=false;btn.textContent='Atualizar análise IA';}
+  };
   document.getElementById('pgStatus').textContent='atualizado '+d.gerado+' · '+d.engine;
   document.getElementById('stats').innerHTML=
     `<div class="stat"><div class="v">${d.series?.length||0}</div><div class="l">Séries analisadas</div></div>`+
