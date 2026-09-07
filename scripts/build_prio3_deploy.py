@@ -21,6 +21,7 @@ JSON_FILES = (
     "fatos_relevantes_multi.json",
     "oil_routes.json",
     "oil_peers_compare.json",
+    "oil_inventories.json",
     "radar.json",
     "ai_patterns.json",
     "ai_insights.json",

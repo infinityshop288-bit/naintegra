@@ -125,6 +125,24 @@
     <div class="simple">💡 <b>Como ler:</b> acompanha os principais direcionadores externos da B3 — <b>Bitcoin</b> (apetite a risco global), <b>juro de 10 anos dos EUA</b> (quando sobe, fortalece o dólar e drena capital de emergentes → pressiona o Ibovespa), e as <b>bolsas americana</b> (S&P 500, Nasdaq) e <b>europeia</b> (Euro Stoxx 50, DAX). O <b>ambiente externo</b> resume se o cenário lá fora está favorável, neutro ou adverso para o mercado brasileiro.</div>
   </section>
 
+  <!-- ESTOQUES DE PETRÓLEO -->
+  <section>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Estoques de petróleo — EUA &amp; panorama global</h2><span class="cap" id="invTs"></span></div>
+    <div class="callout info" id="invResumo" style="margin-top:10px"><p>Carregando…</p></div>
+    <div class="card" style="padding:0;overflow-x:auto;margin-top:12px">
+      <table id="tblInv">
+        <thead><tr>
+          <th>Série</th><th>Região</th><th>Fonte</th>
+          <th style="text-align:right">Var. semanal</th>
+          <th>Semana ref.</th><th>Leitura</th>
+        </tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div id="invGlobal" style="margin-top:12px"></div>
+    <div class="simple">💡 <b>Como ler:</b> <b>Draw</b> (queda de estoque) = demanda &gt; oferta → pressão de <b>alta</b> no Brent/WTI, favorável a PRIO3/BRAV3. <b>Build</b> (alta de estoque) = efeito inverso. EUA (EIA) sai toda <b>quarta-feira</b>; API é prévia na terça. Estoques <b>OECD</b> são mensais (IEA) — referência global para OPEC+.</div>
+  </section>
+
   <!-- ROTAS DE PETRÓLEO -->
   <section>
     <div class="row" style="gap:10px"><h2 style="margin:0">Rotas de transporte de petróleo — chokepoints</h2><span class="cap" id="oilTs"></span></div>
@@ -487,6 +505,37 @@ function renderGlobal(){
   }).join('');
 }
 
+// ================= ESTOQUES DE PETRÓLEO =================
+async function loadInventories(){
+  let d;
+  try{d=await dashLoad('oil_inventories');}catch(e){
+    document.getElementById('invResumo').innerHTML='<p class="cap">oil_inventories.json indisponível</p>';
+    return;
+  }
+  document.getElementById('invTs').textContent='· '+ (d.atualizado||'') +' · sinal '+ (d.sinal_label||'—');
+  const sig=d.sinal_label||'neutro';
+  const sigCol=sig==='altista'?C.success:(sig==='baixista'?C.danger:C.warning);
+  document.getElementById('invResumo').innerHTML=
+    `<div class="t" style="font-weight:600;color:${sigCol}">Sinal composto: ${sig.toUpperCase()}</div>`
+    +`<p style="margin:6px 0 0;font-size:13px">${d.resumo||''}</p>`;
+  const tb=document.querySelector('#tblInv tbody');
+  tb.innerHTML=(d.semanal||[]).map(r=>{
+    const v=r.variacao_mmbbl;
+    const col=v==null?C.txt2:(v<0?C.success:C.danger);
+    const vs=v==null?'—':`${v>0?'+':''}${v.toFixed(2)} M`;
+    return `<tr><td><b>${r.nome}</b></td><td class="cap">${r.regiao}</td><td>${r.fonte}</td>`
+      +`<td style="text-align:right;color:${col};font-weight:700">${vs}</td>`
+      +`<td class="cap">${r.semana_ref||'—'}</td><td style="font-size:12px;color:var(--txt2)">${r.leitura||'—'}</td></tr>`;
+  }).join('');
+  const g=d.global||{};
+  document.getElementById('invGlobal').innerHTML=
+    `<div class="card" style="border-left:4px solid ${C.info}">`
+    +`<div class="row" style="justify-content:space-between"><h3 style="margin:0">${g.nome||'OECD'}</h3>`
+    +`<span class="badge" style="background:${C.info}22;color:${C.info}">${g.frequencia||'mensal'}</span></div>`
+    +`<p style="font-size:13px;color:var(--txt2);margin:10px 0">${g.nota||''}</p>`
+    +`<p style="font-size:13px;margin:0"><b>Leitura:</b> ${g.leitura||'—'}</p></div>`;
+}
+
 // ================= ROTAS DE PETRÓLEO =================
 let OIL=null;
 async function loadOil(){
@@ -681,7 +730,7 @@ async function loadOilPeersMercado(){
 (async()=>{
   // renders rápidos (JSON estático) primeiro; chamadas ao vivo (lentas) por último
   await loadAnalise(); await loadMacro(); await loadFund(); await loadFatos(); await loadOilPeersMercado();
-  loadOil(); await loadQuotes(); setInterval(loadQuotes,60000);
+  loadInventories(); loadOil(); await loadQuotes(); setInterval(loadQuotes,60000);
 })();
 </script>
 </body>

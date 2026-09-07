@@ -119,7 +119,13 @@ def yahoo(symbol: str) -> dict:
 
 
 def crude_stocks() -> dict:
-    """Variacao semanal dos estoques de petroleo dos EUA (EIA), via TradingEconomics."""
+    """Variacao semanal dos estoques de petroleo dos EUA (EIA)."""
+    try:
+        from oil_inventories import us_crude_change
+
+        return us_crude_change()
+    except Exception:  # noqa: BLE001
+        pass
     html = _get("https://tradingeconomics.com/united-states/crude-oil-stocks-change")
     m = re.search(r'id="metaDesc"[^>]*content="([^"]+)"', html)
     txt = m.group(1) if m else ""
