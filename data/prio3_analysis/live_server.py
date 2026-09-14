@@ -166,6 +166,7 @@ def collect() -> dict:
         "wti": lambda: te_commodity("crude-oil"),
         "prio3": lambda: yahoo("PRIO3.SA"),
         "brav3": lambda: yahoo("BRAV3.SA"),
+        "petr4": lambda: yahoo("PETR4.SA"),
         "usd": lambda: yahoo("USDBRL=X"),
     }
     for key, fn in tasks.items():

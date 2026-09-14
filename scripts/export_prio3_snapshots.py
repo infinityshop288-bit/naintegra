@@ -6,6 +6,7 @@ import json
 import os
 import shutil
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1] / "data" / "prio3_analysis"
@@ -35,6 +36,8 @@ DISK_JSON = (
     "oil_inventories",
     "ai_patterns",
     "ai_insights",
+    "petr4_analysis",
+    "brav_analysis",
 )
 
 
@@ -72,8 +75,18 @@ def main() -> int:
         except Exception as e:  # noqa: BLE001
             meta[name] = f"erro: {e}"
             print(f"    aviso: {e}", flush=True)
+    generated = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    meta_doc = {
+        "generated_at": generated,
+        "endpoints": meta,
+        "live": "Supabase prio3-live (live, multiquotes)",
+    }
     (OUT / "_export_meta.json").write_text(
         json.dumps({"endpoints": meta}, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    (OUT / "meta.json").write_text(
+        json.dumps(meta_doc, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     print(f"[OK] snapshots em {OUT}", flush=True)

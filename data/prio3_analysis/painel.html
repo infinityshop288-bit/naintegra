@@ -184,6 +184,12 @@
         <div class="row" style="gap:8px;margin-top:2px"><span data-f="chg" style="font-weight:600">—</span><span class="cap" data-f="unit">BRL</span></div>
         <div class="chartbox" style="height:80px;margin-top:8px"><canvas data-spark></canvas></div>
       </div>
+      <div class="card" data-q="petr4">
+        <div class="l">PETR4 · Petrobras PN · <span class="src">Yahoo Finance</span></div>
+        <div class="v" style="font-size:28px" data-f="price">—</div>
+        <div class="row" style="gap:8px;margin-top:2px"><span data-f="chg" style="font-weight:600">—</span><span class="cap" data-f="unit">BRL</span></div>
+        <div class="chartbox" style="height:80px;margin-top:8px"><canvas data-spark></canvas></div>
+      </div>
     </div>
     <div id="invBox" class="simple" style="margin-top:12px">Estoques de petróleo (EUA): carregando…</div>
     <div class="cap" style="margin-top:8px" id="rtNote">Requer o servidor local: nesta pasta rode <code>.venv/bin/python live_server.py</code> (ou <code>python3 live_server.py</code>) e abra <code>http://localhost:8899/painel.html</code>. O minigráfico mostra a sessão ao vivo (pontos coletados desde a abertura).</div>
@@ -300,6 +306,30 @@
     </div>
   </section>
 
+  <section style="border-top:2px solid var(--success);padding-top:18px">
+    <div class="row" style="gap:10px"><h2 style="margin:0">PETR4 — Petrobras · análise + opções</h2><span class="pill" id="ptStatus">carregando…</span></div>
+    <div class="cap" style="margin:6px 0 12px" id="ptHead">Maior petroleira da América Latina e a ação mais líquida da B3 no setor. Estatal integrada (E&P, refino, distribuição): reage ao Brent, mas com beta menor e política de dividendos relevante.</div>
+    <div class="simple">💡 <b>Em palavras simples:</b> a PETR4 é a "gigante" do setor — sobe e cai com o petróleo, mas com <b>menos oscilação</b> que a PRIO3, porque tem refino e distribuição que amortecem o preço do óleo. Em troca, tem <b>risco político</b> (é estatal: preço de combustível, investimento e dividendos passam pelo governo). É a preferencial (PN): mais líquida, sem direito a voto.</div>
+    <div class="grid g4" id="ptStats"></div>
+    <div class="grid g2" style="margin-top:14px;align-items:start">
+      <div class="callout"><div class="t">Leitura técnica</div><div id="ptTec">—</div></div>
+      <div class="callout info"><div class="t">PETR4 × PRIO3 × Brent (relativo)</div><div id="ptRel">—</div></div>
+    </div>
+    <h3 style="margin:20px 0 8px">Opções PETR — livro real da B3 (COTAHIST)</h3>
+    <div class="grid g4" id="ptThermo" style="margin-bottom:14px"></div>
+    <div class="grid g2" style="align-items:start">
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="l" style="padding:10px 12px 0">Séries que fizeram ≥10x em poucos pregões (2026)</div>
+        <table id="tblPtMov"><thead><tr><th>Série</th><th>Tipo</th><th style="text-align:right">Strike</th><th class="cap">Período</th><th style="text-align:right">Prêmio</th><th style="text-align:right">Mult.</th><th class="cap">Venc.</th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="card" style="padding:0;overflow:hidden">
+        <div class="l" style="padding:10px 12px 0" id="ptTapeHead">Livro do último pregão (por volume)</div>
+        <table id="tblPtTape"><thead><tr><th>Série</th><th>Tipo</th><th style="text-align:right">Strike</th><th style="text-align:right">Fech.</th><th style="text-align:right">Var.</th><th style="text-align:right">Neg.</th><th style="text-align:right">Financeiro</th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+    <div class="cap" style="margin-top:10px" id="ptOport">—</div>
+  </section>
+
   <section style="border-top:2px solid var(--warning);padding-top:18px">
     <div class="row" style="gap:10px"><h2 style="margin:0">PRIO3 × Petrobras × Chevron — efeito do Brent</h2><span class="pill" id="opStatus">carregando…</span></div>
     <div class="cap" style="margin:6px 0 12px" id="opHead">Comparativo de petroleiras vs Brent (5 anos). Mede como cada ação reage nos dias em que o petróleo sobe ou cai.</div>
@@ -309,7 +339,7 @@
       <div class="card">
         <div class="l" style="margin-bottom:6px">Evolução indexada (base 100) — mensal</div>
         <div class="chartbox" style="height:280px"><canvas id="chOpIdx"></canvas></div>
-        <div class="cap" style="margin-top:6px">PRIO3 e PETR3 em BRL; Chevron (CVX) em USD — comparação por retorno relativo, não por moeda.</div>
+        <div class="cap" style="margin-top:6px">PRIO3 e PETR4 em BRL; Chevron (CVX) em USD — comparação por retorno relativo, não por moeda.</div>
       </div>
       <div class="card">
         <div class="l" style="margin-bottom:6px">Retorno médio diário quando Brent sobe vs cai</div>
@@ -812,12 +842,13 @@ const tbPut=document.querySelector("#tblPut tbody");
 const putLbl={sim:"✓ sim (único edge)",fraco:"~ fraco/neutro",nao:"✗ não (sobe)"};
 PUT.forEach(r=>{const tr=document.createElement("tr");const cls=r[2]<0?"up":"down";tr.innerHTML=`<td>${r[0]}</td><td style="text-align:right">${r[1]}</td><td style="text-align:right" class="${cls}">${r[2]>0?"+":""}${r[2].toFixed(2)}%</td><td style="text-align:right">${r[3].toFixed(0)}%</td><td style="text-align:right">${r[4].toFixed(2)}</td><td>${putLbl[r[5]]}</td>`;tbPut.appendChild(tr);});
 
-// --- Cotações em tempo real (via live_server.py -> /api/live) ---
+// --- Cotações em tempo real (Supabase prio3-live ou snapshot api/live) ---
 const RT={brent:{el:document.querySelector('[data-q=brent]'),hist:[],chart:null},
           wti:{el:document.querySelector('[data-q=wti]'),hist:[],chart:null},
           usd:{el:document.querySelector('[data-q=usd]'),hist:[],chart:null},
           prio3:{el:document.querySelector('[data-q=prio3]'),hist:[],chart:null},
-          brav3:{el:document.querySelector('[data-q=brav3]'),hist:[],chart:null}};
+          brav3:{el:document.querySelector('[data-q=brav3]'),hist:[],chart:null},
+          petr4:{el:document.querySelector('[data-q=petr4]'),hist:[],chart:null}};
 function fmtPrice(v){return v==null?'—':v.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function spark(key){const s=RT[key];const cv=s.el.querySelector('[data-spark]');if(!s.chart){s.chart=new Chart(cv,{type:'line',data:{labels:s.hist.map((_,i)=>i),datasets:[{data:s.hist,borderColor:C.info,borderWidth:1.5,pointRadius:0,tension:.3,fill:false}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{enabled:false}},scales:{x:{display:false},y:{display:false}}}});}else{s.chart.data.labels=s.hist.map((_,i)=>i);s.chart.data.datasets[0].data=s.hist;s.chart.update('none');}}
 function paint(key,q){const s=RT[key];const el=s.el;if(!q||q.error||q.price==null){el.querySelector('[data-f=price]').textContent='indisponível';el.querySelector('[data-f=chg]').textContent=q&&q.error?'erro na fonte':'—';return;}
@@ -828,15 +859,15 @@ function paint(key,q){const s=RT[key];const el=s.el;if(!q||q.error||q.price==nul
   chg.textContent=(pc||'—')+ab+(q.stale?' · atrasado':'');
   s.hist.push(q.price);if(s.hist.length>120)s.hist.shift();spark(key);}
 async function tickRT(){const st=document.getElementById('rtStatus');const note=document.getElementById('rtNote');
-  try{const d=await dashFetch('api/live');
-    for(const k of ['brent','wti','usd','prio3','brav3'])paint(k,d.quotes[k]);
+  try{const d=await dashLoad('live');
+    for(const k of ['brent','wti','usd','prio3','brav3','petr4'])paint(k,d.quotes[k]);
     const ib=document.getElementById('invBox');const iv=d.inventory||{};
     if(iv.change_mmbbl!=null){const build=iv.change_mmbbl>0;const cor=build?C.danger:C.success;
       ib.innerHTML=`🛢️ <b>Estoques de petróleo (EUA, EIA):</b> <b style="color:${cor}">${iv.change_mmbbl>0?'+':''}${iv.change_mmbbl.toFixed(1)} mi barris</b> (semana de ${iv.semana||'—'}). ${build?'Alta de estoque = mais oferta → <b>pressão de baixa</b> no petróleo.':'Queda de estoque = menos oferta → <b>pressão de alta</b> no petróleo.'} Entra no viés automático.`;}
     else{ib.innerHTML='🛢️ Estoques de petróleo (EUA): dado indisponível no momento.';}
     const t=new Date((d.ts||Date.now()/1000)*1000);st.textContent='ao vivo · '+t.toLocaleTimeString('pt-BR');st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
-  }catch(e){st.textContent='servidor offline';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';
-    note.innerHTML='<b>As cotações ao vivo precisam do servidor local.</b> Nesta pasta rode <code>.venv/bin/python live_server.py</code> e abra <code>http://localhost:8899/painel.html</code> (abrir o arquivo direto por file:// não funciona por CORS).';}}
+  }catch(e){st.textContent='cotações indisponíveis';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';
+    note.innerHTML='Não foi possível obter cotações (nuvem ou snapshot). Tente recarregar em instantes ou, em desenvolvimento local, <code>python live_server.py</code>.';}}
 
 // --- Notícias Irã x EUA (snapshot 14/07/2026) ---
 const NEWS=[
@@ -906,6 +937,7 @@ async function tickDaytrade(){const st=document.getElementById("dtStatus");
 
 // --- Livro de operações PRIO (B3 COTAHIST, EOD) ---
 function brl(v){return v==null?'—':Number(v).toLocaleString('pt-BR');}
+function f2(v){return v==null?'—':Number(v).toFixed(2);}
 async function loadOptbook(){const st=document.getElementById("obStatus");
  try{const d=await(await fetch('b3_options.json',{cache:'no-store'})).json();
   document.getElementById("obHead").innerHTML=`Negócios reais liquidados na B3 · último pregão <b>${d.ultimo_pregao.split('-').reverse().join('/')}</b> · ${brl(d.n_series_ano)} séries negociadas em 2026 · <b>${d.n_movers_10x}</b> séries fizeram ≥10x.`;
@@ -1024,7 +1056,7 @@ async function loadIbov(){
 
 async function loadOilRoutes(){
   let live=null;
-  try{live=await dashFetch('api/live');}catch(e){}
+  try{live=await dashLoad('live');}catch(e){}
   let OIL;
   try{OIL=await(await fetch('oil_routes.json',{cache:'no-store'})).json();}
   catch(e){document.getElementById('oilHead').innerHTML='<span class="cap">oil_routes.json indisponível</span>';return;}
@@ -1063,7 +1095,7 @@ async function loadOilPeers(){const st=document.getElementById("opStatus");
   const sn=d.snapshot;
   document.getElementById("opStats").innerHTML=
     tcard('PRIO3',`R$ ${sn.PRIO3.preco.toFixed(2)}`,'YTD '+rc(sn.PRIO3.ret_ytd_pct)+' · 1m '+rc(sn.PRIO3.ret_1m_pct),C.info)
-   +tcard('Petrobras (PETR3)',`R$ ${sn.PETR3.preco.toFixed(2)}`,'YTD '+rc(sn.PETR3.ret_ytd_pct)+' · 1m '+rc(sn.PETR3.ret_1m_pct),C.success)
+   +tcard('Petrobras (PETR4)',`R$ ${sn.PETR4.preco.toFixed(2)}`,'YTD '+rc(sn.PETR4.ret_ytd_pct)+' · 1m '+rc(sn.PETR4.ret_1m_pct),C.success)
    +tcard('Chevron (CVX)','US$ '+sn.CVX.preco.toFixed(2),'YTD '+rc(sn.CVX.ret_ytd_pct)+' · 1m '+rc(sn.CVX.ret_1m_pct),C.accent)
    +tcard('Brent','US$ '+sn.BRENT.preco.toFixed(2),'YTD '+rc(sn.BRENT.ret_ytd_pct)+' · 1m '+rc(sn.BRENT.ret_1m_pct),C.warning);
   document.getElementById("opLeitura").textContent=d.leitura||'';
@@ -1072,12 +1104,12 @@ async function loadOilPeers(){const st=document.getElementById("opStatus");
   window._chOpIdx=new Chart(document.getElementById("chOpIdx"),{type:'line',
    data:{labels:labs,datasets:[
     {label:'PRIO3',data:idx.map(r=>r.PRIO3),borderColor:C.info,tension:.25,pointRadius:0,borderWidth:2},
-    {label:'Petrobras',data:idx.map(r=>r.PETR3),borderColor:C.success,tension:.25,pointRadius:0,borderWidth:2},
+    {label:'Petrobras (PETR4)',data:idx.map(r=>r.PETR4),borderColor:C.success,tension:.25,pointRadius:0,borderWidth:2},
     {label:'Chevron',data:idx.map(r=>r.CVX),borderColor:C.accent,tension:.25,pointRadius:0,borderWidth:2},
     {label:'Brent',data:idx.map(r=>r.BRENT),borderColor:C.warning,tension:.25,pointRadius:0,borderWidth:1.5,borderDash:[4,3]}
    ]},options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
     plugins:{legend:{position:'bottom'}},scales:{x:{grid:{color:C.grid},ticks:{maxTicksLimit:12}},y:{grid:{color:C.grid},title:{display:true,text:'Índice (base 100)'}}}}});
-  const eff=d.efeito_brent, names=['PRIO3','PETR3','CVX'], lbls=['PRIO3','Petrobras','Chevron'];
+  const eff=d.efeito_brent, names=['PRIO3','PETR4','CVX'], lbls=['PRIO3','Petrobras (PETR4)','Chevron'];
   const up=names.map(k=>eff[k].brent_alta.media_pct), dn=names.map(k=>eff[k].brent_baixa.media_pct);
   if(window._chOpBrent)window._chOpBrent.destroy();
   window._chOpBrent=new Chart(document.getElementById("chOpBrent"),{type:'bar',
@@ -1092,7 +1124,7 @@ async function loadOilPeers(){const st=document.getElementById("opStatus");
   window._chOpDaily=new Chart(document.getElementById("chOpDaily"),{type:'bar',
    data:{labels:dLabs,datasets:[
     {label:'PRIO3',data:daily.map(r=>r.PRIO3_pct),backgroundColor:daily.map(r=>r.brent_dir==='alta'?'rgba(76,141,255,.75)':'rgba(248,81,73,.55)'),borderRadius:2},
-    {label:'Petrobras',data:daily.map(r=>r.PETR3_pct),backgroundColor:daily.map(r=>r.brent_dir==='alta'?'rgba(63,185,80,.75)':'rgba(210,153,34,.55)'),borderRadius:2,hidden:true},
+    {label:'Petrobras (PETR4)',data:daily.map(r=>r.PETR4_pct),backgroundColor:daily.map(r=>r.brent_dir==='alta'?'rgba(63,185,80,.75)':'rgba(210,153,34,.55)'),borderRadius:2,hidden:true},
     {label:'Chevron',data:daily.map(r=>r.CVX_pct),backgroundColor:daily.map(r=>r.brent_dir==='alta'?'rgba(163,113,247,.75)':'rgba(110,123,138,.55)'),borderRadius:2,hidden:true}
    ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom'}},
     scales:{x:{grid:{display:false},ticks:{maxTicksLimit:15,font:{size:9}}},y:{grid:{color:C.grid},title:{display:true,text:'Retorno diário (%)'}}}}});
@@ -1146,6 +1178,49 @@ async function loadBrav(){const st=document.getElementById("bvStatus");
   st.textContent='ok';st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
  }catch(e){st.textContent='dados BRAV ausentes';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
 
+// --- PETR4: analise + opcoes ---
+async function loadPetr(){const st=document.getElementById("ptStatus");
+ try{const a=await dashLoad('petr4_analysis');
+  const s=a.snapshot,t=a.tecnicos,rl=a.relativo;
+  const rc=(v)=>v==null?'—':`<span class="${v>=0?'up':'down'}">${v>0?'+':''}${v}%</span>`;
+  document.getElementById("ptStats").innerHTML=
+    tcard('Preço',brl(s.preco),'atual. '+a.atualizado.split('-').reverse().join('/'),C.success)
+   +tcard('No ano (YTD)',rc(s.ret_ytd),'12m '+rc(s.ret_12m),s.ret_ytd>=0?C.success:C.danger)
+   +tcard('Faixa 52 sem.',brl(s.low_52s)+'–'+brl(s.high_52s),'do topo '+rc(s.dist_high_pct),C.accent)
+   +tcard('Volatilidade anual',t.vol_anual_pct+'%','RSI '+t.rsi14,t.rsi14>70?C.danger:(t.rsi14<30?C.success:C.warning));
+  const tcol=t.tendencia==='alta'?C.success:(t.tendencia==='baixa'?C.danger:C.warning);
+  document.getElementById("ptTec").innerHTML=`Tendência <b style="color:${tcol}">${t.tendencia.toUpperCase()}</b> · preço R$ ${s.preco} vs MM50 R$ ${t.sma50} e MM200 R$ ${t.sma200} (<b>${t.dist_sma200_pct>0?'+':''}${t.dist_sma200_pct}%</b> da MM200). RSI(14) <b>${t.rsi14}</b> (${t.rsi14>70?'sobrecomprado — esticado no curto prazo':(t.rsi14<30?'sobrevendido':'neutro')}). Retornos: 1m ${rc(s.ret_1m)}, 3m ${rc(s.ret_3m)}, 6m ${rc(s.ret_6m)}.`;
+  document.getElementById("ptRel").innerHTML=`Correlação com <b>Brent</b>: <b>${rl.vs_brent.corr}</b> (beta ${rl.vs_brent.beta}) — <b>menos alavancada</b> ao petróleo que a PRIO3 (refino e distribuição amortecem). Correlação com <b>PRIO3</b>: <b>${rl.vs_prio3.corr}</b> (beta ${rl.vs_prio3.beta}). PRIO3 hoje ≈ R$ ${rl.prio3_preco}.`;
+
+  const mo=await dashLoad('multi_options');
+  const o=(mo.ativos||{}).PETR4;
+  if(!o)throw new Error('PETR4 ausente em multi_options');
+  const T=o.termometro||{};
+  const ka=(T.strikes_ativos&&T.strikes_ativos[0])?('R$ '+f2(T.strikes_ativos[0].strike)):'—';
+  document.getElementById("ptThermo").innerHTML=
+    tcard('Séries negociadas (2026)',brl(o.n_series),o.n_movers_10x+' fizeram ≥10x',C.info)
+   +tcard('Put/Call ratio (vol)',T.pcr_volume!=null?T.pcr_volume:'—',T.pcr_negocios!=null?('negócios '+T.pcr_negocios):'',T.pcr_volume>1?C.danger:C.success)
+   +tcard('Strike mais ativo',ka,'maior volume do pregão',C.accent)
+   +tcard('Último pregão',(o.ultimo_pregao||'').split('-').reverse().join('/'),brl(T.call_vol||0)+' call / '+brl(T.put_vol||0)+' put',C.txt2);
+  const tm=document.querySelector("#tblPtMov tbody");tm.innerHTML='';
+  (o.movers||[]).slice(0,12).forEach(m=>{const cc=m.tipo==='CALL'?'callc':'putc';const tr=document.createElement('tr');
+   tr.innerHTML=`<td class="${cc}">${m.cod}</td><td class="${cc}">${m.tipo}</td><td style="text-align:right">${m.strike.toFixed(2)}</td>`+
+   `<td class="cap">${m.d0.slice(5).split('-').reverse().join('/')}→${m.d1.slice(5).split('-').reverse().join('/')} (${m.pregoes}p)</td>`+
+   `<td style="text-align:right">${m.p0.toFixed(2)}→${m.p1.toFixed(2)}</td>`+
+   `<td style="text-align:right;font-weight:700;color:${C.success}">${m.mult.toFixed(1)}x</td>`+
+   `<td class="cap">${(m.venc||'').split('-').reverse().join('/')}</td>`;tm.appendChild(tr);});
+  document.getElementById("ptTapeHead").textContent='Livro do último pregão ('+(o.ultimo_pregao||'').split('-').reverse().join('/')+') — por volume';
+  const tt=document.querySelector("#tblPtTape tbody");tt.innerHTML='';
+  (o.tape_top||[]).slice(0,14).forEach(r=>{const cc=r.tipo==='CALL'?'callc':'putc';const tr=document.createElement('tr');
+   const cg=r.chg_pct==null?'—':`<span class="${r.chg_pct>=0?'up':'down'}">${r.chg_pct>0?'+':''}${r.chg_pct}%</span>`;
+   tr.innerHTML=`<td class="${cc}">${r.cod}</td><td class="${cc}">${r.tipo}</td><td style="text-align:right">${r.strike.toFixed(2)}</td>`+
+   `<td style="text-align:right">${r.close.toFixed(2)}</td><td style="text-align:right">${cg}</td>`+
+   `<td style="text-align:right">${brl(r.neg)}</td><td style="text-align:right">${brl(r.vol)}</td>`;tt.appendChild(tr);});
+  const op=o.oportunidade||{};
+  if(op.call&&op.put){document.getElementById("ptOport").innerHTML=`💡 <b>Par ATM do último pregão:</b> CALL <code>${op.call.cod}</code> strike R$ ${f2(op.call.strike)} por R$ ${f2(op.call.premio)} · PUT <code>${op.put.cod}</code> strike R$ ${f2(op.put.strike)} por R$ ${f2(op.put.premio)} (venc. ${(op.call.venc||'').split('-').reverse().join('/')}).`;}
+  st.textContent='ok';st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
+ }catch(e){st.textContent='dados PETR4 ausentes';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
+
 function tickAll(){tickRT();tickSignal();tickOptions();tickDaytrade();tickTenx();}
 tickAll();setInterval(tickAll,20000);
 loadOptbook().then(tickTenx);
@@ -1153,6 +1228,7 @@ loadIntraday();
 loadIbov();
 loadOilRoutes();
 loadBrav();
+loadPetr();
 loadOilPeers();
 </script>
 </body>

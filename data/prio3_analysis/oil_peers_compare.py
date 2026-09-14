@@ -1,4 +1,4 @@
-"""Comparativo PRIO3 × Petrobras (PETR3) × Chevron (CVX) vs Brent.
+"""Comparativo PRIO3 × Petrobras (PETR4) × Chevron (CVX) vs Brent.
 
 Analisa:
   - evolucao indexada (base 100) e retornos acumulados
@@ -18,11 +18,12 @@ import yfinance as yf
 ROOT = Path(__file__).resolve().parent
 TICKERS = {
     "PRIO3": "PRIO3.SA",
-    "PETR3": "PETR3.SA",
+    "PETR4": "PETR4.SA",
     "CVX": "CVX",
     "BRENT": "BZ=F",
 }
-LABELS = {"PRIO3": "PRIO3", "PETR3": "Petrobras", "CVX": "Chevron", "BRENT": "Brent"}
+PEERS = ["PRIO3", "PETR4", "CVX"]
+LABELS = {"PRIO3": "PRIO3", "PETR4": "Petrobras (PETR4)", "CVX": "Chevron", "BRENT": "Brent"}
 
 
 def fetch_all(period: str = "5y") -> pd.DataFrame:
@@ -45,7 +46,7 @@ def fetch_all(period: str = "5y") -> pd.DataFrame:
 def brent_effect(rets: pd.DataFrame) -> dict:
     b = rets["BRENT"]
     out = {}
-    for col in ["PRIO3", "PETR3", "CVX"]:
+    for col in PEERS:
         s = rets[col]
         up = b > 0.001
         dn = b < -0.001
@@ -74,7 +75,7 @@ def brent_effect(rets: pd.DataFrame) -> dict:
 def rel_stats(rets: pd.DataFrame, window: int = 252) -> dict:
     sub = rets.iloc[-window:]
     out = {}
-    for col in ["PRIO3", "PETR3", "CVX"]:
+    for col in PEERS:
         x = sub["BRENT"]; y = sub[col]
         corr = float(np.corrcoef(x, y)[0, 1])
         beta = float(np.cov(y, x)[0, 1] / np.var(x))
@@ -94,7 +95,7 @@ def indexed_series(prices: pd.DataFrame, months: int = 60) -> list:
         rows.append({
             "mes": dt.strftime("%Y-%m"),
             "PRIO3": float(row["PRIO3"]),
-            "PETR3": float(row["PETR3"]),
+            "PETR4": float(row["PETR4"]),
             "CVX": float(row["CVX"]),
             "BRENT": float(row["BRENT"]),
         })
@@ -111,7 +112,7 @@ def daily_recent(rets: pd.DataFrame, days: int = 90) -> list:
             "brent_pct": round(br * 100, 2),
             "brent_dir": "alta" if br > 0.001 else ("baixa" if br < -0.001 else "flat"),
             "PRIO3_pct": round(float(row["PRIO3"]) * 100, 2),
-            "PETR3_pct": round(float(row["PETR3"]) * 100, 2),
+            "PETR4_pct": round(float(row["PETR4"]) * 100, 2),
             "CVX_pct": round(float(row["CVX"]) * 100, 2),
         })
     return rows
@@ -121,7 +122,7 @@ def cumulative_brent_split(rets: pd.DataFrame) -> dict:
     """Soma simples dos retornos diarios em dias de alta vs baixa do Brent."""
     b = rets["BRENT"]
     out = {}
-    for col in ["PRIO3", "PETR3", "CVX"]:
+    for col in PEERS:
         s = rets[col]
         up = b > 0.001
         dn = b < -0.001
@@ -141,7 +142,7 @@ def snapshot(prices: pd.DataFrame) -> dict:
     rets = prices.pct_change().dropna()
     ytd_start = prices[prices.index >= f"{prices.index[-1].year}-01-01"].iloc[0]
     out = {}
-    for col in ["PRIO3", "PETR3", "CVX", "BRENT"]:
+    for col in PEERS + ["BRENT"]:
         s = prices[col]
         r1m = (s.iloc[-1] / s.iloc[-22] - 1) * 100 if len(s) > 22 else None
         ytd = (s.iloc[-1] / ytd_start[col] - 1) * 100
@@ -162,7 +163,7 @@ def main() -> None:
     rets = prices.pct_change().dropna()
 
     out = {
-        "fonte": "Yahoo Finance (PRIO3.SA, PETR3.SA, CVX, BZ=F)",
+        "fonte": "Yahoo Finance (PRIO3.SA, PETR4.SA, CVX, BZ=F)",
         "periodo": {"inicio": prices.index[0].strftime("%Y-%m-%d"),
                     "fim": prices.index[-1].strftime("%Y-%m-%d"),
                     "pregoes": len(prices)},
@@ -175,14 +176,13 @@ def main() -> None:
         "diario_90d": daily_recent(rets),
     }
 
-    # leitura automatica
     eff = out["efeito_brent"]
-    best_up = max(["PRIO3", "PETR3", "CVX"], key=lambda k: eff[k]["brent_alta"]["media_pct"])
-    best_dn = min(["PRIO3", "PETR3", "CVX"], key=lambda k: eff[k]["brent_baixa"]["media_pct"])
+    best_up = max(PEERS, key=lambda k: eff[k]["brent_alta"]["media_pct"])
+    best_dn = min(PEERS, key=lambda k: eff[k]["brent_baixa"]["media_pct"])
     out["leitura"] = (
         f"Nos dias em que o Brent sobe, {LABELS[best_up]} reage com maior media (+{eff[best_up]['brent_alta']['media_pct']}%). "
         f"Nos dias de queda do Brent, {LABELS[best_dn]} cai menos (media {eff[best_dn]['brent_baixa']['media_pct']}%). "
-        f"Beta 252d: PRIO3 {out['relativo_252d']['PRIO3']['beta']}, Petrobras {out['relativo_252d']['PETR3']['beta']}, "
+        f"Beta 252d: PRIO3 {out['relativo_252d']['PRIO3']['beta']}, PETR4 {out['relativo_252d']['PETR4']['beta']}, "
         f"Chevron {out['relativo_252d']['CVX']['beta']}."
     )
 

@@ -27,6 +27,7 @@ SECTOR_TILT = {
 UNIVERSE = {
     "PRIO3": ("Prio S.A.",          "Óleo & Gás",       "PRIO"),
     "BRAV3": ("Brava Energia",      "Óleo & Gás",       "BRAV"),
+    "PETR4": ("Petrobras PN",       "Óleo & Gás",       "PETR"),
     "MGLU3": ("Magazine Luiza",     "Varejo",           "MGLU"),
     "LREN3": ("Lojas Renner",       "Varejo",           "LREN"),
     "EQTL3": ("Equatorial Energia", "Energia elétrica", "EQTL"),

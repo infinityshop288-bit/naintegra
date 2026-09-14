@@ -39,6 +39,7 @@ YEARS = [date.today().year - 2, date.today().year - 1, date.today().year]
 KEYWORDS = {
     "PRIO3": ["PRIO", "PETRO RIO"],
     "BRAV3": ["BRAVA ENERGIA", "3R PETROLEUM", "ENAUTA"],
+    "PETR4": ["PETROBRAS", "PETROLEO BRASILEIRO"],
     "MGLU3": ["MAGAZINE LUIZA", "MAGAZ LUIZA"],
     "LREN3": ["LOJAS RENNER", "RENNER"],
     "EQTL3": ["EQUATORIAL"],

@@ -165,7 +165,7 @@
 
   <!-- PRIO3 × PETR × CVX vs BRENT -->
   <section>
-    <div class="row" style="gap:10px"><h2 style="margin:0">Petroleiras — PRIO3 × Petrobras × Chevron vs Brent</h2><span class="pill" id="opmStatus">carregando…</span></div>
+    <div class="row" style="gap:10px"><h2 style="margin:0">Petroleiras — PRIO3 × PETR4 × Chevron vs Brent</h2><span class="pill" id="opmStatus">carregando…</span></div>
     <div class="cap" style="margin:6px 0 10px">Efeito diário do Brent: retorno médio das ações quando o petróleo sobe ou cai. Análise completa com gráficos em <a href="painel.html" style="color:var(--info)">Painel PRIO3</a>.</div>
     <div class="grid g2" style="align-items:start">
       <div class="card" style="padding:0;overflow-x:auto">
@@ -461,7 +461,7 @@ document.querySelectorAll('#tblStk th').forEach(th=>th.addEventListener('click',
 }));
 
 async function loadQuotes(){
-  try{const d=await dashFetch('api/multiquotes'); MQ=d;
+  try{const d=await dashLoad('multiquotes'); MQ=d;
     const order=ANALISE?ANALISE.acoes.filter(x=>!x.erro).map(x=>x.ticker):Object.keys(d.quotes);
     const g=document.getElementById('quotes');
     g.innerHTML=order.map(t=>{const q=d.quotes[t]||{};const p=q.pct;
@@ -469,7 +469,7 @@ async function loadQuotes(){
       +(d.quotes.IBOV?`<div class="qcard" style="border-color:var(--info)"><div class="tk">IBOV</div><div class="px">${brl(d.quotes.IBOV.price)}</div><div>${pct(d.quotes.IBOV.pct)}</div></div>`:'');
     if(ANALISE)renderStocks();
     document.getElementById('pgStatus').textContent='ao vivo';
-  }catch(e){document.getElementById('pgStatus').textContent='servidor offline';}
+  }catch(e){document.getElementById('pgStatus').textContent='cotações indisponíveis';}
 }
 
 // ================= MERCADOS GLOBAIS =================
@@ -540,7 +540,7 @@ async function loadInventories(){
 let OIL=null;
 async function loadOil(){
   let live=null;
-  try{live=await dashFetch('api/live');}catch(e){}
+  try{live=await dashLoad('live');}catch(e){}
   try{OIL=await(await fetch('oil_routes.json',{cache:'no-store'})).json();}
   catch(e){const h=document.getElementById('oilHead'); if(h)h.innerHTML='<div class="cap">oil_routes.json indisponível — rode oil_routes.py</div>'; return;}
   renderOil(live);
@@ -709,7 +709,7 @@ async function loadOilPeersMercado(){
   const st=document.getElementById('opmStatus');
   try{const d=await(await fetch('oil_peers_compare.json',{cache:'no-store'})).json();
     const rc=(v)=>v==null?'—':`<span class="${v>=0?'up':'down'}">${v>0?'+':''}${v}%</span>`;
-    const names=['PRIO3','PETR3','CVX'], lbls=['PRIO3','Petrobras','Chevron'];
+    const names=['PRIO3','PETR4','CVX'], lbls=['PRIO3','Petrobras (PETR4)','Chevron'];
     const tb=document.querySelector('#tblOpm tbody'); tb.innerHTML='';
     names.forEach((k,i)=>{const sn=d.snapshot[k],e=d.efeito_brent[k],r=d.relativo_252d[k];
       const tr=document.createElement('tr');

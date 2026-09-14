@@ -33,6 +33,7 @@ JSON_FILES = (
     "b3_options.json",
     "b3_options_brav.json",
     "brav_analysis.json",
+    "petr4_analysis.json",
     "triggers.json",
     "triggers_put.json",
     "stats_prices.json",

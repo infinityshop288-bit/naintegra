@@ -20,6 +20,7 @@ echo "[7/12] fundamentos..."   && $PY fundamentals_multi.py >/dev/null && echo "
 echo "[8/11] rotas petróleo..." && $PY oil_routes.py        >/dev/null && echo "  ok"
 echo "[9/11] estoques petróleo..." && $PY oil_inventories.py >/dev/null && echo "  ok"
 echo "[10/11] peers vs Brent..." && $PY oil_peers_compare.py >/dev/null && echo "  ok"
+echo "[10b] analise PETR4/BRAV3..." && $PY peer_analysis.py PETR4 BRAV3 >/dev/null && echo "  ok"
 echo "[11/11] padroes IA..."   && $PY ai_patterns.py      >/dev/null && echo "  ok"
 echo "[12/12] insights IA..."   && $PY ai_insights.py     >/dev/null && echo "  ok"
 # reprocessa a analise p/ incorporar o Put/Call Ratio recem-gerado (fluxo por ativo)
