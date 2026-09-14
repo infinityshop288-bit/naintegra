@@ -162,7 +162,7 @@ async function dashCheckSnapshot(first) {
       ? DASH_AUTO.staleMinsMarket
       : DASH_AUTO.staleMinsOff;
     if (age != null && age > limit) {
-      dashPillText(`● dados de ${when} (${dashFmtAge(age)}) · pedindo atualização…`, "#d29922");
+      dashPillText(`● dados de ${when} (${dashFmtAge(age)} atrás)`, "#d29922");
       dashRequestServerRefresh(age);
     }
     return;
