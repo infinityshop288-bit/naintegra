@@ -959,7 +959,7 @@ async function tickDaytrade(){const st=document.getElementById("dtStatus");
 function brl(v){return v==null?'—':Number(v).toLocaleString('pt-BR');}
 function f2(v){return v==null?'—':Number(v).toFixed(2);}
 async function loadOptbook(){const st=document.getElementById("obStatus");
- try{const d=await(await fetch('b3_options.json',{cache:'no-store'})).json();
+ try{const d=await(await fetch(dashBust('b3_options.json'),{cache:'no-store'})).json();
   document.getElementById("obHead").innerHTML=`Negócios reais liquidados na B3 · último pregão <b>${d.ultimo_pregao.split('-').reverse().join('/')}</b> · ${brl(d.n_series_ano)} séries negociadas em 2026 · <b>${d.n_movers_10x}</b> séries fizeram ≥10x.`;
   document.getElementById("obTapeDate").textContent=d.ultimo_pregao.split('-').reverse().join('/');
   const tm=document.querySelector("#tblMov tbody");tm.innerHTML='';
@@ -1001,7 +1001,7 @@ async function tickTenx(){const st=document.getElementById("txStatus");
 
 // --- Perfil intradiário: volume x direção ---
 async function loadIntraday(){const st=document.getElementById("ivStatus");
- try{const d=await(await fetch('intraday_volume.json',{cache:'no-store'})).json();
+ try{const d=await(await fetch(dashBust('intraday_volume.json'),{cache:'no-store'})).json();
   const alta=new Set(d.top_volume_alta), baixa=new Set(d.menor_volume_baixa);
   document.getElementById("ivHead").innerHTML=`Volume médio por faixa de 15 min · <b>${d.pregoes}</b> pregões · ${d.fonte}. Verde = maior volume (seguir alta); cinza = menor volume (seguir baixa).`;
   const labels=d.buckets.map(b=>b.hhmm);
@@ -1036,7 +1036,7 @@ function sparkLine(arr,w,h){if(!arr||arr.length<2)return '';const mn=Math.min(..
   return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" style="display:block"><polyline points="${pts}" fill="none" stroke="${col}" stroke-width="1.5"/></svg>`;}
 
 async function loadIbov(){
-  try{const d=await(await fetch('multi_analysis.json',{cache:'no-store'})).json();
+  try{const d=await(await fetch(dashBust('multi_analysis.json'),{cache:'no-store'})).json();
     const i=d.ibovespa; const box=document.getElementById('ibovBox'); if(!i||!box)return;
     const col=i.vertente==='ALTISTA'?C.success:(i.vertente==='BAIXISTA'?C.danger:C.warning);
     const arrow=i.vertente==='ALTISTA'?'▲':(i.vertente==='BAIXISTA'?'▼':'▬');
@@ -1078,7 +1078,7 @@ async function loadOilRoutes(){
   let live=null;
   try{live=await dashLoad('live');}catch(e){}
   let OIL;
-  try{OIL=await(await fetch('oil_routes.json',{cache:'no-store'})).json();}
+  try{OIL=await(await fetch(dashBust('oil_routes.json'),{cache:'no-store'})).json();}
   catch(e){document.getElementById('oilHead').innerHTML='<span class="cap">oil_routes.json indisponível</span>';return;}
   document.getElementById('oilTs').textContent='· '+OIL.fonte+' · '+OIL.atualizado;
   const rk=OIL.risco_rota; const rcol=rk==='ELEVADO'?C.danger:(rk==='MODERADO'?C.warning:C.success);
@@ -1109,7 +1109,7 @@ async function loadOilRoutes(){
 
 // --- PRIO3 × Petrobras × Chevron vs Brent ---
 async function loadOilPeers(){const st=document.getElementById("opStatus");
- try{const d=await(await fetch('oil_peers_compare.json',{cache:'no-store'})).json();
+ try{const d=await(await fetch(dashBust('oil_peers_compare.json'),{cache:'no-store'})).json();
   document.getElementById("opHead").innerHTML=`Comparativo de petroleiras vs Brent · <b>${d.periodo.pregoes}</b> pregões (${d.periodo.inicio.split('-').reverse().join('/')}–${d.periodo.fim.split('-').reverse().join('/')}) · ${d.fonte}`;
   const rc=(v)=>v==null?'—':`<span class="${v>=0?'up':'down'}">${v>0?'+':''}${v}%</span>`;
   const sn=d.snapshot;
@@ -1161,7 +1161,7 @@ async function loadOilPeers(){const st=document.getElementById("opStatus");
  }catch(e){st.textContent='oil_peers_compare.json ausente';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
 
 async function loadBrav(){const st=document.getElementById("bvStatus");
- try{const a=await(await fetch('brav_analysis.json',{cache:'no-store'})).json();
+ try{const a=await(await fetch(dashBust('brav_analysis.json'),{cache:'no-store'})).json();
   const s=a.snapshot,t=a.tecnicos,rl=a.relativo;
   const rc=(v)=>v==null?'—':`<span class="${v>=0?'up':'down'}">${v>0?'+':''}${v}%</span>`;
   document.getElementById("bvStats").innerHTML=
@@ -1173,7 +1173,7 @@ async function loadBrav(){const st=document.getElementById("bvStatus");
   document.getElementById("bvTec").innerHTML=`Tendência <b style="color:${tcol}">${t.tendencia.toUpperCase()}</b> · preço R$ ${s.preco} vs MM50 R$ ${t.sma50} e MM200 R$ ${t.sma200} (<b>${t.dist_sma200_pct>0?'+':''}${t.dist_sma200_pct}%</b> da MM200). RSI(14) <b>${t.rsi14}</b> (${t.rsi14>70?'sobrecomprado':(t.rsi14<30?'sobrevendido':'neutro')}). Retornos: 1m ${rc(s.ret_1m)}, 3m ${rc(s.ret_3m)}, 6m ${rc(s.ret_6m)}.`;
   document.getElementById("bvRel").innerHTML=`Correlação com <b>PRIO3</b>: <b>${rl.vs_prio3.corr}</b> (beta ${rl.vs_prio3.beta}) — anda junto, mas com menos força. Correlação com <b>Brent</b>: <b>${rl.vs_brent.corr}</b> (beta ${rl.vs_brent.beta}). PRIO3 hoje ≈ R$ ${rl.prio3_preco}. Ambas são petroleiras: sobem/caem com o petróleo, mas a PRIO3 é mais líquida e reage mais rápido.`;
 
-  const o=await(await fetch('b3_options_brav.json',{cache:'no-store'})).json();
+  const o=await(await fetch(dashBust('b3_options_brav.json'),{cache:'no-store'})).json();
   const T=o.termometro||{};
   const ka=(T.strikes_ativos&&T.strikes_ativos[0])?('R$ '+T.strikes_ativos[0].strike):'—';
   document.getElementById("bvThermo").innerHTML=

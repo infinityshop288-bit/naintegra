@@ -97,8 +97,8 @@ function optBlock(o,side){
 
 (async()=>{
   let OP,AN;
-  try{OP=await(await fetch('multi_options.json',{cache:'no-store'})).json();}catch(e){document.getElementById('pgStatus').textContent='multi_options.json ausente';return;}
-  try{AN=await(await fetch('multi_analysis.json',{cache:'no-store'})).json();}catch(e){AN={acoes:[]};}
+  try{OP=await(await fetch(dashBust('multi_options.json'),{cache:'no-store'})).json();}catch(e){document.getElementById('pgStatus').textContent='multi_options.json ausente';return;}
+  try{AN=await(await fetch(dashBust('multi_analysis.json'),{cache:'no-store'})).json();}catch(e){AN={acoes:[]};}
   const score={},info={};
   AN.acoes.forEach(a=>{score[a.ticker]=a.score;info[a.ticker]=a;});
   document.getElementById('pgStatus').textContent='último pregão '+dt(OP.ultimo_pregao);

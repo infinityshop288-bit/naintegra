@@ -541,7 +541,7 @@ let OIL=null;
 async function loadOil(){
   let live=null;
   try{live=await dashLoad('live');}catch(e){}
-  try{OIL=await(await fetch('oil_routes.json',{cache:'no-store'})).json();}
+  try{OIL=await(await fetch(dashBust('oil_routes.json'),{cache:'no-store'})).json();}
   catch(e){const h=document.getElementById('oilHead'); if(h)h.innerHTML='<div class="cap">oil_routes.json indisponível — rode oil_routes.py</div>'; return;}
   renderOil(live);
 }
@@ -707,7 +707,7 @@ function renderFatos(tk){
 // ================= PRIO3 × PETR × CVX vs BRENT (resumo) =================
 async function loadOilPeersMercado(){
   const st=document.getElementById('opmStatus');
-  try{const d=await(await fetch('oil_peers_compare.json',{cache:'no-store'})).json();
+  try{const d=await(await fetch(dashBust('oil_peers_compare.json'),{cache:'no-store'})).json();
     const rc=(v)=>v==null?'—':`<span class="${v>=0?'up':'down'}">${v>0?'+':''}${v}%</span>`;
     const names=['PRIO3','PETR4','CVX'], lbls=['PRIO3','Petrobras (PETR4)','Chevron'];
     const tb=document.querySelector('#tblOpm tbody'); tb.innerHTML='';

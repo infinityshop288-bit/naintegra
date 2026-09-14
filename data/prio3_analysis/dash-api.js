@@ -24,6 +24,11 @@ async function dashEdgeLive(endpoint, extra) {
   return data;
 }
 
+/** Query única por requisição: o cache do Hostinger ignora Cache-Control. */
+function dashBust(url) {
+  return url + (url.includes("?") ? "&" : "?") + "_=" + Date.now();
+}
+
 async function dashFetch(path, opts) {
   path = String(path || "").replace(/^\//, "");
   const urls = [path, "/" + path, path + ".json", "/" + path + ".json"];
@@ -32,7 +37,7 @@ async function dashFetch(path, opts) {
     if (tried.has(url)) continue;
     tried.add(url);
     try {
-      const r = await fetch(url, { cache: "no-store", ...(opts || {}) });
+      const r = await fetch(dashBust(url), { cache: "no-store", ...(opts || {}) });
       if (r.ok) {
         const ct = (r.headers.get("content-type") || "").toLowerCase();
         if (ct.includes("text/html") && path.includes("api/")) continue;
