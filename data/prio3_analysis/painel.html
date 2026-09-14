@@ -307,7 +307,7 @@
   </section>
 
   <section style="border-top:2px solid var(--success);padding-top:18px">
-    <div class="row" style="gap:10px"><h2 style="margin:0">PETR4 — Petrobras · análise + opções</h2><span class="pill" id="ptStatus">carregando…</span></div>
+    <div class="row" style="gap:10px"><h2 style="margin:0">PETR4 — Petrobras · fundamentos, técnica e opções</h2><span class="pill" id="ptStatus">carregando…</span></div>
     <div class="cap" style="margin:6px 0 12px" id="ptHead">Maior petroleira da América Latina e a ação mais líquida da B3 no setor. Estatal integrada (E&P, refino, distribuição): reage ao Brent, mas com beta menor e política de dividendos relevante.</div>
     <div class="simple">💡 <b>Em palavras simples:</b> a PETR4 é a "gigante" do setor — sobe e cai com o petróleo, mas com <b>menos oscilação</b> que a PRIO3, porque tem refino e distribuição que amortecem o preço do óleo. Em troca, tem <b>risco político</b> (é estatal: preço de combustível, investimento e dividendos passam pelo governo). É a preferencial (PN): mais líquida, sem direito a voto.</div>
     <div class="grid g4" id="ptStats"></div>
@@ -315,7 +315,27 @@
       <div class="callout"><div class="t">Leitura técnica</div><div id="ptTec">—</div></div>
       <div class="callout info"><div class="t">PETR4 × PRIO3 × Brent (relativo)</div><div id="ptRel">—</div></div>
     </div>
-    <h3 style="margin:20px 0 8px">Opções PETR — livro real da B3 (COTAHIST)</h3>
+
+    <h3 style="margin:22px 0 8px">Análise fundamentalista <span class="cap" id="ptFundTs" style="font-weight:400"></span></h3>
+    <div class="simple">💡 <b>Em palavras simples:</b> aqui olhamos a <b>empresa</b>, não o gráfico. <b>P/L</b> é quantos anos de lucro atual você paga pelo preço de hoje (menor = mais barato). <b>P/VP</b> compara o preço ao patrimônio. <b>DY</b> é o dividendo pago nos últimos 12 meses em relação ao preço. <b>ROE</b> mede quanto de lucro a empresa gera sobre o capital dos sócios (acima de 15% é forte). <b>Dív/PL</b> mostra o endividamento — quanto menor, mais folga.</div>
+    <div class="grid g4" id="ptFundStats" style="margin-top:12px"></div>
+    <div class="grid g21" style="margin-top:14px;align-items:start">
+      <div class="card">
+        <div class="l" style="margin-bottom:6px">Receita e lucro por trimestre (R$ bi) · margem líquida</div>
+        <div class="chartbox" style="height:260px"><canvas id="chPtDre"></canvas></div>
+        <div class="cap" style="margin-top:6px" id="ptTtm">—</div>
+      </div>
+      <div class="card">
+        <div class="l" style="margin-bottom:8px">Nota por dimensão (0–100)</div>
+        <div id="ptFundComp" style="display:grid;gap:10px"></div>
+        <div class="cap" style="margin-top:12px" id="ptFundLeitura">—</div>
+      </div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden;margin-top:14px">
+      <table id="tblPtFund"><thead><tr><th>Indicador</th><th style="text-align:right">PETR4</th><th>Como ler</th></tr></thead><tbody></tbody></table>
+    </div>
+
+    <h3 style="margin:22px 0 8px">Opções PETR — livro real da B3 (COTAHIST)</h3>
     <div class="grid g4" id="ptThermo" style="margin-bottom:14px"></div>
     <div class="grid g2" style="align-items:start">
       <div class="card" style="padding:0;overflow:hidden">
@@ -1178,7 +1198,70 @@ async function loadBrav(){const st=document.getElementById("bvStatus");
   st.textContent='ok';st.style.background='rgba(63,185,80,.15)';st.style.color='#5bd66b';
  }catch(e){st.textContent='dados BRAV ausentes';st.style.background='rgba(248,81,73,.15)';st.style.color='#ff8a90';}}
 
-// --- PETR4: analise + opcoes ---
+// --- PETR4: analise fundamentalista ---
+const PT_TAG={FORTE:C.success,SÓLIDA:C.success,NEUTRA:C.warning,ATENÇÃO:C.warning,FRÁGIL:C.danger};
+function ptBi(v){return v==null?'—':'R$ '+Number(v).toLocaleString('pt-BR',{minimumFractionDigits:1,maximumFractionDigits:1})+' bi';}
+function ptBar(nome,v){const col=v>=70?C.success:(v>=40?C.warning:C.danger);
+ return `<div><div class="row" style="justify-content:space-between"><span class="cap">${nome}</span><span class="cap" style="color:${col};font-weight:600">${v==null?'—':v}</span></div>`+
+  `<div style="height:7px;background:var(--stroke);border-radius:4px;overflow:hidden"><div style="width:${Math.max(0,Math.min(100,v||0))}%;height:7px;background:${col}"></div></div></div>`;}
+
+async function loadPetrFund(){
+  const d=await dashLoad('fundamentals');
+  const e=(d.empresas||{}).PETR4;
+  if(!e)throw new Error('PETR4 ausente em fundamentals');
+  const i=e.indicadores||{}, col=PT_TAG[e.tag]||C.txt2;
+  document.getElementById('ptFundTs').textContent='· '+(d.fonte||'')+' · atualizado '+(d.atualizado||'');
+  document.getElementById('ptFundStats').innerHTML=
+    tcard('Fundamentos',e.tag,'nota '+(e.score>0?'+':'')+e.score+' de 100',col)
+   +tcard('Preço / lucro (P/L)',i.pl==null?'—':f2(i.pl)+'x','P/VP '+(i.pvp==null?'—':f2(i.pvp)+'x')+' · EV/EBITDA '+(i.ev_ebitda==null?'—':f2(i.ev_ebitda)+'x'),C.info)
+   +tcard('Dividend yield',i.dy==null?'—':f2(i.dy)+'%','12 meses · VPA R$ '+(i.vpa==null?'—':f2(i.vpa)),i.dy>=6?C.success:C.warning)
+   +tcard('Retorno s/ patrimônio',i.roe==null?'—':Math.round(i.roe)+'%','margem líq. '+(i.margem_liq==null?'—':Math.round(i.margem_liq)+'%'),i.roe>=15?C.success:(i.roe<8?C.danger:C.warning));
+
+  const cp=e.componentes||{};
+  document.getElementById('ptFundComp').innerHTML=
+    ptBar('Valor (múltiplos)',cp.valor)+ptBar('Qualidade (margens/ROE)',cp.qualidade)
+   +ptBar('Crescimento',cp.crescimento)+ptBar('Saúde financeira',cp.saude);
+  document.getElementById('ptFundLeitura').innerHTML='<b>Leitura automática:</b> '+(e.leitura||'—');
+
+  const t=e.ttm||{}, y=e.yoy||{};
+  const yv=(v)=>v==null?'—':`<span class="${v>=0?'up':'down'}">${v>0?'+':''}${Math.round(v)}%</span>`;
+  document.getElementById('ptTtm').innerHTML=`Últimos 12 meses: receita <b>${ptBi(t.receita)}</b>, lucro <b>${ptBi(t.lucro)}</b>, margem líq. <b>${t.margem_liq==null?'—':Math.round(t.margem_liq)+'%'}</b>. Último trimestre vs. mesmo trimestre do ano anterior: receita ${yv(y.receita_pct)}, lucro ${yv(y.lucro_pct)}.`;
+
+  const qs=(e.trimestres||[]).filter(q=>q.receita!=null);
+  if(qs.length>1){
+    if(window._chPtDre)window._chPtDre.destroy();
+    window._chPtDre=new Chart(document.getElementById('chPtDre'),{
+      data:{labels:qs.map(q=>q.periodo),datasets:[
+        {type:'bar',label:'Receita (R$ bi)',data:qs.map(q=>q.receita),backgroundColor:C.info,borderRadius:3,order:2},
+        {type:'bar',label:'Lucro (R$ bi)',data:qs.map(q=>q.lucro),backgroundColor:qs.map(q=>q.lucro>=0?C.success:C.danger),borderRadius:3,order:2},
+        {type:'line',label:'Margem líquida (%)',data:qs.map(q=>q.margem_liq),borderColor:C.accent,borderWidth:2,tension:.25,pointRadius:2,yAxisID:'y1',order:1}
+      ]},
+      options:{responsive:true,maintainAspectRatio:false,interaction:{mode:'index',intersect:false},
+        plugins:{legend:{position:'bottom'}},
+        scales:{x:{grid:{display:false}},y:{grid:{color:C.grid},title:{display:true,text:'R$ bi'}},
+          y1:{position:'right',grid:{display:false},title:{display:true,text:'%'},suggestedMin:0}}}});
+  }
+
+  const linhas=[
+    ['P/L (preço/lucro)',i.pl==null?'—':f2(i.pl)+'x','Anos de lucro atual embutidos no preço. Petroleiras costumam operar entre 4x e 8x.'],
+    ['P/L projetado',i.pl_proj==null?'—':f2(i.pl_proj)+'x','Mesmo cálculo com o lucro estimado à frente.'],
+    ['P/VP (preço/patrimônio)',i.pvp==null?'—':f2(i.pvp)+'x','Acima de 1x significa pagar mais que o patrimônio contábil.'],
+    ['EV/EBITDA',i.ev_ebitda==null?'—':f2(i.ev_ebitda)+'x','Valor da empresa (com dívida) sobre a geração de caixa operacional.'],
+    ['Dividend yield (12m)',i.dy==null?'—':f2(i.dy)+'%','Dividendos dos últimos 12 meses sobre o preço. Varia com o Brent e a política da estatal.'],
+    ['ROE',i.roe==null?'—':Math.round(i.roe)+'%','Lucro sobre o capital dos acionistas. Acima de 15% é considerado forte.'],
+    ['Margem líquida',i.margem_liq==null?'—':Math.round(i.margem_liq)+'%','Quanto de cada R$ 100 de receita sobra como lucro.'],
+    ['Margem EBITDA',i.margem_ebitda==null?'—':Math.round(i.margem_ebitda)+'%','Geração de caixa operacional sobre a receita.'],
+    ['Dívida / patrimônio',i.div_pl==null?'—':f2(i.div_pl/100)+'x','Alavancagem. Abaixo de 1x indica endividamento controlado.'],
+    ['Liquidez corrente',i.liq_corrente==null?'—':f2(i.liq_corrente)+'x','Abaixo de 1x significa dívida de curto prazo maior que o ativo circulante.'],
+    ['Crescimento de receita',i.cresc_receita==null?'—':Math.round(i.cresc_receita)+'%','Variação da receita no período mais recente.'],
+    ['Crescimento de lucro',i.cresc_lucro==null?'—':Math.round(i.cresc_lucro)+'%','Variação do lucro no período mais recente.'],
+    ['Valor de mercado',i.market_cap==null?'—':ptBi(i.market_cap/1e9),'Preço × total de ações.'],
+  ];
+  document.querySelector('#tblPtFund tbody').innerHTML=linhas.map(([k,v,obs])=>
+    `<tr><td>${k}</td><td style="text-align:right;font-weight:600">${v}</td><td class="cap" style="font-size:12px">${obs}</td></tr>`).join('');
+}
+
+// --- PETR4: analise tecnica + opcoes ---
 async function loadPetr(){const st=document.getElementById("ptStatus");
  try{const a=await dashLoad('petr4_analysis');
   const s=a.snapshot,t=a.tecnicos,rl=a.relativo;
@@ -1191,6 +1274,8 @@ async function loadPetr(){const st=document.getElementById("ptStatus");
   const tcol=t.tendencia==='alta'?C.success:(t.tendencia==='baixa'?C.danger:C.warning);
   document.getElementById("ptTec").innerHTML=`Tendência <b style="color:${tcol}">${t.tendencia.toUpperCase()}</b> · preço R$ ${s.preco} vs MM50 R$ ${t.sma50} e MM200 R$ ${t.sma200} (<b>${t.dist_sma200_pct>0?'+':''}${t.dist_sma200_pct}%</b> da MM200). RSI(14) <b>${t.rsi14}</b> (${t.rsi14>70?'sobrecomprado — esticado no curto prazo':(t.rsi14<30?'sobrevendido':'neutro')}). Retornos: 1m ${rc(s.ret_1m)}, 3m ${rc(s.ret_3m)}, 6m ${rc(s.ret_6m)}.`;
   document.getElementById("ptRel").innerHTML=`Correlação com <b>Brent</b>: <b>${rl.vs_brent.corr}</b> (beta ${rl.vs_brent.beta}) — <b>menos alavancada</b> ao petróleo que a PRIO3 (refino e distribuição amortecem). Correlação com <b>PRIO3</b>: <b>${rl.vs_prio3.corr}</b> (beta ${rl.vs_prio3.beta}). PRIO3 hoje ≈ R$ ${rl.prio3_preco}.`;
+
+  try{await loadPetrFund();}catch(_){}
 
   const mo=await dashLoad('multi_options');
   const o=(mo.ativos||{}).PETR4;
