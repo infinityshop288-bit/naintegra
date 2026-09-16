@@ -1,7 +1,8 @@
 """Detecção de padrões e previsões com TimesFM (opcional) + fallback estatístico.
 
-Categorias: preços de mercado, demanda/vendas (volume, produção), volatilidade,
-cripto e tráfego web (pageviews Wikipedia como proxy de interesse).
+Cobre todos os papéis da plataforma (universe.UNIVERSE: ações + FIIs) e ainda
+referências macro (Brent, Ibovespa, dólar), cripto, volatilidade, volume como
+proxy de demanda e tráfego web (pageviews Wikipedia).
 Gera ai_patterns.json para o dashboard estático.
 """
 from __future__ import annotations
@@ -17,9 +18,13 @@ import numpy as np
 import pandas as pd
 import yfinance as yf
 
+from universe import FII_SETOR, UNIVERSE, yahoo_symbol
+
 ROOT = Path(__file__).resolve().parent
 HORIZON = 21
 CTX_MIN = 60
+CAT_ACOES = "acoes_b3"
+CAT_FIIS = "fiis"
 
 try:
     import certifi
@@ -64,6 +69,42 @@ def _fetch_volume(symbol: str, days: int = 400) -> pd.Series:
     return s.replace(0, np.nan).dropna()
 
 
+def _fetch_many(symbols: list[str], days: int = 400) -> tuple[dict[str, pd.Series], dict[str, pd.Series]]:
+    """Baixa fechamento e volume de vários símbolos numa só chamada."""
+    end = datetime.today()
+    start = end - timedelta(days=days + 10)
+    closes: dict[str, pd.Series] = {}
+    volumes: dict[str, pd.Series] = {}
+    if not symbols:
+        return closes, volumes
+    df = yf.download(
+        symbols,
+        start=start.strftime("%Y-%m-%d"),
+        end=end.strftime("%Y-%m-%d"),
+        auto_adjust=True,
+        progress=False,
+        group_by="ticker",
+        threads=True,
+    )
+    if df.empty:
+        return closes, volumes
+    multi = isinstance(df.columns, pd.MultiIndex)
+    for sym in symbols:
+        try:
+            sub = df[sym] if multi else df
+            c = pd.to_numeric(sub["Close"], errors="coerce").dropna()
+            if len(c):
+                c.index = pd.to_datetime(c.index).tz_localize(None)
+                closes[sym] = c
+            v = pd.to_numeric(sub["Volume"], errors="coerce").replace(0, np.nan).dropna()
+            if len(v):
+                v.index = pd.to_datetime(v.index).tz_localize(None)
+                volumes[sym] = v
+        except Exception:  # noqa: BLE001
+            continue
+    return closes, volumes
+
+
 def _realized_vol(close: pd.Series, win: int = 21) -> pd.Series:
     ret = close.pct_change()
     return (ret.rolling(win).std() * np.sqrt(252) * 100).dropna()
@@ -102,20 +143,27 @@ def _load_csv_close(name: str) -> pd.Series:
 
 
 def _stat_forecast(y: np.ndarray, horizon: int) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
-    """Previsão p10/p50/p90 via tendência linear + volatilidade dos resíduos."""
+    """Previsão p10/p50/p90: deriva recente ancorada no último valor + random walk.
+
+    A projeção parte sempre do último valor observado (evita o degrau da reta
+    ajustada) e a deriva acumulada é limitada ao desvio plausível do horizonte.
+    """
     y = np.asarray(y, dtype=float)
     y = y[np.isfinite(y)]
     if len(y) < CTX_MIN:
         last = float(y[-1]) if len(y) else 0.0
         z = np.full(horizon, last)
         return z * 0.95, z, z * 1.05
-    x = np.arange(len(y))
-    slope, intercept = np.polyfit(x, y, 1)
-    resid = y - (slope * x + intercept)
-    sigma = float(np.std(resid)) or abs(y[-1]) * 0.02
-    fut_x = np.arange(len(y), len(y) + horizon)
-    p50 = slope * fut_x + intercept
-    band = 1.28 * sigma * np.sqrt(np.arange(1, horizon + 1))
+    win = y[-60:]
+    slope = float(np.polyfit(np.arange(len(win)), win, 1)[0])
+    sigma = float(np.std(np.diff(win))) or abs(y[-1]) * 0.01
+    steps = np.arange(1, horizon + 1, dtype=float)
+    drift = slope * 0.5  # amortece a inclinação recente
+    cap = 2.0 * sigma * np.sqrt(horizon)
+    if abs(drift * horizon) > cap:
+        drift = np.sign(drift) * cap / horizon
+    p50 = y[-1] + drift * steps
+    band = 1.28 * sigma * np.sqrt(steps)
     return p50 - band, p50, p50 + band
 
 
@@ -208,7 +256,30 @@ def _patterns_for(id_: str, y: np.ndarray, cat: str) -> list[str]:
     if cat == "demanda_vendas" and id_.endswith("_volume"):
         if y[-1] > np.percentile(y[-60:], 90):
             out.append("Volume acima do percentil 90 — liquidez elevada")
+    if cat in (CAT_ACOES, CAT_FIIS) and len(y) >= 120:
+        win = y[-252:] if len(y) >= 252 else y
+        hi, lo = float(np.max(win)), float(np.min(win))
+        if y[-1] >= hi * 0.99:
+            out.append("Na máxima das últimas 52 semanas")
+        elif y[-1] <= lo * 1.01:
+            out.append("Na mínima das últimas 52 semanas")
+        sma50 = float(np.mean(y[-50:]))
+        sma200 = float(np.mean(y[-200:])) if len(y) >= 200 else None
+        if sma200 and y[-1] > sma50 > sma200:
+            out.append("Preço acima das médias de 50 e 200 dias")
+        elif sma200 and y[-1] < sma50 < sma200:
+            out.append("Preço abaixo das médias de 50 e 200 dias")
     return out[:4]
+
+
+def _round(v: float) -> float:
+    """Arredonda pela ordem de grandeza — mantém o JSON leve."""
+    a = abs(v)
+    if a >= 100:
+        return round(v, 1)
+    if a >= 1:
+        return round(v, 2)
+    return round(v, 4)
 
 
 def _dates_from_last(last: pd.Timestamp, n: int) -> list[str]:
@@ -229,6 +300,7 @@ def _analyze(
     series: pd.Series,
     unidade: str,
     engine: str,
+    extra: dict | None = None,
 ) -> dict | None:
     s = series.dropna().astype(float)
     if len(s) < 30:
@@ -247,7 +319,8 @@ def _analyze(
         "nome": nome,
         "categoria": categoria,
         "unidade": unidade,
-        "ultimo": round(float(y[-1]), 4),
+        **(extra or {}),
+        "ultimo": _round(float(y[-1])),
         "ultima_data": last_dt.strftime("%Y-%m-%d"),
         "tendencia": trend,
         "vol_regime": _vol_regime(cur_vol, vol_hist * 100),
@@ -257,15 +330,15 @@ def _analyze(
         "confianca": round(min(0.92, 0.55 + len(y) / 800), 2),
         "padroes": patterns,
         "historico": [
-            {"data": pd.Timestamp(ix).strftime("%Y-%m-%d"), "valor": round(float(v), 4)}
+            {"data": pd.Timestamp(ix).strftime("%Y-%m-%d"), "valor": _round(float(v))}
             for ix, v in s.tail(90).items()
         ],
         "forecast": [
             {
                 "data": fdates[i],
-                "p10": round(float(p10[i]), 4),
-                "p50": round(float(p50[i]), 4),
-                "p90": round(float(p90[i]), 4),
+                "p10": _round(float(p10[i])),
+                "p50": _round(float(p50[i])),
+                "p90": _round(float(p90[i])),
             }
             for i in range(HORIZON)
         ],
@@ -286,70 +359,191 @@ def _operational_demand() -> pd.Series:
     return pd.Series(rep, index=idx)
 
 
-def _correlations(items: list[dict]) -> list[dict]:
-    by_id = {x["id"]: np.array([h["valor"] for h in x["historico"]]) for x in items if x.get("historico")}
-    keys = ["prio3_preco", "brent_preco", "btc_preco", "prio3_vol", "wiki_petroleo"]
+def _correlations(items: list[dict], limit: int = 14) -> list[dict]:
+    """Correlação de 90d entre papéis e referências (macro, cripto, tráfego)."""
+    elegiveis = [
+        x for x in items
+        if x.get("historico") and x["categoria"] in
+        (CAT_ACOES, CAT_FIIS, "precos_mercado", "cripto", "trafego_web")
+    ]
+    by_id = {x["id"]: np.array([h["valor"] for h in x["historico"]], dtype=float) for x in elegiveis}
+    nomes = {x["id"]: x["nome"] for x in elegiveis}
+    keys = list(by_id)
     out = []
     for i, a in enumerate(keys):
         for b in keys[i + 1 :]:
-            if a not in by_id or b not in by_id:
-                continue
             x, y = by_id[a], by_id[b]
             n = min(len(x), len(y))
-            if n < 20:
+            if n < 40:
                 continue
-            c = float(np.corrcoef(x[-n:], y[-n:])[0, 1])
-            out.append({"a": a, "b": b, "corr_90d": round(c, 3)})
-    return sorted(out, key=lambda r: -abs(r["corr_90d"]))[:8]
+            with np.errstate(invalid="ignore"):
+                c = float(np.corrcoef(x[-n:], y[-n:])[0, 1])
+            if not np.isfinite(c):
+                continue
+            out.append({"a": a, "b": b, "nome_a": nomes[a], "nome_b": nomes[b],
+                        "corr_90d": round(c, 3)})
+    return sorted(out, key=lambda r: -abs(r["corr_90d"]))[:limit]
+
+
+def _destaques(items: list[dict]) -> dict:
+    """Ranking dos papéis por previsão no horizonte."""
+    papeis = [x for x in items if x["categoria"] in (CAT_ACOES, CAT_FIIS)]
+    ordenados = sorted(papeis, key=lambda x: x.get("previsao_pct_horizonte") or 0, reverse=True)
+
+    def slim(x: dict) -> dict:
+        return {
+            "id": x["id"], "ticker": x.get("ticker"), "nome": x["nome"],
+            "setor": x.get("setor"), "ultimo": x["ultimo"],
+            "tendencia": x["tendencia"], "previsao_pct_horizonte": x["previsao_pct_horizonte"],
+            "vol_regime": x.get("vol_regime"), "padroes": x.get("padroes") or [],
+        }
+
+    anomalias = [slim(x) for x in papeis
+                 if any(p.startswith("Anomalia") for p in (x.get("padroes") or []))]
+    return {
+        "alta": [slim(x) for x in ordenados[:5]],
+        "baixa": [slim(x) for x in ordenados[-5:][::-1]],
+        "anomalias": anomalias[:8],
+        "todos": [slim(x) for x in ordenados],
+    }
+
+
+def _resumo_setores(items: list[dict]) -> list[dict]:
+    por_setor: dict[str, list[dict]] = {}
+    for x in items:
+        if x["categoria"] not in (CAT_ACOES, CAT_FIIS):
+            continue
+        por_setor.setdefault(x.get("setor") or "—", []).append(x)
+    out = []
+    for setor, xs in por_setor.items():
+        fc = [x["previsao_pct_horizonte"] for x in xs if x.get("previsao_pct_horizonte") is not None]
+        out.append({
+            "setor": setor,
+            "papeis": len(xs),
+            "alta": sum(1 for x in xs if x["tendencia"] == "alta"),
+            "baixa": sum(1 for x in xs if x["tendencia"] == "baixa"),
+            "lateral": sum(1 for x in xs if x["tendencia"] == "lateral"),
+            "previsao_media_pct": round(float(np.mean(fc)), 2) if fc else None,
+        })
+    return sorted(out, key=lambda r: -(r["previsao_media_pct"] or -99))
+
+
+Spec = tuple[str, str, str, pd.Series, str, dict]
+
+
+def _universe_specs() -> tuple[list[Spec], dict[str, pd.Series], dict[str, pd.Series]]:
+    """Uma série de preço por papel da plataforma (ações + FIIs)."""
+    symbols = [yahoo_symbol(t) for t in UNIVERSE]
+    closes, volumes = _fetch_many(symbols)
+    specs: list[Spec] = []
+    for ticker, (nome, setor, _) in UNIVERSE.items():
+        sym = yahoo_symbol(ticker)
+        px = closes.get(sym, pd.Series(dtype=float))
+        if px.empty:  # fallback individual quando o lote falha p/ 1 papel
+            px = _fetch_yahoo(sym)
+        if px.empty:
+            continue
+        cat = CAT_FIIS if setor == FII_SETOR else CAT_ACOES
+        specs.append((
+            f"{ticker.lower()}_preco",
+            f"{ticker} — {nome}",
+            cat,
+            px,
+            "BRL",
+            {"ticker": ticker, "setor": setor},
+        ))
+    return specs, closes, volumes
 
 
 def build_ai_patterns(engine: str = "auto") -> dict:
     eng = "statistical" if engine == "statistical" else "auto"
-    specs: list[tuple[str, str, str, pd.Series, str]] = []
 
-    prio3 = _load_csv_close("PRIO3")
+    specs, closes, volumes = _universe_specs()
+
+    prio3 = closes.get(yahoo_symbol("PRIO3"), pd.Series(dtype=float))
+    if prio3.empty:
+        prio3 = _load_csv_close("PRIO3")
     if prio3.empty:
         prio3 = _fetch_yahoo("PRIO3.SA")
     brent = _load_csv_close("BRENT")
     if brent.empty:
         brent = _fetch_yahoo("BZ=F")
-    ibov = _fetch_yahoo("^BVSP")
-    usd = _fetch_yahoo("USDBRL=X")
-    btc = _fetch_yahoo("BTC-USD")
-    eth = _fetch_yahoo("ETH-USD")
+    ref_closes, _ = _fetch_many(["^BVSP", "USDBRL=X", "BTC-USD", "ETH-USD"])
+    ibov = ref_closes.get("^BVSP", pd.Series(dtype=float))
+    usd = ref_closes.get("USDBRL=X", pd.Series(dtype=float))
+    btc = ref_closes.get("BTC-USD", pd.Series(dtype=float))
+    eth = ref_closes.get("ETH-USD", pd.Series(dtype=float))
     vol_prio3 = _realized_vol(prio3) if len(prio3) else pd.Series(dtype=float)
     vol_brent = _realized_vol(brent) if len(brent) else pd.Series(dtype=float)
-    vol_prio3_s = _fetch_volume("PRIO3.SA")
+    vol_ibov = _realized_vol(ibov) if len(ibov) else pd.Series(dtype=float)
     wiki_oil = _wiki_pageviews("Petroleum")
     wiki_btc = _wiki_pageviews("Bitcoin")
     wiki_prio = _wiki_pageviews("Petrobras")
     prod = _operational_demand()
 
     specs += [
-        ("prio3_preco", "PRIO3", "precos_mercado", prio3, "BRL"),
-        ("brent_preco", "Brent", "precos_mercado", brent, "USD/bbl"),
-        ("ibov_preco", "Ibovespa", "precos_mercado", ibov, "pts"),
-        ("usd_preco", "USD/BRL", "precos_mercado", usd, "BRL"),
-        ("btc_preco", "Bitcoin", "cripto", btc, "USD"),
-        ("eth_preco", "Ethereum", "cripto", eth, "USD"),
-        ("prio3_vol", "Vol. PRIO3 (realizada 21d)", "volatilidade", vol_prio3, "% a.a."),
-        ("brent_vol", "Vol. Brent (realizada 21d)", "volatilidade", vol_brent, "% a.a."),
-        ("prio3_volume", "Volume PRIO3 (demanda/liquidez)", "demanda_vendas", vol_prio3_s, "papéis"),
-        ("wiki_petroleo", "Interesse web — Petróleo", "trafego_web", wiki_oil, "pageviews/d"),
-        ("wiki_bitcoin", "Interesse web — Bitcoin", "trafego_web", wiki_btc, "pageviews/d"),
-        ("wiki_petrobras", "Interesse web — Petrobras", "trafego_web", wiki_prio, "pageviews/d"),
-        ("prio3_producao", "Produção PRIO (trim.)", "demanda_vendas", prod, "kbpd"),
+        ("brent_preco", "Brent", "precos_mercado", brent, "USD/bbl", {}),
+        ("ibov_preco", "Ibovespa", "precos_mercado", ibov, "pts", {}),
+        ("usd_preco", "USD/BRL", "precos_mercado", usd, "BRL", {}),
+        ("btc_preco", "Bitcoin", "cripto", btc, "USD", {}),
+        ("eth_preco", "Ethereum", "cripto", eth, "USD", {}),
+        ("prio3_vol", "Vol. PRIO3 (realizada 21d)", "volatilidade", vol_prio3, "% a.a.", {}),
+        ("brent_vol", "Vol. Brent (realizada 21d)", "volatilidade", vol_brent, "% a.a.", {}),
+        ("ibov_vol", "Vol. Ibovespa (realizada 21d)", "volatilidade", vol_ibov, "% a.a.", {}),
+        ("wiki_petroleo", "Interesse web — Petróleo", "trafego_web", wiki_oil, "pageviews/d", {}),
+        ("wiki_bitcoin", "Interesse web — Bitcoin", "trafego_web", wiki_btc, "pageviews/d", {}),
+        ("wiki_petrobras", "Interesse web — Petrobras", "trafego_web", wiki_prio, "pageviews/d", {}),
+        ("prio3_producao", "Produção PRIO (trim.)", "demanda_vendas", prod, "kbpd", {}),
     ]
+
+    # volume (proxy de demanda/liquidez) dos papéis mais líquidos do universo
+    for ticker in ("PRIO3", "PETR4", "VALE3", "ITUB4"):
+        v = volumes.get(yahoo_symbol(ticker), pd.Series(dtype=float))
+        if v.empty:
+            v = _fetch_volume(yahoo_symbol(ticker))
+        specs.append((
+            f"{ticker.lower()}_volume",
+            f"Volume {ticker} (demanda/liquidez)",
+            "demanda_vendas", v, "papéis", {"ticker": ticker},
+        ))
 
     items = []
     engines_used: set[str] = set()
-    for id_, nome, cat, ser, unit in specs:
-        row = _analyze(id_, nome, cat, ser, unit, eng)
+    for id_, nome, cat, ser, unit, extra in specs:
+        row = _analyze(id_, nome, cat, ser, unit, eng, extra)
         if row:
             items.append(row)
             engines_used.add(row["engine"])
 
+    destaques = _destaques(items)
+    setores = _resumo_setores(items)
+    papeis = [x for x in items if x["categoria"] in (CAT_ACOES, CAT_FIIS)]
+
     insights = []
+    if papeis:
+        alta = sum(1 for x in papeis if x["tendencia"] == "alta")
+        baixa = sum(1 for x in papeis if x["tendencia"] == "baixa")
+        insights.append(
+            f"{len(papeis)} papéis da plataforma analisados: {alta} em tendência de alta, "
+            f"{baixa} em baixa e {len(papeis) - alta - baixa} laterais."
+        )
+    if destaques["alta"]:
+        top = ", ".join(f"{x['ticker']} {x['previsao_pct_horizonte']:+.1f}%" for x in destaques["alta"][:3])
+        insights.append(f"Maiores previsões de alta em {HORIZON} pregões: {top}.")
+    if destaques["baixa"]:
+        bot = ", ".join(f"{x['ticker']} {x['previsao_pct_horizonte']:+.1f}%" for x in destaques["baixa"][:3])
+        insights.append(f"Maiores previsões de queda: {bot}.")
+    s0 = next((s for s in setores if s["papeis"] >= 2), None)
+    if s0:
+        insights.append(
+            f"Setor mais bem posicionado: {s0['setor']} "
+            f"(previsão média {s0['previsao_media_pct']:+.1f}% em {s0['papeis']} papéis, "
+            f"{s0['alta']} em alta)."
+        )
+    if destaques["anomalias"]:
+        an = ", ".join(x["ticker"] for x in destaques["anomalias"][:4])
+        insights.append(f"Anomalias estatísticas de preço detectadas em: {an}.")
+
     p = next((x for x in items if x["id"] == "prio3_preco"), None)
     b = next((x for x in items if x["id"] == "brent_preco"), None)
     v = next((x for x in items if x["id"] == "prio3_vol"), None)
@@ -374,18 +568,24 @@ def build_ai_patterns(engine: str = "auto") -> dict:
         "horizon_dias": HORIZON,
         "engine": primary_engine,
         "engines": sorted(engines_used),
+        "papeis_analisados": len(papeis),
         "nota": (
             "TimesFM 2.5 (Google) quando disponível; senão fallback estatístico. "
+            "Cobre todos os papéis da plataforma (ações + FIIs) além de referências macro. "
             "Volume = proxy de demanda/liquidez; Wikipedia = proxy de tráfego web."
         ),
         "categorias": {
-            "precos_mercado": "Preços e índices",
+            CAT_ACOES: "Ações da plataforma",
+            CAT_FIIS: "Fundos imobiliários",
+            "precos_mercado": "Macro e índices",
             "demanda_vendas": "Demanda, volume e produção",
             "volatilidade": "Volatilidade realizada",
             "cripto": "Criptoativos",
             "trafego_web": "Interesse web (Wikipedia)",
         },
         "insights": insights,
+        "destaques": destaques,
+        "setores": setores,
         "correlacoes": _correlations(items),
         "series": items,
     }

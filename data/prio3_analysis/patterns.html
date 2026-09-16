@@ -35,6 +35,8 @@
   .badge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;display:inline-block}
   .badge.alta{background:rgba(63,185,80,.16);color:#5bd66b} .badge.baixa{background:rgba(248,81,73,.16);color:#ff8a90} .badge.lateral{background:rgba(210,153,34,.16);color:#e3b341}
   .badge.timesfm{background:rgba(163,113,247,.2);color:#c9a0ff} .badge.stat{background:rgba(76,141,255,.15);color:#7fb0ff}
+  .badge.compra{background:rgba(63,185,80,.16);color:#5bd66b} .badge.venda{background:rgba(248,81,73,.16);color:#ff8a90}
+  .badge.neutro{background:rgba(110,123,138,.2);color:#9aa7b4}
   .tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
   .tab{font-size:12px;padding:6px 12px;border-radius:8px;border:1px solid var(--stroke);background:var(--panel2);color:var(--txt2);cursor:pointer}
   .tab.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
@@ -62,7 +64,7 @@
   </nav>
 
   <div class="row"><h1>Padrões IA — previsões &amp; detecção</h1><span class="pill" id="pgStatus">carregando…</span></div>
-  <div class="sub" style="margin-top:6px">Previsões de séries temporais com <b>TimesFM</b> (Google, quando disponível) ou modelo estatístico. Identifica padrões em <b>preços</b>, <b>demanda/volume</b>, <b>volatilidade</b>, <b>cripto</b> e <b>tráfego web</b> (Wikipedia como proxy).</div>
+  <div class="sub" style="margin-top:6px">Previsões de séries temporais com <b>TimesFM</b> (Google, quando disponível) ou modelo estatístico, cobrindo <b>todos os papéis da plataforma</b> (ações e FIIs) além de <b>macro/índices</b>, <b>demanda/volume</b>, <b>volatilidade</b>, <b>cripto</b> e <b>tráfego web</b> (Wikipedia como proxy).</div>
 
   <section>
     <div class="grid g4" id="stats"></div>
@@ -80,8 +82,19 @@
       <h2 style="margin:0">Análise IA (Supabase)</h2>
       <button class="btn" id="btnAiRefresh" type="button">Atualizar análise IA</button>
     </div>
-    <div class="cap" id="aiMeta" style="margin:6px 0 10px">Groq → GitHub → Gemini → Claude → OpenRouter</div>
+    <div class="cap" id="aiMeta" style="margin:6px 0 10px">Groq → Gemini → GitHub → OpenRouter → Claude</div>
     <div id="aiBox"></div>
+  </section>
+
+  <section>
+    <div class="row"><h2 style="margin:0">Sinais da IA por papel</h2><span class="pill" id="sinaisCount">—</span></div>
+    <div class="cap" style="margin:6px 0 10px">Cada papel da plataforma avaliado pela IA a partir de tendência, previsão do modelo, regime de volatilidade e padrões técnicos. Passe o mouse na tese para ver o risco apontado.</div>
+    <div id="sinaisBox"></div>
+  </section>
+
+  <section>
+    <h2>Panorama por setor</h2>
+    <div class="card"><table><thead><tr><th>Setor</th><th>Papéis</th><th>Alta</th><th>Lateral</th><th>Baixa</th><th>Previsão média</th></tr></thead><tbody id="setores"></tbody></table></div>
   </section>
 
   <section>
@@ -106,9 +119,14 @@ const f2=n=>n==null?'—':Number(n).toLocaleString('pt-BR',{maximumFractionDigit
 const pct=n=>n==null?'—':`<span class="${n>=0?'up':'down'}">${n>0?'+':''}${Number(n).toFixed(1)}%</span>`;
 const trendBadge=t=>`<span class="badge ${t==='alta'?'alta':(t==='baixa'?'baixa':'lateral')}">${(t||'—').toUpperCase()}</span>`;
 const engBadge=e=>`<span class="badge ${e==='timesfm-2.5'?'timesfm':'stat'}">${e==='timesfm-2.5'?'TimesFM':'Stats'}</span>`;
-let charts=[];
+const sinalBadge=s=>{const k=['compra','venda','neutro'].includes(s)?s:'neutro';return `<span class="badge ${k}">${(s||'neutro').toUpperCase()}</span>`;};
+const esc=t=>String(t==null?'':t).replace(/[<>"&]/g,c=>({'<':'&lt;','>':'&gt;','"':'&quot;','&':'&amp;'}[c]));
+let charts=[], chartObserver=null;
 
-function destroyCharts(){charts.forEach(c=>c.destroy());charts=[];}
+function destroyCharts(){
+  charts.forEach(c=>c.destroy());charts=[];
+  if(chartObserver){chartObserver.disconnect();chartObserver=null;}
+}
 
 function renderChart(canvas,s){
   const hist=s.historico||[], fc=s.forecast||[];
@@ -157,7 +175,54 @@ function renderSeries(list,cat){
       <div class="chartbox"><canvas id="c_${s.id}"></canvas></div>
       ${(s.padroes||[]).length?`<ul class="pat">${s.padroes.map(p=>`<li>• ${p}</li>`).join('')}</ul>`:''}
     </div>`).join('');
-  filtered.forEach(s=>{const el=document.getElementById('c_'+s.id);if(el)renderChart(el,s);});
+  // com dezenas de séries, cada gráfico só é montado quando entra na tela
+  const porId={}; filtered.forEach(s=>porId[s.id]=s);
+  chartObserver=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      chartObserver.unobserve(e.target);
+      const s=porId[e.target.id.slice(2)];
+      if(s) renderChart(e.target,s);
+    });
+  },{rootMargin:'300px'});
+  filtered.forEach(s=>{const el=document.getElementById('c_'+s.id);if(el)chartObserver.observe(el);});
+}
+
+function renderSinais(ai,d){
+  const box=document.getElementById('sinaisBox');
+  const sinais=(ai&&ai.sinais)||[];
+  const tag=document.getElementById('sinaisCount');
+  if(!sinais.length){
+    tag.textContent='—';
+    box.innerHTML='<div class="cap">Sem sinais por papel — clique em “Atualizar análise IA” ou aguarde o refresh diário.</div>';
+    return;
+  }
+  const porTicker={}; (d.series||[]).forEach(s=>{if(s.ticker)porTicker[s.ticker]=s;});
+  const ordem={compra:0,neutro:1,venda:2};
+  const rows=[...sinais].sort((a,b)=>
+    (ordem[a.sinal]??3)-(ordem[b.sinal]??3)||(b.confianca||0)-(a.confianca||0));
+  tag.textContent=`${sinais.length} papéis`;
+  box.innerHTML=`<div class="card"><table>
+    <thead><tr><th>Papel</th><th>Setor</th><th>Último</th><th>Tend.</th><th>Prev.</th><th>Sinal IA</th><th>Conf.</th><th>Tese</th></tr></thead>
+    <tbody>${rows.map(r=>{const s=porTicker[r.ticker]||{};return `<tr>
+      <td><b>${esc(r.ticker)}</b></td><td class="cap">${esc(s.setor||'—')}</td>
+      <td>${f2(s.ultimo)}</td><td>${trendBadge(s.tendencia)}</td><td>${pct(s.previsao_pct_horizonte)}</td>
+      <td>${sinalBadge(r.sinal)}</td><td>${r.confianca==null?'—':r.confianca+'%'}</td>
+      <td class="cap" title="Risco: ${esc(r.risco)}">${esc(r.tese)}</td></tr>`;}).join('')}</tbody></table></div>`;
+}
+
+function renderSetores(d){
+  document.getElementById('setores').innerHTML=(d.setores||[]).map(s=>
+    `<tr><td>${esc(s.setor)}</td><td>${s.papeis}</td><td class="up">${s.alta}</td>
+     <td class="neu">${s.lateral}</td><td class="down">${s.baixa}</td>
+     <td>${pct(s.previsao_media_pct)}</td></tr>`).join('')||'<tr><td colspan=6 class="cap">—</td></tr>';
+}
+
+function papeisParaIA(d){
+  return (d.series||[]).filter(s=>s.ticker&&(s.categoria==='acoes_b3'||s.categoria==='fiis')).map(s=>({
+    ticker:s.ticker,nome:s.nome,setor:s.setor,preco:s.ultimo,tendencia:s.tendencia,
+    previsao_pct:s.previsao_pct_horizonte,vol_regime:s.vol_regime,padroes:s.padroes||[]
+  }));
 }
 
 function renderAiInsights(ai){
@@ -172,12 +237,15 @@ function renderAiInsights(ai){
   const riscos=(m.riscos||[]).map(x=>`<li>${x}</li>`).join('');
   const opps=(m.oportunidades||[]).map(x=>`<li>${x}</li>`).join('');
   const pads=(p.padroes_detectados||[]).map(x=>`<li><b>${x.serie||'—'}</b>: ${x.padrao||''} — ${x.impacto||''}</li>`).join('');
+  const dest=(m.papeis_destaque||[]).map(x=>`<li><b>${esc(x.ticker)}</b>: ${esc(x.leitura)}</li>`).join('');
   box.innerHTML=
     `<div class="callout info" style="margin-bottom:10px"><div class="t">Resumo</div><p class="ai-md">${m.resumo||'—'}</p></div>`+
     `<div class="grid g2">
       <div class="card"><div class="t" style="font-weight:600;margin-bottom:8px">Riscos</div><ul class="ai-md">${riscos||'<li>—</li>'}</ul></div>
       <div class="card"><div class="t" style="font-weight:600;margin-bottom:8px">Oportunidades</div><ul class="ai-md">${opps||'<li>—</li>'}</ul></div>
     </div>`+
+    (dest?`<div class="card" style="margin-top:10px"><div class="t" style="font-weight:600;margin-bottom:8px">Papéis em destaque</div><ul class="ai-md">${dest}</ul></div>`:'')+
+    (m.leitura_setorial?`<div class="callout success" style="margin-top:10px"><div class="t">Leitura setorial</div><p class="ai-md">${esc(m.leitura_setorial)}</p></div>`:'')+
     (p.regime_mercado?`<div class="callout warning" style="margin-top:10px"><div class="t">Regime ${p.regime_mercado} · PRIO3: ${p.sinal_prio3||'—'}</div><p class="ai-md">${p.justificativa||''}</p></div>`:'')+
     (pads?`<div class="card" style="margin-top:10px"><div class="t" style="font-weight:600;margin-bottom:8px">Padrões detectados pela IA</div><ul class="ai-md">${pads}</ul></div>`:'')+
     (m.macro_juros?`<div class="callout info" style="margin-top:10px"><div class="t">Juros / Selic</div><p class="ai-md">${m.macro_juros}</p></div>`:'');
@@ -200,26 +268,32 @@ async function loadAiInsights(patternsData, cached){
   }
   try{aiCached=await dashLoad('ai_insights');}catch(_){}
   renderAiInsights(aiCached);
+  renderSinais(aiCached,d);
+  renderSetores(d);
   loadAiInsights(d, aiCached);
 
   document.getElementById('btnAiRefresh').onclick=async function(){
     const btn=this; btn.disabled=true; btn.textContent='Gerando…';
     try{
-      const ctx={gerado:d.gerado,engine:d.engine,horizon_dias:d.horizon_dias,insights:d.insights,correlacoes:d.correlacoes,
-        series:(d.series||[]).map(s=>({id:s.id,nome:s.nome,categoria:s.categoria,ultimo:s.ultimo,tendencia:s.tendencia,vol_regime:s.vol_regime,previsao_pct_horizonte:s.previsao_pct_horizonte,padroes:s.padroes}))};
+      const ctx={gerado:d.gerado,engine:d.engine,horizon_dias:d.horizon_dias,papeis_analisados:d.papeis_analisados,
+        insights:d.insights,setores:d.setores,destaques:d.destaques,correlacoes:d.correlacoes,
+        series:(d.series||[]).map(s=>({id:s.id,nome:s.nome,ticker:s.ticker,setor:s.setor,categoria:s.categoria,ultimo:s.ultimo,tendencia:s.tendencia,vol_regime:s.vol_regime,previsao_pct_horizonte:s.previsao_pct_horizonte,padroes:s.padroes}))};
       const market=await dashAIMarketInsights(ctx);
       const patterns=await dashAIPatternAnalysis(ctx);
       renderAiInsights({gerado:new Date().toLocaleString('pt-BR'),provider:market.provider||patterns.provider,market, patterns});
+      btn.textContent='Avaliando papéis…';
+      const {sinais}=await dashAITickerSignals(papeisParaIA(d),d.horizon_dias,(d.insights||[]).join('; '));
+      renderSinais({sinais},d);
     }catch(e){
       document.getElementById('aiBox').insertAdjacentHTML('afterbegin',`<div class="callout warning"><p>Erro IA: ${e.message}</p></div>`);
     }finally{btn.disabled=false;btn.textContent='Atualizar análise IA';}
   };
   document.getElementById('pgStatus').textContent='atualizado '+d.gerado+' · '+d.engine;
   document.getElementById('stats').innerHTML=
+    `<div class="stat"><div class="v">${d.papeis_analisados||0}</div><div class="l">Papéis da plataforma</div></div>`+
     `<div class="stat"><div class="v">${d.series?.length||0}</div><div class="l">Séries analisadas</div></div>`+
     `<div class="stat"><div class="v">${d.horizon_dias}d</div><div class="l">Horizonte de previsão</div></div>`+
-    `<div class="stat"><div class="v" style="color:var(--accent)">${d.engine||'—'}</div><div class="l">Motor principal</div></div>`+
-    `<div class="stat"><div class="v">${Object.keys(d.categorias||{}).length}</div><div class="l">Categorias</div></div>`;
+    `<div class="stat"><div class="v" style="color:var(--accent)">${d.engine||'—'}</div><div class="l">Motor principal</div></div>`;
 
   document.getElementById('insights').innerHTML=(d.insights||[]).map(t=>
     `<div class="callout warning" style="margin-bottom:8px"><p>${t}</p></div>`).join('')||'<div class="cap">Sem insights</div>';
@@ -239,7 +313,7 @@ async function loadAiInsights(patternsData, cached){
   document.getElementById('corr').innerHTML=(d.correlacoes||[]).map(r=>{
     const c=r.corr_90d;
     const cls=c>=0.5?'up':(c<=-0.5?'down':'neu');
-    return `<tr><td>${r.a}</td><td>${r.b}</td><td class="${cls}">${c>0?'+':''}${c.toFixed(2)}</td></tr>`;
+    return `<tr><td>${esc(r.nome_a||r.a)}</td><td>${esc(r.nome_b||r.b)}</td><td class="${cls}">${c>0?'+':''}${c.toFixed(2)}</td></tr>`;
   }).join('')||'<tr><td colspan=3 class="cap">—</td></tr>';
 
   renderSeries(d.series||[],active);

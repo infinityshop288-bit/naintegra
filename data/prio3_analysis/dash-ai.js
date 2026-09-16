@@ -35,6 +35,23 @@ async function dashAIPatternAnalysis(context, seriesId) {
   return dashAIFetch("ai-dashboard", { type: "pattern_analysis", context, series_id: seriesId });
 }
 
+/** Sinal da IA (compra/neutro/venda) para cada papel da plataforma, em lotes. */
+async function dashAITickerSignals(papeis, horizonDias, macro, lote = 8) {
+  const sinais = [];
+  let provider = null;
+  for (let i = 0; i < papeis.length; i += lote) {
+    const r = await dashAIFetch("ai-dashboard", {
+      type: "ticker_signals",
+      papeis: papeis.slice(i, i + lote),
+      horizon_dias: horizonDias,
+      macro,
+    });
+    provider = provider || r.provider;
+    (r.sinais || []).forEach((s) => s.ticker && sinais.push({ ...s, provider: r.provider }));
+  }
+  return { sinais, provider };
+}
+
 /** Chat livre com analista de mercado. */
 async function dashAIChat(messages, system) {
   return dashAIFetch("ai-dashboard", { type: "chat", messages, system });
