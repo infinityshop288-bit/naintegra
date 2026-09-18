@@ -197,7 +197,10 @@ function renderSinais(ai,d){
     box.innerHTML='<div class="cap">Sem sinais por papel — clique em “Atualizar análise IA” ou aguarde o refresh diário.</div>';
     return;
   }
-  const porTicker={}; (d.series||[]).forEach(s=>{if(s.ticker)porTicker[s.ticker]=s;});
+  const porTicker={};
+  (d.series||[]).forEach(s=>{
+    if(s.ticker&&(s.categoria==='acoes_b3'||s.categoria==='fiis')) porTicker[s.ticker]=s;
+  });
   const ordem={compra:0,neutro:1,venda:2};
   const rows=[...sinais].sort((a,b)=>
     (ordem[a.sinal]??3)-(ordem[b.sinal]??3)||(b.confianca||0)-(a.confianca||0));
@@ -209,7 +212,8 @@ function renderSinais(ai,d){
     <thead><tr><th>Papel</th><th>Setor</th><th>Último</th><th>Tend.</th><th>Prev.</th><th>Sinal IA</th><th>Conf.</th><th>Tese</th></tr></thead>
     <tbody>${rows.map(r=>{const s=porTicker[r.ticker]||{};return `<tr>
       <td><b>${esc(r.ticker)}</b></td><td class="cap">${esc(s.setor||'—')}</td>
-      <td>${f2(s.ultimo)}</td><td>${trendBadge(s.tendencia)}</td><td>${pct(s.previsao_pct_horizonte)}</td>
+      <td title="Fechamento de ${esc(s.ultima_data)}">${f2(s.ultimo)}</td>
+      <td>${trendBadge(s.tendencia)}</td><td>${pct(s.previsao_pct_horizonte)}</td>
       <td>${sinalBadge(r.sinal)}</td><td>${r.confianca==null?'—':r.confianca+'%'}</td>
       <td class="cap" title="Risco: ${esc(r.risco)}">${esc(r.tese)}</td></tr>`;}).join('')}</tbody></table></div>`;
 }

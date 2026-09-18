@@ -23,6 +23,9 @@ from universe import FII_SETOR, UNIVERSE, yahoo_symbol
 ROOT = Path(__file__).resolve().parent
 HORIZON = 21
 CTX_MIN = 60
+# usar `period` em vez de start/end: com end=hoje o yfinance corta os últimos
+# pregões (limite exclusivo) e as séries ficavam 2 dias atrasadas
+PERIODO = "2y"
 CAT_ACOES = "acoes_b3"
 CAT_FIIS = "fiis"
 
@@ -37,13 +40,11 @@ _UA = {"User-Agent": "Mozilla/5.0 (research; prio3-ai-patterns)"}
 _TIMESFM = None
 
 
-def _fetch_yahoo(symbol: str, days: int = 400) -> pd.Series:
-    end = datetime.today()
-    start = end - timedelta(days=days + 10)
+def _fetch_yahoo(symbol: str, periodo: str = PERIODO) -> pd.Series:
     df = yf.download(
         symbol,
-        start=start.strftime("%Y-%m-%d"),
-        end=end.strftime("%Y-%m-%d"),
+        period=periodo,
+        interval="1d",
         auto_adjust=True,
         progress=False,
     )
@@ -56,10 +57,8 @@ def _fetch_yahoo(symbol: str, days: int = 400) -> pd.Series:
     return s.dropna()
 
 
-def _fetch_volume(symbol: str, days: int = 400) -> pd.Series:
-    end = datetime.today()
-    start = end - timedelta(days=days + 10)
-    df = yf.download(symbol, start=start.strftime("%Y-%m-%d"), end=end.strftime("%Y-%m-%d"), progress=False)
+def _fetch_volume(symbol: str, periodo: str = PERIODO) -> pd.Series:
+    df = yf.download(symbol, period=periodo, interval="1d", progress=False)
     if df.empty:
         return pd.Series(dtype=float)
     if isinstance(df.columns, pd.MultiIndex):
@@ -69,18 +68,16 @@ def _fetch_volume(symbol: str, days: int = 400) -> pd.Series:
     return s.replace(0, np.nan).dropna()
 
 
-def _fetch_many(symbols: list[str], days: int = 400) -> tuple[dict[str, pd.Series], dict[str, pd.Series]]:
+def _fetch_many(symbols: list[str], periodo: str = PERIODO) -> tuple[dict[str, pd.Series], dict[str, pd.Series]]:
     """Baixa fechamento e volume de vários símbolos numa só chamada."""
-    end = datetime.today()
-    start = end - timedelta(days=days + 10)
     closes: dict[str, pd.Series] = {}
     volumes: dict[str, pd.Series] = {}
     if not symbols:
         return closes, volumes
     df = yf.download(
         symbols,
-        start=start.strftime("%Y-%m-%d"),
-        end=end.strftime("%Y-%m-%d"),
+        period=periodo,
+        interval="1d",
         auto_adjust=True,
         progress=False,
         group_by="ticker",
@@ -501,10 +498,11 @@ def build_ai_patterns(engine: str = "auto") -> dict:
         v = volumes.get(yahoo_symbol(ticker), pd.Series(dtype=float))
         if v.empty:
             v = _fetch_volume(yahoo_symbol(ticker))
+        # `ticker` identifica apenas séries de preço: quem consome indexa por ele
         specs.append((
             f"{ticker.lower()}_volume",
             f"Volume {ticker} (demanda/liquidez)",
-            "demanda_vendas", v, "papéis", {"ticker": ticker},
+            "demanda_vendas", v, "papéis", {"ticker_base": ticker},
         ))
 
     items = []
