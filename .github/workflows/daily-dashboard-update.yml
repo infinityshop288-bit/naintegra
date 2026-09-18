@@ -10,6 +10,9 @@ on:
 
 permissions:
   contents: read
+  # habilita o GitHub Models para o GITHUB_TOKEN do job — a analise de IA roda
+  # sem chave propria de provedor
+  models: read
 
 jobs:
   update:
@@ -37,6 +40,12 @@ jobs:
           PRIO3_USE_TIMESFM: "0"
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          # provedores de IA: GITHUB_TOKEN sempre existe; os demais sao opcionais
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         run: bash scripts/daily_platform_update.sh
 
       - name: Detect deploy method

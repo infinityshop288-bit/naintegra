@@ -1,4 +1,9 @@
-"""Gera insights de IA via Supabase Edge Function ai-dashboard (batch diário)."""
+"""Gera insights de IA para o dashboard (batch diário).
+
+Chama os provedores de IA direto (ai_providers) quando há chave disponível —
+no GitHub Actions o GitHub Models atende com o token automático do job. Se não
+houver nenhuma chave, cai para a Edge Function ai-dashboard do Supabase.
+"""
 from __future__ import annotations
 
 import json
@@ -9,6 +14,8 @@ import urllib.error
 import urllib.request
 from datetime import datetime
 from pathlib import Path
+
+import ai_providers
 
 ROOT = Path(__file__).resolve().parent
 
@@ -74,6 +81,79 @@ def _papeis_do_contexto(ctx: dict) -> list[dict]:
     return out
 
 
+def _prompt_market(ctx: dict) -> str:
+    return f"""Você é analista quantitativo de mercado de capitais brasileiro (ações da B3, petróleo, FIIs, macro).
+
+O JSON abaixo cobre TODOS os papéis da plataforma (ações e FIIs) com previsões estatísticas/TimesFM, além de
+volatilidade, cripto e tráfego web. Considere o conjunto dos papéis — não apenas PRIO3 — e produza análise acionável.
+
+Retorne APENAS JSON válido (sem markdown) neste formato:
+{{
+  "resumo": "2-3 frases sobre o cenário do conjunto de papéis",
+  "riscos": ["risco 1", "risco 2"],
+  "oportunidades": ["oportunidade 1", "oportunidade 2"],
+  "series_destaque": [{{"id":"...", "leitura":"..."}}],
+  "papeis_destaque": [{{"ticker":"...", "leitura":"..."}}],
+  "leitura_setorial": "quais setores estão melhor/pior posicionados",
+  "macro_juros": "impacto de juros/Selic no cenário",
+  "cripto_fluxo": "leitura BTC/ETH vs emergentes",
+  "confianca": 0.0
+}}
+
+Dados:
+{json.dumps(ctx, ensure_ascii=False)[:20000]}"""
+
+
+def _prompt_patterns(ctx: dict) -> str:
+    return f"""Analise padrões temporais (preços de ações e FIIs, demanda via volume, volatilidade, tráfego web, cripto).
+Analise todas as categorias e todos os papéis.
+
+Retorne APENAS JSON:
+{{
+  "padroes_detectados": [{{"serie":"...", "padrao":"...", "impacto":"..."}}],
+  "regime_mercado": "risk-on|risk-off|neutro",
+  "sinal_prio3": "compra|venda|neutro|aguardar",
+  "papeis_em_destaque": [{{"ticker":"...", "padrao":"...", "sinal":"compra|venda|neutro|aguardar"}}],
+  "justificativa": "texto curto"
+}}
+
+Contexto:
+{json.dumps(ctx, ensure_ascii=False)[:18000]}"""
+
+
+def _prompt_signals(papeis: list[dict], horizonte, macro: str) -> str:
+    return f"""Avalie CADA papel da B3 abaixo (ações e FIIs) usando os dados quantitativos fornecidos:
+tendência, previsão do modelo em {horizonte or 21} pregões, regime de volatilidade e padrões técnicos detectados.
+
+Contexto macro: {macro[:800]}
+
+Retorne APENAS JSON válido (sem markdown), com exatamente um objeto por papel recebido e na mesma ordem:
+{{"sinais":[{{"ticker":"PRIO3","sinal":"compra|neutro|venda","confianca":0,"tese":"até 180 caracteres","risco":"até 120 caracteres"}}]}}
+
+Papéis:
+{json.dumps(papeis, ensure_ascii=False)[:12000]}"""
+
+
+def _analise(prompt: str, max_tokens: int, corpo_edge: dict) -> dict:
+    """Provedor direto quando há chave; Edge Function como reserva."""
+    erro_direto = None
+    if ai_providers.configurados():
+        try:
+            conteudo, provedor = ai_providers.gerar(prompt, max_tokens)
+            try:
+                out = _json_from_text(conteudo)
+            except Exception:  # noqa: BLE001
+                out = {"resumo": conteudo, "raw": True}
+            out["provider"] = provedor
+            return out
+        except Exception as e:  # noqa: BLE001
+            erro_direto = e
+    try:
+        return _invoke_retry("ai-dashboard", corpo_edge)
+    except Exception as e:  # noqa: BLE001
+        raise RuntimeError(f"direto: {erro_direto}; edge: {e}" if erro_direto else str(e)) from None
+
+
 def _json_from_text(txt: str) -> dict:
     t = (txt or "").strip()
     if t.startswith("```"):
@@ -100,7 +180,7 @@ def _sinais_por_papel(ctx: dict, lote: int = 8) -> tuple[list[dict], str | None]
             "macro": macro,
         }
         try:
-            resp = _invoke_retry("ai-dashboard", body)
+            resp = _analise(_prompt_signals(bloco, ctx.get("horizon_dias"), macro), 3072, body)
             linhas = resp.get("sinais")
             if not linhas:  # provedor devolveu texto em vez de JSON estruturado
                 linhas = (_json_from_text(str(resp.get("resumo") or ""))).get("sinais")
@@ -135,13 +215,18 @@ def _invoke(fn: str, body: dict) -> dict:
 
 
 def _invoke_retry(fn: str, body: dict, tries: int = 3, wait: float = 20.0) -> dict:
-    """Provedores de IA falham por cota/sobrecarga — tenta de novo antes de desistir."""
+    """Provedores de IA falham por cota/sobrecarga — tenta de novo antes de desistir.
+
+    Erros permanentes (402/403, p.ex. projeto restrito) não são repetidos.
+    """
     last: Exception | None = None
     for i in range(tries):
         try:
             return _invoke(fn, body)
         except Exception as e:  # noqa: BLE001
             last = e
+            if any(c in str(e) for c in ("HTTP 402", "HTTP 403", "HTTP 404")):
+                break
             if i < tries - 1:
                 time.sleep(wait * (i + 1))
     raise last  # type: ignore[misc]
@@ -161,26 +246,25 @@ def build_ai_insights(patterns_path: Path | None = None) -> dict:
         "papeis_analisados": patterns.get("papeis_analisados"),
     }
 
-    try:
-        providers = _invoke("ai-dashboard", {"type": "providers"})
-        out["providers"] = providers
-    except Exception as e:  # noqa: BLE001
-        out["providers_error"] = str(e)
+    diretos = ai_providers.configurados()
+    out["fonte"] = f"provedores diretos ({', '.join(diretos)})" if diretos else "supabase/ai-dashboard"
+    if diretos:
+        out["providers"] = {"priority": diretos, "configured_count": len(diretos)}
+    else:
+        try:
+            out["providers"] = _invoke("ai-dashboard", {"type": "providers"})
+        except Exception as e:  # noqa: BLE001
+            out["providers_error"] = str(e)
 
     try:
-        market = _invoke_retry("ai-dashboard", {"type": "market_insights", "context": ctx, "ai_provider": "gemini"})
+        market = _analise(_prompt_market(ctx), 4096, {"type": "market_insights", "context": ctx})
         out["market"] = market
         out["provider"] = market.get("provider")
-    except Exception as e1:  # noqa: BLE001
-        try:
-            market = _invoke_retry("ai-dashboard", {"type": "market_insights", "context": ctx})
-            out["market"] = market
-            out["provider"] = market.get("provider")
-        except Exception as e2:  # noqa: BLE001
-            out["market_error"] = f"{e1}; retry: {e2}"
+    except Exception as e:  # noqa: BLE001
+        out["market_error"] = str(e)
 
     try:
-        patterns_ai = _invoke_retry("ai-dashboard", {"type": "pattern_analysis", "context": ctx})
+        patterns_ai = _analise(_prompt_patterns(ctx), 2048, {"type": "pattern_analysis", "context": ctx})
         out["patterns"] = patterns_ai
         if not out.get("provider"):
             out["provider"] = patterns_ai.get("provider")
@@ -223,6 +307,10 @@ def main() -> None:
     prov = out.get("provider") or "offline"
     err = out.get("market_error") or out.get("patterns_error") or out.get("sinais_error")
     n = len(out.get("sinais") or [])
+    if out.get("stale"):
+        print(f"[AVISO] {path} · IA indisponível — mantidos {n} sinais de {out.get('gerado')}"
+              f" · motivo: {out.get('stale_motivo')}")
+        return
     print(f"[OK] {path} · provider={prov} · {n} papéis com sinal"
           + (f" · aviso: {err}" if err else ""))
 

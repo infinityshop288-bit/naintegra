@@ -288,7 +288,11 @@ async function loadAiInsights(patternsData, cached){
       const {sinais}=await dashAITickerSignals(papeisParaIA(d),d.horizon_dias,(d.insights||[]).join('; '));
       renderSinais({sinais},d);
     }catch(e){
-      document.getElementById('aiBox').insertAdjacentHTML('afterbegin',`<div class="callout warning"><p>Erro IA: ${e.message}</p></div>`);
+      const off=/restricted|402|Failed to fetch|HTTP 5/i.test(e.message||'');
+      document.getElementById('aiBox').insertAdjacentHTML('afterbegin',
+        `<div class="callout warning"><p>${off
+          ?'Serviço de IA sob demanda indisponível. A análise exibida é a do pipeline diário, que roda automaticamente após o fechamento.'
+          :'Erro IA: '+esc(e.message)}</p></div>`);
     }finally{btn.disabled=false;btn.textContent='Atualizar análise IA';}
   };
   document.getElementById('pgStatus').textContent='atualizado '+d.gerado+' · '+d.engine;
