@@ -197,9 +197,28 @@ def build_ai_insights(patterns_path: Path | None = None) -> dict:
     return out
 
 
+def _preservar_anterior(out: dict, path: Path) -> dict:
+    """Se a IA falhou, mantém a última análise boa em vez de publicar um stub vazio."""
+    if out.get("sinais") or not path.is_file():
+        return out
+    try:
+        antigo = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return out
+    if not antigo.get("sinais"):
+        return out
+    antigo["stale"] = True
+    antigo["stale_desde"] = out.get("gerado")
+    antigo["stale_motivo"] = (
+        out.get("market_error") or out.get("sinais_error") or out.get("providers_error") or "IA indisponível"
+    )[:300]
+    return antigo
+
+
 def main() -> None:
     out = build_ai_insights()
     path = ROOT / "ai_insights.json"
+    out = _preservar_anterior(out, path)
     path.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     prov = out.get("provider") or "offline"
     err = out.get("market_error") or out.get("patterns_error") or out.get("sinais_error")

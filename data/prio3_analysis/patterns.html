@@ -202,7 +202,10 @@ function renderSinais(ai,d){
   const rows=[...sinais].sort((a,b)=>
     (ordem[a.sinal]??3)-(ordem[b.sinal]??3)||(b.confianca||0)-(a.confianca||0));
   tag.textContent=`${sinais.length} papéis`;
-  box.innerHTML=`<div class="card"><table>
+  const aviso=ai.stale
+    ?`<div class="callout warning" style="margin-bottom:10px"><div class="t">Sinais de ${esc(ai.gerado)} — IA indisponível no último refresh</div><p class="ai-md">${esc(ai.stale_motivo||'')}</p></div>`
+    :'';
+  box.innerHTML=aviso+`<div class="card"><table>
     <thead><tr><th>Papel</th><th>Setor</th><th>Último</th><th>Tend.</th><th>Prev.</th><th>Sinal IA</th><th>Conf.</th><th>Tese</th></tr></thead>
     <tbody>${rows.map(r=>{const s=porTicker[r.ticker]||{};return `<tr>
       <td><b>${esc(r.ticker)}</b></td><td class="cap">${esc(s.setor||'—')}</td>

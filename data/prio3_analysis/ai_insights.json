@@ -389,5 +389,8 @@
       "risco": "Regime de volatilidade elevada pode intensificar a perda de preço.",
       "provider": "groq"
     }
-  ]
+  ],
+  "stale": true,
+  "stale_desde": "2026-09-18 10:29",
+  "stale_motivo": "Projeto Supabase restrito (exceed_db_size_quota) — IA indisponível no refresh de hoje"
 }
