@@ -21,6 +21,7 @@ import yfinance as yf
 from universe import FII_SETOR, UNIVERSE, yahoo_symbol
 
 ROOT = Path(__file__).resolve().parent
+CACHE = ROOT / "px_cache"
 HORIZON = 21
 CTX_MIN = 60
 # usar `period` em vez de start/end: com end=hoje o yfinance corta os últimos
@@ -68,23 +69,50 @@ def _fetch_volume(symbol: str, periodo: str = PERIODO) -> pd.Series:
     return s.replace(0, np.nan).dropna()
 
 
+def _cache_ler(symbol: str) -> pd.Series:
+    """Fechamentos salvos em disco — rede indisponível não zera a análise."""
+    p = CACHE / f"{symbol.replace('^', '_')}.csv"
+    if not p.is_file():
+        return pd.Series(dtype=float)
+    try:
+        df = pd.read_csv(p)
+        s = pd.to_numeric(df["Close"], errors="coerce")
+        s.index = pd.to_datetime(df["Date"], errors="coerce")
+        return s.dropna()
+    except Exception:  # noqa: BLE001
+        return pd.Series(dtype=float)
+
+
+def _cache_gravar(symbol: str, s: pd.Series) -> None:
+    try:
+        CACHE.mkdir(exist_ok=True)
+        s.rename("Close").to_frame().to_csv(CACHE / f"{symbol.replace('^', '_')}.csv", index_label="Date")
+    except Exception:  # noqa: BLE001
+        pass
+
+
 def _fetch_many(symbols: list[str], periodo: str = PERIODO) -> tuple[dict[str, pd.Series], dict[str, pd.Series]]:
-    """Baixa fechamento e volume de vários símbolos numa só chamada."""
+    """Baixa fechamento e volume de vários símbolos numa só chamada.
+
+    O Yahoo estrangula rajadas de requisição; o que voltar vazio é lido do cache
+    em disco, senão a análise degrada silenciosamente para poucas séries.
+    """
     closes: dict[str, pd.Series] = {}
     volumes: dict[str, pd.Series] = {}
     if not symbols:
         return closes, volumes
-    df = yf.download(
-        symbols,
-        period=periodo,
-        interval="1d",
-        auto_adjust=True,
-        progress=False,
-        group_by="ticker",
-        threads=True,
-    )
-    if df.empty:
-        return closes, volumes
+    try:
+        df = yf.download(
+            symbols,
+            period=periodo,
+            interval="1d",
+            auto_adjust=True,
+            progress=False,
+            group_by="ticker",
+            threads=True,
+        )
+    except Exception:  # noqa: BLE001
+        df = pd.DataFrame()
     multi = isinstance(df.columns, pd.MultiIndex)
     for sym in symbols:
         try:
@@ -93,12 +121,17 @@ def _fetch_many(symbols: list[str], periodo: str = PERIODO) -> tuple[dict[str, p
             if len(c):
                 c.index = pd.to_datetime(c.index).tz_localize(None)
                 closes[sym] = c
+                _cache_gravar(sym, c)
             v = pd.to_numeric(sub["Volume"], errors="coerce").replace(0, np.nan).dropna()
             if len(v):
                 v.index = pd.to_datetime(v.index).tz_localize(None)
                 volumes[sym] = v
         except Exception:  # noqa: BLE001
-            continue
+            pass
+        if sym not in closes:
+            em_cache = _cache_ler(sym)
+            if len(em_cache):
+                closes[sym] = em_cache
     return closes, volumes
 
 
@@ -589,11 +622,39 @@ def build_ai_patterns(engine: str = "auto") -> dict:
     }
 
 
+def _degradado(out: dict, path: Path) -> dict | None:
+    """Análise com menos da metade dos papéis do universo é falha de coleta.
+
+    Nesse caso mantém a última boa em vez de publicar um painel vazio.
+    """
+    if out.get("papeis_analisados", 0) >= len(UNIVERSE) // 2 or not path.is_file():
+        return None
+    try:
+        antigo = json.loads(path.read_text(encoding="utf-8"))
+    except Exception:  # noqa: BLE001
+        return None
+    if antigo.get("papeis_analisados", 0) <= out.get("papeis_analisados", 0):
+        return None
+    antigo["stale"] = True
+    antigo["stale_desde"] = out.get("gerado")
+    antigo["stale_motivo"] = (
+        f"coleta de preços falhou: {out.get('papeis_analisados', 0)} de {len(UNIVERSE)} papéis"
+    )
+    return antigo
+
+
 def main() -> None:
     out = build_ai_patterns()
     path = ROOT / "ai_patterns.json"
+    antigo = _degradado(out, path)
+    if antigo:
+        path.write_text(json.dumps(antigo, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+        print(f"[AVISO] {path} — {antigo['stale_motivo']}; mantida análise de {antigo['gerado']}"
+              f" com {antigo['papeis_analisados']} papéis")
+        return
     path.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(f"[OK] {path} — {len(out['series'])} séries · engine={out['engine']}")
+    print(f"[OK] {path} — {len(out['series'])} séries · {out.get('papeis_analisados', 0)} papéis"
+          f" · engine={out['engine']}")
 
 
 if __name__ == "__main__":

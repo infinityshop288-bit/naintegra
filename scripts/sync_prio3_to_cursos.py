@@ -64,6 +64,12 @@ def main() -> int:
     if not (cursos / ".git").is_dir():
         raise SystemExit(f"Repo naintegracursos não encontrado: {cursos}")
 
+    if args.push:
+        # o CI também publica nesse repo; parte do que o remoto tem para o
+        # bundle local (fonte da verdade de public/xxx) entrar por cima
+        run(["git", "fetch", "origin", "main"], cwd=cursos)
+        run(["git", "reset", "--hard", "origin/main"], cwd=cursos)
+
     n = sync_to_cursos(src, cursos)
     print(f"Sincronizado → {cursos / 'public' / 'xxx'} ({n} arquivos)", flush=True)
 

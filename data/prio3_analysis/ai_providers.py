@@ -17,18 +17,22 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parents[1]
 
-PRIORIDADE = ("groq", "github", "gemini", "openrouter", "claude")
+PRIORIDADE = ("groq", "gemini", "openrouter", "claude", "ollama", "github")
 
 CHAVES = {
     "groq": "GROQ_API_KEY",
-    "github": "GITHUB_TOKEN",
     "gemini": "GEMINI_API_KEY",
     "openrouter": "OPENROUTER_API_KEY",
     "claude": "ANTHROPIC_API_KEY",
+    "ollama": "",  # modelo local: disponibilidade é checada no servidor, não por chave
+    "github": "GITHUB_TOKEN",
 }
+
+OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
 
 MODELOS = {
     "groq": "llama-3.3-70b-versatile",
+    "ollama": "llama3.2:3b",
     "github": "openai/gpt-4o-mini",
     "gemini": "gemini-2.5-flash",
     "openrouter": "meta-llama/llama-3.3-70b-instruct",
@@ -85,17 +89,25 @@ def _post(url: str, payload: dict, headers: dict, timeout: int = 180) -> dict:
     )
     try:
         with urllib.request.urlopen(req, timeout=timeout, context=_SSL) as r:
-            return json.loads(r.read().decode("utf-8"))
+            status, corpo = r.status, r.read().decode("utf-8", "replace")
     except urllib.error.HTTPError as e:
         detalhe = e.read().decode("utf-8", "replace")[:200]
         raise RuntimeError(f"{e.code}: {detalhe}") from None
+    if not corpo.strip():
+        raise RuntimeError(f"{status}: resposta vazia")
+    try:
+        return json.loads(corpo)
+    except json.JSONDecodeError:
+        raise RuntimeError(f"{status}: resposta não-JSON: {corpo[:200]}") from None
 
 
-def _openai_like(url: str, key: str, modelo: str, msgs: list[dict], max_tokens: int) -> str:
+def _openai_like(
+    url: str, key: str, modelo: str, msgs: list[dict], max_tokens: int, extra: dict | None = None
+) -> str:
     data = _post(
         url,
         {"model": modelo, "max_tokens": max_tokens, "messages": msgs, "temperature": 0.7},
-        {"Authorization": f"Bearer {key}"},
+        {"Authorization": f"Bearer {key}", **(extra or {})},
     )
     return (data.get("choices") or [{}])[0].get("message", {}).get("content") or ""
 
@@ -138,7 +150,11 @@ def _github(msgs: list[dict], max_tokens: int) -> str:
     if not key:
         raise RuntimeError("GITHUB_TOKEN ausente")
     modelo = os.environ.get("GITHUB_MODEL") or MODELOS["github"]
-    return _openai_like("https://models.github.ai/inference/chat/completions", key, modelo, msgs, max_tokens)
+    # o gateway do GitHub responde vazio sem os cabeçalhos REST dele
+    cabecalhos = {"Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"}
+    return _openai_like(
+        "https://models.github.ai/inference/chat/completions", key, modelo, msgs, max_tokens, cabecalhos
+    )
 
 
 def _openrouter(msgs: list[dict], max_tokens: int) -> str:
@@ -171,6 +187,35 @@ def _gemini(msgs: list[dict], max_tokens: int) -> str:
     return partes[0].get("text") or ""
 
 
+def _ollama_modelos() -> list[str]:
+    """Modelos de chat servidos pelo Ollama local (vazio se não estiver rodando)."""
+    try:
+        with urllib.request.urlopen(f"{OLLAMA_URL}/api/tags", timeout=3) as r:
+            nomes = [m.get("name", "") for m in (json.loads(r.read().decode()).get("models") or [])]
+    except Exception:  # noqa: BLE001
+        return []
+    return [n for n in nomes if n and "embed" not in n]
+
+
+def _ollama(msgs: list[dict], max_tokens: int) -> str:
+    disponiveis = _ollama_modelos()
+    if not disponiveis:
+        raise RuntimeError("Ollama não está rodando")
+    preferido = os.environ.get("OLLAMA_MODEL") or MODELOS["ollama"]
+    modelo = preferido if preferido in disponiveis else disponiveis[0]
+    pede_json = any("APENAS JSON" in m["content"] or "JSON válido" in m["content"] for m in msgs)
+    payload = {
+        "model": modelo,
+        "messages": msgs,
+        "stream": False,
+        "options": {"temperature": 0.3, "num_predict": max_tokens},
+    }
+    if pede_json:
+        payload["format"] = "json"
+    data = _post(f"{OLLAMA_URL}/api/chat", payload, {}, timeout=900)
+    return (data.get("message") or {}).get("content") or ""
+
+
 def _claude(msgs: list[dict], max_tokens: int) -> str:
     key = _do_env("ANTHROPIC_API_KEY")
     if not key:
@@ -192,15 +237,25 @@ def _claude(msgs: list[dict], max_tokens: int) -> str:
 
 _FUNCOES = {
     "groq": _groq,
-    "github": _github,
     "gemini": _gemini,
     "openrouter": _openrouter,
     "claude": _claude,
+    "ollama": _ollama,
+    "github": _github,
 }
 
 
+def _disponivel(p: str) -> bool:
+    return bool(_ollama_modelos()) if p == "ollama" else bool(_do_env(CHAVES[p]))
+
+
 def configurados() -> list[str]:
-    return [p for p in PRIORIDADE if _do_env(CHAVES[p])]
+    return [p for p in PRIORIDADE if _disponivel(p)]
+
+
+def somente_local() -> bool:
+    """True quando o único provedor é o modelo local (limita o tamanho dos lotes)."""
+    return configurados() == ["ollama"]
 
 
 def chat(msgs: list[dict], max_tokens: int = 2048, preferido: str | None = None) -> tuple[str, str]:
@@ -208,7 +263,7 @@ def chat(msgs: list[dict], max_tokens: int = 2048, preferido: str | None = None)
     ordem = ([preferido] if preferido in _FUNCOES else []) + [p for p in PRIORIDADE if p != preferido]
     erros = []
     for p in ordem:
-        if not _do_env(CHAVES[p]):
+        if not _disponivel(p):
             continue
         try:
             out = _FUNCOES[p](msgs, max_tokens)

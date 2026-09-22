@@ -37,16 +37,28 @@ def load_csv(csv: str) -> pd.Series:
 
 
 def load_prices(ticker: str) -> pd.Series:
+    """Preços do ticker: baixa do Yahoo e usa o CSV local só como reserva.
+
+    O CSV é cache, não fonte: tratá-lo como fonte congelava a análise no dia
+    em que o arquivo foi criado.
+    """
     csv = ROOT / f"raw_{ticker}.csv"
-    if csv.is_file():
-        return load_csv(csv.name)
+    reserva = load_csv(csv.name) if csv.is_file() else pd.Series(dtype=float)
     import yfinance as yf
 
-    d = yf.download(f"{ticker}.SA", period="5y", interval="1d",
-                    progress=False, auto_adjust=True)
-    s = d["Close"].dropna()
+    try:
+        d = yf.download(f"{ticker}.SA", period="5y", interval="1d",
+                        progress=False, auto_adjust=True)
+        s = d["Close"].dropna()
+    except Exception:  # noqa: BLE001
+        s = pd.Series(dtype=float)
     if isinstance(s, pd.DataFrame):
         s = s.iloc[:, 0]
+    if not len(s):
+        if not len(reserva):
+            raise SystemExit(f"sem preços para {ticker} (Yahoo falhou e não há cache)")
+        print(f"  [aviso] {ticker}: Yahoo sem dados, usando cache até {reserva.index[-1].date()}")
+        return reserva
     s.index = pd.to_datetime(s.index).tz_localize(None)
     s.rename("Close").to_frame().to_csv(csv, index_label="Date")
     return s
@@ -118,11 +130,15 @@ def build(ticker: str) -> dict:
     }
 
 
+# painel, export e build já consomem brav_analysis.json (sem o "3")
+ARQUIVO_LEGADO = {"BRAV3": "brav_analysis.json"}
+
+
 def main() -> None:
     tickers = sys.argv[1:] or ["PETR4"]
     for tk in tickers:
         out = build(tk)
-        path = ROOT / f"{tk.lower()}_analysis.json"
+        path = ROOT / ARQUIVO_LEGADO.get(tk, f"{tk.lower()}_analysis.json")
         path.write_text(json.dumps(out, indent=2, ensure_ascii=False))
         print(f"salvo {path.name} | {tk} R$ {out['snapshot']['preco']} · "
               f"tendência {out['tecnicos']['tendencia']}")

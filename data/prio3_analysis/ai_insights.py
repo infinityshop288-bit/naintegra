@@ -10,6 +10,7 @@ import json
 import os
 import ssl
 import time
+import unicodedata
 import urllib.error
 import urllib.request
 from datetime import datetime
@@ -19,10 +20,10 @@ import ai_providers
 
 ROOT = Path(__file__).resolve().parent
 
-SUPABASE_URL = os.environ.get("SUPABASE_URL", "https://voybsggeedpwcfdadnzt.supabase.co").rstrip("/")
-SUPABASE_ANON_KEY = os.environ.get(
-    "SUPABASE_ANON_KEY",
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZveWJzZ2dlZWRwd2NmZGFkbnp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNzU2MTQsImV4cCI6MjA4ODc1MTYxNH0.dy5AgSd1VWdP4WLGXy5V89pA4jgHijngHJjScApOo70",
+# secret vazio no CI vira string vazia — por isso `or` em vez de default do get
+SUPABASE_URL = (os.environ.get("SUPABASE_URL") or "https://voybsggeedpwcfdadnzt.supabase.co").rstrip("/")
+SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY") or (
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZveWJzZ2dlZWRwd2NmZGFkbnp0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMxNzU2MTQsImV4cCI6MjA4ODc1MTYxNH0.dy5AgSd1VWdP4WLGXy5V89pA4jgHijngHJjScApOo70"
 )
 
 try:
@@ -154,6 +155,21 @@ def _analise(prompt: str, max_tokens: int, corpo_edge: dict) -> dict:
         raise RuntimeError(f"direto: {erro_direto}; edge: {e}" if erro_direto else str(e)) from None
 
 
+def _pares_mesclados(pares: list[tuple]) -> dict:
+    """Modelos pequenos repetem a mesma chave em vez de acumular na lista.
+
+    Sem isso o json.loads mantém só a última ocorrência e o lote inteiro se perde.
+    """
+    out: dict = {}
+    for k, v in pares:
+        chave = unicodedata.normalize("NFKD", str(k)).encode("ascii", "ignore").decode().lower()
+        if chave in out and isinstance(out[chave], list) and isinstance(v, list):
+            out[chave].extend(v)
+        else:
+            out[chave] = v
+    return out
+
+
 def _json_from_text(txt: str) -> dict:
     t = (txt or "").strip()
     if t.startswith("```"):
@@ -162,11 +178,27 @@ def _json_from_text(txt: str) -> dict:
     i, j = t.find("{"), t.rfind("}")
     if i < 0 or j <= i:
         raise ValueError("sem JSON na resposta")
-    return json.loads(t[i : j + 1])
+    d = json.loads(t[i : j + 1], object_pairs_hook=_pares_mesclados)
+    if "sinais" not in d and isinstance(d.get("signals"), list):
+        d["sinais"] = d.pop("signals")
+    return d
 
 
-def _sinais_por_papel(ctx: dict, lote: int = 8) -> tuple[list[dict], str | None]:
+def _sinal_valido(row: dict, tickers: set[str]) -> bool:
+    """Descarta respostas em que o modelo repetiu o esquema em vez de preenchê-lo."""
+    if not isinstance(row, dict) or row.get("ticker") not in tickers:
+        return False
+    if str(row.get("sinal", "")).strip().lower() not in ("compra", "neutro", "venda"):
+        return False
+    tese = str(row.get("tese") or "")
+    return len(tese) >= 15 and "caracteres" not in tese.lower()
+
+
+def _sinais_por_papel(ctx: dict, lote: int | None = None) -> tuple[list[dict], str | None]:
     """Sinal da IA para cada papel da plataforma, em lotes para caber no prompt."""
+    if lote is None:
+        # modelo local pequeno perde precisão em lotes grandes
+        lote = 4 if ai_providers.somente_local() else 8
     papeis = _papeis_do_contexto(ctx)
     macro = "; ".join(ctx.get("insights") or [])[:600]
     sinais: list[dict] = []
@@ -184,8 +216,9 @@ def _sinais_por_papel(ctx: dict, lote: int = 8) -> tuple[list[dict], str | None]
             linhas = resp.get("sinais")
             if not linhas:  # provedor devolveu texto em vez de JSON estruturado
                 linhas = (_json_from_text(str(resp.get("resumo") or ""))).get("sinais")
+            tickers_bloco = {p["ticker"] for p in bloco}
             for row in linhas or []:
-                if row.get("ticker"):
+                if _sinal_valido(row, tickers_bloco):
                     row["provider"] = resp.get("provider")
                     sinais.append(row)
         except Exception as e:  # noqa: BLE001
