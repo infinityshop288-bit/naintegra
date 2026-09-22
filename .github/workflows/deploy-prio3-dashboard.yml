@@ -9,9 +9,9 @@ on:
       - "scripts/export_prio3_snapshots.py"
       - "scripts/deploy_prio3_hostinger.py"
       - ".github/workflows/deploy-prio3-dashboard.yml"
-  schedule:
-    # Atualiza cotações/snapshots a cada 15 min (horário comercial BR, seg–sex)
-    - cron: "*/15 11-21 * * 1-5"
+  # sem agendamento: só publica por FTPS e as credenciais não estão no CI, então
+  # os runs agendados gastavam um build completo sem publicar nada. Quem mantém
+  # o /xxx atualizado é o sync-prio3-to-cursos (via naintegracursos).
   workflow_dispatch:
     inputs:
       refresh:
@@ -95,3 +95,4 @@ jobs:
           echo "HTTP $code for /xxx/painel.html (com auth)"
           if [ "$code" != "200" ]; then
             echo "::warning::CDN pode levar alguns minutos; verifique .htpasswd e HTPASSWD_ABS_PATH no hPanel."
+          fi

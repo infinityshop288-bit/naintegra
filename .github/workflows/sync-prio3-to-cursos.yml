@@ -10,8 +10,11 @@ on:
       - "scripts/sync_prio3_to_cursos.py"
       - ".github/workflows/sync-prio3-to-cursos.yml"
   schedule:
-    # Snapshots de mercado a cada 15 min (seg–sex, horário BR ~11–21 UTC)
-    - cron: "*/5 10-22 * * 1-5"
+    # Snapshots de mercado 2x/hora (seg–sex, ~07h–19h BRT).
+    # O agendador do GitHub é best-effort e descarta a maior parte dos eventos
+    # de crons muito curtos: com */5 chegavam ~3 execuções/dia. Minutos fora da
+    # virada da hora (pico da fila) são atendidos com bem mais regularidade.
+    - cron: "7,37 10-22 * * 1-5"
   workflow_dispatch:
     inputs:
       refresh:
@@ -121,3 +124,4 @@ jobs:
           echo "HTTP $code for /xxx/painel.html"
           if [ "$code" != "200" ]; then
             echo "::warning::Hostinger pode levar alguns minutos para publicar o commit."
+          fi
