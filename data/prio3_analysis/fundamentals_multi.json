@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-08-22 13:00",
+  "atualizado": "2026-09-22 11:30",
   "fonte": "Yahoo Finance (info + DRE trimestral)",
   "empresas": {
     "PRIO3": {
@@ -7,12 +7,13 @@
       "setor": "Óleo & Gás",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 13.32,
-        "pl_proj": 6.9,
-        "pvp": 1.78,
-        "psr": 2.35,
-        "ev_ebitda": 5.7,
+        "pl": 12.69,
+        "pl_proj": 6.66,
+        "pvp": 1.71,
+        "psr": 2.26,
+        "ev_ebitda": 5.59,
         "dy": null,
         "roe": 14.22,
         "margem_liq": 18.11,
@@ -22,18 +23,18 @@
         "cresc_receita": 110.8,
         "cresc_lucro": 189.4,
         "liq_corrente": 1.34,
-        "market_cap": 50122149888.0,
+        "market_cap": 48256028672.0,
         "vpa": 35.35
       },
-      "score": 31,
+      "score": 33,
       "tag": "SÓLIDA",
       "componentes": {
-        "valor": 15,
+        "valor": 18,
         "qualidade": 17,
         "crescimento": 100,
         "saude": 7
       },
-      "leitura": "Fundamentos sólidos — P/L 13.3, P/VP 1.8, ROE 14%, margem líq. 18%, dív/PL 0.9x. Último tri vs 1 ano: receita +111%, lucro +188% a/a.",
+      "leitura": "Fundamentos sólidos — P/L 12.7, P/VP 1.7, ROE 14%, margem líq. 18%, dív/PL 0.9x. Último tri vs 1 ano: receita +111%, lucro +188% a/a.",
       "yoy": {
         "receita_pct": 110.8,
         "lucro_pct": 187.8,
@@ -115,13 +116,14 @@
       "setor": "Óleo & Gás",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 188.0,
-        "pl_proj": 5.34,
-        "pvp": 0.71,
-        "psr": 0.71,
-        "ev_ebitda": 4.9,
-        "dy": 0.66,
+        "pl": 177.5,
+        "pl_proj": 7.01,
+        "pvp": 0.67,
+        "psr": 0.67,
+        "ev_ebitda": 4.76,
+        "dy": 0.71,
         "roe": 0.44,
         "margem_liq": 0.44,
         "margem_bruta": 27.53,
@@ -130,22 +132,22 @@
         "cresc_receita": 14.5,
         "cresc_lucro": -17.3,
         "liq_corrente": 1.26,
-        "market_cap": 8733410304.0,
+        "market_cap": 8245640192.0,
         "vpa": 26.44
       },
       "score": -23,
       "tag": "ATENÇÃO",
       "componentes": {
-        "valor": -12,
+        "valor": -11,
         "qualidade": -45,
         "crescimento": 9,
         "saude": -38
       },
-      "leitura": "Fundamentos exigem atenção — P/L 188.0, P/VP 0.7, ROE 0%, margem líq. 0%, dív/PL 1.5x, DY 0.7%. Último tri vs 1 ano: receita +9%, lucro -142% a/a.",
+      "leitura": "Fundamentos exigem atenção — P/L 177.5, P/VP 0.7, ROE 0%, margem líq. 0%, dív/PL 1.5x, DY 0.7%. Último tri vs 1 ano: receita +14%, lucro -17% a/a.",
       "yoy": {
-        "receita_pct": 9.1,
-        "lucro_pct": -142.2,
-        "base": "2025T1"
+        "receita_pct": 14.5,
+        "lucro_pct": -17.0,
+        "base": "2025T2"
       },
       "ttm": {
         "receita": null,
@@ -156,11 +158,11 @@
         {
           "periodo": "2024T4",
           "data": "2024-12-31",
-          "receita": 1.95,
-          "lucro": -1.028,
-          "ebitda": -0.083,
-          "margem_liq": -52.7,
-          "margem_ebitda": -4.2
+          "receita": null,
+          "lucro": null,
+          "ebitda": null,
+          "margem_liq": null,
+          "margem_ebitda": null
         },
         {
           "periodo": "2025T1",
@@ -176,9 +178,9 @@
           "data": "2025-06-30",
           "receita": 3.142,
           "lucro": 1.049,
-          "ebitda": 2.706,
+          "ebitda": 2.568,
           "margem_liq": 33.4,
-          "margem_ebitda": 86.1
+          "margem_ebitda": 81.7
         },
         {
           "periodo": "2025T3",
@@ -206,6 +208,115 @@
           "ebitda": 0.725,
           "margem_liq": -11.2,
           "margem_ebitda": 23.1
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 3.598,
+          "lucro": 0.871,
+          "ebitda": 2.522,
+          "margem_liq": 24.2,
+          "margem_ebitda": 70.1
+        }
+      ]
+    },
+    "PETR4": {
+      "nome": "Petrobras PN",
+      "setor": "Óleo & Gás",
+      "moeda": "BRL",
+      "is_financeira": false,
+      "is_fii": false,
+      "indicadores": {
+        "pl": 4.73,
+        "pl_proj": 4.86,
+        "pvp": 1.29,
+        "psr": 1.2,
+        "ev_ebitda": 3.84,
+        "dy": 9.03,
+        "roe": 30.27,
+        "margem_liq": 24.32,
+        "margem_bruta": 50.6,
+        "margem_ebitda": 44.31,
+        "div_pl": 76.07,
+        "cresc_receita": 42.3,
+        "cresc_lucro": 96.8,
+        "liq_corrente": 0.85,
+        "market_cap": 656120610816.0,
+        "vpa": 37.32
+      },
+      "score": 65,
+      "tag": "FORTE",
+      "componentes": {
+        "valor": 59,
+        "qualidade": 70,
+        "crescimento": 100,
+        "saude": 17
+      },
+      "leitura": "Fundamentos fortes — P/L 4.7, P/VP 1.3, ROE 30%, margem líq. 24%, dív/PL 0.8x, DY 9.0%. Último tri vs 1 ano: receita +60%, lucro +120% a/a.",
+      "yoy": {
+        "receita_pct": 59.8,
+        "lucro_pct": 120.3,
+        "base": "2025T2"
+      },
+      "ttm": {
+        "receita": 104.175,
+        "lucro": 25.555,
+        "margem_liq": 24.5
+      },
+      "trimestres": [
+        {
+          "periodo": "2025T1",
+          "data": "2025-03-31",
+          "receita": null,
+          "lucro": null,
+          "ebitda": null,
+          "margem_liq": null,
+          "margem_ebitda": null
+        },
+        {
+          "periodo": "2025T2",
+          "data": "2025-06-30",
+          "receita": 21.037,
+          "lucro": 4.734,
+          "ebitda": 11.14,
+          "margem_liq": 22.5,
+          "margem_ebitda": 53.0
+        },
+        {
+          "periodo": "2025T3",
+          "data": "2025-09-30",
+          "receita": 23.477,
+          "lucro": 6.027,
+          "ebitda": 13.47,
+          "margem_liq": 25.7,
+          "margem_ebitda": 57.4
+        },
+        {
+          "periodo": "2025T4",
+          "data": "2025-12-31",
+          "receita": 23.608,
+          "lucro": 2.899,
+          "ebitda": 8.117,
+          "margem_liq": 12.3,
+          "margem_ebitda": 34.4
+        },
+        {
+          "periodo": "2026T1",
+          "data": "2026-03-31",
+          "receita": 23.483,
+          "lucro": 6.201,
+          "ebitda": 13.361,
+          "margem_liq": 26.4,
+          "margem_ebitda": 56.9
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 33.607,
+          "lucro": 10.428,
+          "ebitda": 19.276,
+          "margem_liq": 31.0,
+          "margem_ebitda": 57.4
         }
       ]
     },
@@ -214,13 +325,14 @@
       "setor": "Varejo",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 37.82,
-        "pl_proj": 5.14,
-        "pvp": 0.29,
-        "psr": 0.08,
-        "ev_ebitda": 6.9,
-        "dy": 0.63,
+        "pl": 54.36,
+        "pl_proj": 7.38,
+        "pvp": 0.42,
+        "psr": 0.12,
+        "ev_ebitda": 7.87,
+        "dy": 0.43,
         "roe": 0.8,
         "margem_liq": 0.23,
         "margem_bruta": 29.88,
@@ -229,22 +341,22 @@
         "cresc_receita": -2.6,
         "cresc_lucro": null,
         "liq_corrente": 1.1,
-        "market_cap": 3226738944.0,
+        "market_cap": 4638583296.0,
         "vpa": 14.4
       },
-      "score": -18,
+      "score": -20,
       "tag": "ATENÇÃO",
       "componentes": {
-        "valor": -11,
+        "valor": -15,
         "qualidade": -44,
         "crescimento": -10,
         "saude": 17
       },
-      "leitura": "Fundamentos exigem atenção — P/L 37.8, P/VP 0.3, ROE 1%, margem líq. 0%, dív/PL 0.8x, DY 0.6%. Último tri vs 1 ano: receita -2%, lucro -523% a/a.",
+      "leitura": "Fundamentos exigem atenção — P/L 54.4, P/VP 0.4, ROE 1%, margem líq. 0%, dív/PL 0.8x, DY 0.4%. Último tri vs 1 ano: receita -3%, lucro +200% a/a.",
       "yoy": {
-        "receita_pct": -1.9,
-        "lucro_pct": -523.1,
-        "base": "2025T1"
+        "receita_pct": -2.6,
+        "lucro_pct": 200.0,
+        "base": "2025T2"
       },
       "ttm": {
         "receita": null,
@@ -255,11 +367,11 @@
         {
           "periodo": "2024T4",
           "data": "2024-12-31",
-          "receita": 10.787,
-          "lucro": 0.295,
-          "ebitda": 0.678,
-          "margem_liq": 2.7,
-          "margem_ebitda": 6.3
+          "receita": null,
+          "lucro": null,
+          "ebitda": null,
+          "margem_liq": null,
+          "margem_ebitda": null
         },
         {
           "periodo": "2025T1",
@@ -305,6 +417,15 @@
           "ebitda": 0.398,
           "margem_liq": -0.6,
           "margem_ebitda": 4.3
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 8.899,
+          "lucro": -0.072,
+          "ebitda": 0.38,
+          "margem_liq": -0.8,
+          "margem_ebitda": 4.3
         }
       ]
     },
@@ -313,13 +434,14 @@
       "setor": "Varejo",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 7.69,
-        "pl_proj": 6.42,
-        "pvp": 1.02,
-        "psr": 0.66,
-        "ev_ebitda": 5.13,
-        "dy": 8.35,
+        "pl": 7.65,
+        "pl_proj": 6.73,
+        "pvp": 1.06,
+        "psr": 0.68,
+        "ev_ebitda": 5.38,
+        "dy": 7.94,
         "roe": 14.46,
         "margem_liq": 9.35,
         "margem_bruta": 61.99,
@@ -328,18 +450,18 @@
         "cresc_receita": 0.8,
         "cresc_lucro": 3.2,
         "liq_corrente": 1.69,
-        "market_cap": 10560473088.0,
+        "market_cap": 10881417216.0,
         "vpa": 10.79
       },
       "score": 25,
       "tag": "SÓLIDA",
       "componentes": {
-        "valor": 50,
+        "valor": 48,
         "qualidade": 6,
         "crescimento": 6,
         "saude": 48
       },
-      "leitura": "Fundamentos sólidos — P/L 7.7, P/VP 1.0, ROE 14%, margem líq. 9%, dív/PL 0.3x, DY 8.3%. Último tri vs 1 ano: receita +29%, lucro +83% a/a.",
+      "leitura": "Fundamentos sólidos — P/L 7.7, P/VP 1.1, ROE 14%, margem líq. 9%, dív/PL 0.3x, DY 7.9%. Último tri vs 1 ano: receita +29%, lucro +83% a/a.",
       "yoy": {
         "receita_pct": 28.9,
         "lucro_pct": 83.3,
@@ -412,13 +534,14 @@
       "setor": "Energia elétrica",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 65.04,
-        "pl_proj": 21.68,
-        "pvp": 1.72,
-        "psr": 0.82,
-        "ev_ebitda": 8.88,
-        "dy": 6.63,
+        "pl": 71.93,
+        "pl_proj": 24.41,
+        "pvp": 1.93,
+        "psr": 0.92,
+        "ev_ebitda": 9.35,
+        "dy": 5.9,
         "roe": 5.0,
         "margem_liq": 1.75,
         "margem_bruta": 24.33,
@@ -427,46 +550,46 @@
         "cresc_receita": 10.2,
         "cresc_lucro": -54.9,
         "liq_corrente": 1.57,
-        "market_cap": 44937805824.0,
+        "market_cap": 50603712512.0,
         "vpa": 20.82
       },
-      "score": -38,
+      "score": -39,
       "tag": "ATENÇÃO",
       "componentes": {
-        "valor": -30,
+        "valor": -35,
         "qualidade": -30,
         "crescimento": -23,
         "saude": -89
       },
-      "leitura": "Fundamentos exigem atenção — P/L 65.0, P/VP 1.7, ROE 5%, margem líq. 2%, dív/PL 2.3x, DY 6.6%. Último tri vs 1 ano: receita +11%, lucro -24% a/a.",
+      "leitura": "Fundamentos exigem atenção — P/L 71.9, P/VP 1.9, ROE 5%, margem líq. 2%, dív/PL 2.3x, DY 5.9%. Último tri vs 1 ano: receita +10%, lucro -55% a/a.",
       "yoy": {
-        "receita_pct": 11.3,
-        "lucro_pct": -23.7,
-        "base": "2025T1"
+        "receita_pct": 9.6,
+        "lucro_pct": -54.8,
+        "base": "2025T2"
       },
       "ttm": {
-        "receita": 50.143,
-        "lucro": 1.547,
-        "margem_liq": 3.1
+        "receita": 50.95,
+        "lucro": 0.958,
+        "margem_liq": 1.9
       },
       "trimestres": [
         {
           "periodo": "2025T1",
           "data": "2025-03-31",
-          "receita": 10.767,
-          "lucro": 0.556,
-          "ebitda": 2.663,
-          "margem_liq": 5.2,
-          "margem_ebitda": 24.7
+          "receita": null,
+          "lucro": null,
+          "ebitda": null,
+          "margem_liq": null,
+          "margem_ebitda": null
         },
         {
           "periodo": "2025T2",
           "data": "2025-06-30",
-          "receita": 12.123,
+          "receita": 11.793,
           "lucro": 1.074,
-          "ebitda": 3.678,
-          "margem_liq": 8.9,
-          "margem_ebitda": 30.3
+          "ebitda": 3.435,
+          "margem_liq": 9.1,
+          "margem_ebitda": 29.1
         },
         {
           "periodo": "2025T3",
@@ -494,6 +617,15 @@
           "ebitda": 2.886,
           "margem_liq": 3.5,
           "margem_ebitda": 24.1
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 12.93,
+          "lucro": 0.485,
+          "ebitda": 3.1,
+          "margem_liq": 3.8,
+          "margem_ebitda": 24.0
         }
       ]
     },
@@ -502,13 +634,14 @@
       "setor": "Energia elétrica",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 6.24,
-        "pl_proj": 8.67,
-        "pvp": 0.98,
-        "psr": 0.66,
-        "ev_ebitda": 6.13,
-        "dy": 12.76,
+        "pl": 6.91,
+        "pl_proj": 9.61,
+        "pvp": 1.1,
+        "psr": 0.73,
+        "ev_ebitda": 6.59,
+        "dy": 11.96,
         "roe": 15.94,
         "margem_liq": 10.51,
         "margem_bruta": 11.14,
@@ -517,55 +650,55 @@
         "cresc_receita": 3.4,
         "cresc_lucro": -20.4,
         "liq_corrente": 1.17,
-        "market_cap": 28721246208.0,
+        "market_cap": 32039636992.0,
         "vpa": 10.2
       },
-      "score": 19,
+      "score": 17,
       "tag": "SÓLIDA",
       "componentes": {
-        "valor": 56,
+        "valor": 51,
         "qualidade": 12,
         "crescimento": -20,
         "saude": 15
       },
-      "leitura": "Fundamentos sólidos — P/L 6.2, P/VP 1.0, ROE 16%, margem líq. 11%, dív/PL 0.8x, DY 12.8%. Último tri vs 1 ano: receita +7%, lucro -6% a/a.",
+      "leitura": "Fundamentos sólidos — P/L 6.9, P/VP 1.1, ROE 16%, margem líq. 11%, dív/PL 0.8x, DY 12.0%. Último tri vs 1 ano: receita +3%, lucro -20% a/a.",
       "yoy": {
-        "receita_pct": 6.6,
-        "lucro_pct": -5.8,
-        "base": "2025T1"
+        "receita_pct": 3.2,
+        "lucro_pct": -20.5,
+        "base": "2025T2"
       },
       "ttm": {
-        "receita": null,
-        "lucro": null,
-        "margem_liq": null
+        "receita": 43.471,
+        "lucro": 4.595,
+        "margem_liq": 10.6
       },
       "trimestres": [
         {
           "periodo": "2024T4",
           "data": "2024-12-31",
-          "receita": 9.397,
-          "lucro": 0.996,
+          "receita": null,
+          "lucro": null,
           "ebitda": null,
-          "margem_liq": 10.6,
+          "margem_liq": null,
           "margem_ebitda": null
         },
         {
           "periodo": "2025T1",
           "data": "2025-03-31",
-          "receita": 9705.774,
-          "lucro": 1.039,
-          "ebitda": 2.021,
-          "margem_liq": 0.0,
-          "margem_ebitda": 0.0
+          "receita": null,
+          "lucro": null,
+          "ebitda": null,
+          "margem_liq": null,
+          "margem_ebitda": null
         },
         {
           "periodo": "2025T2",
           "data": "2025-06-30",
-          "receita": null,
-          "lucro": null,
-          "ebitda": 2.136,
-          "margem_liq": null,
-          "margem_ebitda": null
+          "receita": 10.667,
+          "lucro": 1.188,
+          "ebitda": 2.361,
+          "margem_liq": 11.1,
+          "margem_ebitda": 22.1
         },
         {
           "periodo": "2025T3",
@@ -588,11 +721,20 @@
         {
           "periodo": "2026T1",
           "data": "2026-03-31",
-          "receita": 10341.911,
+          "receita": 10.342,
           "lucro": 0.979,
           "ebitda": 1.645,
-          "margem_liq": 0.0,
-          "margem_ebitda": 0.0
+          "margem_liq": 9.5,
+          "margem_ebitda": 15.9
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 11.008,
+          "lucro": 0.945,
+          "ebitda": 2.119,
+          "margem_liq": 8.6,
+          "margem_ebitda": 19.2
         }
       ]
     },
@@ -601,13 +743,14 @@
       "setor": "Bancos",
       "moeda": "BRL",
       "is_financeira": true,
+      "is_fii": false,
       "indicadores": {
-        "pl": 9.46,
-        "pl_proj": 7.57,
-        "pvp": 1.95,
-        "psr": 2.96,
+        "pl": 10.17,
+        "pl_proj": 8.43,
+        "pvp": 2.16,
+        "psr": 3.28,
         "ev_ebitda": null,
-        "dy": 2.31,
+        "dy": 2.07,
         "roe": 21.48,
         "margem_liq": 32.58,
         "margem_bruta": null,
@@ -616,18 +759,18 @@
         "cresc_receita": 17.5,
         "cresc_lucro": 8.1,
         "liq_corrente": null,
-        "market_cap": 425444245504.0,
+        "market_cap": 470744137728.0,
         "vpa": 19.76
       },
-      "score": 44,
+      "score": 41,
       "tag": "SÓLIDA",
       "componentes": {
-        "valor": 25,
+        "valor": 18,
         "qualidade": 57,
         "crescimento": 49,
         "saude": null
       },
-      "leitura": "Fundamentos sólidos — P/L 9.5, P/VP 2.0, ROE 21%, margem líq. 33%, DY 2.3%. Último tri vs 1 ano: receita +15%, lucro +8% a/a.",
+      "leitura": "Fundamentos sólidos — P/L 10.2, P/VP 2.2, ROE 21%, margem líq. 33%, DY 2.1%. Último tri vs 1 ano: receita +15%, lucro +8% a/a.",
       "yoy": {
         "receita_pct": 14.6,
         "lucro_pct": 7.6,
@@ -639,6 +782,15 @@
         "margem_liq": 27.6
       },
       "trimestres": [
+        {
+          "periodo": "2024T4",
+          "data": "2024-12-31",
+          "receita": null,
+          "lucro": null,
+          "ebitda": null,
+          "margem_liq": null,
+          "margem_ebitda": null
+        },
         {
           "periodo": "2025T1",
           "data": "2025-03-31",
@@ -700,13 +852,14 @@
       "setor": "Bancos",
       "moeda": "BRL",
       "is_financeira": true,
+      "is_fii": false,
       "indicadores": {
-        "pl": 7.66,
-        "pl_proj": 5.4,
-        "pvp": 0.95,
-        "psr": 1.9,
+        "pl": 8.28,
+        "pl_proj": 6.19,
+        "pvp": 1.06,
+        "psr": 2.06,
         "ev_ebitda": null,
-        "dy": 1.4,
+        "dy": 1.25,
         "roe": 13.76,
         "margem_liq": 26.07,
         "margem_bruta": null,
@@ -715,18 +868,18 @@
         "cresc_receita": 7.2,
         "cresc_lucro": 17.8,
         "liq_corrente": null,
-        "market_cap": 176880795648.0,
+        "market_cap": 191752716288.0,
         "vpa": 17.15
       },
-      "score": 37,
+      "score": 36,
       "tag": "SÓLIDA",
       "componentes": {
-        "valor": 48,
+        "valor": 43,
         "qualidade": 27,
         "crescimento": 40,
         "saude": null
       },
-      "leitura": "Fundamentos sólidos — P/L 7.7, P/VP 0.9, ROE 14%, margem líq. 26%, DY 1.4%. Último tri vs 1 ano: receita +6%, lucro +18% a/a.",
+      "leitura": "Fundamentos sólidos — P/L 8.3, P/VP 1.1, ROE 14%, margem líq. 26%, DY 1.2%. Último tri vs 1 ano: receita +6%, lucro +18% a/a.",
       "yoy": {
         "receita_pct": 6.0,
         "lucro_pct": 17.7,
@@ -808,13 +961,14 @@
       "setor": "Bancos",
       "moeda": "BRL",
       "is_financeira": true,
+      "is_fii": false,
       "indicadores": {
-        "pl": 8.73,
-        "pl_proj": 4.01,
-        "pvp": 0.58,
-        "psr": 1.4,
+        "pl": 10.53,
+        "pl_proj": 5.25,
+        "pvp": 0.71,
+        "psr": 1.72,
         "ev_ebitda": null,
-        "dy": 0.75,
+        "dy": 0.6,
         "roe": 10.55,
         "margem_liq": 21.83,
         "margem_bruta": null,
@@ -823,42 +977,42 @@
         "cresc_receita": 0.2,
         "cresc_lucro": -13.8,
         "liq_corrente": null,
-        "market_cap": 105214533632.0,
+        "market_cap": 129305976832.0,
         "vpa": 31.88
       },
-      "score": 18,
+      "score": 15,
       "tag": "SÓLIDA",
       "componentes": {
-        "valor": 49,
+        "valor": 40,
         "qualidade": 12,
         "crescimento": -18,
         "saude": null
       },
-      "leitura": "Fundamentos sólidos — P/L 8.7, P/VP 0.6, ROE 11%, margem líq. 22%, DY 0.8%. Último tri vs 1 ano: receita -7%, lucro -30% a/a.",
+      "leitura": "Fundamentos sólidos — P/L 10.5, P/VP 0.7, ROE 11%, margem líq. 22%, DY 0.6%. Último tri vs 1 ano: receita +8%, lucro -14% a/a.",
       "yoy": {
-        "receita_pct": -7.0,
-        "lucro_pct": -30.3,
-        "base": "2025T1"
+        "receita_pct": 7.6,
+        "lucro_pct": -13.8,
+        "base": "2025T2"
       },
       "ttm": {
-        "receita": 145.858,
-        "lucro": 12.656,
-        "margem_liq": 8.7
+        "receita": 148.566,
+        "lucro": 12.272,
+        "margem_liq": 8.3
       },
       "trimestres": [
         {
           "periodo": "2025T1",
           "data": "2025-03-31",
-          "receita": 37.351,
-          "lucro": 3.439,
+          "receita": null,
+          "lucro": null,
           "ebitda": null,
-          "margem_liq": 9.2,
+          "margem_liq": null,
           "margem_ebitda": null
         },
         {
           "periodo": "2025T2",
           "data": "2025-06-30",
-          "receita": 34.678,
+          "receita": 34.758,
           "lucro": 2.782,
           "ebitda": null,
           "margem_liq": 8.0,
@@ -890,6 +1044,15 @@
           "ebitda": null,
           "margem_liq": 6.9,
           "margem_ebitda": null
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 37.386,
+          "lucro": 2.398,
+          "ebitda": null,
+          "margem_liq": 6.4,
+          "margem_ebitda": null
         }
       ]
     },
@@ -898,13 +1061,14 @@
       "setor": "Seguradora",
       "moeda": "BRL",
       "is_financeira": true,
+      "is_fii": false,
       "indicadores": {
-        "pl": 8.0,
-        "pl_proj": 8.44,
-        "pvp": 6.63,
-        "psr": 6.91,
-        "ev_ebitda": 6.59,
-        "dy": 12.34,
+        "pl": 8.33,
+        "pl_proj": 8.99,
+        "pvp": 7.02,
+        "psr": 7.32,
+        "ev_ebitda": 7.1,
+        "dy": 11.53,
         "roe": 85.94,
         "margem_liq": 87.93,
         "margem_bruta": 98.23,
@@ -913,18 +1077,18 @@
         "cresc_receita": -0.9,
         "cresc_lucro": -0.1,
         "liq_corrente": 1.15,
-        "market_cap": 72195031040.0,
+        "market_cap": 76504604672.0,
         "vpa": 5.61
       },
       "score": 40,
       "tag": "SÓLIDA",
       "componentes": {
-        "valor": -1,
+        "valor": -3,
         "qualidade": 100,
         "crescimento": -2,
         "saude": null
       },
-      "leitura": "Fundamentos sólidos — P/L 8.0, P/VP 6.6, ROE 86%, margem líq. 88%, DY 12.3%. Último tri vs 1 ano: receita -0%, lucro +23% a/a.",
+      "leitura": "Fundamentos sólidos — P/L 8.3, P/VP 7.0, ROE 86%, margem líq. 88%, DY 11.5%. Último tri vs 1 ano: receita -0%, lucro +23% a/a.",
       "yoy": {
         "receita_pct": -0.2,
         "lucro_pct": 22.9,
@@ -997,13 +1161,14 @@
       "setor": "Seguradora",
       "moeda": "BRL",
       "is_financeira": true,
+      "is_fii": false,
       "indicadores": {
-        "pl": 8.2,
-        "pl_proj": 7.48,
-        "pvp": 1.85,
-        "psr": 0.66,
-        "ev_ebitda": 3.11,
-        "dy": 4.4,
+        "pl": 8.72,
+        "pl_proj": 7.99,
+        "pvp": 1.97,
+        "psr": 0.7,
+        "ev_ebitda": 3.46,
+        "dy": 4.21,
         "roe": 24.17,
         "margem_liq": 8.13,
         "margem_bruta": 41.59,
@@ -1012,18 +1177,18 @@
         "cresc_receita": 9.6,
         "cresc_lucro": 0.3,
         "liq_corrente": 1.25,
-        "market_cap": 29851013120.0,
+        "market_cap": 31741939712.0,
         "vpa": 25.16
       },
-      "score": 30,
+      "score": 28,
       "tag": "SÓLIDA",
       "componentes": {
-        "valor": 33,
+        "valor": 29,
         "qualidade": 31,
         "crescimento": 22,
         "saude": null
       },
-      "leitura": "Fundamentos sólidos — P/L 8.2, P/VP 1.9, ROE 24%, margem líq. 8%, DY 4.4%. Último tri vs 1 ano: receita +9%, lucro +0% a/a.",
+      "leitura": "Fundamentos sólidos — P/L 8.7, P/VP 2.0, ROE 24%, margem líq. 8%, DY 4.2%. Último tri vs 1 ano: receita +9%, lucro +0% a/a.",
       "yoy": {
         "receita_pct": 8.9,
         "lucro_pct": 0.1,
@@ -1105,13 +1270,14 @@
       "setor": "Commodities",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 29.31,
-        "pl_proj": 9.02,
-        "pvp": 1.62,
-        "psr": 1.46,
-        "ev_ebitda": 5.23,
-        "dy": 8.35,
+        "pl": 28.07,
+        "pl_proj": 8.76,
+        "pvp": 1.56,
+        "psr": 1.41,
+        "ev_ebitda": 5.09,
+        "dy": 8.63,
         "roe": 4.11,
         "margem_liq": 4.75,
         "margem_bruta": 34.92,
@@ -1120,18 +1286,18 @@
         "cresc_receita": 6.4,
         "cresc_lucro": -43.5,
         "liq_corrente": 1.19,
-        "market_cap": 319309873152.0,
+        "market_cap": 306968166400.0,
         "vpa": 46.2
       },
       "score": -17,
       "tag": "ATENÇÃO",
       "componentes": {
-        "valor": -19,
+        "valor": -17,
         "qualidade": -29,
         "crescimento": -31,
         "saude": 32
       },
-      "leitura": "Fundamentos exigem atenção — P/L 29.3, P/VP 1.6, ROE 4%, margem líq. 5%, dív/PL 0.5x, DY 8.3%. Último tri vs 1 ano: receita +19%, lucro -35% a/a.",
+      "leitura": "Fundamentos exigem atenção — P/L 28.1, P/VP 1.6, ROE 4%, margem líq. 5%, dív/PL 0.5x, DY 8.6%. Último tri vs 1 ano: receita +19%, lucro -35% a/a.",
       "yoy": {
         "receita_pct": 19.2,
         "lucro_pct": -35.0,
@@ -1175,9 +1341,9 @@
           "data": "2025-09-30",
           "receita": 10.42,
           "lucro": 2.685,
-          "ebitda": 2.931,
+          "ebitda": 2.909,
           "margem_liq": 25.8,
-          "margem_ebitda": 28.1
+          "margem_ebitda": 27.9
         },
         {
           "periodo": "2025T4",
@@ -1213,13 +1379,14 @@
       "setor": "Commodities",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 6.97,
-        "pl_proj": 6.17,
-        "pvp": 1.27,
-        "psr": 1.16,
-        "ev_ebitda": 6.49,
-        "dy": 2.49,
+        "pl": 7.29,
+        "pl_proj": 6.58,
+        "pvp": 1.35,
+        "psr": 1.23,
+        "ev_ebitda": 6.63,
+        "dy": 2.37,
         "roe": 17.6,
         "margem_liq": 17.08,
         "margem_bruta": 29.06,
@@ -1228,22 +1395,22 @@
         "cresc_receita": -12.8,
         "cresc_lucro": -64.0,
         "liq_corrente": 3.38,
-        "market_cap": 55383285760.0,
+        "market_cap": 58979442688.0,
         "vpa": 35.45
       },
-      "score": -4,
+      "score": -5,
       "tag": "NEUTRA",
       "componentes": {
-        "valor": 41,
+        "valor": 38,
         "qualidade": 25,
         "crescimento": -73,
         "saude": -70
       },
-      "leitura": "Fundamentos neutros — P/L 7.0, P/VP 1.3, ROE 18%, margem líq. 17%, dív/PL 2.0x, DY 2.5%. Último tri vs 1 ano: receita -5%, lucro -32% a/a.",
+      "leitura": "Fundamentos neutros — P/L 7.3, P/VP 1.4, ROE 18%, margem líq. 17%, dív/PL 2.0x, DY 2.4%. Último tri vs 1 ano: receita -13%, lucro -64% a/a.",
       "yoy": {
-        "receita_pct": -5.1,
-        "lucro_pct": -32.1,
-        "base": "2025T1"
+        "receita_pct": -12.8,
+        "lucro_pct": -64.1,
+        "base": "2025T2"
       },
       "ttm": {
         "receita": null,
@@ -1254,10 +1421,10 @@
         {
           "periodo": "2024T4",
           "data": "2024-12-31",
-          "receita": 14.177,
-          "lucro": -6.744,
+          "receita": null,
+          "lucro": null,
           "ebitda": null,
-          "margem_liq": -47.6,
+          "margem_liq": null,
           "margem_ebitda": null
         },
         {
@@ -1265,18 +1432,18 @@
           "data": "2025-03-31",
           "receita": 11.553,
           "lucro": 6.341,
-          "ebitda": 13.929,
+          "ebitda": null,
           "margem_liq": 54.9,
-          "margem_ebitda": 120.6
+          "margem_ebitda": null
         },
         {
           "periodo": "2025T2",
           "data": "2025-06-30",
           "receita": 13.296,
-          "lucro": 5.005,
-          "ebitda": 11.746,
-          "margem_liq": 37.6,
-          "margem_ebitda": 88.3
+          "lucro": 5.012,
+          "ebitda": 11.509,
+          "margem_liq": 37.7,
+          "margem_ebitda": 86.6
         },
         {
           "periodo": "2025T3",
@@ -1304,6 +1471,15 @@
           "ebitda": 10.713,
           "margem_liq": 39.3,
           "margem_ebitda": 97.7
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 11.59,
+          "lucro": 1.801,
+          "ebitda": 7.462,
+          "margem_liq": 15.5,
+          "margem_ebitda": 64.4
         }
       ]
     },
@@ -1312,13 +1488,14 @@
       "setor": "Alimentação",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 14.56,
-        "pl_proj": 13.51,
-        "pvp": 2.62,
-        "psr": 2.62,
-        "ev_ebitda": 8.1,
-        "dy": 4.87,
+        "pl": 14.99,
+        "pl_proj": 13.87,
+        "pvp": 2.7,
+        "psr": 2.7,
+        "ev_ebitda": 8.39,
+        "dy": 4.72,
         "roe": 18.4,
         "margem_liq": 18.41,
         "margem_bruta": 51.9,
@@ -1327,18 +1504,18 @@
         "cresc_receita": 0.3,
         "cresc_lucro": 24.6,
         "liq_corrente": 1.02,
-        "market_cap": 231299973120.0,
+        "market_cap": 238030553088.0,
         "vpa": 5.71
       },
-      "score": 26,
+      "score": 25,
       "tag": "SÓLIDA",
       "componentes": {
-        "valor": -4,
+        "valor": -7,
         "qualidade": 29,
         "crescimento": 34,
         "saude": 68
       },
-      "leitura": "Fundamentos sólidos — P/L 14.6, P/VP 2.6, ROE 18%, margem líq. 18%, dív/PL 0.0x, DY 4.9%. Último tri vs 1 ano: receita +0%, lucro +25% a/a.",
+      "leitura": "Fundamentos sólidos — P/L 15.0, P/VP 2.7, ROE 18%, margem líq. 18%, dív/PL 0.0x, DY 4.7%. Último tri vs 1 ano: receita +0%, lucro +25% a/a.",
       "yoy": {
         "receita_pct": 0.3,
         "lucro_pct": 24.6,
@@ -1411,13 +1588,14 @@
       "setor": "Alimentação",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 75.15,
-        "pl_proj": 28.29,
-        "pvp": 2.4,
-        "psr": 0.16,
-        "ev_ebitda": 7.62,
-        "dy": 28.89,
+        "pl": 59.96,
+        "pl_proj": 10.36,
+        "pvp": 2.04,
+        "psr": 0.14,
+        "ev_ebitda": 7.26,
+        "dy": 33.5,
         "roe": 0.91,
         "margem_liq": 0.22,
         "margem_bruta": 12.25,
@@ -1426,26 +1604,26 @@
         "cresc_receita": 4.9,
         "cresc_lucro": -51.3,
         "liq_corrente": 1.05,
-        "market_cap": 27227400192.0,
-        "vpa": 8.15
+        "market_cap": 23395500032.0,
+        "vpa": 8.23
       },
-      "score": -47,
+      "score": -45,
       "tag": "FRÁGIL",
       "componentes": {
-        "valor": -32,
+        "valor": -26,
         "qualidade": -44,
         "crescimento": -34,
         "saude": -100
       },
-      "leitura": "Fundamentos frágeis — P/L 75.2, P/VP 2.4, ROE 1%, margem líq. 0%, dív/PL 5.4x, DY 28.9%. Último tri vs 1 ano: receita -0%, lucro +26% a/a.",
+      "leitura": "Fundamentos frágeis — P/L 60.0, P/VP 2.0, ROE 1%, margem líq. 0%, dív/PL 5.4x, DY 33.5%. Último tri vs 1 ano: receita +5%, lucro -20% a/a.",
       "yoy": {
-        "receita_pct": -0.1,
-        "lucro_pct": 26.1,
-        "base": "2025T1"
+        "receita_pct": 4.9,
+        "lucro_pct": -20.0,
+        "base": "2025T2"
       },
       "ttm": {
-        "receita": 163.826,
-        "lucro": 0.381,
+        "receita": 165.854,
+        "lucro": 0.364,
         "margem_liq": 0.2
       },
       "trimestres": [
@@ -1461,20 +1639,20 @@
         {
           "periodo": "2025T1",
           "data": "2025-03-31",
-          "receita": 39.48,
-          "lucro": 0.088,
-          "ebitda": 3.385,
-          "margem_liq": 0.2,
-          "margem_ebitda": 8.6
+          "receita": null,
+          "lucro": null,
+          "ebitda": null,
+          "margem_liq": null,
+          "margem_ebitda": null
         },
         {
           "periodo": "2025T2",
           "data": "2025-06-30",
-          "receita": 38.692,
+          "receita": 38.802,
           "lucro": 0.085,
-          "ebitda": 3.102,
+          "ebitda": 3.127,
           "margem_liq": 0.2,
-          "margem_ebitda": 8.0
+          "margem_ebitda": 8.1
         },
         {
           "periodo": "2025T3",
@@ -1502,6 +1680,15 @@
           "ebitda": 3.28,
           "margem_liq": 0.3,
           "margem_ebitda": 8.3
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 40.72,
+          "lucro": 0.068,
+          "ebitda": 3.136,
+          "margem_liq": 0.2,
+          "margem_ebitda": 7.7
         }
       ]
     },
@@ -1510,53 +1697,45 @@
       "setor": "Construção civil",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 5.09,
-        "pl_proj": 4.31,
-        "pvp": 0.9,
-        "psr": 0.85,
-        "ev_ebitda": 10.1,
-        "dy": 16.44,
+        "pl": 5.64,
+        "pl_proj": 5.08,
+        "pvp": 1.06,
+        "psr": 0.99,
+        "ev_ebitda": 11.41,
+        "dy": 13.74,
         "roe": 20.59,
-        "margem_liq": 20.56,
-        "margem_bruta": 33.4,
-        "margem_ebitda": 16.3,
+        "margem_liq": 20.62,
+        "margem_bruta": 33.35,
+        "margem_ebitda": 16.22,
         "div_pl": 72.72,
-        "cresc_receita": 17.3,
-        "cresc_lucro": -2.0,
+        "cresc_receita": 17.7,
+        "cresc_lucro": 16.4,
         "liq_corrente": 3.37,
-        "market_cap": 8465445888.0,
+        "market_cap": 9812132864.0,
         "vpa": 25.63
       },
-      "score": 38,
+      "score": 42,
       "tag": "SÓLIDA",
       "componentes": {
-        "valor": 51,
+        "valor": 44,
         "qualidade": 38,
-        "crescimento": 35,
+        "crescimento": 61,
         "saude": 19
       },
-      "leitura": "Fundamentos sólidos — P/L 5.1, P/VP 0.9, ROE 21%, margem líq. 21%, dív/PL 0.7x, DY 16.4%. Último tri vs 1 ano: receita +4%, lucro -10% a/a.",
+      "leitura": "Fundamentos sólidos — P/L 5.6, P/VP 1.1, ROE 21%, margem líq. 21%, dív/PL 0.7x, DY 13.7%. Último tri vs 1 ano: receita +18%, lucro +16% a/a.",
       "yoy": {
-        "receita_pct": 3.7,
-        "lucro_pct": -9.5,
-        "base": "2025T1"
+        "receita_pct": 17.8,
+        "lucro_pct": 16.5,
+        "base": "2025T2"
       },
       "ttm": {
-        "receita": 9.495,
-        "lucro": 1.976,
-        "margem_liq": 20.8
+        "receita": 9.869,
+        "lucro": 2.04,
+        "margem_liq": 20.7
       },
       "trimestres": [
-        {
-          "periodo": "2025T1",
-          "data": "2025-03-31",
-          "receita": 1.953,
-          "lucro": 0.328,
-          "ebitda": 0.599,
-          "margem_liq": 16.8,
-          "margem_ebitda": 30.7
-        },
         {
           "periodo": "2025T2",
           "data": "2025-06-30",
@@ -1592,6 +1771,15 @@
           "ebitda": 0.654,
           "margem_liq": 14.7,
           "margem_ebitda": 32.3
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 2.481,
+          "lucro": 0.452,
+          "ebitda": 0.822,
+          "margem_liq": 18.2,
+          "margem_ebitda": 33.1
         }
       ]
     },
@@ -1600,12 +1788,13 @@
       "setor": "Construção civil",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
         "pl": null,
-        "pl_proj": 2.85,
-        "pvp": 0.63,
+        "pl_proj": 3.05,
+        "pvp": 0.64,
         "psr": 0.25,
-        "ev_ebitda": 4.99,
+        "ev_ebitda": 5.04,
         "dy": null,
         "roe": -10.04,
         "margem_liq": -4.93,
@@ -1615,37 +1804,37 @@
         "cresc_receita": 10.7,
         "cresc_lucro": null,
         "liq_corrente": 1.89,
-        "market_cap": 2864827392.0,
+        "market_cap": 2932367360.0,
         "vpa": 8.13
       },
       "score": -8,
       "tag": "NEUTRA",
       "componentes": {
-        "valor": 57,
+        "valor": 56,
         "qualidade": -75,
         "crescimento": 43,
         "saude": -48
       },
-      "leitura": "Fundamentos neutros — P/VP 0.6, ROE -10%, margem líq. -5%, dív/PL 1.7x. Último tri vs 1 ano: receita +22%, lucro -78% a/a.",
+      "leitura": "Fundamentos neutros — P/VP 0.6, ROE -10%, margem líq. -5%, dív/PL 1.7x. Último tri vs 1 ano: receita +11%, lucro -23% a/a.",
       "yoy": {
-        "receita_pct": 21.6,
-        "lucro_pct": -78.3,
-        "base": "2025T1"
+        "receita_pct": 10.7,
+        "lucro_pct": -22.8,
+        "base": "2025T2"
       },
       "ttm": {
-        "receita": 11.399,
-        "lucro": -0.762,
-        "margem_liq": -6.7
+        "receita": 11.69,
+        "lucro": -0.577,
+        "margem_liq": -4.9
       },
       "trimestres": [
         {
           "periodo": "2025T1",
           "data": "2025-03-31",
-          "receita": 2.283,
-          "lucro": -0.359,
-          "ebitda": -0.101,
-          "margem_liq": -15.7,
-          "margem_ebitda": -4.4
+          "receita": null,
+          "lucro": null,
+          "ebitda": null,
+          "margem_liq": null,
+          "margem_ebitda": null
         },
         {
           "periodo": "2025T2",
@@ -1682,6 +1871,15 @@
           "ebitda": 0.2,
           "margem_liq": -2.8,
           "margem_ebitda": 7.2
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 3.0,
+          "lucro": -0.627,
+          "ebitda": -0.369,
+          "margem_liq": -20.9,
+          "margem_ebitda": -12.3
         }
       ]
     },
@@ -1690,13 +1888,14 @@
       "setor": "Construção civil",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 6.47,
-        "pl_proj": 4.56,
-        "pvp": 2.56,
-        "psr": 0.71,
-        "ev_ebitda": 5.41,
-        "dy": 25.19,
+        "pl": 6.12,
+        "pl_proj": 4.48,
+        "pvp": 2.23,
+        "psr": 1.07,
+        "ev_ebitda": 5.28,
+        "dy": 25.93,
         "roe": 41.88,
         "margem_liq": 17.73,
         "margem_bruta": 40.35,
@@ -1705,27 +1904,27 @@
         "cresc_receita": 20.1,
         "cresc_lucro": 8.6,
         "liq_corrente": 4.17,
-        "market_cap": 3429433856.0,
-        "vpa": 4.09
+        "market_cap": 5173420032.0,
+        "vpa": 4.47
       },
-      "score": 43,
-      "tag": "SÓLIDA",
+      "score": 45,
+      "tag": "FORTE",
       "componentes": {
-        "valor": 35,
+        "valor": 41,
         "qualidade": 65,
         "crescimento": 56,
         "saude": -11
       },
-      "leitura": "Fundamentos sólidos — P/L 6.5, P/VP 2.6, ROE 42%, margem líq. 18%, dív/PL 1.2x, DY 25.2%. Último tri vs 1 ano: receita +30%, lucro +29% a/a.",
+      "leitura": "Fundamentos fortes — P/L 6.1, P/VP 2.2, ROE 42%, margem líq. 18%, dív/PL 1.2x, DY 25.9%. Último tri vs 1 ano: receita +20%, lucro +10% a/a.",
       "yoy": {
-        "receita_pct": 30.3,
-        "lucro_pct": 29.1,
-        "base": "2025T1"
+        "receita_pct": 20.1,
+        "lucro_pct": 9.8,
+        "base": "2025T2"
       },
       "ttm": {
-        "receita": 4.614,
-        "lucro": 0.838,
-        "margem_liq": 18.2
+        "receita": 4.828,
+        "lucro": 0.856,
+        "margem_liq": 17.7
       },
       "trimestres": [
         {
@@ -1740,11 +1939,11 @@
         {
           "periodo": "2025T1",
           "data": "2025-03-31",
-          "receita": 0.894,
-          "lucro": 0.165,
-          "ebitda": 0.247,
-          "margem_liq": 18.4,
-          "margem_ebitda": 27.6
+          "receita": null,
+          "lucro": null,
+          "ebitda": null,
+          "margem_liq": null,
+          "margem_ebitda": null
         },
         {
           "periodo": "2025T2",
@@ -1781,6 +1980,15 @@
           "ebitda": 0.353,
           "margem_liq": 18.3,
           "margem_ebitda": 30.3
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 1.279,
+          "lucro": 0.202,
+          "ebitda": 0.354,
+          "margem_liq": 15.8,
+          "margem_ebitda": 27.7
         }
       ]
     },
@@ -1789,52 +1997,53 @@
       "setor": "Construção civil",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 8.17,
-        "pl_proj": 6.22,
-        "pvp": 6.67,
-        "psr": 1.59,
-        "ev_ebitda": 6.67,
-        "dy": 13.87,
-        "roe": 73.69,
-        "margem_liq": 18.37,
-        "margem_bruta": 39.71,
-        "margem_ebitda": 25.25,
-        "div_pl": 71.38,
-        "cresc_receita": 32.6,
-        "cresc_lucro": 33.5,
-        "liq_corrente": 1.94,
-        "market_cap": 9210622976.0,
-        "vpa": 4.49
+        "pl": 7.8,
+        "pl_proj": 6.01,
+        "pvp": 5.3,
+        "psr": 1.43,
+        "ev_ebitda": 5.96,
+        "dy": 17.17,
+        "roe": 68.53,
+        "margem_liq": 17.89,
+        "margem_bruta": 39.69,
+        "margem_ebitda": 24.9,
+        "div_pl": 65.56,
+        "cresc_receita": 25.5,
+        "cresc_lucro": 8.2,
+        "liq_corrente": 1.92,
+        "market_cap": 8767034368.0,
+        "vpa": 5.37
       },
-      "score": 47,
-      "tag": "FORTE",
+      "score": 41,
+      "tag": "SÓLIDA",
       "componentes": {
-        "valor": 2,
+        "valor": 5,
         "qualidade": 66,
-        "crescimento": 100,
-        "saude": 20
+        "crescimento": 66,
+        "saude": 24
       },
-      "leitura": "Fundamentos fortes — P/L 8.2, P/VP 6.7, ROE 74%, margem líq. 18%, dív/PL 0.7x, DY 13.9%. Último tri vs 1 ano: receita +33%, lucro +42% a/a.",
+      "leitura": "Fundamentos sólidos — P/L 7.8, P/VP 5.3, ROE 69%, margem líq. 18%, dív/PL 0.7x, DY 17.2%. Último tri vs 1 ano: receita +26%, lucro +14% a/a.",
       "yoy": {
-        "receita_pct": 32.6,
-        "lucro_pct": 42.3,
-        "base": "2025T1"
+        "receita_pct": 25.5,
+        "lucro_pct": 13.9,
+        "base": "2025T2"
       },
       "ttm": {
-        "receita": 5.797,
-        "lucro": 1.065,
-        "margem_liq": 18.4
+        "receita": 6.141,
+        "lucro": 1.098,
+        "margem_liq": 17.9
       },
       "trimestres": [
         {
           "periodo": "2025T1",
           "data": "2025-03-31",
-          "receita": 1.216,
-          "lucro": 0.213,
-          "ebitda": 0.312,
-          "margem_liq": 17.6,
-          "margem_ebitda": 25.6
+          "receita": null,
+          "lucro": null,
+          "ebitda": null,
+          "margem_liq": null,
+          "margem_ebitda": null
         },
         {
           "periodo": "2025T2",
@@ -1871,6 +2080,15 @@
           "ebitda": 0.442,
           "margem_liq": 18.8,
           "margem_ebitda": 27.4
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 1.691,
+          "lucro": 0.27,
+          "ebitda": 0.404,
+          "margem_liq": 16.0,
+          "margem_ebitda": 23.9
         }
       ]
     },
@@ -1879,13 +2097,14 @@
       "setor": "Bens de capital",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
-        "pl": 33.75,
-        "pl_proj": 26.67,
-        "pvp": 11.87,
-        "psr": 5.15,
-        "ev_ebitda": 24.15,
-        "dy": 0.85,
+        "pl": 34.49,
+        "pl_proj": 27.73,
+        "pvp": 12.38,
+        "psr": 5.37,
+        "ev_ebitda": 25.05,
+        "dy": 3.03,
         "roe": 30.79,
         "margem_liq": 15.58,
         "margem_bruta": 33.14,
@@ -1894,18 +2113,18 @@
         "cresc_receita": -0.6,
         "cresc_lucro": -2.1,
         "liq_corrente": 1.59,
-        "market_cap": 206728527872.0,
+        "market_cap": 215623696384.0,
         "vpa": 4.15
       },
       "score": 1,
       "tag": "NEUTRA",
       "componentes": {
-        "valor": -89,
+        "valor": -88,
         "qualidade": 59,
         "crescimento": -4,
         "saude": 50
       },
-      "leitura": "Fundamentos neutros — P/L 33.7, P/VP 11.9, ROE 31%, margem líq. 16%, dív/PL 0.3x, DY 0.8%. Último tri vs 1 ano: receita +1%, lucro +1% a/a.",
+      "leitura": "Fundamentos neutros — P/L 34.5, P/VP 12.4, ROE 31%, margem líq. 16%, dív/PL 0.3x, DY 3.0%. Último tri vs 1 ano: receita +1%, lucro +1% a/a.",
       "yoy": {
         "receita_pct": 0.6,
         "lucro_pct": 0.8,
@@ -1978,12 +2197,13 @@
       "setor": "Siderurgia",
       "moeda": "BRL",
       "is_financeira": false,
+      "is_fii": false,
       "indicadores": {
         "pl": null,
-        "pl_proj": -5.43,
-        "pvp": 0.52,
-        "psr": 0.14,
-        "ev_ebitda": 6.74,
+        "pl_proj": -15.7,
+        "pvp": 0.68,
+        "psr": 0.18,
+        "ev_ebitda": 6.99,
         "dy": null,
         "roe": -12.29,
         "margem_liq": -5.82,
@@ -1993,27 +2213,27 @@
         "cresc_receita": 5.7,
         "cresc_lucro": null,
         "liq_corrente": 1.15,
-        "market_cap": 6351989760.0,
+        "market_cap": 8288087040.0,
         "vpa": 9.18
       },
-      "score": -22,
+      "score": -23,
       "tag": "ATENÇÃO",
       "componentes": {
-        "valor": 51,
+        "valor": 46,
         "qualidade": -76,
         "crescimento": 23,
         "saude": -100
       },
-      "leitura": "Fundamentos exigem atenção — P/VP 0.5, ROE -12%, margem líq. -6%, dív/PL 3.6x. Último tri vs 1 ano: receita -3%, lucro -0% a/a.",
+      "leitura": "Fundamentos exigem atenção — P/VP 0.7, ROE -12%, margem líq. -6%, dív/PL 3.6x. Último tri vs 1 ano: receita +6%, lucro +378% a/a.",
       "yoy": {
-        "receita_pct": -2.8,
-        "lucro_pct": -0.5,
-        "base": "2025T1"
+        "receita_pct": 5.7,
+        "lucro_pct": 378.3,
+        "base": "2025T2"
       },
       "ttm": {
-        "receita": 44.494,
-        "lucro": -1.963,
-        "margem_liq": -4.4
+        "receita": 45.107,
+        "lucro": -2.627,
+        "margem_liq": -5.8
       },
       "trimestres": [
         {
@@ -2028,20 +2248,20 @@
         {
           "periodo": "2025T1",
           "data": "2025-03-31",
-          "receita": 10.908,
-          "lucro": -0.619,
-          "ebitda": 1.808,
-          "margem_liq": -5.7,
-          "margem_ebitda": 16.6
+          "receita": null,
+          "lucro": null,
+          "ebitda": null,
+          "margem_liq": null,
+          "margem_ebitda": null
         },
         {
           "periodo": "2025T2",
           "data": "2025-06-30",
           "receita": 10.693,
-          "lucro": -0.13,
-          "ebitda": 2.523,
-          "margem_liq": -1.2,
-          "margem_ebitda": 23.6
+          "lucro": -0.166,
+          "ebitda": 2.089,
+          "margem_liq": -1.6,
+          "margem_ebitda": 19.5
         },
         {
           "periodo": "2025T3",
@@ -2069,8 +2289,377 @@
           "ebitda": 1.426,
           "margem_liq": -5.8,
           "margem_ebitda": 13.4
+        },
+        {
+          "periodo": "2026T2",
+          "data": "2026-06-30",
+          "receita": 11.306,
+          "lucro": -0.794,
+          "ebitda": 1.303,
+          "margem_liq": -7.0,
+          "margem_ebitda": 11.5
         }
       ]
+    },
+    "KNCR11": {
+      "nome": "Kinea Rendimentos Imob.",
+      "setor": "Fundos Imobiliários",
+      "moeda": "BRL",
+      "is_financeira": false,
+      "is_fii": true,
+      "indicadores": {
+        "pl": 8.86,
+        "pl_proj": null,
+        "pvp": 1.06,
+        "psr": 9.94,
+        "ev_ebitda": null,
+        "dy": 12.93,
+        "roe": 15.48,
+        "margem_liq": 93.04,
+        "margem_bruta": 100.0,
+        "margem_ebitda": null,
+        "div_pl": null,
+        "cresc_receita": null,
+        "cresc_lucro": null,
+        "liq_corrente": 0.54,
+        "market_cap": 8223568896.0,
+        "vpa": 100.87
+      },
+      "score": 22,
+      "tag": "SÓLIDA",
+      "componentes": {
+        "valor": 34,
+        "qualidade": 6,
+        "crescimento": null,
+        "saude": null
+      },
+      "leitura": "FII sólido — P/VP 1.06, DY 12.9%, VPA R$ 100.87. FIIs: sensíveis à Selic; P/VP abaixo de 1 e DY elevado favorecem entrada.",
+      "yoy": {
+        "receita_pct": null,
+        "lucro_pct": null,
+        "base": null
+      },
+      "ttm": {
+        "receita": null,
+        "lucro": null,
+        "margem_liq": null
+      },
+      "trimestres": []
+    },
+    "MANA11": {
+      "nome": "Manati Capital Hedge FII",
+      "setor": "Fundos Imobiliários",
+      "moeda": "BRL",
+      "is_financeira": false,
+      "is_fii": true,
+      "indicadores": {
+        "pl": 5.64,
+        "pl_proj": null,
+        "pvp": null,
+        "psr": null,
+        "ev_ebitda": null,
+        "dy": 15.65,
+        "roe": null,
+        "margem_liq": 0.0,
+        "margem_bruta": null,
+        "margem_ebitda": null,
+        "div_pl": null,
+        "cresc_receita": null,
+        "cresc_lucro": null,
+        "liq_corrente": null,
+        "market_cap": 344957120.0,
+        "vpa": null
+      },
+      "score": 54,
+      "tag": "FORTE",
+      "componentes": {
+        "valor": 94,
+        "qualidade": 6,
+        "crescimento": null,
+        "saude": null
+      },
+      "leitura": "FII atrativo — DY 15.7%. FIIs: sensíveis à Selic; P/VP abaixo de 1 e DY elevado favorecem entrada.",
+      "yoy": {
+        "receita_pct": null,
+        "lucro_pct": null,
+        "base": null
+      },
+      "ttm": {
+        "receita": null,
+        "lucro": null,
+        "margem_liq": null
+      },
+      "trimestres": []
+    },
+    "RURA11": {
+      "nome": "Riza Arctium Real Estate",
+      "setor": "Fundos Imobiliários",
+      "moeda": "BRL",
+      "is_financeira": false,
+      "is_fii": true,
+      "indicadores": {
+        "pl": null,
+        "pl_proj": null,
+        "pvp": null,
+        "psr": null,
+        "ev_ebitda": null,
+        "dy": null,
+        "roe": null,
+        "margem_liq": 0.0,
+        "margem_bruta": null,
+        "margem_ebitda": null,
+        "div_pl": null,
+        "cresc_receita": null,
+        "cresc_lucro": null,
+        "liq_corrente": null,
+        "market_cap": null,
+        "vpa": null
+      },
+      "score": 0,
+      "tag": "NEUTRA",
+      "componentes": {
+        "valor": null,
+        "qualidade": 0,
+        "crescimento": null,
+        "saude": null
+      },
+      "leitura": "FII neutro — . FIIs: sensíveis à Selic; P/VP abaixo de 1 e DY elevado favorecem entrada.",
+      "yoy": {
+        "receita_pct": null,
+        "lucro_pct": null,
+        "base": null
+      },
+      "ttm": {
+        "receita": null,
+        "lucro": null,
+        "margem_liq": null
+      },
+      "trimestres": []
+    },
+    "RBRP11": {
+      "nome": "RBR Properties",
+      "setor": "Fundos Imobiliários",
+      "moeda": "BRL",
+      "is_financeira": false,
+      "is_fii": true,
+      "indicadores": {
+        "pl": null,
+        "pl_proj": null,
+        "pvp": null,
+        "psr": null,
+        "ev_ebitda": null,
+        "dy": 8.32,
+        "roe": null,
+        "margem_liq": 0.0,
+        "margem_bruta": null,
+        "margem_ebitda": null,
+        "div_pl": null,
+        "cresc_receita": null,
+        "cresc_lucro": null,
+        "liq_corrente": null,
+        "market_cap": null,
+        "vpa": null
+      },
+      "score": 30,
+      "tag": "SÓLIDA",
+      "componentes": {
+        "valor": 50,
+        "qualidade": 6,
+        "crescimento": null,
+        "saude": null
+      },
+      "leitura": "FII sólido — DY 8.3%. FIIs: sensíveis à Selic; P/VP abaixo de 1 e DY elevado favorecem entrada.",
+      "yoy": {
+        "receita_pct": null,
+        "lucro_pct": null,
+        "base": null
+      },
+      "ttm": {
+        "receita": null,
+        "lucro": null,
+        "margem_liq": null
+      },
+      "trimestres": []
+    },
+    "HGLG11": {
+      "nome": "CSHG Logística",
+      "setor": "Fundos Imobiliários",
+      "moeda": "BRL",
+      "is_financeira": false,
+      "is_fii": true,
+      "indicadores": {
+        "pl": 9.56,
+        "pl_proj": null,
+        "pvp": 0.93,
+        "psr": 11.34,
+        "ev_ebitda": null,
+        "dy": 9.47,
+        "roe": 12.24,
+        "margem_liq": 124.48,
+        "margem_bruta": 97.71,
+        "margem_ebitda": null,
+        "div_pl": null,
+        "cresc_receita": 87.9,
+        "cresc_lucro": -29.2,
+        "liq_corrente": 0.45,
+        "market_cap": 4991776768.0,
+        "vpa": 158.24
+      },
+      "score": 22,
+      "tag": "SÓLIDA",
+      "componentes": {
+        "valor": 30,
+        "qualidade": 12,
+        "crescimento": null,
+        "saude": null
+      },
+      "leitura": "FII sólido — P/VP 0.93, DY 9.5%, VPA R$ 158.24. FIIs: sensíveis à Selic; P/VP abaixo de 1 e DY elevado favorecem entrada.",
+      "yoy": {
+        "receita_pct": null,
+        "lucro_pct": null,
+        "base": null
+      },
+      "ttm": {
+        "receita": null,
+        "lucro": null,
+        "margem_liq": null
+      },
+      "trimestres": []
+    },
+    "XPML11": {
+      "nome": "XP Malls",
+      "setor": "Fundos Imobiliários",
+      "moeda": "BRL",
+      "is_financeira": false,
+      "is_fii": true,
+      "indicadores": {
+        "pl": null,
+        "pl_proj": null,
+        "pvp": null,
+        "psr": null,
+        "ev_ebitda": null,
+        "dy": 11.62,
+        "roe": null,
+        "margem_liq": 0.0,
+        "margem_bruta": null,
+        "margem_ebitda": null,
+        "div_pl": null,
+        "cresc_receita": null,
+        "cresc_lucro": null,
+        "liq_corrente": null,
+        "market_cap": 5570951168.0,
+        "vpa": null
+      },
+      "score": 41,
+      "tag": "SÓLIDA",
+      "componentes": {
+        "valor": 70,
+        "qualidade": 6,
+        "crescimento": null,
+        "saude": null
+      },
+      "leitura": "FII sólido — DY 11.6%. FIIs: sensíveis à Selic; P/VP abaixo de 1 e DY elevado favorecem entrada.",
+      "yoy": {
+        "receita_pct": null,
+        "lucro_pct": null,
+        "base": null
+      },
+      "ttm": {
+        "receita": null,
+        "lucro": null,
+        "margem_liq": null
+      },
+      "trimestres": []
+    },
+    "CLIN11": {
+      "nome": "Clave Índices de Preços",
+      "setor": "Fundos Imobiliários",
+      "moeda": "BRL",
+      "is_financeira": false,
+      "is_fii": true,
+      "indicadores": {
+        "pl": 7.5,
+        "pl_proj": null,
+        "pvp": null,
+        "psr": null,
+        "ev_ebitda": null,
+        "dy": 13.28,
+        "roe": null,
+        "margem_liq": 0.0,
+        "margem_bruta": null,
+        "margem_ebitda": null,
+        "div_pl": null,
+        "cresc_receita": null,
+        "cresc_lucro": null,
+        "liq_corrente": null,
+        "market_cap": 374777920.0,
+        "vpa": null
+      },
+      "score": 47,
+      "tag": "FORTE",
+      "componentes": {
+        "valor": 80,
+        "qualidade": 6,
+        "crescimento": null,
+        "saude": null
+      },
+      "leitura": "FII atrativo — DY 13.3%. FIIs: sensíveis à Selic; P/VP abaixo de 1 e DY elevado favorecem entrada.",
+      "yoy": {
+        "receita_pct": null,
+        "lucro_pct": null,
+        "base": null
+      },
+      "ttm": {
+        "receita": null,
+        "lucro": null,
+        "margem_liq": null
+      },
+      "trimestres": []
+    },
+    "MXRF11": {
+      "nome": "Maxi Renda",
+      "setor": "Fundos Imobiliários",
+      "moeda": "BRL",
+      "is_financeira": false,
+      "is_fii": true,
+      "indicadores": {
+        "pl": 12.96,
+        "pl_proj": null,
+        "pvp": 0.91,
+        "psr": 13.46,
+        "ev_ebitda": null,
+        "dy": 13.17,
+        "roe": 10.7,
+        "margem_liq": 88.52,
+        "margem_bruta": 96.62,
+        "margem_ebitda": null,
+        "div_pl": null,
+        "cresc_receita": 45.4,
+        "cresc_lucro": 49.4,
+        "liq_corrente": 1.0,
+        "market_cap": 4177892352.0,
+        "vpa": 9.93
+      },
+      "score": 28,
+      "tag": "SÓLIDA",
+      "componentes": {
+        "valor": 41,
+        "qualidade": 12,
+        "crescimento": null,
+        "saude": null
+      },
+      "leitura": "FII sólido — P/VP 0.91, DY 13.2%, VPA R$ 9.93. FIIs: sensíveis à Selic; P/VP abaixo de 1 e DY elevado favorecem entrada.",
+      "yoy": {
+        "receita_pct": null,
+        "lucro_pct": null,
+        "base": null
+      },
+      "ttm": {
+        "receita": null,
+        "lucro": null,
+        "margem_liq": null
+      },
+      "trimestres": []
     }
   }
 }

@@ -31,3 +31,6 @@ data/flashcards_provas_smoke/
 # Snapshots de API para deploy estático (gerado por scripts/export_prio3_snapshots.py)
 data/prio3_analysis/api/
 data/prio3_analysis/.venv/
+
+# cache de precos do ai_patterns (efemero, nao e fonte)
+data/prio3_analysis/px_cache/

@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-08-22",
+  "atualizado": "2026-09-22",
   "janela_resultados": "24 meses",
   "fonte": "CVM — Portal de Dados Abertos (IPE)",
   "empresas": {
@@ -58,17 +58,17 @@
         },
         {
           "data": "2026-08-04",
-          "assunto": "Versão em Português",
-          "categoria": "ITR (trimestral)",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1552003&numSequencia=1076709&numVersao=1"
-        },
-        {
-          "data": "2026-08-04",
           "assunto": "Release de Resultados - 2T26 (Português)",
           "categoria": "ITR (trimestral)",
           "periodo": "2T26",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1551991&numSequencia=1076697&numVersao=1"
+        },
+        {
+          "data": "2026-08-04",
+          "assunto": "Versão em Português",
+          "categoria": "ITR (trimestral)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1552003&numSequencia=1076709&numVersao=1"
         },
         {
           "data": "2026-05-06",
@@ -79,17 +79,17 @@
         },
         {
           "data": "2026-05-05",
-          "assunto": "Versão em português",
-          "categoria": "ITR (trimestral)",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1516260&numSequencia=1040966&numVersao=1"
-        },
-        {
-          "data": "2026-05-05",
           "assunto": "Release de Resultados - 1T26 (Português)",
           "categoria": "ITR (trimestral)",
           "periodo": "1T26",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1516148&numSequencia=1040854&numVersao=1"
+        },
+        {
+          "data": "2026-05-05",
+          "assunto": "Versão em português",
+          "categoria": "ITR (trimestral)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1516260&numSequencia=1040966&numVersao=1"
         },
         {
           "data": "2026-03-11",
@@ -100,17 +100,17 @@
         },
         {
           "data": "2026-03-10",
-          "assunto": "Release de Resultados - 4T25 & 2025 (Português)",
-          "categoria": "ITR (trimestral)",
-          "periodo": "4T25",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1488457&numSequencia=1013163&numVersao=1"
-        },
-        {
-          "data": "2026-03-10",
           "assunto": "Demonstrações Financeiras Anuais Completas",
           "categoria": "DFP (anual)",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1488630&numSequencia=1013336&numVersao=1"
+        },
+        {
+          "data": "2026-03-10",
+          "assunto": "Release de Resultados - 4T25 & 2025 (Português)",
+          "categoria": "ITR (trimestral)",
+          "periodo": "4T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1488457&numSequencia=1013163&numVersao=1"
         },
         {
           "data": "2025-11-05",
@@ -126,9 +126,21 @@
       "setor": "Óleo & Gás",
       "cnpj": "12.091.809/0001-55",
       "nome_cvm": "BRAVA ENERGIA S.A.",
-      "n_fatos_2anos": 86,
+      "n_fatos_2anos": 88,
       "n_resultados_2anos": 17,
       "fatos": [
+        {
+          "data": "2026-09-17",
+          "assunto": "Encerramento da Transação para Venda de Concessões no Rio Grande do Norte",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1569288&numSequencia=1093994&numVersao=1"
+        },
+        {
+          "data": "2026-08-17",
+          "assunto": "Conclusão da Operação de Aquisição do Controle da Brava pela Ecopetrol",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1558700&numSequencia=1083406&numVersao=1"
+        },
         {
           "data": "2026-08-10",
           "assunto": "Celebração, Alteração ou Rescisão de Acordo de Acionistas",
@@ -152,18 +164,6 @@
           "assunto": "Reapresentação do Edital da Oferta Pública de Aquisição de Ações",
           "tipo": "",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1546429&numSequencia=1071135&numVersao=1"
-        },
-        {
-          "data": "2026-07-15",
-          "assunto": "Decisão do Colegiado CVM sobre Recurso da Ecopetrol",
-          "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1545317&numSequencia=1070023&numVersao=1"
-        },
-        {
-          "data": "2026-07-07",
-          "assunto": "Remessa do Recurso da Ecopetrol Sobre a Decisão da Área Técnica ao Colegiado CVM",
-          "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1542593&numSequencia=1067299&numVersao=1"
         }
       ],
       "resultados": [
@@ -204,17 +204,17 @@
         },
         {
           "data": "2026-03-11",
-          "assunto": "Release de Resultados 4T25 & 2025",
-          "categoria": "ITR (trimestral)",
-          "periodo": "4T25",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1489276&numSequencia=1013982&numVersao=1"
-        },
-        {
-          "data": "2026-03-11",
           "assunto": "Demonstrações Financeiras Anuais Completas",
           "categoria": "DFP (anual)",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1489280&numSequencia=1013986&numVersao=1"
+        },
+        {
+          "data": "2026-03-11",
+          "assunto": "Release de Resultados 4T25 & 2025",
+          "categoria": "ITR (trimestral)",
+          "periodo": "4T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1489276&numSequencia=1013982&numVersao=1"
         },
         {
           "data": "2025-11-06",
@@ -236,6 +236,124 @@
           "categoria": "Apresentação",
           "periodo": "2T25",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1409404&numSequencia=934116&numVersao=1"
+        }
+      ]
+    },
+    "PETR4": {
+      "nome": "Petrobras PN",
+      "setor": "Óleo & Gás",
+      "cnpj": "33.000.167/0001-01",
+      "nome_cvm": "PETRÓLEO BRASILEIRO S.A. - PETROBRAS",
+      "n_fatos_2anos": 73,
+      "n_resultados_2anos": 11,
+      "fatos": [
+        {
+          "data": "2026-09-19",
+          "assunto": "Petrobras informa sobre adesão à nova subvenção econômica",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1569745&numSequencia=1094451&numVersao=1"
+        },
+        {
+          "data": "2026-08-06",
+          "assunto": "Petrobras informa sobre remuneração aos acionistas",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1553780&numSequencia=1078486&numVersao=1"
+        },
+        {
+          "data": "2026-07-31",
+          "assunto": "Relatório de Produção e Vendas 2T26",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1550775&numSequencia=1075481&numVersao=2"
+        },
+        {
+          "data": "2026-07-28",
+          "assunto": "Relatório de Produção e Vendas 2T26",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1548963&numSequencia=1073669&numVersao=1"
+        },
+        {
+          "data": "2026-06-02",
+          "assunto": "Petrobras informa sobre adesão à nova subvenção econômica",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1529607&numSequencia=1054313&numVersao=1"
+        },
+        {
+          "data": "2026-05-20",
+          "assunto": "Petrobras informa sobre adesão à nova subvenção econômica",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1525282&numSequencia=1049988&numVersao=1"
+        }
+      ],
+      "resultados": [
+        {
+          "data": "2026-08-06",
+          "assunto": "Relatório de Desempenho 2T26",
+          "categoria": "ITR (trimestral)",
+          "periodo": "2T26",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1553785&numSequencia=1078491&numVersao=1"
+        },
+        {
+          "data": "2026-05-13",
+          "assunto": "Relatório de Desempenho 1T26",
+          "categoria": "ITR (trimestral)",
+          "periodo": "1T26",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1521702&numSequencia=1046408&numVersao=1"
+        },
+        {
+          "data": "2026-03-05",
+          "assunto": "Desempenho 4T25",
+          "categoria": "ITR (trimestral)",
+          "periodo": "4T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1486338&numSequencia=1011044&numVersao=1"
+        },
+        {
+          "data": "2026-03-05",
+          "assunto": "Demonstrações Financeiras Anuais Completas",
+          "categoria": "DFP (anual)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1486415&numSequencia=1011121&numVersao=1"
+        },
+        {
+          "data": "2025-11-06",
+          "assunto": "Desempenho Petrobras 3T25",
+          "categoria": "ITR (trimestral)",
+          "periodo": "3T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1441513&numSequencia=966225&numVersao=2"
+        },
+        {
+          "data": "2025-08-07",
+          "assunto": "Relatório de Desempenho 2T25",
+          "categoria": "ITR (trimestral)",
+          "periodo": "2T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1410102&numSequencia=934814&numVersao=2"
+        },
+        {
+          "data": "2025-05-12",
+          "assunto": "Relatório de Desempenho Petrobras 1T25",
+          "categoria": "ITR (trimestral)",
+          "periodo": "1T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1376534&numSequencia=901246&numVersao=1"
+        },
+        {
+          "data": "2025-03-07",
+          "assunto": "Demonstrações Financeiras Anuais Completas",
+          "categoria": "DFP (anual)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1343720&numSequencia=868446&numVersao=2"
+        },
+        {
+          "data": "2025-02-26",
+          "assunto": "Demonstrações Financeiras Anuais Completas",
+          "categoria": "DFP (anual)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1340279&numSequencia=865005&numVersao=1"
+        },
+        {
+          "data": "2025-02-26",
+          "assunto": "Desempenho financeiro da Petrobras em 2024",
+          "categoria": "Release",
+          "periodo": "2024",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1340145&numSequencia=864871&numVersao=1"
         }
       ]
     },
@@ -301,17 +419,17 @@
         },
         {
           "data": "2026-05-07",
-          "assunto": "Demonstração Financeira Intermediária",
-          "categoria": "ITR (trimestral)",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1518233&numSequencia=1042939&numVersao=1"
-        },
-        {
-          "data": "2026-05-07",
           "assunto": "Release de Resultados 1T26 - Português",
           "categoria": "ITR (trimestral)",
           "periodo": "1T26",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1518225&numSequencia=1042931&numVersao=2"
+        },
+        {
+          "data": "2026-05-07",
+          "assunto": "Demonstração Financeira Intermediária",
+          "categoria": "ITR (trimestral)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1518233&numSequencia=1042939&numVersao=1"
         },
         {
           "data": "2026-03-31",
@@ -544,10 +662,10 @@
         },
         {
           "data": "2026-05-13",
-          "assunto": "Release 1T26",
+          "assunto": "ITR - 1T26",
           "categoria": "ITR (trimestral)",
           "periodo": "1T26",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1521625&numSequencia=1046331&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1521612&numSequencia=1046318&numVersao=1"
         },
         {
           "data": "2026-03-26",
@@ -579,10 +697,10 @@
         },
         {
           "data": "2025-11-12",
-          "assunto": "Press Release 3T25",
+          "assunto": "ITR 3T25",
           "categoria": "ITR (trimestral)",
           "periodo": "3T25",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1444315&numSequencia=969027&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1444321&numSequencia=969033&numVersao=1"
         },
         {
           "data": "2025-08-14",
@@ -598,9 +716,33 @@
       "setor": "Energia elétrica",
       "cnpj": "17.155.730/0001-64",
       "nome_cvm": "CIA ENERG MINAS GERAIS - CEMIG",
-      "n_fatos_2anos": 25,
+      "n_fatos_2anos": 29,
       "n_resultados_2anos": 19,
       "fatos": [
+        {
+          "data": "2026-09-11",
+          "assunto": "Fato Relevante - Eleição de Presidente e de Presidente do Conselho de Administração",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1567618&numSequencia=1092324&numVersao=1"
+        },
+        {
+          "data": "2026-08-31",
+          "assunto": "Fato Relevante - Prorrogação da Concessão da UHE Sá Carvalho",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1563284&numSequencia=1087990&numVersao=1"
+        },
+        {
+          "data": "2026-08-28",
+          "assunto": "Indicações pelo Acionista Controlador para o Conselho de Administração e Presidência da CEMIG",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1562820&numSequencia=1087526&numVersao=1"
+        },
+        {
+          "data": "2026-08-28",
+          "assunto": "Prorrogação da Concessão da UHE Sá Carvalho",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1562249&numSequencia=1086955&numVersao=1"
+        },
         {
           "data": "2026-06-12",
           "assunto": "Fato Relevante - Nova Composição da Diretoria Executiva",
@@ -612,39 +754,15 @@
           "assunto": "Julgamento do Tribunal Regional Federal da 1ª Região (TRF1) sobre a RBSE",
           "tipo": "",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1527534&numSequencia=1052240&numVersao=1"
-        },
-        {
-          "data": "2026-05-14",
-          "assunto": "Fato Relevante - Incidente de segurança cibernética com exposição de dados pessoais",
-          "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1522269&numSequencia=1046975&numVersao=1"
-        },
-        {
-          "data": "2026-05-07",
-          "assunto": "Fato Relevante - Eleição de novo Presidente",
-          "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1518290&numSequencia=1042996&numVersao=1"
-        },
-        {
-          "data": "2025-12-12",
-          "assunto": "CEMIG divulga plano de investimentos de R$ 44 bilhões para 2026/2030",
-          "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1457053&numSequencia=981765&numVersao=1"
-        },
-        {
-          "data": "2025-12-12",
-          "assunto": "Acordo único em dissídios coletivos sobre plano de saúde",
-          "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1456987&numSequencia=981699&numVersao=1"
         }
       ],
       "resultados": [
         {
           "data": "2026-08-13",
-          "assunto": "Earnings Release 2T26",
+          "assunto": "2T26",
           "categoria": "ITR (trimestral)",
           "periodo": "2T26",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1557484&numSequencia=1082190&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1557460&numSequencia=1082166&numVersao=1"
         },
         {
           "data": "2026-05-08",
@@ -676,17 +794,17 @@
         },
         {
           "data": "2026-03-19",
-          "assunto": "Earnings 4T25",
-          "categoria": "ITR (trimestral)",
-          "periodo": "4T25",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1492872&numSequencia=1017578&numVersao=1"
-        },
-        {
-          "data": "2026-03-19",
           "assunto": "Demonstrações Financeiras Anuais Completas",
           "categoria": "DFP (anual)",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1492869&numSequencia=1017575&numVersao=1"
+        },
+        {
+          "data": "2026-03-19",
+          "assunto": "Earnings 4T25",
+          "categoria": "ITR (trimestral)",
+          "periodo": "4T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1492872&numSequencia=1017578&numVersao=1"
         },
         {
           "data": "2025-11-14",
@@ -697,10 +815,10 @@
         },
         {
           "data": "2025-11-13",
-          "assunto": "ITR 3T25",
+          "assunto": "Earnings Release 3T25",
           "categoria": "ITR (trimestral)",
           "periodo": "3T25",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1445053&numSequencia=969765&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1445099&numSequencia=969811&numVersao=1"
         },
         {
           "data": "2025-08-18",
@@ -751,25 +869,25 @@
         },
         {
           "data": "2026-02-04",
-          "assunto": "Programa de Recompra de Ações",
+          "assunto": "Projeções 2026",
           "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1473197&numSequencia=997903&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1473323&numSequencia=998029&numVersao=1"
         }
       ],
       "resultados": [
-        {
-          "data": "2026-08-04",
-          "assunto": "Demonstrações Contábeis Completas",
-          "categoria": "ITR (trimestral)",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1552007&numSequencia=1076713&numVersao=1"
-        },
         {
           "data": "2026-08-04",
           "assunto": "Versão em Português",
           "categoria": "Release",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1552018&numSequencia=1076724&numVersao=1"
+        },
+        {
+          "data": "2026-08-04",
+          "assunto": "Demonstrações Contábeis Completas",
+          "categoria": "ITR (trimestral)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1552007&numSequencia=1076713&numVersao=1"
         },
         {
           "data": "2026-05-05",
@@ -822,10 +940,10 @@
         },
         {
           "data": "2025-08-05",
-          "assunto": "Demonstrações Contábeis Condensadas",
-          "categoria": "ITR (trimestral)",
+          "assunto": "Versão em Português",
+          "categoria": "Release",
           "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1408190&numSequencia=932902&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1408201&numSequencia=932913&numVersao=1"
         }
       ]
     },
@@ -877,13 +995,6 @@
       "resultados": [
         {
           "data": "2026-08-05",
-          "assunto": "Press Release||www.bradescori.com.br",
-          "categoria": "Release",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1552737&numSequencia=1077443&numVersao=1"
-        },
-        {
-          "data": "2026-08-05",
           "assunto": "Demonstrações Financeiras em IFRS - Português",
           "categoria": "Release",
           "periodo": null,
@@ -895,6 +1006,13 @@
           "categoria": "ITR (trimestral)",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1552741&numSequencia=1077447&numVersao=1"
+        },
+        {
+          "data": "2026-08-05",
+          "assunto": "Press Release||www.bradescori.com.br",
+          "categoria": "Release",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1552737&numSequencia=1077443&numVersao=1"
         },
         {
           "data": "2026-08-05",
@@ -919,24 +1037,17 @@
         },
         {
           "data": "2026-05-06",
-          "assunto": "Demonstrações Financeiras Intermediárias",
-          "categoria": "ITR (trimestral)",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1516980&numSequencia=1041686&numVersao=1"
-        },
-        {
-          "data": "2026-05-06",
           "assunto": "Apresentação da Videoconferência de Resultados do 1T26",
           "categoria": "Apresentação",
           "periodo": "1T26",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1517135&numSequencia=1041841&numVersao=1"
         },
         {
-          "data": "2026-03-25",
-          "assunto": "Demonstrações Financeiras em IFRS - Português",
-          "categoria": "Release",
+          "data": "2026-05-06",
+          "assunto": "Demonstrações Financeiras Intermediárias",
+          "categoria": "ITR (trimestral)",
           "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1495323&numSequencia=1020029&numVersao=2"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1516980&numSequencia=1041686&numVersao=1"
         },
         {
           "data": "2026-03-25",
@@ -944,6 +1055,13 @@
           "categoria": "DFP (anual)",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1495311&numSequencia=1020017&numVersao=2"
+        },
+        {
+          "data": "2026-03-25",
+          "assunto": "Demonstrações Financeiras em IFRS - Português",
+          "categoria": "Release",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1495323&numSequencia=1020029&numVersao=2"
         }
       ]
     },
@@ -952,9 +1070,15 @@
       "setor": "Bancos",
       "cnpj": "00.000.000/0001-91",
       "nome_cvm": "BANCO DO BRASIL S.A.",
-      "n_fatos_2anos": 39,
+      "n_fatos_2anos": 40,
       "n_resultados_2anos": 31,
       "fatos": [
+        {
+          "data": "2026-08-19",
+          "assunto": "JCP antecipação 3T26",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1559643&numSequencia=1084349&numVersao=1"
+        },
         {
           "data": "2026-08-12",
           "assunto": "Remuneração Complementar aos Acionistas 2T26",
@@ -975,37 +1099,31 @@
         },
         {
           "data": "2026-05-13",
-          "assunto": "Remuneração Complementar aos Acionistas 1T26",
-          "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1521597&numSequencia=1046303&numVersao=1"
-        },
-        {
-          "data": "2026-05-13",
           "assunto": "Projeções 1T26",
           "tipo": "",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1521599&numSequencia=1046305&numVersao=1"
         },
         {
-          "data": "2026-02-19",
-          "assunto": "Remuneração aos Acionistas JCP Antecipação 1T26",
+          "data": "2026-05-13",
+          "assunto": "Remuneração Complementar aos Acionistas 1T26",
           "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1479548&numSequencia=1004254&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1521597&numSequencia=1046303&numVersao=1"
         }
       ],
       "resultados": [
+        {
+          "data": "2026-08-17",
+          "assunto": "Análise do Desempenho 2T26",
+          "categoria": "ITR (trimestral)",
+          "periodo": "2T26",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1558772&numSequencia=1083478&numVersao=2"
+        },
         {
           "data": "2026-08-13",
           "assunto": "Apresentação do Resultado 2T26",
           "categoria": "Apresentação",
           "periodo": "2T26",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1556817&numSequencia=1081523&numVersao=2"
-        },
-        {
-          "data": "2026-08-12",
-          "assunto": "Versão Português",
-          "categoria": "Release",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1556520&numSequencia=1081226&numVersao=1"
         },
         {
           "data": "2026-08-12",
@@ -1016,10 +1134,10 @@
         },
         {
           "data": "2026-08-12",
-          "assunto": "BB Notícias 2T26",
-          "categoria": "ITR (trimestral)",
-          "periodo": "2T26",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1556521&numSequencia=1081227&numVersao=1"
+          "assunto": "Versão Português",
+          "categoria": "Release",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1556520&numSequencia=1081226&numVersao=1"
         },
         {
           "data": "2026-05-14",
@@ -1030,17 +1148,17 @@
         },
         {
           "data": "2026-05-13",
-          "assunto": "Análise do Desempenho 1T26",
-          "categoria": "ITR (trimestral)",
-          "periodo": "1T26",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1521600&numSequencia=1046306&numVersao=1"
-        },
-        {
-          "data": "2026-05-13",
           "assunto": "Versão Português",
           "categoria": "Release",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1521596&numSequencia=1046302&numVersao=1"
+        },
+        {
+          "data": "2026-05-13",
+          "assunto": "Demonstrações Contábeis 1T26",
+          "categoria": "ITR (trimestral)",
+          "periodo": "1T26",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1521602&numSequencia=1046308&numVersao=1"
         },
         {
           "data": "2026-04-02",
@@ -1127,13 +1245,6 @@
         },
         {
           "data": "2026-08-03",
-          "assunto": "Versão em Português",
-          "categoria": "Release",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1551306&numSequencia=1076012&numVersao=1"
-        },
-        {
-          "data": "2026-08-03",
           "assunto": "Relatório de Análise do Desempenho do 2T26",
           "categoria": "ITR (trimestral)",
           "periodo": "2T26",
@@ -1147,6 +1258,13 @@
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1551316&numSequencia=1076022&numVersao=1"
         },
         {
+          "data": "2026-08-03",
+          "assunto": "Versão em Português",
+          "categoria": "Release",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1551306&numSequencia=1076012&numVersao=1"
+        },
+        {
           "data": "2026-05-05",
           "assunto": "Apresentação de Resultados do 1T26",
           "categoria": "Apresentação",
@@ -1155,17 +1273,17 @@
         },
         {
           "data": "2026-05-04",
-          "assunto": "Relatório de Análise do Desempenho do 1T26",
-          "categoria": "ITR (trimestral)",
-          "periodo": "1T26",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1515293&numSequencia=1039999&numVersao=1"
-        },
-        {
-          "data": "2026-05-04",
           "assunto": "Versão em Português",
           "categoria": "Release",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1515289&numSequencia=1039995&numVersao=1"
+        },
+        {
+          "data": "2026-05-04",
+          "assunto": "Relatório de Análise do Desempenho do 1T26",
+          "categoria": "ITR (trimestral)",
+          "periodo": "1T26",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1515293&numSequencia=1039999&numVersao=1"
         },
         {
           "data": "2026-02-10",
@@ -1176,10 +1294,10 @@
         },
         {
           "data": "2026-02-09",
-          "assunto": "Resultado quarto trimestre de 2025",
-          "categoria": "ITR (trimestral)",
-          "periodo": "2025",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1475088&numSequencia=999794&numVersao=1"
+          "assunto": "Demonstrações Financeiras Anuais Completas",
+          "categoria": "DFP (anual)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1475083&numSequencia=999789&numVersao=1"
         }
       ]
     },
@@ -1323,9 +1441,9 @@
         },
         {
           "data": "2026-07-30",
-          "assunto": "Atualização de projeções",
+          "assunto": "Atualização de projeções||Distribuição de remuneração aos acionistas",
           "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1549984&numSequencia=1074690&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1549981&numSequencia=1074687&numVersao=1"
         },
         {
           "data": "2026-07-30",
@@ -1335,9 +1453,9 @@
         },
         {
           "data": "2026-07-30",
-          "assunto": "Atualização de projeções||Distribuição de remuneração aos acionistas",
+          "assunto": "Atualização de projeções",
           "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1549981&numSequencia=1074687&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1549984&numSequencia=1074690&numVersao=1"
         },
         {
           "data": "2026-07-22",
@@ -1488,10 +1606,10 @@
         },
         {
           "data": "2026-04-29",
-          "assunto": "Release de resultados 1T26",
+          "assunto": "ITR 1T26",
           "categoria": "ITR (trimestral)",
           "periodo": "1T26",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1511164&numSequencia=1035870&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1511168&numSequencia=1035874&numVersao=1"
         },
         {
           "data": "2026-02-11",
@@ -1502,17 +1620,17 @@
         },
         {
           "data": "2026-02-10",
-          "assunto": "Demonstrações Financeiras Anuais Completas",
-          "categoria": "DFP (anual)",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1475876&numSequencia=1000582&numVersao=1"
-        },
-        {
-          "data": "2026-02-10",
           "assunto": "Release de Resultados 4T25",
           "categoria": "ITR (trimestral)",
           "periodo": "4T25",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1475882&numSequencia=1000588&numVersao=1"
+        },
+        {
+          "data": "2026-02-10",
+          "assunto": "Demonstrações Financeiras Anuais Completas",
+          "categoria": "DFP (anual)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1475876&numSequencia=1000582&numVersao=1"
         },
         {
           "data": "2025-11-07",
@@ -1585,17 +1703,17 @@
       "resultados": [
         {
           "data": "2026-07-30",
-          "assunto": "Press-release de resultados 2T26",
-          "categoria": "ITR (trimestral)",
-          "periodo": "2T26",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1549510&numSequencia=1074216&numVersao=1"
-        },
-        {
-          "data": "2026-07-30",
           "assunto": "Apresentação Call de Resultados do Segundo Trimestre de 2026",
           "categoria": "Apresentação",
           "periodo": "2026",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1549615&numSequencia=1074321&numVersao=1"
+        },
+        {
+          "data": "2026-07-30",
+          "assunto": "Press-release de resultados 2T26",
+          "categoria": "ITR (trimestral)",
+          "periodo": "2T26",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1549510&numSequencia=1074216&numVersao=1"
         },
         {
           "data": "2026-05-05",
@@ -1606,17 +1724,17 @@
         },
         {
           "data": "2026-02-12",
-          "assunto": "Press-release de resultados 4TAA",
-          "categoria": "Release",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1476803&numSequencia=1001509&numVersao=1"
-        },
-        {
-          "data": "2026-02-12",
           "assunto": "Apresentação Call de Resultados do Quarto Trimestre de 2025",
           "categoria": "Apresentação",
           "periodo": "2025",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1476925&numSequencia=1001631&numVersao=1"
+        },
+        {
+          "data": "2026-02-12",
+          "assunto": "Press-release de resultados 4TAA",
+          "categoria": "Release",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1476803&numSequencia=1001509&numVersao=1"
         },
         {
           "data": "2026-02-12",
@@ -1648,10 +1766,10 @@
         },
         {
           "data": "2025-02-26",
-          "assunto": "Press-release de resultados 4T24",
-          "categoria": "ITR (trimestral)",
-          "periodo": "4T24",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1339578&numSequencia=864304&numVersao=1"
+          "assunto": "Apresentação Call de Resultados do Quarto Trimestre de 2024",
+          "categoria": "Apresentação",
+          "periodo": "2024",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1339777&numSequencia=864503&numVersao=1"
         }
       ]
     },
@@ -1702,11 +1820,11 @@
       ],
       "resultados": [
         {
-          "data": "2026-08-14",
+          "data": "2026-08-19",
           "assunto": "Apresentação de Resultados 2T26",
           "categoria": "Apresentação",
           "periodo": "2T26",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1557581&numSequencia=1082287&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1559364&numSequencia=1084070&numVersao=1"
         },
         {
           "data": "2026-08-13",
@@ -1745,17 +1863,17 @@
         },
         {
           "data": "2026-03-18",
-          "assunto": "Demonstrações Financeiras 2025 - Padrões Internacionais",
-          "categoria": "Release",
-          "periodo": "2025",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1492061&numSequencia=1016767&numVersao=1"
-        },
-        {
-          "data": "2026-03-18",
           "assunto": "Demonstrações Financeiras Anuais Completas",
           "categoria": "DFP (anual)",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1492055&numSequencia=1016761&numVersao=1"
+        },
+        {
+          "data": "2026-03-18",
+          "assunto": "Demonstrações Financeiras 2025 - Padrões Internacionais",
+          "categoria": "Release",
+          "periodo": "2025",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1492061&numSequencia=1016767&numVersao=1"
         },
         {
           "data": "2025-11-11",
@@ -1766,10 +1884,10 @@
         },
         {
           "data": "2025-11-10",
-          "assunto": "Relatório da Administração - 3T25",
+          "assunto": "Demonstrações Financeiras - 3T25",
           "categoria": "ITR (trimestral)",
           "periodo": "3T25",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1442975&numSequencia=967687&numVersao=1"
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1442988&numSequencia=967700&numVersao=1"
         }
       ]
     },
@@ -1778,9 +1896,15 @@
       "setor": "Construção civil",
       "cnpj": "73.178.600/0001-18",
       "nome_cvm": "CYRELA BRAZIL REALTY S.A.EMPREEND E PART",
-      "n_fatos_2anos": 7,
+      "n_fatos_2anos": 8,
       "n_resultados_2anos": 10,
       "fatos": [
+        {
+          "data": "2026-08-31",
+          "assunto": "Distrato de MoU TRX",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1562847&numSequencia=1087553&numVersao=1"
+        },
         {
           "data": "2026-08-05",
           "assunto": "Celebração MoU alienação de ativos",
@@ -1810,12 +1934,6 @@
           "assunto": "Proposta de capitalização de reservas com bonificação em ações PN resgatáveis",
           "tipo": "",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1455107&numSequencia=979819&numVersao=1"
-        },
-        {
-          "data": "2024-12-19",
-          "assunto": "Aquisição de Ações de Emissão da Própria Companhia||Cancelamento de Ações",
-          "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1317651&numSequencia=842377&numVersao=1"
         }
       ],
       "resultados": [
@@ -1870,17 +1988,17 @@
         },
         {
           "data": "2025-03-20",
-          "assunto": "Demonstrações Financeiras Anuais Completas",
-          "categoria": "DFP (anual)",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1349404&numSequencia=874130&numVersao=1"
-        },
-        {
-          "data": "2025-03-20",
           "assunto": "Release 4T24/4Q24",
           "categoria": "ITR (trimestral)",
           "periodo": "4T24",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1349249&numSequencia=873975&numVersao=1"
+        },
+        {
+          "data": "2025-03-20",
+          "assunto": "Demonstrações Financeiras Anuais Completas",
+          "categoria": "DFP (anual)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1349404&numSequencia=874130&numVersao=1"
         },
         {
           "data": "2024-11-13",
@@ -1960,17 +2078,17 @@
         },
         {
           "data": "2026-03-09",
-          "assunto": "Demonstrações Financeiras Anuais Completas",
-          "categoria": "DFP (anual)",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1487073&numSequencia=1011779&numVersao=1"
-        },
-        {
-          "data": "2026-03-09",
           "assunto": "Relatório da Administração 2025 em Português e Inglês",
           "categoria": "DFP (anual)",
           "periodo": "2025",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1487072&numSequencia=1011778&numVersao=1"
+        },
+        {
+          "data": "2026-03-09",
+          "assunto": "Demonstrações Financeiras Anuais Completas",
+          "categoria": "DFP (anual)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1487073&numSequencia=1011779&numVersao=1"
         },
         {
           "data": "2025-11-12",
@@ -1995,17 +2113,17 @@
         },
         {
           "data": "2025-02-24",
-          "assunto": "Demonstrações Financeiras Anuais Completas",
-          "categoria": "DFP (anual)",
-          "periodo": null,
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1338815&numSequencia=863541&numVersao=1"
-        },
-        {
-          "data": "2025-02-24",
           "assunto": "Relatório da Administração 2024 em Português e Inglês",
           "categoria": "DFP (anual)",
           "periodo": "2024",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1338792&numSequencia=863518&numVersao=1"
+        },
+        {
+          "data": "2025-02-24",
+          "assunto": "Press release 4T24 - PT e EN",
+          "categoria": "ITR (trimestral)",
+          "periodo": "4T24",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1338783&numSequencia=863509&numVersao=1"
         }
       ]
     },
@@ -2113,17 +2231,17 @@
         },
         {
           "data": "2025-03-10",
-          "assunto": "Resultado 4T24",
-          "categoria": "ITR (trimestral)",
-          "periodo": "4T24",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1344793&numSequencia=869519&numVersao=1"
-        },
-        {
-          "data": "2025-03-10",
           "assunto": "Demonstrações Financeiras Anuais Completas",
           "categoria": "DFP (anual)",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1344884&numSequencia=869610&numVersao=1"
+        },
+        {
+          "data": "2025-03-10",
+          "assunto": "Resultado 4T24",
+          "categoria": "ITR (trimestral)",
+          "periodo": "4T24",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1344793&numSequencia=869519&numVersao=1"
         }
       ]
     },
@@ -2328,17 +2446,17 @@
         },
         {
           "data": "2026-02-25",
-          "assunto": "Release de Resultados 4T25",
-          "categoria": "ITR (trimestral)",
-          "periodo": "4T25",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1481533&numSequencia=1006239&numVersao=1"
-        },
-        {
-          "data": "2026-02-25",
           "assunto": "Demonstrações Financeiras Anuais Completas",
           "categoria": "DFP (anual)",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1481532&numSequencia=1006238&numVersao=1"
+        },
+        {
+          "data": "2026-02-25",
+          "assunto": "Release de Resultados 4T25",
+          "categoria": "ITR (trimestral)",
+          "periodo": "4T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1481533&numSequencia=1006239&numVersao=1"
         },
         {
           "data": "2025-10-23",
@@ -2368,9 +2486,15 @@
       "setor": "Siderurgia",
       "cnpj": "33.042.730/0001-04",
       "nome_cvm": "CIA SIDERURGICA NACIONAL",
-      "n_fatos_2anos": 28,
+      "n_fatos_2anos": 29,
       "n_resultados_2anos": 27,
       "fatos": [
+        {
+          "data": "2026-09-02",
+          "assunto": "Eleição do Presidente do Conselho",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1564291&numSequencia=1088997&numVersao=1"
+        },
         {
           "data": "2026-08-11",
           "assunto": "Resultados da Emissão de oferta pública de valores mobiliários: Exchange Notes",
@@ -2400,15 +2524,16 @@
           "assunto": "Alteracao e inclusao de projecao",
           "tipo": "",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1489308&numSequencia=1014014&numVersao=1"
-        },
-        {
-          "data": "2026-01-15",
-          "assunto": "CSN | Atualização Estratégica",
-          "tipo": "",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1467353&numSequencia=992059&numVersao=1"
         }
       ],
       "resultados": [
+        {
+          "data": "2026-08-27",
+          "assunto": "Demonstrações Financeiras em Padrões Internacionais",
+          "categoria": "Release",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1561991&numSequencia=1086697&numVersao=1"
+        },
         {
           "data": "2026-08-13",
           "assunto": "2T26 Apresentação de Resultados",
@@ -2471,15 +2596,206 @@
           "categoria": "DFP (anual)",
           "periodo": null,
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1489315&numSequencia=1014021&numVersao=1"
-        },
-        {
-          "data": "2026-03-11",
-          "assunto": "Release de Resultados do 4T25 e 2025",
-          "categoria": "ITR (trimestral)",
-          "periodo": "4T25",
-          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1489305&numSequencia=1014011&numVersao=1"
         }
       ]
+    },
+    "KNCR11": {
+      "nome": "Kinea Rendimentos Imob.",
+      "setor": "Fundos Imobiliários",
+      "erro": "nao localizado"
+    },
+    "MANA11": {
+      "nome": "Manati Capital Hedge FII",
+      "setor": "Fundos Imobiliários",
+      "erro": "nao localizado"
+    },
+    "RURA11": {
+      "nome": "Riza Arctium Real Estate",
+      "setor": "Fundos Imobiliários",
+      "erro": "nao localizado"
+    },
+    "RBRP11": {
+      "nome": "RBR Properties",
+      "setor": "Fundos Imobiliários",
+      "erro": "nao localizado"
+    },
+    "HGLG11": {
+      "nome": "CSHG Logística",
+      "setor": "Fundos Imobiliários",
+      "erro": "nao localizado"
+    },
+    "XPML11": {
+      "nome": "XP Malls",
+      "setor": "Fundos Imobiliários",
+      "erro": "nao localizado"
+    },
+    "CLIN11": {
+      "nome": "Clave Índices de Preços",
+      "setor": "Fundos Imobiliários",
+      "erro": "nao localizado"
+    },
+    "MXRF11": {
+      "nome": "Maxi Renda",
+      "setor": "Fundos Imobiliários",
+      "erro": "nao localizado"
     }
+  },
+  "macro_juros": {
+    "fatos_juros_cvm": [
+      {
+        "data": "2026-09-10",
+        "empresa": "BBM LOGÍSTICA S.A.",
+        "assunto": "Estruturação para Emissão de Valores Mobiliários",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1567121&numSequencia=1091827&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-07-30",
+        "empresa": "VALE S.A.",
+        "assunto": "Aquisição de Ações de Emissão da Própria Companhia",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1549982&numSequencia=1074688&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-07-09",
+        "empresa": "BANCO DO NORDESTE DO BRASIL SA",
+        "assunto": "Editais Microcrédito",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1543583&numSequencia=1068289&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-06-26",
+        "empresa": "BANCO DA AMAZÔNIA S.A.",
+        "assunto": "Aumento de capital da Financiadora de Estudos e Projetos (FINEP) com ações do Banco da Amazônia S/A.",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1539083&numSequencia=1063789&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-06-12",
+        "empresa": "EQUATORIAL S.A.",
+        "assunto": "Alocação das ações de emissão da Copasa à Companhia",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1534080&numSequencia=1058786&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-06-08",
+        "empresa": "BRAVA ENERGIA S.A.",
+        "assunto": "Obtenção de Anuência Prévia em Assembleias Gerais de Debenturistas",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1532064&numSequencia=1056770&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-06-07",
+        "empresa": "CYRELA BRAZIL REALTY S.A.EMPREEND E PART",
+        "assunto": "Aquisição de Ações de Emissão da Própria Companhia||Cancelamento de Ações em Tesouraria",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1531487&numSequencia=1056193&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-05-28",
+        "empresa": "BRAVA ENERGIA S.A.",
+        "assunto": "Atualização sobre Processo de Obtenção de Anuência Prévia em Assembleias Gerais de Debenturistas",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1528211&numSequencia=1052917&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-04-30",
+        "empresa": "BANCO DO NORDESTE DO BRASIL SA",
+        "assunto": "Licitação Microcrédito_Crediamigo - Agroamigo",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1512902&numSequencia=1037608&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-04-29",
+        "empresa": "BANCO DO NORDESTE DO BRASIL SA",
+        "assunto": "Licitação Microcrédito - Agroamigo",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1511670&numSequencia=1036376&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-09-18",
+        "empresa": "NOVA TRANSPORTADORA DO SUDESTE S.A. - NTS",
+        "assunto": "Fato Relevante - 13ª Emissão de Debêntures",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1569711&numSequencia=1094417&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-09-18",
+        "empresa": "ACO VERDE DO BRASIL S.A",
+        "assunto": "Aprovação da 6ª Emissão de Debêntures Simples, em Série Única",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1569671&numSequencia=1094377&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-09-17",
+        "empresa": "SENDAS DISTRIBUIDORA S.A.",
+        "assunto": "2º Programa de Aquisição de Debêntures",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1569290&numSequencia=1093996&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-09-15",
+        "empresa": "CIELO S.A. - INSTITUIÇÃO DE PAGAMENTO",
+        "assunto": "10ª Emissão de Debêntures Simples, Não Conversíveis em Ações",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1568502&numSequencia=1093208&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      },
+      {
+        "data": "2026-09-11",
+        "empresa": "GIGA MAIS FIBRA TELECOMUNICAÇÕES S.A.",
+        "assunto": "10ª Emissão de Debêntures Simples",
+        "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1567713&numSequencia=1092419&numVersao=1",
+        "tipo": "fato_relevante_juros"
+      }
+    ],
+    "agenda_resumo": [
+      {
+        "data": "2026-10-12",
+        "evento": "Divulgação IPCA 10/2026 (est.)",
+        "tipo": "inflacao",
+        "impacto": "Surpresa inflacionária move expectativa de Selic e FIIs/varejo.",
+        "tag": "calendario"
+      },
+      {
+        "data": "2026-11-04",
+        "data_inicio": "2026-11-03",
+        "evento": "Copom — decisão da Selic",
+        "tipo": "juros_br",
+        "impacto": "Principal driver para FIIs, bancos, varejo e construção.",
+        "tag": "oficial",
+        "fonte": "BCB"
+      },
+      {
+        "data": "2026-11-04",
+        "evento": "FOMC (Fed) — decisão de juros EUA",
+        "tipo": "juros_us",
+        "impacto": "Juro americano alto fortalece USD e drena fluxo de emergentes.",
+        "tag": "oficial",
+        "fonte": "Fed"
+      },
+      {
+        "data": "2026-11-12",
+        "evento": "Divulgação IPCA 11/2026 (est.)",
+        "tipo": "inflacao",
+        "impacto": "Surpresa inflacionária move expectativa de Selic e FIIs/varejo.",
+        "tag": "calendario"
+      },
+      {
+        "data": "2026-12-09",
+        "data_inicio": "2026-12-08",
+        "evento": "Copom — decisão da Selic",
+        "tipo": "juros_br",
+        "impacto": "Principal driver para FIIs, bancos, varejo e construção.",
+        "tag": "oficial",
+        "fonte": "BCB"
+      },
+      {
+        "data": "2026-12-12",
+        "evento": "Divulgação IPCA 12/2026 (est.)",
+        "tipo": "inflacao",
+        "impacto": "Surpresa inflacionária move expectativa de Selic e FIIs/varejo.",
+        "tag": "calendario"
+      }
+    ]
   }
 }

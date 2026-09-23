@@ -1,0 +1,82 @@
+{
+  "atualizado": "2026-09-22 11:30",
+  "fonte": "EIA/API semanal (via TradingEconomics) + contexto OECD/IEA",
+  "resumo": "EUA: variação semanal de estoque bruto -0.64 M barris (draw). OECD: EUA estável/moderado — acompanhar relatório mensal IEA para confirmação OECD.",
+  "sinal_petroleo": 0.12,
+  "sinal_label": "neutro",
+  "semanal": [
+    {
+      "id": "us_crude",
+      "slug": "united-states/crude-oil-stocks-change",
+      "nome": "EUA — petróleo bruto",
+      "regiao": "Estados Unidos",
+      "fonte": "EIA",
+      "unidade": "M barris/sem",
+      "variacao_mmbbl": -0.64,
+      "semana_ref": "September 11 of 2026",
+      "leitura": "Queda forte de estoque (draw) — oferta apertada, altista para Brent/WTI",
+      "tag": "oficial",
+      "atualizado": "2026-09-22"
+    },
+    {
+      "id": "us_gasoline",
+      "slug": "united-states/gasoline-stocks-change",
+      "nome": "EUA — gasolina",
+      "regiao": "Estados Unidos",
+      "fonte": "EIA",
+      "unidade": "M barris/sem",
+      "variacao_mmbbl": 0.794,
+      "semana_ref": "September 11 of 2026",
+      "leitura": "Alta forte de estoque (build) — mais oferta, pressão de baixa",
+      "tag": "oficial",
+      "atualizado": "2026-09-22"
+    },
+    {
+      "id": "us_distillate",
+      "slug": "united-states/distillate-stocks",
+      "nome": "EUA — destilados (diesel/HO)",
+      "regiao": "Estados Unidos",
+      "fonte": "EIA",
+      "unidade": "M barris/sem",
+      "variacao_mmbbl": -0.502,
+      "semana_ref": "September 11",
+      "leitura": "Queda forte de estoque (draw) — oferta apertada, altista para Brent/WTI",
+      "tag": "oficial",
+      "atualizado": "2026-09-22"
+    },
+    {
+      "id": "us_api_crude",
+      "slug": "united-states/api-crude-oil-stock-change",
+      "nome": "EUA — petróleo bruto (API, prévia)",
+      "regiao": "Estados Unidos",
+      "fonte": "API",
+      "unidade": "M barris/sem",
+      "variacao_mmbbl": null,
+      "semana_ref": "September 11",
+      "leitura": "Dado indisponível",
+      "tag": "preview",
+      "atualizado": "2026-09-22"
+    }
+  ],
+  "global": {
+    "nome": "OECD — estoques comerciais de petróleo",
+    "regiao": "OCDE (38 países)",
+    "fonte": "IEA Oil Market Report / EIA STEO",
+    "frequencia": "mensal (~6 sem defasagem)",
+    "unidade": "milhões barris",
+    "nota": "Estimativa agregada IEA/EIA: estoques comerciais OECD são referência global para OPEC+ e preço do Brent. Abaixo da média 5 anos = mercado mais apertado.",
+    "referencia": {
+      "nivel_tipico_oecd_mmbbl": 2700,
+      "media_5a_relacao": "próximo da média sazonal",
+      "dias_suprimento_oecd": 60
+    },
+    "tag": "curado/mensal",
+    "leitura": "EUA estável/moderado — acompanhar relatório mensal IEA para confirmação OECD.",
+    "sinal": "neutro"
+  },
+  "glossario": {
+    "draw": "Queda de estoque — demanda > oferta na semana",
+    "build": "Alta de estoque — oferta > demanda na semana",
+    "mmbbl": "Milhões de barris (1 M barris ≈ 159 mil m³)"
+  }
+}

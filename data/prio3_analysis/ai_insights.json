@@ -391,6 +391,6 @@
     }
   ],
   "stale": true,
-  "stale_desde": "2026-09-18 10:29",
-  "stale_motivo": "Projeto Supabase restrito (exceed_db_size_quota) — IA indisponível no refresh de hoje"
+  "stale_desde": "2026-09-22 11:30",
+  "stale_motivo": "lote 1: sem JSON na resposta; lote 2: sem JSON na resposta; lote 3: sem JSON na resposta; lote 4: sem JSON na resposta"
 }

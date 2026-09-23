@@ -1,112 +1,112 @@
 {
-  "atualizado": "2026-08-22",
+  "atualizado": "2026-09-22",
   "indicadores": {
     "selic_meta": {
-      "valor": 14.0,
+      "valor": 13.75,
       "unid": "% a.a.",
-      "data": "16/09/2026",
+      "data": "04/11/2026",
       "fonte": "BCB",
       "tag": "oficial"
     },
     "ipca_mes": {
-      "valor": 0.07,
+      "valor": -0.32,
       "unid": "% m",
-      "data": "01/07/2026",
+      "data": "01/08/2026",
       "fonte": "BCB",
       "tag": "oficial"
     },
     "ipca_12m": {
-      "valor": 4.44,
+      "valor": 4.22,
       "unid": "% 12m",
       "fonte": "BCB",
       "tag": "oficial"
     },
     "igpm_mes": {
-      "valor": -1.16,
+      "valor": -0.22,
       "unid": "% m",
-      "data": "01/07/2026",
+      "data": "01/08/2026",
       "fonte": "BCB",
       "tag": "oficial"
     },
     "igpm_12m": {
-      "valor": 2.77,
+      "valor": 2.18,
       "unid": "% 12m",
       "fonte": "BCB",
       "tag": "oficial"
     },
     "desemprego_br": {
-      "valor": 5.4,
+      "valor": 5.3,
       "unid": "%",
-      "data": "01/06/2026",
+      "data": "01/07/2026",
       "fonte": "BCB/PNAD",
       "tag": "oficial"
     },
     "inadimplencia_total": {
-      "valor": 4.68,
+      "valor": 4.88,
       "unid": "%",
-      "data": "01/06/2026",
+      "data": "01/07/2026",
       "fonte": "BCB",
       "tag": "oficial"
     },
     "inadimplencia_pj": {
-      "valor": 3.19,
+      "valor": 3.31,
       "unid": "%",
-      "data": "01/06/2026",
+      "data": "01/07/2026",
       "fonte": "BCB",
       "tag": "oficial"
     },
     "inadimplencia_pf": {
-      "valor": 5.57,
+      "valor": 5.81,
       "unid": "%",
-      "data": "01/06/2026",
+      "data": "01/07/2026",
       "fonte": "BCB",
       "tag": "oficial"
     },
     "usd_brl": {
-      "valor": 5.1625,
-      "chg_pct": -0.46,
-      "data": "21/08/2026",
+      "valor": 5.1117,
+      "chg_pct": -0.89,
+      "data": "21/09/2026",
       "fonte": "BCB",
       "tag": "oficial"
     },
     "fed_funds": {
       "valor": 3.63,
       "unid": "% a.a.",
-      "data": "2026-07-01",
+      "data": "2026-08-01",
       "fonte": "FRED",
       "tag": "oficial"
     },
     "desemprego_us": {
       "valor": 4.1,
       "unid": "%",
-      "data": "2026-07-01",
+      "data": "2026-08-01",
       "fonte": "FRED",
       "tag": "oficial"
     },
     "us_10y": {
-      "valor": 4.69,
+      "valor": 5.01,
       "unid": "%",
-      "data": "2026-08-20",
+      "data": "2026-09-18",
       "fonte": "FRED",
       "tag": "oficial"
     },
     "cpi_us_12m": {
-      "valor": 3.54,
+      "valor": 3.71,
       "unid": "% 12m",
-      "data": "2026-07-01",
+      "data": "2026-08-01",
       "fonte": "FRED",
       "tag": "oficial"
     },
     "ibovespa": {
-      "valor": 171032.0,
-      "chg_pct": 1.85,
-      "ret_1m_pct": -3.2,
+      "valor": 185737.0,
+      "chg_pct": -0.46,
+      "ret_1m_pct": 8.6,
       "fonte": "Yahoo",
       "tag": "tempo real"
     },
     "dxy": {
-      "valor": 98.8,
-      "chg_pct": -0.1,
+      "valor": 100.52,
+      "chg_pct": 0.09,
       "fonte": "Yahoo",
       "tag": "tempo real"
     }
@@ -114,7 +114,7 @@
   "direcoes": {
     "selic_up": 0,
     "usd_up": -1,
-    "ibov_up": -1,
+    "ibov_up": 1,
     "commodity_up": -1
   },
   "curados": {
@@ -130,5 +130,256 @@
       "texto": "Eleições gerais em outubro/2026 (presidencial + legislativo). Ano eleitoral eleva a volatilidade e o prêmio de risco; setores regulados (energia, bancos) e fiscais sensíveis à corrida eleitoral.",
       "tag": "curado/contexto"
     }
-  }
+  },
+  "focus_selic": {
+    "atual": {
+      "data_coleta": "2026-09-18",
+      "reuniao": "R6/2028",
+      "mediana": 10.5,
+      "minimo": 9.0,
+      "maximo": 12.5
+    },
+    "serie": [
+      {
+        "data_coleta": "2026-09-18",
+        "reuniao": "R6/2028",
+        "mediana": 10.5,
+        "minimo": 9.0,
+        "maximo": 12.5
+      },
+      {
+        "data_coleta": "2026-09-18",
+        "reuniao": "R6/2028",
+        "mediana": 10.5,
+        "minimo": 9.0,
+        "maximo": 12.5
+      },
+      {
+        "data_coleta": "2026-09-18",
+        "reuniao": "R5/2028",
+        "mediana": 10.875,
+        "minimo": 9.0,
+        "maximo": 13.0
+      },
+      {
+        "data_coleta": "2026-09-18",
+        "reuniao": "R5/2028",
+        "mediana": 11.0,
+        "minimo": 8.75,
+        "maximo": 13.75
+      },
+      {
+        "data_coleta": "2026-09-18",
+        "reuniao": "R4/2028",
+        "mediana": 11.0,
+        "minimo": 9.5,
+        "maximo": 13.0
+      },
+      {
+        "data_coleta": "2026-09-18",
+        "reuniao": "R4/2028",
+        "mediana": 11.0,
+        "minimo": 9.0,
+        "maximo": 13.75
+      }
+    ],
+    "fonte": "BCB Focus",
+    "tag": "oficial"
+  },
+  "focus_ipca": {
+    "atual": {
+      "data_coleta": "2026-09-18",
+      "referencia": "IGP-M",
+      "mediana": 5.5292
+    },
+    "serie": [
+      {
+        "data_coleta": "2026-09-18",
+        "referencia": "IGP-M",
+        "mediana": 5.5292
+      },
+      {
+        "data_coleta": "2026-09-18",
+        "referencia": "IGP-M",
+        "mediana": 4.9276
+      },
+      {
+        "data_coleta": "2026-09-18",
+        "referencia": "IGP-M",
+        "mediana": 5.3622
+      },
+      {
+        "data_coleta": "2026-09-18",
+        "referencia": "IGP-M",
+        "mediana": 4.899
+      }
+    ],
+    "fonte": "BCB Focus",
+    "tag": "oficial"
+  },
+  "agenda_macro": [
+    {
+      "data": "2026-10-12",
+      "evento": "Divulgação IPCA 10/2026 (est.)",
+      "tipo": "inflacao",
+      "impacto": "Surpresa inflacionária move expectativa de Selic e FIIs/varejo.",
+      "tag": "calendario"
+    },
+    {
+      "data": "2026-11-04",
+      "data_inicio": "2026-11-03",
+      "evento": "Copom — decisão da Selic",
+      "tipo": "juros_br",
+      "impacto": "Principal driver para FIIs, bancos, varejo e construção.",
+      "tag": "oficial",
+      "fonte": "BCB"
+    },
+    {
+      "data": "2026-11-04",
+      "evento": "FOMC (Fed) — decisão de juros EUA",
+      "tipo": "juros_us",
+      "impacto": "Juro americano alto fortalece USD e drena fluxo de emergentes.",
+      "tag": "oficial",
+      "fonte": "Fed"
+    },
+    {
+      "data": "2026-11-12",
+      "evento": "Divulgação IPCA 11/2026 (est.)",
+      "tipo": "inflacao",
+      "impacto": "Surpresa inflacionária move expectativa de Selic e FIIs/varejo.",
+      "tag": "calendario"
+    },
+    {
+      "data": "2026-12-09",
+      "data_inicio": "2026-12-08",
+      "evento": "Copom — decisão da Selic",
+      "tipo": "juros_br",
+      "impacto": "Principal driver para FIIs, bancos, varejo e construção.",
+      "tag": "oficial",
+      "fonte": "BCB"
+    },
+    {
+      "data": "2026-12-12",
+      "evento": "Divulgação IPCA 12/2026 (est.)",
+      "tipo": "inflacao",
+      "impacto": "Surpresa inflacionária move expectativa de Selic e FIIs/varejo.",
+      "tag": "calendario"
+    },
+    {
+      "data": "2026-12-16",
+      "evento": "FOMC (Fed) — decisão de juros EUA",
+      "tipo": "juros_us",
+      "impacto": "Juro americano alto fortalece USD e drena fluxo de emergentes.",
+      "tag": "oficial",
+      "fonte": "Fed"
+    }
+  ],
+  "fatos_juros": [
+    {
+      "data": "2026-09-10",
+      "empresa": "BBM LOGÍSTICA S.A.",
+      "assunto": "Estruturação para Emissão de Valores Mobiliários",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1567121&numSequencia=1091827&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-07-30",
+      "empresa": "VALE S.A.",
+      "assunto": "Aquisição de Ações de Emissão da Própria Companhia",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1549982&numSequencia=1074688&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-07-09",
+      "empresa": "BANCO DO NORDESTE DO BRASIL SA",
+      "assunto": "Editais Microcrédito",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1543583&numSequencia=1068289&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-06-26",
+      "empresa": "BANCO DA AMAZÔNIA S.A.",
+      "assunto": "Aumento de capital da Financiadora de Estudos e Projetos (FINEP) com ações do Banco da Amazônia S/A.",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1539083&numSequencia=1063789&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-06-12",
+      "empresa": "EQUATORIAL S.A.",
+      "assunto": "Alocação das ações de emissão da Copasa à Companhia",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1534080&numSequencia=1058786&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-06-08",
+      "empresa": "BRAVA ENERGIA S.A.",
+      "assunto": "Obtenção de Anuência Prévia em Assembleias Gerais de Debenturistas",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1532064&numSequencia=1056770&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-06-07",
+      "empresa": "CYRELA BRAZIL REALTY S.A.EMPREEND E PART",
+      "assunto": "Aquisição de Ações de Emissão da Própria Companhia||Cancelamento de Ações em Tesouraria",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1531487&numSequencia=1056193&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-05-28",
+      "empresa": "BRAVA ENERGIA S.A.",
+      "assunto": "Atualização sobre Processo de Obtenção de Anuência Prévia em Assembleias Gerais de Debenturistas",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1528211&numSequencia=1052917&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-04-30",
+      "empresa": "BANCO DO NORDESTE DO BRASIL SA",
+      "assunto": "Licitação Microcrédito_Crediamigo - Agroamigo",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1512902&numSequencia=1037608&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-04-29",
+      "empresa": "BANCO DO NORDESTE DO BRASIL SA",
+      "assunto": "Licitação Microcrédito - Agroamigo",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1511670&numSequencia=1036376&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-09-18",
+      "empresa": "NOVA TRANSPORTADORA DO SUDESTE S.A. - NTS",
+      "assunto": "Fato Relevante - 13ª Emissão de Debêntures",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1569711&numSequencia=1094417&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-09-18",
+      "empresa": "ACO VERDE DO BRASIL S.A",
+      "assunto": "Aprovação da 6ª Emissão de Debêntures Simples, em Série Única",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1569671&numSequencia=1094377&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-09-17",
+      "empresa": "SENDAS DISTRIBUIDORA S.A.",
+      "assunto": "2º Programa de Aquisição de Debêntures",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1569290&numSequencia=1093996&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-09-15",
+      "empresa": "CIELO S.A. - INSTITUIÇÃO DE PAGAMENTO",
+      "assunto": "10ª Emissão de Debêntures Simples, Não Conversíveis em Ações",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1568502&numSequencia=1093208&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    },
+    {
+      "data": "2026-09-11",
+      "empresa": "GIGA MAIS FIBRA TELECOMUNICAÇÕES S.A.",
+      "assunto": "10ª Emissão de Debêntures Simples",
+      "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1567713&numSequencia=1092419&numVersao=1",
+      "tipo": "fato_relevante_juros"
+    }
+  ],
+  "leitura_juros": "Focus mediana Selic 10.5% (próx. Copom 2026-11-04). 15 fatos CVM sobre juros/crédito nos últimos 6 meses."
 }

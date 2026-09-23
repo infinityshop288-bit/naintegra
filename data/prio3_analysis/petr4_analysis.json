@@ -1,26 +1,26 @@
 {
   "ativo": "PETR4",
   "nome": "Petrobras PN",
-  "atualizado": "2026-09-11",
+  "atualizado": "2026-09-22",
   "snapshot": {
-    "preco": 49.0,
-    "ret_1m": 21.9,
-    "ret_3m": 29.4,
-    "ret_6m": 15.8,
-    "ret_12m": 75.1,
-    "ret_ytd": 69.7,
-    "high_52s": 49.12,
+    "preco": 47.93,
+    "ret_1m": 11.6,
+    "ret_3m": 29.1,
+    "ret_6m": 10.7,
+    "ret_12m": 65.8,
+    "ret_ytd": 66.0,
+    "high_52s": 50.43,
     "low_52s": 26.84,
-    "dist_high_pct": -0.2,
-    "dist_low_pct": 82.5
+    "dist_high_pct": -5.0,
+    "dist_low_pct": 78.6
   },
   "tecnicos": {
-    "sma50": 41.77,
-    "sma200": 38.58,
-    "dist_sma200_pct": 27.0,
+    "sma50": 43.28,
+    "sma200": 39.26,
+    "dist_sma200_pct": 22.1,
     "tendencia": "alta",
-    "rsi14": 75.1,
-    "vol_anual_pct": 26.2
+    "rsi14": 60.7,
+    "vol_anual_pct": 26.6
   },
   "relativo": {
     "vs_brent": {
@@ -29,10 +29,10 @@
       "n": 252
     },
     "vs_prio3": {
-      "corr": 0.6,
-      "beta": 0.45,
+      "corr": 0.67,
+      "beta": 0.49,
       "n": 252
     },
-    "prio3_preco": 56.42
+    "prio3_preco": 60.43
   }
 }
