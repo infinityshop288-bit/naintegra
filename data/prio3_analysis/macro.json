@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-09-22",
+  "atualizado": "2026-09-26",
   "indicadores": {
     "selic_meta": {
       "valor": 13.75,
@@ -42,9 +42,9 @@
       "tag": "oficial"
     },
     "inadimplencia_total": {
-      "valor": 4.88,
+      "valor": null,
       "unid": "%",
-      "data": "01/07/2026",
+      "data": null,
       "fonte": "BCB",
       "tag": "oficial"
     },
@@ -63,9 +63,9 @@
       "tag": "oficial"
     },
     "usd_brl": {
-      "valor": 5.1117,
-      "chg_pct": -0.89,
-      "data": "21/09/2026",
+      "valor": 5.1991,
+      "chg_pct": 0.38,
+      "data": "25/09/2026",
       "fonte": "BCB",
       "tag": "oficial"
     },
@@ -84,9 +84,9 @@
       "tag": "oficial"
     },
     "us_10y": {
-      "valor": 5.01,
+      "valor": 5.18,
       "unid": "%",
-      "data": "2026-09-18",
+      "data": "2026-09-24",
       "fonte": "FRED",
       "tag": "oficial"
     },
@@ -98,22 +98,22 @@
       "tag": "oficial"
     },
     "ibovespa": {
-      "valor": 185737.0,
-      "chg_pct": -0.46,
-      "ret_1m_pct": 8.6,
+      "valor": 183477.0,
+      "chg_pct": -0.27,
+      "ret_1m_pct": 5.1,
       "fonte": "Yahoo",
       "tag": "tempo real"
     },
     "dxy": {
-      "valor": 100.52,
-      "chg_pct": 0.09,
+      "valor": 100.97,
+      "chg_pct": -0.32,
       "fonte": "Yahoo",
       "tag": "tempo real"
     }
   },
   "direcoes": {
     "selic_up": 0,
-    "usd_up": -1,
+    "usd_up": 1,
     "ibov_up": 1,
     "commodity_up": -1
   },

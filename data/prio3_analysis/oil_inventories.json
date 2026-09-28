@@ -1,8 +1,8 @@
 {
-  "atualizado": "2026-09-22 11:30",
+  "atualizado": "2026-09-26 15:03",
   "fonte": "EIA/API semanal (via TradingEconomics) + contexto OECD/IEA",
-  "resumo": "EUA: variação semanal de estoque bruto -0.64 M barris (draw). OECD: EUA estável/moderado — acompanhar relatório mensal IEA para confirmação OECD.",
-  "sinal_petroleo": 0.12,
+  "resumo": "EUA: variação semanal de estoque bruto +2.97 M barris (build). OECD: EUA com build relevante — alivia tightness global de curto prazo.",
+  "sinal_petroleo": 0.24,
   "sinal_label": "neutro",
   "semanal": [
     {
@@ -12,11 +12,11 @@
       "regiao": "Estados Unidos",
       "fonte": "EIA",
       "unidade": "M barris/sem",
-      "variacao_mmbbl": -0.64,
-      "semana_ref": "September 11 of 2026",
-      "leitura": "Queda forte de estoque (draw) — oferta apertada, altista para Brent/WTI",
+      "variacao_mmbbl": 2.97,
+      "semana_ref": "September 18 of 2026",
+      "leitura": "Alta forte de estoque (build) — mais oferta, pressão de baixa",
       "tag": "oficial",
-      "atualizado": "2026-09-22"
+      "atualizado": "2026-09-26"
     },
     {
       "id": "us_gasoline",
@@ -25,11 +25,11 @@
       "regiao": "Estados Unidos",
       "fonte": "EIA",
       "unidade": "M barris/sem",
-      "variacao_mmbbl": 0.794,
-      "semana_ref": "September 11 of 2026",
-      "leitura": "Alta forte de estoque (build) — mais oferta, pressão de baixa",
+      "variacao_mmbbl": -1.686,
+      "semana_ref": "September 18 of 2026",
+      "leitura": "Queda forte de estoque (draw) — oferta apertada, altista para Brent/WTI",
       "tag": "oficial",
-      "atualizado": "2026-09-22"
+      "atualizado": "2026-09-26"
     },
     {
       "id": "us_distillate",
@@ -38,11 +38,11 @@
       "regiao": "Estados Unidos",
       "fonte": "EIA",
       "unidade": "M barris/sem",
-      "variacao_mmbbl": -0.502,
-      "semana_ref": "September 11",
+      "variacao_mmbbl": -2.013,
+      "semana_ref": "September 18",
       "leitura": "Queda forte de estoque (draw) — oferta apertada, altista para Brent/WTI",
       "tag": "oficial",
-      "atualizado": "2026-09-22"
+      "atualizado": "2026-09-26"
     },
     {
       "id": "us_api_crude",
@@ -52,10 +52,10 @@
       "fonte": "API",
       "unidade": "M barris/sem",
       "variacao_mmbbl": null,
-      "semana_ref": "September 11",
+      "semana_ref": "September 18",
       "leitura": "Dado indisponível",
       "tag": "preview",
-      "atualizado": "2026-09-22"
+      "atualizado": "2026-09-26"
     }
   ],
   "global": {
@@ -71,8 +71,8 @@
       "dias_suprimento_oecd": 60
     },
     "tag": "curado/mensal",
-    "leitura": "EUA estável/moderado — acompanhar relatório mensal IEA para confirmação OECD.",
-    "sinal": "neutro"
+    "leitura": "EUA com build relevante — alivia tightness global de curto prazo.",
+    "sinal": "baixista"
   },
   "glossario": {
     "draw": "Queda de estoque — demanda > oferta na semana",

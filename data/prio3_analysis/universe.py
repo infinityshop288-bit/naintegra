@@ -11,6 +11,9 @@ from __future__ import annotations
 #   commodity_up: alta de commodities globais (petroleo/minerio)
 SECTOR_TILT = {
     "Óleo & Gás":       {"selic_up": -0.2, "usd_up": +0.8, "ibov_up": +0.4, "commodity_up": +0.9},
+    # distribuidora nao e produtora: petroleo caro comprime margem e o dolar
+    # encarece o produto importado, invertendo o sinal de commodity/cambio
+    "Distribuição de combustíveis": {"selic_up": -0.5, "usd_up": -0.4, "ibov_up": +0.6, "commodity_up": -0.4},
     "Varejo":           {"selic_up": -0.9, "usd_up": -0.3, "ibov_up": +0.7, "commodity_up": -0.1},
     "Energia elétrica": {"selic_up": -0.3, "usd_up": -0.1, "ibov_up": +0.3, "commodity_up": +0.0},
     "Bancos":           {"selic_up": +0.4, "usd_up": -0.1, "ibov_up": +0.7, "commodity_up": +0.1},
@@ -28,6 +31,7 @@ UNIVERSE = {
     "PRIO3": ("Prio S.A.",          "Óleo & Gás",       "PRIO"),
     "BRAV3": ("Brava Energia",      "Óleo & Gás",       "BRAV"),
     "PETR4": ("Petrobras PN",       "Óleo & Gás",       "PETR"),
+    "UGPA3": ("Ultrapar (Ipiranga)", "Distribuição de combustíveis", "UGPA"),
     "MGLU3": ("Magazine Luiza",     "Varejo",           "MGLU"),
     "LREN3": ("Lojas Renner",       "Varejo",           "LREN"),
     "EQTL3": ("Equatorial Energia", "Energia elétrica", "EQTL"),

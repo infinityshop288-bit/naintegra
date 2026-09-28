@@ -1,25 +1,25 @@
 {
   "ativo": "BRAV3",
   "nome": "Brava Energia",
-  "atualizado": "2026-09-22",
+  "atualizado": "2026-09-25",
   "snapshot": {
-    "preco": 17.75,
-    "ret_1m": -5.6,
-    "ret_3m": -6.6,
-    "ret_6m": 2.0,
-    "ret_12m": -4.2,
-    "ret_ytd": 7.1,
+    "preco": 17.41,
+    "ret_1m": -1.7,
+    "ret_3m": -8.6,
+    "ret_6m": -11.8,
+    "ret_12m": -6.7,
+    "ret_ytd": 5.1,
     "high_52s": 21.64,
     "low_52s": 13.35,
-    "dist_high_pct": -18.0,
-    "dist_low_pct": 33.0
+    "dist_high_pct": -19.5,
+    "dist_low_pct": 30.4
   },
   "tecnicos": {
-    "sma50": 18.83,
-    "sma200": 18.45,
-    "dist_sma200_pct": -3.8,
+    "sma50": 18.69,
+    "sma200": 18.51,
+    "dist_sma200_pct": -5.9,
     "tendencia": "lateral",
-    "rsi14": 45.4,
+    "rsi14": 42.1,
     "vol_anual_pct": 37.6
   },
   "relativo": {
@@ -29,10 +29,10 @@
       "n": 252
     },
     "vs_prio3": {
-      "corr": 0.31,
+      "corr": 0.3,
       "beta": 0.32,
       "n": 252
     },
-    "prio3_preco": 60.43
+    "prio3_preco": 59.35
   }
 }

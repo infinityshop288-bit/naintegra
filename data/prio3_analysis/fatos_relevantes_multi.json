@@ -1,5 +1,5 @@
 {
-  "atualizado": "2026-09-22",
+  "atualizado": "2026-09-26",
   "janela_resultados": "24 meses",
   "fonte": "CVM — Portal de Dados Abertos (IPE)",
   "empresas": {
@@ -354,6 +354,124 @@
           "categoria": "Release",
           "periodo": "2024",
           "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1340145&numSequencia=864871&numVersao=1"
+        }
+      ]
+    },
+    "UGPA3": {
+      "nome": "Ultrapar (Ipiranga)",
+      "setor": "Distribuição de combustíveis",
+      "cnpj": "33.256.439/0001-39",
+      "nome_cvm": "ULTRAPAR PARTICIPAÇÕES SA",
+      "n_fatos_2anos": 8,
+      "n_resultados_2anos": 19,
+      "fatos": [
+        {
+          "data": "2026-06-17",
+          "assunto": "Aquisição de Ações de Emissão da Própria Companhia",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1535827&numSequencia=1060533&numVersao=1"
+        },
+        {
+          "data": "2025-09-01",
+          "assunto": "Contratação de Formador de Mercado",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1418902&numSequencia=943614&numVersao=1"
+        },
+        {
+          "data": "2025-05-08",
+          "assunto": "Conclusão do aumento de capital da Hidrovias: Ultrapar passa a ser acionista controlador originário",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1373885&numSequencia=898597&numVersao=1"
+        },
+        {
+          "data": "2024-12-16",
+          "assunto": "Atualizações sobre o plano de sucessão da Ultrapar",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1315793&numSequencia=840519&numVersao=1"
+        },
+        {
+          "data": "2024-11-28",
+          "assunto": "Aquisição de Ações de Emissão da Própria Companhia",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1309149&numSequencia=833875&numVersao=1"
+        },
+        {
+          "data": "2024-08-30",
+          "assunto": "Participação em aumento de capital da Hidrovias do Brasil",
+          "tipo": "",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1277518&numSequencia=802244&numVersao=1"
+        }
+      ],
+      "resultados": [
+        {
+          "data": "2026-08-13",
+          "assunto": "Apresentação de resultados do 2T26",
+          "categoria": "Apresentação",
+          "periodo": "2T26",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1556837&numSequencia=1081543&numVersao=1"
+        },
+        {
+          "data": "2026-08-12",
+          "assunto": "Release de Resultados 2T26",
+          "categoria": "ITR (trimestral)",
+          "periodo": "2T26",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1556599&numSequencia=1081305&numVersao=1"
+        },
+        {
+          "data": "2026-05-07",
+          "assunto": "Apresentação de resultados do 1T26",
+          "categoria": "Apresentação",
+          "periodo": "1T26",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1517435&numSequencia=1042141&numVersao=1"
+        },
+        {
+          "data": "2026-05-06",
+          "assunto": "Release de Resultados 1T26",
+          "categoria": "ITR (trimestral)",
+          "periodo": "1T26",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1517255&numSequencia=1041961&numVersao=2"
+        },
+        {
+          "data": "2026-03-05",
+          "assunto": "Apresentação de resultados do 4T25",
+          "categoria": "Apresentação",
+          "periodo": "4T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1485793&numSequencia=1010499&numVersao=1"
+        },
+        {
+          "data": "2026-03-04",
+          "assunto": "Release de Resultados 4T25",
+          "categoria": "ITR (trimestral)",
+          "periodo": "4T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1485468&numSequencia=1010174&numVersao=1"
+        },
+        {
+          "data": "2026-03-04",
+          "assunto": "Demonstrações Financeiras Anuais Completas",
+          "categoria": "DFP (anual)",
+          "periodo": null,
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1485588&numSequencia=1010294&numVersao=1"
+        },
+        {
+          "data": "2025-11-13",
+          "assunto": "Apresentação de resultados do 3T25",
+          "categoria": "Apresentação",
+          "periodo": "3T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1444469&numSequencia=969181&numVersao=1"
+        },
+        {
+          "data": "2025-11-12",
+          "assunto": "Release de Resultados 3T25",
+          "categoria": "ITR (trimestral)",
+          "periodo": "3T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1444220&numSequencia=968932&numVersao=1"
+        },
+        {
+          "data": "2025-08-14",
+          "assunto": "Apresentação teleconferência de resultados do 2T25",
+          "categoria": "Apresentação",
+          "periodo": "2T25",
+          "link": "https://www.rad.cvm.gov.br/ENET/frmDownloadDocumento.aspx?Tela=ext&descTipo=IPE&CodigoInstituicao=1&numProtocolo=1413142&numSequencia=937854&numVersao=1"
         }
       ]
     },
