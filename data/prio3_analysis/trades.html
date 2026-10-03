@@ -60,6 +60,15 @@
        font-size:12px;line-height:1.45;white-space:nowrap;color:var(--txt2)}
   .tip b{color:var(--txt)} .tip .hd{font-weight:700;color:var(--txt);margin-bottom:3px}
   .tip .sp{color:var(--txt3)}
+  .gl{background:var(--panel);border:1px solid var(--stroke);border-radius:11px;padding:13px 14px;
+      display:flex;gap:13px;align-items:flex-start}
+  .gl svg{width:46px;flex:0 0 46px}
+  .gl .nm{font-size:13px;font-weight:700;line-height:1.3}
+  .gl .rg{font-size:11px;color:var(--txt3);margin:3px 0 6px;font-variant-numeric:tabular-nums}
+  .gl .ds{font-size:12.5px;color:var(--txt2);margin:0}
+  .gl .st{font-size:11.5px;color:var(--txt3);margin-top:7px;padding-top:6px;border-top:1px dashed var(--stroke);
+          font-variant-numeric:tabular-nums}
+  .gl .st b{font-variant-numeric:tabular-nums}
   @media(max-width:1000px){.g4,.g3,.g2{grid-template-columns:1fr}.vs{grid-template-columns:1fr}.vs>div+div{border-left:none;border-top:1px solid var(--stroke)}}
 </style>
 </head>
@@ -294,6 +303,18 @@
       no mesmo sentido da variação do Brent naquele dia. A ordenação é perfeitamente monotônica:
       cada concordância a mais melhora o resultado.
     </div>
+
+    <h3>Como ler cada candle</h3>
+    <div class="sub">
+      O candle resume quatro preços do dia — abertura, máxima, mínima e fechamento. O retângulo é o
+      <b>corpo</b>, entre abertura e fechamento: verde se fechou acima de onde abriu, vermelho se
+      abaixo. Os fios acima e abaixo são as <b>sombras</b>, que marcam até onde o preço foi e não
+      se sustentou. O que classifica o candle não é o tamanho em reais, e sim a <b>proporção</b>:
+      quanto da amplitude do dia virou corpo e onde ficaram as sombras. Abaixo, cada formato com um
+      exemplo real do período.
+    </div>
+    <div class="grid g4" id="glossario" style="margin-top:14px"></div>
+    <div class="simple">💡 <b>Por que a ordem dos testes importa:</b> o corpo é medido primeiro. Um dia de corpo quase nulo entra como doji mesmo que tenha sombra inferior longa — por isso só 4 pregões ficaram como martelo. Em livro, muitos desses seriam martelo; aqui o doji absorve os casos de corpo abaixo de 12% da amplitude.</div>
 
     <div class="grid g2" style="margin-top:16px">
       <div>
@@ -856,6 +877,64 @@ const dataCurta = d => d.slice(3) + '/' + d.slice(0,2);
   });
   svg.appendChild(el('text', {x:W/2, y:H-4, 'text-anchor':'middle', fill:C.txt3, 'font-size':10},
                      'Pregão (dia/mês de 2026)'));
+})();
+
+/* ------------------- glossário: cada formato de candle ------------------- */
+(function(){
+  /* nome, [abertura, máxima, mínima, fechamento] de um pregão real, data,
+     regra de classificação, leitura, pregões no período, resultado na entrada */
+  const TIPOS = [
+    ['Marubozu de alta', [58.35,61.24,58.32,61.24], '10/08',
+     'corpo acima de 68% da amplitude, fechando em alta',
+     'Abriu na mínima e fechou na máxima: comprador mandou do primeiro ao último minuto e não houve repique contrário. É a barra de tendência mais limpa que existe.',
+     11, '63 giros · 87% · +R$ 22.251', true],
+    ['Marubozu de baixa', [64.88,64.88,62.58,62.58], '16/09',
+     'corpo acima de 68% da amplitude, fechando em baixa',
+     'O espelho do anterior: abriu na máxima, fechou na mínima, vendedor dominou o dia inteiro. Sinal forte — só que para baixo.',
+     12, '32 giros · 100% · +R$ 2.616', true],
+    ['Corpo de alta', [63.47,64.19,62.33,64.19], '11/09',
+     'corpo entre 12% e 68%, fechando em alta',
+     'Subiu, mas sem convicção: boa parte do dia foi disputa. É o candle mais comum e o mais traiçoeiro — parece sinal de compra e não entrega movimento.',
+     26, '160 giros · 70% · −R$ 2.749', false],
+    ['Corpo de baixa', [53.55,53.78,52.80,53.15], '29/06',
+     'corpo entre 12% e 68%, fechando em baixa',
+     'Queda moderada, com sombras dos dois lados. Caiu, mas o vendedor não impôs ritmo — houve tentativa de reação que não vingou.',
+     19, '44 giros · 95% · +R$ 20.916', true],
+    ['Doji', [62.59,63.30,61.66,62.59], '03/06',
+     'corpo abaixo de 12% da amplitude',
+     'Abertura e fechamento praticamente no mesmo ponto. O preço foi para os dois lados e voltou: ninguém venceu. Indecisão — e com frequência o ponto em que uma tendência se esgota.',
+     10, '31 giros · 84% · +R$ 10.949', true],
+    ['Martelo', [58.20,58.58,56.95,58.45], '04/08',
+     'sombra inferior ≥ 2× o corpo e sombra superior ≤ 25% da amplitude',
+     'Afundou durante o pregão e devolveu quase tudo antes de fechar. A sombra longa embaixo é a marca de compra aparecendo no fundo e rejeitando o preço mais baixo.',
+     4, '13 giros · 100% · +R$ 3.255', true],
+    ['Estrela cadente', [58.65,59.55,58.44,58.50], '03/08',
+     'sombra superior ≥ 2× o corpo e sombra inferior ≤ 25% da amplitude',
+     'O inverso do martelo: subiu bem e devolveu tudo. A sombra longa em cima mostra venda esperando lá em cima — a alta do dia foi rejeitada.',
+     6, '45 giros · 73% · −R$ 726', false],
+  ];
+
+  const cont = document.getElementById('glossario');
+  TIPOS.forEach(([nome, c, dia, regra, leitura, freq, res, bom]) => {
+    const [o,h,l,f] = c, alta = f >= o, cor = alta ? C.alta : C.baixa;
+    const H = 104, pad = 7, esc = v => pad + (h - v) / (h - l) * (H - 2*pad);
+    const card = document.createElement('div');
+    card.className = 'gl';
+    card.innerHTML =
+      '<svg viewBox="0 0 30 ' + H + '" aria-label="Candle de ' + dia + '">' +
+        '<line x1="15" x2="15" y1="' + esc(h) + '" y2="' + esc(l) + '" stroke="' + cor + '" stroke-width="1.6"/>' +
+        '<rect x="5" y="' + esc(Math.max(o,f)) + '" width="20" height="' +
+          Math.max(1.6, Math.abs(esc(o) - esc(f))) + '" fill="' + cor + '"/>' +
+      '</svg>' +
+      '<div style="min-width:0">' +
+        '<div class="nm" style="color:' + (bom ? '#5bd66b' : '#ff8a90') + '">' + nome + '</div>' +
+        '<div class="rg">' + regra + '</div>' +
+        '<p class="ds">' + leitura + '</p>' +
+        '<div class="st">' + freq + ' pregões no período · exemplo ' + dia +
+          '<br>Entradas nesse candle: <b>' + res + '</b></div>' +
+      '</div>';
+    cont.appendChild(card);
+  });
 })();
 
 /* ------------- cada operação sobre o preço, com o Brent do dia ------------- */
