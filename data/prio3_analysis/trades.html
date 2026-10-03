@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Minhas Operações — análise de candles e resultado</title>
+<style>
+  :root{--bg:#0e1116;--panel:#161b22;--panel2:#1c232d;--stroke:#2a323d;--txt:#e6edf3;--txt2:#9aa7b4;--txt3:#6e7b8a;--info:#4c8dff;--success:#3fb950;--warning:#d29922;--danger:#f85149;--accent:#a371f7;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1240px;margin:0 auto;padding:20px 24px 60px}
+  h1{font-size:24px;margin:0} h2{font-size:16px;margin:0 0 10px;font-weight:600} h3{font-size:14px;margin:16px 0 8px;color:var(--txt2)}
+  .sub{color:var(--txt2);font-size:13px} .cap{color:var(--txt3);font-size:12px;margin-top:6px}
+  .pill{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:rgba(76,141,255,.15);color:var(--info);border:1px solid rgba(76,141,255,.35)}
+  .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .grid{display:grid;gap:14px}
+  .g4{grid-template-columns:repeat(4,1fr)} .g3{grid-template-columns:repeat(3,1fr)} .g2{grid-template-columns:1fr 1fr}
+  .card{background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:16px}
+  .callout{border:1px solid var(--stroke);border-left-width:3px;border-radius:8px;padding:12px 14px;background:var(--panel2)}
+  .callout .t{font-weight:600;margin-bottom:4px} .callout p{margin:0;color:var(--txt2);font-size:13px}
+  .callout.success{border-left-color:var(--success)} .callout.success .t{color:#5bd66b}
+  .callout.danger{border-left-color:var(--danger)} .callout.danger .t{color:#ff8a90}
+  .callout.warning{border-left-color:var(--warning)} .callout.warning .t{color:#e3b341}
+  .callout.info{border-left-color:var(--info)} .callout.info .t{color:#7fb0ff}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th,td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--stroke);white-space:nowrap}
+  th{color:var(--txt2);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.02em}
+  td.n,th.n{text-align:right;font-variant-numeric:tabular-nums}
+  tr.good td{background:rgba(63,185,80,.07)} tr.bad td{background:rgba(248,81,73,.07)}
+  .up{color:var(--success)} .down{color:var(--danger)} .neu{color:var(--txt3)}
+  section{margin-top:26px}
+  .simple{border-left:3px solid var(--info);background:rgba(76,141,255,.08);padding:9px 13px;border-radius:6px;font-size:13.5px;margin-top:10px;color:var(--txt2)} .simple b{color:#7fb0ff}
+  nav.top{display:flex;gap:8px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
+  nav.top a{font-size:13px;padding:7px 14px;border-radius:8px;text-decoration:none;color:var(--txt2);background:var(--panel);border:1px solid var(--stroke)}
+  nav.top a.on{color:#04122e;background:var(--info);border-color:var(--info);font-weight:700}
+  .stat{background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:14px 16px}
+  .stat .v{font-size:23px;font-weight:700;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+  .stat .l{font-size:12px;color:var(--txt2);margin-top:2px}
+  .lgd{display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-size:12px;color:var(--txt2);margin-bottom:8px}
+  .lgd i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}
+  .lgd i.ln{width:16px;height:2px;border-radius:0;vertical-align:3px}
+  .mx td.k{color:var(--txt)} .mx tr td:first-child{font-weight:600}
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--stroke);border-radius:10px;overflow:hidden}
+  .vs>div{padding:12px 14px} .vs>div+div{border-left:1px solid var(--stroke);background:rgba(248,81,73,.05)}
+  .vs .h{font-size:12.5px;font-weight:600;margin-bottom:3px} .vs .m{font-size:11.5px;color:var(--txt3)}
+  .vs .p{font-size:17px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+  svg{display:block;width:100%;height:auto}
+  @media(max-width:1000px){.g4,.g3,.g2{grid-template-columns:1fr}.vs{grid-template-columns:1fr}.vs>div+div{border-left:none;border-top:1px solid var(--stroke)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top">
+    <a href="painel.html">Painel PRIO3</a>
+    <a href="mercado.html">Panorama de Mercado</a>
+    <a href="fiis.html">Monitor FIIs</a>
+    <a href="opcoes.html">Oportunidades de Opções</a>
+    <a href="radar.html">Radar de Trades</a>
+    <a href="patterns.html">Padrões IA</a>
+    <a href="trades.html" class="on">Minhas Operações</a>
+  </nav>
+
+  <div class="row" style="gap:12px">
+    <h1>Minhas Operações</h1>
+    <span class="pill">16/06 a 01/10/2026 · 65 notas · 853 operações</span>
+  </div>
+  <div class="sub" style="margin-top:6px">
+    Auditoria completa das notas de negociação da XP do período, reconciliadas contra os candles
+    diários das ações, o histórico de opções da B3 e o preço do petróleo. Cada nota fecha com o
+    valor líquido declarado, ao centavo.
+  </div>
+  <div class="simple">💡 <b>A conclusão em uma linha:</b> suas entradas são boas e suas saídas custam caro. Um único filtro — se a aposta acompanha a direção do candle do dia — separa <b>+R$ 63.588</b> de <b>−R$ 21 mil</b>.</div>
+
+  <!-- ================= RESULTADO ================= -->
+  <section>
+    <h2>Onde o dinheiro ficou</h2>
+    <div class="grid g4">
+      <div class="stat"><div class="v up">+R$ 38.071</div><div class="l">resultado líquido em 552 giros fechados</div></div>
+      <div class="stat"><div class="v">70%</div><div class="l">taxa de acerto (384 ganhos, 168 perdas)</div></div>
+      <div class="stat"><div class="v up">+R$ 67.555</div><div class="l">pico da curva, em 26/08</div></div>
+      <div class="stat"><div class="v down">−R$ 29.484</div><div class="l">devolvidos entre o pico e 01/10</div></div>
+    </div>
+
+    <div class="card" style="margin-top:14px">
+      <div class="lgd">
+        <span><i class="ln" style="background:#4c8dff"></i>Resultado acumulado (R$)</span>
+        <span><i style="background:#3fb950"></i>Dia positivo</span>
+        <span><i style="background:#f85149"></i>Dia negativo</span>
+      </div>
+      <svg id="svgEquity" viewBox="0 0 1080 320" role="img" aria-label="Curva de resultado acumulado e resultado por pregão"></svg>
+      <div class="cap">Resultado líquido acumulado dos giros encerrados, com custos de corretagem e emolumentos rateados por operação. Eixo horizontal: pregões de 01/06 a 02/10/2026.</div>
+    </div>
+  </section>
+
+  <!-- ================= ENTRADA x SAIDA ================= -->
+  <section>
+    <h2>Entrada x saída: de onde vem o resultado</h2>
+    <div class="sub">
+      Referência mecânica: encerrar <em>toda</em> operação no fechamento do pregão em que ela foi
+      aberta. Isso isola a qualidade da escolha da entrada da qualidade do momento de sair.
+    </div>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="stat"><div class="v">+R$ 38.071</div><div class="l">o que você realizou de fato</div></div>
+      <div class="stat"><div class="v up">+R$ 66.132</div><div class="l">zerando tudo no fechamento do dia da entrada</div></div>
+      <div class="stat"><div class="v down">−R$ 28.061</div><div class="l">custo da gestão de saída</div></div>
+    </div>
+    <div class="callout warning" style="margin-top:12px">
+      <div class="t">O efeito disposição aparece nos dois sentidos</div>
+      <p>
+        Nos day trades você saiu <em>cedo demais</em>: realizou R$ 52.405 contra uma referência de
+        R$ 90.636, deixando R$ 38.231 na mesa — e 225 das 374 operações (60%) já estavam no azul no
+        primeiro fechamento. Nas posições carregadas o efeito inverteu: segurar recuperou R$ 10.170,
+        porque só 55 de 178 (31%) estavam no azul quando o pregão de entrada terminou. Você realiza
+        ganho rápido e adia prejuízo — o padrão clássico.
+      </p>
+    </div>
+  </section>
+
+  <!-- ================= DAY TRADE x CARREGADO ================= -->
+  <section>
+    <h2>O corte principal: zerar no mesmo pregão ou carregar</h2>
+    <div class="vs">
+      <div>
+        <div class="h up">Zerou no mesmo pregão</div>
+        <div class="m">374 operações · 79% de acerto · média +R$ 140 por giro</div>
+        <div class="p up">+R$ 52.405</div>
+      </div>
+      <div>
+        <div class="h down">Carregou para o dia seguinte</div>
+        <div class="m">178 operações · 51% de acerto · média −R$ 81 por giro</div>
+        <div class="p down">−R$ 14.334</div>
+      </div>
+    </div>
+    <div class="grid g2" style="margin-top:14px">
+      <div class="card" style="padding:0;overflow-x:auto">
+        <table>
+          <thead><tr><th>Tempo em posição</th><th class="n">Giros</th><th class="n">Acerto</th><th class="n">Líquido</th></tr></thead>
+          <tbody>
+            <tr class="good"><td>Mesmo pregão</td><td class="n">374</td><td class="n">79%</td><td class="n up">+52.405</td></tr>
+            <tr><td>1 dia corrido</td><td class="n">99</td><td class="n">47%</td><td class="n up">+1.298</td></tr>
+            <tr class="good"><td>2 dias corridos</td><td class="n">23</td><td class="n">87%</td><td class="n up">+8.234</td></tr>
+            <tr class="bad"><td>3 dias corridos</td><td class="n">32</td><td class="n">59%</td><td class="n down">−8.694</td></tr>
+            <tr class="bad"><td>4 dias corridos</td><td class="n">10</td><td class="n">0%</td><td class="n down">−8.420</td></tr>
+            <tr class="bad"><td>6 dias ou mais</td><td class="n">14</td><td class="n">29%</td><td class="n down">−6.752</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">De onde veio o resultado do que ficou carregado</h3>
+        <table>
+          <thead><tr><th>Componente</th><th class="n">R$</th></tr></thead>
+          <tbody>
+            <tr><td>Direção do ativo (delta)</td><td class="n up">+38.942</td></tr>
+            <tr><td>Volatilidade (vega)</td><td class="n down">−4.915</td></tr>
+            <tr><td>Passagem do tempo (theta)</td><td class="n down">−31.728</td></tr>
+            <tr><td>Gama e ordens superiores (resíduo)</td><td class="n down">−15.705</td></tr>
+            <tr style="border-top:2px solid var(--stroke)"><td><b>Resultado bruto</b></td><td class="n down"><b>−13.231</b></td></tr>
+          </tbody>
+        </table>
+        <div class="simple">💡 Em 116 das 178 posições carregadas (65%) <b>a ação andou a seu favor</b> — e ainda assim o conjunto perdeu. O theta comeu mais do que o movimento pagou. Estar certo na direção não basta quando se compra opção e se espera.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= GRAFICO DE CANDLES ================= -->
+  <section>
+    <h2>PRIO3: candles, suas entradas, o petróleo e o resultado diário</h2>
+    <div class="card" style="margin-top:4px">
+      <div class="lgd">
+        <span><i style="background:#3fb950"></i>Candle de alta</span>
+        <span><i style="background:#f85149"></i>Candle de baixa</span>
+        <span><i style="background:#4c8dff"></i>Entradas em CALL</span>
+        <span><i style="background:#d29922"></i>Entradas em PUT</span>
+        <span><i class="ln" style="background:#e6edf3"></i>PRIO3 (base 100)</span>
+        <span><i class="ln" style="background:#4c8dff"></i>Brent</span>
+        <span><i class="ln" style="background:#a371f7"></i>WTI</span>
+      </div>
+      <svg id="svgPreco" viewBox="0 0 1080 700" role="img" aria-label="Candles diários de PRIO3 com entradas, índices de Brent e WTI e resultado realizado por pregão"></svg>
+      <div class="cap">
+        Candles e volume de PRIO3 via Yahoo Finance; séries de opções via arquivo COTAHIST da B3;
+        operações extraídas das 65 notas da XP. O painel de resultado mostra o líquido realizado no
+        dia do encerramento, já com custos rateados.
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ANALISE DE CANDLE ================= -->
+  <section>
+    <h2>O candle do dia decide o trade</h2>
+    <div class="sub">
+      560 operações de PRIO e PETR cruzadas com o candle diário da ação. Um único filtro separa
+      quase todo o resultado: se a aposta acompanha a direção do corpo do candle em que foi aberta.
+    </div>
+    <div class="grid g4" style="margin-top:12px">
+      <div class="stat"><div class="v up">+R$ 63.588</div><div class="l">day trade alinhado ao candle (251 ops)</div></div>
+      <div class="stat"><div class="v up">87%</div><div class="l">taxa de acerto desse recorte</div></div>
+      <div class="stat"><div class="v down">−R$ 7.075</div><div class="l">day trade contra o candle (137 ops)</div></div>
+      <div class="stat"><div class="v down">−R$ 13.866</div><div class="l">tudo que virou o dia, independente do candle</div></div>
+    </div>
+
+    <div class="callout success" style="margin-top:14px">
+      <div class="t">A metodologia que deu mais certo</div>
+      <p>
+        Comprar opção no mesmo pregão, na direção do corpo do candle que está se formando, com o
+        Brent se movendo para o mesmo lado e com mais de 1% de amplitude no dia — e zerar antes do
+        fechamento. Esse recorte teve <b style="color:#5bd66b">98% de acerto em 142 operações e
+        +R$ 46.256</b>. O oposto exato (apostar contra o candle com o Brent também contra) acertou
+        35% em 48 operações e custou −R$ 13.006.
+      </p>
+    </div>
+
+    <h3>A matriz candle × Brent</h3>
+    <div class="card" style="padding:0;overflow-x:auto">
+      <table class="mx">
+        <thead><tr><th>Candle da ação</th><th>Brent no dia</th><th class="n">Giros</th><th class="n">Acerto</th><th class="n">Líquido</th></tr></thead>
+        <tbody>
+          <tr class="good"><td class="k">Candle a favor</td><td>Brent a favor</td><td class="n">142</td><td class="n up">98%</td><td class="n up">+46.256</td></tr>
+          <tr class="good"><td class="k">Candle a favor</td><td>Brent contra</td><td class="n">109</td><td class="n">73%</td><td class="n up">+17.332</td></tr>
+          <tr><td class="k">Candle contra</td><td>Brent a favor</td><td class="n">89</td><td class="n">87%</td><td class="n up">+5.930</td></tr>
+          <tr class="bad"><td class="k">Candle contra</td><td>Brent contra</td><td class="n">48</td><td class="n down">35%</td><td class="n down">−13.006</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cap">
+      Somente day trades (388 giros, os que respondem por todo o lucro). "A favor" = a aposta (CALL
+      para alta, PUT para baixa) aponta no mesmo sentido do fechamento contra a abertura da ação, e
+      no mesmo sentido da variação do Brent naquele dia. A ordenação é perfeitamente monotônica:
+      cada concordância a mais melhora o resultado.
+    </div>
+
+    <div class="grid g2" style="margin-top:16px">
+      <div>
+        <h3 style="margin-top:0">Qual formato de candle funcionou</h3>
+        <div class="card" style="padding:0;overflow-x:auto">
+          <table>
+            <thead><tr><th>Candle no dia da entrada</th><th class="n">Giros</th><th class="n">Acerto</th><th class="n">Líquido</th></tr></thead>
+            <tbody>
+              <tr class="good"><td>Marubozu de alta — corpo cheio, sem sombras</td><td class="n">63</td><td class="n">87%</td><td class="n up">+22.251</td></tr>
+              <tr class="good"><td>Corpo de baixa — queda moderada</td><td class="n">44</td><td class="n">95%</td><td class="n up">+20.916</td></tr>
+              <tr class="good"><td>Doji — abertura e fechamento colados</td><td class="n">31</td><td class="n">84%</td><td class="n up">+10.949</td></tr>
+              <tr class="good"><td>Martelo — sombra inferior longa</td><td class="n">13</td><td class="n">100%</td><td class="n up">+3.255</td></tr>
+              <tr class="good"><td>Marubozu de baixa — corpo cheio de queda</td><td class="n">32</td><td class="n">100%</td><td class="n up">+2.616</td></tr>
+              <tr class="bad"><td>Estrela cadente — sombra superior longa</td><td class="n">45</td><td class="n">73%</td><td class="n down">−726</td></tr>
+              <tr class="bad"><td>Corpo de alta — alta moderada</td><td class="n">160</td><td class="n">70%</td><td class="n down">−2.749</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cap">
+          Day trades, classificados pelo candle do dia da entrada; corpo e sombras medidos sobre a
+          amplitude do dia. Os extremos contam a história: candle de corpo cheio — para cima ou para
+          baixo — entrega o movimento. Candle de alta fraca é a armadilha: parece sinal de compra,
+          acertou 70% das vezes e ainda assim perdeu dinheiro, porque os acertos foram pequenos e os
+          erros grandes.
+        </div>
+      </div>
+
+      <div>
+        <h3 style="margin-top:0">Onde dentro da barra você entrou</h3>
+        <div class="card" style="padding:0;overflow-x:auto">
+          <table>
+            <thead><tr><th>Posição na barra</th><th class="n">Giros</th><th class="n">Acerto</th><th class="n">Líquido</th></tr></thead>
+            <tbody>
+              <tr><td>Terço inferior (fundo do dia)</td><td class="n">90</td><td class="n">60%</td><td class="n neu">+49</td></tr>
+              <tr class="good"><td>Terço do meio</td><td class="n">287</td><td class="n">74%</td><td class="n up">+21.592</td></tr>
+              <tr class="good"><td>Terço superior (topo do dia)</td><td class="n">162</td><td class="n">70%</td><td class="n up">+22.048</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout danger" style="margin-top:12px">
+          <div class="t">Comprar o fundo é o que não funciona</div>
+          <p>
+            Entrar no terço inferior da barra <em>contrariando</em> o candle — a compra de fundo
+            clássica — deu 43% de acerto em 53 giros e −R$ 15.905. Entrar no mesmo terço inferior
+            mas <em>a favor</em> do candle deu 84% e +R$ 15.954. Não é o preço de entrada que
+            importa, é a direção.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <h3>CALL contra o candle é o hábito mais caro</h3>
+    <div class="card" style="padding:0;overflow-x:auto">
+      <table>
+        <thead><tr><th>Instrumento</th><th>Alinhamento</th><th class="n">Giros</th><th class="n">Acerto</th><th class="n">Líquido</th></tr></thead>
+        <tbody>
+          <tr class="good"><td>CALL</td><td>a favor do candle</td><td class="n">208</td><td class="n">81%</td><td class="n up">+38.959</td></tr>
+          <tr class="bad"><td>CALL</td><td>contra o candle</td><td class="n">83</td><td class="n down">53%</td><td class="n down">−13.982</td></tr>
+          <tr class="good"><td>PUT</td><td>a favor do candle</td><td class="n">88</td><td class="n">81%</td><td class="n up">+15.573</td></tr>
+          <tr><td>PUT</td><td>contra o candle</td><td class="n">139</td><td class="n">60%</td><td class="n up">+2.231</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="cap">
+      Comprar CALL num candle que está caindo é a única combinação com acerto abaixo de 55% e
+      prejuízo relevante. Comprar PUT num candle que está subindo machuca menos porque a queda
+      costuma vir rápida quando vem — mas também não paga.
+    </div>
+  </section>
+
+  <!-- ================= FILTROS DE CONTEXTO ================= -->
+  <section>
+    <h2>Os filtros de contexto que separaram ganho de perda</h2>
+    <div class="sub">Todas as 560 operações. Em cada bloco, o recorte favorável e o desfavorável lado a lado.</div>
+    <div class="grid g3" style="margin-top:12px">
+      <div class="vs">
+        <div><div class="h up">Acima da média de 21</div><div class="m">311 giros · 68% acerto</div><div class="p up">+R$ 49.155</div></div>
+        <div><div class="h down">Abaixo da média de 21</div><div class="m">249 giros · 74% acerto</div><div class="p down">−R$ 6.508</div></div>
+      </div>
+      <div class="vs">
+        <div><div class="h up">RSI entre 55 e 70</div><div class="m">130 giros · 78% acerto</div><div class="p up">+R$ 48.236</div></div>
+        <div><div class="h down">RSI entre 40 e 55</div><div class="m">415 giros · 68% acerto</div><div class="p down">−R$ 7.642</div></div>
+      </div>
+      <div class="vs">
+        <div><div class="h up">Brent oscilando 1% a 3%</div><div class="m">245 giros · 85% acerto</div><div class="p up">+R$ 45.183</div></div>
+        <div><div class="h down">Brent parado (abaixo de 1%)</div><div class="m">60 giros · 68% acerto</div><div class="p down">−R$ 1.671</div></div>
+      </div>
+    </div>
+    <div class="simple">💡 <b>O filtro do Brent é o menos óbvio:</b> dia de petróleo parado é dia de não operar. Nos 60 day trades abertos com o Brent variando menos de 1%, o resultado foi negativo mesmo com 68% de acerto — sem combustível no ativo-objeto, o prêmio da opção só sangra theta.</div>
+  </section>
+
+  <!-- ================= PETROLEO ================= -->
+  <section>
+    <h2>O que a correlação com o petróleo permite e o que não permite</h2>
+    <div class="grid g2">
+      <div class="card">
+        <div class="grid g2">
+          <div><div class="stat" style="border:none;padding:0;background:none"><div class="v">0,62</div><div class="l">correlação diária PRIO3 × Brent (86 pregões)</div></div></div>
+          <div><div class="stat" style="border:none;padding:0;background:none"><div class="v">0,61</div><div class="l">correlação diária PRIO3 × WTI (86 pregões)</div></div></div>
+        </div>
+        <p class="sub" style="margin-top:12px">
+          Correlação de 0,6 é forte o bastante para usar o petróleo como <b>confirmação</b> e fraca o
+          bastante para não usar como <b>gatilho</b>. Nos 90 day trades em que PRIO3 descolou do Brent
+          no dia, o acerto continuou em 81% — o que manda é o candle da ação; o Brent só aumenta ou
+          reduz a confiança.
+        </p>
+        <p class="sub">
+          No período, o Brent subiu 7,7% e o WTI caiu 1,1%, enquanto PRIO3 ficou praticamente de lado
+          (+0,3%). Foi um mercado sem tendência — exatamente o cenário em que carregar posição
+          comprada em opção é mais punido.
+        </p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Pano de fundo do período (01/06 a 02/10/2026)</h3>
+        <table>
+          <thead><tr><th>Ativo</th><th class="n">Variação</th><th class="n">Correlação com Brent</th></tr></thead>
+          <tbody>
+            <tr><td>PRIO3</td><td class="n up">+0,3%</td><td class="n">0,61</td></tr>
+            <tr><td>PETR4</td><td class="n up">+20,8%</td><td class="n">0,60</td></tr>
+            <tr><td>UGPA3</td><td class="n up">+51,9%</td><td class="n">0,16</td></tr>
+            <tr><td>Brent</td><td class="n up">+7,7%</td><td class="n neu">—</td></tr>
+            <tr><td>WTI</td><td class="n down">−1,1%</td><td class="n neu">—</td></tr>
+            <tr><td>USD/BRL</td><td class="n up">+3,6%</td><td class="n neu">—</td></tr>
+            <tr><td>Ibovespa</td><td class="n up">+11,6%</td><td class="n neu">—</td></tr>
+          </tbody>
+        </table>
+        <div class="cap">
+          Quando Brent e WTI divergiram entre si (102 giros), o acerto foi de 88% e o resultado
+          +R$ 27.866 — divergência entre os dois costuma marcar dia de movimento, não de indefinição.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SETUP DA OPCAO ================= -->
+  <section>
+    <h2>A escolha da série: strike, prazo e volatilidade</h2>
+    <div class="grid g2">
+      <div>
+        <h3 style="margin-top:0">Day trade — o que funcionou</h3>
+        <div class="card" style="padding:0;overflow-x:auto">
+          <table>
+            <thead><tr><th>Critério na entrada</th><th class="n">Giros</th><th class="n">Acerto</th><th class="n">Líquido</th></tr></thead>
+            <tbody>
+              <tr class="good"><td>Dentro do dinheiro (ITM)</td><td class="n">61</td><td class="n">93%</td><td class="n up">+43.442</td></tr>
+              <tr class="good"><td>No dinheiro (ATM)</td><td class="n">297</td><td class="n">80%</td><td class="n up">+12.727</td></tr>
+              <tr class="bad"><td>Fora do dinheiro (OTM)</td><td class="n">16</td><td class="n down">0%</td><td class="n down">−3.764</td></tr>
+              <tr><td colspan="4" style="border:none;height:6px"></td></tr>
+              <tr><td>Vol. implícita abaixo de 30%</td><td class="n">37</td><td class="n">73%</td><td class="n up">+4.319</td></tr>
+              <tr class="good"><td>Vol. implícita de 30% a 40%</td><td class="n">236</td><td class="n">84%</td><td class="n up">+46.123</td></tr>
+              <tr><td>Vol. implícita de 40% a 55%</td><td class="n">89</td><td class="n">71%</td><td class="n up">+4.964</td></tr>
+              <tr><td colspan="4" style="border:none;height:6px"></td></tr>
+              <tr><td>Até 7 dias do vencimento</td><td class="n">74</td><td class="n">72%</td><td class="n up">+18.716</td></tr>
+              <tr><td>De 8 a 21 dias</td><td class="n">175</td><td class="n">72%</td><td class="n up">+21.173</td></tr>
+              <tr><td>De 22 a 45 dias</td><td class="n">125</td><td class="n">92%</td><td class="n up">+12.516</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 style="margin-top:0">Posição carregada — o que falhou</h3>
+        <div class="card" style="padding:0;overflow-x:auto">
+          <table>
+            <thead><tr><th>Critério na entrada</th><th class="n">Giros</th><th class="n">Acerto</th><th class="n">Líquido</th></tr></thead>
+            <tbody>
+              <tr class="bad"><td>Dentro do dinheiro (ITM)</td><td class="n">31</td><td class="n down">35%</td><td class="n down">−10.438</td></tr>
+              <tr class="bad"><td>No dinheiro (ATM)</td><td class="n">144</td><td class="n">55%</td><td class="n down">−3.090</td></tr>
+              <tr class="bad"><td>Fora do dinheiro (OTM)</td><td class="n">3</td><td class="n down">0%</td><td class="n down">−806</td></tr>
+              <tr><td colspan="4" style="border:none;height:6px"></td></tr>
+              <tr class="bad"><td>Vol. implícita abaixo de 30%</td><td class="n">15</td><td class="n">67%</td><td class="n down">−4.184</td></tr>
+              <tr class="bad"><td>Vol. implícita de 30% a 40%</td><td class="n">134</td><td class="n down">43%</td><td class="n down">−18.883</td></tr>
+              <tr class="good"><td>Vol. implícita de 40% a 55%</td><td class="n">29</td><td class="n">79%</td><td class="n up">+8.733</td></tr>
+              <tr><td colspan="4" style="border:none;height:6px"></td></tr>
+              <tr class="good"><td>Até 7 dias do vencimento</td><td class="n">42</td><td class="n">64%</td><td class="n up">+6.556</td></tr>
+              <tr class="bad"><td>De 8 a 21 dias</td><td class="n">93</td><td class="n">53%</td><td class="n down">−5.406</td></tr>
+              <tr class="bad"><td>De 22 a 45 dias</td><td class="n">43</td><td class="n down">33%</td><td class="n down">−15.484</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="simple">💡 <b>Fora do dinheiro: 0 acertos em 19 tentativas</b>, −R$ 4.569 no total. O bilhete de loteria barato nunca pagou uma vez sequer no período. E <b>todas as 27 séries foram abertas comprando</b> — você nunca lançou uma opção, então nunca teve o theta a seu favor.</div>
+  </section>
+
+  <!-- ================= ATIVOS E SERIES ================= -->
+  <section>
+    <h2>Concentração: por ativo e por série</h2>
+    <div class="grid g3">
+      <div>
+        <h3 style="margin-top:0">Por ativo</h3>
+        <div class="card" style="padding:0;overflow-x:auto">
+          <table>
+            <thead><tr><th>Ativo</th><th class="n">Giros</th><th class="n">Acerto</th><th class="n">Líquido</th></tr></thead>
+            <tbody>
+              <tr class="good"><td>PRIO</td><td class="n">518</td><td class="n">71%</td><td class="n up">+42.781</td></tr>
+              <tr class="good"><td>CYRE</td><td class="n">12</td><td class="n">100%</td><td class="n up">+3.373</td></tr>
+              <tr class="good"><td>UGPA</td><td class="n">6</td><td class="n">100%</td><td class="n up">+496</td></tr>
+              <tr class="bad"><td>WEGE</td><td class="n">16</td><td class="n down">0%</td><td class="n down">−8.579</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cap">WEGE sozinha consumiu 23% de todo o lucro do período, em 16 giros sem nenhum acerto. Ficar no que você conhece tem valor mensurável.</div>
+      </div>
+      <div>
+        <h3 style="margin-top:0">As séries que mais custaram</h3>
+        <div class="card" style="padding:0;overflow-x:auto">
+          <table>
+            <thead><tr><th>Série</th><th class="n">Giros</th><th class="n">Acerto</th><th class="n">Líquido</th></tr></thead>
+            <tbody>
+              <tr class="bad"><td>PRIOV610</td><td class="n">56</td><td class="n">70%</td><td class="n down">−16.365</td></tr>
+              <tr class="bad"><td>PRIOI630</td><td class="n">6</td><td class="n down">0%</td><td class="n down">−8.900</td></tr>
+              <tr class="bad"><td>PRIOU615</td><td class="n">9</td><td class="n down">22%</td><td class="n down">−5.108</td></tr>
+              <tr class="bad"><td>PRIOG54</td><td class="n">27</td><td class="n">56%</td><td class="n down">−5.085</td></tr>
+              <tr class="bad"><td>PRIOJ600</td><td class="n">20</td><td class="n">65%</td><td class="n down">−4.939</td></tr>
+              <tr class="bad"><td>WEGET460</td><td class="n">7</td><td class="n down">0%</td><td class="n down">−4.401</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cap">PRIOV610 é o caso mais caro: PUT reforçada em três lotes enquanto PRIO3 subia 3,8%. Acertou 70% das vezes e perdeu R$ 16 mil — reforçar posição perdedora transforma acerto em prejuízo.</div>
+      </div>
+      <div>
+        <h3 style="margin-top:0">As séries que mais pagaram</h3>
+        <div class="card" style="padding:0;overflow-x:auto">
+          <table>
+            <thead><tr><th>Série</th><th class="n">Giros</th><th class="n">Acerto</th><th class="n">Líquido</th></tr></thead>
+            <tbody>
+              <tr class="good"><td>PRIOT600</td><td class="n">72</td><td class="n">71%</td><td class="n up">+31.662</td></tr>
+              <tr class="good"><td>PRIOH590</td><td class="n">52</td><td class="n">65%</td><td class="n up">+12.426</td></tr>
+              <tr class="good"><td>PRIOH600</td><td class="n">14</td><td class="n">100%</td><td class="n up">+10.419</td></tr>
+              <tr class="good"><td>PRIOH610</td><td class="n">47</td><td class="n">74%</td><td class="n up">+10.029</td></tr>
+              <tr class="good"><td>PRIOU620</td><td class="n">18</td><td class="n">100%</td><td class="n up">+8.656</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cap">Todas as cinco são séries ATM de PRIO no vencimento curto — o terreno em que você é consistentemente bom.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= O QUE FAZER ================= -->
+  <section>
+    <h2>O que fazer na segunda-feira</h2>
+    <div class="grid g3">
+      <div class="card">
+        <h3 style="margin-top:0;color:#5bd66b">Regra de entrada</h3>
+        <p class="sub" style="margin:0">
+          Só abra se o corpo do candle do dia já estiver apontando para o lado da sua aposta e o
+          Brent estiver no mesmo sentido com mais de 1% de variação. Nada de antecipar reversão:
+          contra o candle, seu acerto cai de 87% para 69% e o resultado vira negativo.
+        </p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;color:#5bd66b">Regra de saída</h3>
+        <p class="sub" style="margin:0">
+          Zere no mesmo pregão. As 172 operações que viraram o dia perderam R$ 13.866 no agregado,
+          independentemente do candle de entrada — o único recorte em que o candle não salvou nada.
+          E, dentro do dia, segure até perto do fechamento: sair cedo custou R$ 38.231.
+        </p>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0;color:#ff8a90">Filtro de não operar</h3>
+        <p class="sub" style="margin:0">
+          Candle de alta fraca, doji com petróleo parado, ação abaixo da média de 21, série fora do
+          dinheiro, ativo fora do seu círculo (WEGE). Esses cinco contextos juntos explicam quase
+          toda a perda do período.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= METODOLOGIA ================= -->
+  <section>
+    <h2>Metodologia e validação</h2>
+    <div class="grid g2">
+      <div class="callout info">
+        <div class="t">Como a posição dentro do candle foi medida</div>
+        <p>
+          A nota de corretagem registra o prêmio da opção, não o preço da ação no momento do negócio.
+          Com strike, prazo até o vencimento e volatilidade implícita do dia, o prêmio determina o
+          preço do ativo — invertendo Black-Scholes em S recupera-se o preço implícito da execução.
+          O preço reconstruído caiu dentro da faixa mínima-máxima do dia em <b>484 de 497 entradas
+          (97%)</b>, com desvio mediano de 0,59% contra o fechamento. Os 13 casos fora excederam a
+          barra em 0,16 larguras, compatível com a volatilidade oscilando dentro do pregão.
+        </p>
+      </div>
+      <div class="callout info">
+        <div class="t">Fontes e reconciliação</div>
+        <p>
+          Cotações de opções do arquivo COTAHIST anual da B3 (fonte primária da bolsa, sem scraping),
+          com volatilidade implícita invertida por bisseção e gregas calculadas a Selic de 13,75% —
+          validadas por paridade put-call. Candles das ações, Brent, WTI, dólar e Ibovespa via Yahoo
+          Finance. As 853 operações vieram de 46 PDFs que continham 65 notas distintas; <b>as 65
+          reconciliam ao centavo</b> com o valor líquido declarado, sem nenhuma linha não
+          interpretada.
+        </p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:12px">
+      <div class="t">Sobre o PETR deste estudo</div>
+      <p>
+        Não há nenhuma operação com opções de PETR nas notas do período — PETR4 aparece apenas em 4
+        giros no mercado à vista, somando −R$ 468. As 38 operações à vista de PRIO3 somaram +R$ 334.
+        Toda a atividade relevante está em opções de PRIO (608 das 648 operações com opções). O
+        histórico de opções de PETR4 foi construído (81.989 cotações diárias em 5.638 séries) e está
+        disponível para comparação, mas não há trade seu para analisar ali.
+      </p>
+    </div>
+    <div class="cap" style="margin-top:12px">
+      Página de uso pessoal, em área protegida por senha. Não contém dados cadastrais, número de
+      conta ou qualquer identificador das notas — apenas resultados agregados por série, dia e
+      critério.
+    </div>
+  </section>
+</div>
+
+<script>
+/* ---------------------------------------------------------------------
+   Dados do período. Cada item de `serie`:
+   [data, abertura, maxima, minima, fechamento, entradas CALL, entradas PUT,
+    resultado realizado no dia (R$), Brent (US$/bbl), WTI (US$/bbl)]
+   `equity` e o acumulado do resultado liquido, alinhado por indice.
+--------------------------------------------------------------------- */
+const DADOS = {"serie":[["06-01",63.15,64.34,62.44,62.82,0,0,0,94.98,92.16],["06-02",62.24,63.18,61.98,61.98,0,0,0,96.0,93.76],["06-03",62.59,63.3,61.66,62.59,0,0,0,97.81,96.02],["06-05",62.36,62.61,60.76,61.12,0,0,0,93.09,90.54],["06-08",61.68,62.62,61.38,62.54,0,0,0,94.25,91.3],["06-09",61.5,62.93,61.29,61.8,0,0,0,91.45,88.2],["06-10",61.81,63.3,61.81,62.88,0,0,0,93.1,90.03],["06-11",62.77,64.21,61.72,62.05,0,0,0,90.38,87.71],["06-12",61.1,61.73,60.05,61.34,0,0,0,87.33,84.88],["06-15",59.0,59.01,56.65,57.1,0,0,0,83.17,80.75],["06-16",55.59,57.0,55.36,56.85,0,1,0,78.96,76.05],["06-17",57.53,57.69,56.57,56.74,0,0,-212,79.55,76.79],["06-18",57.05,57.4,55.64,56.97,0,0,0,79.85,76.6],["06-19",56.99,57.4,56.83,57.2,0,0,0,79.85,76.6],["06-22",57.06,57.29,56.25,56.68,0,0,0,77.9,74.82],["06-23",56.17,56.5,55.72,56.1,0,0,0,77.08,73.21],["06-24",55.48,55.48,53.59,54.1,0,0,0,73.74,70.34],["06-25",53.58,54.57,53.36,53.94,0,0,0,75.26,71.92],["06-26",53.15,53.62,52.81,53.29,0,2,0,71.99,69.23],["06-29",53.55,53.78,52.8,53.15,0,0,0,73.15,70.75],["06-30",52.95,53.24,52.13,52.15,0,2,0,72.92,69.5],["07-01",51.71,52.53,51.36,52.4,0,0,0,71.57,68.58],["07-02",51.96,52.77,51.62,52.57,0,2,1958,71.8,68.69],["07-03",52.93,53.13,52.21,52.96,0,0,0,71.8,68.69],["07-06",53.6,53.77,52.75,53.57,8,0,0,71.99,68.55],["07-07",53.75,56.36,53.7,56.23,14,0,2232,74.16,70.44],["07-08",57.5,57.67,56.3,56.42,3,0,0,78.02,73.52],["07-09",56.65,57.28,55.27,55.61,0,0,0,76.3,72.08],["07-10",56.29,56.29,55.04,55.45,2,4,-6932,76.01,71.41],["07-13",56.5,57.52,55.64,57.2,0,16,-3764,83.3,78.14],["07-14",57.83,57.94,56.38,57.57,2,0,0,84.73,79.34],["07-15",57.38,57.91,57.01,57.5,0,0,0,84.95,79.6],["07-16",57.22,57.95,56.79,56.79,0,0,0,84.23,78.95],["07-17",57.2,58.0,57.07,57.85,0,0,0,88.1,82.49],["07-20",57.85,58.72,57.62,57.69,0,0,0,89.22,83.23],["07-21",58.15,58.96,58.11,58.18,0,0,0,91.01,84.91],["07-22",58.91,59.99,58.66,59.77,0,3,313,94.07,86.83],["07-23",61.0,61.35,60.54,60.54,0,0,0,100.69,92.19],["07-24",59.83,60.27,58.46,58.82,0,0,910,96.78,89.31],["07-27",56.99,57.5,55.7,55.71,0,1,0,88.36,82.61],["07-28",55.4,57.06,55.28,56.77,0,2,0,84.09,79.26],["07-29",57.9,59.08,57.9,58.41,0,0,0,90.74,84.46],["07-30",58.05,59.97,57.91,59.96,0,0,0,89.03,83.59],["07-31",59.96,61.08,59.82,60.85,0,0,0,90.12,84.67],["08-03",58.65,59.55,58.44,58.5,0,0,-3164,83.77,80.34],["08-04",58.2,58.58,56.95,58.45,14,0,-2952,79.36,75.77],["08-05",59.21,59.99,58.21,59.2,0,17,11996,79.45,75.22],["08-06",59.5,59.78,58.46,58.61,0,0,0,82.49,77.29],["08-07",58.5,58.93,57.35,57.45,0,27,24899,83.55,78.18],["08-10",58.35,61.24,58.32,61.24,16,22,5235,87.72,82.13],["08-11",61.36,61.73,58.85,59.25,0,0,-938,88.91,83.2],["08-12",59.19,59.81,58.74,59.14,12,0,-1715,88.98,83.27],["08-13",58.49,59.69,57.93,59.07,15,6,-7491,87.07,81.25],["08-14",58.55,59.39,58.55,58.63,11,0,0,88.52,82.4],["08-17",58.71,61.91,58.71,61.58,29,0,26296,90.87,84.5],["08-18",61.8,62.27,60.97,61.5,21,0,0,91.02,84.94],["08-19",62.0,62.79,61.53,61.53,0,1,2231,91.62,85.83],["08-20",62.8,62.98,61.8,62.04,17,0,4098,93.78,87.83],["08-21",62.11,62.98,61.82,62.85,1,7,5899,94.39,87.06],["08-24",61.92,62.07,60.7,61.62,0,9,1806,92.17,85.01],["08-25",60.16,61.4,59.96,60.88,0,9,0,88.58,82.36],["08-26",60.05,61.33,59.46,60.76,7,0,6850,87.84,82.23],["08-27",60.76,61.74,59.94,61.09,39,10,-5346,89.7,83.53],["08-28",61.0,61.5,59.71,60.54,0,0,0,89.31,83.4],["08-31",61.8,62.93,61.5,62.68,0,0,0,90.49,85.76],["09-01",63.6,64.29,62.85,63.99,0,0,0,94.65,90.22],["09-02",63.28,65.24,63.13,64.41,0,0,0,95.63,91.01],["09-03",64.75,64.79,61.44,61.5,0,0,0,95.52,91.3],["09-04",61.15,61.27,59.5,60.19,0,0,0,96.28,91.48],["09-08",61.04,63.05,61.01,62.0,0,0,0,97.92,93.03],["09-09",63.0,63.14,61.85,62.52,0,0,0,101.21,96.05],["09-10",63.82,64.64,63.05,64.19,0,0,0,107.63,102.48],["09-11",63.47,64.19,62.33,64.19,0,0,0,104.61,100.05],["09-14",65.2,65.35,63.58,63.91,0,0,0,105.68,101.39],["09-15",63.9,66.08,63.34,65.68,0,0,0,108.75,105.83],["09-16",64.88,64.88,62.58,62.58,0,0,0,105.83,102.43],["09-17",62.05,63.48,61.35,63.29,0,0,0,104.82,101.91],["09-18",63.01,63.81,62.4,63.24,9,0,-8900,103.87,100.3],["09-21",62.68,62.7,60.68,61.05,0,13,1306,100.34,95.78],["09-22",60.18,60.96,59.97,60.46,8,39,2816,99.25,94.59],["09-23",60.71,61.49,59.64,60.86,23,1,3329,103.08,92.16],["09-24",61.04,61.85,60.2,60.71,14,0,1269,106.6,94.61],["09-25",60.0,60.25,59.08,59.35,0,6,-8548,104.32,92.41],["09-28",60.19,62.1,60.15,61.63,1,10,-16893,105.28,92.6],["09-29",60.75,61.78,60.0,61.6,16,0,1038,102.59,89.38],["09-30",62.52,62.79,60.9,60.9,11,8,1304,103.53,90.42],["10-01",61.25,62.25,61.12,61.46,31,14,-858,102.31,92.87],["10-02",61.24,63.29,60.22,63.01,0,0,0,102.25,91.11]],"equity":[0,0,0,0,0,0,0,0,0,0,0,-212,-212,-212,-212,-212,-212,-212,-212,-212,-212,-212,1746,1746,1746,3978,3978,3978,-2954,-6718,-6718,-6718,-6718,-6718,-6718,-6718,-6405,-6405,-5495,-5495,-5495,-5495,-5495,-5495,-8659,-11611,385,385,25284,30519,29581,27866,20375,20375,46671,46671,48901,53000,58899,60705,60705,67555,62209,62209,62209,62209,62209,62209,62209,62209,62209,62209,62209,62209,62209,62209,62209,53309,54615,57431,60760,62029,53480,36587,37624,38928,38071,38071]};
+
+const C = {alta:'#3fb950', baixa:'#f85149', call:'#4c8dff', put:'#d29922',
+           prio:'#e6edf3', brent:'#4c8dff', wti:'#a371f7',
+           eixo:'#2a323d', txt3:'#6e7b8a', txt2:'#9aa7b4'};
+
+const ns = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, texto){
+  const n = document.createElementNS(ns, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  if (texto !== undefined) n.textContent = texto;
+  return n;
+}
+const dataCurta = d => d.slice(3) + '/' + d.slice(0,2);
+
+/* ------------------------- curva de resultado ------------------------- */
+(function(){
+  const svg = document.getElementById('svgEquity');
+  const S = DADOS.serie, EQ = DADOS.equity;
+  const W = 1080, ML = 56, MR = 12, H = 320;
+  const PW = W - ML - MR, passo = PW / S.length, larg = Math.max(3, passo * 0.55);
+  const x = i => ML + i * passo + passo / 2;
+
+  const topA = 18, hA = 188;
+  const lo = Math.min(0, ...EQ), hi = Math.max(...EQ);
+  const yA = v => topA + (hi - v) / (hi - lo) * hA;
+  for (let v = 0; v <= hi; v += 20000){
+    svg.appendChild(el('line', {x1:ML, x2:W-MR, y1:yA(v), y2:yA(v), stroke:C.eixo}));
+    svg.appendChild(el('text', {x:ML-8, y:yA(v)+4, 'text-anchor':'end', fill:C.txt3, 'font-size':10},
+                       v === 0 ? '0' : (v/1000) + 'k'));
+  }
+  svg.appendChild(el('path', {
+    d: EQ.map((v,i) => (i ? 'L' : 'M') + x(i).toFixed(1) + ',' + yA(v).toFixed(1)).join(' '),
+    fill:'none', stroke:C.call, 'stroke-width':2
+  }));
+
+  const topB = 236, hB = 66, cB = topB + hB/2;
+  const maxP = Math.max(...S.map(d => Math.abs(d[7])));
+  svg.appendChild(el('line', {x1:ML, x2:W-MR, y1:cB, y2:cB, stroke:C.eixo}));
+  S.forEach((d,i) => {
+    if (!d[7]) return;
+    const h = Math.abs(d[7]) / maxP * (hB/2 - 2);
+    svg.appendChild(el('rect', {x:x(i)-larg/2, y: d[7] > 0 ? cB-h : cB,
+                                width:larg, height:h, fill: d[7] > 0 ? C.alta : C.baixa}));
+  });
+  svg.appendChild(el('text', {x:ML-8, y:topB+10, 'text-anchor':'end', fill:C.txt3, 'font-size':10}, '+25k'));
+  svg.appendChild(el('text', {x:ML-8, y:topB+hB, 'text-anchor':'end', fill:C.txt3, 'font-size':10}, '-25k'));
+  svg.appendChild(el('text', {x:ML, y:228, fill:C.txt2, 'font-size':11, 'font-weight':600},
+                     'Resultado realizado por pregão (R$)'));
+  S.forEach((d,i) => {
+    if (i % 7) return;
+    svg.appendChild(el('text', {x:x(i), y:H-6, 'text-anchor':'middle', fill:C.txt3, 'font-size':10},
+                       dataCurta(d[0])));
+  });
+})();
+
+/* ----------------- candles, entradas, petróleo, resultado ----------------- */
+(function(){
+  const svg = document.getElementById('svgPreco');
+  const S = DADOS.serie;
+  const W = 1080, ML = 46, MR = 12, H = 700;
+  const PW = W - ML - MR, passo = PW / S.length, larg = Math.max(3.2, passo * 0.6);
+  const x = i => ML + i * passo + passo / 2;
+  const titulo = (y, t) => svg.appendChild(
+    el('text', {x:ML, y:y, fill:C.txt2, 'font-size':11, 'font-weight':600}, t));
+
+  /* painel A — candles */
+  const topA = 26, hA = 226;
+  const pMin = Math.min(...S.map(d => d[3])) - 0.5, pMax = Math.max(...S.map(d => d[2])) + 0.5;
+  const yA = p => topA + (pMax - p) / (pMax - pMin) * hA;
+  titulo(14, 'PRIO3 — candle diário (abertura, máxima, mínima, fechamento), em R$');
+  [54,56,58,60,62,64,66].forEach(p => {
+    svg.appendChild(el('line', {x1:ML, x2:W-MR, y1:yA(p), y2:yA(p), stroke:C.eixo}));
+    svg.appendChild(el('text', {x:ML-6, y:yA(p)+3.5, 'text-anchor':'end', fill:C.txt3, 'font-size':10}, p));
+  });
+  S.forEach((d,i) => {
+    const cor = d[4] >= d[1] ? C.alta : C.baixa;
+    svg.appendChild(el('line', {x1:x(i), x2:x(i), y1:yA(d[2]), y2:yA(d[3]), stroke:cor}));
+    svg.appendChild(el('rect', {x:x(i)-larg/2, y:yA(Math.max(d[1],d[4])), width:larg,
+                                height:Math.max(1, Math.abs(yA(d[1])-yA(d[4]))), fill:cor}));
+  });
+
+  /* painel B — entradas */
+  const topB = 290, hB = 72, cB = topB + hB/2;
+  const maxE = Math.max(...S.map(d => Math.max(d[5], d[6])));
+  titulo(topB-12, 'Entradas por pregão — número de operações abertas (CALL acima, PUT abaixo)');
+  svg.appendChild(el('line', {x1:ML, x2:W-MR, y1:cB, y2:cB, stroke:C.eixo}));
+  S.forEach((d,i) => {
+    const h = n => n / maxE * (hB/2 - 3);
+    if (d[5]) svg.appendChild(el('rect', {x:x(i)-larg/2, y:cB-h(d[5]), width:larg, height:h(d[5]), fill:C.call}));
+    if (d[6]) svg.appendChild(el('rect', {x:x(i)-larg/2, y:cB, width:larg, height:h(d[6]), fill:C.put}));
+  });
+  svg.appendChild(el('text', {x:ML-6, y:topB+10, 'text-anchor':'end', fill:C.txt3, 'font-size':10}, maxE));
+  svg.appendChild(el('text', {x:ML-6, y:topB+hB, 'text-anchor':'end', fill:C.txt3, 'font-size':10}, maxE));
+
+  /* painel C — base 100 */
+  const topC = 400, hC = 112;
+  const b0 = {p:S[0][4], b:S[0][8], w:S[0][9]};
+  const norm = S.map(d => ({p:d[4]/b0.p*100, b:d[8]/b0.b*100, w:d[9]/b0.w*100}));
+  const vals = norm.flatMap(n => [n.p, n.b, n.w]);
+  const nMin = Math.min(...vals) - 2, nMax = Math.max(...vals) + 2;
+  const yC = v => topC + (nMax - v) / (nMax - nMin) * hC;
+  titulo(topC-12, 'PRIO3 × Brent × WTI — base 100 em 01/06/2026 (índice, sem unidade)');
+  svg.appendChild(el('line', {x1:ML, x2:W-MR, y1:yC(100), y2:yC(100), stroke:C.eixo, 'stroke-dasharray':'3 3'}));
+  svg.appendChild(el('text', {x:ML-6, y:yC(100)+3.5, 'text-anchor':'end', fill:C.txt3, 'font-size':10}, '100'));
+  const traco = (sel, cor, larguraLinha, tracejado) => {
+    const a = {d: norm.map((n,i) => (i ? 'L' : 'M') + x(i).toFixed(1) + ',' + yC(sel(n)).toFixed(1)).join(' '),
+               fill:'none', stroke:cor, 'stroke-width':larguraLinha};
+    if (tracejado) a['stroke-dasharray'] = tracejado;
+    svg.appendChild(el('path', a));
+  };
+  traco(n => n.b, C.brent, 1.6);
+  traco(n => n.w, C.wti, 1.6, '4 2');
+  traco(n => n.p, C.prio, 2);
+
+  /* painel D — resultado do dia */
+  const topD = 554, hD = 92, cD = topD + hD/2;
+  const maxP = Math.max(...S.map(d => Math.abs(d[7])));
+  titulo(topD-12, 'Resultado realizado no pregão — R$ líquido das operações encerradas no dia');
+  svg.appendChild(el('line', {x1:ML, x2:W-MR, y1:cD, y2:cD, stroke:C.eixo}));
+  S.forEach((d,i) => {
+    if (!d[7]) return;
+    const h = Math.abs(d[7]) / maxP * (hD/2 - 3);
+    svg.appendChild(el('rect', {x:x(i)-larg/2, y: d[7] > 0 ? cD-h : cD, width:larg, height:h,
+                                fill: d[7] > 0 ? C.alta : C.baixa}));
+  });
+  svg.appendChild(el('text', {x:ML-6, y:topD+10, 'text-anchor':'end', fill:C.txt3, 'font-size':10}, '+25k'));
+  svg.appendChild(el('text', {x:ML-6, y:topD+hD, 'text-anchor':'end', fill:C.txt3, 'font-size':10}, '-25k'));
+
+  S.forEach((d,i) => {
+    if (i % 7) return;
+    svg.appendChild(el('text', {x:x(i), y:H-20, 'text-anchor':'middle', fill:C.txt3, 'font-size':10},
+                       dataCurta(d[0])));
+  });
+  svg.appendChild(el('text', {x:W/2, y:H-4, 'text-anchor':'middle', fill:C.txt3, 'font-size':10},
+                     'Pregão (dia/mês de 2026)'));
+})();
+</script>
+</body>
+</html>

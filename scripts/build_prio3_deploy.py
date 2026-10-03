@@ -40,7 +40,15 @@ JSON_FILES = (
     "operational_series.json",
 )
 
-HTML_FILES = ("painel.html", "mercado.html", "fiis.html", "opcoes.html", "radar.html", "patterns.html")
+HTML_FILES = (
+    "painel.html",
+    "mercado.html",
+    "fiis.html",
+    "opcoes.html",
+    "radar.html",
+    "patterns.html",
+    "trades.html",
+)
 SKIP_NAMES = {".DS_Store", ".venv", "__pycache__"}
 
 
