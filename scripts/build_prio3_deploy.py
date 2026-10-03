@@ -38,6 +38,8 @@ JSON_FILES = (
     "triggers_put.json",
     "stats_prices.json",
     "operational_series.json",
+    "trade_model.json",
+    "trade_signal.json",
 )
 
 HTML_FILES = (

@@ -34,3 +34,18 @@ data/prio3_analysis/.venv/
 
 # cache de precos do ai_patterns (efemero, nao e fonte)
 data/prio3_analysis/px_cache/
+
+# notas de corretagem: dado pessoal (CPF, conta, posicoes) - nunca versionar
+data/prio3_analysis/trades/notas/*
+!data/prio3_analysis/trades/notas/.gitkeep
+data/prio3_analysis/trades/trades.csv
+data/prio3_analysis/trades/custos.csv
+data/prio3_analysis/trades/resultado.csv
+data/prio3_analysis/trades/candles.csv
+data/prio3_analysis/trades/candles_grafico.json
+
+# sinal ao vivo do indicador CALL/PUT: sempre regenerado pelo CI antes do deploy.
+# versionar significaria publicar a leitura de IA de uma execucao local antiga
+# caso o provedor falhasse no CI
+data/prio3_analysis/trade_signal.json
+data/prio3_analysis/api/trade_signal.json

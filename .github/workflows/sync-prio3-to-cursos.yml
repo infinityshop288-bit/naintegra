@@ -24,6 +24,9 @@ on:
 
 permissions:
   contents: read
+  # habilita o GitHub Models para o GITHUB_TOKEN do job — a leitura de IA do
+  # indicador CALL/PUT roda sem chave propria de provedor
+  models: read
 
 jobs:
   sync:
@@ -49,6 +52,12 @@ jobs:
           DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
           HTPASSWD_ABS_PATH: ${{ secrets.HTPASSWD_ABS_PATH }}
           PRIO3_USE_TIMESFM: "0"
+          # provedores de IA: GITHUB_TOKEN sempre existe; os demais são opcionais
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
         # sempre com --refresh: os JSONs versionados ficam para trás (o CI não os
         # commita de volta), então um build sem refresh republicava dados antigos
         # por cima dos atuais a cada push em data/prio3_analysis/**

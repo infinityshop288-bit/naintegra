@@ -38,6 +38,7 @@ DISK_JSON = (
     "ai_insights",
     "petr4_analysis",
     "brav_analysis",
+    "trade_signal",
 )
 
 

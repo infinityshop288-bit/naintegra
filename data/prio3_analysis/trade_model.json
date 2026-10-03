@@ -1,0 +1,188 @@
+{
+  "gerado_em": "2026-10-03T23:00:25Z",
+  "celulas": {
+    "alinhado": {
+      "pregoes": 25,
+      "pares": 25,
+      "giros": 296,
+      "taxa_giros": 80.7,
+      "taxa_pregoes": 74.6,
+      "ic95": [
+        68.1,
+        90.8
+      ],
+      "liquido": 54531.92
+    },
+    "contra": {
+      "pregoes": 24,
+      "pares": 24,
+      "giros": 222,
+      "taxa_giros": 57.2,
+      "taxa_pregoes": 56.3,
+      "ic95": [
+        37.8,
+        74.1
+      ],
+      "liquido": -11751.02
+    },
+    "cheio_alinhado": {
+      "pregoes": 8,
+      "pares": 8,
+      "giros": 83,
+      "taxa_giros": 86.7,
+      "taxa_pregoes": 78.9,
+      "ic95": [
+        66.3,
+        99.2
+      ],
+      "liquido": 25901.36
+    },
+    "cheio_contra": {
+      "pregoes": 6,
+      "pares": 6,
+      "giros": 48,
+      "taxa_giros": 54.2,
+      "taxa_pregoes": 33.3,
+      "ic95": [
+        23.8,
+        78.9
+      ],
+      "liquido": -2157.2
+    },
+    "medio_alinhado": {
+      "pregoes": 14,
+      "pares": 14,
+      "giros": 170,
+      "taxa_giros": 72.9,
+      "taxa_pregoes": 66.7,
+      "ic95": [
+        52.2,
+        87.7
+      ],
+      "liquido": 4755.25
+    },
+    "medio_contra": {
+      "pregoes": 15,
+      "pares": 15,
+      "giros": 153,
+      "taxa_giros": 60.1,
+      "taxa_pregoes": 63.4,
+      "ic95": [
+        35.9,
+        80.0
+      ],
+      "liquido": -1429.5
+    },
+    "doji_alinhado": {
+      "pregoes": 3,
+      "pares": 3,
+      "giros": 43,
+      "taxa_giros": 100.0,
+      "taxa_pregoes": 100.0,
+      "ic95": [
+        100.0,
+        100.0
+      ],
+      "liquido": 23875.31
+    },
+    "doji_contra": {
+      "pregoes": 3,
+      "pares": 3,
+      "giros": 21,
+      "taxa_giros": 42.9,
+      "taxa_pregoes": 66.7,
+      "ic95": [
+        0.0,
+        100.0
+      ],
+      "liquido": -8164.32
+    }
+  },
+  "veredito": "SEM PODER PREDITIVO COMPROVADO. A validacao fora da amostra nao rejeitou a hipotese de que o alinhamento com o candle nao informa nada sobre o resultado. As taxas abaixo sao descritivas: dizem o que aconteceu em dias parecidos, nao o que vai acontecer.",
+  "descricao": "Taxa historica de giros positivos condicionada ao alinhamento entre a aposta e a direcao do candle do pregao.",
+  "feature": "alinhado = 1 quando a direcao do candle do dia coincide com a aposta (CALL em dia de alta, PUT em dia de baixa), 0 caso contrario",
+  "codificacao": "bin",
+  "coef": {
+    "intercepto": 0.414251,
+    "alinhado": 0.473019
+  },
+  "amostra": {
+    "giros": 518,
+    "pregoes": 39,
+    "pares": 49,
+    "taxa_base": 65.6,
+    "periodo": [
+      "2026-06-16",
+      "2026-10-01"
+    ]
+  },
+  "validacao": {
+    "metodo": "leave-one-date-out (pregao inteiro fora do treino, CALL e PUT juntos)",
+    "brier": 0.1724,
+    "brier_base": 0.1753,
+    "skill": 1.7,
+    "acerto_direcional": 61.2,
+    "permutacoes": 2000,
+    "p_valor": 0.1349,
+    "significativo": false,
+    "codificacoes_testadas": {
+      "bin": {
+        "skill": 1.7,
+        "p_valor": 0.1349
+      },
+      "tri": {
+        "skill": 3.6,
+        "p_valor": 0.0575
+      },
+      "conv": {
+        "skill": 1.6,
+        "p_valor": 0.1449
+      }
+    },
+    "nota_selecao": "Tres codificacoes foram testadas e as tres estao acima. A publicada e a mais simples, nao a de maior skill: escolher pelo resultado e depois reportar o p-valor da escolhida seria selecionar ruido."
+  },
+  "calibracao": [
+    {
+      "faixa": "baixo",
+      "n_pares": 16,
+      "n_giros": 166,
+      "previsto": 59.3,
+      "realizado": 82.4,
+      "liquido": 18967.23
+    },
+    {
+      "faixa": "medio",
+      "n_pares": 16,
+      "n_giros": 141,
+      "previsto": 65.9,
+      "realizado": 52.0,
+      "liquido": 4615.44
+    },
+    {
+      "faixa": "alto",
+      "n_pares": 17,
+      "n_giros": 211,
+      "previsto": 71.1,
+      "realizado": 62.7,
+      "liquido": 19198.23
+    }
+  ],
+  "banda": {
+    "x": [
+      0.0,
+      1.0
+    ],
+    "p": [
+      60.2,
+      70.8
+    ],
+    "lo": [
+      45.9,
+      57.6
+    ],
+    "hi": [
+      74.4,
+      81.7
+    ]
+  }
+}
