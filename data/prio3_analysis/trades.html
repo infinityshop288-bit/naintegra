@@ -877,9 +877,16 @@
           Os números dizem como terminaram seus giros em dias parecidos; não dizem como
           terminará o de hoje.</p>
         </div>
-        ${d.ia ? `<div class="callout info" style="margin-top:10px">
-          <div class="t">Leitura de IA · ${d.ia.provedor}</div>
-          <p>${d.ia.texto.replace(/</g, '&lt;')}</p></div>` : ''}
+        ${!d.ia ? '' : d.ia.texto
+          ? `<div class="callout info" style="margin-top:10px">
+               <div class="t">Leitura de IA · ${d.ia.provedor}</div>
+               <p>${d.ia.texto.replace(/</g, '&lt;')}</p></div>`
+          : `<div class="callout" style="margin-top:10px">
+               <div class="t" style="color:var(--txt2)">Leitura de IA indisponível</div>
+               <p>Nenhum provedor respondeu nesta execução, então não há comentário gerado —
+               os números acima vêm direto do cálculo e não dependem disso.
+               <span class="neu">(${String(d.ia.erro || '').replace(/</g, '&lt;').slice(0, 180)})</span></p>
+             </div>`}
       </div>
     </div>`;
   }

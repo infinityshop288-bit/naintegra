@@ -85,11 +85,16 @@ def brent_hoje() -> float | None:
 
 
 def leitura_ia(ctx: dict) -> dict:
-    """Narrativa curta da IA sobre o estado de hoje. Falha em silencio."""
+    """Narrativa curta da IA sobre o estado de hoje.
+
+    Nunca derruba o indicador: se nenhum provedor responder, devolve o motivo
+    em vez de nada. A falha silenciosa e o que deixou ai_insights.json servir
+    conteudo de 15/09 por tres semanas sem ninguem perceber.
+    """
     try:
         import ai_providers
-    except Exception:  # noqa: BLE001
-        return {}
+    except Exception as e:  # noqa: BLE001
+        return {"erro": f"ai_providers indisponivel: {e}"}
     prompt = f"""Voce le o painel de operacoes de um investidor pessoa fisica que opera
 opcoes de PRIO3. Abaixo esta o estado do pregao de hoje e o historico dos giros dele.
 
@@ -112,7 +117,7 @@ Regras obrigatorias:
         return {"texto": txt.strip(), "provedor": prov}
     except Exception as e:  # noqa: BLE001
         print(f"  aviso: IA indisponivel ({e})", flush=True)
-        return {}
+        return {"erro": str(e)[:400], "configurados": ai_providers.configurados()}
 
 
 def main() -> int:
@@ -185,9 +190,7 @@ def main() -> int:
     }
 
     ctx = {k: out[k] for k in ("pregao", "call", "put", "taxa_base", "amostra", "validacao")}
-    ia = leitura_ia(ctx)
-    if ia:
-        out["ia"] = ia
+    out["ia"] = leitura_ia(ctx)
 
     SAIDA.write_text(json.dumps(out, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(f"  {c['data']} {nome} corpo {100*corpo:.0f}% | "
