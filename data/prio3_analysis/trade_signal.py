@@ -75,6 +75,51 @@ def candle_de_hoje() -> dict | None:
         return None
 
 
+def intradia_5m() -> dict | None:
+    """Textura do pregao de hoje a partir das barras de 5 min.
+
+    E uma descricao do mercado, nao um sinal: testei estas medidas contra os
+    resultados dos giros (trades/valida_5m.py) e nenhuma mostrou poder
+    preditivo -- a eficiencia alinhada deu skill +0,0% com p=0,31, e entre os
+    dias a favor da aposta os ziguezagueados ate acertaram mais. Fica aqui
+    porque responde "o dia tem dono ou esta em briga agora", que e util por si.
+    """
+    try:
+        import numpy as np
+        import yfinance as yf
+
+        d = yf.download("PRIO3.SA", period="2d", interval="5m",
+                        progress=False, auto_adjust=False)
+        if d is None or d.empty:
+            return None
+        if hasattr(d.columns, "nlevels") and d.columns.nlevels > 1:
+            d.columns = d.columns.get_level_values(0)
+        ult = sorted({i.date() for i in d.index})[-1]
+        g = d[[i.date() == ult for i in d.index]].sort_index()
+        if len(g) < 6:
+            return None
+        c = g["Close"].to_numpy(dtype=float)
+        o = float(g["Open"].iloc[0])
+        dif = np.diff(c)
+        percorrido = float(np.abs(dif).sum())
+        liquido = float(c[-1] - o)
+        sinais = np.sign(dif)
+        sinais = sinais[sinais != 0]
+        rev = int((np.diff(sinais) != 0).sum()) if len(sinais) > 1 else 0
+        return {
+            "barras": len(g),
+            "eficiencia": round(abs(liquido) / percorrido, 3) if percorrido > 0 else 0.0,
+            "direcao": "alta" if liquido >= 0 else "baixa",
+            "percorrido_pct": round(100 * percorrido / o, 2) if o else None,
+            "liquido_pct": round(100 * liquido / o, 2) if o else None,
+            "reversoes": rev,
+            "nota": "descritivo: testado contra os giros, sem poder preditivo (p=0,31)",
+        }
+    except Exception as e:  # noqa: BLE001
+        print(f"  aviso: 5 min indisponivel ({e})", flush=True)
+        return None
+
+
 def brent_hoje() -> float | None:
     """Variacao do Brent no dia, do snapshot ao vivo ja existente no dashboard."""
     try:
@@ -117,7 +162,9 @@ Regras obrigatorias:
         return {"texto": txt.strip(), "provedor": prov}
     except Exception as e:  # noqa: BLE001
         print(f"  aviso: IA indisponivel ({e})", flush=True)
-        return {"erro": str(e)[:400], "configurados": ai_providers.configurados()}
+        # folgado de proposito: o erro do provedor github lista o que cada
+        # variante de endpoint respondeu, e truncar perderia o diagnostico
+        return {"erro": str(e)[:900], "configurados": ai_providers.configurados()}
 
 
 def main() -> int:
@@ -181,6 +228,7 @@ def main() -> int:
             "brent_pct": brent,
             "fonte": c["fonte"],
         },
+        "intradia": intradia_5m(),
         "call": lado(True),
         "put": lado(False),
         "taxa_base": m["amostra"]["taxa_base"],

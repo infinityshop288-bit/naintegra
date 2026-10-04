@@ -22,10 +22,13 @@ echo "[9/11] estoques petróleo..." && $PY oil_inventories.py >/dev/null && echo
 echo "[10/11] peers vs Brent..." && $PY oil_peers_compare.py >/dev/null && echo "  ok"
 echo "[10b] analise PETR4/BRAV3..." && $PY peer_analysis.py PETR4 BRAV3 >/dev/null && echo "  ok"
 echo "[11/11] padroes IA..."   && $PY ai_patterns.py      >/dev/null && echo "  ok"
-echo "[12/13] insights IA..."   && $PY ai_insights.py     >/dev/null && echo "  ok"
+echo "[12/14] insights IA..."   && $PY ai_insights.py     >/dev/null && echo "  ok"
+# o Yahoo so serve 5 min dos ultimos 60 dias: este passo faz merge com o cache
+# em disco, entao a cobertura cresce em vez de rolar e desaparecer
+echo "[13/14] cache 5 min..."   && $PY trades/intraday_5m.py           && echo "  ok"
 # pontua o candle do pregao contra o historico de giros (trade_model.json e
 # versionado; as notas de corretagem nunca saem da maquina local)
-echo "[13/13] sinal CALL/PUT..." && $PY trade_signal.py                && echo "  ok"
+echo "[14/14] sinal CALL/PUT..." && $PY trade_signal.py                && echo "  ok"
 # reprocessa a analise p/ incorporar o Put/Call Ratio recem-gerado (fluxo por ativo)
 $PY multi_analysis.py >/dev/null
 echo "Concluido. Recarregue mercado.html / opcoes.html."

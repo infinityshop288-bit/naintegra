@@ -145,16 +145,53 @@ def _groq(msgs: list[dict], max_tokens: int) -> str:
     return out
 
 
+# Variantes de endpoint/cabeçalho do GitHub Models, tentadas em ordem.
+#
+# Motivo: no CI o host respondia HTTP 200 com o corpo literal "OK" em vez de
+# JSON — assinatura de rota não reconhecida, não de erro de autenticação (que
+# viria como 401/403). Como uma única variante não dá para distinguir "rota
+# errada" de "token sem permissão de models", tentamos as conhecidas e, se
+# todas falharem, o erro final lista o que cada uma respondeu. Uma execução
+# passa a bastar para diagnosticar.
+_GH_VARIANTES = (
+    ("models.github.ai + cabeçalhos REST",
+     "https://models.github.ai/inference/chat/completions",
+     {"Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"},
+     False),
+    ("models.github.ai puro",
+     "https://models.github.ai/inference/chat/completions", {}, False),
+    ("models.github.ai /v1",
+     "https://models.github.ai/inference/v1/chat/completions", {}, False),
+    ("azure inference (modelo sem publisher)",
+     "https://models.inference.ai.azure.com/chat/completions", {}, True),
+)
+
+_gh_variante: int | None = None
+
+
 def _github(msgs: list[dict], max_tokens: int) -> str:
     key = _do_env("GITHUB_TOKEN")
     if not key:
         raise RuntimeError("GITHUB_TOKEN ausente")
+    global _gh_variante
     modelo = os.environ.get("GITHUB_MODEL") or MODELOS["github"]
-    # o gateway do GitHub responde vazio sem os cabeçalhos REST dele
-    cabecalhos = {"Accept": "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28"}
-    return _openai_like(
-        "https://models.github.ai/inference/chat/completions", key, modelo, msgs, max_tokens, cabecalhos
-    )
+
+    ordem = range(len(_GH_VARIANTES))
+    if _gh_variante is not None:  # já sabemos qual funciona nesta execução
+        ordem = [_gh_variante]
+    erros = []
+    for i in ordem:
+        nome, url, cab, sem_prefixo = _GH_VARIANTES[i]
+        m = modelo.split("/", 1)[-1] if sem_prefixo else modelo
+        try:
+            out = _openai_like(url, key, m, msgs, max_tokens, cab)
+            if out.strip():
+                _gh_variante = i
+                return out
+            erros.append(f"{nome}: resposta vazia")
+        except Exception as e:  # noqa: BLE001
+            erros.append(f"{nome}: {e}")
+    raise RuntimeError("todas as variantes falharam — " + " | ".join(erros))
 
 
 def _openrouter(msgs: list[dict], max_tokens: int) -> str:

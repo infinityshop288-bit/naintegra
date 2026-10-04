@@ -735,6 +735,45 @@
 
   <!-- ================= METODOLOGIA ================= -->
   <section>
+    <h2>Por que não existe análise de 5 minutos por operação</h2>
+    <p class="sub" style="margin:0 0 12px">
+      Era o recorte mais desejável: você opera dentro do dia, então o candle de 5 minutos no
+      instante da entrada diria muito mais que o candle diário. Tentei, e é impossível com
+      estes dados. Fica registrado para não ser tentado de novo.
+    </p>
+    <div class="grid g3">
+      <div class="callout danger">
+        <div class="t">1. As notas não têm horário</div>
+        <p>A nota de corretagem da XP registra data, lado, série, quantidade e preço — nenhum
+        horário de execução. O único campo de hora em todas as 46 notas é a
+        <i>Data da Consulta</i>, que é quando o PDF foi gerado.</p>
+      </div>
+      <div class="callout danger">
+        <div class="t">2. O preço não desambigua</div>
+        <p>Restava localizar cada negócio pelo preço da ação que reconstruí por Black-Scholes.
+        Medi: o preço mediano de um giro é compatível com <b>10 barras</b> de 5 min diferentes
+        (19 com tolerância), e <b>zero</b> dos 458 giros cai numa barra única.</p>
+      </div>
+      <div class="callout warning">
+        <div class="t">3. E o caminho do dia não prevê</div>
+        <p>Dá para medir o pregão sem saber a hora. Testei eficiência, ziguezague e distância
+        percorrida com o mesmo protocolo: todas deram skill entre −0,7% e +0,0%, com p de 0,29
+        a 0,75. Nenhuma informa nada.</p>
+      </div>
+    </div>
+    <div class="simple" style="margin-top:12px">💡 <b>O achado que contraria a intuição:</b>
+      entre os pregões em que a aposta ia a favor da direção do dia, os dias
+      <b>ziguezagueados</b> acertaram mais (85,4% em 144 giros) que os dias limpos
+      (78,7% em 136 giros). Comprar opção num dia de briga não foi pior — provavelmente porque
+      a briga é justamente o que cria as oscilações que um day trade comprado aproveita.</div>
+    <p class="cap" style="margin-top:10px">
+      O histórico de 5 min do Yahoo cobre apenas 60 dias corridos, o que já exclui 16/06 a 09/07
+      de forma permanente. Os dados disponíveis estão sendo cacheados em disco a cada atualização
+      para que a cobertura cresça daqui em diante em vez de rolar e desaparecer.
+    </p>
+  </section>
+
+  <section>
     <h2>Metodologia e validação</h2>
     <div class="grid g2">
       <div class="callout info">
@@ -853,6 +892,23 @@
           <tr><td>máx / mín</td><td class="n">${p.high.toFixed(2).replace('.', ',')} / ${p.low.toFixed(2).replace('.', ',')}</td></tr>
           ${p.brent_pct == null ? '' : `<tr><td>Brent hoje</td><td class="n ${p.brent_pct >= 0 ? 'up' : 'down'}">${p.brent_pct > 0 ? '+' : ''}${String(p.brent_pct).replace('.', ',')}%</td></tr>`}
         </tbody></table>
+        ${!d.intradia ? '' : `
+        <div style="margin-top:10px;padding-top:9px;border-top:1px dashed var(--stroke)">
+          <div class="d">dentro do dia · 5 min</div>
+          <div style="font-size:12.5px;font-weight:600;margin:3px 0 5px">
+            ${d.intradia.eficiencia >= 0.25 ? 'dia com dono' : 'dia disputado'}</div>
+          <div class="bar" style="height:7px;margin-top:0">
+            <div class="pt" style="left:${Math.min(100, d.intradia.eficiencia * 250)}%"></div>
+          </div>
+          <table><tbody>
+            <tr><td>eficiência</td><td class="n">${String(d.intradia.eficiencia).replace('.', ',')}</td></tr>
+            <tr><td>andou</td><td class="n">${String(d.intradia.percorrido_pct).replace('.', ',')}%</td></tr>
+            <tr><td>para render</td><td class="n">${d.intradia.liquido_pct > 0 ? '+' : ''}${String(d.intradia.liquido_pct).replace('.', ',')}%</td></tr>
+            <tr><td>reversões</td><td class="n">${d.intradia.reversoes} em ${d.intradia.barras}</td></tr>
+          </tbody></table>
+          <div class="cap" style="margin-top:6px;line-height:1.35">Descritivo. Testado contra
+            seus giros e <b>sem</b> poder preditivo (p&nbsp;=&nbsp;0,31).</div>
+        </div>`}
       </div>
       <div>
         <div class="gs">
