@@ -1,9 +1,12 @@
 """Chamada direta aos provedores de IA, sem depender de Edge Function.
 
-Ordem de tentativa: groq → github (GitHub Models) → gemini → openrouter → claude.
-As chaves vêm do ambiente ou do .env da raiz do projeto. No GitHub Actions o
-provedor `github` funciona com o GITHUB_TOKEN automático, desde que o job
-declare `permissions: models: read` — ou seja, não exige chave própria.
+Ordem de tentativa: groq → gemini → openrouter → claude → ollama.
+As chaves vêm do ambiente ou do .env da raiz do projeto.
+
+O provedor `github` (GitHub Models) foi desligado em 30/07/2026. O host ainda
+responde HTTP 200 com o corpo literal "OK", o que o pipeline reportava como
+"resposta não-JSON". Não é falta de permissão `models: read` — o serviço
+deixou de existir.
 """
 from __future__ import annotations
 
@@ -17,7 +20,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parents[1]
 
-PRIORIDADE = ("groq", "gemini", "openrouter", "claude", "ollama", "github")
+# github saiu da fila: o servico GitHub Models foi desligado em 30/07/2026
+# (https://github.blog/changelog/2026-07-30-github-models-is-now-retired/).
+# O host ainda responde HTTP 200 com o corpo literal "OK" — era isso que o CI
+# reportava como "resposta nao-JSON". Tentar variantes de rota nao recupera
+# um servico aposentado; so gasta tempo de job.
+PRIORIDADE = ("groq", "gemini", "openrouter", "claude", "ollama")
 
 CHAVES = {
     "groq": "GROQ_API_KEY",
@@ -283,6 +291,8 @@ _FUNCOES = {
 
 
 def _disponivel(p: str) -> bool:
+    if p == "github":
+        return False  # aposentado em 30/07/2026
     return bool(_ollama_modelos()) if p == "ollama" else bool(_do_env(CHAVES[p]))
 
 

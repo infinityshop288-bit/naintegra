@@ -75,6 +75,54 @@ def candle_de_hoje() -> dict | None:
         return None
 
 
+def _yf_5m():
+    """Barras de 5 min do ultimo pregao disponivel. None se o Yahoo nao responder."""
+    import yfinance as yf
+
+    d = yf.download("PRIO3.SA", period="2d", interval="5m",
+                    progress=False, auto_adjust=False)
+    if d is None or d.empty:
+        return None
+    if hasattr(d.columns, "nlevels") and d.columns.nlevels > 1:
+        d.columns = d.columns.get_level_values(0)
+    ult = sorted({i.date() for i in d.index})[-1]
+    return d[[i.date() == ult for i in d.index]].sort_index()
+
+
+def candle_5m_atual() -> dict | None:
+    """A barra de 5 min que esta se formando agora (ou a ultima fechada).
+
+    E o sinal que o operador ve na tela. As taxas CALL/PUT continuam vindo do
+    recorte diario equivalente: as notas nao tem horario, entao nao existe
+    amostra de 5 min para calibrar. Transferir a taxa diaria e uma hipotese,
+    e a pagina deixa isso escrito.
+    """
+    try:
+        g = _yf_5m()
+        if g is None or g.empty:
+            return None
+        r = g.iloc[-1]
+        ts = g.index[-1]
+        nome, corpo, pos = classificar(float(r["Open"]), float(r["High"]),
+                                       float(r["Low"]), float(r["Close"]))
+        return {
+            "ts": ts.isoformat(),
+            "hora": ts.strftime("%H:%M"),
+            "open": round(float(r["Open"]), 2),
+            "high": round(float(r["High"]), 2),
+            "low": round(float(r["Low"]), 2),
+            "close": round(float(r["Close"]), 2),
+            "candle": nome,
+            "direcao": "alta" if float(r["Close"]) >= float(r["Open"]) else "baixa",
+            "corpo_pct": round(100 * corpo, 1),
+            "pos_na_barra": round(100 * pos, 1),
+            "nivel": "cheio" if corpo > 0.68 else ("doji" if corpo < 0.12 else "medio"),
+        }
+    except Exception as e:  # noqa: BLE001
+        print(f"  aviso: barra de 5 min indisponivel ({e})", flush=True)
+        return None
+
+
 def intradia_5m() -> dict | None:
     """Textura do pregao de hoje a partir das barras de 5 min.
 
@@ -86,17 +134,9 @@ def intradia_5m() -> dict | None:
     """
     try:
         import numpy as np
-        import yfinance as yf
 
-        d = yf.download("PRIO3.SA", period="2d", interval="5m",
-                        progress=False, auto_adjust=False)
-        if d is None or d.empty:
-            return None
-        if hasattr(d.columns, "nlevels") and d.columns.nlevels > 1:
-            d.columns = d.columns.get_level_values(0)
-        ult = sorted({i.date() for i in d.index})[-1]
-        g = d[[i.date() == ult for i in d.index]].sort_index()
-        if len(g) < 6:
+        g = _yf_5m()
+        if g is None or len(g) < 6:
             return None
         c = g["Close"].to_numpy(dtype=float)
         o = float(g["Open"].iloc[0])
@@ -158,12 +198,17 @@ Regras obrigatorias:
 - Nao recomende compra nem venda. Nao prometa resultado.
 - Sem titulo, sem lista, sem markdown. Apenas o paragrafo."""
     try:
-        txt, prov = ai_providers.gerar(prompt, 400)
+        # ollama local inventa ciclos e recomenda operacao mesmo com o prompt
+        # proibindo; este texto e curto e factual, nao vale o risco
+        preferidos = [p for p in ai_providers.configurados() if p != "ollama"]
+        if not preferidos:
+            return {"erro": "nenhum provedor remoto configurado (ollama excluido: alucina neste texto)"}
+        txt, prov = ai_providers.gerar(prompt, 400, preferido=preferidos[0])
+        if prov == "ollama":
+            return {"erro": "somente ollama disponivel; leitura omitida para nao inventar padrao"}
         return {"texto": txt.strip(), "provedor": prov}
     except Exception as e:  # noqa: BLE001
         print(f"  aviso: IA indisponivel ({e})", flush=True)
-        # folgado de proposito: o erro do provedor github lista o que cada
-        # variante de endpoint respondeu, e truncar perderia o diagnostico
         return {"erro": str(e)[:900], "configurados": ai_providers.configurados()}
 
 
@@ -182,8 +227,19 @@ def main() -> int:
         return 1
 
     nome, corpo, pos = classificar(c["open"], c["high"], c["low"], c["close"])
-    subiu = c["close"] >= c["open"]
-    nivel = "cheio" if corpo > 0.68 else ("doji" if corpo < 0.12 else "medio")
+    subiu_dia = c["close"] >= c["open"]
+    nivel_dia = "cheio" if corpo > 0.68 else ("doji" if corpo < 0.12 else "medio")
+
+    c5 = candle_5m_atual()
+    # o sinal ao vivo e a barra de 5 min; se ela nao veio, cai no candle do dia
+    if c5:
+        subiu = c5["direcao"] == "alta"
+        nivel = c5["nivel"]
+        origem_sinal = "5min"
+    else:
+        subiu = subiu_dia
+        nivel = nivel_dia
+        origem_sinal = "diario"
 
     def lado(aposta_alta: bool) -> dict:
         alinhado = subiu == aposta_alta
@@ -205,6 +261,8 @@ def main() -> int:
             "celula_fina_descartada": bool(
                 granular and granular["pregoes"] < MIN_PREGOES),
             "pregoes_celula_fina": (granular or {}).get("pregoes"),
+            "taxa_de": "recorte diario equivalente — notas sem horario, "
+                       "nao ha amostra de 5 min para calibrar",
         }
 
     brent = brent_hoje()
@@ -228,6 +286,8 @@ def main() -> int:
             "brent_pct": brent,
             "fonte": c["fonte"],
         },
+        "candle_5m": c5,
+        "sinal": origem_sinal,
         "intradia": intradia_5m(),
         "call": lado(True),
         "put": lado(False),

@@ -133,8 +133,10 @@
       <span class="cap" id="lvTs" style="margin:0"></span>
     </div>
     <p class="sub" style="margin:4px 0 12px">
-      Lê o candle de PRIO3 que está se formando agora e devolve, para cada lado, a taxa de giros
-      positivos que você obteve historicamente em pregões com esse mesmo formato.
+      Lê a barra de 5 minutos de PRIO3 que está se formando agora e devolve, para cada lado, a
+      taxa de giros positivos que você obteve historicamente quando apostou a favor ou contra
+      um candle daquele formato. As taxas vêm do recorte diário equivalente: as notas da XP
+      não têm horário, então não existe amostra de 5 min para calibrar.
     </p>
     <div id="lvBox" class="cap">Carregando cotação…</div>
   </section>
@@ -752,7 +754,10 @@
         <div class="t">2. O preço não desambigua</div>
         <p>Restava localizar cada negócio pelo preço da ação que reconstruí por Black-Scholes.
         Medi: o preço mediano de um giro é compatível com <b>10 barras</b> de 5 min diferentes
-        (19 com tolerância), e <b>zero</b> dos 458 giros cai numa barra única.</p>
+        (19 com tolerância), e <b>zero</b> dos 458 giros cai numa barra única. Exigir que
+        todas as candidatas apontem para o mesmo lado sobra só 29 giros — e nesses 29 o
+        sinal de 5 min é idêntico ao do candle diário. Voto majoritário cobre 456 giros
+        mas só separa 75% de 68%, bem mais fraco que o recorte diário (81% vs 57%).</p>
       </div>
       <div class="callout warning">
         <div class="t">3. E o caminho do dia não prevê</div>
@@ -855,7 +860,7 @@
       : `recorte: ${o.celula}`;
     return `<div class="gg ${al ? 'al' : 'ct'}">
       <div class="hd"><span class="ti">${nome}</span>
-        <span class="tg">${al ? 'a favor do candle' : 'contra o candle'}</span></div>
+        <span class="tg">${al ? 'a favor do candle de 5 min' : 'contra o candle de 5 min'}</span></div>
       <div class="pv">${o.probabilidade.toFixed(1).replace('.', ',')}%</div>
       <div class="bar">
         <div class="ci" style="left:${pct(lo)};width:${pct(hi - lo)}"></div>
@@ -871,25 +876,32 @@
     if (d.erro) { box.textContent = 'Cotação indisponível no momento.'; return; }
     const p = d.pregao;
     const dt = p.data.split('-').reverse().slice(0, 2).join('/');
-    const sinal = p.var_pct >= 0 ? 'up' : 'down';
     document.getElementById('lvTs').textContent =
       (p.em_andamento ? 'pregão em andamento · ' : 'último pregão fechado · ') +
       'atualizado ' + new Date(d.gerado_em).toLocaleString('pt-BR',
         { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' });
 
+    const c5 = d.candle_5m;
+    const usa5 = d.sinal === '5min' && c5;
+    const vis = usa5 ? c5 : p;
+    const visSinal = (usa5 ? c5.close >= c5.open : p.var_pct >= 0) ? 'up' : 'down';
+    const visVar = usa5
+      ? ((c5.close - c5.open) / c5.open * 100)
+      : p.var_pct;
     box.innerHTML = `<div class="lv">
       <div class="lvnow">
-        <div class="d">PRIO3 · ${dt}</div>
-        <div class="lvcd">${candleSVG(p)}<div>
-          <div class="px">${p.close.toFixed(2).replace('.', ',')}</div>
-          <div class="cd ${sinal}">${p.var_pct > 0 ? '+' : ''}${String(p.var_pct).replace('.', ',')}%</div>
+        <div class="d">PRIO3 · ${dt}${usa5 ? ' · barra ' + c5.hora : ''}</div>
+        <div class="lvcd">${candleSVG(vis)}<div>
+          <div class="px">${vis.close.toFixed(2).replace('.', ',')}</div>
+          <div class="cd ${visSinal}">${visVar > 0 ? '+' : ''}${Number(visVar).toFixed(2).replace('.', ',')}%</div>
         </div></div>
-        <div class="cd" style="margin-top:8px;font-size:12.5px">${p.candle}</div>
+        <div class="cd" style="margin-top:8px;font-size:12.5px">${vis.candle}${usa5 ? ' · 5 min' : ''}</div>
         <table><tbody>
-          <tr><td>corpo</td><td class="n">${String(p.corpo_pct).replace('.', ',')}% da barra</td></tr>
-          <tr><td>posição na barra</td><td class="n">${Math.round(p.pos_na_barra)}%</td></tr>
-          <tr><td>abertura</td><td class="n">${p.open.toFixed(2).replace('.', ',')}</td></tr>
-          <tr><td>máx / mín</td><td class="n">${p.high.toFixed(2).replace('.', ',')} / ${p.low.toFixed(2).replace('.', ',')}</td></tr>
+          <tr><td>corpo</td><td class="n">${String(vis.corpo_pct).replace('.', ',')}% da barra</td></tr>
+          <tr><td>posição na barra</td><td class="n">${Math.round(vis.pos_na_barra)}%</td></tr>
+          <tr><td>abertura</td><td class="n">${vis.open.toFixed(2).replace('.', ',')}</td></tr>
+          <tr><td>máx / mín</td><td class="n">${vis.high.toFixed(2).replace('.', ',')} / ${vis.low.toFixed(2).replace('.', ',')}</td></tr>
+          ${usa5 ? `<tr><td>candle do dia</td><td class="n">${p.candle}</td></tr>` : ''}
           ${p.brent_pct == null ? '' : `<tr><td>Brent hoje</td><td class="n ${p.brent_pct >= 0 ? 'up' : 'down'}">${p.brent_pct > 0 ? '+' : ''}${String(p.brent_pct).replace('.', ',')}%</td></tr>`}
         </tbody></table>
         ${!d.intradia ? '' : `
@@ -931,7 +943,9 @@
           de significância. Com ${d.amostra.pregoes} pregões operados não há poder estatístico
           para construir um previsor — e a prova está na largura das barras acima.
           Os números dizem como terminaram seus giros em dias parecidos; não dizem como
-          terminará o de hoje.</p>
+          terminará o de hoje. O sinal agora é a barra de 5 minutos; as taxas continuam
+          sendo as do recorte diário equivalente, porque as notas não têm horário e
+          não dá para calibrar em 5 min.</p>
         </div>
         ${!d.ia ? '' : d.ia.texto
           ? `<div class="callout info" style="margin-top:10px">
