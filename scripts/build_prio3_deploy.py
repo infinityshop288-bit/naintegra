@@ -49,6 +49,7 @@ HTML_FILES = (
     "opcoes.html",
     "radar.html",
     "patterns.html",
+    "chat.html",
     "trades.html",
 )
 SKIP_NAMES = {".DS_Store", ".venv", "__pycache__"}
@@ -164,6 +165,16 @@ def main() -> int:
     shutil.copy2(SRC / "dash-api.js", out / "dash-api.js")
     if (SRC / "dash-ai.js").is_file():
         shutil.copy2(SRC / "dash-ai.js", out / "dash-ai.js")
+    if (SRC / "chat.php").is_file():
+        shutil.copy2(SRC / "chat.php", out / "chat.php")
+    # chave da Codex Ilimitada: nunca versionar; o PHP lê este arquivo no Hostinger
+    env_raiz = load_env(REPO / ".env")
+    codex = os.environ.get("CODEX_API_KEY") or env_raiz.get("CODEX_API_KEY") or cfg.get("CODEX_API_KEY")
+    if codex:
+        (out / ".codex_key").write_text(codex.strip() + "\n", encoding="utf-8")
+        print("Chat IA: .codex_key gerado para chat.php", flush=True)
+    else:
+        print("AVISO: CODEX_API_KEY ausente — o chat.php responderá 503.", flush=True)
 
     for name in JSON_FILES:
         src = SRC / name

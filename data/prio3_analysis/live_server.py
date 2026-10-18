@@ -12,9 +12,11 @@ from __future__ import annotations
 
 import http.cookiejar
 import json
+import os
 import re
 import ssl
 import time
+import urllib.error
 import urllib.request
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
@@ -653,6 +655,26 @@ def ai_insights_live() -> dict:
     return {"error": "ai_insights.json ausente — rode ai_insights.py"}
 
 
+_CODEX_MODELOS = ("gpt-5.6-sol", "gpt-6-astra", "gpt-6-sol", "gpt-6-luna")
+_CODEX_URL = (os.environ.get("CODEX_BASE_URL") or "https://api.codexilimitado.com").rstrip("/") + "/v1/responses"
+
+
+def _codex_key() -> str:
+    k = (os.environ.get("CODEX_API_KEY") or "").strip()
+    if k:
+        return k
+    for arq in (ROOT / ".codex_key", ROOT.parents[1] / ".env"):
+        if not arq.is_file():
+            continue
+        if arq.name == ".codex_key":
+            return arq.read_text(encoding="utf-8").strip()
+        for linha in arq.read_text(encoding="utf-8", errors="replace").splitlines():
+            linha = linha.strip()
+            if linha.startswith("CODEX_API_KEY=") and "=" in linha:
+                return linha.split("=", 1)[1].strip().strip('"').strip("'")
+    return ""
+
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self, *a, **k):
         super().__init__(*a, directory=str(ROOT), **k)
@@ -698,6 +720,76 @@ class Handler(SimpleHTTPRequestHandler):
         if route == "/api/ai_insights":
             self._json(ai_insights_live()); return
         super().do_GET()
+
+    def do_OPTIONS(self):  # noqa: N802
+        self.send_response(204)
+        self.send_header("Access-Control-Allow-Origin", "*")
+        self.send_header("Access-Control-Allow-Methods", "POST, OPTIONS")
+        self.send_header("Access-Control-Allow-Headers", "Content-Type")
+        self.end_headers()
+
+    def do_POST(self):  # noqa: N802
+        route = self.path.split("?")[0]
+        if route != "/api/chat":
+            self.send_error(404)
+            return
+        n = int(self.headers.get("Content-Length") or 0)
+        try:
+            body = json.loads(self.rfile.read(n).decode("utf-8") or "{}")
+        except json.JSONDecodeError:
+            self._json({"error": {"message": "JSON inválido"}})
+            return
+        key = _codex_key()
+        if not key:
+            self.send_response(503)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(b'{"error":{"message":"CODEX_API_KEY ausente"}}')
+            return
+        modelo = body.get("model") if body.get("model") in _CODEX_MODELOS else "gpt-5.6-sol"
+        payload = {
+            "model": modelo,
+            "stream": bool(body.get("stream", True)),
+            "input": body.get("input") or "",
+        }
+        if isinstance(body.get("instructions"), str) and body["instructions"]:
+            payload["instructions"] = body["instructions"]
+        req = urllib.request.Request(
+            _CODEX_URL,
+            data=json.dumps(payload).encode("utf-8"),
+            method="POST",
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {key}",
+                "User-Agent": "curl/8.7.1",
+                "Accept": "application/json",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req, timeout=900, context=_SSL) as r:
+                self.send_response(r.status)
+                self.send_header("Content-Type", r.headers.get("Content-Type") or "text/event-stream")
+                self.send_header("Cache-Control", "no-store")
+                self.send_header("Access-Control-Allow-Origin", "*")
+                self.end_headers()
+                while True:
+                    chunk = r.read(2048)
+                    if not chunk:
+                        break
+                    self.wfile.write(chunk)
+                    self.wfile.flush()
+        except urllib.error.HTTPError as e:
+            detalhe = e.read()
+            self.send_response(e.code)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.send_header("Access-Control-Allow-Origin", "*")
+            self.end_headers()
+            self.wfile.write(detalhe or json.dumps({"error": {"message": str(e)}}).encode())
+        except Exception as e:  # noqa: BLE001
+            self.send_response(502)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": {"message": str(e)[:300]}}).encode())
 
 
 if __name__ == "__main__":

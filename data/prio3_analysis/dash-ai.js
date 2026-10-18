@@ -52,7 +52,79 @@ async function dashAITickerSignals(papeis, horizonDias, macro, lote = 8) {
   return { sinais, provider };
 }
 
-/** Chat livre com analista de mercado. */
+/** Chat livre com analista de mercado (legado: Edge Function Supabase). */
 async function dashAIChat(messages, system) {
   return dashAIFetch("ai-dashboard", { type: "chat", messages, system });
+}
+
+const CODEX_MODELOS = ["gpt-5.6-sol", "gpt-6-astra", "gpt-6-sol", "gpt-6-luna"];
+
+function dashCodexUrl() {
+  const porta = location.port;
+  if (porta === "8899" || porta === "8123") return "/api/chat";
+  return new URL("chat.php", location.href).href;
+}
+
+/**
+ * Stream da Responses API via proxy (chat.php no Hostinger, /api/chat no live_server).
+ * Devolve { texto, itens }. Os itens reasoning/message devem ser reenviados no próximo turno.
+ */
+async function dashCodexStream({ input, instructions, model, signal, onDelta, onItem }) {
+  const escolhido = CODEX_MODELOS.includes(model) ? model : "gpt-5.6-sol";
+  const r = await fetch(dashCodexUrl(), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: escolhido,
+      stream: true,
+      instructions: instructions || "",
+      input,
+    }),
+    signal,
+  });
+  if (!r.ok) {
+    const t = await r.text();
+    let msg = t.slice(0, 400);
+    try {
+      const j = JSON.parse(t);
+      msg = (j.error && j.error.message) || j.message || msg;
+    } catch (_) { /* texto puro */ }
+    throw new Error(msg || `HTTP ${r.status}`);
+  }
+  if (!r.body) throw new Error("resposta sem corpo");
+  let texto = "";
+  let buffer = "";
+  const itens = [];
+  const dec = new TextDecoder();
+  const reader = r.body.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    buffer += dec.decode(value, { stream: true });
+    const linhas = buffer.split("\n");
+    buffer = linhas.pop();
+    for (const linha of linhas) {
+      if (!linha.startsWith("data: ")) continue;
+      const raw = linha.slice(6).trim();
+      if (!raw || raw === "[DONE]") continue;
+      let ev;
+      try {
+        ev = JSON.parse(raw);
+      } catch (_) {
+        continue;
+      }
+      if (ev.type === "error" || ev.error) {
+        throw new Error((ev.error && ev.error.message) || ev.message || "erro na stream");
+      }
+      if (ev.type === "response.output_text.delta") {
+        texto += ev.delta || "";
+        if (onDelta) onDelta(ev.delta || "", texto);
+      }
+      if (ev.type === "response.output_item.done" && ev.item) {
+        itens.push(ev.item);
+        if (onItem) onItem(ev.item);
+      }
+    }
+  }
+  return { texto, itens };
 }

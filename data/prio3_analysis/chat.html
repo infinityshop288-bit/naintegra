@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chat IA — análises específicas</title>
+<script src="dash-api.js"></script>
+<script src="dash-ai.js"></script>
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --panel2:#1c232d; --stroke:#2a323d;
+    --txt:#e6edf3; --txt2:#9aa7b4; --txt3:#6e7b8a;
+    --info:#4c8dff; --success:#3fb950; --warning:#d29922; --danger:#f85149; --accent:#a371f7;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;line-height:1.5}
+  .wrap{max-width:1100px;margin:0 auto;padding:20px 20px 16px;display:flex;flex-direction:column;height:100%}
+  h1{font-size:22px;margin:0}
+  .sub{color:var(--txt2);font-size:13px}
+  .cap{color:var(--txt3);font-size:12px}
+  .pill{display:inline-block;font-size:12px;padding:2px 10px;border-radius:999px;background:rgba(163,113,247,.15);color:var(--accent);border:1px solid rgba(163,113,247,.35)}
+  .row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  nav.top{display:flex;gap:8px;align-items:center;margin-bottom:14px;flex-wrap:wrap}
+  nav.top a{font-size:13px;padding:7px 14px;border-radius:8px;text-decoration:none;color:var(--txt2);background:var(--panel);border:1px solid var(--stroke)}
+  nav.top a.on{color:#04122e;background:var(--info);border-color:var(--info);font-weight:700}
+  nav.top a:hover{color:var(--txt)}
+  .chip{font-size:12px;padding:5px 10px;border-radius:999px;border:1px solid var(--stroke);background:var(--panel2);color:var(--txt2);cursor:pointer}
+  .chip.on{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:700}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .sug{font-size:12px;padding:6px 10px;border-radius:8px;border:1px dashed var(--stroke);background:transparent;color:var(--txt2);cursor:pointer}
+  .sug:hover{border-color:var(--accent);color:var(--txt)}
+  select,textarea,button{font:inherit}
+  select{background:var(--panel2);color:var(--txt);border:1px solid var(--stroke);border-radius:8px;padding:6px 10px}
+  #log{flex:1;min-height:0;overflow:auto;background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:14px 16px;margin-top:12px}
+  .msg{margin:0 0 14px}
+  .msg .who{font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--txt3);margin-bottom:4px}
+  .msg.user .who{color:var(--info)}
+  .msg.ia .who{color:var(--accent)}
+  .msg .body{white-space:pre-wrap;font-size:14px;color:var(--txt);line-height:1.55}
+  .msg .body b{color:#fff}
+  .msg.user{background:rgba(76,141,255,.08);border-radius:10px;padding:10px 12px}
+  .composer{display:flex;gap:8px;margin-top:10px;align-items:flex-end}
+  textarea{flex:1;min-height:52px;max-height:160px;resize:vertical;background:var(--panel);color:var(--txt);border:1px solid var(--stroke);border-radius:10px;padding:10px 12px}
+  .btn{font-size:13px;font-weight:700;padding:10px 16px;border-radius:10px;border:1px solid var(--accent);color:#fff;background:var(--accent);cursor:pointer}
+  .btn:disabled{opacity:.5;cursor:wait}
+  .btn.ghost{background:transparent;color:var(--txt2);border-color:var(--stroke)}
+  .err{color:var(--danger);font-size:13px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <nav class="top">
+    <a href="painel.html">Painel PRIO3</a>
+    <a href="mercado.html">Panorama de Mercado</a>
+    <a href="fiis.html">Monitor FIIs</a>
+    <a href="opcoes.html">Oportunidades de Opções</a>
+    <a href="radar.html">Radar de Trades</a>
+    <a href="patterns.html">Padrões IA</a>
+    <a href="chat.html" class="on">Chat IA</a>
+    <a href="trades.html">Minhas Operações</a>
+  </nav>
+
+  <div class="row">
+    <h1>Chat IA — análises específicas</h1>
+    <span class="pill">Codex Ilimitada · Responses API</span>
+  </div>
+  <div class="sub" style="margin-top:4px">Pergunte sobre um papel com o snapshot do painel (técnica, sinal da IA, fatos da CVM). Não é recomendação de investimento. O histórico fica nesta aba; ao trocar o ticker a conversa recomeça.</div>
+
+  <div class="row" style="margin-top:12px">
+    <span class="cap">Papel</span>
+    <div class="chips" id="chips"></div>
+  </div>
+  <div class="row" style="margin-top:8px">
+    <span class="cap">Modelo</span>
+    <select id="modelo">
+      <option value="gpt-5.6-sol" selected>gpt-5.6-sol — rápido (padrão)</option>
+      <option value="gpt-6-astra">gpt-6-astra — mais capaz</option>
+      <option value="gpt-6-sol">gpt-6-sol</option>
+      <option value="gpt-6-luna">gpt-6-luna — mais leve</option>
+    </select>
+    <button class="btn ghost" type="button" id="limpar">Nova conversa</button>
+  </div>
+  <div class="row" style="margin-top:8px" id="sugs"></div>
+
+  <div id="log"></div>
+  <div class="composer">
+    <textarea id="q" placeholder="Ex.: por que o sinal de PETR4 é compra se o Brent está em queda?"></textarea>
+    <button class="btn" type="button" id="enviar">Enviar</button>
+  </div>
+  <div class="err" id="err"></div>
+</div>
+<script>
+const SUGESTOES = [
+  "Tese em 21 pregões, com o que invalidaria o sinal",
+  "Comparar com os pares do mesmo setor",
+  "Riscos concretos (commodity, juros, fatos da CVM)",
+  "O que o snapshot NÃO captura e eu deveria checar",
+];
+const estado = { ticker: "PETR4", input: [], instrucoes: "", abort: null };
+
+function esc(s){ return String(s??"").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c])); }
+function md(s){
+  return esc(s).replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/`([^`]+)`/g,"<code>$1</code>");
+}
+function addMsg(papel, texto, streaming){
+  const log = document.getElementById("log");
+  const d = document.createElement("div");
+  d.className = "msg " + (papel === "Você" ? "user" : "ia");
+  d.innerHTML = `<div class="who">${esc(papel)}</div><div class="body">${papel==="Você"?esc(texto):md(texto)}</div>`;
+  if (streaming) d.dataset.stream = "1";
+  log.appendChild(d);
+  log.scrollTop = log.scrollHeight;
+  return d;
+}
+
+async function carregarTickers(){
+  const multi = await dashLoad("multi_analysis").catch(()=>null);
+  const acoes = (multi && multi.acoes) || [];
+  const tks = acoes.length ? acoes.map(a => a.ticker) : ["PRIO3","BRAV3","PETR4","UGPA3"];
+  const q = new URLSearchParams(location.search).get("t");
+  if (q && tks.includes(q)) estado.ticker = q;
+  const box = document.getElementById("chips");
+  box.innerHTML = tks.map(t => `<button type="button" class="chip${t===estado.ticker?" on":""}" data-t="${t}">${t}</button>`).join("");
+  box.onclick = (e) => {
+    const b = e.target.closest("[data-t]");
+    if (!b) return;
+    escolher(b.dataset.t);
+  };
+}
+
+function escolher(tk){
+  estado.ticker = tk;
+  document.querySelectorAll(".chip").forEach(c => c.classList.toggle("on", c.dataset.t===tk));
+  resetar("Foco em "+tk+". Pergunte sobre tese, risco, pares ou o que o snapshot não captura.");
+}
+
+async function montarInstrucoes(tk){
+  const [multi, insights, fatos] = await Promise.all([
+    dashLoad("multi_analysis").catch(()=>null),
+    dashLoad("ai_insights").catch(()=>null),
+    dashLoad("fatos_relevantes_multi").catch(()=>null),
+  ]);
+  const acao = ((multi||{}).acoes||[]).find(a => a.ticker===tk) || {};
+  const sinal = ((insights||{}).sinais||[]).find(s => s.ticker===tk) || {};
+  const emp = ((fatos||{}).empresas||{})[tk] || {};
+  const fatosTxt = (emp.fatos||[]).slice(0,5).map(f =>
+    `- ${(f.data||f.Data_Entrega||"")} · ${(f.assunto||f.Assunto||f.titulo||"")}`
+  ).join("\n");
+  const mercado = ((insights||{}).market||{}).resumo || "";
+  return `Você é analista da plataforma NaIntegra (dashboard de ações B3 e FIIs).
+Responda em português do Brasil, específico e acionável, citando os números do snapshot.
+Deixe claro que não é recomendação de investimento. Se o dado não estiver abaixo, diga que não está no snapshot.
+
+Papel em foco: ${tk} — ${acao.nome||""} · setor ${acao.setor||""}
+Snapshot técnico: preço ${acao.preco??"—"}, tendência ${acao.tendencia||"—"}, score ${acao.score??"—"}, RSI ${acao.rsi??"—"}, ret 1m ${acao.ret_1m??"—"}, 3m ${acao.ret_3m??"—"}, YTD ${acao.ret_ytd??"—"}, dist. MM200 ${acao.dist200_pct??"—"}%, valuation ${JSON.stringify(acao.valuation||{})}
+Sinal da IA do painel: ${sinal.sinal||"—"} · confiança ${sinal.confianca??"—"} · tese: ${sinal.tese||"—"} · risco: ${sinal.risco||"—"}
+Leitura de mercado (snapshot): ${mercado}
+Fatos CVM recentes:
+${fatosTxt || "(nenhum no snapshot)"}`;
+}
+
+async function resetar(aviso){
+  estado.input = [];
+  estado.instrucoes = await montarInstrucoes(estado.ticker);
+  document.getElementById("log").innerHTML = "";
+  addMsg("IA", aviso || ("Pronto para analisar "+estado.ticker+"."));
+}
+
+async function perguntar(texto){
+  const t = (texto||"").trim();
+  if (!t) return;
+  const err = document.getElementById("err");
+  err.textContent = "";
+  const btn = document.getElementById("enviar");
+  btn.disabled = true;
+  addMsg("Você", t);
+  const bolha = addMsg("IA", "…", true);
+  const body = bolha.querySelector(".body");
+  estado.input.push({ role: "user", content: [{ type: "input_text", text: t }] });
+  if (estado.abort) estado.abort.abort();
+  estado.abort = new AbortController();
+  let acc = "";
+  try {
+    const { texto: resp } = await dashCodexStream({
+      model: document.getElementById("modelo").value,
+      instructions: estado.instrucoes,
+      input: estado.input,
+      signal: estado.abort.signal,
+      onDelta(_d, full){
+        acc = full;
+        body.innerHTML = md(full || "…");
+        document.getElementById("log").scrollTop = 1e9;
+      },
+      onItem(item){
+        if (item && (item.type === "reasoning" || item.type === "message" || item.type === "function_call")) {
+          estado.input.push(item);
+        }
+      },
+    });
+    if (resp && !acc) { acc = resp; body.innerHTML = md(acc); }
+    if (!acc) body.textContent = "(sem texto)";
+  } catch (e) {
+    if (e.name === "AbortError") body.textContent = "(interrupção)";
+    else { err.textContent = e.message || String(e); body.textContent = "Não consegui responder."; }
+  } finally {
+    btn.disabled = false;
+    document.getElementById("q").focus();
+  }
+}
+
+document.getElementById("sugs").innerHTML = SUGESTOES.map(s => `<button type="button" class="sug">${esc(s)}</button>`).join("");
+document.getElementById("sugs").onclick = (e) => {
+  const b = e.target.closest(".sug");
+  if (b) perguntar(b.textContent);
+};
+document.getElementById("enviar").onclick = () => {
+  const q = document.getElementById("q");
+  const t = q.value;
+  q.value = "";
+  perguntar(t);
+};
+document.getElementById("q").addEventListener("keydown", (e) => {
+  if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); document.getElementById("enviar").click(); }
+});
+document.getElementById("limpar").onclick = () => resetar("Conversa nova em "+estado.ticker+".");
+document.getElementById("modelo").onchange = () => resetar("Modelo alterado. Conversa nova em "+estado.ticker+".");
+
+carregarTickers().then(() => resetar("Pronto para analisar "+estado.ticker+". Escolha um papel ou pergunte direto."));
+</script>
+</body>
+</html>
