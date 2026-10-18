@@ -1,7 +1,10 @@
 """Chamada direta aos provedores de IA, sem depender de Edge Function.
 
-Ordem de tentativa: groq → gemini → openrouter → claude → ollama.
+Ordem de tentativa: codex → groq → gemini → openrouter → claude → ollama.
 As chaves vêm do ambiente ou do .env da raiz do projeto.
+
+`codex` é a API Responses (OpenAI-compatível) em api.codexilimitado.com —
+POST /v1/responses, não chat/completions. Timeout de 15 min; retry em 429/5xx.
 
 O provedor `github` (GitHub Models) foi desligado em 30/07/2026. O host ainda
 responde HTTP 200 com o corpo literal "OK", o que o pipeline reportava como
@@ -13,6 +16,7 @@ from __future__ import annotations
 import json
 import os
 import ssl
+import time
 import urllib.error
 import urllib.request
 from pathlib import Path
@@ -25,9 +29,10 @@ REPO = ROOT.parents[1]
 # O host ainda responde HTTP 200 com o corpo literal "OK" — era isso que o CI
 # reportava como "resposta nao-JSON". Tentar variantes de rota nao recupera
 # um servico aposentado; so gasta tempo de job.
-PRIORIDADE = ("groq", "gemini", "openrouter", "claude", "ollama")
+PRIORIDADE = ("codex", "groq", "gemini", "openrouter", "claude", "ollama")
 
 CHAVES = {
+    "codex": "CODEX_API_KEY",
     "groq": "GROQ_API_KEY",
     "gemini": "GEMINI_API_KEY",
     "openrouter": "OPENROUTER_API_KEY",
@@ -37,8 +42,10 @@ CHAVES = {
 }
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434")
+CODEX_URL = (os.environ.get("CODEX_BASE_URL") or "https://api.codexilimitado.com").rstrip("/")
 
 MODELOS = {
+    "codex": "gpt-5.6-sol",
     "groq": "llama-3.3-70b-versatile",
     "ollama": "llama3.2:3b",
     "github": "openai/gpt-4o-mini",
@@ -133,6 +140,62 @@ def _descobre_modelo_groq(key: str) -> str:
     if not livres:
         raise RuntimeError("Groq sem modelo de chat disponível")
     return livres[0]
+
+
+def _texto_responses(data: dict) -> str:
+    """Extrai o texto de uma resposta da Responses API (campo output_text ou output[])."""
+    direto = (data.get("output_text") or "").strip()
+    if direto:
+        return direto
+    partes: list[str] = []
+    for item in data.get("output") or []:
+        if item.get("type") != "message":
+            continue
+        for c in item.get("content") or []:
+            if c.get("type") in ("output_text", "text") and c.get("text"):
+                partes.append(c["text"])
+    return "".join(partes).strip()
+
+
+def _codex(msgs: list[dict], max_tokens: int) -> str:
+    """API Responses em api.codexilimitado.com — único endpoint POST /v1/responses."""
+    key = _do_env("CODEX_API_KEY")
+    if not key:
+        raise RuntimeError("CODEX_API_KEY ausente")
+    instrucoes = next((m["content"] for m in msgs if m["role"] == "system"), "")
+    entradas = [{"role": m["role"], "content": m["content"]} for m in msgs if m["role"] != "system"]
+    payload = {
+        "model": os.environ.get("CODEX_MODEL") or MODELOS["codex"],
+        "input": entradas,
+        "stream": False,
+        "temperature": 0.7,
+        "max_output_tokens": max_tokens,
+    }
+    if instrucoes:
+        payload["instructions"] = instrucoes
+    url = f"{CODEX_URL}/v1/responses"
+    # Cloudflare (1010) recusa o User-Agent padrão do urllib; curl passa.
+    cab = {
+        "Authorization": f"Bearer {key}",
+        "User-Agent": "curl/8.7.1",
+        "Accept": "application/json",
+    }
+    espera, ultimo = 2.0, None
+    for _ in range(4):
+        try:
+            data = _post(url, payload, cab, timeout=900)
+            texto = _texto_responses(data)
+            if not texto:
+                raise RuntimeError("resposta sem texto")
+            return texto
+        except RuntimeError as e:
+            ultimo = e
+            codigo = str(e).split(":", 1)[0].strip()
+            if codigo not in {"429", "500", "502", "503", "504"}:
+                raise
+            time.sleep(espera)
+            espera = min(espera * 2, 30)
+    raise ultimo  # type: ignore[misc]
 
 
 def _groq(msgs: list[dict], max_tokens: int) -> str:
@@ -281,6 +344,7 @@ def _claude(msgs: list[dict], max_tokens: int) -> str:
 
 
 _FUNCOES = {
+    "codex": _codex,
     "groq": _groq,
     "gemini": _gemini,
     "openrouter": _openrouter,

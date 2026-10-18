@@ -1,8 +1,9 @@
 """Gera insights de IA para o dashboard (batch diário).
 
 Chama os provedores de IA direto (ai_providers) quando há chave disponível —
-no GitHub Actions o GitHub Models atende com o token automático do job. Se não
-houver nenhuma chave, cai para a Edge Function ai-dashboard do Supabase.
+prioridade: Codex Ilimitado (Responses API) → groq → gemini → openrouter →
+claude → ollama. Se não houver nenhuma chave, cai para a Edge Function
+ai-dashboard do Supabase.
 """
 from __future__ import annotations
 

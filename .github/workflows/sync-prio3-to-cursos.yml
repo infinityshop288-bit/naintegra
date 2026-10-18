@@ -52,7 +52,10 @@ jobs:
           DASHBOARD_PASSWORD: ${{ secrets.DASHBOARD_PASSWORD }}
           HTPASSWD_ABS_PATH: ${{ secrets.HTPASSWD_ABS_PATH }}
           PRIO3_USE_TIMESFM: "0"
-          # provedores de IA: GITHUB_TOKEN sempre existe; os demais são opcionais
+          # provedores de IA: Codex Ilimitado (Responses API) é o principal
+          CODEX_API_KEY: ${{ secrets.CODEX_API_KEY }}
+          CODEX_BASE_URL: ${{ secrets.CODEX_BASE_URL }}
+          CODEX_MODEL: ${{ secrets.CODEX_MODEL }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}

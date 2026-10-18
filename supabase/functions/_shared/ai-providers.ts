@@ -5,11 +5,12 @@ export const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-export type AiProvider = "groq" | "github" | "gemini" | "claude" | "openrouter";
+export type AiProvider = "codex" | "groq" | "github" | "gemini" | "claude" | "openrouter";
 
-export const AI_PRIORITY: readonly AiProvider[] = ["groq", "gemini", "github", "openrouter", "claude"];
+export const AI_PRIORITY: readonly AiProvider[] = ["codex", "groq", "gemini", "openrouter", "claude"];
 
 export const AI_MODELS: Record<AiProvider, string> = {
+  codex: Deno.env.get("CODEX_MODEL") || "gpt-5.6-sol",
   groq: Deno.env.get("GROQ_MODEL") || "llama-3.3-70b-versatile",
   github: Deno.env.get("GITHUB_MODEL") || "openai/gpt-4o-mini",
   gemini: Deno.env.get("GEMINI_MODEL") || "gemini-2.5-flash",
@@ -23,14 +24,22 @@ export interface ChatMessage {
 }
 
 export function parseAiProvider(value: unknown): AiProvider {
-  if (value === "groq" || value === "github" || value === "gemini" || value === "claude" || value === "openrouter") {
+  if (
+    value === "codex" ||
+    value === "groq" ||
+    value === "github" ||
+    value === "gemini" ||
+    value === "claude" ||
+    value === "openrouter"
+  ) {
     return value;
   }
-  return "groq";
+  return "codex";
 }
 
 export function listConfiguredProviders(): { provider: AiProvider; model: string; configured: boolean }[] {
   const keys: Record<AiProvider, string> = {
+    codex: "CODEX_API_KEY",
     groq: "GROQ_API_KEY",
     github: "GITHUB_TOKEN",
     gemini: "GEMINI_API_KEY",
@@ -67,6 +76,68 @@ async function discoverGroqModel(key: string): Promise<string> {
     ids.find((id) => !/whisper|guard|tts|embed/i.test(id));
   if (!pick) throw new Error("Groq sem modelo de chat disponível");
   return pick;
+}
+
+function textoResponses(data: { output_text?: string; output?: { type?: string; content?: { type?: string; text?: string }[] }[] }): string {
+  if (data.output_text) return data.output_text;
+  const partes: string[] = [];
+  for (const item of data.output || []) {
+    if (item.type !== "message") continue;
+    for (const c of item.content || []) {
+      if ((c.type === "output_text" || c.type === "text") && c.text) partes.push(c.text);
+    }
+  }
+  return partes.join("");
+}
+
+async function callCodex(messages: ChatMessage[], maxTokens: number): Promise<string> {
+  const key = Deno.env.get("CODEX_API_KEY");
+  if (!key) throw new Error("CODEX_API_KEY not set");
+  const base = (Deno.env.get("CODEX_BASE_URL") || "https://api.codexilimitado.com").replace(/\/$/, "");
+  const instructions = messages.find((m) => m.role === "system")?.content || "";
+  const input = messages
+    .filter((m) => m.role !== "system")
+    .map((m) => ({ role: m.role, content: m.content }));
+  const payload: Record<string, unknown> = {
+    model: AI_MODELS.codex,
+    input,
+    stream: false,
+    temperature: 0.7,
+    max_output_tokens: maxTokens,
+  };
+  if (instructions) payload.instructions = instructions;
+  let espera = 2000;
+  let ultimo = "Codex: falha desconhecida";
+  for (let i = 0; i < 4; i++) {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 900_000);
+    try {
+      const resp = await fetch(`${base}/v1/responses`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${key}`,
+          "User-Agent": "curl/8.7.1",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+        signal: ctrl.signal,
+      });
+      if (resp.status === 429 || resp.status >= 500) {
+        ultimo = `Codex ${resp.status}: ${(await resp.text()).slice(0, 200)}`;
+        await new Promise((r) => setTimeout(r, espera));
+        espera = Math.min(espera * 2, 30_000);
+        continue;
+      }
+      if (!resp.ok) throw new Error(`Codex ${resp.status}: ${(await resp.text()).slice(0, 200)}`);
+      const texto = textoResponses(await resp.json());
+      if (!texto) throw new Error("Codex: resposta sem texto");
+      return texto;
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+  throw new Error(ultimo);
 }
 
 async function groqRequest(model: string, messages: ChatMessage[], maxTokens: number): Promise<Response> {
@@ -191,6 +262,7 @@ async function callOpenRouter(messages: ChatMessage[], maxTokens: number): Promi
 }
 
 const providerFns: Record<AiProvider, (msgs: ChatMessage[], maxTokens: number) => Promise<string>> = {
+  codex: callCodex,
   groq: callGroq,
   github: callGitHub,
   gemini: callGemini,
