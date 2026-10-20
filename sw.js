@@ -1,4 +1,4 @@
-const CACHE = "naintegra-lex-v32";
+const CACHE = "naintegra-lex-v37";
 const DATA_CACHE = "naintegra-lex-data-v2";
 const API_CACHE = "naintegra-lex-api-v1";
 
@@ -34,6 +34,13 @@ const SHELL = [
   "./js/cross-refs.js",
   "./js/study-plans.js",
   "./js/app.js",
+  "./js/provas-juridicas.js",
+  "./js/provas-varredura.js",
+  "./js/acervo-varredura.js",
+  "./varredura.html",
+  "./acervo.html",
+  "./chat.html",
+  "./js/lex-chat.js",
   "./js/user-sync.js",
   "./data/corpus.json",
   "./data/legis_catalog.json",
@@ -46,6 +53,7 @@ const SHELL = [
   "./data/sumulas_bodies.json",
   "./data/temas_catalog.json",
   "./data/questoes_catalog.json",
+  "./data/provas_juridicas.json",
 ];
 
 self.addEventListener("install", (e) => {

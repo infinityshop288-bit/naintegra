@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Chat Lex · NaIntegra</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css?v=74" />
+</head>
+<body class="pj-mon-page">
+  <div class="pj-mon-shell" id="lex-chat-root">
+    <div class="loading">Abrindo chat…</div>
+  </div>
+  <script src="./js/config.js?v=49"></script>
+  <script src="./js/lex-chat.js?v=1"></script>
+  <script>
+    const state = { messages: [], skills: [], docs: [], skill: "", busy: false, error: "" };
+    const root = document.getElementById("lex-chat-root");
+    async function redraw() {
+      root.innerHTML = window.LexChat.render(state);
+      window.LexChat.bind(state, redraw);
+    }
+    window.LexChat.refreshMeta(state).then(redraw);
+  </script>
+</body>
+</html>

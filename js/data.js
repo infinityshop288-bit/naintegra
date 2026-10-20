@@ -388,7 +388,26 @@
     if (temaRes.status === "fulfilled") out = applyTemasCatalog(out, temaRes.value);
     if (sumRes.status === "rejected") console.warn("Lex: catálogo de súmulas", sumRes.reason);
     if (temaRes.status === "rejected") console.warn("Lex: catálogo de temas", temaRes.reason);
-    return out;
+    return applyJurisResumos(out);
+  }
+
+  async function applyJurisResumos(docs) {
+    try {
+      const data = await fetchStaticJson(cfg.jurisResumosFallback);
+      const items = data.items || {};
+      let n = 0;
+      for (const doc of docs) {
+        const hit = items[doc.external_id];
+        if (!hit?.tese) continue;
+        doc.meta = { ...(doc.meta || {}), tese_estudo: hit.tese, aplicacao_estudo: hit.aplicacao };
+        doc.resumo = hit.tese;
+        n += 1;
+      }
+      if (n) console.info(`Lex: ${n} teses de estudo (varredura IA)`);
+    } catch (_err) {
+      /* sidecar ainda não gerado */
+    }
+    return docs;
   }
 
   async function loadDocumentsCatalog() {

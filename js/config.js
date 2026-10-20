@@ -32,6 +32,12 @@ window.LEX_CONFIG = {
   questionsTable: "questoes_banco",
   questionsPageSize: 1000,
   questoesCatalogFallback: "./data/questoes_catalog.json",
+  provasJuridicasFallback: "./data/provas_juridicas.json",
+  provasVarreduraStatus: "./data/provas_varredura_status.json",
+  acervoVarreduraStatus: "./data/acervo_varredura_status.json",
+  lexChatApi: "http://127.0.0.1:8770",
+  jurisResumosFallback: "./data/juris_resumos.json",
+  doutrinaResumosFallback: "./data/doutrina_resumos.json",
   doutrinaCatalogFallback: "./data/doutrina_catalog.json",
   contactEmail: "contato@naintegracursos.com.br",
   playStoreUrl:
