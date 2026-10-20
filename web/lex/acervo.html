@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Monitor do acervo · NaIntegra Lex</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Lora:ital,wght@0,400;0,500;0,600;0,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./css/styles.css?v=73" />
+</head>
+<body class="pj-mon-page">
+  <div class="pj-mon-shell">
+    <header class="pj-mon-top">
+      <a class="logo" href="./index.html#/" aria-label="Lex Na Íntegra">
+        <span class="lex-logo-lockup">
+          <img class="lex-logo-icon" src="./images/lex-logo-icon.png?v=2" alt="" width="520" height="334" />
+          <span class="lex-logo-copy">
+            <span class="lex-logo-lex">LEX</span>
+            <span class="lex-logo-name">Acervo</span>
+          </span>
+        </span>
+      </a>
+      <p>Monitor da varredura de legislação, jurisprudência e doutrina.</p>
+    </header>
+    <div id="acervo-root">
+      <div class="loading">Lendo status do acervo…</div>
+    </div>
+  </div>
+  <script src="./js/config.js?v=48"></script>
+  <script src="./js/acervo-varredura.js?v=1"></script>
+  <script>
+    window.LexAcervoVarredura.mountStandalone(document.getElementById("acervo-root"));
+  </script>
+</body>
+</html>

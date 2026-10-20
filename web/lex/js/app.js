@@ -85,7 +85,20 @@
     questaoCommentsLoading: false,
     questaoCommentEdit: null,
     currentUser: null,
+    provasJuridicas: [],
+    provasLoaded: false,
+    provasLoading: false,
+    pjFilter: { carreira: "all", tipo: "all", banca: "all" },
+    pjPage: 1,
+    pjMonitor: null,
+    pjMonitorError: "",
+    acervoMonitor: null,
+    acervoMonitorError: "",
+    lexChat: { messages: [], skills: [], docs: [], skill: "", busy: false, error: "", loaded: false },
   };
+
+  let pjMonitorTimer = 0;
+  let acervoMonitorTimer = 0;
 
   function isLoggedIn() {
     return Boolean(state.currentUser);
@@ -796,6 +809,76 @@
     }
   }
 
+  async function ensureProvasLoaded() {
+    if (state.provasLoaded || state.provasLoading || !window.LexProvasJuridicas?.load) return;
+    state.provasLoading = true;
+    render();
+    try {
+      state.provasJuridicas = await window.LexProvasJuridicas.load();
+      state.provasLoaded = true;
+    } catch (err) {
+      console.warn("Lex: provas jurídicas", err);
+      state.provasJuridicas = [];
+      state.provasLoaded = true;
+    } finally {
+      state.provasLoading = false;
+      render();
+    }
+  }
+
+  function stopPjMonitor() {
+    if (pjMonitorTimer) {
+      window.clearInterval(pjMonitorTimer);
+      pjMonitorTimer = 0;
+    }
+  }
+
+  function startPjMonitor() {
+    if (pjMonitorTimer || !window.LexProvasVarredura?.fetchStatus) return;
+    const tick = async () => {
+      try {
+        state.pjMonitor = await window.LexProvasVarredura.fetchStatus();
+        state.pjMonitorError = "";
+      } catch (err) {
+        state.pjMonitorError = err.message || String(err);
+      }
+      if (state.route.path === "provas-varredura") render();
+    };
+    tick();
+    pjMonitorTimer = window.setInterval(tick, 2000);
+  }
+
+  function stopAcervoMonitor() {
+    if (acervoMonitorTimer) {
+      window.clearInterval(acervoMonitorTimer);
+      acervoMonitorTimer = 0;
+    }
+  }
+
+  function startAcervoMonitor() {
+    if (acervoMonitorTimer || !window.LexAcervoVarredura?.fetchStatus) return;
+    const tick = async () => {
+      try {
+        state.acervoMonitor = await window.LexAcervoVarredura.fetchStatus();
+        state.acervoMonitorError = "";
+      } catch (err) {
+        state.acervoMonitorError = err.message || String(err);
+      }
+      if (state.route.path === "acervo-varredura") render();
+    };
+    tick();
+    acervoMonitorTimer = window.setInterval(tick, 2500);
+  }
+
+  function provasCtx() {
+    return {
+      state,
+      render,
+      qAnswerState,
+      persistQAnswers,
+    };
+  }
+
   function setActiveNav() {
     const r = state.route.path === "home" ? "/" : `/${state.route.path}`;
     document.querySelectorAll("[data-route]").forEach((a) => {
@@ -844,6 +927,26 @@
           <span class="tile-abbr" aria-hidden="true">QT</span>
           <h2>Questões</h2>
           <p>${nQ} questões · filtros por banca</p>
+        </button>
+        <button class="tile" data-go="provas-juridicas">
+          <span class="tile-abbr" aria-hidden="true">PJ</span>
+          <h2>Provas jurídicas</h2>
+          <p>Juiz, promotor, defensor e procurador · 2024–2026</p>
+        </button>
+        <button class="tile" data-go="provas-varredura">
+          <span class="tile-abbr" aria-hidden="true">VR</span>
+          <h2>Varredura</h2>
+          <p>Monitor da coleta e do loop de IA</p>
+        </button>
+        <button class="tile" data-go="acervo-varredura">
+          <span class="tile-abbr" aria-hidden="true">AC</span>
+          <h2>Acervo</h2>
+          <p>Lei, jurisprudência e doutrina · varredura</p>
+        </button>
+        <button class="tile" data-go="chat">
+          <span class="tile-abbr" aria-hidden="true">IA</span>
+          <h2>Chat</h2>
+          <p>Pesquisar, elaborar documentos e skills</p>
         </button>
         <button class="tile" data-go="plano-estudos">
           <span class="tile-abbr" aria-hidden="true">PE</span>
@@ -4096,6 +4199,8 @@
     renderRecentReads();
 
     const r = state.route;
+    if (r.path !== "provas-varredura") stopPjMonitor();
+    if (r.path !== "acervo-varredura") stopAcervoMonitor();
 
     let html = "";
 
@@ -4120,6 +4225,25 @@
     } else if (r.path === "questoes") {
       if (!state.questionsLoaded && !state.questionsLoading) ensureQuestionsLoaded();
       html = renderQuestoes();
+    } else if (r.path === "provas-juridicas") {
+      if (!state.provasLoaded && !state.provasLoading) ensureProvasLoaded();
+      html = window.LexProvasJuridicas
+        ? window.LexProvasJuridicas.render(provasCtx())
+        : `<div class="empty">Módulo de provas jurídicas não carregou.</div>`;
+    } else if (r.path === "provas-varredura") {
+      startPjMonitor();
+      html = window.LexProvasVarredura
+        ? window.LexProvasVarredura.render(state.pjMonitor, state.pjMonitorError)
+        : `<div class="empty">Módulo de varredura não carregou.</div>`;
+    } else if (r.path === "acervo-varredura") {
+      startAcervoMonitor();
+      html = window.LexAcervoVarredura
+        ? window.LexAcervoVarredura.render(state.acervoMonitor, state.acervoMonitorError)
+        : `<div class="empty">Módulo do acervo não carregou.</div>`;
+    } else if (r.path === "chat") {
+      html = window.LexChat
+        ? window.LexChat.render(state.lexChat)
+        : `<div class="empty">Módulo de chat não carregou.</div>`;
     } else if (r.path === "plano-estudos") {
       if (!window.LexStudyPlans && !state.studyPlansModuleLoading) {
         state.studyPlansModuleLoading = true;
@@ -4156,6 +4280,14 @@
     bindLeiSecaList();
     if (r.path !== "jurisprudencia" && r.path !== "favoritos") bindJuris();
     bindQuestoes();
+    if (r.path === "provas-juridicas") window.LexProvasJuridicas?.bind(provasCtx());
+    if (r.path === "chat" && window.LexChat) {
+      if (!state.lexChat.loaded) {
+        state.lexChat.loaded = true;
+        window.LexChat.refreshMeta(state.lexChat).then(() => render());
+      }
+      window.LexChat.bind(state.lexChat, render);
+    }
     bindContactForm();
     if (r.path === "excluir-conta") bindExcluirConta();
     bindReportError();

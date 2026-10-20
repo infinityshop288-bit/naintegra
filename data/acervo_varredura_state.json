@@ -1,0 +1,1245 @@
+{
+  "planalto": {
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm": {
+      "fetched_at": "2026-10-18T22:18:15.950715+00:00",
+      "ok": true,
+      "hash": "6f7f70b109c40ff85e5e72256f4cfc01bff39818933fcb24c88511d34ee2efe4"
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13300.htm": {
+      "fetched_at": "2026-10-18T22:18:16.371750+00:00",
+      "ok": true,
+      "hash": "4dbf4ffcc6855ad3c1178d1996eb4d33a31ae2e4e6211e5d50fd450e1606185a"
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm": {
+      "fetched_at": "2026-10-18T22:18:28.505087+00:00",
+      "ok": true,
+      "hash": "9d989642af45b9423c56f6e8a4efc80828a974f52f74685a7dc69bc851e102ba"
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848.htm": {
+      "fetched_at": "2026-10-18T22:18:34.696574+00:00",
+      "ok": true,
+      "hash": "545f79bca364e323615e0daa879a6ab3c7867d15fa215813fa796a54f5f275a1"
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3689.htm": {
+      "fetched_at": "2026-10-18T22:18:43.446821+00:00",
+      "ok": true,
+      "hash": "8ecb11d0b3b97050506973d976c596b65f22d0586352bc7bfac2e7b79e1ade9a"
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/2002/l10406compilada.htm": {
+      "fetched_at": "2026-10-18T22:18:53.478075+00:00",
+      "ok": true,
+      "hash": "13250c486f8073fe5568703604283079cec9cf5ecc3e35c55aaab309df68f3d3"
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/2003/l10.741.htm": {
+      "fetched_at": "2026-10-18T22:18:55.910730+00:00",
+      "ok": true,
+      "hash": "2335e50c97d7f2826c31834910ce3b930bf057038d08b51e18a3d8efc831346f"
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/2003/l10.826.htm": {
+      "fetched_at": "2026-10-18T22:18:57.469418+00:00",
+      "ok": true,
+      "hash": "31ba4f1b7d575f2a3161bd5c1e66e78559ed8ea83e79dc79c564a46734fd546a"
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l6015consolidado.htm": {
+      "fetched_at": "2026-10-20T14:51:17.939533+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l6015consolidado.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l6404consol.htm": {
+      "fetched_at": "2026-10-20T14:51:17.964394+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l6404consol.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l6858.htm": {
+      "fetched_at": "2026-10-20T14:51:17.989778+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l6858.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm": {
+      "fetched_at": "2026-10-20T14:51:18.015796+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8036consol.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8069.htm": {
+      "fetched_at": "2026-10-20T14:51:18.045256+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8069.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8078.htm": {
+      "fetched_at": "2026-10-20T14:51:18.072294+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8078.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8249.htm": {
+      "fetched_at": "2026-10-20T14:51:18.098398+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8249.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8429.htm": {
+      "fetched_at": "2026-10-20T14:51:18.123400+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8429.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8666cons.htm": {
+      "fetched_at": "2026-10-20T14:51:18.148938+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8666cons.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9307.htm": {
+      "fetched_at": "2026-10-20T14:51:18.173607+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9307.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9514.htm": {
+      "fetched_at": "2026-10-20T14:51:18.199773+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9514.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9784.htm": {
+      "fetched_at": "2026-10-20T14:51:18.225420+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9784.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9882.htm": {
+      "fetched_at": "2026-10-20T14:51:18.247442+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9882.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/lei/l11079.htm": {
+      "fetched_at": "2026-10-20T14:51:18.269556+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/lei/l11079.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11101.htm": {
+      "fetched_at": "2026-10-20T14:51:18.291192+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11101.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11107.htm": {
+      "fetched_at": "2026-10-20T14:51:18.312903+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2005/lei/l11107.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm": {
+      "fetched_at": "2026-10-20T14:51:18.334495+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11343.htm": {
+      "fetched_at": "2026-10-20T14:51:18.357640+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11343.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11417.htm": {
+      "fetched_at": "2026-10-20T14:51:18.379048+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11417.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11419.htm": {
+      "fetched_at": "2026-10-20T14:51:18.400335+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11419.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11671.htm": {
+      "fetched_at": "2026-10-20T14:51:18.423672+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11671.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11705.htm": {
+      "fetched_at": "2026-10-20T14:51:18.445189+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11705.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11788.htm": {
+      "fetched_at": "2026-10-20T14:51:18.466544+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11788.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11795.htm": {
+      "fetched_at": "2026-10-20T14:51:18.488498+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11795.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11804.htm": {
+      "fetched_at": "2026-10-20T14:51:18.510811+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2008/lei/l11804.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12016.htm": {
+      "fetched_at": "2026-10-20T14:51:18.532080+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12016.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12037.htm": {
+      "fetched_at": "2026-10-20T14:51:18.553731+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12037.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12153.htm": {
+      "fetched_at": "2026-10-20T14:51:18.575969+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12153.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12288.htm": {
+      "fetched_at": "2026-10-20T14:51:18.597324+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12288.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12291.htm": {
+      "fetched_at": "2026-10-20T14:51:18.618504+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12291.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12318.htm": {
+      "fetched_at": "2026-10-20T14:51:18.641447+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12318.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12414.htm": {
+      "fetched_at": "2026-10-20T14:51:18.662867+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12414.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12506.htm": {
+      "fetched_at": "2026-10-20T14:51:18.684202+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12506.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm": {
+      "fetched_at": "2026-10-20T14:51:18.705799+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12527.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12529.htm": {
+      "fetched_at": "2026-10-20T14:51:18.727057+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12529.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12562.htm": {
+      "fetched_at": "2026-10-20T14:51:18.748157+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2011/lei/l12562.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12594.htm": {
+      "fetched_at": "2026-10-20T14:51:18.769292+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12594.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651.htm": {
+      "fetched_at": "2026-10-20T14:51:18.792756+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12651.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12690.htm": {
+      "fetched_at": "2026-10-20T14:51:18.814532+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12690.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12694.htm": {
+      "fetched_at": "2026-10-20T14:51:18.838963+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12694.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12714.htm": {
+      "fetched_at": "2026-10-20T14:51:18.863095+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12714.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12737.htm": {
+      "fetched_at": "2026-10-20T14:51:18.887812+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12737.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12830.htm": {
+      "fetched_at": "2026-10-20T14:51:18.913233+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12830.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12846.htm": {
+      "fetched_at": "2026-10-20T14:51:18.944534+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12846.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12850.htm": {
+      "fetched_at": "2026-10-20T14:51:18.970804+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12850.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12852.htm": {
+      "fetched_at": "2026-10-20T14:51:19.001956+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/lei/l12852.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm": {
+      "fetched_at": "2026-10-20T14:51:19.032791+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12965.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12984.htm": {
+      "fetched_at": "2026-10-20T14:51:19.059086+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l12984.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13060.htm": {
+      "fetched_at": "2026-10-20T14:51:19.083867+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13060.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13140.htm": {
+      "fetched_at": "2026-10-20T14:51:19.109262+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13140.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm": {
+      "fetched_at": "2026-10-20T14:51:19.137275+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13146.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13188.htm": {
+      "fetched_at": "2026-10-20T14:51:19.162814+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13188.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13260.htm": {
+      "fetched_at": "2026-10-20T14:51:19.188106+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13260.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13271.htm": {
+      "fetched_at": "2026-10-20T14:51:19.214304+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13271.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13294.htm": {
+      "fetched_at": "2026-10-20T14:51:19.236686+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13294.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13303.htm": {
+      "fetched_at": "2026-10-20T14:51:19.259049+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13303.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13344.htm": {
+      "fetched_at": "2026-10-20T14:51:19.283038+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2016/lei/l13344.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13445.htm": {
+      "fetched_at": "2026-10-20T14:51:19.305460+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13445.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13455.htm": {
+      "fetched_at": "2026-10-20T14:51:19.328920+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13455.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm": {
+      "fetched_at": "2026-10-20T14:51:19.353001+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13460.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm": {
+      "fetched_at": "2026-10-20T14:51:19.376626+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13775.htm": {
+      "fetched_at": "2026-10-20T14:51:19.400284+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13775.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13869.htm": {
+      "fetched_at": "2026-10-20T14:51:19.426600+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13869.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13874.htm": {
+      "fetched_at": "2026-10-20T14:51:19.450796+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13874.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13966.htm": {
+      "fetched_at": "2026-10-20T14:51:19.472720+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13966.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/lei/l14010.htm": {
+      "fetched_at": "2026-10-20T14:51:19.495603+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2020/lei/l14010.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm": {
+      "fetched_at": "2026-10-20T14:51:19.520704+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14133.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14344.htm": {
+      "fetched_at": "2026-10-20T14:51:19.543680+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14344.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14457.htm": {
+      "fetched_at": "2026-10-20T14:51:19.565731+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/lei/l14457.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14597.htm": {
+      "fetched_at": "2026-10-20T14:51:19.587730+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14597.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14717.htm": {
+      "fetched_at": "2026-10-20T14:51:19.608206+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2023/lei/l14717.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14852.htm": {
+      "fetched_at": "2026-10-20T14:51:19.629600+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14852.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14965.htm": {
+      "fetched_at": "2026-10-20T14:51:19.652269+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14965.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15040.htm": {
+      "fetched_at": "2026-10-20T14:51:19.672868+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l15040.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc02.htm": {
+      "fetched_at": "2026-10-20T14:51:19.693939+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc02.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc03.htm": {
+      "fetched_at": "2026-10-20T14:51:19.714796+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc03.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc08.htm": {
+      "fetched_at": "2026-10-20T14:51:19.735511+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc08.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc103.htm": {
+      "fetched_at": "2026-10-20T14:51:19.758850+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc103.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc106.htm": {
+      "fetched_at": "2026-10-20T14:51:19.779822+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc106.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm": {
+      "fetched_at": "2026-10-20T14:51:19.824878+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc111.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc113.htm": {
+      "fetched_at": "2026-10-20T14:51:20.151676+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc113.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc114.htm": {
+      "fetched_at": "2026-10-20T14:51:20.206159+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc114.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc117.htm": {
+      "fetched_at": "2026-10-20T14:51:20.238559+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc117.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc123.htm": {
+      "fetched_at": "2026-10-20T14:51:20.267176+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc123.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc125.htm": {
+      "fetched_at": "2026-10-20T14:51:20.301494+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc125.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc127.htm": {
+      "fetched_at": "2026-10-20T14:51:20.350376+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc127.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm": {
+      "fetched_at": "2026-10-20T14:51:20.382166+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc132.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc133.htm": {
+      "fetched_at": "2026-10-20T14:51:20.406384+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc133.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc17.htm": {
+      "fetched_at": "2026-10-20T14:51:20.430736+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc17.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc45.htm": {
+      "fetched_at": "2026-10-20T14:51:20.454036+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc45.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc54.htm": {
+      "fetched_at": "2026-10-20T14:51:20.478311+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc54.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc91.htm": {
+      "fetched_at": "2026-10-20T14:51:20.503293+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc91.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del0911.htm": {
+      "fetched_at": "2026-10-20T14:51:20.526546+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del0911.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del1075.htm": {
+      "fetched_at": "2026-10-20T14:51:20.549892+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto-lei//1965-1988/del1075.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei/1937-1946/del3931.htm": {
+      "fetched_at": "2026-10-20T14:51:20.571766+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto-lei/1937-1946/del3931.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3365.htm": {
+      "fetched_at": "2026-10-20T14:51:20.596410+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto-lei/del3365.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3688.htm": {
+      "fetched_at": "2026-10-20T14:51:20.621558+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto-lei/del3688.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei/del3914.htm": {
+      "fetched_at": "2026-10-20T14:51:20.646013+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto-lei/del3914.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei/del4657.htm": {
+      "fetched_at": "2026-10-20T14:51:20.668823+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto-lei/del4657.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm": {
+      "fetched_at": "2026-10-20T14:51:20.692120+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto-lei/del5452.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto-lei/del9760.htm": {
+      "fetched_at": "2026-10-20T14:51:20.720672+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto-lei/del9760.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto/antigos/d57663.htm": {
+      "fetched_at": "2026-10-20T14:51:20.747492+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto/antigos/d57663.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto/d22626.htm": {
+      "fetched_at": "2026-10-20T14:51:20.773610+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto/d22626.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto/d70235cons.htm": {
+      "fetched_at": "2026-10-20T14:51:20.798934+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto/d70235cons.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/1950-1969/l4729.htm": {
+      "fetched_at": "2026-10-20T14:51:20.823578+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/1950-1969/l4729.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/1950-1969/l5256.htm": {
+      "fetched_at": "2026-10-20T14:51:20.846554+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/1950-1969/l5256.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/1970-1979/l5941.htm": {
+      "fetched_at": "2026-10-20T14:51:20.869560+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/1970-1979/l5941.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l0605.htm": {
+      "fetched_at": "2026-10-20T14:51:20.894118+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l0605.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l10101.htm": {
+      "fetched_at": "2026-10-20T14:51:20.916704+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l10101.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l1060.htm": {
+      "fetched_at": "2026-10-20T14:51:20.939631+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l1060.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l1079.htm": {
+      "fetched_at": "2026-10-20T14:51:20.962340+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l1079.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l1521.htm": {
+      "fetched_at": "2026-10-20T14:51:20.985131+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l1521.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l1579.htm": {
+      "fetched_at": "2026-10-20T14:51:21.007506+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l1579.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l2889.htm": {
+      "fetched_at": "2026-10-20T14:51:21.030187+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l2889.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l4090.htm": {
+      "fetched_at": "2026-10-20T14:51:21.054326+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l4090.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l4132.htm": {
+      "fetched_at": "2026-10-20T14:51:21.077789+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l4132.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l4591.htm": {
+      "fetched_at": "2026-10-20T14:51:21.101306+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l4591.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l4717.htm": {
+      "fetched_at": "2026-10-20T14:51:21.124560+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l4717.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l4737.htm": {
+      "fetched_at": "2026-10-20T14:51:21.147610+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l4737.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l4749.htm": {
+      "fetched_at": "2026-10-20T14:51:21.388170+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l4749.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l4886.htm": {
+      "fetched_at": "2026-10-20T14:51:21.443548+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l4886.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l5172.htm": {
+      "fetched_at": "2026-10-20T14:51:21.499275+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l5172.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l5474.htm": {
+      "fetched_at": "2026-10-20T14:51:21.524438+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l5474.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l5478.htm": {
+      "fetched_at": "2026-10-20T14:51:21.549554+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l5478.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l5584.htm": {
+      "fetched_at": "2026-10-20T14:51:21.574783+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l5584.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l5764.htm": {
+      "fetched_at": "2026-10-20T14:51:21.601328+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l5764.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l5889.htm": {
+      "fetched_at": "2026-10-20T14:51:21.626519+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l5889.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l6019.htm": {
+      "fetched_at": "2026-10-20T14:51:21.649279+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l6019.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l6385.htm": {
+      "fetched_at": "2026-10-20T14:51:21.672541+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l6385.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l6515.htm": {
+      "fetched_at": "2026-10-20T14:51:21.694250+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l6515.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l6766.htm": {
+      "fetched_at": "2026-10-20T14:51:21.716003+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l6766.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l6830.htm": {
+      "fetched_at": "2026-10-20T14:51:21.738067+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l6830.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l6938.htm": {
+      "fetched_at": "2026-10-20T14:51:21.759657+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l6938.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l7210.htm": {
+      "fetched_at": "2026-10-20T14:51:21.781208+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l7210.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l7347orig.htm": {
+      "fetched_at": "2026-10-20T14:51:21.802703+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l7347orig.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l7357.htm": {
+      "fetched_at": "2026-10-20T14:51:21.824202+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l7357.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l7418.htm": {
+      "fetched_at": "2026-10-20T14:51:21.845611+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l7418.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l7492.htm": {
+      "fetched_at": "2026-10-20T14:51:21.867435+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l7492.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l7716.htm": {
+      "fetched_at": "2026-10-20T14:51:21.889142+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l7716.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l7783.htm": {
+      "fetched_at": "2026-10-20T14:51:21.912588+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l7783.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l7960.htm": {
+      "fetched_at": "2026-10-20T14:51:21.933852+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l7960.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8009.htm": {
+      "fetched_at": "2026-10-20T14:51:21.957301+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8009.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8038.htm": {
+      "fetched_at": "2026-10-20T14:51:21.978844+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8038.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8072.htm": {
+      "fetched_at": "2026-10-20T14:51:22.000811+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8072.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8112cons.htm": {
+      "fetched_at": "2026-10-20T14:51:22.022148+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8112cons.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8137.htm": {
+      "fetched_at": "2026-10-20T14:51:22.043483+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8137.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8176.htm": {
+      "fetched_at": "2026-10-20T14:51:22.066480+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8176.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8212cons.htm": {
+      "fetched_at": "2026-10-20T14:51:22.088798+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8212cons.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm": {
+      "fetched_at": "2026-10-20T14:51:22.110505+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8213cons.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8245.htm": {
+      "fetched_at": "2026-10-20T14:51:22.133935+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8245.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8629.htm": {
+      "fetched_at": "2026-10-20T14:51:22.155109+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8629.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8906.htm": {
+      "fetched_at": "2026-10-20T14:51:22.176502+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8906.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8934.htm": {
+      "fetched_at": "2026-10-20T14:51:22.197310+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8934.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8971.htm": {
+      "fetched_at": "2026-10-20T14:51:22.217755+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8971.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8987cons.htm": {
+      "fetched_at": "2026-10-20T14:51:22.238123+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8987cons.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9051.htm": {
+      "fetched_at": "2026-10-20T14:51:22.258038+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9051.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9096.htm": {
+      "fetched_at": "2026-10-20T14:51:22.276028+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9096.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9099.htm": {
+      "fetched_at": "2026-10-20T14:51:22.293890+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9099.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9278.htm": {
+      "fetched_at": "2026-10-20T14:51:22.311933+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9278.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9279.htm": {
+      "fetched_at": "2026-10-20T14:51:22.329948+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9279.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9296.htm": {
+      "fetched_at": "2026-10-20T14:51:22.347868+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9296.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9434.htm": {
+      "fetched_at": "2026-10-20T14:51:22.365776+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9434.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9455.htm": {
+      "fetched_at": "2026-10-20T14:51:22.383816+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9455.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9469.htm": {
+      "fetched_at": "2026-10-20T14:51:22.401790+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9469.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9494.htm": {
+      "fetched_at": "2026-10-20T14:51:22.419853+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9494.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9503.htm": {
+      "fetched_at": "2026-10-20T14:51:22.438055+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9503.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9504.htm": {
+      "fetched_at": "2026-10-20T14:51:22.455934+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9504.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9507.htm": {
+      "fetched_at": "2026-10-20T14:51:22.473908+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9507.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9601.htm": {
+      "fetched_at": "2026-10-20T14:51:22.490471+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9601.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9605.htm": {
+      "fetched_at": "2026-10-20T14:51:22.508262+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9605.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9608.htm": {
+      "fetched_at": "2026-10-20T14:51:22.526082+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9608.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9609.htm": {
+      "fetched_at": "2026-10-20T14:51:22.542372+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9609.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9610.htm": {
+      "fetched_at": "2026-10-20T14:51:22.560477+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9610.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9613.htm": {
+      "fetched_at": "2026-10-20T14:51:22.578378+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9613.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9709.htm": {
+      "fetched_at": "2026-10-20T14:51:22.596140+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9709.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9800.htm": {
+      "fetched_at": "2026-10-20T14:51:22.613945+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9800.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9807.htm": {
+      "fetched_at": "2026-10-20T14:51:22.632201+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9807.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9868.htm": {
+      "fetched_at": "2026-10-20T14:51:22.650187+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9868.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9873.htm": {
+      "fetched_at": "2026-10-20T14:51:22.668111+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9873.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9962.htm": {
+      "fetched_at": "2026-10-20T14:51:22.686140+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9962.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp101.htm": {
+      "fetched_at": "2026-10-20T14:51:22.704031+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp101.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp105.htm": {
+      "fetched_at": "2026-10-20T14:51:22.721936+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp105.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm": {
+      "fetched_at": "2026-10-20T14:51:22.740063+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp142.htm": {
+      "fetched_at": "2026-10-20T14:51:22.758070+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp142.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp146.htm": {
+      "fetched_at": "2026-10-20T14:51:22.774547+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp146.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp150.htm": {
+      "fetched_at": "2026-10-20T14:51:22.794667+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp150.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp152.htm": {
+      "fetched_at": "2026-10-20T14:51:22.820621+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp152.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp182.htm": {
+      "fetched_at": "2026-10-20T14:51:22.845825+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp182.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp199.htm": {
+      "fetched_at": "2026-10-20T14:51:22.869923+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp199.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp64.htm": {
+      "fetched_at": "2026-10-20T14:51:22.893921+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp64.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp76.htm": {
+      "fetched_at": "2026-10-20T14:51:22.924886+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp76.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10257.htm": {
+      "fetched_at": "2026-10-20T14:51:22.959483+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10257.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm": {
+      "fetched_at": "2026-10-20T14:51:22.987492+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10259.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto/d1171.htm": {
+      "fetched_at": "2026-10-20T14:51:23.012882+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto/d1171.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto/d2799.htm": {
+      "fetched_at": "2026-10-20T14:51:23.037893+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto/d2799.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto/d3048.htm": {
+      "fetched_at": "2026-10-20T14:51:23.062593+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto/d3048.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto/d3298.htm": {
+      "fetched_at": "2026-10-20T14:51:23.088109+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto/d3298.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto/d3555.htm": {
+      "fetched_at": "2026-10-20T14:51:23.114625+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto/d3555.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp73.htm": {
+      "fetched_at": "2026-10-20T14:51:23.138994+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp73.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp108.htm": {
+      "fetched_at": "2026-10-20T14:51:23.171091+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp108.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp109.htm": {
+      "fetched_at": "2026-10-20T14:51:23.197444+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp109.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp118.htm": {
+      "fetched_at": "2026-10-20T14:51:23.224801+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp118.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp156.htm": {
+      "fetched_at": "2026-10-20T14:51:23.258393+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp156.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp159.htm": {
+      "fetched_at": "2026-10-20T14:51:23.288348+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp159.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp178.htm": {
+      "fetched_at": "2026-10-20T14:51:23.311058+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp178.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l4320.htm": {
+      "fetched_at": "2026-10-20T14:51:23.334746+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l4320.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l6969.htm": {
+      "fetched_at": "2026-10-20T14:51:23.356988+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l6969.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8397.htm": {
+      "fetched_at": "2026-10-20T14:51:23.379205+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8397.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8437.htm": {
+      "fetched_at": "2026-10-20T14:51:23.402171+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8437.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8742.htm": {
+      "fetched_at": "2026-10-20T14:51:23.425034+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8742.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8884.htm": {
+      "fetched_at": "2026-10-20T14:51:23.448513+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8884.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9249.htm": {
+      "fetched_at": "2026-10-20T14:51:23.471353+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9249.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9394.htm": {
+      "fetched_at": "2026-10-20T14:51:23.494381+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9394.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9492.htm": {
+      "fetched_at": "2026-10-20T14:51:23.516504+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9492.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9703.htm": {
+      "fetched_at": "2026-10-20T14:51:23.540191+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9703.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9985.htm": {
+      "fetched_at": "2026-10-20T14:51:23.570432+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9985.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l9986.htm": {
+      "fetched_at": "2026-10-20T14:51:23.596571+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l9986.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l10035.htm": {
+      "fetched_at": "2026-10-20T14:51:23.639579+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l10035.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l10150.htm": {
+      "fetched_at": "2026-10-20T14:51:23.664921+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l10150.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15397.htm": {
+      "fetched_at": "2026-10-20T14:51:23.687274+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15397.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15358.htm": {
+      "fetched_at": "2026-10-20T14:51:23.711784+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2026/lei/l15358.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15272.htm": {
+      "fetched_at": "2026-10-20T14:51:23.735573+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2025/lei/l15272.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8625.htm": {
+      "fetched_at": "2026-10-20T14:51:23.759118+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8625.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l7853.htm": {
+      "fetched_at": "2026-10-20T14:51:23.785038+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l7853.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8080.htm": {
+      "fetched_at": "2026-10-20T14:51:23.813451+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8080.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/l8142.htm": {
+      "fetched_at": "2026-10-20T14:51:23.838653+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/l8142.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11445.htm": {
+      "fetched_at": "2026-10-20T14:51:23.862112+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2007/lei/l11445.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12305.htm": {
+      "fetched_at": "2026-10-20T14:51:23.885168+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2007-2010/2010/lei/l12305.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm": {
+      "fetched_at": "2026-10-20T14:51:23.910334+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2014/lei/l13019.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13431.htm": {
+      "fetched_at": "2026-10-20T14:51:23.933575+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2017/lei/l13431.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13964.htm": {
+      "fetched_at": "2026-10-20T14:51:23.957132+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2019/lei/l13964.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14119.htm": {
+      "fetched_at": "2026-10-20T14:51:23.980427+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14119.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm": {
+      "fetched_at": "2026-10-20T14:51:24.003286+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2023-2026/2024/lei/l14811.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp135.htm": {
+      "fetched_at": "2026-10-20T14:51:24.026782+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp135.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/decreto/D0678.htm": {
+      "fetched_at": "2026-10-20T14:51:24.057175+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/decreto/D0678.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/decreto/d5051.htm": {
+      "fetched_at": "2026-10-20T14:51:24.103697+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2004/decreto/d5051.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D10932.htm": {
+      "fetched_at": "2026-10-20T14:51:24.134070+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D10932.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D11129.htm": {
+      "fetched_at": "2026-10-20T14:51:24.158452+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2022/decreto/D11129.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14193.htm": {
+      "fetched_at": "2026-10-20T14:51:24.188012+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/_ato2019-2022/2021/lei/l14193.htm']' returned non-zero exit status 6."
+    },
+    "https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10216.htm": {
+      "fetched_at": "2026-10-20T14:51:24.218493+00:00",
+      "ok": false,
+      "error": "Command '['curl', '-sL', '-A', 'Mozilla/5.0 (compatible; NaIntegraLex/1.0)', 'https://www.planalto.gov.br/ccivil_03/leis/leis_2001/l10216.htm']' returned non-zero exit status 6."
+    }
+  },
+  "lexml_at": "2026-10-20T14:51:17.511559+00:00"
+}
