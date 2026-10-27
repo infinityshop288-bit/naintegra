@@ -97,6 +97,13 @@ def write_htaccess(out: Path, cfg: dict[str, str]) -> None:
 
 DirectoryIndex painel.html index.html
 
+<Files "codex_secrets.php">
+  Require all denied
+</Files>
+<Files ".codex_key">
+  Require all denied
+</Files>
+
 <IfModule mod_headers.c>
   Header set Cache-Control "no-store, no-cache, must-revalidate"
 </IfModule>
@@ -167,12 +174,24 @@ def main() -> int:
         shutil.copy2(SRC / "dash-ai.js", out / "dash-ai.js")
     if (SRC / "chat.php").is_file():
         shutil.copy2(SRC / "chat.php", out / "chat.php")
-    # chave da Codex Ilimitada: nunca versionar; o PHP lê este arquivo no Hostinger
+    # chave da Codex: git do naintegra ignora; o bundle leva codex_secrets.php
+    # (Apache bloqueia HTTP) para o Hostinger. Sem a chave o chat.php dá 503.
     env_raiz = load_env(REPO / ".env")
     codex = os.environ.get("CODEX_API_KEY") or env_raiz.get("CODEX_API_KEY") or cfg.get("CODEX_API_KEY")
     if codex:
-        (out / ".codex_key").write_text(codex.strip() + "\n", encoding="utf-8")
-        print("Chat IA: .codex_key gerado para chat.php", flush=True)
+        chave = codex.strip()
+        (out / ".codex_key").write_text(chave + "\n", encoding="utf-8")
+        php = chave.replace("\\", "\\\\").replace("'", "\\'")
+        (out / "codex_secrets.php").write_text(
+            "<?php\n"
+            "if (realpath($_SERVER['SCRIPT_FILENAME'] ?? '') === realpath(__FILE__)) {\n"
+            "    http_response_code(403);\n"
+            "    exit;\n"
+            "}\n"
+            f"return '{php}';\n",
+            encoding="utf-8",
+        )
+        print("Chat IA: chave gravada em codex_secrets.php", flush=True)
     else:
         print("AVISO: CODEX_API_KEY ausente — o chat.php responderá 503.", flush=True)
 

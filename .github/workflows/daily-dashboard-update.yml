@@ -90,8 +90,20 @@ jobs:
 
       - name: Sync public/xxx
         run: |
+          mkdir -p /tmp/xxx-secrets
+          for f in codex_secrets.php .codex_key; do
+            if [ -f "naintegracursos/public/xxx/$f" ] && [ ! -f "xxx/$f" ]; then
+              cp "naintegracursos/public/xxx/$f" "/tmp/xxx-secrets/$f"
+            fi
+          done
           rm -rf naintegracursos/public/xxx
           rsync -a --exclude '.DS_Store' xxx/ naintegracursos/public/xxx/
+          for f in codex_secrets.php .codex_key; do
+            if [ -f "/tmp/xxx-secrets/$f" ] && [ ! -f "naintegracursos/public/xxx/$f" ]; then
+              cp "/tmp/xxx-secrets/$f" "naintegracursos/public/xxx/$f"
+              echo "Chat IA: reaproveitada $f do deploy anterior"
+            fi
+          done
 
       - name: Commit and push
         working-directory: naintegracursos
@@ -101,6 +113,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add public/xxx
+          git add -f public/xxx/codex_secrets.php public/xxx/.codex_key 2>/dev/null || true
           if git diff --staged --quiet; then
             echo "Sem alterações em public/xxx"
             exit 0

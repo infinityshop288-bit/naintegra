@@ -30,6 +30,7 @@ data/flashcards_provas_smoke/
 /xxx/
 # chave da Codex Ilimitada injetada no bundle (chat.php a lê no Hostinger)
 **/.codex_key
+**/codex_secrets.php
 # Snapshots de API para deploy estático (gerado por scripts/export_prio3_snapshots.py)
 data/prio3_analysis/api/
 data/prio3_analysis/.venv/

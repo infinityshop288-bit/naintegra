@@ -41,9 +41,23 @@ def build_bundle(refresh: bool) -> Path:
 
 def sync_to_cursos(src: Path, cursos: Path) -> int:
     dst = cursos / "public" / "xxx"
+    # o CI quase nunca tem CODEX_API_KEY; sem preservar, cada deploy apaga a
+    # chave e o chat volta a responder 503.
+    secretos = ("codex_secrets.php", ".codex_key")
+    guardados: dict[str, bytes] = {}
+    if dst.is_dir():
+        for nome in secretos:
+            p = dst / nome
+            if p.is_file() and nome not in {(src / n).name for n in secretos if (src / n).is_file()}:
+                guardados[nome] = p.read_bytes()
     if dst.exists():
         shutil.rmtree(dst)
     shutil.copytree(src, dst, ignore=shutil.ignore_patterns(".DS_Store"))
+    for nome, dados in guardados.items():
+        alvo = dst / nome
+        if not alvo.is_file():
+            alvo.write_bytes(dados)
+            print(f"Chat IA: reaproveitada {nome} do deploy anterior", flush=True)
     return sum(1 for _ in dst.rglob("*") if _.is_file())
 
 
@@ -77,6 +91,10 @@ def main() -> int:
         return 0
 
     run(["git", "add", "public/xxx"], cwd=cursos)
+    # git add em pasta não pega arquivo ignorado por regra global de dotfile
+    for extra in ("public/xxx/codex_secrets.php", "public/xxx/.codex_key"):
+        if (cursos / extra).is_file():
+            subprocess.run(["git", "add", "-f", extra], cwd=cursos, check=False)
     status = subprocess.run(
         ["git", "status", "--porcelain"],
         cwd=cursos,

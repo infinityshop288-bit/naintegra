@@ -27,6 +27,13 @@ $kf = __DIR__ . '/.codex_key';
 if ($key === '' && is_file($kf)) {
     $key = trim((string) file_get_contents($kf));
 }
+$sf = __DIR__ . '/codex_secrets.php';
+if ($key === '' && is_file($sf)) {
+    $loaded = include $sf;
+    if (is_string($loaded) && $loaded !== '') {
+        $key = $loaded;
+    }
+}
 if ($key === '') {
     http_response_code(503);
     header('Content-Type: application/json; charset=utf-8');
