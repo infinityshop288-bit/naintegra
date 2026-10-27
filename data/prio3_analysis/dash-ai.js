@@ -128,3 +128,49 @@ async function dashCodexStream({ input, instructions, model, signal, onDelta, on
   }
   return { texto, itens };
 }
+
+function dashCodexTexto(data) {
+  if (data && data.output_text) return String(data.output_text);
+  const partes = [];
+  for (const item of (data && data.output) || []) {
+    if (item.type !== "message") continue;
+    for (const c of item.content || []) {
+      if ((c.type === "output_text" || c.type === "text") && c.text) partes.push(c.text);
+    }
+  }
+  return partes.join("");
+}
+
+function dashJsonDeTexto(txt) {
+  let t = String(txt || "").trim();
+  if (t.startsWith("```")) {
+    t = t.replace(/^```(?:json)?/i, "").replace(/```$/, "").trim();
+  }
+  const i = t.indexOf("{");
+  const j = t.lastIndexOf("}");
+  if (i < 0 || j <= i) throw new Error("sem JSON na resposta da IA");
+  return JSON.parse(t.slice(i, j + 1));
+}
+
+/** Chamada não-streaming da Codex via proxy — para gerar análise/sinais na página. */
+async function dashCodexJson({ input, instructions, model }) {
+  const r = await fetch(dashCodexUrl(), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: CODEX_MODELOS.includes(model) ? model : "gpt-5.6-sol",
+      stream: false,
+      instructions: instructions || "Responda APENAS JSON válido, sem markdown.",
+      input,
+    }),
+  });
+  const t = await r.text();
+  let data;
+  try {
+    data = JSON.parse(t);
+  } catch (_) {
+    throw new Error(t.slice(0, 300) || `HTTP ${r.status}`);
+  }
+  if (!r.ok) throw new Error((data.error && data.error.message) || `HTTP ${r.status}`);
+  return dashJsonDeTexto(dashCodexTexto(data));
+}

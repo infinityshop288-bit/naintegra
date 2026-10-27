@@ -1,7 +1,7 @@
 {
-  "gerado": "2026-10-18 05:45",
+  "gerado": "2026-10-27 10:05",
   "fonte": "provedores diretos (codex, claude, ollama)",
-  "patterns_ref": "2026-10-01 09:57",
+  "patterns_ref": "2026-10-27 10:05",
   "papeis_analisados": 31,
   "providers": {
     "priority": [
@@ -12,82 +12,90 @@
     "configured_count": 3
   },
   "market": {
-    "resumo": "O conjunto apresenta viés moderadamente positivo em 21 pregões: 15 dos 31 papéis estão em alta, contra 8 em baixa e 8 laterais, com Ibovespa projetado em +1,35%. A liderança está concentrada em combustíveis, siderurgia, bens de capital e commodities, mas o regime de volatilidade elevada e a forte dispersão dentro de varejo, construção, óleo e gás e FIIs recomendam seleção de ativos e posições menores.",
+    "resumo": "O conjunto apresenta viés positivo no horizonte de 21 pregões: 24 de 31 papéis estão em tendência de alta, com Ibovespa projetado em +3,83%, mas sob volatilidade excepcionalmente elevada. O avanço é concentrado em ativos sensíveis a juros e em recuperações técnicas, enquanto commodities estão fracas e vários líderes de alta ainda exibem momentum negativo, recomendando entradas graduais e controle de risco.",
     "riscos": [
-      "Queda projetada de 8,05% no Brent pode pressionar produtoras de petróleo; BRAV3 já sinaliza -2,60%, enquanto a alta de PETR4 e PRIO3 diverge da commodity e pode sofrer reversão.",
-      "Volatilidade elevada em todas as séries reduz a precisão dos alvos; MGLU3 está 3,1 desvios acima do normal, elevando o risco de realização, e LREN3 combina momentum recente positivo com previsão de -5,07%.",
-      "Sensíveis a juros seguem frágeis e dispersos: DIRR3 -4,44%, LREN3 -5,07% e três dos oito FIIs em tendência de baixa.",
-      "Concentração de fatores: PETR4 e UGPA3 têm correlação de 0,895, enquanto ITUB4 e BBDC4 têm 0,915, limitando a diversificação aparente."
+      "Volatilidade realizada do Ibovespa em 58,55%, com anomalia z=5,0 e previsão de nova alta de 4,57%, eleva o risco de reversões, gaps e opções caras.",
+      "As maiores altas projetadas, especialmente MGLU3, CYRE3 e MRVE3, contradizem o momentum recente e ocorrem em regime de volatilidade elevada; o sinal pode representar repique estatístico, não reversão estrutural.",
+      "Brent projetado em -8,05% cria risco para produtoras de petróleo, sobretudo PRIO3, que já está acima do padrão estatístico; VALE3 também mantém viés negativo de -2,86%.",
+      "Correlações muito altas entre bancos, utilities, varejo, construção e Ibovespa reduzem a diversificação aparente e podem ampliar perdas em um choque sistêmico."
     ],
     "oportunidades": [
-      "Priorizar UGPA3, PETR4, CSNA3 e WEGE3, que combinam tendência de alta com previsões entre +2,85% e +4,96%; UGPA3, PETR4 e WEGE3 também estão acima das médias de 50 e 200 dias.",
-      "Em construção, favorecer CYRE3 (+4,34%) e MRVE3 (+3,49%) e evitar DIRR3 (-4,44%) e CURY3 (-0,86%), explorando a elevada dispersão intrassetorial.",
-      "Entre FIIs, RBRP11 (+1,47%) e MANA11 (+0,72%) oferecem os melhores sinais relativos; reduzir exposição tática a MXRF11, XPML11 e CLIN11.",
-      "PRIO3 pode ser uma posição tática de menor convicção: preço +1,80%, produção +4,57% e volume +5,67%, porém contra Brent em queda e com volatilidade realizada projetada para subir."
+      "Priorizar exposição gradual a bancos e energia elétrica, que combinam alta disseminada e previsões setoriais positivas, com destaque para BBAS3, ITUB4, EQTL3 e PETR4.",
+      "Explorar seletivamente a recuperação de varejo e construção via MGLU3, CYRE3 e MRVE3, usando posições menores e confirmação de preço por causa do momentum negativo e da volatilidade elevada.",
+      "Nos FIIs, RBRP11 oferece o maior potencial projetado, de +4,94%; HGLG11 e CLIN11 apresentam sinais técnicos mais consistentes por negociarem acima das médias.",
+      "Manter menor exposição a commodities e considerar proteção sobre o índice enquanto a volatilidade permanecer anormalmente alta."
     ],
     "series_destaque": [
       {
-        "id": "brent_preco",
-        "leitura": "Previsão de -8,05% é o principal risco macrosetorial e torna mais frágeis as altas de produtoras de petróleo."
+        "id": "ibov_preco",
+        "leitura": "Viés de alta de 3,83% em 21 pregões, coerente com a predominância de papéis em alta, mas com baixa qualidade ajustada ao risco devido à volatilidade extrema."
       },
       {
-        "id": "ibov_preco",
-        "leitura": "Alta projetada de 1,35% confirma pano de fundo positivo, embora inferior aos líderes específicos."
+        "id": "ibov_vol",
+        "leitura": "Principal alerta do cenário: 58,55% de volatilidade realizada, z=5,0 e projeção de +4,57%; favorece dimensionamento menor e proteção, não alavancagem."
+      },
+      {
+        "id": "brent_preco",
+        "leitura": "Queda projetada de 8,05% diverge das altas de PETR4, PRIO3 e BRAV3, aumentando o risco de convergência negativa no setor de óleo e gás."
+      },
+      {
+        "id": "usd_preco",
+        "leitura": "Câmbio lateral, com previsão de -0,38%, mas em nível estatisticamente elevado, z=2,9; eventual normalização ajudaria ativos domésticos sensíveis a juros."
+      },
+      {
+        "id": "btc_preco",
+        "leitura": "Alta moderada de 1,05%, sinalizando apetite global seletivo por risco, sem impulso forte."
       },
       {
         "id": "eth_preco",
-        "leitura": "Alta projetada de 6,04%, acima do Bitcoin, sinaliza maior apetite por risco dentro de cripto."
-      },
-      {
-        "id": "wiki_bitcoin",
-        "leitura": "Interesse projetado em +7,77% e pico de 25% sobre a média de 30 dias confirmam fluxo especulativo, com risco de excesso de posicionamento."
-      },
-      {
-        "id": "itub4_volume",
-        "leitura": "Volume anormalmente alto, z=4,7, e momentum positivo contrastam com preço praticamente lateral (-0,21%), sugerindo acumulação ou distribuição ainda sem confirmação direcional."
-      },
-      {
-        "id": "prio3_producao",
-        "leitura": "Produção projetada em +4,57% dá suporte operacional a PRIO3, mas não elimina a sensibilidade à queda esperada do Brent."
+        "leitura": "Queda prevista de 0,55% e correlação de 0,96 com o BTC indicam liderança concentrada no Bitcoin, não uma expansão ampla do risco cripto."
       }
     ],
     "papeis_destaque": [
       {
-        "ticker": "UGPA3",
-        "leitura": "Melhor previsão do universo, +4,96%, com preço acima das médias de 50 e 200 dias; preferência compradora, controlando tamanho pela volatilidade."
-      },
-      {
-        "ticker": "PETR4",
-        "leitura": "Previsão de +4,41% e tendência técnica forte, mas a divergência frente ao Brent em -8,05% exige stop e horizonte tático."
-      },
-      {
-        "ticker": "CSNA3",
-        "leitura": "Alta projetada de 4,63% e liderança em siderurgia; oportunidade de maior beta, sem confirmação adicional por médias móveis nos dados."
+        "ticker": "MGLU3",
+        "leitura": "Maior alta projetada, +26,69%, porém abaixo das médias de 50 e 200 dias e com momentum negativo; oportunidade especulativa de repique, com posição reduzida."
       },
       {
         "ticker": "CYRE3",
-        "leitura": "Alta projetada de 4,34% e melhor sinal da construção, setor em que a seleção é decisiva."
+        "leitura": "Projeção de +12,04% na mínima de 52 semanas; assimetria positiva, mas exige confirmação por ainda apresentar momentum negativo e alta correlação com o Ibovespa."
       },
       {
-        "ticker": "MGLU3",
-        "leitura": "Previsão de +3,94% e momentum positivo, porém anomalia de z=3,1 torna inadequado perseguir preço; entrada apenas após consolidação ou com posição reduzida."
+        "ticker": "MRVE3",
+        "leitura": "Potencial de +11,00%, também com perfil de reversão técnica e risco elevado por negociar abaixo das médias relevantes."
       },
       {
-        "ticker": "LREN3",
-        "leitura": "Pior previsão, -5,07%; o momentum positivo recente pode representar repique contra a tendência estatística de baixa."
+        "ticker": "PETR4",
+        "leitura": "Alta projetada de +6,43% e preço acima das médias tornam o sinal mais consistente que o de outras petroleiras, embora a queda esperada do Brent seja risco central."
       },
       {
-        "ticker": "DIRR3",
-        "leitura": "Previsão de -4,44% e preço abaixo das médias de 50 e 200 dias; sinal de evitar ou proteger exposição."
+        "ticker": "BBAS3",
+        "leitura": "Melhor previsão entre os bancos, +5,52%, mas na mínima de 52 semanas e abaixo das médias; entrada deve ser escalonada."
+      },
+      {
+        "ticker": "EQTL3",
+        "leitura": "Alta projetada de +6,68% e liderança em energia elétrica; alternativa para exposição doméstica, embora correlacionada fortemente aos bancos."
       },
       {
         "ticker": "RBRP11",
-        "leitura": "Melhor FII do conjunto, com +1,47%, mas o ganho esperado ainda é modesto diante da volatilidade elevada."
+        "leitura": "Maior potencial entre os FIIs, +4,94%, mas abaixo das médias de 50 e 200 dias; caso de recuperação, não de momentum confirmado."
+      },
+      {
+        "ticker": "VALE3",
+        "leitura": "Pior projeção do conjunto, -2,86%, com preço abaixo das médias; recomenda subponderação até melhora técnica ou do ciclo de commodities."
+      },
+      {
+        "ticker": "PRIO3",
+        "leitura": "Alta prevista de apenas +2,50% diante de Brent em baixa, volatilidade de 31,82% e anomalia positiva z=2,1; relação risco-retorno menos atraente e sujeita a realização."
+      },
+      {
+        "ticker": "WEGE3",
+        "leitura": "Projeção praticamente neutra, +0,10%, com anomalia negativa e momentum fraco; aguardar confirmação antes de antecipar reversão."
       }
     ],
-    "leitura_setorial": "Melhor posicionamento relativo em distribuição de combustíveis (+4,96%), siderurgia (+4,63%), bens de capital (+2,85%) e commodities (+1,74%). Óleo e gás é positivo na média (+1,20%), mas dividido entre PETR4/PRIO3 e BRAV3, além do risco do Brent. Construção (+0,63%) e varejo (-0,57%) têm forte dispersão, favorecendo pares como CYRE3 sobre DIRR3 e MGLU3 sobre LREN3, com cautela no primeiro por anomalia. Bancos (+0,42%) e energia elétrica (+0,10%) estão predominantemente laterais; FIIs (+0,08%) carecem de catalisador amplo; seguradoras são o grupo mais fraco na média (-0,98%).",
-    "macro_juros": "Sem trajetória explícita da Selic nos dados, o comportamento dos ativos sensíveis sugere ausência de alívio monetário suficientemente forte para uma alta ampla: FIIs estão quase estáveis, e varejo e construção permanecem muito dispersos. Juros altos ou cortes adiados tendem a favorecer bancos e fundos de recebíveis indexados ao CDI, como KNCR11, e a pressionar varejo, construtoras e FIIs de tijolo; uma queda mais rápida dos juros inverteria essa assimetria, beneficiando principalmente construção e FIIs, mas os sinais atuais pedem seleção, não exposição setorial indiscriminada.",
-    "cripto_fluxo": "BTC (+4,79%) e ETH (+6,04%), com correlação de 0,991, indicam fluxo global pró-risco, reforçado pelo interesse web em Bitcoin. Ibovespa em +1,35% e USD/BRL praticamente estável (+0,18%) sugerem ambiente razoavelmente benigno para emergentes, mas a intensidade do sinal cripto não deve ser transposta diretamente à B3; correlações negativas extremas de 90 dias entre cripto e LREN3/MXRF11 parecem mais conjunturais do que estruturais.",
+    "leitura_setorial": "Varejo lidera pela previsão média de +15,19%, mas com baixa confirmação técnica e forte influência do salto estimado em MGLU3. Construção vem em seguida, +5,47%, porém é heterogênea: CYRE3 e MRVE3 fortes, DIRR3 em baixa e CURY3 lateral. Bancos, energia elétrica e distribuição de combustíveis têm alta mais disseminada e melhor equilíbrio entre amplitude e retorno esperado. FIIs exibem viés positivo moderado, +1,42%, com RBRP11 como destaque. Commodities são o bloco mais fraco, -1,29%, enquanto bens de capital está lateral. Óleo e gás permanece positivo nos papéis, mas vulnerável à projeção negativa do Brent.",
+    "macro_juros": "Varejo, construção e FIIs são os maiores beneficiários de queda da curva de juros, o que ajuda a explicar suas projeções positivas; porém, sem dados explícitos de Selic ou curva futura, essa tese deve ser tratada como condicional. Juros persistentemente altos podem frustrar os repiques de MGLU3, CYRE3 e MRVE3, enquanto bancos podem sustentar melhor o cenário, embora enfrentem risco de crédito; FIIs de papel tendem a preservar renda, e FIIs de tijolo ganham mais com fechamento de juros.",
+    "cripto_fluxo": "BTC em alta de 1,05% e ETH em queda de 0,55% sugerem fluxo seletivo para o ativo cripto de maior qualidade, não euforia generalizada. Para emergentes, isso é levemente construtivo, sobretudo com USD/BRL estável a marginalmente mais baixo, mas a volatilidade extrema do Ibovespa mostra que o fluxo local continua frágil e não confirma um regime amplo de risco.",
     "confianca": 0.72,
     "provider": "codex"
   },
@@ -96,53 +104,53 @@
     "padroes_detectados": [
       {
         "serie": "Ações B3",
-        "padrao": "15 de 31 papéis estão em alta, 8 em baixa e 8 laterais; liderança de UGPA3, CSNA3 e PETR4 no horizonte de 21 pregões.",
-        "impacto": "Viés positivo, porém com elevada dispersão e volatilidade."
+        "padrao": "18 de 23 ações em alta; varejo lidera (+15,2%), seguido por siderurgia (+6,1%), construção (+5,5%) e bancos (+4,9%).",
+        "impacto": "Viés positivo no horizonte de 21 pregões, mas com reversões projetadas em vários papéis ainda sob momentum negativo."
       },
       {
-        "serie": "Fundos Imobiliários",
-        "padrao": "Desempenho agregado quase neutro (+0,08%); 2 FIIs em alta, 3 em baixa e 3 laterais. MANA11 e KNCR11 estão nas máximas de 52 semanas.",
-        "impacto": "Baixa convicção direcional; preferência relativa por RBRP11 e MANA11."
+        "serie": "FIIs",
+        "padrao": "6 de 8 FIIs em alta e 2 laterais; previsão média de +1,42%, com RBRP11 liderando (+4,94%).",
+        "impacto": "Alta moderada; RBRP11 tem maior potencial, porém segue abaixo das médias longas."
       },
       {
         "serie": "Volume/demanda",
-        "padrao": "Não foram fornecidas séries de volume negociado; não é possível confirmar tendências por expansão ou contração de volume.",
-        "impacto": "Reduz a confiabilidade dos sinais de preço."
+        "padrao": "Não foram fornecidas séries de volume financeiro ou de negociação.",
+        "impacto": "Sem confirmação da demanda pelos volumes; sinais de preço têm menor robustez."
       },
       {
         "serie": "Volatilidade",
-        "padrao": "Regime elevado em todas as séries; volatilidade de PRIO3 em alta para 37,62% a.a., enquanto a do Brent projeta forte recuo.",
-        "impacto": "Maior risco de reversões e necessidade de posições menores."
+        "padrao": "Regime elevado em todos os 31 papéis; PRIO3 registra 31,8% a.a.",
+        "impacto": "Aumenta risco de reversões, dispersão das previsões e necessidade de confirmação."
       },
       {
         "serie": "Tráfego web",
-        "padrao": "Interesse por Bitcoin em alta, com pico 25% acima da média de 30 dias e previsão de +7,77%; petróleo também sobe, enquanto Petrobras permanece lateral.",
-        "impacto": "Reforça demanda especulativa por cripto e atenção ao setor de petróleo, sem confirmação específica forte para PETR4."
+        "padrao": "Momentum positivo em 5 e 20 dias.",
+        "impacto": "Indica fortalecimento de interesse/demanda digital."
       },
       {
         "serie": "Cripto",
-        "padrao": "Bitcoin e Ethereum em alta, com previsões de +4,79% e +6,04% e correlação de 0,991.",
-        "impacto": "Sinal risk-on, mas com baixa diversificação entre os dois ativos."
+        "padrao": "Bitcoin em alta, com previsão de +1,1%; BTC e ETH apresentam correlação de 0,96.",
+        "impacto": "Contribui para ambiente risk-on, embora implique baixa diversificação entre as principais criptos."
       },
       {
-        "serie": "Mercado amplo",
-        "padrao": "Ibovespa em alta (+1,35%), USD/BRL lateral (+0,18%) e Brent em baixa acentuada (-8,05%).",
-        "impacto": "Ambiente moderadamente favorável a risco doméstico, com pressão potencial sobre petróleo."
+        "serie": "Ibovespa",
+        "padrao": "Tendência de alta e previsão de +3,83% em 21 pregões.",
+        "impacto": "Favorece ativos domésticos de maior beta."
       },
       {
-        "serie": "PRIO3",
-        "padrao": "Tendência de alta e previsão de +1,80%, divergindo do Brent em baixa; volatilidade realizada elevada e ascendente.",
-        "impacto": "Potencial positivo limitado por risco de commodity e maior volatilidade."
-      },
-      {
-        "serie": "MGLU3",
-        "padrao": "Momentum positivo em 5 e 20 dias, mas preço anormalmente elevado, com z-score de 3,1.",
-        "impacto": "Alta projetada, porém com risco elevado de correção após movimento extremo."
+        "serie": "Brent",
+        "padrao": "Tendência de baixa e previsão de -8,05%.",
+        "impacto": "Pressiona o setor de óleo e gás e cria divergência com PRIO3, PETR4 e BRAV3."
       },
       {
         "serie": "Correlações",
-        "padrao": "Blocos altamente correlacionados: BTC-ETH 0,991, ITUB4-BBDC4 0,915 e PETR4-UGPA3 0,895; MXRF11 apresenta correlação negativa forte com BTC e ETH.",
-        "impacto": "Concentração de risco dentro dos blocos e possível diversificação relativa via MXRF11, embora seu sinal próprio seja negativo."
+        "padrao": "Correlações muito altas entre bancos, Ibovespa, energia, varejo e construção; destaque para ITUB4/BBDC4 em 0,975.",
+        "impacto": "Eleva risco de concentração e de movimentos simultâneos."
+      },
+      {
+        "serie": "Anomalias",
+        "padrao": "PRIO3 acima do normal (z=2,1); DIRR3, CURY3 e WEGE3 abaixo do normal (z de -2,1 a -3,0).",
+        "impacto": "PRIO3 apresenta risco de sobre-extensão; os demais podem ter repique, mas sem confirmação de tendência."
       }
     ],
     "regime_mercado": "risk-on",
@@ -150,410 +158,410 @@
     "papeis_em_destaque": [
       {
         "ticker": "PRIO3",
-        "padrao": "Alta projetada de 1,80%, mas divergência negativa com Brent e volatilidade crescente.",
+        "padrao": "Alta de 2,50%, acima das médias, anomalia positiva e divergência com Brent em baixa.",
         "sinal": "aguardar"
       },
       {
         "ticker": "BRAV3",
-        "padrao": "Tendência de baixa e previsão de -2,60%.",
-        "sinal": "venda"
+        "padrao": "Tendência de alta e previsão de +1,73%, sem padrão confirmatório adicional.",
+        "sinal": "compra"
       },
       {
         "ticker": "PETR4",
-        "padrao": "Alta de 4,41% e preço acima das médias de 50 e 200 dias; Brent é risco contrário.",
+        "padrao": "Alta de 6,43% e preço acima das médias, apesar do Brent projetado em queda.",
         "sinal": "compra"
       },
       {
         "ticker": "UGPA3",
-        "padrao": "Maior alta projetada, +4,96%, acima das médias de 50 e 200 dias.",
+        "padrao": "Tendência de alta e previsão de +4,77%.",
         "sinal": "compra"
       },
       {
         "ticker": "MGLU3",
-        "padrao": "Alta de 3,94% e momentum positivo, mas anomalia de preço z=3,1.",
+        "padrao": "Maior alta projetada (+26,69%), mas momentum negativo e preço abaixo das médias.",
         "sinal": "aguardar"
       },
       {
         "ticker": "LREN3",
-        "padrao": "Previsão de -5,07% apesar de momentum recente positivo.",
-        "sinal": "venda"
+        "padrao": "Alta projetada de 3,69%, porém na mínima anual, com momentum negativo e abaixo das médias.",
+        "sinal": "aguardar"
       },
       {
         "ticker": "EQTL3",
-        "padrao": "Lateralidade e previsão de +0,11%.",
-        "sinal": "neutro"
+        "padrao": "Alta projetada de 6,68%, mas momentum negativo.",
+        "sinal": "aguardar"
       },
       {
         "ticker": "CMIG4",
-        "padrao": "Lateralidade e previsão de +0,08%.",
-        "sinal": "neutro"
+        "padrao": "Alta de 2,33%, com momentum negativo e preço abaixo das médias.",
+        "sinal": "aguardar"
       },
       {
         "ticker": "ITUB4",
-        "padrao": "Lateral, previsão de -0,21% e momentum positivo sem continuidade confirmada.",
-        "sinal": "neutro"
-      },
-      {
-        "ticker": "BBDC4",
-        "padrao": "Lateralidade e previsão de -0,49%.",
-        "sinal": "neutro"
-      },
-      {
-        "ticker": "BBAS3",
-        "padrao": "Alta de 1,95%, momentum positivo e forte correlação com o Ibovespa.",
+        "padrao": "Tendência de alta e previsão de +4,25%, sem sinais técnicos adversos informados.",
         "sinal": "compra"
       },
       {
+        "ticker": "BBDC4",
+        "padrao": "Alta projetada de 4,80%, mas momentum negativo.",
+        "sinal": "aguardar"
+      },
+      {
+        "ticker": "BBAS3",
+        "padrao": "Alta de 5,52%, porém na mínima anual, abaixo das médias e com momentum negativo.",
+        "sinal": "aguardar"
+      },
+      {
         "ticker": "BBSE3",
-        "padrao": "Tendência de alta, mas avanço projetado modesto de 0,71%.",
-        "sinal": "neutro"
+        "padrao": "Alta de 1,63%, momentum positivo e preço acima das médias.",
+        "sinal": "compra"
       },
       {
         "ticker": "PSSA3",
-        "padrao": "Tendência de baixa e previsão de -2,66%.",
-        "sinal": "venda"
+        "padrao": "Tendência de alta e previsão moderada de +0,83%.",
+        "sinal": "compra"
       },
       {
         "ticker": "VALE3",
-        "padrao": "Alta projetada de 0,73%, mas preço ainda abaixo das médias de 50 e 200 dias.",
-        "sinal": "aguardar"
+        "padrao": "Tendência de baixa, previsão de -2,86% e preço abaixo das médias.",
+        "sinal": "venda"
       },
       {
         "ticker": "SUZB3",
-        "padrao": "Alta de 2,74%, porém abaixo das médias de 50 e 200 dias.",
-        "sinal": "aguardar"
-      },
-      {
-        "ticker": "ABEV3",
-        "padrao": "Lateralidade e previsão de -0,43%.",
+        "padrao": "Lateralidade e projeção de +0,28%, apesar de momentum positivo.",
         "sinal": "neutro"
       },
       {
+        "ticker": "ABEV3",
+        "padrao": "Tendência de alta e previsão de +1,61%.",
+        "sinal": "compra"
+      },
+      {
         "ticker": "MBRF3",
-        "padrao": "Alta projetada de 2,22%, mas preço abaixo das médias de 50 e 200 dias.",
+        "padrao": "Alta de 1,33%, mas preço abaixo das médias longas.",
         "sinal": "aguardar"
       },
       {
         "ticker": "CYRE3",
-        "padrao": "Tendência de alta e previsão de +4,34%.",
-        "sinal": "compra"
+        "padrao": "Alta projetada de 12,04%, porém momentum negativo e mínima de 52 semanas.",
+        "sinal": "aguardar"
       },
       {
         "ticker": "MRVE3",
-        "padrao": "Tendência de alta e previsão de +3,49%.",
-        "sinal": "compra"
+        "padrao": "Alta projetada de 11,00%, mas momentum negativo e preço abaixo das médias.",
+        "sinal": "aguardar"
       },
       {
         "ticker": "DIRR3",
-        "padrao": "Baixa de 4,44% e preço abaixo das médias de 50 e 200 dias.",
+        "padrao": "Baixa de 0,70%, anomalia z=-3,0, mínima anual, momentum negativo e abaixo das médias.",
         "sinal": "venda"
       },
       {
         "ticker": "CURY3",
-        "padrao": "Baixa de 0,86% e preço abaixo das médias de 50 e 200 dias.",
+        "padrao": "Lateralidade, previsão de -0,46%, anomalia negativa e mínima anual.",
         "sinal": "venda"
       },
       {
         "ticker": "WEGE3",
-        "padrao": "Alta de 2,85% e preço acima das médias de 50 e 200 dias.",
-        "sinal": "compra"
+        "padrao": "Lateralidade, previsão de +0,10%, anomalia negativa e momentum negativo.",
+        "sinal": "neutro"
       },
       {
         "ticker": "CSNA3",
-        "padrao": "Tendência de alta e previsão de +4,63%.",
-        "sinal": "compra"
+        "padrao": "Alta projetada de 6,14%, mas momentum negativo e preço abaixo das médias.",
+        "sinal": "aguardar"
       },
       {
         "ticker": "KNCR11",
-        "padrao": "Máxima de 52 semanas e acima das médias, mas projeção quase lateral de +0,25%.",
+        "padrao": "Lateralidade e previsão de +0,29%.",
         "sinal": "neutro"
       },
       {
         "ticker": "MANA11",
-        "padrao": "Alta, máxima de 52 semanas e preço acima das médias; projeção de +0,72%.",
+        "padrao": "Tendência de alta e previsão de +1,13%; alta correlação com Ibovespa.",
         "sinal": "compra"
       },
       {
         "ticker": "RURA11",
-        "padrao": "Lateralidade e previsão de +0,28%.",
-        "sinal": "neutro"
-      },
-      {
-        "ticker": "RBRP11",
-        "padrao": "Melhor projeção entre os FIIs, com alta de +1,47%.",
+        "padrao": "Tendência de alta e previsão de +0,72%.",
         "sinal": "compra"
       },
       {
+        "ticker": "RBRP11",
+        "padrao": "Maior alta entre FIIs (+4,94%), mas preço abaixo das médias.",
+        "sinal": "aguardar"
+      },
+      {
         "ticker": "HGLG11",
-        "padrao": "Lateralidade e previsão de +0,30%.",
-        "sinal": "neutro"
+        "padrao": "Alta de 1,59% e preço acima das médias longas.",
+        "sinal": "compra"
       },
       {
         "ticker": "XPML11",
-        "padrao": "Tendência de baixa e previsão de -0,86%.",
-        "sinal": "venda"
+        "padrao": "Tendência de alta e previsão de +0,91%.",
+        "sinal": "compra"
       },
       {
         "ticker": "CLIN11",
-        "padrao": "Tendência de baixa e previsão de -0,57%.",
-        "sinal": "venda"
+        "padrao": "Alta de 1,38% e preço acima das médias.",
+        "sinal": "compra"
       },
       {
         "ticker": "MXRF11",
-        "padrao": "Baixa de 0,98% e forte correlação inversa com cripto.",
-        "sinal": "venda"
+        "padrao": "Lateralidade, previsão de +0,41% e preço abaixo das médias.",
+        "sinal": "neutro"
       }
     ],
-    "justificativa": "Predomina alta em ações, Ibovespa e cripto, caracterizando risk-on moderado. A volatilidade elevada, a falta de confirmação por volume e a queda projetada do Brent limitam a convicção, sobretudo em PRIO3.",
+    "justificativa": "O predomínio de altas, Ibovespa positivo, Bitcoin em alta e tráfego web crescente caracterizam risk-on. A volatilidade elevada, a falta de confirmação por volume e divergências técnicas recomendam seletividade; em PRIO3, a anomalia positiva e o Brent em queda favorecem aguardar.",
     "provider": "codex"
   },
   "sinais": [
     {
       "ticker": "PRIO3",
-      "sinal": "compra",
-      "confianca": 68,
-      "tese": "Tendência de alta e projeção de +1,8% favorecem avanço, apesar da divergência com o Brent em baixa.",
-      "risco": "Volatilidade elevada (37,6% a.a.) e petróleo fraco podem provocar reversão.",
+      "sinal": "neutro",
+      "confianca": 61,
+      "tese": "Tendência de alta e projeção de +2,5%, mas divergência com Brent e anomalia acima do normal reduzem a assimetria.",
+      "risco": "Volatilidade elevada e possível correção após desvio estatístico positivo.",
       "provider": "codex"
     },
     {
       "ticker": "BRAV3",
-      "sinal": "venda",
-      "confianca": 78,
-      "tese": "Tendência de baixa e previsão de -2,6% em 21 pregões formam sinal baixista consistente.",
-      "risco": "Volatilidade elevada amplia oscilações e pode gerar repiques contra a tendência.",
+      "sinal": "neutro",
+      "confianca": 56,
+      "tese": "Tendência de alta e previsão positiva de +1,73%, porém sem confirmação por padrões técnicos e com retorno esperado modesto.",
+      "risco": "Volatilidade elevada pode superar o ganho projetado no horizonte.",
       "provider": "codex"
     },
     {
       "ticker": "PETR4",
       "sinal": "compra",
-      "confianca": 86,
-      "tese": "Alta, projeção de +4,41% e preço acima das médias de 50 e 200 dias confirmam força técnica.",
+      "confianca": 76,
+      "tese": "Alta, projeção de +6,43% e preço acima das médias de 50 e 200 dias formam o melhor alinhamento do setor.",
       "risco": "Volatilidade elevada e sensibilidade ao petróleo, câmbio e decisões políticas.",
       "provider": "codex"
     },
     {
       "ticker": "UGPA3",
       "sinal": "compra",
-      "confianca": 88,
-      "tese": "Tendência de alta, maior projeção da amostra (+4,96%) e preço acima das médias de 50 e 200 dias.",
-      "risco": "Regime de volatilidade elevada aumenta o risco de correções no horizonte.",
+      "confianca": 67,
+      "tese": "Tendência de alta e avanço previsto de +4,77% sustentam sinal positivo, embora falte confirmação técnica adicional.",
+      "risco": "Volatilidade elevada e ausência de padrões confirmatórios reduzem a convicção.",
       "provider": "codex"
     },
     {
       "ticker": "MGLU3",
-      "sinal": "compra",
-      "confianca": 67,
-      "tese": "Alta, projeção de +3,94% e momentum positivo sustentam avanço, mas o preço está estatisticamente esticado.",
-      "risco": "Anomalia z=3,1 e volatilidade elevada elevam a chance de realização rápida.",
+      "sinal": "neutro",
+      "confianca": 64,
+      "tese": "Projeção excepcional de +26,69% e setor líder contrastam com momentum negativo e preço abaixo das médias principais.",
+      "risco": "Volatilidade elevada e sinais técnicos baixistas tornam a projeção frágil.",
       "provider": "codex"
     },
     {
       "ticker": "LREN3",
       "sinal": "venda",
-      "confianca": 83,
-      "tese": "Tendência de baixa e pior previsão da amostra (-5,07%) superam o momentum positivo de curto prazo.",
-      "risco": "Momentum de 5 e 20 dias pode produzir repique e atrasar a queda projetada.",
+      "confianca": 69,
+      "tese": "Apesar da alta indicada e previsão de +3,69%, momentum negativo, mínima de 52 semanas e preço sob as médias dominam.",
+      "risco": "Possível repique por sobrevenda e força relativa favorável do setor de varejo.",
       "provider": "codex"
     },
     {
       "ticker": "EQTL3",
-      "sinal": "neutro",
-      "confianca": 82,
-      "tese": "Tendência lateral e previsão quase nula (+0,11%) não oferecem direção ou retorno esperado relevantes.",
-      "risco": "Volatilidade elevada pode causar movimentos bruscos sem tendência definida.",
+      "sinal": "compra",
+      "confianca": 66,
+      "tese": "Tendência de alta e projeção robusta de +6,68% superam o momentum recente negativo, favorecendo recuperação.",
+      "risco": "Volatilidade elevada e momentum negativo podem atrasar ou invalidar a alta.",
       "provider": "codex"
     },
     {
       "ticker": "CMIG4",
       "sinal": "neutro",
-      "confianca": 82,
-      "tese": "Tendência lateral e projeção de apenas +0,08% indicam ausência de vantagem direcional no horizonte.",
-      "risco": "Volatilidade elevada pode ampliar perdas mesmo com previsão praticamente estável.",
+      "confianca": 63,
+      "tese": "A tendência de alta e previsão de +2,33% são contrariadas por momentum negativo e preço abaixo das médias principais.",
+      "risco": "Volatilidade elevada e estrutura técnica baixista limitam a relação risco-retorno.",
       "provider": "codex"
     },
     {
       "ticker": "ITUB4",
-      "sinal": "neutro",
-      "confianca": 58,
-      "tese": "Tendência lateral e previsão de -0,2% limitam o avanço, apesar do momentum positivo em 5 e 20 dias.",
-      "risco": "Volatilidade elevada pode ampliar oscilações e invalidar o momentum.",
+      "sinal": "compra",
+      "confianca": 72,
+      "tese": "Tendência de alta e previsão de +4,25% em 21 pregões sustentam viés comprador, apesar da ausência de padrões confirmatórios.",
+      "risco": "Volatilidade elevada pode ampliar oscilações e invalidar a projeção.",
       "provider": "codex"
     },
     {
       "ticker": "BBDC4",
-      "sinal": "neutro",
-      "confianca": 64,
-      "tese": "Lateralidade, previsão de -0,5% e ausência de padrão técnico direcional não sustentam compra ou venda forte.",
-      "risco": "Regime de volatilidade elevada aumenta o risco de rompimentos falsos.",
+      "sinal": "compra",
+      "confianca": 62,
+      "tese": "Alta estrutural e projeção de +4,8% favorecem compra, mas o momentum negativo de 5 e 20 dias indica fraqueza no curto prazo.",
+      "risco": "Momentum adverso e volatilidade elevada podem prolongar a correção.",
       "provider": "codex"
     },
     {
       "ticker": "BBAS3",
-      "sinal": "compra",
-      "confianca": 76,
-      "tese": "Tendência de alta, previsão de +2,0% e momentum positivo em 5 e 20 dias formam sinal quantitativo convergente.",
-      "risco": "Volatilidade elevada pode gerar correções relevantes no horizonte.",
+      "sinal": "neutro",
+      "confianca": 58,
+      "tese": "Previsão de +5,52% e tendência indicada como alta contrastam com mínima anual, momentum negativo e preço abaixo das médias principais.",
+      "risco": "Sinais técnicos baixistas e volatilidade elevada reduzem a confiabilidade da alta projetada.",
       "provider": "codex"
     },
     {
       "ticker": "BBSE3",
       "sinal": "compra",
-      "confianca": 62,
-      "tese": "Tendência de alta e previsão positiva de +0,7% favorecem avanço, embora sem confirmação por padrão técnico.",
-      "risco": "Alta volatilidade e retorno projetado modesto reduzem a margem de segurança.",
+      "confianca": 69,
+      "tese": "Tendência de alta, momentum positivo e preço acima das médias de 50 e 200 dias confirmam força, embora a projeção seja modesta em +1,63%.",
+      "risco": "Retorno previsto limitado frente à volatilidade elevada.",
       "provider": "codex"
     },
     {
       "ticker": "PSSA3",
-      "sinal": "venda",
-      "confianca": 80,
-      "tese": "Tendência de baixa e previsão de -2,7%, uma das piores da amostra, sustentam viés vendedor em 21 pregões.",
-      "risco": "Volatilidade elevada pode provocar repiques bruscos contra a posição.",
+      "sinal": "neutro",
+      "confianca": 63,
+      "tese": "A tendência permanece alta, porém a previsão de apenas +0,83% e a falta de confirmação técnica oferecem relação risco-retorno pouco atraente.",
+      "risco": "Volatilidade elevada pode superar com folga o ganho esperado.",
       "provider": "codex"
     },
     {
       "ticker": "VALE3",
-      "sinal": "neutro",
-      "confianca": 63,
-      "tese": "Alta e previsão de +0,7% são favoráveis, mas o preço abaixo das médias de 50 e 200 dias sinaliza fragilidade técnica.",
-      "risco": "Conflito entre tendência e médias, com volatilidade elevada, reduz a confiabilidade.",
+      "sinal": "venda",
+      "confianca": 82,
+      "tese": "Tendência de baixa, previsão de -2,86% — a pior do conjunto — e preço abaixo das médias de 50 e 200 dias formam convergência baixista.",
+      "risco": "Reversão das commodities ou do minério pode provocar recuperação rápida.",
       "provider": "codex"
     },
     {
       "ticker": "SUZB3",
-      "sinal": "compra",
-      "confianca": 69,
-      "tese": "Tendência de alta e previsão de +2,7% apoiam compra, reforçada pelo bom posicionamento de Commodities.",
-      "risco": "Preço abaixo das médias de 50 e 200 dias e volatilidade elevada indicam reversão ainda frágil.",
+      "sinal": "neutro",
+      "confianca": 68,
+      "tese": "Momentum positivo é favorável, mas a tendência lateral e a projeção quase nula de +0,28% não sustentam entrada direcional.",
+      "risco": "Volatilidade elevada e lateralidade aumentam o risco de falsos rompimentos.",
       "provider": "codex"
     },
     {
       "ticker": "ABEV3",
       "sinal": "neutro",
-      "confianca": 66,
-      "tese": "Tendência lateral, previsão de -0,4% e falta de padrões técnicos sugerem ausência de direção clara.",
-      "risco": "Volatilidade elevada pode produzir movimento adverso sem confirmação prévia.",
+      "confianca": 61,
+      "tese": "A tendência de alta e a previsão de +1,61% são positivas, mas sem padrões técnicos de confirmação o potencial ainda é limitado.",
+      "risco": "Volatilidade elevada pode tornar o ganho projetado insuficiente.",
       "provider": "codex"
     },
     {
       "ticker": "MBRF3",
       "sinal": "neutro",
-      "confianca": 58,
-      "tese": "Tendência de alta e previsão de +2,22% favorecem avanço, mas o preço abaixo das médias de 50 e 200 dias enfraquece a confirmação técnica.",
-      "risco": "Volatilidade elevada e conflito entre tendência e médias aumentam o risco de reversão.",
+      "confianca": 62,
+      "tese": "Tendência de alta e projeção de +1,3%, mas preço abaixo das médias de 50 e 200 dias limita a força do sinal.",
+      "risco": "Volatilidade elevada e estrutura técnica ainda fragilizada.",
       "provider": "codex"
     },
     {
       "ticker": "CYRE3",
       "sinal": "compra",
-      "confianca": 74,
-      "tese": "Tendência de alta alinhada à previsão de +4,34% em 21 pregões, uma das maiores da amostra, sustenta viés comprador.",
-      "risco": "Volatilidade elevada pode ampliar oscilações e invalidar a projeção de curto prazo.",
+      "confianca": 73,
+      "tese": "Tendência de alta e projeção robusta de +12,0% favorecem recuperação, apesar do momentum negativo e da mínima anual.",
+      "risco": "Volatilidade elevada e fraqueza recente podem ampliar perdas antes da reação.",
       "provider": "codex"
     },
     {
       "ticker": "MRVE3",
       "sinal": "compra",
       "confianca": 69,
-      "tese": "Tendência de alta e previsão de +3,49% em 21 pregões formam sinal positivo, embora sem padrão técnico adicional de confirmação.",
-      "risco": "Volatilidade elevada e ausência de confirmação por médias reduzem a robustez do sinal.",
+      "tese": "Alta projetada de 11,0% e tendência positiva sustentam compra especulativa, embora o preço siga abaixo das médias.",
+      "risco": "Momentum negativo, volatilidade elevada e tendência técnica de longo prazo fraca.",
       "provider": "codex"
     },
     {
       "ticker": "DIRR3",
       "sinal": "venda",
       "confianca": 88,
-      "tese": "Tendência de baixa, previsão de -4,44% e preço abaixo das médias de 50 e 200 dias convergem para continuação da fraqueza.",
-      "risco": "Volatilidade elevada pode gerar repiques fortes contra a posição vendida.",
+      "tese": "Tendência de baixa, previsão de -0,7% e múltiplos sinais técnicos negativos confirmam pressão vendedora.",
+      "risco": "Anomalia extrema e mínima anual podem provocar repique técnico abrupto.",
       "provider": "codex"
     },
     {
       "ticker": "CURY3",
       "sinal": "venda",
-      "confianca": 70,
-      "tese": "Tendência de baixa e preço abaixo das médias de 50 e 200 dias indicam fraqueza; a previsão de -0,86% reforça viés negativo moderado.",
-      "risco": "Queda projetada é pequena e a volatilidade elevada pode produzir reversão rápida.",
+      "confianca": 76,
+      "tese": "Projeção de -0,5%, lateralidade e preço abaixo das médias indicam assimetria desfavorável no horizonte de 21 pregões.",
+      "risco": "Condição anômala e deprimida pode gerar reversão à média.",
       "provider": "codex"
     },
     {
       "ticker": "WEGE3",
-      "sinal": "compra",
-      "confianca": 80,
-      "tese": "Tendência de alta, previsão de +2,85% e preço acima das médias de 50 e 200 dias oferecem confirmação técnica consistente.",
-      "risco": "Volatilidade elevada aumenta o risco de correções mesmo com estrutura técnica favorável.",
+      "sinal": "neutro",
+      "confianca": 71,
+      "tese": "Previsão praticamente nula de +0,1% e tendência lateral não compensam o momentum negativo e a anomalia de preço.",
+      "risco": "Volatilidade elevada; reversão à média pode contrariar o momentum atual.",
       "provider": "codex"
     },
     {
       "ticker": "CSNA3",
       "sinal": "compra",
-      "confianca": 77,
-      "tese": "Tendência de alta e previsão de +4,63%, entre as maiores da plataforma, alinham-se ao bom posicionamento relativo de commodities.",
-      "risco": "Volatilidade elevada e ausência de padrão técnico explícito limitam a confiança na projeção.",
+      "confianca": 65,
+      "tese": "Tendência de alta e previsão de +6,1% oferecem potencial, mas o momentum e as médias ainda sinalizam fraqueza.",
+      "risco": "Volatilidade elevada e preço abaixo das médias podem invalidar a recuperação.",
       "provider": "codex"
     },
     {
       "ticker": "KNCR11",
       "sinal": "neutro",
-      "confianca": 66,
-      "tese": "Preço acima das médias e na máxima de 52 semanas é positivo, mas tendência lateral e previsão de apenas +0,25% limitam o potencial.",
-      "risco": "Volatilidade elevada perto da máxima anual eleva o risco de correção e retorno assimétrico.",
+      "confianca": 78,
+      "tese": "Tendência lateral, previsão modesta de +0,3% e ausência de padrões técnicos não sustentam direção clara.",
+      "risco": "Regime de volatilidade elevada para um FII reduz a previsibilidade no curto prazo.",
       "provider": "codex"
     },
     {
       "ticker": "MANA11",
-      "sinal": "compra",
-      "confianca": 72,
-      "tese": "Tendência de alta, previsão de +0,72% e preço acima das médias de 50 e 200 dias; máxima de 52 semanas confirma força.",
-      "risco": "Volatilidade elevada e preço na máxima podem favorecer correção ou realização de lucros.",
+      "sinal": "neutro",
+      "confianca": 58,
+      "tese": "Tendência de alta e projeção positiva de 1,13% favorecem o papel, mas o retorno esperado em 21 pregões é modesto.",
+      "risco": "Volatilidade elevada pode superar o ganho projetado e provocar oscilações fortes.",
       "provider": "codex"
     },
     {
       "ticker": "RURA11",
       "sinal": "neutro",
-      "confianca": 65,
-      "tese": "Tendência lateral e previsão discreta de +0,28%, sem padrões técnicos que indiquem rompimento ou reversão.",
-      "risco": "Volatilidade elevada pode superar o pequeno retorno previsto e gerar movimentos erráticos.",
+      "confianca": 60,
+      "tese": "A tendência é de alta, porém a previsão de apenas 0,72% e a ausência de confirmação técnica limitam a atratividade.",
+      "risco": "Regime de volatilidade elevada reduz a relação entre retorno esperado e risco.",
       "provider": "codex"
     },
     {
       "ticker": "RBRP11",
       "sinal": "compra",
-      "confianca": 68,
-      "tese": "Tendência de alta alinhada à previsão de +1,47% em 21 pregões, embora sem confirmação adicional por padrões técnicos.",
-      "risco": "Regime de volatilidade elevada e ausência de padrões confirmatórios reduzem a robustez do sinal.",
+      "confianca": 66,
+      "tese": "Alta projetada de 4,94% e tendência positiva sustentam compra, apesar do preço ainda abaixo das médias longas.",
+      "risco": "Sinal técnico baixista e volatilidade elevada aumentam o risco de falha na recuperação.",
       "provider": "codex"
     },
     {
       "ticker": "HGLG11",
-      "sinal": "neutro",
-      "confianca": 65,
-      "tese": "Tendência lateral e previsão modesta de +0,30%, sem padrões técnicos detectados para sustentar uma entrada direcional.",
-      "risco": "Volatilidade elevada torna desfavorável a relação entre risco e valorização esperada.",
+      "sinal": "compra",
+      "confianca": 72,
+      "tese": "Tendência de alta, previsão positiva de 1,59% e preço acima das médias de 50 e 200 dias formam alinhamento favorável.",
+      "risco": "Volatilidade elevada pode gerar correções mesmo com estrutura técnica positiva.",
       "provider": "codex"
     },
     {
       "ticker": "XPML11",
-      "sinal": "venda",
-      "confianca": 70,
-      "tese": "Tendência de baixa e previsão de -0,86% em 21 pregões apontam continuidade da pressão vendedora.",
-      "risco": "Volatilidade elevada pode produzir repiques rápidos e contrariar temporariamente o sinal baixista.",
+      "sinal": "neutro",
+      "confianca": 59,
+      "tese": "A tendência de alta é favorável, mas a projeção de 0,91% e a falta de padrões técnicos tornam o potencial limitado.",
+      "risco": "Volatilidade elevada pode anular o pequeno retorno previsto no horizonte analisado.",
       "provider": "codex"
     },
     {
       "ticker": "CLIN11",
-      "sinal": "venda",
-      "confianca": 67,
-      "tese": "Tendência de baixa combinada com previsão de -0,57%, sem padrões técnicos de reversão identificados.",
-      "risco": "Queda prevista é moderada; volatilidade elevada aumenta a chance de reversão inesperada.",
+      "sinal": "compra",
+      "confianca": 69,
+      "tese": "Tendência de alta, projeção de 1,38% e preço acima das médias de 50 e 200 dias confirmam viés comprador.",
+      "risco": "A volatilidade elevada reduz a previsibilidade e pode causar recuos de curto prazo.",
       "provider": "codex"
     },
     {
       "ticker": "MXRF11",
-      "sinal": "venda",
-      "confianca": 71,
-      "tese": "Tendência de baixa e previsão de -0,98% em 21 pregões reforçam viés negativo, sem sinais técnicos de reversão.",
-      "risco": "Volatilidade elevada pode ampliar perdas, mas também provocar repiques contra a posição vendida.",
+      "sinal": "neutro",
+      "confianca": 72,
+      "tese": "Tendência lateral, projeção quase nula de 0,41% e preço abaixo das médias de 50 e 200 dias não justificam compra.",
+      "risco": "Volatilidade elevada e fraqueza técnica ampliam o risco de queda ou estagnação.",
       "provider": "codex"
     }
   ]

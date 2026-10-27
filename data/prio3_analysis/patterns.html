@@ -81,10 +81,10 @@
 
   <section>
     <div class="row" style="justify-content:space-between;align-items:flex-end">
-      <h2 style="margin:0">Análise IA (Supabase)</h2>
+      <h2 style="margin:0">Análise IA</h2>
       <button class="btn" id="btnAiRefresh" type="button">Atualizar análise IA</button>
     </div>
-    <div class="cap" id="aiMeta" style="margin:6px 0 10px">Groq → Gemini → GitHub → OpenRouter → Claude</div>
+    <div class="cap" id="aiMeta" style="margin:6px 0 10px">Codex Ilimitada · pipeline diário após o fechamento</div>
     <div id="aiBox"></div>
   </section>
 
@@ -260,13 +260,8 @@ function renderAiInsights(ai){
     (m.macro_juros?`<div class="callout info" style="margin-top:10px"><div class="t">Juros / Selic</div><p class="ai-md">${m.macro_juros}</p></div>`:'');
 }
 
-async function loadAiInsights(patternsData, cached){
-  try{
-    if(cached) renderAiInsights(cached);
-    const prov=await dashAIProviders().catch(()=>null);
-    if(prov?.configured_count) document.getElementById('aiMeta').textContent=
-      `${prov.configured_count} provedor(es) ativo(s): ${prov.providers.filter(x=>x.configured).map(x=>x.provider).join(', ')}`;
-  }catch(_){}
+async function loadAiInsights(cached){
+  if (cached) renderAiInsights(cached);
 }
 
 (async()=>{
@@ -279,26 +274,38 @@ async function loadAiInsights(patternsData, cached){
   renderAiInsights(aiCached);
   renderSinais(aiCached,d);
   renderSetores(d);
-  loadAiInsights(d, aiCached);
+  loadAiInsights(aiCached);
 
   document.getElementById('btnAiRefresh').onclick=async function(){
     const btn=this; btn.disabled=true; btn.textContent='Gerando…';
+    const ctx={gerado:d.gerado,engine:d.engine,horizon_dias:d.horizon_dias,papeis_analisados:d.papeis_analisados,
+      insights:d.insights,setores:d.setores,destaques:d.destaques,correlacoes:d.correlacoes,
+      series:(d.series||[]).map(s=>({id:s.id,nome:s.nome,ticker:s.ticker,setor:s.setor,categoria:s.categoria,ultimo:s.ultimo,tendencia:s.tendencia,vol_regime:s.vol_regime,previsao_pct_horizonte:s.previsao_pct_horizonte,padroes:s.padroes}))};
     try{
-      const ctx={gerado:d.gerado,engine:d.engine,horizon_dias:d.horizon_dias,papeis_analisados:d.papeis_analisados,
-        insights:d.insights,setores:d.setores,destaques:d.destaques,correlacoes:d.correlacoes,
-        series:(d.series||[]).map(s=>({id:s.id,nome:s.nome,ticker:s.ticker,setor:s.setor,categoria:s.categoria,ultimo:s.ultimo,tendencia:s.tendencia,vol_regime:s.vol_regime,previsao_pct_horizonte:s.previsao_pct_horizonte,padroes:s.padroes}))};
-      const market=await dashAIMarketInsights(ctx);
-      const patterns=await dashAIPatternAnalysis(ctx);
-      renderAiInsights({gerado:new Date().toLocaleString('pt-BR'),provider:market.provider||patterns.provider,market, patterns});
+      const market=await dashCodexJson({
+        instructions:"Você é analista da B3. Responda APENAS JSON com chaves resumo, riscos[], oportunidades[], series_destaque[], papeis_destaque[], leitura_setorial, macro_juros, cripto_fluxo, confianca. Sem markdown.",
+        input: JSON.stringify(ctx).slice(0,20000)
+      });
+      const patterns=await dashCodexJson({
+        instructions:"Analise padrões temporais. Responda APENAS JSON com padroes_detectados[{serie,padrao,impacto}], regime_mercado, sinal_prio3, papeis_em_destaque[{ticker,padrao,sinal}], justificativa. Sem markdown.",
+        input: JSON.stringify(ctx).slice(0,18000)
+      });
+      renderAiInsights({gerado:new Date().toLocaleString('pt-BR'),provider:'codex',market, patterns});
       btn.textContent='Avaliando papéis…';
-      const {sinais}=await dashAITickerSignals(papeisParaIA(d),d.horizon_dias,(d.insights||[]).join('; '));
-      renderSinais({sinais},d);
+      const papeis=papeisParaIA(d);
+      const sinais=[];
+      for(let i=0;i<papeis.length;i+=8){
+        const lote=papeis.slice(i,i+8);
+        const r=await dashCodexJson({
+          instructions:`Avalie CADA papel. Responda APENAS JSON {"sinais":[{"ticker":"...","sinal":"compra|neutro|venda","confianca":0,"tese":"...","risco":"..."}]} com um objeto por papel, mesma ordem. Sem markdown.`,
+          input: JSON.stringify({horizon_dias:d.horizon_dias, macro:(d.insights||[]).join('; ').slice(0,600), papeis:lote})
+        });
+        (r.sinais||[]).forEach(s=>s.ticker&&sinais.push({...s,provider:'codex'}));
+      }
+      renderSinais({sinais,gerado:new Date().toLocaleString('pt-BR')},d);
     }catch(e){
-      const off=/restricted|402|Failed to fetch|HTTP 5/i.test(e.message||'');
       document.getElementById('aiBox').insertAdjacentHTML('afterbegin',
-        `<div class="callout warning"><p>${off
-          ?'Serviço de IA sob demanda indisponível. A análise exibida é a do pipeline diário, que roda automaticamente após o fechamento.'
-          :'Erro IA: '+esc(e.message)}</p></div>`);
+        `<div class="callout warning"><p>Erro IA: ${esc(e.message)}</p></div>`);
     }finally{btn.disabled=false;btn.textContent='Atualizar análise IA';}
   };
   document.getElementById('pgStatus').textContent='atualizado '+d.gerado+' · '+d.engine;
